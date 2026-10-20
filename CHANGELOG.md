@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.104.0
+
+- Add methods to upload a registration attachment, download an uploaded attachment, and download a blank registration form. A download returns the file's bytes with its content type and filename.
+- Go, TypeScript and Python export `ComplianceAttachment` for the uploaded document metadata. Existing `Attachment` exports remain compatible; Python's `Attachment` continues to describe an email-send input. PHP retains the namespaced `MessageBird\Wire\Model\Attachment` response.
+- Python and PHP retry HTTP 408 responses within the configured retry budget, preserving the upload body and idempotency key.
+- Add methods to read what a country requires before it approves a registration, file a submission and replace its rejected answers, list and delete registration attachments, and list and read compliance identities.
+- Complete the existing registration workflow with identity create, rename and delete, identity review results, SMS sender discovery and creation, and country registration prerequisites. Add organization price and wallet reads through delegated user OAuth with `org:billing:read` and an explicit region or base URL; workspace and master API keys retain their existing authorization boundary.
+- The Python package exports these resources' models and parameter types from `bird`.
+- Listing eSIMs gains a `renewal` filter (`active`, `pending`, `needs_attention` or `none`), and each listed eSIM carries a `renewal` field naming its recurring subscription that has not ended and that subscription's status, or null when it has none.
+- Creating a number order accepts the number's ownership paperwork in `compliance`, filed for review alongside the purchase. It uses the order's existing `numbers:write` authorization.
+- **Breaking:** the WhatsApp template language status `outcome_unknown` is removed, and a language whose submission Bird is still confirming with WhatsApp now reads `pending` without an `error`; compare against `pending` instead.
+- Document that `carrier` and `mcc_mnc` on the `verify.attempt.delivered` event are always null for voice.
+
 ## 0.103.0
 
 - Add a `pricing` object to an available number, with `setup_price`, `recurring_price`, `recurring_period` and `intervals_per_charge`, and a nullable `pricing` object to a number (`null` for a shared number or one without a live subscription when the price read succeeds; when it fails, a dedicated number carries `pricing` with `error` set), with `recurring_price`, `recurring_period`, `intervals_per_charge` and `error`, carrying the price for your organization and how many periods one charge bills.

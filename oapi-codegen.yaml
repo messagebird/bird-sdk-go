@@ -132,6 +132,22 @@ output-options:
     - createSMSKeywordRule
     - updateSMSKeywordRule
     - deleteSMSKeywordRule
+    - listWorkspaceSMSSenders
+    - getWorkspaceSMSSender
+    - listWorkspaceSMSSenderRequirements
+    - createWorkspaceSMSSender
+    - createWorkspaceSMSSenderRegistration
+    - createComplianceAttachment
+    - listComplianceAttachments
+    - getComplianceAttachment
+    - deleteComplianceAttachment
+    - getComplianceDocumentTemplate
+    - listComplianceIdentities
+    - getComplianceIdentity
+    - getWorkspaceComplianceRequirements
+    - getWorkspaceComplianceSubmission
+    - createWorkspaceComplianceSubmission
+    - updateWorkspaceComplianceSubmission
     - createWhatsAppMessage
     - getWhatsAppMessage
     - listWhatsAppMessages
@@ -411,3 +427,8 @@ output-options:
     - getAssetFolder
     - updateAssetFolder
     - deleteAssetFolder
+    - createComplianceIdentity
+    - updateComplianceIdentity
+    - deleteComplianceIdentity
+    - getBillingResolvedPrice
+    - listBillingWallets

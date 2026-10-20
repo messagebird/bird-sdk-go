@@ -1040,22 +1040,22 @@ func (e AssetKind) Valid() bool {
 
 // Defines values for AssetKindFilter.
 const (
-	Audio    AssetKindFilter = "audio"
-	Document AssetKindFilter = "document"
-	Image    AssetKindFilter = "image"
-	Video    AssetKindFilter = "video"
+	AssetKindFilterAudio    AssetKindFilter = "audio"
+	AssetKindFilterDocument AssetKindFilter = "document"
+	AssetKindFilterImage    AssetKindFilter = "image"
+	AssetKindFilterVideo    AssetKindFilter = "video"
 )
 
 // Valid indicates whether the value is a known member of the AssetKindFilter enum.
 func (e AssetKindFilter) Valid() bool {
 	switch e {
-	case Audio:
+	case AssetKindFilterAudio:
 		return true
-	case Document:
+	case AssetKindFilterDocument:
 		return true
-	case Image:
+	case AssetKindFilterImage:
 		return true
-	case Video:
+	case AssetKindFilterVideo:
 		return true
 	default:
 		return false
@@ -1092,6 +1092,21 @@ const (
 func (e AssetSortField) Valid() bool {
 	switch e {
 	case AssetSortFieldCreatedAt:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AttachmentSortField.
+const (
+	AttachmentSortFieldCreatedAt AttachmentSortField = "created_at"
+)
+
+// Valid indicates whether the value is a known member of the AttachmentSortField enum.
+func (e AttachmentSortField) Valid() bool {
+	switch e {
+	case AttachmentSortFieldCreatedAt:
 		return true
 	default:
 		return false
@@ -1161,6 +1176,255 @@ func (e BillingInterval) Valid() bool {
 	case BillingIntervalMonth:
 		return true
 	case BillingIntervalYear:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BillingPricingModel.
+const (
+	BillingPricingModelCounter          BillingPricingModel = "counter"
+	BillingPricingModelCustom           BillingPricingModel = "custom"
+	BillingPricingModelMetered          BillingPricingModel = "metered"
+	BillingPricingModelPlan             BillingPricingModel = "plan"
+	BillingPricingModelRateCard         BillingPricingModel = "rate_card"
+	BillingPricingModelUnitSubscription BillingPricingModel = "unit_subscription"
+)
+
+// Valid indicates whether the value is a known member of the BillingPricingModel enum.
+func (e BillingPricingModel) Valid() bool {
+	switch e {
+	case BillingPricingModelCounter:
+		return true
+	case BillingPricingModelCustom:
+		return true
+	case BillingPricingModelMetered:
+		return true
+	case BillingPricingModelPlan:
+		return true
+	case BillingPricingModelRateCard:
+		return true
+	case BillingPricingModelUnitSubscription:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BillingWalletCollectionStatus.
+const (
+	BillingWalletCollectionStatusExhausted  BillingWalletCollectionStatus = "exhausted"
+	BillingWalletCollectionStatusInProgress BillingWalletCollectionStatus = "in_progress"
+	BillingWalletCollectionStatusNone       BillingWalletCollectionStatus = "none"
+)
+
+// Valid indicates whether the value is a known member of the BillingWalletCollectionStatus enum.
+func (e BillingWalletCollectionStatus) Valid() bool {
+	switch e {
+	case BillingWalletCollectionStatusExhausted:
+		return true
+	case BillingWalletCollectionStatusInProgress:
+		return true
+	case BillingWalletCollectionStatusNone:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ComplianceDataType.
+const (
+	ComplianceDataTypeBoolean  ComplianceDataType = "boolean"
+	ComplianceDataTypeCountry  ComplianceDataType = "country"
+	ComplianceDataTypeDate     ComplianceDataType = "date"
+	ComplianceDataTypeDocument ComplianceDataType = "document"
+	ComplianceDataTypeEnum     ComplianceDataType = "enum"
+	ComplianceDataTypeNumber   ComplianceDataType = "number"
+	ComplianceDataTypeString   ComplianceDataType = "string"
+	ComplianceDataTypeText     ComplianceDataType = "text"
+	ComplianceDataTypeUrl      ComplianceDataType = "url"
+)
+
+// Valid indicates whether the value is a known member of the ComplianceDataType enum.
+func (e ComplianceDataType) Valid() bool {
+	switch e {
+	case ComplianceDataTypeBoolean:
+		return true
+	case ComplianceDataTypeCountry:
+		return true
+	case ComplianceDataTypeDate:
+		return true
+	case ComplianceDataTypeDocument:
+		return true
+	case ComplianceDataTypeEnum:
+		return true
+	case ComplianceDataTypeNumber:
+		return true
+	case ComplianceDataTypeString:
+		return true
+	case ComplianceDataTypeText:
+		return true
+	case ComplianceDataTypeUrl:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ComplianceIdentitySortField.
+const (
+	ComplianceIdentitySortFieldCreatedAt ComplianceIdentitySortField = "created_at"
+	ComplianceIdentitySortFieldName      ComplianceIdentitySortField = "name"
+)
+
+// Valid indicates whether the value is a known member of the ComplianceIdentitySortField enum.
+func (e ComplianceIdentitySortField) Valid() bool {
+	switch e {
+	case ComplianceIdentitySortFieldCreatedAt:
+		return true
+	case ComplianceIdentitySortFieldName:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ComplianceItemState.
+const (
+	ComplianceItemStateApproved      ComplianceItemState = "approved"
+	ComplianceItemStateExpired       ComplianceItemState = "expired"
+	ComplianceItemStateInReview      ComplianceItemState = "in_review"
+	ComplianceItemStateNotApplicable ComplianceItemState = "not_applicable"
+	ComplianceItemStateNotSupplied   ComplianceItemState = "not_supplied"
+	ComplianceItemStateRejected      ComplianceItemState = "rejected"
+	ComplianceItemStateSupplied      ComplianceItemState = "supplied"
+)
+
+// Valid indicates whether the value is a known member of the ComplianceItemState enum.
+func (e ComplianceItemState) Valid() bool {
+	switch e {
+	case ComplianceItemStateApproved:
+		return true
+	case ComplianceItemStateExpired:
+		return true
+	case ComplianceItemStateInReview:
+		return true
+	case ComplianceItemStateNotApplicable:
+		return true
+	case ComplianceItemStateNotSupplied:
+		return true
+	case ComplianceItemStateRejected:
+		return true
+	case ComplianceItemStateSupplied:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ComplianceObligationReason.
+const (
+	ComplianceObligationReasonEvidenceExpiry   ComplianceObligationReason = "evidence_expiry"
+	ComplianceObligationReasonPolicyChange     ComplianceObligationReason = "policy_change"
+	ComplianceObligationReasonVerdictWithdrawn ComplianceObligationReason = "verdict_withdrawn"
+	ComplianceObligationReasonVerifierRejected ComplianceObligationReason = "verifier_rejected"
+)
+
+// Valid indicates whether the value is a known member of the ComplianceObligationReason enum.
+func (e ComplianceObligationReason) Valid() bool {
+	switch e {
+	case ComplianceObligationReasonEvidenceExpiry:
+		return true
+	case ComplianceObligationReasonPolicyChange:
+		return true
+	case ComplianceObligationReasonVerdictWithdrawn:
+		return true
+	case ComplianceObligationReasonVerifierRejected:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ComplianceObligationState.
+const (
+	ComplianceObligationStateExtended  ComplianceObligationState = "extended"
+	ComplianceObligationStateLapsed    ComplianceObligationState = "lapsed"
+	ComplianceObligationStateOpen      ComplianceObligationState = "open"
+	ComplianceObligationStateSatisfied ComplianceObligationState = "satisfied"
+)
+
+// Valid indicates whether the value is a known member of the ComplianceObligationState enum.
+func (e ComplianceObligationState) Valid() bool {
+	switch e {
+	case ComplianceObligationStateExtended:
+		return true
+	case ComplianceObligationStateLapsed:
+		return true
+	case ComplianceObligationStateOpen:
+		return true
+	case ComplianceObligationStateSatisfied:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ComplianceProgram.
+const (
+	ComplianceProgramAlpha         ComplianceProgram = "alpha"
+	ComplianceProgramBusiness      ComplianceProgram = "business"
+	ComplianceProgramLocal         ComplianceProgram = "local"
+	ComplianceProgramMobile        ComplianceProgram = "mobile"
+	ComplianceProgramNational      ComplianceProgram = "national"
+	ComplianceProgramNumeric       ComplianceProgram = "numeric"
+	ComplianceProgramShortCode     ComplianceProgram = "short_code"
+	ComplianceProgramShortCodeFteu ComplianceProgram = "short_code_fteu"
+	ComplianceProgramTollFree      ComplianceProgram = "toll_free"
+)
+
+// Valid indicates whether the value is a known member of the ComplianceProgram enum.
+func (e ComplianceProgram) Valid() bool {
+	switch e {
+	case ComplianceProgramAlpha:
+		return true
+	case ComplianceProgramBusiness:
+		return true
+	case ComplianceProgramLocal:
+		return true
+	case ComplianceProgramMobile:
+		return true
+	case ComplianceProgramNational:
+		return true
+	case ComplianceProgramNumeric:
+		return true
+	case ComplianceProgramShortCode:
+		return true
+	case ComplianceProgramShortCodeFteu:
+		return true
+	case ComplianceProgramTollFree:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ComplianceSubjectKind.
+const (
+	ComplianceSubjectKindIdentity  ComplianceSubjectKind = "identity"
+	ComplianceSubjectKindNumber    ComplianceSubjectKind = "number"
+	ComplianceSubjectKindSmsSender ComplianceSubjectKind = "sms_sender"
+)
+
+// Valid indicates whether the value is a known member of the ComplianceSubjectKind enum.
+func (e ComplianceSubjectKind) Valid() bool {
+	switch e {
+	case ComplianceSubjectKindIdentity:
+		return true
+	case ComplianceSubjectKindNumber:
+		return true
+	case ComplianceSubjectKindSmsSender:
 		return true
 	default:
 		return false
@@ -4446,6 +4710,30 @@ func (e EsimRecurringSubscriptionStatus) Valid() bool {
 	}
 }
 
+// Defines values for EsimRenewalState.
+const (
+	EsimRenewalStateActive         EsimRenewalState = "active"
+	EsimRenewalStateNeedsAttention EsimRenewalState = "needs_attention"
+	EsimRenewalStateNone           EsimRenewalState = "none"
+	EsimRenewalStatePending        EsimRenewalState = "pending"
+)
+
+// Valid indicates whether the value is a known member of the EsimRenewalState enum.
+func (e EsimRenewalState) Valid() bool {
+	switch e {
+	case EsimRenewalStateActive:
+		return true
+	case EsimRenewalStateNeedsAttention:
+		return true
+	case EsimRenewalStateNone:
+		return true
+	case EsimRenewalStatePending:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for EsimServiceCapability.
 const (
 	EsimServiceCapabilityNo      EsimServiceCapability = "no"
@@ -6588,6 +6876,93 @@ func (e SMSReceivedEventType) Valid() bool {
 	}
 }
 
+// Defines values for SMSRegistrationMode.
+const (
+	None     SMSRegistrationMode = "none"
+	Optional SMSRegistrationMode = "optional"
+	Required SMSRegistrationMode = "required"
+)
+
+// Valid indicates whether the value is a known member of the SMSRegistrationMode enum.
+func (e SMSRegistrationMode) Valid() bool {
+	switch e {
+	case None:
+		return true
+	case Optional:
+		return true
+	case Required:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SMSRegistrationProgram.
+const (
+	SMSRegistrationProgram10dlc     SMSRegistrationProgram = "10dlc"
+	SMSRegistrationProgramAlpha     SMSRegistrationProgram = "alpha"
+	SMSRegistrationProgramNumeric   SMSRegistrationProgram = "numeric"
+	SMSRegistrationProgramShortCode SMSRegistrationProgram = "short_code"
+	SMSRegistrationProgramTfn       SMSRegistrationProgram = "tfn"
+)
+
+// Valid indicates whether the value is a known member of the SMSRegistrationProgram enum.
+func (e SMSRegistrationProgram) Valid() bool {
+	switch e {
+	case SMSRegistrationProgram10dlc:
+		return true
+	case SMSRegistrationProgramAlpha:
+		return true
+	case SMSRegistrationProgramNumeric:
+		return true
+	case SMSRegistrationProgramShortCode:
+		return true
+	case SMSRegistrationProgramTfn:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SMSRegistrationStatus.
+const (
+	SMSRegistrationStatusApproved             SMSRegistrationStatus = "approved"
+	SMSRegistrationStatusBirdApproved         SMSRegistrationStatus = "bird_approved"
+	SMSRegistrationStatusCarrierPending       SMSRegistrationStatus = "carrier_pending"
+	SMSRegistrationStatusNotRequired          SMSRegistrationStatus = "not_required"
+	SMSRegistrationStatusPending              SMSRegistrationStatus = "pending"
+	SMSRegistrationStatusRegistrationRequired SMSRegistrationStatus = "registration_required"
+	SMSRegistrationStatusRejected             SMSRegistrationStatus = "rejected"
+	SMSRegistrationStatusSuspended            SMSRegistrationStatus = "suspended"
+	SMSRegistrationStatusUnderReview          SMSRegistrationStatus = "under_review"
+)
+
+// Valid indicates whether the value is a known member of the SMSRegistrationStatus enum.
+func (e SMSRegistrationStatus) Valid() bool {
+	switch e {
+	case SMSRegistrationStatusApproved:
+		return true
+	case SMSRegistrationStatusBirdApproved:
+		return true
+	case SMSRegistrationStatusCarrierPending:
+		return true
+	case SMSRegistrationStatusNotRequired:
+		return true
+	case SMSRegistrationStatusPending:
+		return true
+	case SMSRegistrationStatusRegistrationRequired:
+		return true
+	case SMSRegistrationStatusRejected:
+		return true
+	case SMSRegistrationStatusSuspended:
+		return true
+	case SMSRegistrationStatusUnderReview:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for SMSSegmentsEncoding.
 const (
 	GSM7BIT SMSSegmentsEncoding = "GSM_7BIT"
@@ -6600,6 +6975,156 @@ func (e SMSSegmentsEncoding) Valid() bool {
 	case GSM7BIT:
 		return true
 	case UCS2:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SMSSenderCreateType.
+const (
+	Alpha SMSSenderCreateType = "alpha"
+)
+
+// Valid indicates whether the value is a known member of the SMSSenderCreateType enum.
+func (e SMSSenderCreateType) Valid() bool {
+	switch e {
+	case Alpha:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SMSSenderIDBehavior.
+const (
+	SMSSenderIDBehaviorOverwritten SMSSenderIDBehavior = "overwritten"
+	SMSSenderIDBehaviorPreserved   SMSSenderIDBehavior = "preserved"
+	SMSSenderIDBehaviorUnknown     SMSSenderIDBehavior = "unknown"
+)
+
+// Valid indicates whether the value is a known member of the SMSSenderIDBehavior enum.
+func (e SMSSenderIDBehavior) Valid() bool {
+	switch e {
+	case SMSSenderIDBehaviorOverwritten:
+		return true
+	case SMSSenderIDBehaviorPreserved:
+		return true
+	case SMSSenderIDBehaviorUnknown:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SMSSenderProgramEntry.
+const (
+	SMSSenderProgramEntry10dlcBrand              SMSSenderProgramEntry = "10dlc_brand"
+	SMSSenderProgramEntry10dlcCampaign           SMSSenderProgramEntry = "10dlc_campaign"
+	SMSSenderProgramEntry10dlcCampaignNumberLink SMSSenderProgramEntry = "10dlc_campaign_number_link"
+	SMSSenderProgramEntryComplianceSubmission    SMSSenderProgramEntry = "compliance_submission"
+	SMSSenderProgramEntryNone                    SMSSenderProgramEntry = "none"
+	SMSSenderProgramEntryTfnVerification         SMSSenderProgramEntry = "tfn_verification"
+)
+
+// Valid indicates whether the value is a known member of the SMSSenderProgramEntry enum.
+func (e SMSSenderProgramEntry) Valid() bool {
+	switch e {
+	case SMSSenderProgramEntry10dlcBrand:
+		return true
+	case SMSSenderProgramEntry10dlcCampaign:
+		return true
+	case SMSSenderProgramEntry10dlcCampaignNumberLink:
+		return true
+	case SMSSenderProgramEntryComplianceSubmission:
+		return true
+	case SMSSenderProgramEntryNone:
+		return true
+	case SMSSenderProgramEntryTfnVerification:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SMSSenderSortField.
+const (
+	SMSSenderSortFieldCreatedAt SMSSenderSortField = "created_at"
+	SMSSenderSortFieldSender    SMSSenderSortField = "sender"
+)
+
+// Valid indicates whether the value is a known member of the SMSSenderSortField enum.
+func (e SMSSenderSortField) Valid() bool {
+	switch e {
+	case SMSSenderSortFieldCreatedAt:
+		return true
+	case SMSSenderSortFieldSender:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SMSSenderSourceKind.
+const (
+	SMSSenderSourceKindAlpha        SMSSenderSourceKind = "alpha"
+	SMSSenderSourceKindNumber       SMSSenderSourceKind = "number"
+	SMSSenderSourceKindSharedNumber SMSSenderSourceKind = "shared_number"
+)
+
+// Valid indicates whether the value is a known member of the SMSSenderSourceKind enum.
+func (e SMSSenderSourceKind) Valid() bool {
+	switch e {
+	case SMSSenderSourceKindAlpha:
+		return true
+	case SMSSenderSourceKindNumber:
+		return true
+	case SMSSenderSourceKindSharedNumber:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SMSSenderStatus.
+const (
+	SMSSenderStatusActive                 SMSSenderStatus = "active"
+	SMSSenderStatusPendingNumberOwnership SMSSenderStatus = "pending_number_ownership"
+	SMSSenderStatusPendingRegistrations   SMSSenderStatus = "pending_registrations"
+)
+
+// Valid indicates whether the value is a known member of the SMSSenderStatus enum.
+func (e SMSSenderStatus) Valid() bool {
+	switch e {
+	case SMSSenderStatusActive:
+		return true
+	case SMSSenderStatusPendingNumberOwnership:
+		return true
+	case SMSSenderStatusPendingRegistrations:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SMSSenderType.
+const (
+	Alphanumeric SMSSenderType = "alphanumeric"
+	LongCode     SMSSenderType = "long_code"
+	ShortCode    SMSSenderType = "short_code"
+	TollFree     SMSSenderType = "toll_free"
+)
+
+// Valid indicates whether the value is a known member of the SMSSenderType enum.
+func (e SMSSenderType) Valid() bool {
+	switch e {
+	case Alphanumeric:
+		return true
+	case LongCode:
+		return true
+	case ShortCode:
+		return true
+	case TollFree:
 		return true
 	default:
 		return false
@@ -6941,16 +7466,16 @@ func (e StatsGrain) Valid() bool {
 
 // Defines values for StatsTrendGrain.
 const (
-	StatsTrendGrainDaily  StatsTrendGrain = "daily"
-	StatsTrendGrainHourly StatsTrendGrain = "hourly"
+	Daily  StatsTrendGrain = "daily"
+	Hourly StatsTrendGrain = "hourly"
 )
 
 // Valid indicates whether the value is a known member of the StatsTrendGrain enum.
 func (e StatsTrendGrain) Valid() bool {
 	switch e {
-	case StatsTrendGrainDaily:
+	case Daily:
 		return true
-	case StatsTrendGrainHourly:
+	case Hourly:
 		return true
 	default:
 		return false
@@ -9164,22 +9689,22 @@ func (e WhatsAppReactedEventType) Valid() bool {
 
 // Defines values for WhatsAppReactionEventStatus.
 const (
-	WhatsAppReactionEventStatusFailed   WhatsAppReactionEventStatus = "failed"
-	WhatsAppReactionEventStatusReceived WhatsAppReactionEventStatus = "received"
-	WhatsAppReactionEventStatusRejected WhatsAppReactionEventStatus = "rejected"
-	WhatsAppReactionEventStatusSent     WhatsAppReactionEventStatus = "sent"
+	Failed   WhatsAppReactionEventStatus = "failed"
+	Received WhatsAppReactionEventStatus = "received"
+	Rejected WhatsAppReactionEventStatus = "rejected"
+	Sent     WhatsAppReactionEventStatus = "sent"
 )
 
 // Valid indicates whether the value is a known member of the WhatsAppReactionEventStatus enum.
 func (e WhatsAppReactionEventStatus) Valid() bool {
 	switch e {
-	case WhatsAppReactionEventStatusFailed:
+	case Failed:
 		return true
-	case WhatsAppReactionEventStatusReceived:
+	case Received:
 		return true
-	case WhatsAppReactionEventStatusRejected:
+	case Rejected:
 		return true
-	case WhatsAppReactionEventStatusSent:
+	case Sent:
 		return true
 	default:
 		return false
@@ -9260,7 +9785,6 @@ const (
 	WhatsAppTemplateLanguageStatusDisabled        WhatsAppTemplateLanguageStatus = "disabled"
 	WhatsAppTemplateLanguageStatusInAppeal        WhatsAppTemplateLanguageStatus = "in_appeal"
 	WhatsAppTemplateLanguageStatusLimitExceeded   WhatsAppTemplateLanguageStatus = "limit_exceeded"
-	WhatsAppTemplateLanguageStatusOutcomeUnknown  WhatsAppTemplateLanguageStatus = "outcome_unknown"
 	WhatsAppTemplateLanguageStatusPaused          WhatsAppTemplateLanguageStatus = "paused"
 	WhatsAppTemplateLanguageStatusPending         WhatsAppTemplateLanguageStatus = "pending"
 	WhatsAppTemplateLanguageStatusPendingDeletion WhatsAppTemplateLanguageStatus = "pending_deletion"
@@ -9282,8 +9806,6 @@ func (e WhatsAppTemplateLanguageStatus) Valid() bool {
 	case WhatsAppTemplateLanguageStatusInAppeal:
 		return true
 	case WhatsAppTemplateLanguageStatusLimitExceeded:
-		return true
-	case WhatsAppTemplateLanguageStatusOutcomeUnknown:
 		return true
 	case WhatsAppTemplateLanguageStatusPaused:
 		return true
@@ -9530,16 +10052,16 @@ func (e GetEmailCompetitiveNotableCampaignsParamsRange) Valid() bool {
 
 // Defines values for ListDomainsParamsSort.
 const (
-	ListDomainsParamsSortCreatedAt ListDomainsParamsSort = "created_at"
-	ListDomainsParamsSortName      ListDomainsParamsSort = "name"
+	CreatedAt ListDomainsParamsSort = "created_at"
+	Name      ListDomainsParamsSort = "name"
 )
 
 // Valid indicates whether the value is a known member of the ListDomainsParamsSort enum.
 func (e ListDomainsParamsSort) Valid() bool {
 	switch e {
-	case ListDomainsParamsSortCreatedAt:
+	case CreatedAt:
 		return true
-	case ListDomainsParamsSortName:
+	case Name:
 		return true
 	default:
 		return false
@@ -12871,11 +13393,40 @@ type Attachment struct {
 // AttachmentID defines model for AttachmentID.
 type AttachmentID = string
 
+// AttachmentList defines model for AttachmentList.
+type AttachmentList struct {
+	Data []Attachment `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed; otherwise `null`.
+	Total *int64 `json:"total,omitempty"`
+}
+
+// AttachmentSortField Field to sort registration attachments by.
+type AttachmentSortField string
+
 // AttachmentStatus Lifecycle of an attachment. `draft` is a file that has been uploaded but nothing
 // has been registered or submitted with it yet, and it is discarded at its
 // `expires_at`. `attached` means at least one registration has cited it, so it is
 // kept permanently and can no longer be deleted.
 type AttachmentStatus string
+
+// AttachmentUpload The file to upload, sent as a `multipart/form-data` body.
+type AttachmentUpload struct {
+	// Description A short note describing what the file shows.
+	Description *string `json:"description,omitempty"`
+
+	// File The file to attach. PNG, JPEG, or PDF, up to 10 MB. The file's contents determine its type; a declared content type is ignored.
+	File openapi_types.File `json:"file"`
+}
 
 // Audience defines model for Audience.
 type Audience struct {
@@ -13107,14 +13658,606 @@ type BillingPricingInterval struct {
 	Unit BillingInterval `json:"unit"`
 }
 
+// BillingPricingModel How this product is priced.
+//
+//   - `plan`: it comes with the organization's subscribed plan, with usage tracked
+//     against that plan's included allowance.
+//   - `metered`: it is billed per unit beyond any included allowance.
+//   - `rate_card`: the per-unit price varies by attributes of the usage, such as
+//     destination, instead of being flat.
+//   - `unit_subscription`: it is a standalone add-on billed as its own recurring
+//     subscription, independent of the plan.
+//   - `custom`: a pricing arrangement that does not fit the other models.
+//   - `counter`: usage is recorded without enforcing a spending cap or blocking
+//     requests.
+type BillingPricingModel string
+
 // BillingProductSlug URL-safe identifier for a billing product. Lowercase letters and digits, separated by underscores. Must start with a letter.
 type BillingProductSlug = string
+
+// BillingResolvedPrice defines model for BillingResolvedPrice.
+type BillingResolvedPrice struct {
+	// BillingInterval The recurring interval one subscription charge covers.
+	BillingInterval *BillingInterval `json:"billing_interval,omitempty"`
+
+	// BillingIntervalCount Compatibility alias for `intervals_per_charge`. Only present when `pricing_model` is `unit_subscription`, or `plan` with configured recurring terms. Omitted for other pricing models and plans without configured terms.
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
+	BillingIntervalCount *int `json:"billing_interval_count,omitempty"`
+
+	// BillingUnitSize Number of units that form one chargeable block. Overage usage is ceiling-rounded to the nearest multiple of this value before the unit price is applied. A value of 1 charges per individual unit.
+	BillingUnitSize int64 `json:"billing_unit_size"`
+
+	// Dimensions Pricing dimensions that determined this price (for example, `country_code`, `sender_type`).
+	Dimensions map[string]string `json:"dimensions"`
+
+	// ExternalDescription Customer-facing description of the product this price was resolved for, when set.
+	ExternalDescription *string `json:"external_description,omitempty"`
+	GrossPrice          Money   `json:"gross_price"`
+
+	// Increment The billing rounding window for time-based products, expressed as `{initial_seconds}/{continuation_seconds}`. For example, `60/60` means each unit covers 60 seconds. `null` for per-unit products.
+	Increment *string `json:"increment,omitempty"`
+
+	// IntervalsPerCharge Number of complete pricing intervals bought by each recurring charge. Renewal duration is `pricing_interval.count` multiplied by this value. Present alongside `pricing_interval` for `unit_subscription` products and plans with configured recurring terms; omitted otherwise.
+	IntervalsPerCharge *int `json:"intervals_per_charge,omitempty"`
+
+	// Name Display name of the product this price was resolved for.
+	Name string `json:"name"`
+
+	// PricingInterval A period: a unit and a count. A day is a fixed 24-hour UTC period. A larger `count` lengthens the period without multiplying the amount quoted for it.
+	PricingInterval *BillingPricingInterval `json:"pricing_interval,omitempty"`
+
+	// PricingModel How this product is priced.
+	//
+	// - `plan`: it comes with the organization's subscribed plan, with usage tracked
+	//   against that plan's included allowance.
+	// - `metered`: it is billed per unit beyond any included allowance.
+	// - `rate_card`: the per-unit price varies by attributes of the usage, such as
+	//   destination, instead of being flat.
+	// - `unit_subscription`: it is a standalone add-on billed as its own recurring
+	//   subscription, independent of the plan.
+	// - `custom`: a pricing arrangement that does not fit the other models.
+	// - `counter`: usage is recorded without enforcing a spending cap or blocking
+	//   requests.
+	PricingModel BillingPricingModel `json:"pricing_model"`
+	TaxAmount    Money               `json:"tax_amount"`
+
+	// TaxRate The tax rate applied to this price for your organization, as a decimal (for example `0.21` for 21%). `0` if your organization is tax-exempt or no tax applies.
+	TaxRate   string `json:"tax_rate"`
+	UnitPrice Money  `json:"unit_price"`
+}
+
+// BillingWallet defines model for BillingWallet.
+type BillingWallet struct {
+	// Balance Balance you can spend, in currency units. Usage is charged as it happens, so this drops within seconds of sending and can be lower than the balance the wallet transactions add up to, which only reflects charges that have settled. Funds held for upcoming renewals are also excluded. Credit headroom is reported separately in `credit_limit`, and postpaid accounts can keep spending past a zero balance up to that limit.
+	Balance string `json:"balance"`
+
+	// CollectionDeficit Part of collection_required needed to cover the wallet shortfall after reservations and approved credit, in currency units.
+	CollectionDeficit string `json:"collection_deficit"`
+
+	// CollectionRenewal Part of collection_required needed for unfunded renewal fees, in exact currency units.
+	CollectionRenewal string `json:"collection_renewal"`
+
+	// CollectionRequired Total wallet funding still required by the current automatic collection run, in exact currency units.
+	CollectionRequired string `json:"collection_required"`
+
+	// CollectionStatus Automatic collection state:
+	// - `none`: No retained collection run.
+	// - `in_progress`: Collection is active, though payment may still require customer action.
+	// - `exhausted`: Automatic retries have stopped and customer action is needed.
+	CollectionStatus BillingWalletCollectionStatus `json:"collection_status"`
+
+	// CollectionUsageBuffer Part of collection_required needed for the configured auto-topup amount, in currency units.
+	CollectionUsageBuffer string    `json:"collection_usage_buffer"`
+	CreatedAt             time.Time `json:"created_at"`
+
+	// CreditLimit Credit limit in currency units. `0.00` for prepaid wallets.
+	CreditLimit string `json:"credit_limit"`
+
+	// CurrencyCode ISO 4217 three-letter currency code.
+	CurrencyCode CurrencyCode `json:"currency_code"`
+	Id           WalletID     `json:"id"`
+
+	// Provisional When `true`, the wallet currency has not yet been committed and can be changed once. When `false`, the currency is permanent.
+	Provisional bool `json:"provisional"`
+
+	// RenewalRequired Total amount required for prepared subscription renewals and scheduled plan changes, including tax, in currency units.
+	RenewalRequired string `json:"renewal_required"`
+
+	// RenewalReserved Amount currently held for prepared subscription renewals and scheduled plan changes, in currency units.
+	RenewalReserved string `json:"renewal_reserved"`
+
+	// SettledBalance Settled wallet balance in currency units, before active reservations are deducted.
+	SettledBalance string    `json:"settled_balance"`
+	UpdatedAt      time.Time `json:"updated_at"`
+}
+
+// BillingWalletCollectionStatus Automatic collection state:
+// - `none`: No retained collection run.
+// - `in_progress`: Collection is active, though payment may still require customer action.
+// - `exhausted`: Automatic retries have stopped and customer action is needed.
+type BillingWalletCollectionStatus string
+
+// BillingWalletList defines model for BillingWalletList.
+type BillingWalletList struct {
+	Data []BillingWallet `json:"data"`
+}
 
 // CompetitiveWatchlistBrandID defines model for CompetitiveWatchlistBrandID.
 type CompetitiveWatchlistBrandID = string
 
+// ComplianceAnswer One answer. Which field carries it follows from the requirement, as the
+// requirements read reports it:
+//
+// - answered once, inline: `value`
+// - answered once, with a document: `attachment_id`
+// - `max_items` set, inline: `values`
+// - `max_items` set, with documents: `attachment_ids`
+//
+// Send exactly one of the four. Order in a list is preserved and is part of the
+// answer.
+type ComplianceAnswer struct {
+	// AttachmentId The uploaded document, for a requirement that takes one. Upload the file as an attachment first, then send the id it returns.
+	AttachmentId *AttachmentID `json:"attachment_id,omitempty"`
+
+	// AttachmentIds The uploaded documents, for a requirement whose `max_items` is set and which takes documents. Upload each file first and send the ids it returns, in order. At most `max_items` of them.
+	AttachmentIds *[]AttachmentID `json:"attachment_ids,omitempty"`
+
+	// Key The requirement this answers, as given by its key in the requirements read.
+	Key string `json:"key"`
+
+	// Value The answer, for a requirement answered inline. Send every answer as a string whatever its data type, so a number goes as `"1500"` and a yes-or-no as `"true"`.
+	Value *string `json:"value,omitempty"`
+
+	// Values The answers, for a requirement whose `max_items` is set and which is answered inline. Send each as a string whatever its data type, and send them in the order you mean them to be read. At most `max_items` of them.
+	Values *[]string `json:"values,omitempty"`
+	union  json.RawMessage
+}
+
+// ComplianceAnswer0 defines model for .
+type ComplianceAnswer0 = interface{}
+
+// ComplianceAnswer1 defines model for .
+type ComplianceAnswer1 = interface{}
+
+// ComplianceAnswer2 defines model for .
+type ComplianceAnswer2 = interface{}
+
+// ComplianceAnswer3 defines model for .
+type ComplianceAnswer3 = interface{}
+
+// ComplianceDataType The kind of value a requirement takes. The `string` value is a single line, while `text` runs to several. The `enum` value accepts only the values listed with the requirement. The `number`, `boolean`, and `date` values take their corresponding data types. The `url` value takes a link. The `country` value takes an uppercase ISO 3166-1 alpha-2 code, such as `NL`. The `document` value means a file you upload first and then reference. All other values are supplied inline.
+type ComplianceDataType string
+
+// ComplianceFieldValidation Constraints a value must satisfy, where the requirement sets any. Which of these apply follows from its data type: `pattern`, `min_length` and `max_length` constrain `string` and `text` values, `minimum` and `maximum` constrain `number` values, and everything else is `null`. Check these before submitting and you avoid a round trip.
+type ComplianceFieldValidation struct {
+	// MaxLength Longest accepted value. `null` when the requirement takes neither `string` nor `text`, or sets no maximum length.
+	MaxLength *int `json:"max_length,omitempty"`
+
+	// Maximum Largest accepted number. `null` when the requirement does not take `number`, or sets no maximum.
+	Maximum *float32 `json:"maximum,omitempty"`
+
+	// MinLength Shortest accepted value. `null` when the requirement takes neither `string` nor `text`, or sets no minimum length.
+	MinLength *int `json:"min_length,omitempty"`
+
+	// Minimum Smallest accepted number. `null` when the requirement does not take `number`, or sets no minimum.
+	Minimum *float32 `json:"minimum,omitempty"`
+
+	// Pattern A regular expression the value must match. `null` when the requirement takes neither `string` nor `text`, or sets no pattern.
+	Pattern *string `json:"pattern,omitempty"`
+}
+
+// ComplianceGeneralReasons Feedback about the submission as a whole from an external verifier. It can remain visible while corrections are under review. Empty when no unresolved verifier feedback applies. On requirements responses, read `needs_input` to determine whether action is needed and `editable_for_verifier_repair` on each field to determine whether an approved or not-applicable answer can be replaced.
+type ComplianceGeneralReasons = []string
+
+// ComplianceIdentity A party you register on behalf of: your own business, or one of your clients. Reusing an identity across registrations is what stops you retyping the same business details for every country, and lets a fact reviewed once stand for the registrations that follow.
+type ComplianceIdentity struct {
+	// Answers The business details this party has supplied, keyed by requirement. Filled in for you: a single-value detail lands here the moment you file it on one of your registrations, so the next one prefills it rather than asking again. Only requirements a country marks as being about the party appear; anything about a specific sender is asked fresh each time.
+	Answers   *map[string]ComplianceIdentityAnswer `json:"answers,omitempty"`
+	CreatedAt time.Time                            `json:"created_at"`
+	Id        ComplianceIdentityID                 `json:"id"`
+
+	// Name What you call this party. Yours to choose; it is never sent to a carrier.
+	Name      string    `json:"name"`
+	UpdatedAt time.Time `json:"updated_at"`
+}
+
+// ComplianceIdentityAnswer One business detail this party last submitted, and when it was filed.
+type ComplianceIdentityAnswer struct {
+	// DecidedAt When the verdict in `state` was reached. `null` while nobody has decided, and on a state no reviewer set.
+	DecidedAt *time.Time `json:"decided_at,omitempty"`
+
+	// Reason What has to change, when `state` is one a reviewer refused. `null` otherwise, and `null` on a refusal recorded without one.
+	Reason *string `json:"reason,omitempty"`
+
+	// State Where review has got to on this exact value. Absent when no registration has ruled on it, which covers a detail nobody has reached yet and one filed before the container recorded which submission it came from.
+	// One value can be filed on several registrations and decided differently on each, and one verdict is reported for it. A live approval wins, because it is proof the value is acceptable. Failing that a refusal wins over a registration still waiting, since waiting is nobody having looked yet rather than evidence against a refusal. An approval past its validity period is neither: it reads as `expired` and ranks below a refusal, above anything still waiting. `not_applicable` is reported last, because it is a statement about a requirement rather than about the value.
+	State *ComplianceItemState `json:"state,omitempty"`
+
+	// SubmittedAt When this party last filed the detail. Filing it is what records it here, so it is never a statement that a reviewer agreed with the value. Filing the same value again can carry a previous approval of it forward instead of putting it in front of a reviewer. `null` for a detail recorded before the container began tracking submissions.
+	SubmittedAt *time.Time `json:"submitted_at,omitempty"`
+
+	// Value The detail as last submitted. Every value travels as a string whatever the requirement's data type, so a number reads back as `"1500"`.
+	Value *string `json:"value,omitempty"`
+}
+
+// ComplianceIdentityCreate defines model for ComplianceIdentityCreate.
+type ComplianceIdentityCreate struct {
+	// Name What you call this party. Yours to choose; it is never sent to a carrier.
+	Name string `json:"name"`
+}
+
+// ComplianceIdentityID defines model for ComplianceIdentityID.
+type ComplianceIdentityID = string
+
+// ComplianceIdentityList defines model for ComplianceIdentityList.
+type ComplianceIdentityList struct {
+	Data []ComplianceIdentity `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed; otherwise `null`.
+	Total *int64 `json:"total,omitempty"`
+}
+
+// ComplianceIdentitySortField Field to sort identities by.
+type ComplianceIdentitySortField string
+
+// ComplianceIdentityUpdate Renames the party. Single-value identity answers are filled in when you submit or resupply a registration, regardless of its review outcome. Edit those answers through the registration.
+type ComplianceIdentityUpdate struct {
+	// Name What you call this party. Yours to choose; it is never sent to a carrier.
+	Name string `json:"name"`
+}
+
+// ComplianceItemID defines model for ComplianceItemID.
+type ComplianceItemID = string
+
+// ComplianceItemState Where one requirement stands. The `not_supplied` state means nothing has been
+// given for it yet. The `supplied` state means we have your answer and review
+// has not started. The `in_review` state means someone is looking at it. The
+// `approved` and `rejected` states are decisions. You can replace a rejected
+// item without refiling the rest. The `not_applicable` state means this
+// requirement does not apply to you. The `expired` state means the value was
+// accepted but has since gone stale.
+//
+// An item only ever reports its state. Treat this as an open set because review
+// can gain stages. A value you do not recognise is a valid state that this
+// server added.
+type ComplianceItemState string
+
+// ComplianceObligation defines model for ComplianceObligation.
+type ComplianceObligation struct {
+	// DueAt The date to supply this by. Where more time has been given, this is the later date rather than the one first asked for.
+	DueAt  *time.Time                  `json:"due_at,omitempty"`
+	Reason *ComplianceObligationReason `json:"reason,omitempty"`
+	State  *ComplianceObligationState  `json:"state,omitempty"`
+
+	// TargetVersion The version of the country's form your answers have to reach. For an expiry it is the version you already answered, filled in again.
+	TargetVersion *int `json:"target_version,omitempty"`
+}
+
+// ComplianceObligationReason Why a registration that is already authorised has been asked for something
+// more.
+//
+//   - `policy_change` means the country published a newer version of its form and
+//     your answers were given under an older one.
+//   - `evidence_expiry` means an answer we accepted has gone stale and needs
+//     supplying again.
+//   - `verdict_withdrawn` means this registration was relying on an approval earned
+//     on another registration, and that approval has since been taken back, so the
+//     answer needs checking again here. Your answer has not changed and has not
+//     expired.
+//   - `verifier_rejected` means an outside party we filed your details with reviewed
+//     them and refused them. Your answer has not changed and has not expired, and
+//     we did not overrule it.
+//
+// Treat this as an open set rather than a fixed list. More reasons are added as
+// more of a registration is kept under review, so a value you do not recognise is
+// one this server added rather than an error.
+type ComplianceObligationReason string
+
+// ComplianceObligationState Where an obligation stands.
+//
+//   - `open`: the due date has not passed and nothing has been supplied.
+//   - `satisfied`: you supplied what was asked.
+//   - `lapsed`: the date passed unmet and the registration is no longer
+//     authorised.
+//   - `extended`: someone here gave you more time, and `due_at` reports the later
+//     date.
+type ComplianceObligationState string
+
+// ComplianceProgram The registration program a country runs. Available programs depend on the registered resource. An SMS sender registers under an authority regime (`alpha` or `numeric`). A phone number proves ownership under its number type (`mobile`, `local`, `national`, `short_code`, `short_code_fteu`, or `toll_free`), matching the values of `NumberType`. An identity registers your business itself under `business`, internationally: its coordinate's country is always `ZZ`. A value is therefore only meaningful alongside the subject it describes. More are added as coverage grows, so treat this as an open set rather than a fixed list.
+type ComplianceProgram string
+
+// ComplianceRequirement defines model for ComplianceRequirement.
+type ComplianceRequirement struct {
+	// ClosedAt When the submission for these requirements was closed. Null while open or not yet submitted.
+	ClosedAt    *time.Time   `json:"closed_at,omitempty"`
+	CountryCode *CountryCode `json:"country_code,omitempty"`
+
+	// Fields Every requirement for this country, in the order to present them.
+	Fields *[]ComplianceRequirementField `json:"fields,omitempty"`
+
+	// GeneralReasons Feedback about the submission as a whole from an external verifier. It can remain visible while corrections are under review. Empty when no unresolved verifier feedback applies. On requirements responses, read `needs_input` to determine whether action is needed and `editable_for_verifier_repair` on each field to determine whether an approved or not-applicable answer can be replaced.
+	GeneralReasons *ComplianceGeneralReasons `json:"general_reasons,omitempty"`
+
+	// Guidance What this country expects of you before and while you fill in the form, written by Bird's compliance team. It may point you to a registration you must complete elsewhere first. `null` when the form needs no introduction, or when no program applies.
+	Guidance *string `json:"guidance,omitempty"`
+
+	// NeedsInput Whether anything is waiting on you. True when a required requirement has no answer, its answer was refused or has gone stale, or the registration needs correction as described by `reason`. False does not imply that review is pending: a closed verifier correction can leave the requirements unsatisfied with no editable answers. Read `review_pending` to determine whether an answer is awaiting review. Read this independently of `satisfied`, which reports whether your paperwork is accepted. An unresolved verifier correction also sets it while the matching grant is live and the correction deadline has not passed, until you supply updated details. At the deadline or after grant withdrawal, an unresolved rejection alone does not set it because accepted answers can no longer be replaced. A corrected optional answer that is rejected or expires still needs your input through ordinary resupply, including after that deadline.
+	NeedsInput *bool `json:"needs_input,omitempty"`
+
+	// Next What to do next about this country's requirements, given the state it is in. Each entry names one action and says
+	// why it is worth taking, so you can act on this response without working out the order
+	// yourself. Present on reads that compute it: an empty list means there is nothing to do,
+	// and the field is absent entirely on responses that do not report next actions.
+	//
+	// Whether anything is asked of you is `needs_input`, and this says what to do about it: send your
+	// answers where none have been filed, or replace the ones that were refused. Which items those
+	// are, and why each was refused, is on the item in `fields`. For feedback about the
+	// whole submission, read `reason` and `general_reasons` and update the details that need correction.
+	Next *[]NextAction `json:"next,omitempty"`
+
+	// Obligation What this registration has to do to keep sending, and by when. Null when nothing is outstanding. An obligation does not stop you sending: the registration stays authorised until the date passes, and supplying what is asked for before then closes it with no interruption.
+	Obligation *ComplianceObligation `json:"obligation,omitempty"`
+
+	// Program The registration program these requirements belong to. `null` when the country runs no registration program at all, in which case nothing is required and the field list is empty.
+	Program *ComplianceProgram `json:"program,omitempty"`
+
+	// Reason What to correct about the registration as a whole, or null when no registration-wide correction is requested. Reasons about individual answers are on the entries in fields.
+	Reason *string `json:"reason,omitempty"`
+
+	// ReviewPending Whether any submitted answer is awaiting or undergoing review. False after all answers have received verdicts. A closed verifier correction can remain unsatisfied with no review pending and no editable answers.
+	ReviewPending *bool `json:"review_pending,omitempty"`
+
+	// Satisfied Whether this country's requirements are met. `true` when no requirements apply, or once the submission is approved and every required requirement is approved or marked not applicable. This can remain true when an external verifier requests a correction. Once you submit that correction, it must pass review before this becomes true again, including any optional answers you change.
+	Satisfied *bool `json:"satisfied,omitempty"`
+
+	// SubjectId The registration these requirements are for, the same one you asked about. `null` when you asked without one, which is how a form read on its own says it is answering for nothing yet.
+	SubjectId   *ComplianceSubjectID   `json:"subject_id,omitempty"`
+	SubjectKind *ComplianceSubjectKind `json:"subject_kind,omitempty"`
+
+	// SubmissionId The submission carrying your answers, once you have made one. `null` before that.
+	SubmissionId *ComplianceSubmissionID `json:"submission_id,omitempty"`
+}
+
+// ComplianceRequirementField defines model for ComplianceRequirementField.
+type ComplianceRequirementField struct {
+	// AttachmentId The document you supplied, for a requirement that takes one. `null` otherwise.
+	AttachmentId *AttachmentID `json:"attachment_id,omitempty"`
+
+	// AttachmentIds The documents you supplied, for a requirement that takes several. Set only when `max_items` is and the requirement takes documents, and `null` otherwise.
+	AttachmentIds *[]AttachmentID     `json:"attachment_ids,omitempty"`
+	DataType      *ComplianceDataType `json:"data_type,omitempty"`
+
+	// DecidedAt When this was decided. `null` while no decision has been made.
+	DecidedAt *time.Time `json:"decided_at,omitempty"`
+
+	// DocumentKey Stable document key within the parent field. Absent for an ordinary field.
+	DocumentKey *string `json:"document_key,omitempty"`
+
+	// EditableForVerifierRepair Whether you may replace this accepted answer to correct the submission after external verification. This permission does not change its `state` or `reason`. Submit only answers whose content or attachment identity you change.
+	EditableForVerifierRepair *bool `json:"editable_for_verifier_repair,omitempty"`
+
+	// ExpiresAt When this answer goes stale and must be supplied again. `null` when it does not expire.
+	ExpiresAt *time.Time `json:"expires_at,omitempty"`
+
+	// HelpText Guidance on what a good answer looks like, including anything the destination country expects. `null` when the label speaks for itself.
+	HelpText *string `json:"help_text,omitempty"`
+
+	// Key Identifies this requirement. Use it as the key when you submit a value.
+	Key *string `json:"key,omitempty"`
+
+	// Label What to call this requirement when you ask someone for it.
+	Label *string `json:"label,omitempty"`
+
+	// MaxItems How many answers this requirement takes, when it takes more than one. `null` for a requirement answered once, which is most of them. Where it is set, answer with `values` or `attachment_ids` and read your answer back from the same pair; `value` and `attachment_id` stay `null`. Order is kept as you send it, and it is part of the answer: a keyword list beginning with `STOP` is not the same declaration as one ending with it.
+	MaxItems *int `json:"max_items,omitempty"`
+
+	// Options The accepted values, already resolved, when the data type is `enum`. Empty for every other type.
+	Options *[]ComplianceRequirementFieldOption `json:"options,omitempty"`
+
+	// ParentHelpText The parent field's own description, shared by every document in the group. Each document's `help_text` describes that document alone. Absent for an ordinary field and when the parent has no description.
+	ParentHelpText *string `json:"parent_help_text,omitempty"`
+
+	// ParentKey Parent field grouping this named document. Absent for an ordinary field.
+	ParentKey *string `json:"parent_key,omitempty"`
+
+	// ParentLabel Display name of the parent field grouping this document. Absent for an ordinary field.
+	ParentLabel *string `json:"parent_label,omitempty"`
+
+	// Prefilled `true` when `value` comes from the party this registration is for. Accept it as it stands or replace it; either way it becomes your answer when you submit. Only a requirement that asks about the party is ever prefilled.
+	Prefilled *bool `json:"prefilled,omitempty"`
+
+	// Reason Why this requirement was rejected, when it was. `null` otherwise.
+	Reason *string `json:"reason,omitempty"`
+
+	// Required Whether an answer is needed before the registration can be approved. Optional requirements are still reviewed when you supply them.
+	Required *bool `json:"required,omitempty"`
+
+	// Section A stable key grouping related requirements together. Use it to keep your own grouping consistent across requests; use section_label for what to show someone.
+	Section *string `json:"section,omitempty"`
+
+	// SectionLabel What to call this requirement's group when you present it.
+	SectionLabel *string              `json:"section_label,omitempty"`
+	State        *ComplianceItemState `json:"state,omitempty"`
+
+	// TemplateUrl A blank form to download, complete and upload back, for requirements that need a signed document. `null` when the requirement has no form to download.
+	TemplateUrl *string                    `json:"template_url,omitempty"`
+	Validation  *ComplianceFieldValidation `json:"validation,omitempty"`
+
+	// Value Your answer, for a requirement answered inline. Every answer travels as a string whatever its data type, so a number reads back as `"1500"` and a yes-or-no as `"true"`. Use the data type to parse it. `null` for a requirement that takes a document, and before you have answered.
+	Value *string `json:"value,omitempty"`
+
+	// Values Your answers, for a requirement that takes several and is answered inline. Set only when `max_items` is, and `null` otherwise, including before you have answered. Each answer travels as a string whatever the data type, the same as `value`.
+	Values *[]string `json:"values,omitempty"`
+}
+
+// ComplianceRequirementFieldOption defines model for ComplianceRequirementFieldOption.
+type ComplianceRequirementFieldOption struct {
+	// Label What to show.
+	Label string `json:"label"`
+
+	// Value What to send.
+	Value string `json:"value"`
+}
+
+// ComplianceSubjectID What is being registered. For `sms_sender` this is the `scr_` id returned when you register a sender for a country. For `number` it is the `nda_` id of a dedicated number you hold, as returned by `GET /v1/numbers`. A shared short code (`nal_`) is not accepted: it is shared, so its ownership paperwork is not yours to file. For `identity` it is the `cid_` id of the party being registered, picked from the parties your workspace holds, as returned by `GET /v1/compliance/identities`.
+type ComplianceSubjectID = string
+
+// ComplianceSubjectKind What is being registered.
+//
+//   - `sms_sender`: a sender registered to send to one country.
+//   - `number`: a phone number you hold that needs ownership paperwork before it
+//     can carry traffic.
+//   - `identity`: a business you operate as, registered once and reused by
+//     later registrations that name it.
+type ComplianceSubjectKind string
+
+// ComplianceSubmission defines model for ComplianceSubmission.
+type ComplianceSubmission struct {
+	// ClosedAt When this submission was closed. Null while it remains open.
+	ClosedAt *time.Time `json:"closed_at,omitempty"`
+
+	// ClosureReason The decline reason for a closed submission, or null while open.
+	ClosureReason *string      `json:"closure_reason,omitempty"`
+	CountryCode   *CountryCode `json:"country_code,omitempty"`
+
+	// CreatedAt When this was submitted.
+	CreatedAt *time.Time              `json:"created_at,omitempty"`
+	Id        *ComplianceSubmissionID `json:"id,omitempty"`
+
+	// IdentityId The party this registration was filed for, or `null` if none was named.
+	IdentityId *ComplianceIdentityID `json:"identity_id,omitempty"`
+
+	// Items Every answer and where it stands. Each is decided on its own.
+	Items *[]ComplianceSubmissionItem `json:"items,omitempty"`
+
+	// Next What to do next about this submission, given the state it is in. Each entry names one action and says
+	// why it is worth taking, so you can act on this response without working out the order
+	// yourself. Present on reads that compute it: an empty list means there is nothing to do,
+	// and the field is absent entirely on responses that do not report next actions.
+	//
+	// A submission reports the answers you filed; whether the country's requirements are met is
+	// reported by the requirements read. So this points there rather than repeating a verdict it
+	// does not own.
+	Next    *[]NextAction      `json:"next,omitempty"`
+	Program *ComplianceProgram `json:"program,omitempty"`
+
+	// Satisfied Whether this country's requirements are met. `true` once the submission is approved and every required requirement is approved or marked not applicable. This can remain true when an external verifier requests a correction. Once you submit that correction, it must pass review before this becomes true again, including any optional answers you change.
+	Satisfied   *bool                  `json:"satisfied,omitempty"`
+	SubjectId   *ComplianceSubjectID   `json:"subject_id,omitempty"`
+	SubjectKind *ComplianceSubjectKind `json:"subject_kind,omitempty"`
+
+	// UpdatedAt When it last changed.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+}
+
+// ComplianceSubmissionCreate defines model for ComplianceSubmissionCreate.
+type ComplianceSubmissionCreate struct {
+	// Answers Every answer at once. Because submissions have no multi-call draft, send a complete set. Anything missing or malformed comes back named. A requirement the named party already answers may be left out; one you send anyway wins over what the party holds.
+	Answers []ComplianceAnswer `json:"answers"`
+
+	// CountryCode ISO 3166-1 alpha-2 country code.
+	CountryCode CountryCode `json:"country_code"`
+
+	// Identity Registers this on behalf of a party you have not stored yet, creating it as part
+	// of the submission so you do not need a separate call. Exclusive with
+	// `identity_id`.
+	//
+	// Each time you send this you get a new party. Single-value identity answers filed for one
+	// are reused by registrations naming the same party. Documents and lists are
+	// supplied separately for each registration. Send this once and use the
+	// `identity_id` from the response for the countries that follow.
+	Identity *ComplianceSubmissionIdentity `json:"identity,omitempty"`
+
+	// IdentityId An existing party this registration is for. It fills in the business details you left out from what that party already holds, and each single-value answer you file about the party is written back onto it for next time, whatever the verdict. Documents and multi-value answers are asked fresh each time. Send this or `identity`, never both. An id belonging to another organization is rejected; nothing is created here. When `subject_kind` is `identity`, send neither: `subject_id` already names the party.
+	IdentityId *ComplianceIdentityID `json:"identity_id,omitempty"`
+
+	// Program The registration program a country runs. Available programs depend on the registered resource. An SMS sender registers under an authority regime (`alpha` or `numeric`). A phone number proves ownership under its number type (`mobile`, `local`, `national`, `short_code`, `short_code_fteu`, or `toll_free`), matching the values of `NumberType`. An identity registers your business itself under `business`, internationally: its coordinate's country is always `ZZ`. A value is therefore only meaningful alongside the subject it describes. More are added as coverage grows, so treat this as an open set rather than a fixed list.
+	Program ComplianceProgram `json:"program"`
+
+	// SubjectId What is being registered. For `sms_sender` this is the `scr_` id returned when you register a sender for a country. For `number` it is the `nda_` id of a dedicated number you hold, as returned by `GET /v1/numbers`. A shared short code (`nal_`) is not accepted: it is shared, so its ownership paperwork is not yours to file. For `identity` it is the `cid_` id of the party being registered, picked from the parties your workspace holds, as returned by `GET /v1/compliance/identities`.
+	SubjectId ComplianceSubjectID `json:"subject_id"`
+
+	// SubjectKind What is being registered.
+	//
+	// - `sms_sender`: a sender registered to send to one country.
+	// - `number`: a phone number you hold that needs ownership paperwork before it
+	//   can carry traffic.
+	// - `identity`: a business you operate as, registered once and reused by
+	//   later registrations that name it.
+	SubjectKind ComplianceSubjectKind `json:"subject_kind"`
+}
+
 // ComplianceSubmissionID defines model for ComplianceSubmissionID.
 type ComplianceSubmissionID = string
+
+// ComplianceSubmissionIdentity Registers this on behalf of a party you have not stored yet, creating it as part
+// of the submission so you do not need a separate call. Exclusive with
+// `identity_id`.
+//
+// Each time you send this you get a new party. Single-value identity answers filed for one
+// are reused by registrations naming the same party. Documents and lists are
+// supplied separately for each registration. Send this once and use the
+// `identity_id` from the response for the countries that follow.
+type ComplianceSubmissionIdentity struct {
+	// Name What to call the party. Optional: left out, it takes the legal entity name you supplied. If this country's form does not ask for one, send a name here.
+	Name *string `json:"name,omitempty"`
+}
+
+// ComplianceSubmissionItem defines model for ComplianceSubmissionItem.
+type ComplianceSubmissionItem struct {
+	// AttachmentId The document you supplied, for a requirement that takes one. `null` otherwise.
+	AttachmentId *AttachmentID `json:"attachment_id,omitempty"`
+
+	// AttachmentIds The documents you supplied, for a requirement that takes several. `null` otherwise.
+	AttachmentIds *[]AttachmentID `json:"attachment_ids,omitempty"`
+
+	// DecidedAt When this was decided. `null` while no decision has been made.
+	DecidedAt *time.Time `json:"decided_at,omitempty"`
+
+	// ExpiresAt When this answer goes stale and must be supplied again. `null` when it does not expire.
+	ExpiresAt *time.Time        `json:"expires_at,omitempty"`
+	Id        *ComplianceItemID `json:"id,omitempty"`
+
+	// Inherited `true` when this answer was accepted without a fresh review, because the same answer to the same requirement had already been approved for this party in this country. It carries the original verdict, including when that verdict expires.
+	Inherited *bool `json:"inherited,omitempty"`
+
+	// Key The requirement this answers.
+	Key *string `json:"key,omitempty"`
+
+	// Reason Why this was rejected, when it was. `null` otherwise.
+	Reason *string              `json:"reason,omitempty"`
+	State  *ComplianceItemState `json:"state,omitempty"`
+
+	// Value Your answer, for a requirement answered inline. Every answer travels as a string whatever its data type, so a number reads back as `"1500"` and a yes-or-no as `"true"`. Use the data type to parse it. `null` for a requirement that takes a document.
+	Value *string `json:"value,omitempty"`
+
+	// Values Your answers, for a requirement that takes several and is answered inline. `null` for one answered once. Order is as you sent it.
+	Values *[]string `json:"values,omitempty"`
+}
+
+// ComplianceSubmissionResupply Replacement answers for an existing submission. Rejected, expired, or missing answers can
+// be supplied again; accepted answers normally cannot be changed.
+//
+// When the requirements response marks an accepted answer as `editable_for_verifier_repair`,
+// you can replace it during that open correction and before its deadline. Accepted-answer
+// repairs must change content; unchanged accepted entries are ignored. Rejected, expired,
+// or missing answers follow the ordinary resupply rules, including same-value retries
+// after a grant is withdrawn. Supplied replacements are reviewed again.
+type ComplianceSubmissionResupply struct {
+	Answers []ComplianceAnswer `json:"answers"`
+}
+
+// ComplianceTemplateID defines model for ComplianceTemplateID.
+type ComplianceTemplateID = string
 
 // ConnectionConfig Values for the connector's nonsecret fields, keyed by field `name`, such as the URL the endpoint's requests go to. A URL must be HTTPS, on one of the connector's `allowed_origins`, and under its `path_prefix` when it has one. It cannot include user info, a fragment, an IP address as its host, dot segments, or encoded slashes.
 type ConnectionConfig map[string]string
@@ -13579,7 +14722,7 @@ type DocsPage struct {
 	// Locale Documentation locale the page was drawn from.
 	Locale *string `json:"locale,omitempty"`
 
-	// Markdown The page's full content as Markdown.
+	// Markdown The requested page content as Markdown, limited to the selected view for API references.
 	Markdown *string `json:"markdown,omitempty"`
 
 	// Slug Slug of the page, echoing the requested slug.
@@ -21661,6 +22804,26 @@ type EsimRecurringSubscriptionList struct {
 // - `ended`: recurrence has ended. Previously delivered packages keep their own validity.
 type EsimRecurringSubscriptionStatus string
 
+// EsimRecurringSubscriptionSummary The eSIM's recurring subscription that has not ended. Fetch the subscription by id for its price, cadence, next charge and period history.
+type EsimRecurringSubscriptionSummary struct {
+	// Status Delivery state of the recurring service. Check payment and renewal fields separately.
+	//
+	// - `pending`: enrollment or the initial purchase is still being processed.
+	// - `active`: the service has delivered a package and remains active.
+	// - `needs_attention`: delivery or a related credit remains unresolved. Check period history and the associated order before purchasing a replacement.
+	// - `ended`: recurrence has ended. Previously delivered packages keep their own validity.
+	Status         EsimRecurringSubscriptionStatus `json:"status"`
+	SubscriptionId EsimRecurringSubscriptionID     `json:"subscription_id"`
+}
+
+// EsimRenewalState The status of the eSIM's one recurring subscription that has not ended, or `none` when it has no such subscription. The values are every `EsimRecurringSubscriptionStatus` except `ended`, plus `none`. This is subscription state, not a promise of another renewal: read the subscription's `cancel_at_period_end` for that.
+//
+// - `pending`: enrollment or the initial purchase is still being processed.
+// - `active`: the subscription is in service. One canceled at the end of its paid period stays `active` until that boundary; read the subscription's `cancel_at_period_end` to tell them apart.
+// - `needs_attention`: a delivery or a related credit remains unresolved.
+// - `none`: the eSIM has no recurring subscription, or only ended ones.
+type EsimRenewalState string
+
 // EsimSchemaRevision Revision identifying the returned identification schema. A changed revision means the requirements or guidance changed. It does not indicate an expiry time or purchase authorization.
 type EsimSchemaRevision = string
 
@@ -21761,8 +22924,11 @@ type EsimSummary struct {
 	Mode  *EsimMode `json:"mode,omitempty"`
 
 	// PhoneNumber Phone number attached to this eSIM, in E.164 format, as the supplier reports it. Null while none is on record.
-	PhoneNumber *string     `json:"phone_number,omitempty"`
-	Status      *EsimStatus `json:"status,omitempty"`
+	PhoneNumber *string `json:"phone_number,omitempty"`
+
+	// Renewal The eSIM's recurring subscription that has not ended, or null when it has none. The single-eSIM read does not carry it; list the eSIM's subscriptions with `esim_id` for the full renewal history.
+	Renewal *EsimRecurringSubscriptionSummary `json:"renewal,omitempty"`
+	Status  *EsimStatus                       `json:"status,omitempty"`
 
 	// SubscriberId The assigned service user, or null when the eSIM has no person assignment.
 	SubscriberId *EsimSubscriberID `json:"subscriber_id,omitempty"`
@@ -23428,7 +24594,7 @@ type EventVerifyAttemptDeliveredData struct {
 	// Address The single address this attempt was dispatched to, an E.164 phone number or an email address.
 	Address string `json:"address"`
 
-	// Carrier Carrier that delivered the message, when the carrier network reports it. Always null for email, WhatsApp, and Telegram.
+	// Carrier Carrier that delivered the message, when the carrier network reports it. Always null for email, WhatsApp, Telegram, and voice.
 	Carrier *string `json:"carrier"`
 
 	// Channel The channel a passcode is delivered over. Open enum: new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
@@ -23437,7 +24603,7 @@ type EventVerifyAttemptDeliveredData struct {
 	// DeliveredAt Time delivery was confirmed.
 	DeliveredAt time.Time `json:"delivered_at"`
 
-	// MccMnc Mobile country code and mobile network code of the delivering carrier, when reported. Always null for email, WhatsApp, and Telegram.
+	// MccMnc Mobile country code and mobile network code of the delivering carrier, when reported. Always null for email, WhatsApp, Telegram, and voice.
 	MccMnc *string `json:"mcc_mnc"`
 
 	// Metadata The metadata object provided when the verification was created, echoed on every event for the session so you can correlate events with your own records. Null when the verification carried no metadata.
@@ -25148,8 +26314,20 @@ type NumbersOrder struct {
 	UpdatedAt  *time.Time          `json:"updated_at,omitempty"`
 }
 
+// NumbersOrderCompliance Ownership paperwork for a number being ordered, where its country requires any. Optional always: the order completes and the number is yours either way, and supplying this only decides whether it can carry traffic sooner. Read `GET /v1/compliance/requirements` for the number to learn what is asked for, or file it after the order with `POST /v1/compliance/submissions`. Filing this cannot fail your order: if it is refused, the number is still yours and you can file again. The answers are a legal representation filed under the name of the business they describe. Sending this block uses the order's existing `numbers` scope at write level.
+type NumbersOrderCompliance struct {
+	// Answers Every answer at once, in the same shape `POST /v1/compliance/submissions` takes. There is no draft to fill in over several calls, so send a complete set.
+	Answers []ComplianceAnswer `json:"answers"`
+
+	// IdentityId An existing party this number is held for. It fills in the business details you left out from what that party already holds, and each single-value answer you file about the party is written back onto it for next time, whatever the verdict. Documents and multi-value answers are asked fresh each time. An id belonging to another organization is rejected.
+	IdentityId *ComplianceIdentityID `json:"identity_id,omitempty"`
+}
+
 // NumbersOrderCreate defines model for NumbersOrderCreate.
 type NumbersOrderCreate struct {
+	// Compliance Ownership paperwork for a number being ordered, where its country requires any. Optional always: the order completes and the number is yours either way, and supplying this only decides whether it can carry traffic sooner. Read `GET /v1/compliance/requirements` for the number to learn what is asked for, or file it after the order with `POST /v1/compliance/submissions`. Filing this cannot fail your order: if it is refused, the number is still yours and you can file again. The answers are a legal representation filed under the name of the business they describe. Sending this block uses the order's existing `numbers` scope at write level.
+	Compliance *NumbersOrderCompliance `json:"compliance,omitempty"`
+
 	// Number The number to acquire, in E.164 format, as returned by `GET /v1/numbers/available`.
 	Number string `json:"number"`
 
@@ -25379,6 +26557,9 @@ type PreferenceWriteResult struct {
 	// TransitionId Identifies this write on the key's record, for applied and refused requests alike. Null when the write was a repeat of the current statement and recorded nothing new.
 	TransitionId *PreferenceTransitionID `json:"transition_id,omitempty"`
 }
+
+// ProductID defines model for ProductID.
+type ProductID = string
 
 // RealtimeApp defines model for RealtimeApp.
 type RealtimeApp struct {
@@ -25820,6 +27001,44 @@ type SMSCategoryStatsPoint struct {
 	// Trend Per-bucket lifecycle counts for this category, using `trend_grain`. Includes only buckets with activity. Present when `include_trend=true`.
 	Trend *[]SMSStatsPoint `json:"trend,omitempty"`
 }
+
+// SMSCountryRegistration defines model for SMSCountryRegistration.
+type SMSCountryRegistration struct {
+	// Category Message category this registration is approved for. Null means the registration is unrestricted and admits any category.
+	Category    *string                  `json:"category,omitempty"`
+	CountryCode *CountryCode             `json:"country_code,omitempty"`
+	CreatedAt   *time.Time               `json:"created_at,omitempty"`
+	Id          SMSCountryRegistrationID `json:"id"`
+
+	// Program The registration program behind this row. Null for a country that required none, which is the state a row records rather than a program called "none".
+	Program *SMSRegistrationProgram `json:"program,omitempty"`
+
+	// ProgramRef The program artifact that decided this registration, null where none produced it. Which resource it names follows from `program`, and its id prefix tells you too: a toll-free verification for `tfn`, or a campaign number link for `10dlc`. The link connects this number to its campaign. Get the campaign from [Get a 10DLC campaign number link](/docs/api/reference/get-tcr-campaign-number-link). Worth following when the status is `under_review`, because that value covers both the carrier still reviewing and the carrier waiting on more information from you, and only the program's own resource tells those apart.
+	ProgramRef *string `json:"program_ref,omitempty"`
+
+	// RegistrationMode Current registration policy for this destination and sender type. Omitted if the policy or sender is no longer available.
+	RegistrationMode *SMSRegistrationMode `json:"registration_mode,omitempty"`
+
+	// RejectionReason Reason the registration was rejected, shown when the status is `rejected`. Null for registrations that were never rejected.
+	RejectionReason *string `json:"rejection_reason,omitempty"`
+
+	// SenderIdBehavior Expected sender ID behavior for this registration's message categories. Optional registration preserves the sender ID once approved. Required registration can still use an overwritten sender ID after approval. Omitted if the policy or sender is no longer available.
+	SenderIdBehavior *SMSSenderIDBehavior   `json:"sender_id_behavior,omitempty"`
+	Status           *SMSRegistrationStatus `json:"status,omitempty"`
+	UpdatedAt        *time.Time             `json:"updated_at,omitempty"`
+}
+
+// SMSCountryRegistrationCreate defines model for SMSCountryRegistrationCreate.
+type SMSCountryRegistrationCreate struct {
+	// Category Message category to register the sender for. Omit to register the sender for all categories.
+	Category *SMSMessageCategory `json:"category,omitempty"`
+
+	// CountryCode ISO 3166-1 alpha-2 country code.
+	CountryCode CountryCode `json:"country_code"`
+}
+
+// SMSCountryRegistrationID defines model for SMSCountryRegistrationID.
+type SMSCountryRegistrationID = string
 
 // SMSCountryStatsPoint Aggregate delivery and latency stats for a single destination country over the requested period.
 type SMSCountryStatsPoint struct {
@@ -26465,6 +27684,35 @@ type SMSOriginatorStatsPoint struct {
 // SMSReceivedEventType Always `sms.received` for this event.
 type SMSReceivedEventType string
 
+// SMSRegistrationMode Whether the sender type has a registration path for this destination.
+//
+// - `none`: no country registration is needed. Where sender IDs are overwritten, registration is unavailable.
+// - `optional`: registration is available, but unregistered sending remains possible.
+// - `required`: registration must be approved before sending.
+type SMSRegistrationMode string
+
+// SMSRegistrationProgram The registration program a country runs for a sender type.
+//
+// - `10dlc`: US A2P brand and campaign registration.
+// - `tfn`: US toll-free verification.
+// - `alpha`: registers an alphanumeric sender.
+// - `numeric`: registers a long code.
+// - `short_code`: a short-code application, filed and maintained by Bird.
+type SMSRegistrationProgram string
+
+// SMSRegistrationStatus Country-registration lifecycle state:
+//
+// - `pending`: Registration work has started.
+// - `under_review`: Everything this country requires has been submitted and is being reviewed. Nothing is asked of you while it is.
+// - `bird_approved`: Our review passed and carrier approval is still pending.
+// - `carrier_pending`: Submitted to the approving carrier or registry.
+// - `approved`: Approved for sending.
+// - `rejected`: Registration was refused.
+// - `suspended`: A previously active registration is suspended.
+// - `registration_required`: No required registration has been started.
+// - `not_required`: The country does not require registration.
+type SMSRegistrationStatus string
+
 // SMSSegments Segment breakdown for the message body. Segment count drives billing.
 type SMSSegments struct {
 	// Characters Character count of the body, counted in Unicode code points under either encoding. This is not the segment measure: a `GSM_7BIT` extended-table character counts once here but costs two septets, and a `UCS2` emoji outside the Basic Multilingual Plane counts once here but costs two of the segment's 70 code units.
@@ -26517,6 +27765,244 @@ type SMSSendOptions struct {
 	// TrackClicks Preview feature: link click tracking. Defaults to `false`. Currently unavailable; setting this to `true` returns `422 SMSUnsupportedFeature`.
 	TrackClicks *bool `json:"track_clicks,omitempty"`
 }
+
+// SMSSender defines model for SMSSender.
+type SMSSender struct {
+	// CountryCode The country of the number this sender sends from. Null for an alphanumeric sender.
+	CountryCode  *CountryCode           `json:"country_code,omitempty"`
+	CreatedAt    *time.Time             `json:"created_at,omitempty"`
+	Destinations *SMSSenderDestinations `json:"destinations,omitempty"`
+	Id           SMSSenderID            `json:"id"`
+
+	// Next What to do next about this sender, given the state it is in. Present on reads that
+	// compute it: an empty list means there is nothing to do, and the field is absent entirely
+	// on responses that do not report next actions.
+	//
+	// This routes rather than advises. A sender only knows about itself, so where the work is
+	// per-country it names the requirements read rather than guessing which country you meant.
+	Next *[]NextAction `json:"next,omitempty"`
+
+	// NumberId The number this sender sends from, as returned in the `id` field of `GET /v1/numbers`. Present only when `source_kind` is `number` or `shared_number`; an alphanumeric sender has no number behind it. Exactly one sender exists per number, so this is also how you go the other way: `GET /v1/sms/senders?number_id={id}` returns this sender.
+	NumberId *AllocatedNumberID `json:"number_id,omitempty"`
+
+	// Sender The value messages are sent from: a number in E.164 format, a shortcode, or an alphanumeric sender string.
+	Sender *string `json:"sender,omitempty"`
+
+	// SenderType The kind of sender identity this is, which decides what each destination country asks of it. It is finer than source_kind: a short code and an ordinary long code are both numbers but follow different rules.
+	SenderType *SMSSenderType       `json:"sender_type,omitempty"`
+	SourceKind *SMSSenderSourceKind `json:"source_kind,omitempty"`
+	Status     *SMSSenderStatus     `json:"status,omitempty"`
+	UpdatedAt  *time.Time           `json:"updated_at,omitempty"`
+}
+
+// SMSSenderCreate defines model for SMSSenderCreate.
+type SMSSenderCreate struct {
+	// Sender The alphanumeric sender string to create, for example "BIRD". 3–11 letters, digits, spaces, dashes, underscores, or dots, at least one of them a letter, and no separator at either end.
+	Sender string `json:"sender"`
+
+	// Type The kind of sender to create. Only `alpha` (an alphanumeric sender string) is customer-creatable. Dedicated numbers become senders when you allocate them from inventory. This endpoint cannot create their senders.
+	Type SMSSenderCreateType `json:"type"`
+}
+
+// SMSSenderCreateType The kind of sender to create. Only `alpha` (an alphanumeric sender string) is customer-creatable. Dedicated numbers become senders when you allocate them from inventory. This endpoint cannot create their senders.
+type SMSSenderCreateType string
+
+// SMSSenderDestinations Where this sender stands with the destinations it is set up for, grouped by whose move is
+// next.
+//
+// These are not every country the sender could reach. `pending` and `needs_attention` cover
+// only countries you hold a registration for, so a country you could register for but have not,
+// or one you have simply not switched on, appears in none of the three: there is nothing
+// outstanding there. To see everything reachable and what each country would take, read
+// [Get sender requirements](/docs/api/reference/list-workspace-sms-sender-requirements).
+type SMSSenderDestinations struct {
+	// Active Countries you can send to today: switched on in your SMS destination settings, and either asking for no registration or holding an approved one. A country counts here however it became usable, including one enabled for you automatically when your organization set its business address.
+	Active *[]CountryCode `json:"active,omitempty"`
+
+	// NeedsAttention Countries you have registered for that are not working, and so are waiting on you: the registration was refused or withdrawn, or it is approved but the destination is switched off in your SMS destination settings. While this sender's number is missing the paperwork proving you own it, every country you have registered for is listed here, because none of them can carry a message until that is settled.
+	NeedsAttention *[]CountryCode `json:"needs_attention,omitempty"`
+
+	// Pending Countries whose registration is under way and waiting on us or on a carrier. Nothing is asked of you for these; they move to `active` when the registration is approved.
+	Pending *[]CountryCode `json:"pending,omitempty"`
+}
+
+// SMSSenderID defines model for SMSSenderID.
+type SMSSenderID = string
+
+// SMSSenderIDBehavior What carriers do with the sender ID for this destination.
+//
+// - `unknown`: the outcome has not been confirmed.
+// - `preserved`: the submitted sender ID reaches the recipient unchanged.
+// - `overwritten`: the submitted sender ID is overwritten before delivery.
+type SMSSenderIDBehavior string
+
+// SMSSenderList defines model for SMSSenderList.
+type SMSSenderList struct {
+	// Data Your workspace's dedicated numbers and alphanumeric senders, newest first.
+	Data []SMSSender `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed; otherwise `null`.
+	Total *int64 `json:"total,omitempty"`
+}
+
+// SMSSenderProgram defines model for SMSSenderProgram.
+type SMSSenderProgram struct {
+	// Countries Every country this one registration covers. Some programs open several at once, so a single toll-free verification or campaign registration can be what permits four destinations.
+	Countries *[]CountryCode `json:"countries,omitempty"`
+
+	// Program The program this registration runs. Null for the countries that asked for no registration at all, which are grouped together because the only thing they have in common is that you registered nothing for them.
+	Program *SMSRegistrationProgram `json:"program,omitempty"`
+
+	// ProgramRef The resource this registration produced, which `program` tells you how to read: a toll-free verification for `tfn`, or a campaign number link for `10dlc`. The link connects this number to its campaign. Get the campaign from `GET /v1/sms/10dlc/campaign-number-links/{link_id}`. Null for a program that issues none, and for one you have not registered yet. Follow it when the status is under_review, because only that resource distinguishes a carrier still reviewing from one waiting on more information from you.
+	ProgramRef *string `json:"program_ref,omitempty"`
+
+	// Status Where this registration stands, for all of the countries it covers. `registration_required` means you have not made it yet and every country listed is waiting on it. Null in the one case where the countries have diverged and no single answer is true: read those countries individually.
+	Status *SMSRegistrationStatus `json:"status,omitempty"`
+}
+
+// SMSSenderProgramEntry The resource this country's walk continues at. `none` means the first one is still to be
+// created; every other value names what to read next, whose id is `program_entry_ref`.
+//
+// Every programme names its entry. US 10DLC enters at a `10dlc_brand` or a `10dlc_campaign` and
+// continues at the `10dlc_campaign_number_link` a number hangs off. US toll-free both enters and
+// continues at its `tfn_verification`. A programme answered by filling in a form enters at the
+// `compliance_submission` holding your answers, the only entry that names something you filled in
+// rather than something a carrier holds. Read the entry whenever you need the detail behind a
+// country: it carries why a registration was refused, which this row reports only as a status.
+//
+// The values are programme-prefixed where a programme owns them, so one vocabulary reads the same
+// wherever an entry is reported. Tolerate a value you do not recognize: read `program_entry_ref`
+// as the id of a resource to fetch, and read `next` for what to do about the country.
+//
+// Computed on this read, so it is never stale and never absent. That matters most where a row
+// cannot answer for itself: a toll-free verification you have started but not submitted is named
+// here even though no registration exists for it yet, which is what tells you to finish that one
+// rather than start a second.
+type SMSSenderProgramEntry string
+
+// SMSSenderRequirement defines model for SMSSenderRequirement.
+type SMSSenderRequirement struct {
+	// Category Message category the registration covering this country is approved for. Null when the registration admits any category, and null before you register.
+	Category    *string      `json:"category,omitempty"`
+	CountryCode *CountryCode `json:"country_code,omitempty"`
+
+	// DestinationEnabled Whether your workspace has this destination country turned on. This is a workspace setting rather than anything about this sender, and it is checked before the sender is even considered, so a country can be fully registered and still refuse your messages because it is switched off here. Turn it on with [Update SMS destinations](/docs/api/reference/update-workspace-sms-destinations).
+	DestinationEnabled *bool `json:"destination_enabled,omitempty"`
+
+	// HasComplianceRequirements Whether registering this sender for this country continues at compliance requirements you answer with a submission. When true, read them with [Get what a registration needs](/docs/api/reference/get-workspace-compliance-requirements) once the registration exists; the one-off setup fee is charged when you submit, and the monthly charge starts once the registration is approved. False in three cases: the country takes no registration (`registration_mode` is `none`); its programme runs its own flow, such as US 10DLC, toll-free, and short codes, which `next` routes to; or the registration goes to review with nothing to submit, and both charges are made once it is approved.
+	HasComplianceRequirements *bool `json:"has_compliance_requirements,omitempty"`
+
+	// Next What to do next about this country, given the state it is in. Each entry names one action
+	// and says why it is worth taking, so you can act on this response without working out the
+	// order yourself. Present on reads that compute it: an empty list means there is nothing to
+	// do, and the field is absent entirely on responses that do not report next actions.
+	//
+	// This routes rather than advises: it names where to go to act on this country, and the
+	// resource it names carries what to do there. So a country under carrier review names the
+	// verification to read, rather than restating a verdict that resource owns.
+	Next *[]NextAction `json:"next,omitempty"`
+
+	// ObligationDueAt When this country's registration must be brought up to date by, if it must. Null when nothing is outstanding, which is the ordinary case. The sender keeps sending until the date passes; `GET /v1/compliance/requirements` says what is being asked for.
+	ObligationDueAt *time.Time `json:"obligation_due_at,omitempty"`
+
+	// Program The registration program available for this destination, including optional registration. An existing registration retains its own program.
+	Program *SMSRegistrationProgram `json:"program,omitempty"`
+
+	// ProgramEntry The resource this country's walk continues at. `none` means the first one is still to be
+	// created; every other value names what to read next, whose id is `program_entry_ref`.
+	//
+	// Every programme names its entry. US 10DLC enters at a `10dlc_brand` or a `10dlc_campaign` and
+	// continues at the `10dlc_campaign_number_link` a number hangs off. US toll-free both enters and
+	// continues at its `tfn_verification`. A programme answered by filling in a form enters at the
+	// `compliance_submission` holding your answers, the only entry that names something you filled in
+	// rather than something a carrier holds. Read the entry whenever you need the detail behind a
+	// country: it carries why a registration was refused, which this row reports only as a status.
+	//
+	// The values are programme-prefixed where a programme owns them, so one vocabulary reads the same
+	// wherever an entry is reported. Tolerate a value you do not recognize: read `program_entry_ref`
+	// as the id of a resource to fetch, and read `next` for what to do about the country.
+	//
+	// Computed on this read, so it is never stale and never absent. That matters most where a row
+	// cannot answer for itself: a toll-free verification you have started but not submitted is named
+	// here even though no registration exists for it yet, which is what tells you to finish that one
+	// rather than start a second.
+	ProgramEntry SMSSenderProgramEntry `json:"program_entry"`
+
+	// ProgramEntryRef The id of the resource `program_entry` names, or null when it names none. Where the workspace holds several to choose from, this is the one to start from: the only brand or campaign if there is one, otherwise the most recently approved, and otherwise the most recent.
+	ProgramEntryRef *string `json:"program_entry_ref,omitempty"`
+
+	// RegistrationId The registration covering this country, once one exists. Null before you register. Where the country's requirements are collected as a form, this is the `subject_id` to pass to `GET /v1/compliance/requirements`.
+	RegistrationId *SMSCountryRegistrationID `json:"registration_id,omitempty"`
+
+	// RegistrationMode Whether country registration is absent, optional, or required before sending.
+	RegistrationMode *SMSRegistrationMode `json:"registration_mode,omitempty"`
+
+	// RegistrationTypes Registration categories this country's program accepts.
+	RegistrationTypes *[]string `json:"registration_types,omitempty"`
+
+	// RejectionReason Why the registration was rejected, when it was. Null otherwise.
+	RejectionReason *string `json:"rejection_reason,omitempty"`
+
+	// SenderId The sender these requirements are for, the same one you asked about. It is repeated on every row so a row is complete on its own: what a country needs is addressed by the sender and the country together, and a step that registers this sender needs both.
+	SenderId *SMSSenderID `json:"sender_id,omitempty"`
+
+	// SenderIdBehavior The effective sender ID behavior for this sender and destination. An approved optional registration changes `overwritten` to `preserved` for its permitted message categories. Required registration does not change the configured sender ID behavior after approval. `unknown` means no behavior is published. This is expected behavior, not confirmation of what a recipient saw. Overwrite details are published in the country messaging context.
+	SenderIdBehavior *SMSSenderIDBehavior `json:"sender_id_behavior,omitempty"`
+
+	// Status Where this sender stands with this country's registration programme. The `approved` and `not_required` statuses satisfy it. Every other status leaves it unsatisfied: the `registration_required` status means the required registration has not started, the `pending` status means something required is still owed by you, and `under_review` means it is all with us. Read `next` for what to do about any of it.
+	//
+	// Registration blocks sending when `registration_mode` is `required`. Optional registration can be pending while sending remains available with `sender_id_behavior` set to `overwritten`. Check `destination_enabled` too, which is independent of registration progress.
+	Status *SMSRegistrationStatus `json:"status,omitempty"`
+
+	// TimelineMaxDays Longest time approval usually takes, in business days. Null when the country publishes no estimate.
+	TimelineMaxDays *int `json:"timeline_max_days,omitempty"`
+
+	// TimelineMinDays Shortest time approval usually takes, in business days. Null when the country publishes no estimate.
+	TimelineMinDays *int `json:"timeline_min_days,omitempty"`
+}
+
+// SMSSenderRequirementList defines model for SMSSenderRequirementList.
+type SMSSenderRequirementList struct {
+	// Data One entry per destination country this sender can reach, which is the level the decision to carry your message is made at. Ask this list whether you can send somewhere, and what it takes first. A country missing from it is one this sender has no route to at all, so no registration would open it.
+	Data []SMSSenderRequirement `json:"data"`
+
+	// Programs The same countries seen as the registrations they belong to, one entry per registration, with the countries each one covers. Ask this list what to do next: an entry whose status is `registration_required` is a registration you still have to make, and its countries are the ones it would open. Every other entry is a registration you have already made, so this list is the whole picture rather than only the part you have finished.
+	Programs []SMSSenderProgram `json:"programs"`
+}
+
+// SMSSenderSortField defines model for SMSSenderSortField.
+type SMSSenderSortField string
+
+// SMSSenderSourceKind What backs an SMS sender: a dedicated number, a shared shortcode, or an alphanumeric sender string.
+type SMSSenderSourceKind string
+
+// SMSSenderStatus Where a sender stands on its own setup: the ownership paperwork its number owes, and the
+// registrations it holds.
+//
+//   - `active`: nothing this sender holds is outstanding.
+//   - `pending_number_ownership`: the paperwork proving you own this sender's number is not in
+//     place, either because it has not been supplied or because the country that issued the
+//     number has not accepted it yet. Every send from this sender is refused until it does.
+//   - `pending_registrations`: the sender holds country registrations and none is approved yet.
+//     That covers a registration under review and one that was refused, so read `next` for which.
+//
+// This is not whether a message will be accepted. That is decided per destination country, and
+// [Get sender requirements](/docs/api/reference/list-workspace-sms-sender-requirements) is the
+// only read that answers it. A sender that has registered nowhere is `active`, even where every
+// country it can reach wants a registration first. Read `next` for where to go from here.
+type SMSSenderStatus string
+
+// SMSSenderType The kind of sender identity a message was sent from: a standard long-code number, a short code, an alphanumeric sender ID, or a toll-free number. Toll-free is its own value rather than a kind of long code, because it carries a separate regulatory regime and both sending policy and pricing key on it directly.
+type SMSSenderType string
 
 // SMSStatsByCarrierResponse Per-carrier breakdown for the requested period, ranked by the `sort` metric (default `accepted`) descending and capped at the requested `limit` (default 50, max 200).
 type SMSStatsByCarrierResponse struct {
@@ -27407,6 +28893,9 @@ type Timezone = string
 
 // UserID defines model for UserID.
 type UserID = string
+
+// ValidationError defines model for ValidationError.
+type ValidationError = Error
 
 // Verification defines model for Verification.
 type Verification struct {
@@ -28754,6 +30243,9 @@ type VoiceVerifiedNumberVerifyRequest struct {
 	// Code The 6-digit verification code read out by the verification call. Required until ownership is verified. Omit it when retrying activation of an already verified number.
 	Code *string `json:"code,omitempty" pii:"true"`
 }
+
+// WalletID defines model for WalletID.
+type WalletID = string
 
 // WalletTransactionID defines model for WalletTransactionID.
 type WalletTransactionID = string
@@ -32006,7 +33498,7 @@ type WhatsAppTemplateLanguage struct {
 	Components  []WhatsAppTemplateComponent  `json:"components"`
 	ContentHash *WhatsAppTemplateContentHash `json:"content_hash,omitempty"`
 
-	// Error Why the submission did not complete, present when `status` is `submit_failed` or `outcome_unknown`. Absent otherwise, including on a rejection, whose reason is in `rejection`.
+	// Error Why the submission did not complete, present when `status` is `submit_failed`. Absent otherwise, including on a rejection, whose reason is in `rejection`.
 	Error *WhatsAppTemplateSubmissionError `json:"error,omitempty"`
 
 	// Language A language tag in BCP-47 form, for example `en` or `pt-BR`.
@@ -32034,7 +33526,7 @@ type WhatsAppTemplateLanguage struct {
 	// Status Language review and health status:
 	//
 	// - `approved`: Passed review and can be sent.
-	// - `pending`: Under review.
+	// - `pending`: Under review, or submitted while Bird confirms the result with WhatsApp.
 	// - `rejected`: Failed review.
 	// - `paused` or `disabled`: Sending is suspended.
 	// - `in_appeal`: A decision is being appealed.
@@ -32043,7 +33535,6 @@ type WhatsAppTemplateLanguage struct {
 	// - `archived`: Reclaimed after 12 months without use; recoverable for 28 days.
 	// - `deleted`: Permanently deleted.
 	// - `submit_failed`: A submission or a deletion did not complete and will not be retried. `error.description` says why, and `error.meta_error_code` is set only where WhatsApp itself refused.
-	// - `outcome_unknown`: A create or an edit reached WhatsApp but no response came back, so the outcome is still being resolved against WhatsApp. An unanswered deletion is retried instead of landing here. `error.description` says so, and `error.meta_error_code` is absent, since nothing was refused.
 	//
 	// This is an open enum. Accept unrecognized values.
 	Status *WhatsAppTemplateLanguageStatus `json:"status,omitempty"`
@@ -32069,7 +33560,7 @@ type WhatsAppTemplateLanguageState struct {
 	// EditableAt The next time you can edit this language, if Meta's one-edit-per-day limit on an approved language is currently spent. Null when an edit is allowed right now, though Meta also caps an approved language at ten edits per rolling 30 days: a null here does not guarantee an edit will succeed if you are close to that limit too.
 	EditableAt *time.Time `json:"editable_at,omitempty"`
 
-	// Error Why the submission did not complete, present when `status` is `submit_failed` or `outcome_unknown`. Absent otherwise, including on a rejection, whose reason is in `rejection`.
+	// Error Why the submission did not complete, present when `status` is `submit_failed`. Absent otherwise, including on a rejection, whose reason is in `rejection`.
 	Error *WhatsAppTemplateSubmissionError `json:"error,omitempty"`
 
 	// Rejection Why Meta refused this content, present when `status` is `rejected`. Absent otherwise.
@@ -32085,7 +33576,7 @@ type WhatsAppTemplateLanguageState struct {
 // WhatsAppTemplateLanguageStatus Language review and health status:
 //
 // - `approved`: Passed review and can be sent.
-// - `pending`: Under review.
+// - `pending`: Under review, or submitted while Bird confirms the result with WhatsApp.
 // - `rejected`: Failed review.
 // - `paused` or `disabled`: Sending is suspended.
 // - `in_appeal`: A decision is being appealed.
@@ -32094,7 +33585,6 @@ type WhatsAppTemplateLanguageState struct {
 // - `archived`: Reclaimed after 12 months without use; recoverable for 28 days.
 // - `deleted`: Permanently deleted.
 // - `submit_failed`: A submission or a deletion did not complete and will not be retried. `error.description` says why, and `error.meta_error_code` is set only where WhatsApp itself refused.
-// - `outcome_unknown`: A create or an edit reached WhatsApp but no response came back, so the outcome is still being resolved against WhatsApp. An unanswered deletion is retried instead of landing here. `error.description` says so, and `error.meta_error_code` is absent, since nothing was refused.
 //
 // This is an open enum. Accept unrecognized values.
 type WhatsAppTemplateLanguageStatus string
@@ -32122,7 +33612,7 @@ type WhatsAppTemplateLanguageSummary struct {
 	// Status Language review and health status:
 	//
 	// - `approved`: Passed review and can be sent.
-	// - `pending`: Under review.
+	// - `pending`: Under review, or submitted while Bird confirms the result with WhatsApp.
 	// - `rejected`: Failed review.
 	// - `paused` or `disabled`: Sending is suspended.
 	// - `in_appeal`: A decision is being appealed.
@@ -32131,7 +33621,6 @@ type WhatsAppTemplateLanguageSummary struct {
 	// - `archived`: Reclaimed after 12 months without use; recoverable for 28 days.
 	// - `deleted`: Permanently deleted.
 	// - `submit_failed`: A submission or a deletion did not complete and will not be retried. `error.description` says why, and `error.meta_error_code` is set only where WhatsApp itself refused.
-	// - `outcome_unknown`: A create or an edit reached WhatsApp but no response came back, so the outcome is still being resolved against WhatsApp. An unanswered deletion is retried instead of landing here. `error.description` says so, and `error.meta_error_code` is absent, since nothing was refused.
 	//
 	// This is an open enum. Accept unrecognized values.
 	Status *WhatsAppTemplateLanguageStatus `json:"status,omitempty"`
@@ -32252,7 +33741,7 @@ type WhatsAppTemplateVersionLanguage struct {
 	// Components This language's content in this version, in display order.
 	Components []WhatsAppTemplateComponent `json:"components"`
 
-	// Error Why the submission did not complete, present when `status` is `submit_failed` or `outcome_unknown`. Absent otherwise, including on a rejection, whose reason is in `rejection`.
+	// Error Why the submission did not complete, present when `status` is `submit_failed`. Absent otherwise, including on a rejection, whose reason is in `rejection`.
 	Error *WhatsAppTemplateSubmissionError `json:"error,omitempty"`
 
 	// Rejection Why Meta refused this content, present when `status` is `rejected`. Absent otherwise.
@@ -34328,6 +35817,337 @@ type GetAudienceMembershipStatisticsParams struct {
 
 	// To Inclusive last UTC date. Defaults to today in UTC; future dates are rejected. At most 365 inclusive dates.
 	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ListComplianceAttachmentsParams defines parameters for ListComplianceAttachments.
+type ListComplianceAttachmentsParams struct {
+	// Sort Field to sort by. Defaults to `created_at`.
+	Sort *AttachmentSortField `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
+	Order *OrderDesc `form:"order,omitempty" json:"order,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// IncludeTotal When true, the response includes a `total` field with the total number of items matching the request's filters across all pages.
+	IncludeTotal *IncludeTotal `form:"include_total,omitempty" json:"include_total,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// CreateComplianceAttachmentParams defines parameters for CreateComplianceAttachment.
+type CreateComplianceAttachmentParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// DeleteComplianceAttachmentParams defines parameters for DeleteComplianceAttachment.
+type DeleteComplianceAttachmentParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetComplianceAttachmentParams defines parameters for GetComplianceAttachment.
+type GetComplianceAttachmentParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetComplianceDocumentTemplateParams defines parameters for GetComplianceDocumentTemplate.
+type GetComplianceDocumentTemplateParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ListComplianceIdentitiesParams defines parameters for ListComplianceIdentities.
+type ListComplianceIdentitiesParams struct {
+	// Sort Field to sort by. Defaults to `created_at`.
+	Sort *ComplianceIdentitySortField `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
+	Order *OrderDesc `form:"order,omitempty" json:"order,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// IncludeTotal When true, the response includes a `total` field with the total number of items matching the request's filters across all pages.
+	IncludeTotal *IncludeTotal `form:"include_total,omitempty" json:"include_total,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// CreateComplianceIdentityParams defines parameters for CreateComplianceIdentity.
+type CreateComplianceIdentityParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// DeleteComplianceIdentityParams defines parameters for DeleteComplianceIdentity.
+type DeleteComplianceIdentityParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetComplianceIdentityParams defines parameters for GetComplianceIdentity.
+type GetComplianceIdentityParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// UpdateComplianceIdentityParams defines parameters for UpdateComplianceIdentity.
+type UpdateComplianceIdentityParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetWorkspaceComplianceRequirementsParams defines parameters for GetWorkspaceComplianceRequirements.
+type GetWorkspaceComplianceRequirementsParams struct {
+	// SubjectKind What you are registering.
+	SubjectKind ComplianceSubjectKind `form:"subject_kind" json:"subject_kind"`
+
+	// SubjectId The registration to answer for. Omit it to read the form on its own, before you hold anything to register: the requirements come back unanswered, which is what to do when you are deciding whether to take a number or a sender on in the first place. Omitting it makes `program` required, since the coordinate is otherwise resolved from the subject. When you do supply it, it is an `scr_` id when `subject_kind` is `sms_sender`, an `nda_` id when it is `number`, and a `cid_` party id when it is `identity`.
+	SubjectId *ComplianceSubjectID `form:"subject_id,omitempty" json:"subject_id,omitempty"`
+
+	// CountryCode The destination country. For `identity` send `ZZ`, the international coordinate: your business registers once, not per country.
+	CountryCode CountryCode `form:"country_code" json:"country_code"`
+
+	// Program The programme to read. Optional alongside `subject_id`, because a registration is under exactly one programme and that is the one used; supply it there only to confirm the programme you expect, since one that is not the registration's own returns a 422, as does supplying one at all for a country that runs no registration programme. Required when `subject_id` is omitted, because there is then no registration to resolve it from and a country can run more than one.
+	Program *ComplianceProgram `form:"program,omitempty" json:"program,omitempty"`
+
+	// IdentityId Prefill the business details from a party you have already described. Requirements that ask about the party come back carrying its answers, marked `prefilled`; requirements about this sender never prefill because you write the sender's intended use fresh each time. Anything you have already filed for this registration wins over the party's answer.
+	IdentityId *ComplianceIdentityID `form:"identity_id,omitempty" json:"identity_id,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// CreateWorkspaceComplianceSubmissionParams defines parameters for CreateWorkspaceComplianceSubmission.
+type CreateWorkspaceComplianceSubmissionParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetWorkspaceComplianceSubmissionParams defines parameters for GetWorkspaceComplianceSubmission.
+type GetWorkspaceComplianceSubmissionParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// UpdateWorkspaceComplianceSubmissionParams defines parameters for UpdateWorkspaceComplianceSubmission.
+type UpdateWorkspaceComplianceSubmissionParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
@@ -37881,6 +39701,9 @@ type ListEsimsParams struct {
 	// Mode Keep only eSIMs created in this mode. Without it, both live and test eSIMs are returned.
 	Mode *EsimMode `form:"mode,omitempty" json:"mode,omitempty"`
 
+	// Renewal Keep only eSIMs whose recurring subscription that has not ended is in this status, or that have none (`none`); repeat the parameter to match any of several.
+	Renewal *[]EsimRenewalState `form:"renewal,omitempty" json:"renewal,omitempty"`
+
 	// Tag Filter by tag. Accepts `name` to match any eSIM carrying that tag name, or `name:value` to match a specific tag pair (e.g. `trip:summer`). A trailing colon (`name:`) matches the name alone, the same as `name`. A term with an empty name is rejected. Repeat the parameter to AND-combine several tag filters.
 	Tag *EsimTagFilter `form:"tag,omitempty" json:"tag,omitempty"`
 
@@ -38782,6 +40605,33 @@ type ReleaseWorkspaceNumberParams struct {
 	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
 }
 
+// GetBillingResolvedPriceParams defines parameters for GetBillingResolvedPrice.
+type GetBillingResolvedPriceParams struct {
+	// ProductId Product ID to price. Provide exactly one of `product_id` or `product_slug`.
+	ProductId *ProductID `form:"product_id,omitempty" json:"product_id,omitempty"`
+
+	// ProductSlug Product slug to price. Provide exactly one of `product_id` or `product_slug`.
+	ProductSlug *string `form:"product_slug,omitempty" json:"product_slug,omitempty"`
+
+	// PlanId Published self-serve plan to price under in place of your current plan. Returns `404` if the plan is not an active self-serve plan.
+	PlanId *ProductID `form:"plan_id,omitempty" json:"plan_id,omitempty"`
+
+	// Dimensions Key-value pairs that refine attribute-based pricing, such as destination country or sender type. For example, `dimensions[country_code]=US`.
+	Dimensions *map[string]string `json:"dimensions,omitempty"`
+
+	// Currency Three-letter ISO currency code. Defaults to your organization's billing currency.
+	Currency *string `form:"currency,omitempty" json:"currency,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ListBillingWalletsParams defines parameters for ListBillingWallets.
+type ListBillingWalletsParams struct {
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
 // ListPreferencesParams defines parameters for ListPreferences.
 type ListPreferencesParams struct {
 	// Channel Return only preferences on this channel.
@@ -39283,6 +41133,122 @@ type GetSMSMessageParams struct {
 type ListSMSMessageEventsParams struct {
 	// Type Filter by event type, such as `sms.delivered` or `sms.failed`.
 	Type *string `form:"type,omitempty" json:"type,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ListWorkspaceSMSSendersParams defines parameters for ListWorkspaceSMSSenders.
+type ListWorkspaceSMSSendersParams struct {
+	// Type Filter senders by source type: a dedicated number, shared shortcode, or alphanumeric sender string.
+	Type *SMSSenderSourceKind `form:"type,omitempty" json:"type,omitempty"`
+
+	// NumberId Return the sender for one number you hold, using the ID from [List workspace numbers](/docs/api/reference/list-workspace-numbers). Exactly one sender exists per number, so this returns at most one result.
+	NumberId *AllocatedNumberID `form:"number_id,omitempty" json:"number_id,omitempty"`
+
+	// Sort Field to sort by. `created_at` (the default) sorts newest first with the default `order`. `sender` sorts alphabetically by the sender's own value (phone number, short code, or alphanumeric sender string), all treated as plain text.
+	Sort *SMSSenderSortField `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
+	Order *OrderDesc `form:"order,omitempty" json:"order,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// IncludeTotal When true, the response includes a `total` field with the total number of items matching the request's filters across all pages.
+	IncludeTotal *IncludeTotal `form:"include_total,omitempty" json:"include_total,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// CreateWorkspaceSMSSenderParams defines parameters for CreateWorkspaceSMSSender.
+type CreateWorkspaceSMSSenderParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetWorkspaceSMSSenderParams defines parameters for GetWorkspaceSMSSender.
+type GetWorkspaceSMSSenderParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// CreateWorkspaceSMSSenderRegistrationParams defines parameters for CreateWorkspaceSMSSenderRegistration.
+type CreateWorkspaceSMSSenderRegistrationParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ListWorkspaceSMSSenderRequirementsParams defines parameters for ListWorkspaceSMSSenderRequirements.
+type ListWorkspaceSMSSenderRequirementsParams struct {
+	// CountryCode Ask about one destination country. Omit to return every country relevant to the sender.
+	CountryCode *CountryCode `form:"country_code,omitempty" json:"country_code,omitempty"`
 
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
@@ -42313,6 +44279,21 @@ type AssignAudienceContactsJSONRequestBody = AudienceContactsAddRequest
 // UnassignAudienceContactsJSONRequestBody defines body for UnassignAudienceContacts for application/json ContentType.
 type UnassignAudienceContactsJSONRequestBody = AudienceContactsRemoveRequest
 
+// CreateComplianceAttachmentMultipartRequestBody defines body for CreateComplianceAttachment for multipart/form-data ContentType.
+type CreateComplianceAttachmentMultipartRequestBody = AttachmentUpload
+
+// CreateComplianceIdentityJSONRequestBody defines body for CreateComplianceIdentity for application/json ContentType.
+type CreateComplianceIdentityJSONRequestBody = ComplianceIdentityCreate
+
+// UpdateComplianceIdentityJSONRequestBody defines body for UpdateComplianceIdentity for application/json ContentType.
+type UpdateComplianceIdentityJSONRequestBody = ComplianceIdentityUpdate
+
+// CreateWorkspaceComplianceSubmissionJSONRequestBody defines body for CreateWorkspaceComplianceSubmission for application/json ContentType.
+type CreateWorkspaceComplianceSubmissionJSONRequestBody = ComplianceSubmissionCreate
+
+// UpdateWorkspaceComplianceSubmissionJSONRequestBody defines body for UpdateWorkspaceComplianceSubmission for application/json ContentType.
+type UpdateWorkspaceComplianceSubmissionJSONRequestBody = ComplianceSubmissionResupply
+
 // CreateContactPropertyJSONRequestBody defines body for CreateContactProperty for application/json ContentType.
 type CreateContactPropertyJSONRequestBody = ContactPropertyCreateRequest
 
@@ -42474,6 +44455,12 @@ type UpdateSMSKeywordRuleJSONRequestBody = SMSKeywordRuleUpdate
 
 // CreateSMSMessageJSONRequestBody defines body for CreateSMSMessage for application/json ContentType.
 type CreateSMSMessageJSONRequestBody = SMSMessageSendRequest
+
+// CreateWorkspaceSMSSenderJSONRequestBody defines body for CreateWorkspaceSMSSender for application/json ContentType.
+type CreateWorkspaceSMSSenderJSONRequestBody = SMSSenderCreate
+
+// CreateWorkspaceSMSSenderRegistrationJSONRequestBody defines body for CreateWorkspaceSMSSenderRegistration for application/json ContentType.
+type CreateWorkspaceSMSSenderRegistrationJSONRequestBody = SMSCountryRegistrationCreate
 
 // CreateSMSSuppressionJSONRequestBody defines body for CreateSMSSuppression for application/json ContentType.
 type CreateSMSSuppressionJSONRequestBody = SMSSuppressionCreate
@@ -45257,6 +47244,208 @@ func (t *AMBTemplateSend) UnmarshalJSON(b []byte) error {
 		err = json.Unmarshal(raw, &t.Slug)
 		if err != nil {
 			return fmt.Errorf("error reading 'slug': %w", err)
+		}
+	}
+
+	return err
+}
+
+// AsComplianceAnswer0 returns the union data inside the ComplianceAnswer as a ComplianceAnswer0
+func (t ComplianceAnswer) AsComplianceAnswer0() (ComplianceAnswer0, error) {
+	var body ComplianceAnswer0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromComplianceAnswer0 overwrites any union data inside the ComplianceAnswer as the provided ComplianceAnswer0
+func (t *ComplianceAnswer) FromComplianceAnswer0(v ComplianceAnswer0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeComplianceAnswer0 performs a merge with any union data inside the ComplianceAnswer, using the provided ComplianceAnswer0
+func (t *ComplianceAnswer) MergeComplianceAnswer0(v ComplianceAnswer0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsComplianceAnswer1 returns the union data inside the ComplianceAnswer as a ComplianceAnswer1
+func (t ComplianceAnswer) AsComplianceAnswer1() (ComplianceAnswer1, error) {
+	var body ComplianceAnswer1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromComplianceAnswer1 overwrites any union data inside the ComplianceAnswer as the provided ComplianceAnswer1
+func (t *ComplianceAnswer) FromComplianceAnswer1(v ComplianceAnswer1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeComplianceAnswer1 performs a merge with any union data inside the ComplianceAnswer, using the provided ComplianceAnswer1
+func (t *ComplianceAnswer) MergeComplianceAnswer1(v ComplianceAnswer1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsComplianceAnswer2 returns the union data inside the ComplianceAnswer as a ComplianceAnswer2
+func (t ComplianceAnswer) AsComplianceAnswer2() (ComplianceAnswer2, error) {
+	var body ComplianceAnswer2
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromComplianceAnswer2 overwrites any union data inside the ComplianceAnswer as the provided ComplianceAnswer2
+func (t *ComplianceAnswer) FromComplianceAnswer2(v ComplianceAnswer2) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeComplianceAnswer2 performs a merge with any union data inside the ComplianceAnswer, using the provided ComplianceAnswer2
+func (t *ComplianceAnswer) MergeComplianceAnswer2(v ComplianceAnswer2) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsComplianceAnswer3 returns the union data inside the ComplianceAnswer as a ComplianceAnswer3
+func (t ComplianceAnswer) AsComplianceAnswer3() (ComplianceAnswer3, error) {
+	var body ComplianceAnswer3
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromComplianceAnswer3 overwrites any union data inside the ComplianceAnswer as the provided ComplianceAnswer3
+func (t *ComplianceAnswer) FromComplianceAnswer3(v ComplianceAnswer3) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeComplianceAnswer3 performs a merge with any union data inside the ComplianceAnswer, using the provided ComplianceAnswer3
+func (t *ComplianceAnswer) MergeComplianceAnswer3(v ComplianceAnswer3) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t ComplianceAnswer) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	object := make(map[string]json.RawMessage)
+	if t.union != nil {
+		err = json.Unmarshal(b, &object)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if t.AttachmentId != nil {
+		object["attachment_id"], err = json.Marshal(t.AttachmentId)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'attachment_id': %w", err)
+		}
+	}
+
+	if t.AttachmentIds != nil {
+		object["attachment_ids"], err = json.Marshal(t.AttachmentIds)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'attachment_ids': %w", err)
+		}
+	}
+
+	object["key"], err = json.Marshal(t.Key)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'key': %w", err)
+	}
+
+	if t.Value != nil {
+		object["value"], err = json.Marshal(t.Value)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'value': %w", err)
+		}
+	}
+
+	if t.Values != nil {
+		object["values"], err = json.Marshal(t.Values)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'values': %w", err)
+		}
+	}
+	b, err = json.Marshal(object)
+	return b, err
+}
+
+func (t *ComplianceAnswer) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	if err != nil {
+		return err
+	}
+	object := make(map[string]json.RawMessage)
+	err = json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["attachment_id"]; found {
+		err = json.Unmarshal(raw, &t.AttachmentId)
+		if err != nil {
+			return fmt.Errorf("error reading 'attachment_id': %w", err)
+		}
+	}
+
+	if raw, found := object["attachment_ids"]; found {
+		err = json.Unmarshal(raw, &t.AttachmentIds)
+		if err != nil {
+			return fmt.Errorf("error reading 'attachment_ids': %w", err)
+		}
+	}
+
+	if raw, found := object["key"]; found {
+		err = json.Unmarshal(raw, &t.Key)
+		if err != nil {
+			return fmt.Errorf("error reading 'key': %w", err)
+		}
+	}
+
+	if raw, found := object["value"]; found {
+		err = json.Unmarshal(raw, &t.Value)
+		if err != nil {
+			return fmt.Errorf("error reading 'value': %w", err)
+		}
+	}
+
+	if raw, found := object["values"]; found {
+		err = json.Unmarshal(raw, &t.Values)
+		if err != nil {
+			return fmt.Errorf("error reading 'values': %w", err)
 		}
 	}
 
@@ -50793,6 +52982,56 @@ type ClientInterface interface {
 	// GetAudienceMembershipStatistics request
 	GetAudienceMembershipStatistics(ctx context.Context, audienceId AudienceID, params *GetAudienceMembershipStatisticsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// ListComplianceAttachments request
+	ListComplianceAttachments(ctx context.Context, params *ListComplianceAttachmentsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateComplianceAttachmentWithBody request with any body
+	CreateComplianceAttachmentWithBody(ctx context.Context, params *CreateComplianceAttachmentParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteComplianceAttachment request
+	DeleteComplianceAttachment(ctx context.Context, attachmentId AttachmentID, params *DeleteComplianceAttachmentParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetComplianceAttachment request
+	GetComplianceAttachment(ctx context.Context, attachmentId AttachmentID, params *GetComplianceAttachmentParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetComplianceDocumentTemplate request
+	GetComplianceDocumentTemplate(ctx context.Context, templateId ComplianceTemplateID, params *GetComplianceDocumentTemplateParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListComplianceIdentities request
+	ListComplianceIdentities(ctx context.Context, params *ListComplianceIdentitiesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateComplianceIdentityWithBody request with any body
+	CreateComplianceIdentityWithBody(ctx context.Context, params *CreateComplianceIdentityParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateComplianceIdentity(ctx context.Context, params *CreateComplianceIdentityParams, body CreateComplianceIdentityJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteComplianceIdentity request
+	DeleteComplianceIdentity(ctx context.Context, identityId ComplianceIdentityID, params *DeleteComplianceIdentityParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetComplianceIdentity request
+	GetComplianceIdentity(ctx context.Context, identityId ComplianceIdentityID, params *GetComplianceIdentityParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateComplianceIdentityWithBody request with any body
+	UpdateComplianceIdentityWithBody(ctx context.Context, identityId ComplianceIdentityID, params *UpdateComplianceIdentityParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateComplianceIdentity(ctx context.Context, identityId ComplianceIdentityID, params *UpdateComplianceIdentityParams, body UpdateComplianceIdentityJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetWorkspaceComplianceRequirements request
+	GetWorkspaceComplianceRequirements(ctx context.Context, params *GetWorkspaceComplianceRequirementsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateWorkspaceComplianceSubmissionWithBody request with any body
+	CreateWorkspaceComplianceSubmissionWithBody(ctx context.Context, params *CreateWorkspaceComplianceSubmissionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateWorkspaceComplianceSubmission(ctx context.Context, params *CreateWorkspaceComplianceSubmissionParams, body CreateWorkspaceComplianceSubmissionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetWorkspaceComplianceSubmission request
+	GetWorkspaceComplianceSubmission(ctx context.Context, submissionId ComplianceSubmissionID, params *GetWorkspaceComplianceSubmissionParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateWorkspaceComplianceSubmissionWithBody request with any body
+	UpdateWorkspaceComplianceSubmissionWithBody(ctx context.Context, submissionId ComplianceSubmissionID, params *UpdateWorkspaceComplianceSubmissionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateWorkspaceComplianceSubmission(ctx context.Context, submissionId ComplianceSubmissionID, params *UpdateWorkspaceComplianceSubmissionParams, body UpdateWorkspaceComplianceSubmissionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// ListContactProperties request
 	ListContactProperties(ctx context.Context, params *ListContactPropertiesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -51410,6 +53649,12 @@ type ClientInterface interface {
 	// ReleaseWorkspaceNumber request
 	ReleaseWorkspaceNumber(ctx context.Context, numberId AllocatedNumberID, params *ReleaseWorkspaceNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// GetBillingResolvedPrice request
+	GetBillingResolvedPrice(ctx context.Context, params *GetBillingResolvedPriceParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListBillingWallets request
+	ListBillingWallets(ctx context.Context, params *ListBillingWalletsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// ListPreferences request
 	ListPreferences(ctx context.Context, params *ListPreferencesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -51488,6 +53733,25 @@ type ClientInterface interface {
 
 	// ListSMSMessageEvents request
 	ListSMSMessageEvents(ctx context.Context, messageId SMSMessageID, params *ListSMSMessageEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListWorkspaceSMSSenders request
+	ListWorkspaceSMSSenders(ctx context.Context, params *ListWorkspaceSMSSendersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateWorkspaceSMSSenderWithBody request with any body
+	CreateWorkspaceSMSSenderWithBody(ctx context.Context, params *CreateWorkspaceSMSSenderParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateWorkspaceSMSSender(ctx context.Context, params *CreateWorkspaceSMSSenderParams, body CreateWorkspaceSMSSenderJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetWorkspaceSMSSender request
+	GetWorkspaceSMSSender(ctx context.Context, senderId SMSSenderID, params *GetWorkspaceSMSSenderParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateWorkspaceSMSSenderRegistrationWithBody request with any body
+	CreateWorkspaceSMSSenderRegistrationWithBody(ctx context.Context, senderId SMSSenderID, params *CreateWorkspaceSMSSenderRegistrationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateWorkspaceSMSSenderRegistration(ctx context.Context, senderId SMSSenderID, params *CreateWorkspaceSMSSenderRegistrationParams, body CreateWorkspaceSMSSenderRegistrationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListWorkspaceSMSSenderRequirements request
+	ListWorkspaceSMSSenderRequirements(ctx context.Context, senderId SMSSenderID, params *ListWorkspaceSMSSenderRequirementsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetSMSStatsByCarrier request
 	GetSMSStatsByCarrier(ctx context.Context, params *GetSMSStatsByCarrierParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -53006,6 +55270,222 @@ func (c *Client) GetAudienceMembership(ctx context.Context, audienceId AudienceI
 
 func (c *Client) GetAudienceMembershipStatistics(ctx context.Context, audienceId AudienceID, params *GetAudienceMembershipStatisticsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetAudienceMembershipStatisticsRequest(c.Server, audienceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListComplianceAttachments(ctx context.Context, params *ListComplianceAttachmentsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListComplianceAttachmentsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateComplianceAttachmentWithBody(ctx context.Context, params *CreateComplianceAttachmentParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateComplianceAttachmentRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteComplianceAttachment(ctx context.Context, attachmentId AttachmentID, params *DeleteComplianceAttachmentParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteComplianceAttachmentRequest(c.Server, attachmentId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetComplianceAttachment(ctx context.Context, attachmentId AttachmentID, params *GetComplianceAttachmentParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetComplianceAttachmentRequest(c.Server, attachmentId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetComplianceDocumentTemplate(ctx context.Context, templateId ComplianceTemplateID, params *GetComplianceDocumentTemplateParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetComplianceDocumentTemplateRequest(c.Server, templateId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListComplianceIdentities(ctx context.Context, params *ListComplianceIdentitiesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListComplianceIdentitiesRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateComplianceIdentityWithBody(ctx context.Context, params *CreateComplianceIdentityParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateComplianceIdentityRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateComplianceIdentity(ctx context.Context, params *CreateComplianceIdentityParams, body CreateComplianceIdentityJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateComplianceIdentityRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteComplianceIdentity(ctx context.Context, identityId ComplianceIdentityID, params *DeleteComplianceIdentityParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteComplianceIdentityRequest(c.Server, identityId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetComplianceIdentity(ctx context.Context, identityId ComplianceIdentityID, params *GetComplianceIdentityParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetComplianceIdentityRequest(c.Server, identityId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateComplianceIdentityWithBody(ctx context.Context, identityId ComplianceIdentityID, params *UpdateComplianceIdentityParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateComplianceIdentityRequestWithBody(c.Server, identityId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateComplianceIdentity(ctx context.Context, identityId ComplianceIdentityID, params *UpdateComplianceIdentityParams, body UpdateComplianceIdentityJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateComplianceIdentityRequest(c.Server, identityId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetWorkspaceComplianceRequirements(ctx context.Context, params *GetWorkspaceComplianceRequirementsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWorkspaceComplianceRequirementsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateWorkspaceComplianceSubmissionWithBody(ctx context.Context, params *CreateWorkspaceComplianceSubmissionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateWorkspaceComplianceSubmissionRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateWorkspaceComplianceSubmission(ctx context.Context, params *CreateWorkspaceComplianceSubmissionParams, body CreateWorkspaceComplianceSubmissionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateWorkspaceComplianceSubmissionRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetWorkspaceComplianceSubmission(ctx context.Context, submissionId ComplianceSubmissionID, params *GetWorkspaceComplianceSubmissionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWorkspaceComplianceSubmissionRequest(c.Server, submissionId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateWorkspaceComplianceSubmissionWithBody(ctx context.Context, submissionId ComplianceSubmissionID, params *UpdateWorkspaceComplianceSubmissionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateWorkspaceComplianceSubmissionRequestWithBody(c.Server, submissionId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateWorkspaceComplianceSubmission(ctx context.Context, submissionId ComplianceSubmissionID, params *UpdateWorkspaceComplianceSubmissionParams, body UpdateWorkspaceComplianceSubmissionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateWorkspaceComplianceSubmissionRequest(c.Server, submissionId, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -55668,6 +58148,30 @@ func (c *Client) ReleaseWorkspaceNumber(ctx context.Context, numberId AllocatedN
 	return c.Client.Do(req)
 }
 
+func (c *Client) GetBillingResolvedPrice(ctx context.Context, params *GetBillingResolvedPriceParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetBillingResolvedPriceRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListBillingWallets(ctx context.Context, params *ListBillingWalletsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListBillingWalletsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 func (c *Client) ListPreferences(ctx context.Context, params *ListPreferencesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListPreferencesRequest(c.Server, params)
 	if err != nil {
@@ -56006,6 +58510,90 @@ func (c *Client) GetSMSMessage(ctx context.Context, messageId SMSMessageID, para
 
 func (c *Client) ListSMSMessageEvents(ctx context.Context, messageId SMSMessageID, params *ListSMSMessageEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListSMSMessageEventsRequest(c.Server, messageId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListWorkspaceSMSSenders(ctx context.Context, params *ListWorkspaceSMSSendersParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListWorkspaceSMSSendersRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateWorkspaceSMSSenderWithBody(ctx context.Context, params *CreateWorkspaceSMSSenderParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateWorkspaceSMSSenderRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateWorkspaceSMSSender(ctx context.Context, params *CreateWorkspaceSMSSenderParams, body CreateWorkspaceSMSSenderJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateWorkspaceSMSSenderRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetWorkspaceSMSSender(ctx context.Context, senderId SMSSenderID, params *GetWorkspaceSMSSenderParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWorkspaceSMSSenderRequest(c.Server, senderId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateWorkspaceSMSSenderRegistrationWithBody(ctx context.Context, senderId SMSSenderID, params *CreateWorkspaceSMSSenderRegistrationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateWorkspaceSMSSenderRegistrationRequestWithBody(c.Server, senderId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateWorkspaceSMSSenderRegistration(ctx context.Context, senderId SMSSenderID, params *CreateWorkspaceSMSSenderRegistrationParams, body CreateWorkspaceSMSSenderRegistrationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateWorkspaceSMSSenderRegistrationRequest(c.Server, senderId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListWorkspaceSMSSenderRequirements(ctx context.Context, senderId SMSSenderID, params *ListWorkspaceSMSSenderRequirementsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListWorkspaceSMSSenderRequirementsRequest(c.Server, senderId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -65303,6 +67891,1176 @@ func NewGetAudienceMembershipStatisticsRequest(server string, audienceId Audienc
 			}
 
 			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListComplianceAttachmentsRequest generates requests for ListComplianceAttachments
+func NewListComplianceAttachmentsRequest(server string, params *ListComplianceAttachmentsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/compliance/attachments")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTotal != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_total", *params.IncludeTotal, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateComplianceAttachmentRequestWithBody generates requests for CreateComplianceAttachment with any type of body
+func NewCreateComplianceAttachmentRequestWithBody(server string, params *CreateComplianceAttachmentParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/compliance/attachments")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteComplianceAttachmentRequest generates requests for DeleteComplianceAttachment
+func NewDeleteComplianceAttachmentRequest(server string, attachmentId AttachmentID, params *DeleteComplianceAttachmentParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "attachment_id", attachmentId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/compliance/attachments/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetComplianceAttachmentRequest generates requests for GetComplianceAttachment
+func NewGetComplianceAttachmentRequest(server string, attachmentId AttachmentID, params *GetComplianceAttachmentParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "attachment_id", attachmentId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/compliance/attachments/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetComplianceDocumentTemplateRequest generates requests for GetComplianceDocumentTemplate
+func NewGetComplianceDocumentTemplateRequest(server string, templateId ComplianceTemplateID, params *GetComplianceDocumentTemplateParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_id", templateId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/compliance/document-templates/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListComplianceIdentitiesRequest generates requests for ListComplianceIdentities
+func NewListComplianceIdentitiesRequest(server string, params *ListComplianceIdentitiesParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/compliance/identities")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTotal != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_total", *params.IncludeTotal, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateComplianceIdentityRequest calls the generic CreateComplianceIdentity builder with application/json body
+func NewCreateComplianceIdentityRequest(server string, params *CreateComplianceIdentityParams, body CreateComplianceIdentityJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateComplianceIdentityRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateComplianceIdentityRequestWithBody generates requests for CreateComplianceIdentity with any type of body
+func NewCreateComplianceIdentityRequestWithBody(server string, params *CreateComplianceIdentityParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/compliance/identities")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteComplianceIdentityRequest generates requests for DeleteComplianceIdentity
+func NewDeleteComplianceIdentityRequest(server string, identityId ComplianceIdentityID, params *DeleteComplianceIdentityParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "identity_id", identityId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/compliance/identities/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetComplianceIdentityRequest generates requests for GetComplianceIdentity
+func NewGetComplianceIdentityRequest(server string, identityId ComplianceIdentityID, params *GetComplianceIdentityParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "identity_id", identityId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/compliance/identities/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUpdateComplianceIdentityRequest calls the generic UpdateComplianceIdentity builder with application/json body
+func NewUpdateComplianceIdentityRequest(server string, identityId ComplianceIdentityID, params *UpdateComplianceIdentityParams, body UpdateComplianceIdentityJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateComplianceIdentityRequestWithBody(server, identityId, params, "application/json", bodyReader)
+}
+
+// NewUpdateComplianceIdentityRequestWithBody generates requests for UpdateComplianceIdentity with any type of body
+func NewUpdateComplianceIdentityRequestWithBody(server string, identityId ComplianceIdentityID, params *UpdateComplianceIdentityParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "identity_id", identityId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/compliance/identities/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetWorkspaceComplianceRequirementsRequest generates requests for GetWorkspaceComplianceRequirements
+func NewGetWorkspaceComplianceRequirementsRequest(server string, params *GetWorkspaceComplianceRequirementsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/compliance/requirements")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "subject_kind", params.SubjectKind, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			return nil, err
+		} else {
+			for _, qp := range strings.Split(queryFrag, "&") {
+				rawQueryFragments = append(rawQueryFragments, qp)
+			}
+		}
+
+		if params.SubjectId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "subject_id", *params.SubjectId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "country_code", params.CountryCode, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			return nil, err
+		} else {
+			for _, qp := range strings.Split(queryFrag, "&") {
+				rawQueryFragments = append(rawQueryFragments, qp)
+			}
+		}
+
+		if params.Program != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "program", *params.Program, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IdentityId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "identity_id", *params.IdentityId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateWorkspaceComplianceSubmissionRequest calls the generic CreateWorkspaceComplianceSubmission builder with application/json body
+func NewCreateWorkspaceComplianceSubmissionRequest(server string, params *CreateWorkspaceComplianceSubmissionParams, body CreateWorkspaceComplianceSubmissionJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateWorkspaceComplianceSubmissionRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateWorkspaceComplianceSubmissionRequestWithBody generates requests for CreateWorkspaceComplianceSubmission with any type of body
+func NewCreateWorkspaceComplianceSubmissionRequestWithBody(server string, params *CreateWorkspaceComplianceSubmissionParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/compliance/submissions")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetWorkspaceComplianceSubmissionRequest generates requests for GetWorkspaceComplianceSubmission
+func NewGetWorkspaceComplianceSubmissionRequest(server string, submissionId ComplianceSubmissionID, params *GetWorkspaceComplianceSubmissionParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "submission_id", submissionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/compliance/submissions/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUpdateWorkspaceComplianceSubmissionRequest calls the generic UpdateWorkspaceComplianceSubmission builder with application/json body
+func NewUpdateWorkspaceComplianceSubmissionRequest(server string, submissionId ComplianceSubmissionID, params *UpdateWorkspaceComplianceSubmissionParams, body UpdateWorkspaceComplianceSubmissionJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateWorkspaceComplianceSubmissionRequestWithBody(server, submissionId, params, "application/json", bodyReader)
+}
+
+// NewUpdateWorkspaceComplianceSubmissionRequestWithBody generates requests for UpdateWorkspaceComplianceSubmission with any type of body
+func NewUpdateWorkspaceComplianceSubmissionRequestWithBody(server string, submissionId ComplianceSubmissionID, params *UpdateWorkspaceComplianceSubmissionParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "submission_id", submissionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/compliance/submissions/%s/resupply", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
 		}
 
 	}
@@ -79047,6 +82805,18 @@ func NewListEsimsRequest(server string, params *ListEsimsParams) (*http.Request,
 
 		}
 
+		if params.Renewal != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "renewal", *params.Renewal, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if params.Tag != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "tag", *params.Tag, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
@@ -82422,6 +86192,165 @@ func NewReleaseWorkspaceNumberRequest(server string, numberId AllocatedNumberID,
 	return req, nil
 }
 
+// NewGetBillingResolvedPriceRequest generates requests for GetBillingResolvedPrice
+func NewGetBillingResolvedPriceRequest(server string, params *GetBillingResolvedPriceParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/organization/billing/prices/resolve")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.ProductId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "product_id", *params.ProductId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.ProductSlug != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "product_slug", *params.ProductSlug, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.PlanId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "plan_id", *params.PlanId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Dimensions != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("deepObject", true, "dimensions", *params.Dimensions, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "object", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Currency != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "currency", *params.Currency, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XOrganizationId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListBillingWalletsRequest generates requests for ListBillingWallets
+func NewListBillingWalletsRequest(server string, params *ListBillingWalletsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/organization/billing/wallets")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XOrganizationId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewListPreferencesRequest generates requests for ListPreferences
 func NewListPreferencesRequest(server string, params *ListPreferencesParams) (*http.Request, error) {
 	var err error
@@ -84239,6 +88168,478 @@ func NewListSMSMessageEventsRequest(server string, messageId SMSMessageID, param
 		if params.Type != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "type", *params.Type, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListWorkspaceSMSSendersRequest generates requests for ListWorkspaceSMSSenders
+func NewListWorkspaceSMSSendersRequest(server string, params *ListWorkspaceSMSSendersParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/senders")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Type != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "type", *params.Type, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.NumberId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "number_id", *params.NumberId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTotal != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_total", *params.IncludeTotal, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateWorkspaceSMSSenderRequest calls the generic CreateWorkspaceSMSSender builder with application/json body
+func NewCreateWorkspaceSMSSenderRequest(server string, params *CreateWorkspaceSMSSenderParams, body CreateWorkspaceSMSSenderJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateWorkspaceSMSSenderRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateWorkspaceSMSSenderRequestWithBody generates requests for CreateWorkspaceSMSSender with any type of body
+func NewCreateWorkspaceSMSSenderRequestWithBody(server string, params *CreateWorkspaceSMSSenderParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/senders")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetWorkspaceSMSSenderRequest generates requests for GetWorkspaceSMSSender
+func NewGetWorkspaceSMSSenderRequest(server string, senderId SMSSenderID, params *GetWorkspaceSMSSenderParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "sender_id", senderId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/senders/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateWorkspaceSMSSenderRegistrationRequest calls the generic CreateWorkspaceSMSSenderRegistration builder with application/json body
+func NewCreateWorkspaceSMSSenderRegistrationRequest(server string, senderId SMSSenderID, params *CreateWorkspaceSMSSenderRegistrationParams, body CreateWorkspaceSMSSenderRegistrationJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateWorkspaceSMSSenderRegistrationRequestWithBody(server, senderId, params, "application/json", bodyReader)
+}
+
+// NewCreateWorkspaceSMSSenderRegistrationRequestWithBody generates requests for CreateWorkspaceSMSSenderRegistration with any type of body
+func NewCreateWorkspaceSMSSenderRegistrationRequestWithBody(server string, senderId SMSSenderID, params *CreateWorkspaceSMSSenderRegistrationParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "sender_id", senderId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/senders/%s/registrations", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListWorkspaceSMSSenderRequirementsRequest generates requests for ListWorkspaceSMSSenderRequirements
+func NewListWorkspaceSMSSenderRequirementsRequest(server string, senderId SMSSenderID, params *ListWorkspaceSMSSenderRequirementsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "sender_id", senderId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/senders/%s/requirements", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.CountryCode != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "country_code", *params.CountryCode, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -96827,6 +101228,56 @@ type ClientWithResponsesInterface interface {
 	// GetAudienceMembershipStatisticsWithResponse request
 	GetAudienceMembershipStatisticsWithResponse(ctx context.Context, audienceId AudienceID, params *GetAudienceMembershipStatisticsParams, reqEditors ...RequestEditorFn) (*GetAudienceMembershipStatisticsResponse, error)
 
+	// ListComplianceAttachmentsWithResponse request
+	ListComplianceAttachmentsWithResponse(ctx context.Context, params *ListComplianceAttachmentsParams, reqEditors ...RequestEditorFn) (*ListComplianceAttachmentsResponse, error)
+
+	// CreateComplianceAttachmentWithBodyWithResponse request with any body
+	CreateComplianceAttachmentWithBodyWithResponse(ctx context.Context, params *CreateComplianceAttachmentParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateComplianceAttachmentResponse, error)
+
+	// DeleteComplianceAttachmentWithResponse request
+	DeleteComplianceAttachmentWithResponse(ctx context.Context, attachmentId AttachmentID, params *DeleteComplianceAttachmentParams, reqEditors ...RequestEditorFn) (*DeleteComplianceAttachmentResponse, error)
+
+	// GetComplianceAttachmentWithResponse request
+	GetComplianceAttachmentWithResponse(ctx context.Context, attachmentId AttachmentID, params *GetComplianceAttachmentParams, reqEditors ...RequestEditorFn) (*GetComplianceAttachmentResponse, error)
+
+	// GetComplianceDocumentTemplateWithResponse request
+	GetComplianceDocumentTemplateWithResponse(ctx context.Context, templateId ComplianceTemplateID, params *GetComplianceDocumentTemplateParams, reqEditors ...RequestEditorFn) (*GetComplianceDocumentTemplateResponse, error)
+
+	// ListComplianceIdentitiesWithResponse request
+	ListComplianceIdentitiesWithResponse(ctx context.Context, params *ListComplianceIdentitiesParams, reqEditors ...RequestEditorFn) (*ListComplianceIdentitiesResponse, error)
+
+	// CreateComplianceIdentityWithBodyWithResponse request with any body
+	CreateComplianceIdentityWithBodyWithResponse(ctx context.Context, params *CreateComplianceIdentityParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateComplianceIdentityResponse, error)
+
+	CreateComplianceIdentityWithResponse(ctx context.Context, params *CreateComplianceIdentityParams, body CreateComplianceIdentityJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateComplianceIdentityResponse, error)
+
+	// DeleteComplianceIdentityWithResponse request
+	DeleteComplianceIdentityWithResponse(ctx context.Context, identityId ComplianceIdentityID, params *DeleteComplianceIdentityParams, reqEditors ...RequestEditorFn) (*DeleteComplianceIdentityResponse, error)
+
+	// GetComplianceIdentityWithResponse request
+	GetComplianceIdentityWithResponse(ctx context.Context, identityId ComplianceIdentityID, params *GetComplianceIdentityParams, reqEditors ...RequestEditorFn) (*GetComplianceIdentityResponse, error)
+
+	// UpdateComplianceIdentityWithBodyWithResponse request with any body
+	UpdateComplianceIdentityWithBodyWithResponse(ctx context.Context, identityId ComplianceIdentityID, params *UpdateComplianceIdentityParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateComplianceIdentityResponse, error)
+
+	UpdateComplianceIdentityWithResponse(ctx context.Context, identityId ComplianceIdentityID, params *UpdateComplianceIdentityParams, body UpdateComplianceIdentityJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateComplianceIdentityResponse, error)
+
+	// GetWorkspaceComplianceRequirementsWithResponse request
+	GetWorkspaceComplianceRequirementsWithResponse(ctx context.Context, params *GetWorkspaceComplianceRequirementsParams, reqEditors ...RequestEditorFn) (*GetWorkspaceComplianceRequirementsResponse, error)
+
+	// CreateWorkspaceComplianceSubmissionWithBodyWithResponse request with any body
+	CreateWorkspaceComplianceSubmissionWithBodyWithResponse(ctx context.Context, params *CreateWorkspaceComplianceSubmissionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateWorkspaceComplianceSubmissionResponse, error)
+
+	CreateWorkspaceComplianceSubmissionWithResponse(ctx context.Context, params *CreateWorkspaceComplianceSubmissionParams, body CreateWorkspaceComplianceSubmissionJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateWorkspaceComplianceSubmissionResponse, error)
+
+	// GetWorkspaceComplianceSubmissionWithResponse request
+	GetWorkspaceComplianceSubmissionWithResponse(ctx context.Context, submissionId ComplianceSubmissionID, params *GetWorkspaceComplianceSubmissionParams, reqEditors ...RequestEditorFn) (*GetWorkspaceComplianceSubmissionResponse, error)
+
+	// UpdateWorkspaceComplianceSubmissionWithBodyWithResponse request with any body
+	UpdateWorkspaceComplianceSubmissionWithBodyWithResponse(ctx context.Context, submissionId ComplianceSubmissionID, params *UpdateWorkspaceComplianceSubmissionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateWorkspaceComplianceSubmissionResponse, error)
+
+	UpdateWorkspaceComplianceSubmissionWithResponse(ctx context.Context, submissionId ComplianceSubmissionID, params *UpdateWorkspaceComplianceSubmissionParams, body UpdateWorkspaceComplianceSubmissionJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateWorkspaceComplianceSubmissionResponse, error)
+
 	// ListContactPropertiesWithResponse request
 	ListContactPropertiesWithResponse(ctx context.Context, params *ListContactPropertiesParams, reqEditors ...RequestEditorFn) (*ListContactPropertiesResponse, error)
 
@@ -97444,6 +101895,12 @@ type ClientWithResponsesInterface interface {
 	// ReleaseWorkspaceNumberWithResponse request
 	ReleaseWorkspaceNumberWithResponse(ctx context.Context, numberId AllocatedNumberID, params *ReleaseWorkspaceNumberParams, reqEditors ...RequestEditorFn) (*ReleaseWorkspaceNumberResponse, error)
 
+	// GetBillingResolvedPriceWithResponse request
+	GetBillingResolvedPriceWithResponse(ctx context.Context, params *GetBillingResolvedPriceParams, reqEditors ...RequestEditorFn) (*GetBillingResolvedPriceResponse, error)
+
+	// ListBillingWalletsWithResponse request
+	ListBillingWalletsWithResponse(ctx context.Context, params *ListBillingWalletsParams, reqEditors ...RequestEditorFn) (*ListBillingWalletsResponse, error)
+
 	// ListPreferencesWithResponse request
 	ListPreferencesWithResponse(ctx context.Context, params *ListPreferencesParams, reqEditors ...RequestEditorFn) (*ListPreferencesResponse, error)
 
@@ -97522,6 +101979,25 @@ type ClientWithResponsesInterface interface {
 
 	// ListSMSMessageEventsWithResponse request
 	ListSMSMessageEventsWithResponse(ctx context.Context, messageId SMSMessageID, params *ListSMSMessageEventsParams, reqEditors ...RequestEditorFn) (*ListSMSMessageEventsResponse, error)
+
+	// ListWorkspaceSMSSendersWithResponse request
+	ListWorkspaceSMSSendersWithResponse(ctx context.Context, params *ListWorkspaceSMSSendersParams, reqEditors ...RequestEditorFn) (*ListWorkspaceSMSSendersResponse, error)
+
+	// CreateWorkspaceSMSSenderWithBodyWithResponse request with any body
+	CreateWorkspaceSMSSenderWithBodyWithResponse(ctx context.Context, params *CreateWorkspaceSMSSenderParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateWorkspaceSMSSenderResponse, error)
+
+	CreateWorkspaceSMSSenderWithResponse(ctx context.Context, params *CreateWorkspaceSMSSenderParams, body CreateWorkspaceSMSSenderJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateWorkspaceSMSSenderResponse, error)
+
+	// GetWorkspaceSMSSenderWithResponse request
+	GetWorkspaceSMSSenderWithResponse(ctx context.Context, senderId SMSSenderID, params *GetWorkspaceSMSSenderParams, reqEditors ...RequestEditorFn) (*GetWorkspaceSMSSenderResponse, error)
+
+	// CreateWorkspaceSMSSenderRegistrationWithBodyWithResponse request with any body
+	CreateWorkspaceSMSSenderRegistrationWithBodyWithResponse(ctx context.Context, senderId SMSSenderID, params *CreateWorkspaceSMSSenderRegistrationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateWorkspaceSMSSenderRegistrationResponse, error)
+
+	CreateWorkspaceSMSSenderRegistrationWithResponse(ctx context.Context, senderId SMSSenderID, params *CreateWorkspaceSMSSenderRegistrationParams, body CreateWorkspaceSMSSenderRegistrationJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateWorkspaceSMSSenderRegistrationResponse, error)
+
+	// ListWorkspaceSMSSenderRequirementsWithResponse request
+	ListWorkspaceSMSSenderRequirementsWithResponse(ctx context.Context, senderId SMSSenderID, params *ListWorkspaceSMSSenderRequirementsParams, reqEditors ...RequestEditorFn) (*ListWorkspaceSMSSenderRequirementsResponse, error)
 
 	// GetSMSStatsByCarrierWithResponse request
 	GetSMSStatsByCarrierWithResponse(ctx context.Context, params *GetSMSStatsByCarrierParams, reqEditors ...RequestEditorFn) (*GetSMSStatsByCarrierResponse, error)
@@ -100760,6 +105236,538 @@ func (r GetAudienceMembershipStatisticsResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r GetAudienceMembershipStatisticsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListComplianceAttachmentsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AttachmentList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListComplianceAttachmentsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListComplianceAttachmentsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListComplianceAttachmentsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateComplianceAttachmentResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *Attachment
+	JSON201      *Attachment
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON413      *PayloadTooLarge
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateComplianceAttachmentResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateComplianceAttachmentResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateComplianceAttachmentResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteComplianceAttachmentResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteComplianceAttachmentResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteComplianceAttachmentResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteComplianceAttachmentResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetComplianceAttachmentResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetComplianceAttachmentResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetComplianceAttachmentResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetComplianceAttachmentResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetComplianceDocumentTemplateResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON501      *NotImplemented
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetComplianceDocumentTemplateResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetComplianceDocumentTemplateResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetComplianceDocumentTemplateResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListComplianceIdentitiesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ComplianceIdentityList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListComplianceIdentitiesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListComplianceIdentitiesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListComplianceIdentitiesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateComplianceIdentityResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *ComplianceIdentity
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *ValidationError
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateComplianceIdentityResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateComplianceIdentityResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateComplianceIdentityResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteComplianceIdentityResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteComplianceIdentityResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteComplianceIdentityResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteComplianceIdentityResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetComplianceIdentityResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ComplianceIdentity
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetComplianceIdentityResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetComplianceIdentityResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetComplianceIdentityResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateComplianceIdentityResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ComplianceIdentity
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *ValidationError
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateComplianceIdentityResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateComplianceIdentityResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateComplianceIdentityResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetWorkspaceComplianceRequirementsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ComplianceRequirement
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWorkspaceComplianceRequirementsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWorkspaceComplianceRequirementsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetWorkspaceComplianceRequirementsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateWorkspaceComplianceSubmissionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *ComplianceSubmission
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON402      *PaymentRequired
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateWorkspaceComplianceSubmissionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateWorkspaceComplianceSubmissionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateWorkspaceComplianceSubmissionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetWorkspaceComplianceSubmissionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ComplianceSubmission
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWorkspaceComplianceSubmissionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWorkspaceComplianceSubmissionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetWorkspaceComplianceSubmissionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateWorkspaceComplianceSubmissionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ComplianceSubmission
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateWorkspaceComplianceSubmissionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateWorkspaceComplianceSubmissionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateWorkspaceComplianceSubmissionResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -107452,6 +112460,79 @@ func (r ReleaseWorkspaceNumberResponse) ContentType() string {
 	return ""
 }
 
+type GetBillingResolvedPriceResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *BillingResolvedPrice
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetBillingResolvedPriceResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetBillingResolvedPriceResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetBillingResolvedPriceResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListBillingWalletsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *BillingWalletList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListBillingWalletsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListBillingWalletsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListBillingWalletsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type ListPreferencesResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -108239,6 +113320,197 @@ func (r ListSMSMessageEventsResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r ListSMSMessageEventsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListWorkspaceSMSSendersResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSSenderList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListWorkspaceSMSSendersResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListWorkspaceSMSSendersResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListWorkspaceSMSSendersResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateWorkspaceSMSSenderResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *SMSSender
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateWorkspaceSMSSenderResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateWorkspaceSMSSenderResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateWorkspaceSMSSenderResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetWorkspaceSMSSenderResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSSender
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWorkspaceSMSSenderResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWorkspaceSMSSenderResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetWorkspaceSMSSenderResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateWorkspaceSMSSenderRegistrationResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *SMSCountryRegistration
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON402      *PaymentRequired
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON412      *PreconditionFailed
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateWorkspaceSMSSenderRegistrationResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateWorkspaceSMSSenderRegistrationResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateWorkspaceSMSSenderRegistrationResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListWorkspaceSMSSenderRequirementsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSSenderRequirementList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListWorkspaceSMSSenderRequirementsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListWorkspaceSMSSenderRequirementsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListWorkspaceSMSSenderRequirementsResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -113753,6 +119025,164 @@ func (c *ClientWithResponses) GetAudienceMembershipStatisticsWithResponse(ctx co
 	return ParseGetAudienceMembershipStatisticsResponse(rsp)
 }
 
+// ListComplianceAttachmentsWithResponse request returning *ListComplianceAttachmentsResponse
+func (c *ClientWithResponses) ListComplianceAttachmentsWithResponse(ctx context.Context, params *ListComplianceAttachmentsParams, reqEditors ...RequestEditorFn) (*ListComplianceAttachmentsResponse, error) {
+	rsp, err := c.ListComplianceAttachments(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListComplianceAttachmentsResponse(rsp)
+}
+
+// CreateComplianceAttachmentWithBodyWithResponse request with arbitrary body returning *CreateComplianceAttachmentResponse
+func (c *ClientWithResponses) CreateComplianceAttachmentWithBodyWithResponse(ctx context.Context, params *CreateComplianceAttachmentParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateComplianceAttachmentResponse, error) {
+	rsp, err := c.CreateComplianceAttachmentWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateComplianceAttachmentResponse(rsp)
+}
+
+// DeleteComplianceAttachmentWithResponse request returning *DeleteComplianceAttachmentResponse
+func (c *ClientWithResponses) DeleteComplianceAttachmentWithResponse(ctx context.Context, attachmentId AttachmentID, params *DeleteComplianceAttachmentParams, reqEditors ...RequestEditorFn) (*DeleteComplianceAttachmentResponse, error) {
+	rsp, err := c.DeleteComplianceAttachment(ctx, attachmentId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteComplianceAttachmentResponse(rsp)
+}
+
+// GetComplianceAttachmentWithResponse request returning *GetComplianceAttachmentResponse
+func (c *ClientWithResponses) GetComplianceAttachmentWithResponse(ctx context.Context, attachmentId AttachmentID, params *GetComplianceAttachmentParams, reqEditors ...RequestEditorFn) (*GetComplianceAttachmentResponse, error) {
+	rsp, err := c.GetComplianceAttachment(ctx, attachmentId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetComplianceAttachmentResponse(rsp)
+}
+
+// GetComplianceDocumentTemplateWithResponse request returning *GetComplianceDocumentTemplateResponse
+func (c *ClientWithResponses) GetComplianceDocumentTemplateWithResponse(ctx context.Context, templateId ComplianceTemplateID, params *GetComplianceDocumentTemplateParams, reqEditors ...RequestEditorFn) (*GetComplianceDocumentTemplateResponse, error) {
+	rsp, err := c.GetComplianceDocumentTemplate(ctx, templateId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetComplianceDocumentTemplateResponse(rsp)
+}
+
+// ListComplianceIdentitiesWithResponse request returning *ListComplianceIdentitiesResponse
+func (c *ClientWithResponses) ListComplianceIdentitiesWithResponse(ctx context.Context, params *ListComplianceIdentitiesParams, reqEditors ...RequestEditorFn) (*ListComplianceIdentitiesResponse, error) {
+	rsp, err := c.ListComplianceIdentities(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListComplianceIdentitiesResponse(rsp)
+}
+
+// CreateComplianceIdentityWithBodyWithResponse request with arbitrary body returning *CreateComplianceIdentityResponse
+func (c *ClientWithResponses) CreateComplianceIdentityWithBodyWithResponse(ctx context.Context, params *CreateComplianceIdentityParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateComplianceIdentityResponse, error) {
+	rsp, err := c.CreateComplianceIdentityWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateComplianceIdentityResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateComplianceIdentityWithResponse(ctx context.Context, params *CreateComplianceIdentityParams, body CreateComplianceIdentityJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateComplianceIdentityResponse, error) {
+	rsp, err := c.CreateComplianceIdentity(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateComplianceIdentityResponse(rsp)
+}
+
+// DeleteComplianceIdentityWithResponse request returning *DeleteComplianceIdentityResponse
+func (c *ClientWithResponses) DeleteComplianceIdentityWithResponse(ctx context.Context, identityId ComplianceIdentityID, params *DeleteComplianceIdentityParams, reqEditors ...RequestEditorFn) (*DeleteComplianceIdentityResponse, error) {
+	rsp, err := c.DeleteComplianceIdentity(ctx, identityId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteComplianceIdentityResponse(rsp)
+}
+
+// GetComplianceIdentityWithResponse request returning *GetComplianceIdentityResponse
+func (c *ClientWithResponses) GetComplianceIdentityWithResponse(ctx context.Context, identityId ComplianceIdentityID, params *GetComplianceIdentityParams, reqEditors ...RequestEditorFn) (*GetComplianceIdentityResponse, error) {
+	rsp, err := c.GetComplianceIdentity(ctx, identityId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetComplianceIdentityResponse(rsp)
+}
+
+// UpdateComplianceIdentityWithBodyWithResponse request with arbitrary body returning *UpdateComplianceIdentityResponse
+func (c *ClientWithResponses) UpdateComplianceIdentityWithBodyWithResponse(ctx context.Context, identityId ComplianceIdentityID, params *UpdateComplianceIdentityParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateComplianceIdentityResponse, error) {
+	rsp, err := c.UpdateComplianceIdentityWithBody(ctx, identityId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateComplianceIdentityResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateComplianceIdentityWithResponse(ctx context.Context, identityId ComplianceIdentityID, params *UpdateComplianceIdentityParams, body UpdateComplianceIdentityJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateComplianceIdentityResponse, error) {
+	rsp, err := c.UpdateComplianceIdentity(ctx, identityId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateComplianceIdentityResponse(rsp)
+}
+
+// GetWorkspaceComplianceRequirementsWithResponse request returning *GetWorkspaceComplianceRequirementsResponse
+func (c *ClientWithResponses) GetWorkspaceComplianceRequirementsWithResponse(ctx context.Context, params *GetWorkspaceComplianceRequirementsParams, reqEditors ...RequestEditorFn) (*GetWorkspaceComplianceRequirementsResponse, error) {
+	rsp, err := c.GetWorkspaceComplianceRequirements(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWorkspaceComplianceRequirementsResponse(rsp)
+}
+
+// CreateWorkspaceComplianceSubmissionWithBodyWithResponse request with arbitrary body returning *CreateWorkspaceComplianceSubmissionResponse
+func (c *ClientWithResponses) CreateWorkspaceComplianceSubmissionWithBodyWithResponse(ctx context.Context, params *CreateWorkspaceComplianceSubmissionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateWorkspaceComplianceSubmissionResponse, error) {
+	rsp, err := c.CreateWorkspaceComplianceSubmissionWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateWorkspaceComplianceSubmissionResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateWorkspaceComplianceSubmissionWithResponse(ctx context.Context, params *CreateWorkspaceComplianceSubmissionParams, body CreateWorkspaceComplianceSubmissionJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateWorkspaceComplianceSubmissionResponse, error) {
+	rsp, err := c.CreateWorkspaceComplianceSubmission(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateWorkspaceComplianceSubmissionResponse(rsp)
+}
+
+// GetWorkspaceComplianceSubmissionWithResponse request returning *GetWorkspaceComplianceSubmissionResponse
+func (c *ClientWithResponses) GetWorkspaceComplianceSubmissionWithResponse(ctx context.Context, submissionId ComplianceSubmissionID, params *GetWorkspaceComplianceSubmissionParams, reqEditors ...RequestEditorFn) (*GetWorkspaceComplianceSubmissionResponse, error) {
+	rsp, err := c.GetWorkspaceComplianceSubmission(ctx, submissionId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWorkspaceComplianceSubmissionResponse(rsp)
+}
+
+// UpdateWorkspaceComplianceSubmissionWithBodyWithResponse request with arbitrary body returning *UpdateWorkspaceComplianceSubmissionResponse
+func (c *ClientWithResponses) UpdateWorkspaceComplianceSubmissionWithBodyWithResponse(ctx context.Context, submissionId ComplianceSubmissionID, params *UpdateWorkspaceComplianceSubmissionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateWorkspaceComplianceSubmissionResponse, error) {
+	rsp, err := c.UpdateWorkspaceComplianceSubmissionWithBody(ctx, submissionId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateWorkspaceComplianceSubmissionResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateWorkspaceComplianceSubmissionWithResponse(ctx context.Context, submissionId ComplianceSubmissionID, params *UpdateWorkspaceComplianceSubmissionParams, body UpdateWorkspaceComplianceSubmissionJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateWorkspaceComplianceSubmissionResponse, error) {
+	rsp, err := c.UpdateWorkspaceComplianceSubmission(ctx, submissionId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateWorkspaceComplianceSubmissionResponse(rsp)
+}
+
 // ListContactPropertiesWithResponse request returning *ListContactPropertiesResponse
 func (c *ClientWithResponses) ListContactPropertiesWithResponse(ctx context.Context, params *ListContactPropertiesParams, reqEditors ...RequestEditorFn) (*ListContactPropertiesResponse, error) {
 	rsp, err := c.ListContactProperties(ctx, params, reqEditors...)
@@ -115696,6 +121126,24 @@ func (c *ClientWithResponses) ReleaseWorkspaceNumberWithResponse(ctx context.Con
 	return ParseReleaseWorkspaceNumberResponse(rsp)
 }
 
+// GetBillingResolvedPriceWithResponse request returning *GetBillingResolvedPriceResponse
+func (c *ClientWithResponses) GetBillingResolvedPriceWithResponse(ctx context.Context, params *GetBillingResolvedPriceParams, reqEditors ...RequestEditorFn) (*GetBillingResolvedPriceResponse, error) {
+	rsp, err := c.GetBillingResolvedPrice(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetBillingResolvedPriceResponse(rsp)
+}
+
+// ListBillingWalletsWithResponse request returning *ListBillingWalletsResponse
+func (c *ClientWithResponses) ListBillingWalletsWithResponse(ctx context.Context, params *ListBillingWalletsParams, reqEditors ...RequestEditorFn) (*ListBillingWalletsResponse, error) {
+	rsp, err := c.ListBillingWallets(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListBillingWalletsResponse(rsp)
+}
+
 // ListPreferencesWithResponse request returning *ListPreferencesResponse
 func (c *ClientWithResponses) ListPreferencesWithResponse(ctx context.Context, params *ListPreferencesParams, reqEditors ...RequestEditorFn) (*ListPreferencesResponse, error) {
 	rsp, err := c.ListPreferences(ctx, params, reqEditors...)
@@ -115947,6 +121395,67 @@ func (c *ClientWithResponses) ListSMSMessageEventsWithResponse(ctx context.Conte
 		return nil, err
 	}
 	return ParseListSMSMessageEventsResponse(rsp)
+}
+
+// ListWorkspaceSMSSendersWithResponse request returning *ListWorkspaceSMSSendersResponse
+func (c *ClientWithResponses) ListWorkspaceSMSSendersWithResponse(ctx context.Context, params *ListWorkspaceSMSSendersParams, reqEditors ...RequestEditorFn) (*ListWorkspaceSMSSendersResponse, error) {
+	rsp, err := c.ListWorkspaceSMSSenders(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListWorkspaceSMSSendersResponse(rsp)
+}
+
+// CreateWorkspaceSMSSenderWithBodyWithResponse request with arbitrary body returning *CreateWorkspaceSMSSenderResponse
+func (c *ClientWithResponses) CreateWorkspaceSMSSenderWithBodyWithResponse(ctx context.Context, params *CreateWorkspaceSMSSenderParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateWorkspaceSMSSenderResponse, error) {
+	rsp, err := c.CreateWorkspaceSMSSenderWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateWorkspaceSMSSenderResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateWorkspaceSMSSenderWithResponse(ctx context.Context, params *CreateWorkspaceSMSSenderParams, body CreateWorkspaceSMSSenderJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateWorkspaceSMSSenderResponse, error) {
+	rsp, err := c.CreateWorkspaceSMSSender(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateWorkspaceSMSSenderResponse(rsp)
+}
+
+// GetWorkspaceSMSSenderWithResponse request returning *GetWorkspaceSMSSenderResponse
+func (c *ClientWithResponses) GetWorkspaceSMSSenderWithResponse(ctx context.Context, senderId SMSSenderID, params *GetWorkspaceSMSSenderParams, reqEditors ...RequestEditorFn) (*GetWorkspaceSMSSenderResponse, error) {
+	rsp, err := c.GetWorkspaceSMSSender(ctx, senderId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWorkspaceSMSSenderResponse(rsp)
+}
+
+// CreateWorkspaceSMSSenderRegistrationWithBodyWithResponse request with arbitrary body returning *CreateWorkspaceSMSSenderRegistrationResponse
+func (c *ClientWithResponses) CreateWorkspaceSMSSenderRegistrationWithBodyWithResponse(ctx context.Context, senderId SMSSenderID, params *CreateWorkspaceSMSSenderRegistrationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateWorkspaceSMSSenderRegistrationResponse, error) {
+	rsp, err := c.CreateWorkspaceSMSSenderRegistrationWithBody(ctx, senderId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateWorkspaceSMSSenderRegistrationResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateWorkspaceSMSSenderRegistrationWithResponse(ctx context.Context, senderId SMSSenderID, params *CreateWorkspaceSMSSenderRegistrationParams, body CreateWorkspaceSMSSenderRegistrationJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateWorkspaceSMSSenderRegistrationResponse, error) {
+	rsp, err := c.CreateWorkspaceSMSSenderRegistration(ctx, senderId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateWorkspaceSMSSenderRegistrationResponse(rsp)
+}
+
+// ListWorkspaceSMSSenderRequirementsWithResponse request returning *ListWorkspaceSMSSenderRequirementsResponse
+func (c *ClientWithResponses) ListWorkspaceSMSSenderRequirementsWithResponse(ctx context.Context, senderId SMSSenderID, params *ListWorkspaceSMSSenderRequirementsParams, reqEditors ...RequestEditorFn) (*ListWorkspaceSMSSenderRequirementsResponse, error) {
+	rsp, err := c.ListWorkspaceSMSSenderRequirements(ctx, senderId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListWorkspaceSMSSenderRequirementsResponse(rsp)
 }
 
 // GetSMSStatsByCarrierWithResponse request returning *GetSMSStatsByCarrierResponse
@@ -123319,6 +128828,1154 @@ func ParseGetAudienceMembershipStatisticsResponse(rsp *http.Response) (*GetAudie
 			return nil, err
 		}
 		response.JSON421 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListComplianceAttachmentsResponse parses an HTTP response from a ListComplianceAttachmentsWithResponse call
+func ParseListComplianceAttachmentsResponse(rsp *http.Response) (*ListComplianceAttachmentsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListComplianceAttachmentsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AttachmentList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateComplianceAttachmentResponse parses an HTTP response from a CreateComplianceAttachmentWithResponse call
+func ParseCreateComplianceAttachmentResponse(rsp *http.Response) (*CreateComplianceAttachmentResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateComplianceAttachmentResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Attachment
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest Attachment
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 413:
+		var dest PayloadTooLarge
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON413 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteComplianceAttachmentResponse parses an HTTP response from a DeleteComplianceAttachmentWithResponse call
+func ParseDeleteComplianceAttachmentResponse(rsp *http.Response) (*DeleteComplianceAttachmentResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteComplianceAttachmentResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetComplianceAttachmentResponse parses an HTTP response from a GetComplianceAttachmentWithResponse call
+func ParseGetComplianceAttachmentResponse(rsp *http.Response) (*GetComplianceAttachmentResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetComplianceAttachmentResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetComplianceDocumentTemplateResponse parses an HTTP response from a GetComplianceDocumentTemplateWithResponse call
+func ParseGetComplianceDocumentTemplateResponse(rsp *http.Response) (*GetComplianceDocumentTemplateResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetComplianceDocumentTemplateResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 501:
+		var dest NotImplemented
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON501 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListComplianceIdentitiesResponse parses an HTTP response from a ListComplianceIdentitiesWithResponse call
+func ParseListComplianceIdentitiesResponse(rsp *http.Response) (*ListComplianceIdentitiesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListComplianceIdentitiesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ComplianceIdentityList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateComplianceIdentityResponse parses an HTTP response from a CreateComplianceIdentityWithResponse call
+func ParseCreateComplianceIdentityResponse(rsp *http.Response) (*CreateComplianceIdentityResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateComplianceIdentityResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest ComplianceIdentity
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest ValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteComplianceIdentityResponse parses an HTTP response from a DeleteComplianceIdentityWithResponse call
+func ParseDeleteComplianceIdentityResponse(rsp *http.Response) (*DeleteComplianceIdentityResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteComplianceIdentityResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetComplianceIdentityResponse parses an HTTP response from a GetComplianceIdentityWithResponse call
+func ParseGetComplianceIdentityResponse(rsp *http.Response) (*GetComplianceIdentityResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetComplianceIdentityResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ComplianceIdentity
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateComplianceIdentityResponse parses an HTTP response from a UpdateComplianceIdentityWithResponse call
+func ParseUpdateComplianceIdentityResponse(rsp *http.Response) (*UpdateComplianceIdentityResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateComplianceIdentityResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ComplianceIdentity
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest ValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetWorkspaceComplianceRequirementsResponse parses an HTTP response from a GetWorkspaceComplianceRequirementsWithResponse call
+func ParseGetWorkspaceComplianceRequirementsResponse(rsp *http.Response) (*GetWorkspaceComplianceRequirementsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWorkspaceComplianceRequirementsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ComplianceRequirement
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateWorkspaceComplianceSubmissionResponse parses an HTTP response from a CreateWorkspaceComplianceSubmissionWithResponse call
+func ParseCreateWorkspaceComplianceSubmissionResponse(rsp *http.Response) (*CreateWorkspaceComplianceSubmissionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateWorkspaceComplianceSubmissionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest ComplianceSubmission
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest PaymentRequired
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetWorkspaceComplianceSubmissionResponse parses an HTTP response from a GetWorkspaceComplianceSubmissionWithResponse call
+func ParseGetWorkspaceComplianceSubmissionResponse(rsp *http.Response) (*GetWorkspaceComplianceSubmissionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWorkspaceComplianceSubmissionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ComplianceSubmission
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateWorkspaceComplianceSubmissionResponse parses an HTTP response from a UpdateWorkspaceComplianceSubmissionWithResponse call
+func ParseUpdateWorkspaceComplianceSubmissionResponse(rsp *http.Response) (*UpdateWorkspaceComplianceSubmissionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateWorkspaceComplianceSubmissionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ComplianceSubmission
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Unprocessable
@@ -137955,6 +144612,149 @@ func ParseReleaseWorkspaceNumberResponse(rsp *http.Response) (*ReleaseWorkspaceN
 	return response, nil
 }
 
+// ParseGetBillingResolvedPriceResponse parses an HTTP response from a GetBillingResolvedPriceWithResponse call
+func ParseGetBillingResolvedPriceResponse(rsp *http.Response) (*GetBillingResolvedPriceResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetBillingResolvedPriceResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest BillingResolvedPrice
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListBillingWalletsResponse parses an HTTP response from a ListBillingWalletsWithResponse call
+func ParseListBillingWalletsResponse(rsp *http.Response) (*ListBillingWalletsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListBillingWalletsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest BillingWalletList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
 // ParseListPreferencesResponse parses an HTTP response from a ListPreferencesWithResponse call
 func ParseListPreferencesResponse(rsp *http.Response) (*ListPreferencesResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -139636,6 +146436,423 @@ func ParseListSMSMessageEventsResponse(rsp *http.Response) (*ListSMSMessageEvent
 			return nil, err
 		}
 		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListWorkspaceSMSSendersResponse parses an HTTP response from a ListWorkspaceSMSSendersWithResponse call
+func ParseListWorkspaceSMSSendersResponse(rsp *http.Response) (*ListWorkspaceSMSSendersResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListWorkspaceSMSSendersResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSSenderList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateWorkspaceSMSSenderResponse parses an HTTP response from a CreateWorkspaceSMSSenderWithResponse call
+func ParseCreateWorkspaceSMSSenderResponse(rsp *http.Response) (*CreateWorkspaceSMSSenderResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateWorkspaceSMSSenderResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest SMSSender
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetWorkspaceSMSSenderResponse parses an HTTP response from a GetWorkspaceSMSSenderWithResponse call
+func ParseGetWorkspaceSMSSenderResponse(rsp *http.Response) (*GetWorkspaceSMSSenderResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWorkspaceSMSSenderResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSSender
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateWorkspaceSMSSenderRegistrationResponse parses an HTTP response from a CreateWorkspaceSMSSenderRegistrationWithResponse call
+func ParseCreateWorkspaceSMSSenderRegistrationResponse(rsp *http.Response) (*CreateWorkspaceSMSSenderRegistrationResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateWorkspaceSMSSenderRegistrationResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest SMSCountryRegistration
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest PaymentRequired
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 412:
+		var dest PreconditionFailed
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON412 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListWorkspaceSMSSenderRequirementsResponse parses an HTTP response from a ListWorkspaceSMSSenderRequirementsWithResponse call
+func ParseListWorkspaceSMSSenderRequirementsResponse(rsp *http.Response) (*ListWorkspaceSMSSenderRequirementsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListWorkspaceSMSSenderRequirementsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSSenderRequirementList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 

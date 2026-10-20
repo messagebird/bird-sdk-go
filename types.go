@@ -463,6 +463,18 @@ type (
 )
 
 type (
+	ComplianceRequirement       = oapi.ComplianceRequirement
+	ComplianceSubmission        = oapi.ComplianceSubmission
+	ComplianceIdentity          = oapi.ComplianceIdentity
+	ComplianceIdentityList      = oapi.ComplianceIdentityList
+	ComplianceIdentitySortField = oapi.ComplianceIdentitySortField
+	Attachment                  = oapi.Attachment
+	ComplianceAttachment        = oapi.Attachment
+	AttachmentList              = oapi.AttachmentList
+	AttachmentSortField         = oapi.AttachmentSortField
+)
+
+type (
 	Suppression          = oapi.Suppression
 	SuppressionList      = oapi.SuppressionList
 	SuppressionScope     = oapi.SuppressionScope
@@ -1103,3 +1115,13 @@ type EmailBroadcastParameters = oapi.EmailBroadcastParameters
 type EmailBroadcastValidationResult = oapi.EmailBroadcastValidationResult
 type EmailBroadcastPreviewResult = oapi.EmailBroadcastPreviewResult
 type EmailTemplateParameters = oapi.EmailTemplateParameters
+
+type (
+	SMSSender                = oapi.SMSSender
+	SMSSenderList            = oapi.SMSSenderList
+	SMSSenderSortField       = oapi.SMSSenderSortField
+	SMSSenderRequirementList = oapi.SMSSenderRequirementList
+	SMSCountryRegistration   = oapi.SMSCountryRegistration
+	BillingResolvedPrice     = oapi.BillingResolvedPrice
+	BillingWalletList        = oapi.BillingWalletList
+)

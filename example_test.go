@@ -5658,3 +5658,317 @@ func ExampleAssetsFoldersService_Delete() {
 		log.Fatal(err)
 	}
 }
+
+// Get reads what a country asks for before it approves a number's ownership.
+func ExampleComplianceRequirementsService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	req, err := client.ComplianceRequirements.Get(context.Background(), bird.ComplianceRequirementsGetParams{
+		SubjectKind: "number",
+		SubjectID:   "nda_01krdgeqcxet5s7t44vh8rt9mg",
+		CountryCode: "US",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, f := range *req.Fields {
+		fmt.Println(*f.Key, *f.State)
+	}
+}
+
+// Create files every answer a number's ownership asks for in one call.
+func ExampleComplianceSubmissionsService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	submission, err := client.ComplianceSubmissions.Create(context.Background(), bird.ComplianceSubmissionsCreateParams{
+		SubjectKind: "number",
+		SubjectID:   "nda_01krdgeqcxet5s7t44vh8rt9mg",
+		Program:     bird.ComplianceProgramLocal,
+		CountryCode: "US",
+		Answers: []bird.ComplianceAnswer{
+			{Key: "legal_entity_name", Value: bird.Ptr("Goldcrest Communications Inc")},
+			{Key: "business_registration_number", Value: bird.Ptr("90012768")},
+		},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	// There is no draft: the answers are filed for review as of this call.
+	fmt.Println(*submission.Id, *submission.Satisfied)
+}
+
+// Get reads back how each filed answer was judged.
+func ExampleComplianceSubmissionsService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	submission, err := client.ComplianceSubmissions.Get(context.Background(), "csb_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, item := range *submission.Items {
+		fmt.Println(*item.Key, *item.State)
+	}
+}
+
+// Resupply replaces an answer review rejected.
+func ExampleComplianceSubmissionsService_Resupply() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	submission, err := client.ComplianceSubmissions.Resupply(context.Background(), "csb_01krdgeqcxet5s7t44vh8rt9mg", bird.ComplianceSubmissionsResupplyParams{
+		Answers: []bird.ComplianceAnswer{
+			{Key: "business_registration_number", Value: bird.Ptr("90012769")},
+		},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(*submission.Satisfied)
+}
+
+// List finds a document already uploaded, to cite it again.
+func ExampleComplianceAttachmentsService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for attachment, err := range client.ComplianceAttachments.List(context.Background(), bird.ComplianceAttachmentsListParams{}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(attachment.Id, attachment.Status)
+	}
+}
+
+// Delete withdraws an upload no registration cites yet.
+func ExampleComplianceAttachmentsService_Delete() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	// Once a registration cites the attachment, this returns a 409.
+	if err := client.ComplianceAttachments.Delete(context.Background(), "tca_01krdgeqcxet5s7t44vh8rt9mg"); err != nil {
+		log.Fatal(err)
+	}
+}
+
+// List finds the party a registration is for.
+func ExampleComplianceIdentitiesService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for identity, err := range client.ComplianceIdentities.List(context.Background(), bird.ComplianceIdentitiesListParams{}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(identity.Id, identity.Name)
+	}
+}
+
+// Get reads the business details one party holds.
+func ExampleComplianceIdentitiesService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	identity, err := client.ComplianceIdentities.Get(context.Background(), "cid_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(identity.Name, len(*identity.Answers))
+}
+
+func ExampleComplianceIdentitiesService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.ComplianceIdentities.Create(ctx, bird.ComplianceIdentitiesCreateParams{Name: "Goldcrest"})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleComplianceIdentitiesService_Update() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.ComplianceIdentities.Update(ctx, "cid_01krdgeqcxet5s7t44vh8rt9mg", bird.ComplianceIdentitiesUpdateParams{Name: "Goldcrest SAS"})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleComplianceIdentitiesService_Delete() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	if err := client.ComplianceIdentities.Delete(ctx, "cid_01krdgeqcxet5s7t44vh8rt9mg"); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func ExampleSmsSendersService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	for sender, err := range client.SmsSenders.List(ctx, bird.SmsSendersListParams{}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(sender.Id)
+	}
+}
+
+func ExampleSmsSendersService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.SmsSenders.Get(ctx, "snd_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleSmsSendersService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.SmsSenders.Create(ctx, bird.SmsSendersCreateParams{Type: "alpha", Sender: "GOLDCREST"})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleSmsSenderRequirementsService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.SmsSenderRequirements.List(ctx, "snd_01krdgeqcxet5s7t44vh8rt9mg", bird.SmsSenderRequirementsListParams{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleSmsSenderRegistrationsService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.SmsSenderRegistrations.Create(ctx, "snd_01krdgeqcxet5s7t44vh8rt9mg", bird.SmsSenderRegistrationsCreateParams{CountryCode: "NL"})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleBillingPricesService_Resolve() {
+	// Use a delegated user OAuth token with org:billing:read in its issuing region.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_OAUTH_ACCESS_TOKEN")), option.WithRegion("eu1"))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.BillingPrices.Resolve(ctx, bird.BillingPricesResolveParams{ProductSlug: "sms_sender_registration", Dimensions: map[string]string{"country_code": "NL", "sender_type": "alphanumeric"}})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleBillingWalletsService_List() {
+	// Use a delegated user OAuth token with org:billing:read in its issuing region.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_OAUTH_ACCESS_TOKEN")), option.WithRegion("eu1"))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.BillingWallets.List(ctx)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+// Create uploads a document a requirement asks for, to cite by id in a submission.
+func ExampleComplianceAttachmentsService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	file, err := os.Open("proof-of-address.pdf")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer func() { _ = file.Close() }()
+	attachment, err := client.ComplianceAttachments.Create(context.Background(), bird.ComplianceAttachmentsCreateParams{
+		File:        file,
+		Filename:    "proof-of-address.pdf",
+		Description: bird.Ptr("Utility bill for the registered address"),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	// Cite this id as the answer's attachment_id in a submission.
+	fmt.Println(attachment.Id, attachment.ContentType)
+}
+
+// Get downloads an uploaded attachment to check what it holds.
+func ExampleComplianceAttachmentsService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	file, err := client.ComplianceAttachments.Get(context.Background(), "tca_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := os.WriteFile(file.Filename, file.Data, 0o644); err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(file.ContentType, len(file.Data))
+}
+
+// Get downloads the blank form a requirement's template_url names.
+func ExampleComplianceDocumentTemplatesService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	form, err := client.ComplianceDocumentTemplates.Get(context.Background(), "cmt_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	// Complete the form, then upload it with ComplianceAttachments.Create.
+	if err := os.WriteFile(form.Filename, form.Data, 0o644); err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(form.ContentType)
+}

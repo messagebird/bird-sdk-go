@@ -10,18 +10,25 @@ import (
 	"github.com/messagebird/bird-sdk-go/option"
 )
 
+type NumbersOrderCompliance = oapi.NumbersOrderCompliance
+
 // NumbersOrdersCreateParams is the request body for create.
 type NumbersOrdersCreateParams struct {
 	// The number to acquire, in E.164 format, as returned by `GET /v1/numbers/available`.
 	Number string
 	// Your own reference to set on the number when this purchase completes. Leading and trailing whitespace is removed. A pending order keeps the reference until the number is allocated.
 	Reference *string
+	// Ownership paperwork for a number being ordered, where its country requires any. Optional always: the order completes and the number is yours either way, and supplying this only decides whether it can carry traffic sooner. Read `GET /v1/compliance/requirements` for the number to learn what is asked for, or file it after the order with `POST /v1/compliance/submissions`. Filing this cannot fail your order: if it is refused, the number is still yours and you can file again. The answers are a legal representation filed under the name of the business they describe. Sending this block uses the order's existing `numbers` scope at write level.
+	Compliance *NumbersOrderCompliance
 }
 
 func (p NumbersOrdersCreateParams) toWire() oapi.NumbersOrderCreate {
 	body := oapi.NumbersOrderCreate{}
 	body.Number = p.Number
 	body.Reference = p.Reference
+	if p.Compliance != nil {
+		body.Compliance = p.Compliance
+	}
 	return body
 }
 

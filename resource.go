@@ -74,6 +74,12 @@ func (r resource) getRedirect(ctx context.Context, opts []option.RequestOption, 
 	return body, meta, err
 }
 
+// getFile is get for a byte read: the transport metadata comes back with the
+// body, because the file's type and name travel in the response headers.
+func (r resource) getFile(ctx context.Context, opts []option.RequestOption, call func(context.Context, requestConfig) (*http.Response, error)) ([]byte, Response, error) {
+	return r.getRedirect(ctx, opts, 0, call)
+}
+
 // post runs a write through the shared request core: resolve options, then
 // execute with one idempotency key reused across every retry attempt (the hard
 // lifecycle invariant), and return the decoded response body.

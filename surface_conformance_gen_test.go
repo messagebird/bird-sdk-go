@@ -132,6 +132,22 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.SmsKeywordRules.Create
 	_ = c.SmsKeywordRules.Update
 	_ = c.SmsKeywordRules.Delete
+	_ = c.SmsSenders.List
+	_ = c.SmsSenders.Get
+	_ = c.SmsSenderRequirements.List
+	_ = c.SmsSenders.Create
+	_ = c.SmsSenderRegistrations.Create
+	_ = c.ComplianceAttachments.Create
+	_ = c.ComplianceAttachments.List
+	_ = c.ComplianceAttachments.Get
+	_ = c.ComplianceAttachments.Delete
+	_ = c.ComplianceDocumentTemplates.Get
+	_ = c.ComplianceIdentities.List
+	_ = c.ComplianceIdentities.Get
+	_ = c.ComplianceRequirements.Get
+	_ = c.ComplianceSubmissions.Get
+	_ = c.ComplianceSubmissions.Create
+	_ = c.ComplianceSubmissions.Resupply
 	_ = c.Whatsapp.Send
 	_ = c.Whatsapp.Get
 	_ = c.Whatsapp.List
@@ -412,4 +428,9 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Assets.Folders.Get
 	_ = c.Assets.Folders.Update
 	_ = c.Assets.Folders.Delete
+	_ = c.ComplianceIdentities.Create
+	_ = c.ComplianceIdentities.Update
+	_ = c.ComplianceIdentities.Delete
+	_ = c.BillingPrices.Resolve
+	_ = c.BillingWallets.List
 }

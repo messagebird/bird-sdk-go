@@ -128,6 +128,62 @@ const (
 	AssetReferenceUsagePublished = oapi.AssetReferenceUsagePublished
 )
 
+// ComplianceItemState is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the ComplianceItemState* constants with a
+// default branch rather than treating the set as closed.
+type ComplianceItemState = oapi.ComplianceItemState
+
+const (
+	ComplianceItemStateApproved      = oapi.ComplianceItemStateApproved
+	ComplianceItemStateExpired       = oapi.ComplianceItemStateExpired
+	ComplianceItemStateInReview      = oapi.ComplianceItemStateInReview
+	ComplianceItemStateNotApplicable = oapi.ComplianceItemStateNotApplicable
+	ComplianceItemStateNotSupplied   = oapi.ComplianceItemStateNotSupplied
+	ComplianceItemStateRejected      = oapi.ComplianceItemStateRejected
+	ComplianceItemStateSupplied      = oapi.ComplianceItemStateSupplied
+)
+
+// ComplianceObligationReason is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the ComplianceObligationReason* constants with a
+// default branch rather than treating the set as closed.
+type ComplianceObligationReason = oapi.ComplianceObligationReason
+
+const (
+	ComplianceObligationReasonEvidenceExpiry   = oapi.ComplianceObligationReasonEvidenceExpiry
+	ComplianceObligationReasonPolicyChange     = oapi.ComplianceObligationReasonPolicyChange
+	ComplianceObligationReasonVerdictWithdrawn = oapi.ComplianceObligationReasonVerdictWithdrawn
+	ComplianceObligationReasonVerifierRejected = oapi.ComplianceObligationReasonVerifierRejected
+)
+
+// ComplianceObligationState is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the ComplianceObligationState* constants with a
+// default branch rather than treating the set as closed.
+type ComplianceObligationState = oapi.ComplianceObligationState
+
+const (
+	ComplianceObligationStateExtended  = oapi.ComplianceObligationStateExtended
+	ComplianceObligationStateLapsed    = oapi.ComplianceObligationStateLapsed
+	ComplianceObligationStateOpen      = oapi.ComplianceObligationStateOpen
+	ComplianceObligationStateSatisfied = oapi.ComplianceObligationStateSatisfied
+)
+
+// ComplianceProgram is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the ComplianceProgram* constants with a
+// default branch rather than treating the set as closed.
+type ComplianceProgram = oapi.ComplianceProgram
+
+const (
+	ComplianceProgramAlpha         = oapi.ComplianceProgramAlpha
+	ComplianceProgramBusiness      = oapi.ComplianceProgramBusiness
+	ComplianceProgramLocal         = oapi.ComplianceProgramLocal
+	ComplianceProgramMobile        = oapi.ComplianceProgramMobile
+	ComplianceProgramNational      = oapi.ComplianceProgramNational
+	ComplianceProgramNumeric       = oapi.ComplianceProgramNumeric
+	ComplianceProgramShortCode     = oapi.ComplianceProgramShortCode
+	ComplianceProgramShortCodeFteu = oapi.ComplianceProgramShortCodeFteu
+	ComplianceProgramTollFree      = oapi.ComplianceProgramTollFree
+)
+
 // DestinationRegion is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the DestinationRegion* constants with a
 // default branch rather than treating the set as closed.
@@ -669,6 +725,61 @@ const (
 	SMSKeywordOperationStop    = oapi.SMSKeywordOperationStop
 )
 
+// SMSRegistrationProgram is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the SMSRegistrationProgram* constants with a
+// default branch rather than treating the set as closed.
+type SMSRegistrationProgram = oapi.SMSRegistrationProgram
+
+const (
+	SMSRegistrationProgram10dlc     = oapi.SMSRegistrationProgram10dlc
+	SMSRegistrationProgramAlpha     = oapi.SMSRegistrationProgramAlpha
+	SMSRegistrationProgramNumeric   = oapi.SMSRegistrationProgramNumeric
+	SMSRegistrationProgramShortCode = oapi.SMSRegistrationProgramShortCode
+	SMSRegistrationProgramTfn       = oapi.SMSRegistrationProgramTfn
+)
+
+// SMSRegistrationStatus is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the SMSRegistrationStatus* constants with a
+// default branch rather than treating the set as closed.
+type SMSRegistrationStatus = oapi.SMSRegistrationStatus
+
+const (
+	SMSRegistrationStatusApproved             = oapi.SMSRegistrationStatusApproved
+	SMSRegistrationStatusBirdApproved         = oapi.SMSRegistrationStatusBirdApproved
+	SMSRegistrationStatusCarrierPending       = oapi.SMSRegistrationStatusCarrierPending
+	SMSRegistrationStatusNotRequired          = oapi.SMSRegistrationStatusNotRequired
+	SMSRegistrationStatusPending              = oapi.SMSRegistrationStatusPending
+	SMSRegistrationStatusRegistrationRequired = oapi.SMSRegistrationStatusRegistrationRequired
+	SMSRegistrationStatusRejected             = oapi.SMSRegistrationStatusRejected
+	SMSRegistrationStatusSuspended            = oapi.SMSRegistrationStatusSuspended
+	SMSRegistrationStatusUnderReview          = oapi.SMSRegistrationStatusUnderReview
+)
+
+// SMSSenderProgramEntry is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the SMSSenderProgramEntry* constants with a
+// default branch rather than treating the set as closed.
+type SMSSenderProgramEntry = oapi.SMSSenderProgramEntry
+
+const (
+	SMSSenderProgramEntry10dlcBrand              = oapi.SMSSenderProgramEntry10dlcBrand
+	SMSSenderProgramEntry10dlcCampaign           = oapi.SMSSenderProgramEntry10dlcCampaign
+	SMSSenderProgramEntry10dlcCampaignNumberLink = oapi.SMSSenderProgramEntry10dlcCampaignNumberLink
+	SMSSenderProgramEntryComplianceSubmission    = oapi.SMSSenderProgramEntryComplianceSubmission
+	SMSSenderProgramEntryNone                    = oapi.SMSSenderProgramEntryNone
+	SMSSenderProgramEntryTfnVerification         = oapi.SMSSenderProgramEntryTfnVerification
+)
+
+// SMSSenderSourceKind is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the SMSSenderSourceKind* constants with a
+// default branch rather than treating the set as closed.
+type SMSSenderSourceKind = oapi.SMSSenderSourceKind
+
+const (
+	SMSSenderSourceKindAlpha        = oapi.SMSSenderSourceKindAlpha
+	SMSSenderSourceKindNumber       = oapi.SMSSenderSourceKindNumber
+	SMSSenderSourceKindSharedNumber = oapi.SMSSenderSourceKindSharedNumber
+)
+
 // SMSSuppressionCoverage is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the SMSSuppressionCoverage* constants with a
 // default branch rather than treating the set as closed.
@@ -1107,7 +1218,6 @@ const (
 	WhatsAppTemplateLanguageStatusDisabled        = oapi.WhatsAppTemplateLanguageStatusDisabled
 	WhatsAppTemplateLanguageStatusInAppeal        = oapi.WhatsAppTemplateLanguageStatusInAppeal
 	WhatsAppTemplateLanguageStatusLimitExceeded   = oapi.WhatsAppTemplateLanguageStatusLimitExceeded
-	WhatsAppTemplateLanguageStatusOutcomeUnknown  = oapi.WhatsAppTemplateLanguageStatusOutcomeUnknown
 	WhatsAppTemplateLanguageStatusPaused          = oapi.WhatsAppTemplateLanguageStatusPaused
 	WhatsAppTemplateLanguageStatusPending         = oapi.WhatsAppTemplateLanguageStatusPending
 	WhatsAppTemplateLanguageStatusPendingDeletion = oapi.WhatsAppTemplateLanguageStatusPendingDeletion

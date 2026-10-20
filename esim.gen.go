@@ -29,6 +29,8 @@ type EsimListParams struct {
 	Iccid string
 	// Keep only eSIMs created in this mode. Without it, both live and test eSIMs are returned.
 	Mode EsimMode
+	// Keep only eSIMs whose recurring subscription that has not ended is in this status, or that have none (`none`); repeat the parameter to match any of several.
+	Renewal []EsimRenewalState
 	// Filter by tag. Accepts `name` to match any eSIM carrying that tag name, or `name:value` to match a specific tag pair (e.g. `trip:summer`). A trailing colon (`name:`) matches the name alone, the same as `name`. A term with an empty name is rejected. Repeat the parameter to AND-combine several tag filters.
 	Tag []string
 	// Keep only eSIMs whose ICCID starts with these digits. Use it when you hold only the first part of an ICCID. Pass `iccid` instead when you hold the whole number.
@@ -49,6 +51,7 @@ func (p EsimListParams) toWire(startingAfter string) *oapi.ListEsimsParams {
 		Status:        optSlice(p.Status),
 		Iccid:         optStr(p.Iccid),
 		Mode:          optZero(p.Mode),
+		Renewal:       optSlice(p.Renewal),
 		Tag:           optSlice(p.Tag),
 		IccidPrefix:   optStr(p.IccidPrefix),
 		DisplayName:   optStr(p.DisplayName),
@@ -121,7 +124,7 @@ func (s *EsimService) ListPage(ctx context.Context, params EsimListParams, start
 	return &out, nil
 }
 
-// List List the workspace's eSIMs, newest first, as a cursor page ({data, next_cursor, ...}). Filter by status, iccid, or tag, or search by iccid_prefix, display_name, or phone_number. Each row is a compact summary; fetch a single eSIM for its packages and balances.
+// List List the workspace's eSIMs, newest first, as a cursor page ({data, next_cursor, ...}). Filter by status, renewal, iccid, or tag, or search by iccid_prefix, display_name, or phone_number. Each row is a compact summary carrying its live recurring subscription, if any; fetch a single eSIM for its packages and balances.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *EsimService) List(ctx context.Context, params EsimListParams, opts ...option.RequestOption) iter.Seq2[*EsimSummary, error] {

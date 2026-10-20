@@ -34,7 +34,7 @@ import (
 )
 
 const (
-	version = "0.103.0"
+	version = "0.104.0"
 	// userAgent is human-readable only; the API attributes the SDK from the
 	// Bird-* headers set in callEditors, not the UA.
 	userAgent = "bird-sdk-go/" + version
@@ -85,6 +85,18 @@ type Client struct {
 	Preferences       *PreferencesService
 	Broadcasts        *BroadcastsService
 	Workspace         *WorkspaceService
+
+	ComplianceRequirements *ComplianceRequirementsService
+	ComplianceSubmissions  *ComplianceSubmissionsService
+	ComplianceAttachments  *ComplianceAttachmentsService
+	ComplianceIdentities   *ComplianceIdentitiesService
+	SmsSenders             *SmsSendersService
+	SmsSenderRequirements  *SmsSenderRequirementsService
+	SmsSenderRegistrations *SmsSenderRegistrationsService
+	BillingPrices          *BillingPricesService
+	BillingWallets         *BillingWalletsService
+
+	ComplianceDocumentTemplates *ComplianceDocumentTemplatesService
 }
 
 // ErrMissingAPIKey is returned by every API method of a client constructed
@@ -243,6 +255,16 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 	c.Numbers.Available = &NumbersAvailableService{resource{client: c}}
 	c.Numbers.Orders = &NumbersOrdersService{resource{client: c}}
 	c.Assets = &AssetsService{resource: resource{client: c}, Folders: &AssetsFoldersService{resource{client: c}}, References: &AssetsReferencesService{resource{client: c}}}
+	c.ComplianceRequirements = &ComplianceRequirementsService{resource{client: c}}
+	c.ComplianceSubmissions = &ComplianceSubmissionsService{resource{client: c}}
+	c.ComplianceAttachments = &ComplianceAttachmentsService{resource{client: c}}
+	c.ComplianceIdentities = &ComplianceIdentitiesService{resource{client: c}}
+	c.SmsSenders = &SmsSendersService{resource{client: c}}
+	c.SmsSenderRequirements = &SmsSenderRequirementsService{resource{client: c}}
+	c.SmsSenderRegistrations = &SmsSenderRegistrationsService{resource{client: c}}
+	c.BillingPrices = &BillingPricesService{resource{client: c}}
+	c.BillingWallets = &BillingWalletsService{resource{client: c}}
+	c.ComplianceDocumentTemplates = &ComplianceDocumentTemplatesService{resource{client: c}}
 	c.Preferences = &PreferencesService{resource{client: c}}
 	c.Broadcasts = &BroadcastsService{resource{client: c}}
 	c.Workspace = &WorkspaceService{resource{client: c}}
