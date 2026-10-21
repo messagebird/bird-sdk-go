@@ -21,7 +21,7 @@ func (p AmbRoutingRulesListParams) toWire() *oapi.ListAMBRoutingRulesParams {
 	}
 }
 
-// Get Returns one routing rule by ID.
+// Get Returns a single routing rule by ID, including its `business_account_id`, match condition (`match_kind`, `match_intent_id`, `match_group_id`), target `queue`, `precedence`, and `is_default` status. Returns a `404` if the rule does not exist in the workspace.
 func (s *AmbRoutingRulesService) Get(ctx context.Context, routingRuleId string, opts ...option.RequestOption) (*AMBRoutingRule, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetAMBRoutingRule(ctx, oapi.AMBRoutingRuleID(routingRuleId), &oapi.GetAMBRoutingRuleParams{}, cfg...)

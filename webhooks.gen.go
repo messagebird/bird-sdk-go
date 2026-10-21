@@ -28,6 +28,7 @@ const (
 
 // WebhooksListParams filters the list. Zero-value fields are omitted.
 type WebhooksListParams struct {
+	// Field to sort webhook endpoints by: `created_at` (the default; newest first with the default `order`) or the endpoint URL.
 	Sort WebhookSortField
 	// Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
 	Order SortOrder

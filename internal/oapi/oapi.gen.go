@@ -11140,7 +11140,12 @@ type AMBFormPageCommon struct {
 	Type     string  `json:"type"`
 }
 
-// AMBFormPageType defines model for AMBFormPageType.
+// AMBFormPageType Type of form page in an Apple Messages for Business interactive form:
+//
+// - `select` means a single-choice or multiple-choice selection list.
+// - `picker` means a wheel picker over a list of items.
+// - `date_picker` means a date selector.
+// - `input` means a single-line or multi-line text field.
 type AMBFormPageType string
 
 // AMBFormPickerItem defines model for AMBFormPickerItem.
@@ -11254,8 +11259,15 @@ type AMBInboundFormItem struct {
 	Identifier string `json:"identifier"`
 
 	// Title Display value Apple returned, including any input prefix. May be empty for an optional input.
-	Title string          `json:"title" pii:"true"`
-	Type  AMBFormPageType `json:"type"`
+	Title string `json:"title" pii:"true"`
+
+	// Type Type of form page in an Apple Messages for Business interactive form:
+	//
+	// - `select` means a single-choice or multiple-choice selection list.
+	// - `picker` means a wheel picker over a list of items.
+	// - `date_picker` means a date selector.
+	// - `input` means a single-line or multi-line text field.
+	Type AMBFormPageType `json:"type"`
 
 	// Value Machine value Apple returned for the selection or input. May be empty for an optional input.
 	Value string `json:"value" pii:"true"`
@@ -11780,7 +11792,11 @@ type AMBMessageSource string
 //   - `received`: Received as an inbound message.
 type AMBMessageStatus string
 
-// AMBMessageType Apple message family.
+// AMBMessageType Apple Messages for Business message family:
+//
+// - `text` means a text or attachment message.
+// - `rich_link` means a rich URL or video link preview.
+// - `interactive` means an interactive payload such as a list picker, time picker, quick reply, form, authentication request, or Apple Pay request.
 type AMBMessageType string
 
 // AMBNativeAttachment Provide source_url or the complete encrypted reference, never both.
@@ -11935,7 +11951,11 @@ type AMBNativeInboundInteractiveContent struct {
 	// Subject Message subject supplied by Apple.
 	Subject *string `json:"subject,omitempty" pii:"true"`
 
-	// Type Apple message family.
+	// Type Apple Messages for Business message family:
+	//
+	// - `text` means a text or attachment message.
+	// - `rich_link` means a rich URL or video link preview.
+	// - `interactive` means an interactive payload such as a list picker, time picker, quick reply, form, authentication request, or Apple Pay request.
 	Type AMBMessageType `json:"type"`
 }
 
@@ -12038,7 +12058,11 @@ type AMBNativeInteractiveContent struct {
 	// Subject Subject displayed above the message body.
 	Subject *string `json:"subject,omitempty" pii:"true"`
 
-	// Type Apple message family.
+	// Type Apple Messages for Business message family:
+	//
+	// - `text` means a text or attachment message.
+	// - `rich_link` means a rich URL or video link preview.
+	// - `interactive` means an interactive payload such as a list picker, time picker, quick reply, form, authentication request, or Apple Pay request.
 	Type  AMBMessageType `json:"type"`
 	union json.RawMessage
 }
@@ -12169,7 +12193,11 @@ type AMBNativeRichLinkContent struct {
 	// Subject Subject displayed above the message body.
 	Subject *string `json:"subject,omitempty" pii:"true"`
 
-	// Type Apple message family.
+	// Type Apple Messages for Business message family:
+	//
+	// - `text` means a text or attachment message.
+	// - `rich_link` means a rich URL or video link preview.
+	// - `interactive` means an interactive payload such as a list picker, time picker, quick reply, form, authentication request, or Apple Pay request.
 	Type  AMBMessageType `json:"type"`
 	union json.RawMessage
 }
@@ -12226,7 +12254,11 @@ type AMBNativeTextContent struct {
 	// Subject Subject displayed above the message body.
 	Subject *string `json:"subject,omitempty" pii:"true"`
 
-	// Type Apple message family.
+	// Type Apple Messages for Business message family:
+	//
+	// - `text` means a text or attachment message.
+	// - `rich_link` means a rich URL or video link preview.
+	// - `interactive` means an interactive payload such as a list picker, time picker, quick reply, form, authentication request, or Apple Pay request.
 	Type  AMBMessageType `json:"type"`
 	union json.RawMessage
 }
@@ -14002,6 +14034,7 @@ type ComplianceIdentityAnswer struct {
 	Reason *string `json:"reason,omitempty"`
 
 	// State Where review has got to on this exact value. Absent when no registration has ruled on it, which covers a detail nobody has reached yet and one filed before the container recorded which submission it came from.
+	//
 	// One value can be filed on several registrations and decided differently on each, and one verdict is reported for it. A live approval wins, because it is proof the value is acceptable. Failing that a refusal wins over a registration still waiting, since waiting is nobody having looked yet rather than evidence against a refusal. An approval past its validity period is neither: it reads as `expired` and ranks below a refusal, above anything still waiting. `not_applicable` is reported last, because it is a statement about a requirement rather than about the value.
 	State *ComplianceItemState `json:"state,omitempty"`
 
@@ -29823,6 +29856,7 @@ type VoiceParty struct {
 	Address *string `json:"address,omitempty"`
 
 	// Endpoint What kind of participant sat on this side of a leg, and the coordinate that kind carries: a telephone endpoint off the platform, a SIP or WebRTC endpoint, Bird answering, or the platform placing a leg onward. It does not name a person.
+	//
 	// `null` on an observation this API could not read. The entry stays, because the call counted it when it deduplicated, and dropping it here would report fewer participants than were observed.
 	Endpoint *VoicePartyEndpoint `json:"endpoint,omitempty"`
 
@@ -31117,6 +31151,7 @@ type WhatsAppContactAddressSend struct {
 }
 
 // WhatsAppContactCard A contact card on this message: one the contact shared, or one this workspace sent.
+//
 // Nothing here is required. WhatsApp sends the parts the card holds and omits the rest, and a card that arrives with only an `origin` is still meaningful, so an empty card reads back empty rather than being dropped.
 type WhatsAppContactCard struct {
 	Addresses *[]WhatsAppContactAddress `json:"addresses,omitempty"`
@@ -31143,6 +31178,7 @@ type WhatsAppContactCard struct {
 }
 
 // WhatsAppContactCardSend A contact card to send. WhatsApp shows the name on the card and the rest in a profile view the recipient opens from it.
+//
 // A card carrying a phone number renders buttons that message or save the contact; a card without one can only be added to an address book.
 type WhatsAppContactCardSend struct {
 	Addresses *[]WhatsAppContactAddressSend `json:"addresses,omitempty"`
@@ -32319,6 +32355,7 @@ type WhatsAppKeywordRule struct {
 	CreatedAt time.Time `json:"created_at"`
 
 	// EffectiveKeywords Every keyword that matches this rule: Bird's keywords for the same operation and country, plus the ones you added. This is what an inbound message is compared against, and the whole message has to equal one of them. Keywords Bird adds later join it without you changing anything.
+	//
 	// For a rule of **yours** with no `country`, this list is not the whole set it matches: such a rule compares against Bird's keywords for the sender's country, which the list cannot show because it does not know who is writing, so it shows Bird's worldwide keywords instead. Which rule answers decides whether that matters. Yours with no `country` and no `waba` sits below Bird's own country rule, so a sender in a country Bird ships a rule for is answered by that rule and your reply is not used. Yours with a `waba` and no `country` sits above it, so those senders match that country's keywords and get your reply, which is more keywords than this list names. Set a `country` on your own rule to see and extend exactly the set those senders match. A `system` rule is unaffected: each matches only its own keywords, and the ladder checks Bird's country rules separately from its worldwide one.
 	EffectiveKeywords []string              `json:"effective_keywords"`
 	Id                WhatsAppKeywordRuleID `json:"id"`
@@ -42916,6 +42953,7 @@ type VerifyVoiceVerifiedNumberParams struct {
 
 // ListWebhooksParams defines parameters for ListWebhooks.
 type ListWebhooksParams struct {
+	// Sort Field to sort webhook endpoints by: `created_at` (the default; newest first with the default `order`) or the endpoint URL.
 	Sort *WebhookSortField `form:"sort,omitempty" json:"sort,omitempty"`
 
 	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
