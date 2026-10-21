@@ -307,6 +307,9 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Email.Mailboxes.Restore
 	_ = c.Email.Mailboxes.Resume
 	_ = c.Email.Mailboxes.Stats
+	_ = c.Email.Mailboxes.ScheduledMessages.List
+	_ = c.Email.Mailboxes.ScheduledMessages.Get
+	_ = c.Email.Mailboxes.ScheduledMessages.Cancel
 	_ = c.Email.Mailboxes.Messages.Create
 	_ = c.Email.Mailboxes.Labels
 	_ = c.Email.Mailboxes.ReceiveRules.List

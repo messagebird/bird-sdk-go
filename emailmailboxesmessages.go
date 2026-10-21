@@ -3,6 +3,7 @@ package bird
 import (
 	"context"
 	"net/http"
+	"time"
 
 	"github.com/messagebird/bird-sdk-go/internal/oapi"
 	"github.com/messagebird/bird-sdk-go/internal/requestconfig"
@@ -15,22 +16,28 @@ type EmailMailboxesMessagesService struct{ resource }
 
 // EmailMailboxesMessagesCreateParams sends a new message from the mailbox.
 type EmailMailboxesMessagesCreateParams struct {
-	To       []string // required; plain address or "Name <addr>"
-	Subject  string   // required
-	HTML     string
-	Text     string
-	CC       []string
-	BCC      []string
-	ReplyTo  []string
-	Category string // marketing | transactional
-	Tags     []EmailTag
-	Metadata map[string]any
+	ScheduledAt   time.Time
+	CancelOnReply bool
+	To            []string // required; plain address or "Name <addr>"
+	Subject       string   // required
+	HTML          string
+	Text          string
+	CC            []string
+	BCC           []string
+	ReplyTo       []string
+	Category      string // marketing | transactional
+	Tags          []EmailTag
+	Metadata      map[string]any
 }
 
 func (p EmailMailboxesMessagesCreateParams) toWire() oapi.EmailMailboxComposeRequest {
 	body := oapi.EmailMailboxComposeRequest{
-		Subject: p.Subject,
-		To:      addressInputs(p.To),
+		ScheduledAt: optTime(p.ScheduledAt),
+		Subject:     p.Subject,
+		To:          addressInputs(p.To),
+	}
+	if p.CancelOnReply {
+		body.CancelOnReply = &p.CancelOnReply
 	}
 	if len(p.CC) > 0 {
 		cc := addressInputs(p.CC)

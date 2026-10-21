@@ -5,6 +5,7 @@ import (
 	"context"
 	"iter"
 	"net/http"
+	"time"
 
 	"github.com/messagebird/bird-sdk-go/internal/oapi"
 	"github.com/messagebird/bird-sdk-go/option"
@@ -39,6 +40,8 @@ func (p EmailThreadsMessagesListParams) toWire(startingAfter string) *oapi.ListE
 
 // EmailThreadsMessagesReplyParams is the request body for reply.
 type EmailThreadsMessagesReplyParams struct {
+	// Send between 30 seconds and 30 days ahead, sharing the scheduled-email allowance. The scheduled send is listed separately and enters the conversation only at dispatch. Sender, mailbox and send-volume eligibility are rechecked then; refusal fails the schedule record without adding a conversation message. Retention starts at dispatch. Attachments are not supported on scheduled messages; send now or schedule without attachments.
+	ScheduledAt time.Time
 	// HTML body of the reply. At least one of html or text must be provided.
 	HTML *string
 	// Plain-text body of the reply. At least one of html or text must be provided.
@@ -53,10 +56,13 @@ type EmailThreadsMessagesReplyParams struct {
 	Category *EmailMessageCategory
 	// File attachments to include with the reply. The send is rejected when the estimated generated message size exceeds 20 MB (bodies plus all attachments after base64 encoding). Keep total raw attachment content at or below 15 MB for reliable headroom. Attachment metadata stays on the message's `attachment_manifest`, and the bytes are downloadable for the mailbox's retention tier.
 	Attachments []EmailAttachment
+	// When scheduled_at is set, cancel if an inbound message arrives in the conversation before dispatch is claimed. Defaults to false: the frozen parent, recipients and content are sent unchanged even if new mail arrives.
+	CancelOnReply *bool
 }
 
 func (p EmailThreadsMessagesReplyParams) toWire() oapi.EmailThreadMessageReplyRequest {
 	body := oapi.EmailThreadMessageReplyRequest{}
+	body.ScheduledAt = optTime(p.ScheduledAt)
 	body.Html = p.HTML
 	body.Text = p.Text
 	body.ReplyAll = p.ReplyAll
@@ -75,6 +81,7 @@ func (p EmailThreadsMessagesReplyParams) toWire() oapi.EmailThreadMessageReplyRe
 		v := p.Attachments
 		body.Attachments = &v
 	}
+	body.CancelOnReply = p.CancelOnReply
 	return body
 }
 

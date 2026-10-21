@@ -1131,3 +1131,8 @@ type (
 	BillingResolvedPrice     = oapi.BillingResolvedPrice
 	BillingWalletList        = oapi.BillingWalletList
 )
+
+type Actor = oapi.Actor
+type EmailMailboxScheduledMessageStatus = oapi.EmailMailboxScheduledMessageStatus
+type EmailMailboxScheduledMessage = oapi.EmailMailboxScheduledMessage
+type EmailMailboxScheduledMessageList = oapi.EmailMailboxScheduledMessageList

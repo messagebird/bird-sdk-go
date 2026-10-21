@@ -3252,6 +3252,33 @@ func (e EmailMailboxProviderSortMetric) Valid() bool {
 	}
 }
 
+// Defines values for EmailMailboxScheduledMessageStatus.
+const (
+	EmailMailboxScheduledMessageStatusCanceled  EmailMailboxScheduledMessageStatus = "canceled"
+	EmailMailboxScheduledMessageStatusFailed    EmailMailboxScheduledMessageStatus = "failed"
+	EmailMailboxScheduledMessageStatusScheduled EmailMailboxScheduledMessageStatus = "scheduled"
+	EmailMailboxScheduledMessageStatusSending   EmailMailboxScheduledMessageStatus = "sending"
+	EmailMailboxScheduledMessageStatusSent      EmailMailboxScheduledMessageStatus = "sent"
+)
+
+// Valid indicates whether the value is a known member of the EmailMailboxScheduledMessageStatus enum.
+func (e EmailMailboxScheduledMessageStatus) Valid() bool {
+	switch e {
+	case EmailMailboxScheduledMessageStatusCanceled:
+		return true
+	case EmailMailboxScheduledMessageStatusFailed:
+		return true
+	case EmailMailboxScheduledMessageStatusScheduled:
+		return true
+	case EmailMailboxScheduledMessageStatusSending:
+		return true
+	case EmailMailboxScheduledMessageStatusSent:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for EmailMessageBatchItemCategory.
 const (
 	EmailMessageBatchItemCategoryMarketing     EmailMessageBatchItemCategory = "marketing"
@@ -9728,22 +9755,22 @@ func (e WhatsAppReactedEventType) Valid() bool {
 
 // Defines values for WhatsAppReactionEventStatus.
 const (
-	Failed   WhatsAppReactionEventStatus = "failed"
-	Received WhatsAppReactionEventStatus = "received"
-	Rejected WhatsAppReactionEventStatus = "rejected"
-	Sent     WhatsAppReactionEventStatus = "sent"
+	WhatsAppReactionEventStatusFailed   WhatsAppReactionEventStatus = "failed"
+	WhatsAppReactionEventStatusReceived WhatsAppReactionEventStatus = "received"
+	WhatsAppReactionEventStatusRejected WhatsAppReactionEventStatus = "rejected"
+	WhatsAppReactionEventStatusSent     WhatsAppReactionEventStatus = "sent"
 )
 
 // Valid indicates whether the value is a known member of the WhatsAppReactionEventStatus enum.
 func (e WhatsAppReactionEventStatus) Valid() bool {
 	switch e {
-	case Failed:
+	case WhatsAppReactionEventStatusFailed:
 		return true
-	case Received:
+	case WhatsAppReactionEventStatusReceived:
 		return true
-	case Rejected:
+	case WhatsAppReactionEventStatusRejected:
 		return true
-	case Sent:
+	case WhatsAppReactionEventStatusSent:
 		return true
 	default:
 		return false
@@ -19055,13 +19082,16 @@ type EmailLookupRequest struct {
 // comparable.
 type EmailLookupResult string
 
-// EmailMailboxComposeRequest A new message sent from a mailbox, starting a new conversation. Mirrors the plain send request without `from`, because the mailbox is who the message comes from, and without `scheduled_at`, because a mailbox sends immediately. We set the RFC 5322 Message-ID so replies thread back into this conversation. At least one of `html` or `text` must be provided.
+// EmailMailboxComposeRequest A new message sent from a mailbox, starting a new conversation. Mirrors the plain send request without `from`, because the mailbox is who the message comes from, and accepts `scheduled_at` to send later. Omit it to send immediately. We set the RFC 5322 Message-ID so replies thread back into this conversation. At least one of `html` or `text` must be provided.
 type EmailMailboxComposeRequest struct {
 	// Attachments File attachments. The send is rejected when the estimated generated message size exceeds 20 MB (bodies plus all attachments after base64 encoding). Keep total raw attachment content at or below 15 MB for reliable headroom. Attachment metadata stays on the message's `attachment_manifest`, and the bytes are downloadable for the mailbox's retention tier.
 	Attachments *[]EmailAttachment `json:"attachments,omitempty"`
 
 	// Bcc BCC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@acme.com>`), or an object with an optional display name.
 	Bcc *[]EmailAddressInput `json:"bcc,omitempty"`
+
+	// CancelOnReply When scheduled_at is set, cancel if an inbound message arrives in the conversation before dispatch is claimed. Defaults to false: the frozen parent, recipients and content are sent unchanged even if new mail arrives.
+	CancelOnReply *bool `json:"cancel_on_reply,omitempty"`
 
 	// Category Content classification, which controls suppression policy:
 	//
@@ -19080,6 +19110,9 @@ type EmailMailboxComposeRequest struct {
 
 	// ReplyTo Reply-To addresses. When omitted, the mailbox's `default_reply_to` applies (replies then come back to the mailbox itself).
 	ReplyTo *[]EmailAddressInput `json:"reply_to,omitempty"`
+
+	// ScheduledAt Send between 30 seconds and 30 days ahead, sharing the scheduled-email allowance. The scheduled send is listed separately and enters the conversation only at dispatch. Sender, mailbox and send-volume eligibility are rechecked then; refusal fails the schedule record without adding a conversation message. Retention starts at dispatch. Attachments are not supported on scheduled messages; send now or schedule without attachments.
+	ScheduledAt *time.Time `json:"scheduled_at,omitempty"`
 
 	// Subject Message subject line.
 	Subject string `json:"subject"`
@@ -19187,6 +19220,65 @@ type EmailMailboxProviderStatsPoint struct {
 	// Trend Per-bucket rate series for this mailbox provider over the window. Present only when `include_trend=true`.
 	Trend *[]EmailStatsSeriesPoint `json:"trend,omitempty"`
 }
+
+// EmailMailboxScheduledMessage defines model for EmailMailboxScheduledMessage.
+type EmailMailboxScheduledMessage struct {
+	// CancelOnReply Whether an inbound message cancels this send before dispatch is claimed.
+	CancelOnReply bool `json:"cancel_on_reply"`
+
+	// CancellationReason Why canceled; replied means new inbound mail canceled an opted-in schedule.
+	CancellationReason *string    `json:"cancellation_reason,omitempty"`
+	CreatedAt          *time.Time `json:"created_at,omitempty"`
+	CreatedBy          Actor      `json:"created_by"`
+
+	// FailureReason Why dispatch failed.
+	FailureReason *string                   `json:"failure_reason,omitempty"`
+	Id            MailboxScheduledMessageID `json:"id"`
+	MailboxId     MailboxID                 `json:"mailbox_id"`
+	MessageId     *EmailID                  `json:"message_id,omitempty"`
+
+	// Recipients Visible recipients (To and Cc). Bcc addresses remain only in the frozen send payload.
+	Recipients []openapi_types.Email `json:"recipients"`
+
+	// ScheduledAt Scheduled at.
+	ScheduledAt time.Time `json:"scheduled_at"`
+
+	// Snippet Plain-text preview of the frozen message.
+	Snippet string `json:"snippet"`
+
+	// Status - `scheduled`: Waiting for its due time; cancellation is still possible.
+	// - `sending`: Dispatch has been claimed; cancellation is no longer possible.
+	// - `sent`: Handed to the ordinary send pipeline, not necessarily delivered. Follow message_id for delivery status.
+	// - `failed`: Terminal dispatch refusal or failure; see failure_reason. The schedule will not retry.
+	// - `canceled`: Terminal cancellation before dispatch; see cancellation_reason. The message will not send.
+	Status EmailMailboxScheduledMessageStatus `json:"status"`
+
+	// Subject Frozen subject.
+	Subject   string     `json:"subject"`
+	ThreadId  ThreadID   `json:"thread_id"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+}
+
+// EmailMailboxScheduledMessageList defines model for EmailMailboxScheduledMessageList.
+type EmailMailboxScheduledMessageList struct {
+	Data []EmailMailboxScheduledMessage `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// EmailMailboxScheduledMessageStatus - `scheduled`: Waiting for its due time; cancellation is still possible.
+// - `sending`: Dispatch has been claimed; cancellation is no longer possible.
+// - `sent`: Handed to the ordinary send pipeline, not necessarily delivered. Follow message_id for delivery status.
+// - `failed`: Terminal dispatch refusal or failure; see failure_reason. The schedule will not retry.
+// - `canceled`: Terminal cancellation before dispatch; see cancellation_reason. The message will not send.
+type EmailMailboxScheduledMessageStatus string
 
 // EmailMessage An email message, including a recipient's copy of a broadcast. `broadcast_id` identifies the broadcast that sent the message and is absent for other sends. A broadcast records one message per recipient; these copies share the same `broadcast_id`.
 type EmailMessage struct {
@@ -21608,8 +21700,14 @@ type EmailThread struct {
 	// MessageCount Number of retained messages in this conversation, both directions.
 	MessageCount *int `json:"message_count,omitempty"`
 
+	// NextScheduledAt Earliest due time among scheduled or dispatching sends. Returned by conversation get and list only when scheduled_count is positive. Omitted by search and when no sends remain.
+	NextScheduledAt *time.Time `json:"next_scheduled_at,omitempty"`
+
 	// Participants Addresses that appear on the retained messages in this conversation, including the mailbox's own address.
 	Participants *[]openapi_types.Email `json:"participants,omitempty"`
+
+	// ScheduledCount Scheduled or dispatching sends targeting this conversation. Returned by conversation get and list, including zero when none remain. Omitted by search.
+	ScheduledCount *int64 `json:"scheduled_count,omitempty"`
 
 	// Subject Subject of the conversation, taken from its first message. Null when that message had no subject.
 	Subject *string `json:"subject,omitempty"`
@@ -21648,6 +21746,7 @@ type EmailThreadList struct {
 }
 
 // EmailThreadMessage A message in a mailbox conversation, either direction. Message metadata, extracted text, and attachment bytes stay readable for the mailbox's retention tier. The body and raw MIME are available through the body and raw endpoints for 30 days after the message occurred.
+// A scheduled acknowledgement reserves the message and thread IDs but is not stored in the conversation until dispatch. Use its scheduled_message_id and mailbox_id to inspect or cancel the separate schedule; body and raw reads are unavailable before dispatch.
 type EmailThreadMessage struct {
 	// AttachmentCount Number of attachments on the message.
 	AttachmentCount *int `json:"attachment_count,omitempty"`
@@ -21706,15 +21805,19 @@ type EmailThreadMessage struct {
 	// - `blocked`: The message was rejected by the mailbox's receive policy or rules.
 	//
 	// A received message also has `unread` until it is read. `trash` marks a message in the trash, in either direction. Custom labels share the same list, and a message has at most 20 labels in total.
-	Labels []string `json:"labels"`
+	Labels    []string   `json:"labels"`
+	MailboxId *MailboxID `json:"mailbox_id,omitempty"`
 
-	// OccurredAt When the message was received or accepted for sending.
+	// Notice Informational notice when conversation retention expires before dispatch; the reserved thread is recreated without expired messages.
+	Notice *string `json:"notice,omitempty"`
+
+	// OccurredAt When the message was received or accepted for sending. For a scheduled acknowledgement, the time it is due to send, replaced by the actual send time once it sends.
 	OccurredAt *time.Time `json:"occurred_at,omitempty"`
 
 	// Preview Short plain-text preview of the message body.
 	Preview *string `json:"preview,omitempty"`
 
-	// PurgeAt Scheduled permanent-deletion time. This is the end of the mailbox's retention tier, moved to no more than 30 days in the future while the message is in the trash. Restore a trashed message before then with `PATCH {"labels": {"remove": ["trash"]}}`.
+	// PurgeAt Scheduled permanent-deletion time. For a scheduled acknowledgement, this is based on the due time and replaced with actual dispatch-based retention once it sends. This is the end of the mailbox's retention tier, moved to no more than 30 days in the future while the message is in the trash. Restore a trashed message before then with `PATCH {"labels": {"remove": ["trash"]}}`.
 	PurgeAt *time.Time `json:"purge_at,omitempty"`
 
 	// Recipients Terminal per-recipient delivery outcomes of a sent message, filled in as each one becomes known and kept for the mailbox's full retention tier. Null for received messages and before any recipient reaches a terminal state. Per-recipient event detail lives on the sent-message log (`source`) for 30 days.
@@ -21722,6 +21825,10 @@ type EmailThreadMessage struct {
 
 	// ReferenceIds RFC 5322 References header entries used to thread the conversation.
 	ReferenceIds *[]string `json:"reference_ids,omitempty"`
+
+	// ScheduledAt Planned send time on a scheduled acknowledgement.
+	ScheduledAt        *time.Time                 `json:"scheduled_at,omitempty"`
+	ScheduledMessageId *MailboxScheduledMessageID `json:"scheduled_message_id,omitempty"`
 
 	// Source Link to the message's entry in the received-message or sent-message log, which has delivery analytics such as per-recipient events. Log entries expire 30 days after the message occurred.
 	Source EmailThreadMessageSource `json:"source"`
@@ -21731,6 +21838,7 @@ type EmailThreadMessage struct {
 
 	// Status Aggregate delivery status of a sent message:
 	//
+	// - `scheduled`: Acknowledgement only; the separate schedule is linked by scheduled_message_id.
 	// - `accepted`: Accepted for sending.
 	// - `sent`: Handed off to the provider.
 	// - `delivered`: All attempted recipients delivered.
@@ -21823,6 +21931,9 @@ type EmailThreadMessageReplyRequest struct {
 	// Attachments File attachments to include with the reply. The send is rejected when the estimated generated message size exceeds 20 MB (bodies plus all attachments after base64 encoding). Keep total raw attachment content at or below 15 MB for reliable headroom. Attachment metadata stays on the message's `attachment_manifest`, and the bytes are downloadable for the mailbox's retention tier.
 	Attachments *[]EmailAttachment `json:"attachments,omitempty"`
 
+	// CancelOnReply When scheduled_at is set, cancel if an inbound message arrives in the conversation before dispatch is claimed. Defaults to false: the frozen parent, recipients and content are sent unchanged even if new mail arrives.
+	CancelOnReply *bool `json:"cancel_on_reply,omitempty"`
+
 	// Category Content classification, which controls suppression policy:
 	//
 	// - `marketing`: Blocks on all suppression reasons.
@@ -21838,6 +21949,9 @@ type EmailThreadMessageReplyRequest struct {
 	// ReplyAll Also send the reply to the original To and Cc recipients, minus the mailbox's own address.
 	ReplyAll *bool `json:"reply_all,omitempty"`
 
+	// ScheduledAt Send between 30 seconds and 30 days ahead, sharing the scheduled-email allowance. The scheduled send is listed separately and enters the conversation only at dispatch. Sender, mailbox and send-volume eligibility are rechecked then; refusal fails the schedule record without adding a conversation message. Retention starts at dispatch. Attachments are not supported on scheduled messages; send now or schedule without attachments.
+	ScheduledAt *time.Time `json:"scheduled_at,omitempty"`
+
 	// Tags Structured `{name, value}` labels for filtering and analytics on the sent-message log. Cap: 20 tags per send.
 	Tags *[]Tag `json:"tags,omitempty"`
 
@@ -21847,7 +21961,7 @@ type EmailThreadMessageReplyRequest struct {
 
 // EmailThreadMessageSource Link to the message's entry in the received-message or sent-message log, which has delivery analytics such as per-recipient events. Log entries expire 30 days after the message occurred.
 type EmailThreadMessageSource struct {
-	// AvailableUntil When the log entry (and the message's body and raw MIME) expires.
+	// AvailableUntil When the log entry (and the message's body and raw MIME) expires. For a scheduled acknowledgement, calculated from the due time and replaced by the actual dispatch-based deadline once dispatched.
 	AvailableUntil *time.Time `json:"available_until,omitempty"`
 
 	// Resource API path of the log entry for this message.
@@ -26166,6 +26280,9 @@ type MailboxOwner struct {
 
 // MailboxOwnerType Owner principal type.
 type MailboxOwnerType string
+
+// MailboxScheduledMessageID defines model for MailboxScheduledMessageID.
+type MailboxScheduledMessageID = string
 
 // MailboxStatsPoint Per-mailbox email activity for one time bucket, bucketed by event time. Sent-mail metrics use the same delivery, engagement, and latency breakdowns as the email stats endpoints. `received` counts mail that arrived at the mailbox. Buckets with no activity are included with zero counts and `null` latency percentiles.
 type MailboxStatsPoint struct {
@@ -38199,6 +38316,70 @@ type RestoreMailboxParams struct {
 
 // ResumeMailboxParams defines parameters for ResumeMailbox.
 type ResumeMailboxParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ListMailboxScheduledMessagesParams defines parameters for ListMailboxScheduledMessages.
+type ListMailboxScheduledMessagesParams struct {
+	// ThreadId Filter by the reserved conversation identifier.
+	ThreadId *ThreadID `form:"thread_id,omitempty" json:"thread_id,omitempty"`
+
+	// Status Filter by scheduling state.
+	Status *EmailMailboxScheduledMessageStatus `form:"status,omitempty" json:"status,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetMailboxScheduledMessageParams defines parameters for GetMailboxScheduledMessage.
+type GetMailboxScheduledMessageParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// CancelMailboxScheduledMessageParams defines parameters for CancelMailboxScheduledMessage.
+type CancelMailboxScheduledMessageParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
@@ -53627,6 +53808,15 @@ type ClientInterface interface {
 	// ResumeMailbox request
 	ResumeMailbox(ctx context.Context, mailboxId MailboxID, params *ResumeMailboxParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// ListMailboxScheduledMessages request
+	ListMailboxScheduledMessages(ctx context.Context, mailboxId MailboxID, params *ListMailboxScheduledMessagesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetMailboxScheduledMessage request
+	GetMailboxScheduledMessage(ctx context.Context, mailboxId MailboxID, scheduledMessageId MailboxScheduledMessageID, params *GetMailboxScheduledMessageParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CancelMailboxScheduledMessage request
+	CancelMailboxScheduledMessage(ctx context.Context, mailboxId MailboxID, scheduledMessageId MailboxScheduledMessageID, params *CancelMailboxScheduledMessageParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// GetMailboxStats request
 	GetMailboxStats(ctx context.Context, mailboxId MailboxID, params *GetMailboxStatsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -56924,6 +57114,42 @@ func (c *Client) RestoreMailbox(ctx context.Context, mailboxId MailboxID, params
 
 func (c *Client) ResumeMailbox(ctx context.Context, mailboxId MailboxID, params *ResumeMailboxParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewResumeMailboxRequest(c.Server, mailboxId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListMailboxScheduledMessages(ctx context.Context, mailboxId MailboxID, params *ListMailboxScheduledMessagesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListMailboxScheduledMessagesRequest(c.Server, mailboxId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetMailboxScheduledMessage(ctx context.Context, mailboxId MailboxID, scheduledMessageId MailboxScheduledMessageID, params *GetMailboxScheduledMessageParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetMailboxScheduledMessageRequest(c.Server, mailboxId, scheduledMessageId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CancelMailboxScheduledMessage(ctx context.Context, mailboxId MailboxID, scheduledMessageId MailboxScheduledMessageID, params *CancelMailboxScheduledMessageParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCancelMailboxScheduledMessageRequest(c.Server, mailboxId, scheduledMessageId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -75624,6 +75850,286 @@ func NewResumeMailboxRequest(server string, mailboxId MailboxID, params *ResumeM
 	}
 
 	operationPath := fmt.Sprintf("/v1/email/mailboxes/%s/resume", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListMailboxScheduledMessagesRequest generates requests for ListMailboxScheduledMessages
+func NewListMailboxScheduledMessagesRequest(server string, mailboxId MailboxID, params *ListMailboxScheduledMessagesParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "mailbox_id", mailboxId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/mailboxes/%s/scheduled-messages", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.ThreadId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "thread_id", *params.ThreadId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Status != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "status", *params.Status, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetMailboxScheduledMessageRequest generates requests for GetMailboxScheduledMessage
+func NewGetMailboxScheduledMessageRequest(server string, mailboxId MailboxID, scheduledMessageId MailboxScheduledMessageID, params *GetMailboxScheduledMessageParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "mailbox_id", mailboxId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "scheduled_message_id", scheduledMessageId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/mailboxes/%s/scheduled-messages/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCancelMailboxScheduledMessageRequest generates requests for CancelMailboxScheduledMessage
+func NewCancelMailboxScheduledMessageRequest(server string, mailboxId MailboxID, scheduledMessageId MailboxScheduledMessageID, params *CancelMailboxScheduledMessageParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "mailbox_id", mailboxId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "scheduled_message_id", scheduledMessageId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/mailboxes/%s/scheduled-messages/%s/cancel", pathParam0, pathParam1)
 	if operationPath[0] == '/' {
 		operationPath = "." + operationPath
 	}
@@ -101941,6 +102447,15 @@ type ClientWithResponsesInterface interface {
 	// ResumeMailboxWithResponse request
 	ResumeMailboxWithResponse(ctx context.Context, mailboxId MailboxID, params *ResumeMailboxParams, reqEditors ...RequestEditorFn) (*ResumeMailboxResponse, error)
 
+	// ListMailboxScheduledMessagesWithResponse request
+	ListMailboxScheduledMessagesWithResponse(ctx context.Context, mailboxId MailboxID, params *ListMailboxScheduledMessagesParams, reqEditors ...RequestEditorFn) (*ListMailboxScheduledMessagesResponse, error)
+
+	// GetMailboxScheduledMessageWithResponse request
+	GetMailboxScheduledMessageWithResponse(ctx context.Context, mailboxId MailboxID, scheduledMessageId MailboxScheduledMessageID, params *GetMailboxScheduledMessageParams, reqEditors ...RequestEditorFn) (*GetMailboxScheduledMessageResponse, error)
+
+	// CancelMailboxScheduledMessageWithResponse request
+	CancelMailboxScheduledMessageWithResponse(ctx context.Context, mailboxId MailboxID, scheduledMessageId MailboxScheduledMessageID, params *CancelMailboxScheduledMessageParams, reqEditors ...RequestEditorFn) (*CancelMailboxScheduledMessageResponse, error)
+
 	// GetMailboxStatsWithResponse request
 	GetMailboxStatsWithResponse(ctx context.Context, mailboxId MailboxID, params *GetMailboxStatsParams, reqEditors ...RequestEditorFn) (*GetMailboxStatsResponse, error)
 
@@ -108870,6 +109385,120 @@ func (r ResumeMailboxResponse) ContentType() string {
 	return ""
 }
 
+type ListMailboxScheduledMessagesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailMailboxScheduledMessageList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r ListMailboxScheduledMessagesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListMailboxScheduledMessagesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListMailboxScheduledMessagesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetMailboxScheduledMessageResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailMailboxScheduledMessage
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetMailboxScheduledMessageResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetMailboxScheduledMessageResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetMailboxScheduledMessageResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CancelMailboxScheduledMessageResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CancelMailboxScheduledMessageResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CancelMailboxScheduledMessageResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CancelMailboxScheduledMessageResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type GetMailboxStatsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -110623,6 +111252,7 @@ type DeleteEmailThreadResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON409      *Conflict
 	JSON410      *Gone
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
@@ -120432,6 +121062,33 @@ func (c *ClientWithResponses) ResumeMailboxWithResponse(ctx context.Context, mai
 		return nil, err
 	}
 	return ParseResumeMailboxResponse(rsp)
+}
+
+// ListMailboxScheduledMessagesWithResponse request returning *ListMailboxScheduledMessagesResponse
+func (c *ClientWithResponses) ListMailboxScheduledMessagesWithResponse(ctx context.Context, mailboxId MailboxID, params *ListMailboxScheduledMessagesParams, reqEditors ...RequestEditorFn) (*ListMailboxScheduledMessagesResponse, error) {
+	rsp, err := c.ListMailboxScheduledMessages(ctx, mailboxId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListMailboxScheduledMessagesResponse(rsp)
+}
+
+// GetMailboxScheduledMessageWithResponse request returning *GetMailboxScheduledMessageResponse
+func (c *ClientWithResponses) GetMailboxScheduledMessageWithResponse(ctx context.Context, mailboxId MailboxID, scheduledMessageId MailboxScheduledMessageID, params *GetMailboxScheduledMessageParams, reqEditors ...RequestEditorFn) (*GetMailboxScheduledMessageResponse, error) {
+	rsp, err := c.GetMailboxScheduledMessage(ctx, mailboxId, scheduledMessageId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetMailboxScheduledMessageResponse(rsp)
+}
+
+// CancelMailboxScheduledMessageWithResponse request returning *CancelMailboxScheduledMessageResponse
+func (c *ClientWithResponses) CancelMailboxScheduledMessageWithResponse(ctx context.Context, mailboxId MailboxID, scheduledMessageId MailboxScheduledMessageID, params *CancelMailboxScheduledMessageParams, reqEditors ...RequestEditorFn) (*CancelMailboxScheduledMessageResponse, error) {
+	rsp, err := c.CancelMailboxScheduledMessage(ctx, mailboxId, scheduledMessageId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCancelMailboxScheduledMessageResponse(rsp)
 }
 
 // GetMailboxStatsWithResponse request returning *GetMailboxStatsResponse
@@ -136366,6 +137023,252 @@ func ParseResumeMailboxResponse(rsp *http.Response) (*ResumeMailboxResponse, err
 	return response, nil
 }
 
+// ParseListMailboxScheduledMessagesResponse parses an HTTP response from a ListMailboxScheduledMessagesWithResponse call
+func ParseListMailboxScheduledMessagesResponse(rsp *http.Response) (*ListMailboxScheduledMessagesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListMailboxScheduledMessagesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailMailboxScheduledMessageList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetMailboxScheduledMessageResponse parses an HTTP response from a GetMailboxScheduledMessageWithResponse call
+func ParseGetMailboxScheduledMessageResponse(rsp *http.Response) (*GetMailboxScheduledMessageResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetMailboxScheduledMessageResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailMailboxScheduledMessage
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCancelMailboxScheduledMessageResponse parses an HTTP response from a CancelMailboxScheduledMessageWithResponse call
+func ParseCancelMailboxScheduledMessageResponse(rsp *http.Response) (*CancelMailboxScheduledMessageResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CancelMailboxScheduledMessageResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
 // ParseGetMailboxStatsResponse parses an HTTP response from a GetMailboxStatsWithResponse call
 func ParseGetMailboxStatsResponse(rsp *http.Response) (*GetMailboxStatsResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -140165,6 +141068,13 @@ func ParseDeleteEmailThreadResponse(rsp *http.Response) (*DeleteEmailThreadRespo
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 410:
 		var dest Gone

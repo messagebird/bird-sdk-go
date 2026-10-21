@@ -34,7 +34,7 @@ import (
 )
 
 const (
-	version = "0.105.0"
+	version = "0.106.0"
 	// userAgent is human-readable only; the API attributes the SDK from the
 	// Bird-* headers set in callEditors, not the UA.
 	userAgent = "bird-sdk-go/" + version
@@ -237,6 +237,7 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 	c.Domains = &DomainsService{resource{client: c}}
 	c.Suppressions = &SuppressionsService{resource{client: c}}
 	c.Email.Mailboxes = &EmailMailboxesService{resource: resource{client: c}}
+	c.Email.Mailboxes.ScheduledMessages = &EmailMailboxesScheduledMessagesService{resource{client: c}}
 	c.Email.Mailboxes.Messages = &EmailMailboxesMessagesService{resource{client: c}}
 	c.Email.Mailboxes.ReceiveRules = &EmailMailboxesReceiveRulesService{resource{client: c}}
 	c.Email.Threads = &EmailThreadsService{resource: resource{client: c}}

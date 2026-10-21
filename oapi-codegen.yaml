@@ -306,6 +306,9 @@ output-options:
     - restoreMailbox
     - resumeMailbox
     - getMailboxStats
+    - listMailboxScheduledMessages
+    - getMailboxScheduledMessage
+    - cancelMailboxScheduledMessage
     - createMailboxMessage
     - listMailboxLabels
     - listMailboxReceiveRules
