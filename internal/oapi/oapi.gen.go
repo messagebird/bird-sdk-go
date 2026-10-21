@@ -28552,7 +28552,7 @@ type SMSSuppression struct {
 	SourceSmsId *SMSMessageID `json:"source_sms_id,omitempty"`
 }
 
-// SMSSuppressionCoverage Message categories blocked for this sender and subscriber. `all` blocks every category, including authentication and transactional messages. `non_transactional` blocks marketing messages only. Responses currently use `all`. Treat unrecognized values as blocking every category.
+// SMSSuppressionCoverage Message categories blocked for this sender and subscriber. `all` blocks every category, including authentication and transactional messages, except where Bird has agreed a STOP exemption for your workspace's authentication messages. Responses always use `all`; `non_transactional` is not used. Treat unrecognized values as blocking every category.
 type SMSSuppressionCoverage string
 
 // SMSSuppressionCreate Stops one sender's messages to one subscriber. Both ends are required, because a suppression covers a sender-and-subscriber pair rather than a subscriber alone.
@@ -32910,6 +32910,9 @@ type WhatsAppMessageTemplateComponent struct {
 
 // WhatsAppMessageTemplateComponentParameter defines model for WhatsAppMessageTemplateComponentParameter.
 type WhatsAppMessageTemplateComponentParameter struct {
+	// Filename Name the recipient sees on the document, including the extension. Without it, the document arrives untitled. Send it only on a `document` parameter; Bird rejects it on any other kind.
+	Filename *string `json:"filename,omitempty"`
+
 	// Location The point on the map a location header opens. Send it on a `location` parameter.
 	Location *WhatsAppLocationSend `json:"location,omitempty"`
 

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.107.0
+
+- Add `filename` to a WhatsApp template's `document` header parameter, naming the file the recipient sees.
+- The `applies_to` description on SMS suppressions now says responses always use `all`, and that a STOP exemption Bird agrees for your workspace lets authentication messages through.
+
 ## 0.106.0
 
 - Add scheduled mailbox compose and replies, with optional cancellation on inbound reply. Their usual message acknowledgement links to the separate scheduled send through `scheduled_message_id`. Mailbox scheduled sends have list, get and cancel operations in all four SDKs. Attachments on scheduled sends are not supported yet.
