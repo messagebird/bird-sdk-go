@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.108.0
+
+- Add `answers_editable` and `resubmission_allowed` to compliance requirements. `answers_editable` is true while you may change any answer on a number, business identity or SMS sender registration that is not yet approved, including answers already accepted, and on a closed submission whose `resubmission_allowed` is true; `resubmission_allowed` is true when Bird closed the submission but accepts corrected details.
+- **Breaking:** a WhatsApp carousel whose cards carry different buttons is now refused with the error name `WhatsAppInteractiveCardsButtonsMismatch`; the code stays `E15059`, so code that matched the old name should match the code instead.
+- Add the WhatsApp conversation methods under `whatsapp.conversations`: `list`, `get`, `update`, `listEvents`, `listMessages` and `getMessage`. Find the conversations that need an answer, read a thread and its history, then assign, label and resolve it. Reply with `whatsapp.send`. Taking control from the Meta Business Agent stays in the dashboard inbox.
+- A pre-verified WhatsApp number awaiting signup can now show `verified_until`, when WhatsApp is expected to release the number if signup is not finished by then. It is absent for a number pre-verified before this was recorded.
+- Listing WhatsApp numbers gains an `include_total` flag for a total count, covering both your connected numbers and platform-managed ones.
+- Add `Client.Whatsapp.Templates` methods to create, update, duplicate and delete WhatsApp templates, open or discard a draft, write, remove or undo its languages, and submit it for review.
+- Add `pause` to a WhatsApp template language, WhatsApp's record of why it paused or disabled the language, with `started_at`, `reason` and `description`. It is present only on the version in service, and only until the language can send again. The new `WhatsAppTemplatePauseReason` open enum lists the known `reason` values.
+- The WhatsApp message media docs now say the media expires with its message, 30 days after it arrives, and the download returns `404` from then on. A `410` means only the file expired while the message is still readable.
+
 ## 0.107.0
 
 - Add `filename` to a WhatsApp template's `document` header parameter, naming the file the recipient sees.

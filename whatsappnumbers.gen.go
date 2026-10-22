@@ -28,6 +28,8 @@ type WhatsappNumbersListParams struct {
 	Limit int
 	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
 	EndingBefore string
+	// When true, the response includes a `total` field with the total number of items matching the request's filters across all pages.
+	IncludeTotal bool
 }
 
 func (p WhatsappNumbersListParams) toWire(startingAfter string) *oapi.ListWhatsAppNumbersParams {
@@ -40,6 +42,7 @@ func (p WhatsappNumbersListParams) toWire(startingAfter string) *oapi.ListWhatsA
 		Order:         optZero(p.Order),
 		Limit:         optInt(p.Limit),
 		EndingBefore:  optStr(p.EndingBefore),
+		IncludeTotal:  optBool(p.IncludeTotal),
 		StartingAfter: optStr(startingAfter),
 	}
 }

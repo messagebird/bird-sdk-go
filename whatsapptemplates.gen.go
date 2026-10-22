@@ -10,6 +10,51 @@ import (
 	"github.com/messagebird/bird-sdk-go/option"
 )
 
+type WhatsAppTemplateCategoryWrite = oapi.WhatsAppTemplateCategoryWrite
+
+type WhatsAppTemplateLanguageUpsert = oapi.WhatsAppTemplateLanguageUpsert
+
+// WhatsappTemplatesCreateParams is the request body for create.
+type WhatsappTemplatesCreateParams struct {
+	// The WhatsApp Business Account to author this template on. A template belongs to one account at Meta and is reviewed, approved and sent under it, so every create names the account explicitly. It must be an account connected to this workspace.
+	Waba string
+	// The template's workspace-unique handle, and what a send references. Editable only before the first submission. The `bird_` prefix is reserved for our built-in templates and is rejected. Meta's own template name is derived from this handle, so the handle itself is validated against the charset Meta accepts.
+	Slug string
+	// The template's display name, shown wherever the template is listed. Free text, changeable at any time. Defaults to the slug when omitted.
+	Name *string
+	// What the template is for. Free text.
+	Description *string
+	// The category Meta reviews the template under. Required, because Meta demands one on every template it holds and it determines what a send costs. There is no default. Meta can recategorize a template after review; the per-language summary reports what it actually holds.
+	Category WhatsAppTemplateCategoryWrite
+	// The language a send uses when it names none, and the last resort when a requested language is unavailable. When `languages` is supplied it must be one of its keys.
+	DefaultLanguage string
+	// How a send behaves when it asks for a language this template does not carry. Defaults to `fail`: a WhatsApp send that silently fell back would deliver approved copy the recipient did not expect, at a price the sender did not choose.
+	OnMissingLanguage *TemplateOnMissingLanguage
+	// Whether a send has to name a language. Set it to have a send that names none rejected, leaving the default language for sends that ask for it.
+	LanguageSourceRequired *bool
+	// Optional seed for the template's first draft, keyed by BCP-47 language tag. Supplying it opens the draft and writes every language in one transaction: any invalid entry fails the whole create, leaving no template behind. Tags are canonicalised, so `pt-br` lands as `pt-BR`, and two keys canonicalising to one tag are rejected. Omit it to create the template with no draft, and add content later through the version and language paths. Nothing here reaches Meta: content is submitted, never created.
+	Languages map[string]WhatsAppTemplateLanguageUpsert
+}
+
+func (p WhatsappTemplatesCreateParams) toWire() oapi.WhatsAppTemplateCreate {
+	body := oapi.WhatsAppTemplateCreate{}
+	body.Waba = p.Waba
+	body.Slug = p.Slug
+	body.Name = p.Name
+	body.Description = p.Description
+	body.Category = p.Category
+	body.DefaultLanguage = p.DefaultLanguage
+	if p.OnMissingLanguage != nil {
+		body.OnMissingLanguage = p.OnMissingLanguage
+	}
+	body.LanguageSourceRequired = p.LanguageSourceRequired
+	if p.Languages != nil {
+		v := p.Languages
+		body.Languages = &v
+	}
+	return body
+}
+
 // WhatsappTemplatesListParams filters the list. Zero-value fields are omitted.
 type WhatsappTemplatesListParams struct {
 	// Filter to a single WhatsApp Business Account by its Meta WABA ID: the same value each template reports in its own `waba` field. Our built-in templates belong to no account and are never returned when this is set, and an account your workspace does not hold returns an empty page.
@@ -39,6 +84,84 @@ func (p WhatsappTemplatesListParams) toWire(startingAfter string) *oapi.ListWhat
 		EndingBefore:  optStr(p.EndingBefore),
 		StartingAfter: optStr(startingAfter),
 	}
+}
+
+// WhatsappTemplatesUpdateParams is the request body for update.
+type WhatsappTemplatesUpdateParams struct {
+	// A new workspace-unique handle. Editable only before the first submission. After a change, the old slug no longer resolves; the template ID stays the same.
+	Slug *string
+	// The template's display name. Editable at any time; it is not what a send references.
+	Name *string
+	// What the template is for. Send `null` to clear it.
+	Description Nullable[string]
+	// The language a send falls back to, and the one language the template is required to carry. Repointing it at a language the draft does not hold is refused, the same way removing the current default is: add the language first.
+	DefaultLanguage *string
+	// How a send behaves when it asks for a language this template does not carry. Omitting it leaves the template's current setting alone. The `fail` default belongs to a create, and a partial update never reapplies it.
+	OnMissingLanguage *TemplateOnMissingLanguage
+	// Whether a send has to name a language.
+	LanguageSourceRequired *bool
+}
+
+func (p WhatsappTemplatesUpdateParams) toWire() oapi.WhatsAppTemplateUpdate {
+	body := oapi.WhatsAppTemplateUpdate{}
+	body.Slug = p.Slug
+	body.Name = p.Name
+	body.Description = p.Description
+	body.DefaultLanguage = p.DefaultLanguage
+	if p.OnMissingLanguage != nil {
+		body.OnMissingLanguage = p.OnMissingLanguage
+	}
+	body.LanguageSourceRequired = p.LanguageSourceRequired
+	return body
+}
+
+// WhatsappTemplatesDuplicateParams is the request body for duplicate.
+type WhatsappTemplatesDuplicateParams struct {
+	// The WhatsApp Business Account the copy is created on. A template belongs to one account at Meta. Meta reviews, approves, and sends it under that account. The copy therefore names its account rather than taking the source's. A built-in template's account is not one you can submit against. It must be an account connected to this workspace.
+	Waba string
+	// The copy's handle. The server assigns one when omitted. A `bird_` slug is rejected, and one already in use is a conflict.
+	Slug *string
+	// The copy's display name. Inherited from the source when omitted.
+	Name *string
+	// The languages the copy carries, when it should carry only some of them. Every entry must be a language the source holds. A copy narrows the set it inherits, it never adds to it. Omitted, the copy takes all of the source's languages.
+	IncludeLanguages []string
+	// The copy's default language, which must be one of the languages the copy carries. Omitted, the copy keeps the source's default when `include_languages` still carries it. Otherwise it takes the first of the copy's languages sorted by canonical tag, which is the order the copy stores them in, not the order `include_languages` listed them.
+	DefaultLanguage *string
+}
+
+func (p WhatsappTemplatesDuplicateParams) toWire() oapi.WhatsAppTemplateDuplicate {
+	body := oapi.WhatsAppTemplateDuplicate{}
+	body.Waba = p.Waba
+	body.Slug = p.Slug
+	body.Name = p.Name
+	includeLanguages := make([]oapi.LanguageTag, len(p.IncludeLanguages))
+	for i, v := range p.IncludeLanguages {
+		includeLanguages[i] = oapi.LanguageTag(v)
+	}
+	if p.IncludeLanguages != nil {
+		body.IncludeLanguages = &includeLanguages
+	}
+	body.DefaultLanguage = p.DefaultLanguage
+	return body
+}
+
+// Create Creates a WhatsApp template. Supply `languages` to seed its first draft in the same call, or omit it to create the template alone and add content through `whatsapp.templates.versions.create` and `whatsapp.templates.versions.languages.set`. Nothing here reaches WhatsApp: what comes back is a `draft`, and a draft cannot be sent. Submitting it for review is a separate, explicit step. The slug can change until that first submission. The declared category is fixed at creation, but Meta applies its own category per language and may move one, and the price follows that. Read the language for what a send actually costs.
+func (s *WhatsappTemplatesService) Create(ctx context.Context, params WhatsappTemplatesCreateParams, opts ...option.RequestOption) (*WhatsAppTemplate, error) {
+	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.CreateWhatsAppTemplateParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.CreateWhatsAppTemplate(ctx, op, params.toWire(), cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out WhatsAppTemplate
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
 }
 
 // ListPage fetches one page of results. Pass the previous page's NextCursor as
@@ -78,6 +201,56 @@ func (s *WhatsappTemplatesService) List(ctx context.Context, params WhatsappTemp
 func (s *WhatsappTemplatesService) Get(ctx context.Context, templateRef string, opts ...option.RequestOption) (*WhatsAppTemplate, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetWhatsAppTemplate(ctx, templateRef, &oapi.GetWhatsAppTemplateParams{}, cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out WhatsAppTemplate
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// Update Changes a template's display name, description, and language policies. The slug can change before the first submission; the old slug then stops resolving, while the template ID stays the same. Content is edited separately on a language of the draft.
+func (s *WhatsappTemplatesService) Update(ctx context.Context, templateRef string, params WhatsappTemplatesUpdateParams, opts ...option.RequestOption) (*WhatsAppTemplate, error) {
+	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.UpdateWhatsAppTemplateParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.UpdateWhatsAppTemplate(ctx, templateRef, op, params.toWire(), cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out WhatsAppTemplate
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// Delete Deletes the template and every language it holds, here first and at WhatsApp afterwards. Sends by this slug stop working. Built-in templates cannot be deleted. To discard unsubmitted work while keeping the template, delete its draft with `whatsapp.templates.versions.delete` instead.
+func (s *WhatsappTemplatesService) Delete(ctx context.Context, templateRef string, opts ...option.RequestOption) error {
+	_, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.DeleteWhatsAppTemplateParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.DeleteWhatsAppTemplate(ctx, templateRef, op, cfg...)
+	})
+	return err
+}
+
+// Duplicate Copies a template into a new one holding the source's current content as an open draft. It is how a built-in template becomes something a workspace can edit, and how an approved template becomes the basis of a variant. The copy names the account it lands on rather than inheriting the source's, because a built-in template lives on an account you cannot submit against. The copy calls WhatsApp zero times: it is a draft you submit when it is ready.
+func (s *WhatsappTemplatesService) Duplicate(ctx context.Context, templateRef string, params WhatsappTemplatesDuplicateParams, opts ...option.RequestOption) (*WhatsAppTemplate, error) {
+	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.DuplicateWhatsAppTemplateParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.DuplicateWhatsAppTemplate(ctx, templateRef, op, params.toWire(), cfg...)
 	})
 	if err != nil {
 		return nil, err

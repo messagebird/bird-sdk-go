@@ -561,13 +561,31 @@ type (
 	WhatsAppTemplateLanguageList    = oapi.WhatsAppTemplateLanguageList
 )
 
-// WhatsAppTemplateComponent is one content block of a language; the other three
+// WhatsAppTemplateComponent is one content block of a language; the other four
 // carry Meta's verdict on the language that holds them.
 type (
 	WhatsAppTemplateComponent       = oapi.WhatsAppTemplateComponent
+	WhatsAppTemplatePause           = oapi.WhatsAppTemplatePause
 	WhatsAppTemplateQuality         = oapi.WhatsAppTemplateQuality
 	WhatsAppTemplateRejection       = oapi.WhatsAppTemplateRejection
 	WhatsAppTemplateSubmissionError = oapi.WhatsAppTemplateSubmissionError
+)
+
+// What the authoring writes return, and the blocks nested inside a
+// WhatsAppTemplateComponentWrite, which a caller has to name to build one.
+type (
+	WhatsAppTemplateSubmitResult           = oapi.WhatsAppTemplateSubmitResult
+	WhatsAppTemplateSubmitProblem          = oapi.WhatsAppTemplateSubmitProblem
+	WhatsAppTemplateLanguageSaved          = oapi.WhatsAppTemplateLanguageSaved
+	WhatsAppTemplateExampleParameterWrite  = oapi.WhatsAppTemplateExampleParameterWrite
+	WhatsAppTemplateParameterTypeWrite     = oapi.WhatsAppTemplateParameterTypeWrite
+	WhatsAppTemplateButtonWrite            = oapi.WhatsAppTemplateButtonWrite
+	WhatsAppTemplateButtonTypeWrite        = oapi.WhatsAppTemplateButtonTypeWrite
+	WhatsAppTemplateButtonOtpTypeWrite     = oapi.WhatsAppTemplateButtonOtpTypeWrite
+	WhatsAppTemplateCardWrite              = oapi.WhatsAppTemplateCardWrite
+	WhatsAppTemplateCardComponentWrite     = oapi.WhatsAppTemplateCardComponentWrite
+	WhatsAppTemplateCardComponentTypeWrite = oapi.WhatsAppTemplateCardComponentTypeWrite
+	WhatsAppTemplateCardHeaderFormatWrite  = oapi.WhatsAppTemplateCardHeaderFormatWrite
 )
 
 // The senders a send can name: a WhatsAppNumber is one connected number and the
@@ -631,6 +649,16 @@ const (
 	WhatsAppAgentNotificationStatusSuccess  = oapi.WhatsAppAgentNotificationStatusSuccess
 	WhatsAppAgentNotificationStatusSkipped  = oapi.WhatsAppAgentNotificationStatusSkipped
 	WhatsAppAgentNotificationStatusFailed   = oapi.WhatsAppAgentNotificationStatusFailed
+)
+
+// WhatsAppConversation is one inbox thread with a contact or group, and
+// WhatsAppConversationEvent one move of its control or assignment.
+type (
+	WhatsAppConversation                    = oapi.WhatsAppConversation
+	WhatsAppConversationList                = oapi.WhatsAppConversationList
+	WhatsAppConversationEvent               = oapi.WhatsAppConversationEvent
+	WhatsAppConversationEventList           = oapi.WhatsAppConversationEventList
+	WhatsAppConversationServiceWindowStatus = oapi.WhatsAppConversationServiceWindowStatus
 )
 
 // PhoneNumberLookup is what we know about a phone number; EmailLookup is the

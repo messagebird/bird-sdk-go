@@ -157,12 +157,22 @@ output-options:
     - deleteWhatsAppMessageReaction
     - listWhatsAppMessageReactionEvents
     - getWhatsAppMessageMedia
+    - createWhatsAppTemplate
     - listWhatsAppTemplates
     - getWhatsAppTemplate
+    - updateWhatsAppTemplate
+    - deleteWhatsAppTemplate
+    - duplicateWhatsAppTemplate
+    - createWhatsAppTemplateDraft
     - listWhatsAppTemplateVersions
     - getWhatsAppTemplateVersion
+    - deleteWhatsAppTemplateVersion
+    - submitWhatsAppTemplateVersion
     - listWhatsAppTemplateVersionLanguages
     - getWhatsAppTemplateVersionLanguage
+    - upsertWhatsAppTemplateLanguage
+    - deleteWhatsAppTemplateLanguage
+    - discardWhatsAppTemplateLanguageEdits
     - createWhatsAppGroup
     - listWhatsAppGroups
     - getWhatsAppGroup
@@ -190,6 +200,12 @@ output-options:
     - getWhatsAppSuppression
     - createWhatsAppSuppression
     - deleteWhatsAppSuppression
+    - listWhatsAppConversations
+    - getWhatsAppConversation
+    - updateWhatsAppConversation
+    - listWhatsAppConversationEvents
+    - listWhatsAppConversationMessages
+    - getWhatsAppConversationMessage
     - listWhatsAppAgentNotifications
     - createWhatsAppAgentNotification
     - getWhatsAppAgentNotification

@@ -1002,6 +1002,27 @@ const (
 	WhatsAppBusinessVerticalTravel           = oapi.WhatsAppBusinessVerticalTravel
 )
 
+// WhatsAppConversationControl is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WhatsAppConversationControl* constants with a
+// default branch rather than treating the set as closed.
+type WhatsAppConversationControl = oapi.WhatsAppConversationControl
+
+const (
+	WhatsAppConversationControlBird              = oapi.WhatsAppConversationControlBird
+	WhatsAppConversationControlMetaBusinessAgent = oapi.WhatsAppConversationControlMetaBusinessAgent
+)
+
+// WhatsAppConversationEventType is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WhatsAppConversationEventType* constants with a
+// default branch rather than treating the set as closed.
+type WhatsAppConversationEventType = oapi.WhatsAppConversationEventType
+
+const (
+	WhatsAppConversationEventTypeWhatsappConversationAgentNotified  = oapi.WhatsAppConversationEventTypeWhatsappConversationAgentNotified
+	WhatsAppConversationEventTypeWhatsappConversationAssigned       = oapi.WhatsAppConversationEventTypeWhatsappConversationAssigned
+	WhatsAppConversationEventTypeWhatsappConversationControlChanged = oapi.WhatsAppConversationEventTypeWhatsappConversationControlChanged
+)
+
 // WhatsAppDisplayNameStatus is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the WhatsAppDisplayNameStatus* constants with a
 // default branch rather than treating the set as closed.
@@ -1248,6 +1269,18 @@ const (
 	WhatsAppTemplateParameterTypeLocation = oapi.WhatsAppTemplateParameterTypeLocation
 	WhatsAppTemplateParameterTypeText     = oapi.WhatsAppTemplateParameterTypeText
 	WhatsAppTemplateParameterTypeVideo    = oapi.WhatsAppTemplateParameterTypeVideo
+)
+
+// WhatsAppTemplatePauseReason is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WhatsAppTemplatePauseReason* constants with a
+// default branch rather than treating the set as closed.
+type WhatsAppTemplatePauseReason = oapi.WhatsAppTemplatePauseReason
+
+const (
+	WhatsAppTemplatePauseReasonDisabled          = oapi.WhatsAppTemplatePauseReasonDisabled
+	WhatsAppTemplatePauseReasonFirstPause        = oapi.WhatsAppTemplatePauseReasonFirstPause
+	WhatsAppTemplatePauseReasonRateLimitingPause = oapi.WhatsAppTemplatePauseReasonRateLimitingPause
+	WhatsAppTemplatePauseReasonSecondPause       = oapi.WhatsAppTemplatePauseReasonSecondPause
 )
 
 // WhatsAppTemplateQualityScore is an open string on the wire: a value added by a newer server

@@ -15,8 +15,6 @@ type AMBConversationRoutingChangeDecision = oapi.AMBConversationRoutingChangeDec
 
 type AMBConversationTypingEvent = oapi.AMBConversationTypingEvent
 
-type ConversationInboxStatus = oapi.ConversationInboxStatus
-
 type AMBConversationRoutingChangeAction = oapi.AMBConversationRoutingChangeAction
 
 const (

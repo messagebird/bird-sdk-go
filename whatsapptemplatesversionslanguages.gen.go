@@ -9,6 +9,59 @@ import (
 	"github.com/messagebird/bird-sdk-go/option"
 )
 
+type WhatsAppTemplateComponentWrite = oapi.WhatsAppTemplateComponentWrite
+
+type WhatsAppTemplateComponentTypeWrite = oapi.WhatsAppTemplateComponentTypeWrite
+
+const (
+	WhatsAppTemplateComponentTypeWriteHeader   WhatsAppTemplateComponentTypeWrite = "header"
+	WhatsAppTemplateComponentTypeWriteBody     WhatsAppTemplateComponentTypeWrite = "body"
+	WhatsAppTemplateComponentTypeWriteFooter   WhatsAppTemplateComponentTypeWrite = "footer"
+	WhatsAppTemplateComponentTypeWriteButtons  WhatsAppTemplateComponentTypeWrite = "buttons"
+	WhatsAppTemplateComponentTypeWriteCarousel WhatsAppTemplateComponentTypeWrite = "carousel"
+)
+
+type WhatsAppTemplateHeaderFormatWrite = oapi.WhatsAppTemplateHeaderFormatWrite
+
+const (
+	WhatsAppTemplateHeaderFormatWriteText     WhatsAppTemplateHeaderFormatWrite = "text"
+	WhatsAppTemplateHeaderFormatWriteImage    WhatsAppTemplateHeaderFormatWrite = "image"
+	WhatsAppTemplateHeaderFormatWriteVideo    WhatsAppTemplateHeaderFormatWrite = "video"
+	WhatsAppTemplateHeaderFormatWriteGif      WhatsAppTemplateHeaderFormatWrite = "gif"
+	WhatsAppTemplateHeaderFormatWriteDocument WhatsAppTemplateHeaderFormatWrite = "document"
+	WhatsAppTemplateHeaderFormatWriteLocation WhatsAppTemplateHeaderFormatWrite = "location"
+)
+
+// WhatsappTemplatesVersionsLanguagesSetParams is the request body for set.
+type WhatsappTemplatesVersionsLanguagesSetParams struct {
+	// The template's content blocks for this language. Header, footer and buttons are optional. Every variable needs an example value, which is what Meta reviews against. May be omitted or empty on a draft; a body block is required before the language can be submitted.
+	Components []WhatsAppTemplateComponentWrite
+	// The revision you last read for this language, making the write a compare-and-set: a mismatch is refused with a conflict, leaving an edit you have not seen in place. Omit it for last-write-wins, which is what a single writer wants. Supplying it for a language that does not exist is also refused with a conflict rather than recreating the language. Inside a template's initial languages seed on create, a value here is refused, since no prior revision exists yet to compare against.
+	Revision *int
+}
+
+func (p WhatsappTemplatesVersionsLanguagesSetParams) toWire() oapi.WhatsAppTemplateLanguageUpsert {
+	body := oapi.WhatsAppTemplateLanguageUpsert{}
+	if p.Components != nil {
+		v := p.Components
+		body.Components = &v
+	}
+	body.Revision = p.Revision
+	return body
+}
+
+// WhatsappTemplatesVersionsLanguagesDiscardParams is the request body for discard.
+type WhatsappTemplatesVersionsLanguagesDiscardParams struct {
+	// The revision you last read for this language, making the discard a compare-and-set: a mismatch is refused with a conflict, leaving an edit you have not seen in place. Omit it for last-write-wins, which is what a single writer wants. Supplying it for a language the draft no longer holds is also refused with a conflict rather than recreating the language.
+	Revision *int
+}
+
+func (p WhatsappTemplatesVersionsLanguagesDiscardParams) toWire() oapi.WhatsAppTemplateLanguageDiscard {
+	body := oapi.WhatsAppTemplateLanguageDiscard{}
+	body.Revision = p.Revision
+	return body
+}
+
 // List List the languages one WhatsApp template version carries, with each language's review outcome at Meta and a content hash to tell which ones actually differ before fetching any of them. Use `whatsapp.templates.versions.languages.get` for a single language's content blocks.
 func (s *WhatsappTemplatesVersionsLanguagesService) List(ctx context.Context, templateRef string, versionId string, opts ...option.RequestOption) (*WhatsAppTemplateLanguageList, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
@@ -33,6 +86,56 @@ func (s *WhatsappTemplatesVersionsLanguagesService) Get(ctx context.Context, tem
 		return nil, err
 	}
 	var out WhatsAppTemplateLanguage
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// Set Writes one language of the draft, whole: send the language's complete `components` every time, because this replaces rather than merges. Only the draft is writable. A submitted version is immutable, and a language under review at WhatsApp refuses the write until that review finishes. A body block is required before the language can be submitted, and every variable in a block needs an example value, which is what WhatsApp reviews against. Pass `revision` to make the write a compare-and-set against the copy you read; omit it for last-write-wins, which is what a single writer wants.
+func (s *WhatsappTemplatesVersionsLanguagesService) Set(ctx context.Context, templateRef string, versionId string, language string, params WhatsappTemplatesVersionsLanguagesSetParams, opts ...option.RequestOption) (*WhatsAppTemplateLanguageSaved, error) {
+	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.UpsertWhatsAppTemplateLanguageParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.UpsertWhatsAppTemplateLanguage(ctx, templateRef, oapi.WhatsAppTemplateVersionID(versionId), oapi.LanguageTag(language), op, params.toWire(), cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out WhatsAppTemplateLanguageSaved
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// Delete Removes one language from the draft. The template's default language cannot be removed, and a language under review at WhatsApp refuses removal until that review finishes. WhatsApp is not told until the draft is submitted, and the version a send resolves is unaffected until then.
+func (s *WhatsappTemplatesVersionsLanguagesService) Delete(ctx context.Context, templateRef string, versionId string, language string, opts ...option.RequestOption) error {
+	_, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.DeleteWhatsAppTemplateLanguageParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.DeleteWhatsAppTemplateLanguage(ctx, templateRef, oapi.WhatsAppTemplateVersionID(versionId), oapi.LanguageTag(language), op, cfg...)
+	})
+	return err
+}
+
+// Discard Restores one language of the draft to the copy it was branched from, discarding the edits made to it since. Only that language moves, which is what deleting the whole draft does not give you. A language the draft added, and a template that has never been submitted, have nothing to restore and are refused. Pass `revision` to make the discard a compare-and-set against the copy you read. Nothing reaches WhatsApp until the draft is submitted.
+func (s *WhatsappTemplatesVersionsLanguagesService) Discard(ctx context.Context, templateRef string, versionId string, language string, params WhatsappTemplatesVersionsLanguagesDiscardParams, opts ...option.RequestOption) (*WhatsAppTemplateLanguageSaved, error) {
+	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.DiscardWhatsAppTemplateLanguageEditsParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.DiscardWhatsAppTemplateLanguageEdits(ctx, templateRef, oapi.WhatsAppTemplateVersionID(versionId), oapi.LanguageTag(language), op, params.toWire(), cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out WhatsAppTemplateLanguageSaved
 	if err := decodeBody(body, &out); err != nil {
 		return nil, err
 	}

@@ -42,6 +42,9 @@ type WhatsappService struct {
 
 	// Agents reaches the Business Agent on one of those senders.
 	Agents *WhatsappAgentsService
+
+	// Conversations reads and triages the inbox threads on those senders.
+	Conversations *WhatsappConversationsService
 }
 
 // WhatsappSendParams is a single WhatsApp message send. Carry exactly one kind

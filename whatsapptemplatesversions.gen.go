@@ -26,6 +26,37 @@ func (p WhatsappTemplatesVersionsListParams) toWire(startingAfter string) *oapi.
 	}
 }
 
+// WhatsappTemplatesVersionsSubmitParams is the request body for submit.
+type WhatsappTemplatesVersionsSubmitParams struct {
+	// Check the draft without submitting it. Every language is checked and every problem reported, but nothing is frozen and nothing is sent to WhatsApp. A clean result does not guarantee WhatsApp approval: WhatsApp offers no way to ask in advance, so it can still refuse a submission these checks passed. Use a different idempotency key for the validation and the submission. Reusing one key with different request bodies is rejected.
+	ValidateOnly *bool
+}
+
+func (p WhatsappTemplatesVersionsSubmitParams) toWire() oapi.WhatsAppTemplateSubmit {
+	body := oapi.WhatsAppTemplateSubmit{}
+	body.ValidateOnly = p.ValidateOnly
+	return body
+}
+
+// Create Opens the template's editable draft, seeded from the newest submitted version. A template has at most one open draft, so this is safe to call when you are unsure: it returns the existing draft rather than opening a second one. Read the template's `draft_version_id` first to skip the call. The draft is where every content edit lands, and nothing reaches WhatsApp until the draft is submitted.
+func (s *WhatsappTemplatesVersionsService) Create(ctx context.Context, templateRef string, opts ...option.RequestOption) (*WhatsAppTemplateVersion, error) {
+	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.CreateWhatsAppTemplateDraftParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.CreateWhatsAppTemplateDraft(ctx, templateRef, op, cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out WhatsAppTemplateVersion
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
 // ListPage fetches one page of results. Pass the previous page's NextCursor as
 // startingAfter to advance; "" starts from the first page.
 func (s *WhatsappTemplatesVersionsService) ListPage(ctx context.Context, templateRef string, params WhatsappTemplatesVersionsListParams, startingAfter string, opts ...option.RequestOption) (*WhatsAppTemplateVersionList, error) {
@@ -68,6 +99,37 @@ func (s *WhatsappTemplatesVersionsService) Get(ctx context.Context, templateRef 
 		return nil, err
 	}
 	var out WhatsAppTemplateVersion
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// Delete Deletes the open draft and every unsubmitted edit in it, leaving the template with no draft until `whatsapp.templates.versions.create` opens another. What sends resolve is unaffected, because a submitted version is immutable and keeps serving. To revert one language instead of discarding all of them, use `whatsapp.templates.versions.languages.discard`.
+func (s *WhatsappTemplatesVersionsService) Delete(ctx context.Context, templateRef string, versionId string, opts ...option.RequestOption) error {
+	_, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.DeleteWhatsAppTemplateVersionParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.DeleteWhatsAppTemplateVersion(ctx, templateRef, oapi.WhatsAppTemplateVersionID(versionId), op, cfg...)
+	})
+	return err
+}
+
+// Submit Checks the draft and, unless `validate_only` is set, freezes it as an immutable version and sends each changed language to WhatsApp for review. Call it once with `validate_only: true` first: that reports every problem across every language in one round trip and freezes nothing, which is cheaper than finding the problems one submit at a time. A real submit answers `202`, and only the languages whose content changed go to WhatsApp as `pending`: one whose content already matches its approved copy is carried forward still `approved` and is never sent. A submit where every language is unchanged is therefore settled the moment it returns, with nothing to poll for. A language an earlier version carried but the draft dropped is deleted at WhatsApp in the background; it is absent from the new version, so it has no `pending` state to poll. Read the version's languages to see which are which, and where any is `pending`, read the template's `pending_version_id` and those languages until they settle. A clean check does not guarantee WhatsApp approves, because WhatsApp offers no way to ask in advance. Use a different idempotency key for the check and the submit.
+func (s *WhatsappTemplatesVersionsService) Submit(ctx context.Context, templateRef string, versionId string, params WhatsappTemplatesVersionsSubmitParams, opts ...option.RequestOption) (*WhatsAppTemplateSubmitResult, error) {
+	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.SubmitWhatsAppTemplateVersionParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.SubmitWhatsAppTemplateVersion(ctx, templateRef, oapi.WhatsAppTemplateVersionID(versionId), op, params.toWire(), cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out WhatsAppTemplateSubmitResult
 	if err := decodeBody(body, &out); err != nil {
 		return nil, err
 	}

@@ -92,7 +92,7 @@ func (s *ComplianceSubmissionsService) Create(ctx context.Context, params Compli
 	return &out, nil
 }
 
-// Resupply Replaces rejected, expired, or missing answers on an existing submission. Read `compliance_requirements.get` for the fields and correction feedback. Accepted answers normally cannot be changed. During an open verifier correction and before its deadline, you can replace selected accepted answers. Unchanged entries are ignored; at least one answer must change. Changed answers are reviewed again. These answers are a legal representation under the business's name.
+// Resupply Replaces rejected, expired, or missing answers on an existing submission. Read `compliance_requirements.get` for the fields and correction feedback. Accepted answers normally cannot be changed, except while `answers_editable` is true on the requirements: then any changed answer is reviewed again, and a closed submission with `resubmission_allowed` reopens. During an open verifier correction and before its deadline, you can replace selected accepted answers. Unchanged entries are ignored; at least one answer must change. Changed answers are reviewed again. These answers are a legal representation under the business's name.
 func (s *ComplianceSubmissionsService) Resupply(ctx context.Context, submissionId string, params ComplianceSubmissionsResupplyParams, opts ...option.RequestOption) (*ComplianceSubmission, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.UpdateWorkspaceComplianceSubmissionParams{}

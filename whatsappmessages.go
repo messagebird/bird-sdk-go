@@ -29,9 +29,10 @@ type WhatsAppMedia struct {
 // audio clip, sticker or document. mediaID is the id on the message's content
 // object, which Client.Whatsapp.Get returns.
 //
-// Media is kept for 30 days after the message arrives; after that the message
-// still lists the media's mime_type and caption, and this returns a 410
-// *APIError. Outbound messages carry no stored media.
+// Media expires with its message, 30 days after it arrives, and this returns a
+// 404 *APIError from then on. A 410 *APIError means only the file expired: the
+// message still lists the media's mime_type and caption. Messages sent through
+// Bird carry no stored media.
 //
 // The second leg runs on http.DefaultClient rather than the client's own:
 // option.WithHTTPClient may carry auth middleware, and the presigned target

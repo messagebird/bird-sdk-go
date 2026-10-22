@@ -2998,6 +2998,177 @@ func ExampleWhatsappTemplatesVersionsLanguagesService_Get() {
 	fmt.Println(language.Language, len(language.Components))
 }
 
+// Create a template with its first draft.
+func ExampleWhatsappTemplatesService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	template, err := client.Whatsapp.Templates.Create(context.Background(), bird.WhatsappTemplatesCreateParams{
+		Waba:            "102290129340398",
+		Slug:            "order_update",
+		Name:            bird.String("Order update"),
+		Category:        "utility",
+		DefaultLanguage: "en",
+		Languages: map[string]bird.WhatsAppTemplateLanguageUpsert{
+			"en": {Components: &[]bird.WhatsAppTemplateComponentWrite{{
+				Type: "body",
+				Text: bird.String("Your order {{order_id}} has shipped."),
+				ExampleParameters: &[]bird.WhatsAppTemplateExampleParameterWrite{
+					{Type: "text", Name: bird.String("order_id"), Text: bird.String("A-4192")},
+				},
+			}}},
+		},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(template.Id, template.Name)
+}
+
+// Rename a template.
+func ExampleWhatsappTemplatesService_Update() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	template, err := client.Whatsapp.Templates.Update(context.Background(), "order_update", bird.WhatsappTemplatesUpdateParams{
+		Name: bird.String("Order shipped"),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(template.Id, template.Name)
+}
+
+// Delete a template.
+func ExampleWhatsappTemplatesService_Delete() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := client.Whatsapp.Templates.Delete(context.Background(), "order_update"); err != nil {
+		log.Fatal(err)
+	}
+}
+
+// Copy a built-in template onto your own account.
+func ExampleWhatsappTemplatesService_Duplicate() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	copied, err := client.Whatsapp.Templates.Duplicate(context.Background(), "bird_otp", bird.WhatsappTemplatesDuplicateParams{
+		Waba: "102290129340398",
+		Slug: bird.String("acme_otp"),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(copied.Id, copied.Name)
+}
+
+// Open a draft to edit.
+func ExampleWhatsappTemplatesVersionsService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	draft, err := client.Whatsapp.Templates.Versions.Create(context.Background(), "order_update")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(draft.Id)
+}
+
+// Discard the open draft.
+func ExampleWhatsappTemplatesVersionsService_Delete() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := client.Whatsapp.Templates.Versions.Delete(context.Background(), "order_update", "wav_01krdgeqcxet5s7t44vh8rt9mg"); err != nil {
+		log.Fatal(err)
+	}
+}
+
+// Check the draft, then submit it for review.
+func ExampleWhatsappTemplatesVersionsService_Submit() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	draftID := "wav_01krdgeqcxet5s7t44vh8rt9mg"
+	check, err := client.Whatsapp.Templates.Versions.Submit(ctx, "order_update", draftID,
+		bird.WhatsappTemplatesVersionsSubmitParams{ValidateOnly: bird.Bool(true)})
+	if err != nil {
+		log.Fatal(err)
+	}
+	if check.Errors != nil {
+		for _, problem := range *check.Errors {
+			fmt.Println(*problem.Message)
+		}
+	}
+	if check.Valid != nil && *check.Valid {
+		submitted, err := client.Whatsapp.Templates.Versions.Submit(ctx, "order_update", draftID,
+			bird.WhatsappTemplatesVersionsSubmitParams{})
+		if err != nil {
+			log.Fatal(err)
+		}
+		if submitted.Version != nil {
+			fmt.Println(submitted.Version.Id)
+		}
+	}
+}
+
+// Write one language's content.
+func ExampleWhatsappTemplatesVersionsLanguagesService_Set() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	saved, err := client.Whatsapp.Templates.Versions.Languages.Set(context.Background(), "order_update", "wav_01krdgeqcxet5s7t44vh8rt9mg", "es",
+		bird.WhatsappTemplatesVersionsLanguagesSetParams{
+			Components: []bird.WhatsAppTemplateComponentWrite{{
+				Type: "body",
+				Text: bird.String("Tu pedido {{order_id}} ya fue enviado."),
+				ExampleParameters: &[]bird.WhatsAppTemplateExampleParameterWrite{
+					{Type: "text", Name: bird.String("order_id"), Text: bird.String("A-4192")},
+				},
+			}},
+		})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(*saved.Language, *saved.Revision)
+}
+
+// Remove a language from the draft.
+func ExampleWhatsappTemplatesVersionsLanguagesService_Delete() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := client.Whatsapp.Templates.Versions.Languages.Delete(context.Background(), "order_update", "wav_01krdgeqcxet5s7t44vh8rt9mg", "es"); err != nil {
+		log.Fatal(err)
+	}
+}
+
+// Undo a language's draft edits.
+func ExampleWhatsappTemplatesVersionsLanguagesService_Discard() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	restored, err := client.Whatsapp.Templates.Versions.Languages.Discard(context.Background(), "order_update", "wav_01krdgeqcxet5s7t44vh8rt9mg", "en",
+		bird.WhatsappTemplatesVersionsLanguagesDiscardParams{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(*restored.Language, *restored.Revision)
+}
+
 // Summary returns outbound delivery and latency totals for a window.
 func ExampleWhatsappStatsService_Summary() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
@@ -5238,6 +5409,92 @@ func ExampleWhatsappAgentsNotificationsService_Get() {
 	} else {
 		fmt.Println(*notification.Status)
 	}
+}
+
+func ExampleWhatsappConversationsService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for conversation, err := range client.Whatsapp.Conversations.List(context.Background(), bird.WhatsappConversationsListParams{
+		InboxStatus: "open",
+		Control:     "bird",
+		AssignedTo:  "unassigned",
+	}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(conversation.Id, conversation.UnreadCount)
+	}
+}
+
+func ExampleWhatsappConversationsService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	conversation, err := client.Whatsapp.Conversations.Get(context.Background(), "wacv_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(conversation.Control, conversation.Labels)
+}
+
+func ExampleWhatsappConversationsService_Update() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	// Labels replaces the whole set, so send every label to keep.
+	conversation, err := client.Whatsapp.Conversations.Update(context.Background(), "wacv_01krdgeqcxet5s7t44vh8rt9mg", bird.WhatsappConversationsUpdateParams{
+		AssignedTo:  bird.Value("usr_01krdgeqcxet5s7t44vh8rt9mg"),
+		Labels:      []string{"billing", "vip"},
+		InboxStatus: bird.Ptr(bird.ConversationInboxStatus("resolved")),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(conversation.InboxStatus)
+}
+
+func ExampleWhatsappConversationsService_ListEvents() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for event, err := range client.Whatsapp.Conversations.ListEvents(context.Background(), "wacv_01krdgeqcxet5s7t44vh8rt9mg", bird.WhatsappConversationsListEventsParams{}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(event.CreatedAt, event.Type, event.Summary)
+	}
+}
+
+func ExampleWhatsappConversationsService_ListMessages() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for message, err := range client.Whatsapp.Conversations.ListMessages(context.Background(), "wacv_01krdgeqcxet5s7t44vh8rt9mg", bird.WhatsappConversationsListMessagesParams{
+		Direction: "inbound",
+	}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(message.Id, message.CreatedAt)
+	}
+}
+
+func ExampleWhatsappConversationsService_GetMessage() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	message, err := client.Whatsapp.Conversations.GetMessage(context.Background(), "wacv_01krdgeqcxet5s7t44vh8rt9mg", "wam_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(message.Direction, message.Status)
 }
 
 // A connector endpoint has no URL of its own: Bird builds it from the
