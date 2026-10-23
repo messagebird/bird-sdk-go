@@ -33514,7 +33514,7 @@ type WhatsAppNumberError struct {
 // - `verification_rate_limited`: WhatsApp declined to send this number another verification code, having been asked too often. It clears with time; retrying sooner extends it.
 // - `business_account_locked`: WhatsApp locked the business account.
 // - `business_verification_required`: WhatsApp refused to register the number because the business portfolio is not verified, usually because an unverified portfolio may hold only a few registered numbers. Verify the business or free a registered number on the portfolio, then repair the number.
-// - `credit_currency_mismatch`: WhatsApp bills the business account in a currency your organization is not billed in. Connect the number under a business account WhatsApp bills in that same currency, or one WhatsApp has set no currency on: an account's billing currency cannot be changed once WhatsApp sets it.
+// - `credit_currency_mismatch`: WhatsApp bills the business account in a currency your organization is not billed in. In Meta Business Suite, remove the account's payment method and then set its currency to your organization's billing currency. If Meta doesn't allow the change, connect the number under a business account WhatsApp bills in that same currency or has set no currency on.
 // - `permission_denied`: WhatsApp refused access to the account.
 // - `invalid_request`: WhatsApp rejected the connection details.
 // - `internal_error`: The service could not classify or resolve the failure.

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.109.0
+
+- A WhatsApp number that failed with `credit_currency_mismatch` now carries a `next` step to fix the account's currency in Meta Business Suite, linking the troubleshooting section, and the error code's description says to remove the payment method and change the currency first.
+
 ## 0.108.0
 
 - Add `answers_editable` and `resubmission_allowed` to compliance requirements. `answers_editable` is true while you may change any answer on a number, business identity or SMS sender registration that is not yet approved, including answers already accepted, and on a closed submission whose `resubmission_allowed` is true; `resubmission_allowed` is true when Bird closed the submission but accepts corrected details.

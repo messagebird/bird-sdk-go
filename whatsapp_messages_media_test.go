@@ -40,7 +40,7 @@ func redirectingAPI(t *testing.T, storageStatus int, storageHeader http.Header) 
 
 func TestMediaFollowsTheRedirect(t *testing.T) {
 	t.Parallel()
-	api, _ := redirectingAPI(t, http.StatusOK, http.Header{"Content-Type": {"image/png"}})
+	api, seen := redirectingAPI(t, http.StatusOK, http.Header{"Content-Type": {"image/png"}})
 
 	media, err := newClient(t, api).Whatsapp.Messages.Media(context.Background(), "wam_1", "waf_1")
 	if err != nil {
@@ -55,18 +55,8 @@ func TestMediaFollowsTheRedirect(t *testing.T) {
 	if media.ContentLength != int64(len(mediaPNG)) {
 		t.Errorf("ContentLength = %d, want %d", media.ContentLength, len(mediaPNG))
 	}
-}
-
-// The presigned URL carries its own credential and refuses a second auth
-// mechanism, so a Bird header reaching storage is both a leak and a broken
-// request. This is the assertion the whole two-leg design exists for.
-func TestMediaSendsNoCredentialsToStorage(t *testing.T) {
-	t.Parallel()
-	api, seen := redirectingAPI(t, http.StatusOK, http.Header{"Content-Type": {"image/png"}})
-
-	if _, err := newClient(t, api).Whatsapp.Messages.Media(context.Background(), "wam_1", "waf_1"); err != nil {
-		t.Fatalf("Media: %v", err)
-	}
+	// The presigned URL carries its own credential and refuses a second auth
+	// mechanism, so a Bird header reaching storage is both a leak and a broken request.
 	if got := seen.Get("Authorization"); got != "" {
 		t.Errorf("storage received Authorization %q, want none", got)
 	}
