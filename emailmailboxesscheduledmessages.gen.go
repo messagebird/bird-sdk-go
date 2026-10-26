@@ -36,7 +36,7 @@ func (p EmailMailboxesScheduledMessagesListParams) toWire(startingAfter string) 
 // startingAfter to advance; "" starts from the first page.
 func (s *EmailMailboxesScheduledMessagesService) ListPage(ctx context.Context, mailboxId string, params EmailMailboxesScheduledMessagesListParams, startingAfter string, opts ...option.RequestOption) (*EmailMailboxScheduledMessageList, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.ListMailboxScheduledMessages(ctx, oapi.MailboxID(mailboxId), params.toWire(startingAfter), cfg...)
+		return s.client.oapi.ListMailboxScheduledMessages(ctx, oapi.MailboxIdentifier(mailboxId), params.toWire(startingAfter), cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -68,7 +68,7 @@ func (s *EmailMailboxesScheduledMessagesService) List(ctx context.Context, mailb
 // Get Read the scheduled send and its dispatch, failure or cancellation state. The actual message enters the conversation only at dispatch.
 func (s *EmailMailboxesScheduledMessagesService) Get(ctx context.Context, mailboxId string, scheduledMessageId string, opts ...option.RequestOption) (*EmailMailboxScheduledMessage, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetMailboxScheduledMessage(ctx, oapi.MailboxID(mailboxId), oapi.MailboxScheduledMessageID(scheduledMessageId), &oapi.GetMailboxScheduledMessageParams{}, cfg...)
+		return s.client.oapi.GetMailboxScheduledMessage(ctx, oapi.MailboxIdentifier(mailboxId), oapi.MailboxScheduledMessageID(scheduledMessageId), &oapi.GetMailboxScheduledMessageParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -87,7 +87,7 @@ func (s *EmailMailboxesScheduledMessagesService) Cancel(ctx context.Context, mai
 		if idempotencyKey != "" {
 			op.IdempotencyKey = &idempotencyKey
 		}
-		return s.client.oapi.CancelMailboxScheduledMessage(ctx, oapi.MailboxID(mailboxId), oapi.MailboxScheduledMessageID(scheduledMessageId), op, cfg...)
+		return s.client.oapi.CancelMailboxScheduledMessage(ctx, oapi.MailboxIdentifier(mailboxId), oapi.MailboxScheduledMessageID(scheduledMessageId), op, cfg...)
 	})
 	return err
 }

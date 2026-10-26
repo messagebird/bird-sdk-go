@@ -138,7 +138,7 @@ func (s *AssetsService) Update(ctx context.Context, assetId string, params Asset
 	return &out, nil
 }
 
-// Delete Removes the library entry while its public URL continues serving existing content. Repeating deletion is safe. This operation does not revoke access to the file.
+// Delete Removes the library entry without revoking public access to the file. A separate staff security or abuse takedown can block the entry and URL. Repeating deletion is safe.
 func (s *AssetsService) Delete(ctx context.Context, assetId string, opts ...option.RequestOption) error {
 	_, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.DeleteAssetParams{}

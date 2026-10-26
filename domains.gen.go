@@ -89,6 +89,8 @@ func (p DomainCreateParams) toWire() oapi.DomainCreate {
 
 // DomainUpdateParams is the request body for update.
 type DomainUpdateParams struct {
+	// Default IP pool for this domain in this workspace. Used only when a send omits `ip_pool_id`; an explicit send option takes precedence. The pool must belong to the same organization. Set to `null` to use normal organization routing.
+	DefaultIPPoolID Nullable[string]
 	// Per-domain behavior toggles. Changes apply immediately to new sends.
 	Settings *DomainSettings
 	// Change the return-path name part. Cannot be removed: the return-path is required for sending.
@@ -103,6 +105,7 @@ type DomainUpdateParams struct {
 
 func (p DomainUpdateParams) toWire() oapi.DomainUpdate {
 	body := oapi.DomainUpdate{}
+	body.DefaultIpPoolId = p.DefaultIPPoolID
 	if p.Settings != nil {
 		body.Settings = p.Settings
 	}

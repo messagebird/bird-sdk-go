@@ -1227,6 +1227,15 @@ const (
 	WhatsAppNumberThroughputLevelStandard = oapi.WhatsAppNumberThroughputLevelStandard
 )
 
+// WhatsAppTemplateBidStrategy is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WhatsAppTemplateBidStrategy* constants with a
+// default branch rather than treating the set as closed.
+type WhatsAppTemplateBidStrategy = oapi.WhatsAppTemplateBidStrategy
+
+const (
+	WhatsAppTemplateBidStrategyLowestCostWithBidCap = oapi.WhatsAppTemplateBidStrategyLowestCostWithBidCap
+)
+
 // WhatsAppTemplateCategory is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the WhatsAppTemplateCategory* constants with a
 // default branch rather than treating the set as closed.

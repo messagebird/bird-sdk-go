@@ -53,7 +53,7 @@ func (p EmailMailboxesReceiveRulesCreateParams) toWire() oapi.ReceiveRuleCreate 
 // startingAfter to advance; "" starts from the first page.
 func (s *EmailMailboxesReceiveRulesService) ListPage(ctx context.Context, mailboxId string, params EmailMailboxesReceiveRulesListParams, startingAfter string, opts ...option.RequestOption) (*ReceiveRuleList, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.ListMailboxReceiveRules(ctx, oapi.MailboxID(mailboxId), params.toWire(startingAfter), cfg...)
+		return s.client.oapi.ListMailboxReceiveRules(ctx, oapi.MailboxIdentifier(mailboxId), params.toWire(startingAfter), cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -89,7 +89,7 @@ func (s *EmailMailboxesReceiveRulesService) Create(ctx context.Context, mailboxI
 		if idempotencyKey != "" {
 			op.IdempotencyKey = &idempotencyKey
 		}
-		return s.client.oapi.CreateMailboxReceiveRule(ctx, oapi.MailboxID(mailboxId), op, params.toWire(), cfg...)
+		return s.client.oapi.CreateMailboxReceiveRule(ctx, oapi.MailboxIdentifier(mailboxId), op, params.toWire(), cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -108,7 +108,7 @@ func (s *EmailMailboxesReceiveRulesService) Delete(ctx context.Context, mailboxI
 		if idempotencyKey != "" {
 			op.IdempotencyKey = &idempotencyKey
 		}
-		return s.client.oapi.DeleteMailboxReceiveRule(ctx, oapi.MailboxID(mailboxId), oapi.ReceiveRuleID(ruleId), op, cfg...)
+		return s.client.oapi.DeleteMailboxReceiveRule(ctx, oapi.MailboxIdentifier(mailboxId), oapi.ReceiveRuleID(ruleId), op, cfg...)
 	})
 	return err
 }

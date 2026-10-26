@@ -202,10 +202,10 @@ func (s *EmailMailboxesService) Create(ctx context.Context, params EmailMailboxe
 	return &out, nil
 }
 
-// Get Read one mailbox by ID. A mailbox deleted within its 30-day restore window is still returned, with `deleted_at` set. Once that window closes it is gone and this returns `404`.
+// Get Read one mailbox by ID or email address in this workspace. A mailbox deleted within its 30-day restore window is still returned, with `deleted_at` set. Once that window closes it is gone and this returns `404`.
 func (s *EmailMailboxesService) Get(ctx context.Context, mailboxId string, opts ...option.RequestOption) (*Mailbox, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetMailbox(ctx, oapi.MailboxID(mailboxId), &oapi.GetMailboxParams{}, cfg...)
+		return s.client.oapi.GetMailbox(ctx, oapi.MailboxIdentifier(mailboxId), &oapi.GetMailboxParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -224,7 +224,7 @@ func (s *EmailMailboxesService) Update(ctx context.Context, mailboxId string, pa
 		if idempotencyKey != "" {
 			op.IdempotencyKey = &idempotencyKey
 		}
-		return s.client.oapi.UpdateMailbox(ctx, oapi.MailboxID(mailboxId), op, params.toWire(), cfg...)
+		return s.client.oapi.UpdateMailbox(ctx, oapi.MailboxIdentifier(mailboxId), op, params.toWire(), cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -243,7 +243,7 @@ func (s *EmailMailboxesService) Delete(ctx context.Context, mailboxId string, op
 		if idempotencyKey != "" {
 			op.IdempotencyKey = &idempotencyKey
 		}
-		return s.client.oapi.DeleteMailbox(ctx, oapi.MailboxID(mailboxId), op, cfg...)
+		return s.client.oapi.DeleteMailbox(ctx, oapi.MailboxIdentifier(mailboxId), op, cfg...)
 	})
 	return err
 }
@@ -255,7 +255,7 @@ func (s *EmailMailboxesService) Restore(ctx context.Context, mailboxId string, o
 		if idempotencyKey != "" {
 			op.IdempotencyKey = &idempotencyKey
 		}
-		return s.client.oapi.RestoreMailbox(ctx, oapi.MailboxID(mailboxId), op, cfg...)
+		return s.client.oapi.RestoreMailbox(ctx, oapi.MailboxIdentifier(mailboxId), op, cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -274,7 +274,7 @@ func (s *EmailMailboxesService) Resume(ctx context.Context, mailboxId string, op
 		if idempotencyKey != "" {
 			op.IdempotencyKey = &idempotencyKey
 		}
-		return s.client.oapi.ResumeMailbox(ctx, oapi.MailboxID(mailboxId), op, cfg...)
+		return s.client.oapi.ResumeMailbox(ctx, oapi.MailboxIdentifier(mailboxId), op, cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -289,7 +289,7 @@ func (s *EmailMailboxesService) Resume(ctx context.Context, mailboxId string, op
 // Stats Read a mailbox's sent and received email statistics over a window: a period summary plus a bucketed series. Rows are bucketed by event time rather than send time, so engagement that arrived during the period for messages sent earlier is counted here. Both window bounds must use the same form, calendar days or RFC 3339 instants, matching the granularity.
 func (s *EmailMailboxesService) Stats(ctx context.Context, mailboxId string, params EmailMailboxesStatsParams, opts ...option.RequestOption) (*MailboxStatsResponse, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetMailboxStats(ctx, oapi.MailboxID(mailboxId), params.toWire(), cfg...)
+		return s.client.oapi.GetMailboxStats(ctx, oapi.MailboxIdentifier(mailboxId), params.toWire(), cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -304,7 +304,7 @@ func (s *EmailMailboxesService) Stats(ctx context.Context, mailboxId string, par
 // Labels List the labels available in a mailbox: the built-in system labels (inbox, archive, spam, blocked, sent, trash, unread) plus every custom label in use.
 func (s *EmailMailboxesService) Labels(ctx context.Context, mailboxId string, opts ...option.RequestOption) (*EmailMailboxLabelList, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.ListMailboxLabels(ctx, oapi.MailboxID(mailboxId), &oapi.ListMailboxLabelsParams{}, cfg...)
+		return s.client.oapi.ListMailboxLabels(ctx, oapi.MailboxIdentifier(mailboxId), &oapi.ListMailboxLabelsParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

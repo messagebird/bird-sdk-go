@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.110.0
+
+- Add `default_ip_pool_id` to sending domains to configure a default sending pool per workspace; set it to null to clear the default.
+- Address mailboxes by email address in mailbox commands and thread filters.
+- Message reads and webhooks now include `attachment_id` for stored Apple Messages for Business attachments, so you can reference a file by ID.
+- Apple Messages for Business sends can reuse a received, sent or uploaded attachment by `attachment_id` instead of `source_url`, from the same business account it belongs to.
+- **Breaking:** Apple Messages time slot `start_at` values in the Go SDK now use strings instead of date-time objects. Pass an ISO 8601 date-time string with a UTC offset and zero seconds; template slots may contain one placeholder such as `{{ slot_1 }}`.
+- Apple Messages template variables now report `url`, `image` and `timestamp` types, and templates expose `customize_before_use`. When it is `true`, sending that built-in template returns `422`; duplicate it into your workspace in the dashboard and customize the copy before sending.
+- Add a `bid_multiplier` on the WhatsApp template send and `optimization_spec` on a WhatsApp template language, to set and scale a marketing template's maximum price.
+- Add the preview `in_reply_to_message` field to received SMS messages and the `sms.received` event, naming the outbound message a reply was paired with through its messaging profile's outbound matching.
+- Listing SMS messages gains a `country` filter: an ISO 3166-1 alpha-2 code that keeps messages sent to that destination country, or received on a Bird number in it.
+- SMS messages and SMS webhook events now include `messaging_profile_id`, the messaging profile the message was sent or received under, when one applied.
+- SMS message reads and outbound `sms.*` webhook events now include `country_code`, the recipient's country, on outbound messages when the country is known.
+- Received SMS messages and the `sms.received` event now include `country_code` when the country is known: the country of the sender's number, or of your receiving number when the sender is a short code or alphanumeric sender.
+- Add nullable `permanent` to SMS failure detail; its value is currently `null`. Preview binary sends use `BINARY` in `segments.encoding`. SMS messages expose preview `cost_center`, `binary` and recorded `options.ignore_delivery_window`, `options.ignore_suppression` and `options.callback_url`; SMS events expose `cost_center` when provided. The suppression and callback options are recorded only: opt-outs still apply and status events still use webhook subscriptions.
+- Asset field documentation now clarifies that updating `alt_text` does not change descriptions already copied into saved content.
+
 ## 0.109.0
 
 - A WhatsApp number that failed with `credit_currency_mismatch` now carries a `next` step to fix the account's currency in Meta Business Suite, linking the troubleshooting section, and the error code's description says to remove the payment method and change the currency first.

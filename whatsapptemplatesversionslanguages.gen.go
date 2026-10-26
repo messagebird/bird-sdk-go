@@ -11,6 +11,14 @@ import (
 
 type WhatsAppTemplateComponentWrite = oapi.WhatsAppTemplateComponentWrite
 
+type WhatsAppTemplateOptimizationSpecWrite = oapi.WhatsAppTemplateOptimizationSpecWrite
+
+type WhatsAppTemplateBidStrategyWrite = oapi.WhatsAppTemplateBidStrategyWrite
+
+const (
+	WhatsAppTemplateBidStrategyWriteLowestCostWithBidCap WhatsAppTemplateBidStrategyWrite = "lowest_cost_with_bid_cap"
+)
+
 type WhatsAppTemplateComponentTypeWrite = oapi.WhatsAppTemplateComponentTypeWrite
 
 const (
@@ -34,6 +42,8 @@ const (
 
 // WhatsappTemplatesVersionsLanguagesSetParams is the request body for set.
 type WhatsappTemplatesVersionsLanguagesSetParams struct {
+	// This language's maximum price. Omit it to keep the current one. A new language written without it uses Meta's standard rate. Send `null` to return to the standard rate. Changing only the price updates Meta without a new review. A send at a maximum price needs the business account's `marketing_messages_onboarding_status` to be `onboarded`. Otherwise it fails with WhatsApp error 131061.
+	OptimizationSpec Nullable[WhatsAppTemplateOptimizationSpecWrite]
 	// The template's content blocks for this language. Header, footer and buttons are optional. Every variable needs an example value, which is what Meta reviews against. May be omitted or empty on a draft; a body block is required before the language can be submitted.
 	Components []WhatsAppTemplateComponentWrite
 	// The revision you last read for this language, making the write a compare-and-set: a mismatch is refused with a conflict, leaving an edit you have not seen in place. Omit it for last-write-wins, which is what a single writer wants. Supplying it for a language that does not exist is also refused with a conflict rather than recreating the language. Inside a template's initial languages seed on create, a value here is refused, since no prior revision exists yet to compare against.
@@ -42,6 +52,7 @@ type WhatsappTemplatesVersionsLanguagesSetParams struct {
 
 func (p WhatsappTemplatesVersionsLanguagesSetParams) toWire() oapi.WhatsAppTemplateLanguageUpsert {
 	body := oapi.WhatsAppTemplateLanguageUpsert{}
+	body.OptimizationSpec = p.OptimizationSpec
 	if p.Components != nil {
 		v := p.Components
 		body.Components = &v
@@ -92,7 +103,7 @@ func (s *WhatsappTemplatesVersionsLanguagesService) Get(ctx context.Context, tem
 	return &out, nil
 }
 
-// Set Writes one language of the draft, whole: send the language's complete `components` every time, because this replaces rather than merges. Only the draft is writable. A submitted version is immutable, and a language under review at WhatsApp refuses the write until that review finishes. A body block is required before the language can be submitted, and every variable in a block needs an example value, which is what WhatsApp reviews against. Pass `revision` to make the write a compare-and-set against the copy you read; omit it for last-write-wins, which is what a single writer wants.
+// Set Writes one language of the draft, whole: send the language's complete `components` every time, because this replaces rather than merges. `optimization_spec` is the exception: omit it to keep the language's maximum price, or send `null` to return to Meta's standard rate. A new language written without it uses the standard rate. Only the draft is writable. A submitted version is immutable, and a language under review at WhatsApp refuses the write until that review finishes. A body block is required before the language can be submitted, and every variable in a block needs an example value, which is what WhatsApp reviews against. Pass `revision` to make the write a compare-and-set against the copy you read; omit it for last-write-wins, which is what a single writer wants.
 func (s *WhatsappTemplatesVersionsLanguagesService) Set(ctx context.Context, templateRef string, versionId string, language string, params WhatsappTemplatesVersionsLanguagesSetParams, opts ...option.RequestOption) (*WhatsAppTemplateLanguageSaved, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.UpsertWhatsAppTemplateLanguageParams{}

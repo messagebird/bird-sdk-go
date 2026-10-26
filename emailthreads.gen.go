@@ -15,7 +15,7 @@ type EmailLabelsUpdate = oapi.EmailLabelsUpdate
 
 // EmailThreadsListParams filters the list. Zero-value fields are omitted.
 type EmailThreadsListParams struct {
-	// Filter to conversations in a specific mailbox.
+	// Filter to conversations in a mailbox by ID or email address in this workspace. An unknown or ambiguous email address returns 404; a valid mailbox ID with no matching threads returns an empty page.
 	MailboxID string
 	// Filter to conversations linked to a specific contact.
 	ContactID string

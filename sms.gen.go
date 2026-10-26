@@ -33,6 +33,8 @@ type SmsListParams struct {
 	To string
 	// Filter by sender (E.164, alphanumeric, or short code; exact match).
 	From string
+	// Filter by destination country, as an ISO 3166-1 alpha-2 code. An outbound message's country is the recipient's; a received message's is the country of the Bird number it arrived on.
+	Country string
 	// Filter by tag. Accepts `name` to match any record carrying that tag name, or `name:value` to match a specific tag pair (for example `category:welcome`). Repeat the parameter to add more tags. A record must match every tag listed to be returned.
 	Tag []string
 }
@@ -49,6 +51,7 @@ func (p SmsListParams) toWire(startingAfter string) *oapi.ListSMSMessagesParams 
 		Category:      optZero(p.Category),
 		To:            optStr(p.To),
 		From:          optStr(p.From),
+		Country:       optZero(p.Country),
 		Tag:           optSlice(p.Tag),
 		StartingAfter: optStr(startingAfter),
 	}
@@ -97,7 +100,7 @@ func (s *SmsService) ListPage(ctx context.Context, params SmsListParams, startin
 	return &out, nil
 }
 
-// List List SMS messages, newest first, as a cursor page (`data`, `next_cursor`). Pass `next_cursor` back as `starting_after` to fetch the next page. Filter by direction, status, category, recipient, sender, or tag.
+// List List SMS messages, newest first, as a cursor page (`data`, `next_cursor`). Pass `next_cursor` back as `starting_after` to fetch the next page. Filter by direction, status, category, recipient, sender, country, or tag.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *SmsService) List(ctx context.Context, params SmsListParams, opts ...option.RequestOption) iter.Seq2[*SMSMessage, error] {

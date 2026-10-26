@@ -42,6 +42,27 @@ func (e AMBAcceptedEventType) Valid() bool {
 	}
 }
 
+// Defines values for AMBAttachmentOrigin.
+const (
+	AMBAttachmentOriginReceived AMBAttachmentOrigin = "received"
+	AMBAttachmentOriginSent     AMBAttachmentOrigin = "sent"
+	AMBAttachmentOriginUploaded AMBAttachmentOrigin = "uploaded"
+)
+
+// Valid indicates whether the value is a known member of the AMBAttachmentOrigin enum.
+func (e AMBAttachmentOrigin) Valid() bool {
+	switch e {
+	case AMBAttachmentOriginReceived:
+		return true
+	case AMBAttachmentOriginSent:
+		return true
+	case AMBAttachmentOriginUploaded:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for AMBBusinessAccountEventSort.
 const (
 	AMBBusinessAccountEventSortCreatedAt AMBBusinessAccountEventSort = "created_at"
@@ -7031,6 +7052,7 @@ func (e SMSRegistrationStatus) Valid() bool {
 
 // Defines values for SMSSegmentsEncoding.
 const (
+	BINARY  SMSSegmentsEncoding = "BINARY"
 	GSM7BIT SMSSegmentsEncoding = "GSM_7BIT"
 	UCS2    SMSSegmentsEncoding = "UCS2"
 )
@@ -7038,6 +7060,8 @@ const (
 // Valid indicates whether the value is a known member of the SMSSegmentsEncoding enum.
 func (e SMSSegmentsEncoding) Valid() bool {
 	switch e {
+	case BINARY:
+		return true
 	case GSM7BIT:
 		return true
 	case UCS2:
@@ -9795,6 +9819,30 @@ func (e WhatsAppNumberThroughputLevel) Valid() bool {
 	}
 }
 
+// Defines values for WhatsAppReachEstimateWindow.
+const (
+	WhatsAppReachEstimateWindowFourteenDays    WhatsAppReachEstimateWindow = "14d"
+	WhatsAppReachEstimateWindowOneDay          WhatsAppReachEstimateWindow = "1d"
+	WhatsAppReachEstimateWindowSevenDays       WhatsAppReachEstimateWindow = "7d"
+	WhatsAppReachEstimateWindowTwentyEightDays WhatsAppReachEstimateWindow = "28d"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppReachEstimateWindow enum.
+func (e WhatsAppReachEstimateWindow) Valid() bool {
+	switch e {
+	case WhatsAppReachEstimateWindowFourteenDays:
+		return true
+	case WhatsAppReachEstimateWindowOneDay:
+		return true
+	case WhatsAppReachEstimateWindowSevenDays:
+		return true
+	case WhatsAppReachEstimateWindowTwentyEightDays:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for WhatsAppReactedEventType.
 const (
 	WhatsappReacted WhatsAppReactedEventType = "whatsapp.reacted"
@@ -9812,22 +9860,22 @@ func (e WhatsAppReactedEventType) Valid() bool {
 
 // Defines values for WhatsAppReactionEventStatus.
 const (
-	WhatsAppReactionEventStatusFailed   WhatsAppReactionEventStatus = "failed"
-	WhatsAppReactionEventStatusReceived WhatsAppReactionEventStatus = "received"
-	WhatsAppReactionEventStatusRejected WhatsAppReactionEventStatus = "rejected"
-	WhatsAppReactionEventStatusSent     WhatsAppReactionEventStatus = "sent"
+	Failed   WhatsAppReactionEventStatus = "failed"
+	Received WhatsAppReactionEventStatus = "received"
+	Rejected WhatsAppReactionEventStatus = "rejected"
+	Sent     WhatsAppReactionEventStatus = "sent"
 )
 
 // Valid indicates whether the value is a known member of the WhatsAppReactionEventStatus enum.
 func (e WhatsAppReactionEventStatus) Valid() bool {
 	switch e {
-	case WhatsAppReactionEventStatusFailed:
+	case Failed:
 		return true
-	case WhatsAppReactionEventStatusReceived:
+	case Received:
 		return true
-	case WhatsAppReactionEventStatusRejected:
+	case Rejected:
 		return true
-	case WhatsAppReactionEventStatusSent:
+	case Sent:
 		return true
 	default:
 		return false
@@ -9873,6 +9921,36 @@ const (
 func (e WhatsAppSuppressionReasonFilter) Valid() bool {
 	switch e {
 	case Manual:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppTemplateBidStrategy.
+const (
+	WhatsAppTemplateBidStrategyLowestCostWithBidCap WhatsAppTemplateBidStrategy = "lowest_cost_with_bid_cap"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppTemplateBidStrategy enum.
+func (e WhatsAppTemplateBidStrategy) Valid() bool {
+	switch e {
+	case WhatsAppTemplateBidStrategyLowestCostWithBidCap:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppTemplateBidStrategyWrite.
+const (
+	LowestCostWithBidCap WhatsAppTemplateBidStrategyWrite = "lowest_cost_with_bid_cap"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppTemplateBidStrategyWrite enum.
+func (e WhatsAppTemplateBidStrategyWrite) Valid() bool {
+	switch e {
+	case LowestCostWithBidCap:
 		return true
 	default:
 		return false
@@ -10733,6 +10811,89 @@ func (e ListEmailThreadMessagesParamsInclude) Valid() bool {
 
 // AMBAcceptedEventType Always `amb.accepted` for this event.
 type AMBAcceptedEventType string
+
+// AMBAttachment A file Apple holds for one business account. Send it again by passing `id` as `attachment_id` in `content.attachments`. Only the business account in `business_account_id` can send it; a send from another business account is refused with a `422` `AMBAttachmentBusinessMismatch`. `message_id` is absent for an uploaded attachment.
+type AMBAttachment struct {
+	BusinessAccountId AMBBusinessID `json:"business_account_id"`
+
+	// CreatedAt When Bird stored the attachment.
+	CreatedAt time.Time `json:"created_at"`
+
+	// ExpiresAt Bird's estimate of when Apple stops holding the attachment, 30 days after it was received, uploaded or last sent. A send within 24 hours of this time is refused.
+	ExpiresAt time.Time       `json:"expires_at"`
+	Id        AMBAttachmentID `json:"id"`
+	MessageId *AMBMessageID   `json:"message_id,omitempty"`
+
+	// MimeType Media type of the attachment. May be empty for an attachment stored before this release.
+	MimeType string `json:"mime_type"`
+
+	// Name Display filename. May be empty for an attachment stored before this release.
+	Name string `json:"name"`
+
+	// Origin How Bird obtained an attachment:
+	//
+	// - `received`: A customer sent it in a message.
+	// - `sent`: You sent it in a message by `source_url`.
+	// - `uploaded`: You uploaded it with createAMBAttachment.
+	Origin AMBAttachmentOrigin `json:"origin"`
+
+	// Size Attachment size in bytes. May be 0 for an attachment stored before this release.
+	Size int64 `json:"size"`
+}
+
+// AMBAttachmentID defines model for AMBAttachmentID.
+type AMBAttachmentID = string
+
+// AMBAttachmentOrigin How Bird obtained an attachment:
+//
+// - `received`: A customer sent it in a message.
+// - `sent`: You sent it in a message by `source_url`.
+// - `uploaded`: You uploaded it with createAMBAttachment.
+type AMBAttachmentOrigin string
+
+// AMBAttachmentUpload A multipart upload. Supply exactly one of `file` and `source_url`.
+type AMBAttachmentUpload struct {
+	// File The file, at most 25,000,000 bytes. Its filename becomes the attachment's name unless `name` is given. Supply this or source_url.
+	File *openapi_types.File `json:"file,omitempty"`
+
+	// From Apple business identifier of the business account that sends the attachment. Read it from the business account's apple_business_id. Only this business account can send the attachment.
+	From string `json:"from"`
+
+	// MimeType Media type of the file. Defaults to the uploaded part's declared type, else the type Bird detects from the contents.
+	MimeType *string `json:"mime_type,omitempty"`
+
+	// Name Display filename. Defaults to the uploaded filename, else the last segment of the source_url path.
+	Name *string `json:"name,omitempty"`
+
+	// SourceUrl HTTPS URL of a file of at most 99,999,999 bytes, which Bird downloads instead of an uploaded file. Supply this or file. A non-HTTPS URL is refused with a `422` `AMBEndpointNotHTTPS`.
+	SourceUrl *string `json:"source_url,omitempty" pii:"true"`
+	union     json.RawMessage
+}
+
+// AMBAttachmentUpload0 defines model for .
+type AMBAttachmentUpload0 struct {
+	File interface{} `json:"file"`
+}
+
+// AMBAttachmentUpload1 defines model for .
+type AMBAttachmentUpload1 struct {
+	SourceUrl interface{} `json:"source_url"`
+}
+
+// AMBAttachmentUploadFromURL defines model for AMBAttachmentUploadFromURL.
+type AMBAttachmentUploadFromURL struct {
+	// From Apple business identifier of the business account that sends the attachment. Read it from the business account's apple_business_id. Only this business account can send the attachment.
+	From string `json:"from"`
+
+	// MimeType Media type of the file. Defaults to the type Bird detects from the contents.
+	MimeType *string `json:"mime_type,omitempty"`
+
+	// Name Display filename. Defaults to the last segment of the source_url path.
+	Name *string `json:"name,omitempty"`
+
+	// SourceUrl HTTPS URL of the file, at most 99,999,999 bytes. Bird downloads it and uploads it to Apple. A non-HTTPS URL is refused with a `422` `AMBEndpointNotHTTPS`.
+	SourceUrl string `json:"source_url" pii:"true"`
+}
 
 // AMBAuthenticationID defines model for AMBAuthenticationID.
 type AMBAuthenticationID = string
@@ -11773,9 +11934,6 @@ type AMBMessage struct {
 	// CreatedAt The moment this message was accepted (outbound), or recorded by Bird after Apple delivered it (inbound). This is the timestamp the outbound statistics families bucket and attribute on; there is no separate `accepted_at` field.
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 
-	// DataRef Reusable Apple content reference. Supply the decryption key, or the signed bid and data_ref_sig returned by Apple.
-	DataRef *AMBRichLinkReference `json:"data_ref,omitempty" pii:"true"`
-
 	// Direction Whether a message was sent by the business or received from the customer:
 	//
 	// - `outbound`: A reply the business sent into the conversation.
@@ -12096,10 +12254,9 @@ type AMBMessageStatus string
 // - `interactive` means an interactive payload such as a list picker, time picker, quick reply, form, authentication request, or Apple Pay request.
 type AMBMessageType string
 
-// AMBNativeAttachment Provide source_url or the complete encrypted reference, never both.
+// AMBNativeAttachment One attachment. A send supplies source_url or attachment_id. attachment_id reuses a received, sent or uploaded attachment of the sending business account instead of source_url; supplying both is refused with a `422`. A read returns the attachment's name, media type and, once Apple holds it, its size. It returns attachment_id when Bird stores the attachment: received attachments with an Apple reference, and sent attachments once Apple holds them. Download the bytes with getAMBAttachmentContent by attachment_id, or with getAMBMessageAttachment by message and position.
 type AMBNativeAttachment struct {
-	// Key Attachment decryption key returned by Apple.
-	Key *string `json:"key,omitempty"`
+	AttachmentId *AMBAttachmentID `json:"attachment_id,omitempty"`
 
 	// MimeType Media type of the attachment.
 	MimeType *string `json:"mime_type,omitempty"`
@@ -12107,28 +12264,23 @@ type AMBNativeAttachment struct {
 	// Name Display filename.
 	Name *string `json:"name,omitempty"`
 
-	// Owner Opaque owner value returned by Apple.
-	Owner *string `json:"owner,omitempty"`
-
-	// SignatureBase64 Attachment authorization signature returned by Apple.
-	SignatureBase64 *string `json:"signature_base64,omitempty"`
-
-	// Size Attachment size in bytes.
+	// Size Attachment size in bytes. Absent until Apple holds the attachment.
 	Size *int64 `json:"size,omitempty"`
 
-	// SourceUrl HTTPS URL Bird downloads and uploads to Apple. A non-HTTPS URL is refused with a `422` `AMBEndpointNotHTTPS`. In a template it may contain `{{ }}` placeholders; the rendered value must be HTTPS.
+	// SourceUrl HTTPS URL Bird downloads and uploads to Apple. Required on a send unless attachment_id is given. A non-HTTPS URL is refused with a `422` `AMBEndpointNotHTTPS`. In a template it may contain `{{ }}` placeholders; the rendered value must be HTTPS. Returned on reads of attachments you sent this way.
 	SourceUrl *string `json:"source_url,omitempty" pii:"true"`
-
-	// Url Encrypted attachment URL returned by Apple.
-	Url   *string `json:"url,omitempty"`
-	union json.RawMessage
+	union     json.RawMessage
 }
 
 // AMBNativeAttachment0 defines model for .
-type AMBNativeAttachment0 = interface{}
+type AMBNativeAttachment0 struct {
+	SourceUrl interface{} `json:"source_url"`
+}
 
 // AMBNativeAttachment1 defines model for .
-type AMBNativeAttachment1 = interface{}
+type AMBNativeAttachment1 struct {
+	AttachmentId interface{} `json:"attachment_id"`
+}
 
 // AMBNativeAuthentication Authentication attempt created through the conversation authentication endpoint. Contains no authorization parameters or credentials.
 type AMBNativeAuthentication struct {
@@ -12340,17 +12492,14 @@ type AMBNativeInboundQuickReply struct {
 
 // AMBNativeInteractiveContent defines model for AMBNativeInteractiveContent.
 type AMBNativeInteractiveContent struct {
-	// Attachments Ordered attachments. Each object supplies a source URL or an encrypted Apple reference.
+	// Attachments Ordered attachments. A send supplies each one by source_url or attachment_id.
 	Attachments *[]AMBNativeAttachment `json:"attachments,omitempty"`
 
-	// Body Automatic introductions for inline quick replies are enabled regionally in stages. When enabled for a new send containing `interactive_data.data.quick_reply`, a nonblank body is sent as separate text before the choices. Messages using `interactive_data_ref` do not receive this automatic introduction, even after activation. All parts belong to one message, which becomes sent after Apple accepts all parts. For referenced interactions, before activation, and for retries retaining legacy behavior, body is included in the interactive request and is not guaranteed to appear on the device. To ensure an introduction without relying on activation, send a separate text message and omit body from the quick reply. Omit body to send choices only. For list pickers, time pickers and forms, use interactive_data.received_message for the visible introduction. Use one U+FFFC object replacement character per attachment to control placement.
+	// Body Automatic introductions for inline quick replies are enabled regionally in stages. When enabled for a new send containing `interactive_data.data.quick_reply`, a nonblank body is sent as separate text before the choices. All parts belong to one message, which becomes sent after Apple accepts all parts. Before activation, and for retries retaining legacy behavior, body is included in the interactive request and is not guaranteed to appear on the device. To ensure an introduction without relying on activation, send a separate text message and omit body from the quick reply. Omit body to send choices only. For list pickers, time pickers and forms, use interactive_data.received_message for the visible introduction. Use one U+FFFC object replacement character per attachment to control placement.
 	Body *string `json:"body,omitempty" pii:"true"`
 
 	// InteractiveData A built-in interaction or custom iMessage app. Custom apps require the app metadata and both message bubbles.
-	InteractiveData *AMBNativeInteractiveData `json:"interactive_data,omitempty"`
-
-	// InteractiveDataRef Reusable Apple content reference. Supply the decryption key, or the signed bid and data_ref_sig returned by Apple.
-	InteractiveDataRef *AMBRichLinkReference `json:"interactive_data_ref,omitempty" pii:"true"`
+	InteractiveData AMBNativeInteractiveData `json:"interactive_data"`
 
 	// Subject Subject displayed above the message body.
 	Subject *string `json:"subject,omitempty" pii:"true"`
@@ -12360,15 +12509,8 @@ type AMBNativeInteractiveContent struct {
 	// - `text` means a text or attachment message.
 	// - `rich_link` means a rich URL or video link preview.
 	// - `interactive` means an interactive payload such as a list picker, time picker, quick reply, form, authentication request, or Apple Pay request.
-	Type  AMBMessageType `json:"type"`
-	union json.RawMessage
+	Type AMBMessageType `json:"type"`
 }
-
-// AMBNativeInteractiveContent0 defines model for .
-type AMBNativeInteractiveContent0 = interface{}
-
-// AMBNativeInteractiveContent1 defines model for .
-type AMBNativeInteractiveContent1 = interface{}
 
 // AMBNativeInteractiveData A built-in interaction or custom iMessage app. Custom apps require the app metadata and both message bubbles.
 type AMBNativeInteractiveData struct {
@@ -12474,18 +12616,15 @@ type AMBNativeRichLinkAssets struct {
 
 // AMBNativeRichLinkContent defines model for AMBNativeRichLinkContent.
 type AMBNativeRichLinkContent struct {
-	// Attachments Ordered attachments. Each object supplies a source URL or an encrypted Apple reference.
+	// Attachments Ordered attachments. A send supplies each one by source_url or attachment_id.
 	Attachments *[]AMBNativeAttachment `json:"attachments,omitempty"`
 
 	// Body Automatic introductions for rich links are enabled regionally in stages. When enabled for a new send, a nonblank body is sent as a separate text before the link. All parts belong to one message, which becomes sent after Apple accepts all parts. Before activation, and for retries retaining legacy behavior, body is included in the rich link request and is not guaranteed to appear on the device. To ensure an introduction without relying on activation, send a separate text message and omit body from the rich link. Use one U+FFFC object replacement character per attachment to control placement.
 	Body *string `json:"body,omitempty" pii:"true"`
 
-	// RichLinkConstruct Asks Apple to build the rich link preview when the message is sent, rather than through a prior `POST /v1/amb/messages/construct-payload` call. No caller holds a signed reference until the send itself resolves one.
+	// RichLinkConstruct Asks Apple to build the rich link preview when the message is sent. Use `POST /v1/amb/messages/construct-payload` beforehand only to check the URL and see the preview's title.
 	RichLinkConstruct *AMBRichLinkConstruct  `json:"rich_link_construct,omitempty"`
 	RichLinkData      *AMBNativeRichLinkData `json:"rich_link_data,omitempty"`
-
-	// RichLinkDataRef Reusable Apple content reference. Supply the decryption key, or the signed bid and data_ref_sig returned by Apple.
-	RichLinkDataRef *AMBRichLinkReference `json:"rich_link_data_ref,omitempty" pii:"true"`
 
 	// Subject Subject displayed above the message body.
 	Subject *string `json:"subject,omitempty" pii:"true"`
@@ -12504,9 +12643,6 @@ type AMBNativeRichLinkContent0 = interface{}
 
 // AMBNativeRichLinkContent1 defines model for .
 type AMBNativeRichLinkContent1 = interface{}
-
-// AMBNativeRichLinkContent2 defines model for .
-type AMBNativeRichLinkContent2 = interface{}
 
 // AMBNativeRichLinkData defines model for AMBNativeRichLinkData.
 type AMBNativeRichLinkData struct {
@@ -12542,7 +12678,7 @@ type AMBNativeRichLinkVideo struct {
 
 // AMBNativeTextContent defines model for AMBNativeTextContent.
 type AMBNativeTextContent struct {
-	// Attachments Ordered attachments. Each object supplies a source URL or an encrypted Apple reference.
+	// Attachments Ordered attachments. A send supplies each one by source_url or attachment_id.
 	Attachments *[]AMBNativeAttachment `json:"attachments,omitempty"`
 
 	// Body Text displayed in the message. Use one U+FFFC object replacement character per attachment to control placement.
@@ -12610,7 +12746,7 @@ type AMBReceivedEventType string
 // AMBRejectedEventType Always `amb.rejected` for this event.
 type AMBRejectedEventType string
 
-// AMBRichLinkConstruct Asks Apple to build the rich link preview when the message is sent, rather than through a prior `POST /v1/amb/messages/construct-payload` call. No caller holds a signed reference until the send itself resolves one.
+// AMBRichLinkConstruct Asks Apple to build the rich link preview when the message is sent. Use `POST /v1/amb/messages/construct-payload` beforehand only to check the URL and see the preview's title.
 type AMBRichLinkConstruct struct {
 	// StoreRegion ISO 3166-1 alpha-2 country code.
 	StoreRegion *CountryCode `json:"store_region,omitempty"`
@@ -12618,40 +12754,6 @@ type AMBRichLinkConstruct struct {
 	// Url The App Clip, Apple Music, or Apple Maps URL to build a preview for. An `http://` URL is refused with a `422` `AMBEndpointNotHTTPS`. A URL Apple cannot build a preview for is refused with a `422` `AMBConstructPayloadFailed`; send `rich_link` content with your own `title` and `image` instead.
 	Url string `json:"url" pii:"true"`
 }
-
-// AMBRichLinkReference Reusable Apple content reference. Supply the decryption key, or the signed bid and data_ref_sig returned by Apple.
-type AMBRichLinkReference struct {
-	// Bid Messages extension identifier supplied by Apple, when present.
-	Bid *string `json:"bid,omitempty"`
-
-	// DataRefSig Signature binding the reference to the business, when supplied by Apple.
-	DataRefSig *string `json:"data_ref_sig,omitempty"`
-
-	// Key Decryption key supplied by Apple.
-	Key *string `json:"key,omitempty"`
-
-	// Owner Owner identifier supplied by Apple.
-	Owner string `json:"owner"`
-
-	// SignatureBase64 Signature supplied by Apple.
-	SignatureBase64 string `json:"signature_base64"`
-
-	// Size Size of the encrypted preview in bytes.
-	Size int64 `json:"size"`
-
-	// Title Title supplied by Apple for the preview.
-	Title *string `json:"title,omitempty"`
-
-	// Url Location of the encrypted preview.
-	Url   string `json:"url"`
-	union json.RawMessage
-}
-
-// AMBRichLinkReference0 defines model for .
-type AMBRichLinkReference0 = interface{}
-
-// AMBRichLinkReference1 defines model for .
-type AMBRichLinkReference1 = interface{}
 
 // AMBRoutingRule defines model for AMBRoutingRule.
 type AMBRoutingRule struct {
@@ -13220,6 +13322,9 @@ type AMBTemplate struct {
 	// CreatedAt When the template was created. Null for built-in templates.
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 
+	// CustomizeBeforeUse Whether this built-in template holds sample business details, such as a store location or product images, that must be replaced before it can be sent. Sending it returns `422`; duplicate it into your workspace and customize the copy. Always false on workspace templates.
+	CustomizeBeforeUse *bool `json:"customize_before_use,omitempty"`
+
 	// DefaultLanguage A language tag in BCP-47 form, for example `en` or `pt-BR`.
 	DefaultLanguage LanguageTag `json:"default_language"`
 
@@ -13415,6 +13520,9 @@ type AMBTemplateSummary struct {
 	// CreatedAt When the template was created. Null for built-in templates.
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 
+	// CustomizeBeforeUse Whether this built-in template holds sample business details, such as a store location or product images, that must be replaced before it can be sent. Sending it returns `422`; duplicate it into your workspace and customize the copy. Always false on workspace templates.
+	CustomizeBeforeUse *bool `json:"customize_before_use,omitempty"`
+
 	// DefaultLanguage A language tag in BCP-47 form, for example `en` or `pt-BR`.
 	DefaultLanguage LanguageTag `json:"default_language"`
 
@@ -13575,8 +13683,8 @@ type AMBTimeSlot struct {
 	// Identifier Opaque slot identifier. Apple may instead return only a localized label in interactive_data.reply_message.title.
 	Identifier string `json:"identifier"`
 
-	// StartAt When this slot begins. Seconds and fractional seconds must be zero, for example `2026-09-02T14:30:00Z`; otherwise sending returns `422` with error code `E01001`. The timestamp is converted to UTC for Apple while preserving the instant.
-	StartAt time.Time `json:"start_at"`
+	// StartAt When this slot begins, as an ISO 8601 date-time with a UTC offset. Seconds and fractional seconds must be zero, for example `2026-09-02T14:30:00Z`; any other value returns `422` with error code `E01001`. The timestamp is converted to UTC for Apple while preserving the instant. In Apple Messages template content it may instead be exactly one placeholder, such as `{{ slot_1 }}`, filled with a `timestamp` variable when the template is sent.
+	StartAt string `json:"start_at"`
 }
 
 // APIKeyID defines model for APIKeyID.
@@ -13606,7 +13714,7 @@ type AllocatedNumberID = string
 
 // Asset defines model for Asset.
 type Asset struct {
-	// AltText Default alternative text describing the asset, carried along whenever it is placed. Most mail clients block images by default, so for an image this is often the only thing a recipient reads.
+	// AltText Default alternative text for the asset. Use it as the starting point for an image description when inserting the asset into content. Updating this field does not update descriptions already copied into saved content.
 	AltText *string `json:"alt_text"`
 
 	// ContentType The stored file's media type, determined from its contents.
@@ -13795,19 +13903,20 @@ type AssetUpdate struct {
 	Name *string `json:"name,omitempty"`
 }
 
-// AssetUpload The file to upload, sent as a `multipart/form-data` body. Include each field at most once. Each text field is limited to 8 KiB before surrounding whitespace is trimmed; its character limit also applies.
+// AssetUpload The file to upload, sent as a `multipart/form-data` body. Include each field at most once. Each text field is limited to 8 KiB before surrounding whitespace is trimmed; its character limit also applies. When provided, `folder_id` must identify an existing folder even when the upload matches an active asset in this workspace. A duplicate keeps its existing folder.
 type AssetUpload struct {
-	// AltText Default alternative text describing the asset, carried along whenever it is placed.
+	// AltText Default alternative text to use when inserting the asset into content.
 	AltText *string `json:"alt_text,omitempty"`
 
 	// File The file to upload. The file's contents determine its type; a declared content
 	// type is ignored.
 	//
-	// Images: PNG, JPEG, GIF, or WebP, up to 5 MB. WebP is converted on upload, and
-	// every image is re-encoded.
+	// Images: PNG, JPEG, GIF, or static WebP, up to 5 MiB (5,242,880 bytes). Every image
+	// is re-encoded. Static WebP becomes JPEG or PNG; animated GIF keeps its animation.
+	// Animated WebP is not supported.
 	//
 	// Video (MP4, WebM, QuickTime), audio (MP3, M4A, Ogg, WAV), and PDF: up to 25 MB,
-	// stored byte-for-byte.
+	// validated for container structure and stored byte-for-byte. Validation does not scan for malware.
 	File     openapi_types.File `json:"file"`
 	FolderId *AssetFolderID     `json:"folder_id,omitempty"`
 
@@ -14160,6 +14269,9 @@ type BillingResolvedPrice struct {
 
 	// IntervalsPerCharge Number of complete pricing intervals bought by each recurring charge. Renewal duration is `pricing_interval.count` multiplied by this value. Present alongside `pricing_interval` for `unit_subscription` products and plans with configured recurring terms; omitted otherwise.
 	IntervalsPerCharge *int `json:"intervals_per_charge,omitempty"`
+
+	// IsPriced Whether a published price matched. True includes an explicitly published zero price. False means no price matched and the zero amounts are placeholders, not a quote.
+	IsPriced bool `json:"is_priced"`
 
 	// Name Display name of the product this price was resolved for.
 	Name string `json:"name"`
@@ -15254,6 +15366,9 @@ type Domain struct {
 	// CreatedAt When the domain was added.
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 
+	// DefaultIpPoolId Default IP pool for this domain in this workspace. Used only when a send omits `ip_pool_id`; an explicit send option takes precedence. The pool must belong to the same organization. Set to `null` to use normal organization routing.
+	DefaultIpPoolId *IPPoolID `json:"default_ip_pool_id,omitempty"`
+
 	// Dkim Active DKIM signing configuration for the domain.
 	Dkim DomainDKIM `json:"dkim"`
 
@@ -15563,6 +15678,9 @@ type DomainTrackingConfig struct {
 
 // DomainUpdate Partial update. `settings` changes apply immediately. Changes to `return_path`, `tracking`, or `dkim` on a verified capability are staged. The current configuration keeps serving until the new DNS records verify. The change is then promoted automatically and the old records are marked `deprecated`. The staged value is visible under `capabilities.*.pending` and can be replaced by submitting another change.
 type DomainUpdate struct {
+	// DefaultIpPoolId Default IP pool for this domain in this workspace. Used only when a send omits `ip_pool_id`; an explicit send option takes precedence. The pool must belong to the same organization. Set to `null` to use normal organization routing.
+	DefaultIpPoolId nullable.Nullable[IPPoolID] `json:"default_ip_pool_id,omitempty"`
+
 	// Dkim DKIM signing configuration.
 	Dkim *DomainDKIMConfig `json:"dkim,omitempty"`
 
@@ -19768,7 +19886,7 @@ type EmailMessageSendRequest struct {
 	// Html HTML body. At least one of html or text must be provided.
 	Html *string `json:"html,omitempty"`
 
-	// IpPoolId ID of the IP pool to send from (`ipp_` prefix), or `ipp_shared` to route through the shared pool explicitly. Omit to use your organization's default pool. An unknown pool, or a pool with no dedicated IPs available to send from, is rejected with a `422`.
+	// IpPoolId ID of the IP pool to send from (`ipp_` prefix), or `ipp_shared` to route through the shared pool explicitly. Omit to use the sending domain's default pool in this workspace, or the organization's default when the domain has none. An unknown pool, or a pool with no dedicated IPs available to send from, is rejected with a `422`.
 	IpPoolId *string `json:"ip_pool_id,omitempty"`
 
 	// Metadata Arbitrary JSON object returned on API reads and included in webhook payloads. You can query its paths in analytics, such as `metadata.order_id`, but it is not a dashboard filter. The serialized object is limited to 2 KB. Use metadata for per-send context such as order IDs, customer references, and structured event data. For low-cardinality filterable labels, use `tags` instead.
@@ -21421,10 +21539,10 @@ type EmailTemplateParameter struct {
 	// - `ttl`: a whole number from 1 to 999.
 	// - `count`: a whole number from 1 to 999.
 	// - `ref`: up to 16 uppercase letters, digits or hyphens.
-	// - `date`: an ISO 8601 date (YYYY-MM-DD).
+	// - `date`: an ISO 8601 date (YYYY-MM-DD). A date and time is also accepted and shows as its date.
 	// - `date_time`: an ISO 8601 date and time, with an optional offset.
 	// - `amount`: a decimal amount in major units, with up to 4 decimal places.
-	// - `currency`: an ISO 4217 currency code of 3 uppercase letters.
+	// - `currency`: a known ISO 4217 currency code of 3 uppercase letters.
 	Type EmailTemplateParameterType `json:"type"`
 
 	// UseConstraints Each place the content uses the parameter.
@@ -21443,10 +21561,10 @@ type EmailTemplateParameter struct {
 // - `ttl`: a whole number from 1 to 999.
 // - `count`: a whole number from 1 to 999.
 // - `ref`: up to 16 uppercase letters, digits or hyphens.
-// - `date`: an ISO 8601 date (YYYY-MM-DD).
+// - `date`: an ISO 8601 date (YYYY-MM-DD). A date and time is also accepted and shows as its date.
 // - `date_time`: an ISO 8601 date and time, with an optional offset.
 // - `amount`: a decimal amount in major units, with up to 4 decimal places.
-// - `currency`: an ISO 4217 currency code of 3 uppercase letters.
+// - `currency`: a known ISO 4217 currency code of 3 uppercase letters.
 type EmailTemplateParameterType string
 
 // EmailTemplateParameterValueDomain The shape of value a broadcast may supply for a parameter, independent of the declared `type`.
@@ -24656,8 +24774,15 @@ type EventSMSAcceptedData struct {
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
+	// CostCenter Preview feature: the `cost_center` applied to the message, from the send request or else its messaging profile, echoed on every event for the message. Absent when neither set one, and on inbound messages.
+	CostCenter *string `json:"cost_center,omitempty"`
+
+	// CountryCode On an outbound message, the country of the recipient's number. On a received message, the country of the sender's number, or of your number that received it when the sender is not a phone number, such as a short code or an alphanumeric sender. Absent when not known.
+	CountryCode *CountryCode `json:"country_code,omitempty"`
+
 	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
-	From string `json:"from"`
+	From               string                 `json:"from"`
+	MessagingProfileId *SMSMessagingProfileID `json:"messaging_profile_id,omitempty"`
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
@@ -24694,8 +24819,15 @@ type EventSMSBase struct {
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
+	// CostCenter Preview feature: the `cost_center` applied to the message, from the send request or else its messaging profile, echoed on every event for the message. Absent when neither set one, and on inbound messages.
+	CostCenter *string `json:"cost_center,omitempty"`
+
+	// CountryCode On an outbound message, the country of the recipient's number. On a received message, the country of the sender's number, or of your number that received it when the sender is not a phone number, such as a short code or an alphanumeric sender. Absent when not known.
+	CountryCode *CountryCode `json:"country_code,omitempty"`
+
 	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
-	From string `json:"from"`
+	From               string                 `json:"from"`
+	MessagingProfileId *SMSMessagingProfileID `json:"messaging_profile_id,omitempty"`
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
@@ -24747,11 +24879,18 @@ type EventSMSDeliveredData struct {
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
+	// CostCenter Preview feature: the `cost_center` applied to the message, from the send request or else its messaging profile, echoed on every event for the message. Absent when neither set one, and on inbound messages.
+	CostCenter *string `json:"cost_center,omitempty"`
+
+	// CountryCode On an outbound message, the country of the recipient's number. On a received message, the country of the sender's number, or of your number that received it when the sender is not a phone number, such as a short code or an alphanumeric sender. Absent when not known.
+	CountryCode *CountryCode `json:"country_code,omitempty"`
+
 	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
 	From string `json:"from"`
 
 	// MccMnc Mobile country code and mobile network code of the carrier. Absent when the carrier does not report one.
-	MccMnc *string `json:"mcc_mnc,omitempty"`
+	MccMnc             *string                `json:"mcc_mnc,omitempty"`
+	MessagingProfileId *SMSMessagingProfileID `json:"messaging_profile_id,omitempty"`
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
@@ -24800,11 +24939,18 @@ type EventSMSExpiredData struct {
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
+	// CostCenter Preview feature: the `cost_center` applied to the message, from the send request or else its messaging profile, echoed on every event for the message. Absent when neither set one, and on inbound messages.
+	CostCenter *string `json:"cost_center,omitempty"`
+
+	// CountryCode On an outbound message, the country of the recipient's number. On a received message, the country of the sender's number, or of your number that received it when the sender is not a phone number, such as a short code or an alphanumeric sender. Absent when not known.
+	CountryCode *CountryCode `json:"country_code,omitempty"`
+
 	// Error Failure detail for a message that could not be delivered or was rejected.
 	Error *SMSError `json:"error,omitempty"`
 
 	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
-	From string `json:"from"`
+	From               string                 `json:"from"`
+	MessagingProfileId *SMSMessagingProfileID `json:"messaging_profile_id,omitempty"`
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
@@ -24853,11 +24999,18 @@ type EventSMSFailedData struct {
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
+	// CostCenter Preview feature: the `cost_center` applied to the message, from the send request or else its messaging profile, echoed on every event for the message. Absent when neither set one, and on inbound messages.
+	CostCenter *string `json:"cost_center,omitempty"`
+
+	// CountryCode On an outbound message, the country of the recipient's number. On a received message, the country of the sender's number, or of your number that received it when the sender is not a phone number, such as a short code or an alphanumeric sender. Absent when not known.
+	CountryCode *CountryCode `json:"country_code,omitempty"`
+
 	// Error Failure detail for a message that could not be delivered or was rejected.
 	Error *SMSError `json:"error,omitempty"`
 
 	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
-	From string `json:"from"`
+	From               string                 `json:"from"`
+	MessagingProfileId *SMSMessagingProfileID `json:"messaging_profile_id,omitempty"`
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
@@ -24906,11 +25059,21 @@ type EventSMSReceivedData struct {
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
+	// CostCenter Preview feature: the `cost_center` applied to the message, from the send request or else its messaging profile, echoed on every event for the message. Absent when neither set one, and on inbound messages.
+	CostCenter *string `json:"cost_center,omitempty"`
+
+	// CountryCode On an outbound message, the country of the recipient's number. On a received message, the country of the sender's number, or of your number that received it when the sender is not a phone number, such as a short code or an alphanumeric sender. Absent when not known.
+	CountryCode *CountryCode `json:"country_code,omitempty"`
+
 	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
 	From string `json:"from"`
 
+	// InReplyToMessage Preview feature: the outbound message this one was paired with through its messaging profile's outbound matching. Absent when it was not paired.
+	InReplyToMessage *SMSInReplyToMessage `json:"in_reply_to_message,omitempty"`
+
 	// MccMnc Mobile country code and mobile network code of the carrier. Absent when not known.
-	MccMnc *string `json:"mcc_mnc,omitempty"`
+	MccMnc             *string                `json:"mcc_mnc,omitempty"`
+	MessagingProfileId *SMSMessagingProfileID `json:"messaging_profile_id,omitempty"`
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
@@ -24968,11 +25131,18 @@ type EventSMSRejectedData struct {
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
+	// CostCenter Preview feature: the `cost_center` applied to the message, from the send request or else its messaging profile, echoed on every event for the message. Absent when neither set one, and on inbound messages.
+	CostCenter *string `json:"cost_center,omitempty"`
+
+	// CountryCode On an outbound message, the country of the recipient's number. On a received message, the country of the sender's number, or of your number that received it when the sender is not a phone number, such as a short code or an alphanumeric sender. Absent when not known.
+	CountryCode *CountryCode `json:"country_code,omitempty"`
+
 	// Error Failure detail for a message that could not be delivered or was rejected.
 	Error *SMSError `json:"error,omitempty"`
 
 	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
-	From string `json:"from"`
+	From               string                 `json:"from"`
+	MessagingProfileId *SMSMessagingProfileID `json:"messaging_profile_id,omitempty"`
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
@@ -25024,11 +25194,18 @@ type EventSMSSentData struct {
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
+	// CostCenter Preview feature: the `cost_center` applied to the message, from the send request or else its messaging profile, echoed on every event for the message. Absent when neither set one, and on inbound messages.
+	CostCenter *string `json:"cost_center,omitempty"`
+
+	// CountryCode On an outbound message, the country of the recipient's number. On a received message, the country of the sender's number, or of your number that received it when the sender is not a phone number, such as a short code or an alphanumeric sender. Absent when not known.
+	CountryCode *CountryCode `json:"country_code,omitempty"`
+
 	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
 	From string `json:"from"`
 
 	// MccMnc Mobile country code and mobile network code of the carrier. Absent when the carrier does not report one.
-	MccMnc *string `json:"mcc_mnc,omitempty"`
+	MccMnc             *string                `json:"mcc_mnc,omitempty"`
+	MessagingProfileId *SMSMessagingProfileID `json:"messaging_profile_id,omitempty"`
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
@@ -25101,11 +25278,18 @@ type EventSMSUndeliveredData struct {
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
+	// CostCenter Preview feature: the `cost_center` applied to the message, from the send request or else its messaging profile, echoed on every event for the message. Absent when neither set one, and on inbound messages.
+	CostCenter *string `json:"cost_center,omitempty"`
+
+	// CountryCode On an outbound message, the country of the recipient's number. On a received message, the country of the sender's number, or of your number that received it when the sender is not a phone number, such as a short code or an alphanumeric sender. Absent when not known.
+	CountryCode *CountryCode `json:"country_code,omitempty"`
+
 	// Error Failure detail for a message that could not be delivered or was rejected.
 	Error *SMSError `json:"error,omitempty"`
 
 	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
-	From string `json:"from"`
+	From               string                 `json:"from"`
+	MessagingProfileId *SMSMessagingProfileID `json:"messaging_profile_id,omitempty"`
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
@@ -26534,6 +26718,9 @@ type MailboxCreateRetentionTier string
 // MailboxID defines model for MailboxID.
 type MailboxID = string
 
+// MailboxIdentifier Mailbox ID beginning with mbx_, or the mailbox email address in this workspace. Email addresses are case-insensitive. Responses return the canonical mailbox ID.
+type MailboxIdentifier = string
+
 // MailboxList defines model for MailboxList.
 type MailboxList struct {
 	Data []Mailbox `json:"data"`
@@ -27568,6 +27755,15 @@ type SMSBatchSummary struct {
 	AcceptedCount int `json:"accepted_count"`
 }
 
+// SMSBinary An 8-bit binary SMS payload, sent as one segment. `udh` plus `data` must fit 140 octets.
+type SMSBinary struct {
+	// Data The payload after the header, as hexadecimal.
+	Data string `json:"data"`
+
+	// Udh User data header as hexadecimal, 1-16 octets. Required on a send: a binary send without it returns `422`. Its first octet must count the octets after it, every information element must fit inside it, and concatenation elements (`00`, `08`) are refused because the message is one segment.
+	Udh *string `json:"udh,omitempty"`
+}
+
 // SMSCarrierStatsPoint Aggregate delivery and latency stats for a single delivery carrier over the requested period.
 type SMSCarrierStatsPoint struct {
 	// Carrier The delivery carrier this row aggregates, as resolved for the destination handset.
@@ -27721,6 +27917,9 @@ type SMSError struct {
 
 	// OccurredAt When the failure occurred.
 	OccurredAt time.Time `json:"occurred_at"`
+
+	// Permanent Whether the cause is permanent, so sending the same message again would fail the same way. Describes the cause, not whether Bird retries. Null when Bird cannot tell, which is currently always.
+	Permanent *bool `json:"permanent,omitempty"`
 }
 
 // SMSErrorCode Standardized failure reason:
@@ -27778,6 +27977,17 @@ type SMSEvent struct {
 type SMSEventList struct {
 	// Data Timeline events for this SMS message, in chronological order. The bounded timeline is returned in full and is not paginated.
 	Data []SMSEvent `json:"data"`
+}
+
+// SMSInReplyToMessage Preview feature: the outbound message a received message was paired with. Bird pairs a reply with the last message the messaging profile sent this subscriber from the receiving number, within the profile's outbound-matching window. The pairing is inferred from timing; the subscriber does not report which message they answered.
+type SMSInReplyToMessage struct {
+	Id SMSMessageID `json:"id"`
+
+	// SentAt Time Bird handed the outbound message to the carrier; the matching window counts from here. Absent once that message is past the read window.
+	SentAt *time.Time `json:"sent_at,omitempty"`
+
+	// Text Text of the outbound message as Bird stored it. Authentication messages read `**REDACTED**`. Absent once that message is past the read window.
+	Text *string `json:"text,omitempty"`
 }
 
 // SMSInboundCountryStatsPoint Received-message volume for one country.
@@ -28063,6 +28273,9 @@ type SMSLatencyStats struct {
 
 // SMSMessage defines model for SMSMessage.
 type SMSMessage struct {
+	// Binary Preview feature: the payload of a binary send, in place of `text`. Absent on every other message.
+	Binary *SMSBinary `json:"binary,omitempty"`
+
 	// Carrier Carrier that handled the message. Absent until a delivery receipt identifies it, and on a received message the carrier reports it only where a carrier fee applies.
 	Carrier *string `json:"carrier,omitempty"`
 
@@ -28071,6 +28284,12 @@ type SMSMessage struct {
 
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
+
+	// CostCenter Preview feature: the `cost_center` applied to the message: the send's own, or else its messaging profile's. Absent when neither set one, and on inbound messages.
+	CostCenter *string `json:"cost_center,omitempty"`
+
+	// CountryCode On an outbound message, the country of the recipient's number. On a received message, the country of the sender's number, or of your number that received it when the sender is not a phone number, such as a short code or an alphanumeric sender. The same value as the message's `sms.*` events' `country_code`. Absent when not known.
+	CountryCode *CountryCode `json:"country_code,omitempty"`
 
 	// CreatedAt When the message was accepted (outbound) or received (inbound).
 	CreatedAt *time.Time `json:"created_at,omitempty"`
@@ -28085,11 +28304,15 @@ type SMSMessage struct {
 	From string       `json:"from"`
 	Id   SMSMessageID `json:"id"`
 
+	// InReplyToMessage Preview feature: on a received message, the outbound message it was paired with through its messaging profile's outbound matching. Absent on outbound messages and on received messages that were not paired.
+	InReplyToMessage *SMSInReplyToMessage `json:"in_reply_to_message,omitempty"`
+
 	// LastError Failure detail for a message that could not be delivered or was rejected.
 	LastError *SMSError `json:"last_error,omitempty"`
 
 	// MccMnc Mobile country code and mobile network code of the carrier. Absent until the carrier is identified.
-	MccMnc *string `json:"mcc_mnc,omitempty"`
+	MccMnc             *string                `json:"mcc_mnc,omitempty"`
+	MessagingProfileId *SMSMessagingProfileID `json:"messaging_profile_id,omitempty"`
 
 	// Metadata Arbitrary JSON metadata stored on the message and echoed in webhook payloads.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
@@ -28122,13 +28345,13 @@ type SMSMessage struct {
 	// TemplateVersionId The workspace published version or synthetic built-in version rendered at acceptance, or null for a free-text message. For a built-in template, `template_content_hash` identifies the exact catalogue source.
 	TemplateVersionId *SMSTemplateVersionID `json:"template_version_id,omitempty"`
 
-	// Text The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text. For a template send, this is the rendered text after parameter substitution. When `category` is `authentication` (a message carrying a one-time code), this is `**REDACTED**`: the code still reaches the recipient, but the API does not retain it for later reads.
+	// Text The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text, and on a binary message, which returns `binary` instead. For a template send, this is the rendered text after parameter substitution. When `category` is `authentication` (a message carrying a one-time code), this is `**REDACTED**`: the code still reaches the recipient, but the API does not retain it for later reads.
 	Text *string `json:"text,omitempty"`
 
 	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
 	To string `json:"to"`
 
-	// ValidityPeriod Preview feature: how long, in seconds, the carrier may keep attempting delivery before the message is marked `expired`. Not returned yet.
+	// ValidityPeriod Preview feature: the `validity_period` applied to the message, in seconds: the send's own, or else its messaging profile's. Absent when neither set one.
 	ValidityPeriod *int `json:"validity_period,omitempty"`
 }
 
@@ -28155,6 +28378,15 @@ type SMSMessageCategory string
 
 // SMSMessageEffectiveOptions The settings Bird applied to this message. Every option is reported, whether you set it on the send or took the default that was in force at the time.
 type SMSMessageEffectiveOptions struct {
+	// CallbackUrl Preview feature: the callback URL the send recorded. Absent when it recorded none. Recorded only: status events go to your webhook subscriptions either way.
+	CallbackUrl *string `json:"callback_url,omitempty"`
+
+	// IgnoreDeliveryWindow Preview feature: `true` when this message is excluded from any future quiet-hours delivery window. Absent otherwise.
+	IgnoreDeliveryWindow *bool `json:"ignore_delivery_window,omitempty"`
+
+	// IgnoreSuppression Preview feature: `true` when the send asked to skip opt-outs. Recorded only: every opt-out still applied. Absent otherwise.
+	IgnoreSuppression *bool `json:"ignore_suppression,omitempty"`
+
 	// SmartEncoding Whether Bird replaced characters outside the GSM-7 alphabet in this message's body with their closest equivalent before sending it. When `true`, `text` is the body as sent and `segments` describes that body.
 	SmartEncoding bool `json:"smart_encoding"`
 }
@@ -28177,7 +28409,7 @@ type SMSMessageList struct {
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
-// SMSMessageSendRequest A message to send. Supply exactly one of `text` (free-text, which also requires `category`) or `template` (a stored template, whose category is derived). Supplying both, or neither, is rejected.
+// SMSMessageSendRequest A message to send. Supply exactly one of `text` (free-text, which also requires `category` unless a messaging profile supplies a default), `template` (a stored template, whose category is derived), or the preview `binary` (which also requires `category`). Supplying more than one, or none, is rejected.
 type SMSMessageSendRequest struct {
 	// AudienceId Preview feature: audience-targeted sends. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	AudienceId *string `json:"audience_id,omitempty"`
@@ -28188,19 +28420,19 @@ type SMSMessageSendRequest struct {
 	// CampaignId Preview feature: campaign correlation for analytics. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	CampaignId *string `json:"campaign_id,omitempty"`
 
-	// Category Content classification: why you are sending. Required on a free-text send; omit it on a template send, where the category is derived from the template. Where the destination country requires the sender to be registered, a category outside what that registration covers returns a `422` `SenderCategoryNotPermitted`.
+	// Category Content classification: why you are sending. Required on a free-text send unless the messaging profile in `messaging_profile_id` sets a default category; omit it on a template send, where the category is derived from the template. Where the destination country requires the sender to be registered, a category outside what that registration covers returns a `422` `SenderCategoryNotPermitted`.
 	Category *SMSMessageCategory `json:"category,omitempty"`
 
 	// ContactId Preview feature: contact-targeted sends. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	ContactId *string `json:"contact_id,omitempty"`
 
-	// From Sender to send from. It must be a sender the workspace holds: a number it owns in E.164, such as `+15557654321`, a short code it holds, such as `24680`, or an alphanumeric sender ID it has claimed, such as `MyBrand`. A sender the workspace does not hold returns a `422` `SMSSenderNotConfigured`, and an alphanumeric sender must also be permitted, and where required registered, for the destination country. Required on a free-text send and when sending a workspace template. Omitting it in either case returns `422`. A built-in template selects its sender automatically and rejects `from`.
+	// From Sender to send from. It must be a sender the workspace holds: a number it owns in E.164, such as `+15557654321`, a short code it holds, such as `24680`, or an alphanumeric sender ID it has claimed, such as `MyBrand`. A sender the workspace does not hold returns a `422` `SMSSenderNotConfigured`, and an alphanumeric sender must also be permitted, and where required registered, for the destination country. Required on a free-text send and when sending a workspace template, unless `messaging_profile_id` is set and the profile selects a sender for the destination country or has a default sender. Omitting it otherwise returns `422`. A built-in template selects its sender automatically and rejects `from`.
 	From *string `json:"from,omitempty"`
 
 	// MediaUrls Preview feature: multimedia (MMS) attachments. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	MediaUrls *[]string `json:"media_urls,omitempty"`
 
-	// MessagingProfileId Preview feature: sender selection from a messaging profile pool. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
+	// MessagingProfileId Preview feature: the messaging profile that supplies this message's sender and defaults. When `from` is omitted, Bird sends from the profile's sender for the destination country, or its default sender. An omitted `category` on a free-text send takes the profile's default category, and `smart_encoding`, `cost_center` and `validity_period` take the profile's settings. So do `options.callback_url`, `options.ignore_delivery_window` and `options.ignore_suppression`, which Bird records on the message; the profile's `options.validation.network` is not inherited. Values you set on the message take precedence. A built-in template sends from Bird's system sender and ignores the profile's senders. A profile that does not exist in this workspace returns `422` `SMSMessagingProfileNotFound`; a `from` bound to a different profile returns `422` `SMSMessagingProfileSenderBound`. Organizations outside the preview get `422` `SMSUnsupportedFeature`.
 	MessagingProfileId *string `json:"messaging_profile_id,omitempty"`
 
 	// Metadata Arbitrary JSON object stored on the message, returned on API reads, and echoed in webhook payloads. Maximum 2 KB serialized. Use metadata for per-send context like internal IDs and foreign keys. For low-cardinality filterable labels, use `tags` instead.
@@ -28224,13 +28456,13 @@ type SMSMessageSendRequest struct {
 	// Text Free-text message body. Required unless `template` is supplied (the two are mutually exclusive). At least 1 character, up to a 12-segment cap (roughly 1836 GSM-7 or 804 UCS-2 characters). Bird does not truncate; a body exceeding 12 segments is rejected with a 422. The cap applies to segments because GSM-7 and UCS-2 encodings differ in characters per segment.
 	Text *string `json:"text,omitempty"`
 
-	// To Recipient phone number in E.164 format (for example `+14155550100`). One recipient per message. The number is stored and returned in canonical E.164; a recipient that cannot be routed returns a `422` `SMSInvalidRecipient`.
+	// To Recipient phone number in E.164 format (for example `+14155550100`), or in national format when you also pass `to_country_code`. One recipient per message. The number is stored and returned in canonical E.164; a recipient that cannot be routed returns a `422` `SMSInvalidRecipient`.
 	To string `json:"to"`
 
 	// TopicId Preview feature: topic-gated sends. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	TopicId *string `json:"topic_id,omitempty"`
 
-	// ValidityPeriod Preview feature: how long, in seconds (60-172800), the carrier may keep attempting delivery before the message is marked `expired`. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
+	// ValidityPeriod Preview feature: how long, in seconds (60-172800), the message may wait for delivery, counted from acceptance. Bird does not submit the message to the carrier after this deadline and passes the remaining time to the carrier where the route supports it. A message that misses the deadline before reaching the carrier ends `rejected` or `failed`, not `expired`; `expired` comes only from a carrier report. Omit it to use the validity period of the messaging profile in `messaging_profile_id`, or the carrier's own validity rules when the profile sets none. Organizations outside the preview receive `422 SMSUnsupportedFeature`.
 	ValidityPeriod *int `json:"validity_period,omitempty"`
 	union          json.RawMessage
 }
@@ -28240,6 +28472,9 @@ type SMSMessageSendRequest0 = interface{}
 
 // SMSMessageSendRequest1 defines model for .
 type SMSMessageSendRequest1 = interface{}
+
+// SMSMessageSendRequest2 defines model for .
+type SMSMessageSendRequest2 = interface{}
 
 // SMSMessageStatus Delivery status:
 //
@@ -28256,6 +28491,9 @@ type SMSMessageSendRequest1 = interface{}
 // feature that produces them, so their arrival is not a breaking change. No
 // message carries either status today.
 type SMSMessageStatus string
+
+// SMSMessagingProfileID defines model for SMSMessagingProfileID.
+type SMSMessagingProfileID = string
 
 // SMSOriginatorStatsPoint Aggregate delivery and latency stats for a single originator (the sender address messages were sent from) over the requested period.
 type SMSOriginatorStatsPoint struct {
@@ -28303,7 +28541,7 @@ type SMSRegistrationStatus string
 
 // SMSSegments Segment breakdown for the message body. Segment count drives billing.
 type SMSSegments struct {
-	// Characters Character count of the body, counted in Unicode code points under either encoding. This is not the segment measure: a `GSM_7BIT` extended-table character counts once here but costs two septets, and a `UCS2` emoji outside the Basic Multilingual Plane counts once here but costs two of the segment's 70 code units.
+	// Characters Character count of the body, counted in Unicode code points under `GSM_7BIT` and `UCS2`; under `BINARY` it is the payload's octets, header included. This is not the segment measure: a `GSM_7BIT` extended-table character counts once here but costs two septets, and a `UCS2` emoji outside the Basic Multilingual Plane counts once here but costs two of the segment's 70 code units.
 	Characters *int `json:"characters,omitempty"`
 
 	// Count Number of segments the body is split into. Each segment is a billable unit.
@@ -28321,6 +28559,8 @@ type SMSSegments struct {
 	// feed control. Eighty of those fill a single segment. Under `UCS2` an emoji
 	// outside the Basic Multilingual Plane is a surrogate pair costing two code
 	// units, so 35 of those fill a single segment.
+	//
+	// `BINARY` marks an 8-bit binary payload, sent as one segment, where `characters` counts its octets. Only the preview binary send produces it; it is declared ahead of general availability so clients see the value before any message carries it outside the preview.
 	Encoding *SMSSegmentsEncoding `json:"encoding,omitempty"`
 }
 
@@ -28336,9 +28576,11 @@ type SMSSegments struct {
 // feed control. Eighty of those fill a single segment. Under `UCS2` an emoji
 // outside the Basic Multilingual Plane is a surrogate pair costing two code
 // units, so 35 of those fill a single segment.
+//
+// `BINARY` marks an 8-bit binary payload, sent as one segment, where `characters` counts its octets. Only the preview binary send produces it; it is declared ahead of general availability so clients see the value before any message carries it outside the preview.
 type SMSSegmentsEncoding string
 
-// SMSSendOptions Settings that change how Bird processes this message. Each option applies to this send only; omit one to use its default.
+// SMSSendOptions Settings that change how Bird processes this message. Each option applies to this send only; omit one to use the value of the messaging profile in `messaging_profile_id`, or its default when the profile sets none.
 type SMSSendOptions struct {
 	// MaxPricePerSegment Preview feature: per-segment price ceiling. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	MaxPricePerSegment *float32 `json:"max_price_per_segment,omitempty"`
@@ -29460,7 +29702,7 @@ type TemplateVariable struct {
 	// System Whether the value comes from Bird rather than from the send. Absent means false. Only email templates have system slots, identified by the reserved `bird` key or a dotted path beneath it; every SMS and WhatsApp slot is yours to fill. A draft can also name a reserved key no Bird value fills, including `bird` itself: `constraint` says so, and publishing that draft is rejected.
 	System *bool `json:"system,omitempty"`
 
-	// Type The value type this slot accepts. Built-in SMS templates use typed slots (`code`, `amount` and the rest), each of which rejects a value that does not match its `constraint`. Email, WhatsApp and workspace SMS templates use `text`. Workspace SMS parameters must be scalar values. Open enum: treat an unrecognized value as a future type rather than an error.
+	// Type The value type this slot accepts. Each typed slot rejects a value that does not match its `constraint`. Built-in SMS templates use typed slots (`code`, `amount` and the rest). Apple Messages templates type a variable from its content: the field it fills (`url`, `image`, `timestamp`) or the formatting filter applied to it (`date`, `date_time`, `amount`, `currency`). Email, WhatsApp and workspace SMS templates use `text`. Workspace SMS parameters must be scalar values. Open enum: treat an unrecognized value as a future type rather than an error.
 	Type *string `json:"type,omitempty"`
 }
 
@@ -33286,6 +33528,9 @@ type WhatsAppMessageStatus string
 
 // WhatsAppMessageTemplate The template a message was sent from. On reads `slug`, `language`, `category`, and `components` are always present; `components` is an empty array for an authentication template (the filled-in values, for example a verification code, are never returned).
 type WhatsAppMessageTemplate struct {
+	// BidMultiplier The `bid_multiplier` the message was sent with. Absent when the send named none, which bids at 1. Also absent on messages sent before Bird stored it.
+	BidMultiplier *float64 `json:"bid_multiplier,omitempty"`
+
 	// Category The category this message was priced at, recorded as it stood when the message was sent. For a template you authored this is the category Meta applies to the language the send resolved to, which can differ from the category declared on the template: Meta categorizes each language separately and may move one. A built-in `bird_` template is priced at the single category the built-in declares, the same in every language.
 	Category *WhatsAppTemplateCategory `json:"category,omitempty"`
 
@@ -33652,6 +33897,35 @@ type WhatsAppPhoneNumberStatsPoint struct {
 	// Shared `true` for a shared Bird-managed number; `false` for a number owned by your workspace.
 	Shared *bool `json:"shared,omitempty"`
 }
+
+// WhatsAppReachEstimate defines model for WhatsAppReachEstimate.
+type WhatsAppReachEstimate struct {
+	// CurrencyCode ISO 4217 three-letter currency code.
+	CurrencyCode CurrencyCode `json:"currency_code"`
+
+	// Estimates One estimate per candidate bid, in ascending bid order.
+	Estimates []WhatsAppReachEstimateRow `json:"estimates"`
+}
+
+// WhatsAppReachEstimateRow defines model for WhatsAppReachEstimateRow.
+type WhatsAppReachEstimateRow struct {
+	// BidAmount The candidate bid, per 1,000 deliveries in the smallest currency unit. It is the unit `optimization_spec.bid_amount` takes.
+	BidAmount int64 `json:"bid_amount"`
+
+	// CostLowerBound The lower cost estimate, per 1,000 deliveries in the smallest currency unit.
+	CostLowerBound float64 `json:"cost_lower_bound"`
+
+	// CostUpperBound The upper cost estimate, per 1,000 deliveries in the smallest currency unit.
+	CostUpperBound       float64 `json:"cost_upper_bound"`
+	DeliveriesLowerBound int64   `json:"deliveries_lower_bound"`
+	DeliveriesUpperBound int64   `json:"deliveries_upper_bound"`
+
+	// Users The audience size the estimate is for.
+	Users int64 `json:"users"`
+}
+
+// WhatsAppReachEstimateWindow How many days of recent auctions a reach estimate is based on, ending now.
+type WhatsAppReachEstimateWindow string
 
 // WhatsAppReactedEventType Always `whatsapp.reacted` for this event.
 type WhatsAppReactedEventType string
@@ -34104,6 +34378,16 @@ type WhatsAppTemplate struct {
 	Waba *string `json:"waba,omitempty"`
 }
 
+// WhatsAppTemplateBidStrategy How Meta bids for each delivery.
+//
+// - `lowest_cost_with_bid_cap`: Meta delivers at the lowest cost it can find, never above the bid.
+type WhatsAppTemplateBidStrategy string
+
+// WhatsAppTemplateBidStrategyWrite How Meta bids for each delivery.
+//
+// - `lowest_cost_with_bid_cap`: Meta delivers at the lowest cost it can find, never above the bid.
+type WhatsAppTemplateBidStrategyWrite string
+
 // WhatsAppTemplateButton defines model for WhatsAppTemplateButton.
 type WhatsAppTemplateButton struct {
 	// ExampleParameters Example values for this button's variables, in placeholder order. Present when the button address has variables, and on a `copy_code` button, where the single value is the sample coupon code WhatsApp reviewed.
@@ -34465,6 +34749,9 @@ type WhatsAppTemplateLanguage struct {
 	// Language A language tag in BCP-47 form, for example `en` or `pt-BR`.
 	Language LanguageTag `json:"language"`
 
+	// OptimizationSpec This language's maximum price, or `null` when Meta's standard rate applies.
+	OptimizationSpec *WhatsAppTemplateOptimizationSpec `json:"optimization_spec,omitempty"`
+
 	// Pause WhatsApp's record of why it paused or disabled one language. Set when WhatsApp pauses or disables the language and removed once the language can send again. Present only on the version currently in service.
 	Pause *WhatsAppTemplatePause `json:"pause,omitempty"`
 
@@ -34616,6 +34903,9 @@ type WhatsAppTemplateLanguageUpsert struct {
 	// Components The template's content blocks for this language. Header, footer and buttons are optional. Every variable needs an example value, which is what Meta reviews against. May be omitted or empty on a draft; a body block is required before the language can be submitted.
 	Components *[]WhatsAppTemplateComponentWrite `json:"components,omitempty"`
 
+	// OptimizationSpec This language's maximum price. Omit it to keep the current one. A new language written without it uses Meta's standard rate. Send `null` to return to the standard rate. Changing only the price updates Meta without a new review. A send at a maximum price needs the business account's `marketing_messages_onboarding_status` to be `onboarded`. Otherwise it fails with WhatsApp error 131061.
+	OptimizationSpec nullable.Nullable[WhatsAppTemplateOptimizationSpecWrite] `json:"optimization_spec,omitempty"`
+
 	// Revision The revision you last read for this language, making the write a compare-and-set: a mismatch is refused with a conflict, leaving an edit you have not seen in place. Omit it for last-write-wins, which is what a single writer wants. Supplying it for a language that does not exist is also refused with a conflict rather than recreating the language. Inside a template's initial languages seed on create, a value here is refused, since no prior revision exists yet to compare against.
 	Revision *WhatsAppTemplateRevision `json:"revision,omitempty"`
 }
@@ -34633,6 +34923,34 @@ type WhatsAppTemplateList struct {
 
 	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// WhatsAppTemplateOptimizationSpec The maximum price for this language's marketing deliveries. Meta charges each delivery a variable amount up to the bid.
+type WhatsAppTemplateOptimizationSpec struct {
+	// BidAmount The maximum price per 1,000 deliveries, in the smallest unit of the account's currency. The reach estimate returns that currency as `currency_code`. 5000 is USD 0.05 per delivery.
+	BidAmount int32 `json:"bid_amount"`
+
+	// BidCountryMultiplierOverrides Scales the bid for recipients in a country, keyed by ISO 3166-1 alpha-2 code. A country not listed uses 1. Empty when no country is scaled.
+	BidCountryMultiplierOverrides map[string]float64 `json:"bid_country_multiplier_overrides"`
+
+	// BidStrategy How Meta bids for each delivery.
+	//
+	// - `lowest_cost_with_bid_cap`: Meta delivers at the lowest cost it can find, never above the bid.
+	BidStrategy WhatsAppTemplateBidStrategy `json:"bid_strategy"`
+}
+
+// WhatsAppTemplateOptimizationSpecWrite A maximum price for this language's marketing deliveries. Meta charges each delivery a variable amount up to the bid. Only marketing templates accept it.
+type WhatsAppTemplateOptimizationSpecWrite struct {
+	// BidAmount The maximum price per 1,000 deliveries, in the smallest unit of the account's currency. The reach estimate returns that currency as `currency_code`. 5000 is USD 0.05 per delivery.
+	BidAmount int32 `json:"bid_amount"`
+
+	// BidCountryMultiplierOverrides Scales the bid for recipients in a country, keyed by ISO 3166-1 alpha-2 code. A country you leave out uses 1. Each write replaces the whole map.
+	BidCountryMultiplierOverrides *map[string]float64 `json:"bid_country_multiplier_overrides,omitempty"`
+
+	// BidStrategy How Meta bids for each delivery.
+	//
+	// - `lowest_cost_with_bid_cap`: Meta delivers at the lowest cost it can find, never above the bid.
+	BidStrategy WhatsAppTemplateBidStrategyWrite `json:"bid_strategy"`
 }
 
 // WhatsAppTemplateParameterType The kind of value a template parameter carries, which follows the block it fills. The `text` type is a plain string substituted into a placeholder. This includes a coupon button's code, which the recipient copies from the button. The `image`, `video`, `gif`, and `document` types carry a media header's file in `url`. Each matches its header's `format`. The `location` type fills a location header and carries a point on the map. Open enum: more kinds may be added over time.
@@ -34691,6 +35009,9 @@ type WhatsAppTemplateRevision = int
 
 // WhatsAppTemplateSend A send-by-template reference. Identify the template by its `id` or its `slug` (supply exactly one), optionally name a language, and fill its placeholders through `components`.
 type WhatsAppTemplateSend struct {
+	// BidMultiplier Scales the language's maximum price for this message only. The effective bid is the language's `optimization_spec.bid_amount`, times its country multiplier, times this value. At least 0.01 and at most 100; 1 when omitted. Only a language with an `optimization_spec`, on a template still in the `marketing` category, accepts it.
+	BidMultiplier *float64 `json:"bid_multiplier,omitempty"`
+
 	// Components Values for the template's placeholders. Build it from the template language's `components`: each block's `example_parameters`, with real values, becomes that part's `parameters`. A template's `buttons` block becomes one `button` part per button that has `example_parameters`, in order; a `carousel` becomes one `cards` entry per card, built the same way. A `location` header always needs a part with a `location` parameter. Leave out other blocks without any.
 	Components *[]WhatsAppMessageTemplateComponent `json:"components,omitempty"`
 	Id         *WhatsAppTemplateID                 `json:"id,omitempty"`
@@ -40523,8 +40844,8 @@ type SubmitEmailTemplateVersionParams struct {
 
 // ListEmailThreadsParams defines parameters for ListEmailThreads.
 type ListEmailThreadsParams struct {
-	// MailboxId Filter to conversations in a specific mailbox.
-	MailboxId *MailboxID `form:"mailbox_id,omitempty" json:"mailbox_id,omitempty"`
+	// MailboxId Filter to conversations in a mailbox by ID or email address in this workspace. An unknown or ambiguous email address returns 404; a valid mailbox ID with no matching threads returns an empty page.
+	MailboxId *MailboxIdentifier `form:"mailbox_id,omitempty" json:"mailbox_id,omitempty"`
 
 	// ContactId Filter to conversations linked to a specific contact.
 	ContactId *ContactID `form:"contact_id,omitempty" json:"contact_id,omitempty"`
@@ -42355,6 +42676,9 @@ type ListSMSMessagesParams struct {
 
 	// From Filter by sender (E.164, alphanumeric, or short code; exact match).
 	From *string `form:"from,omitempty" json:"from,omitempty"`
+
+	// Country Filter by destination country, as an ISO 3166-1 alpha-2 code. An outbound message's country is the recipient's; a received message's is the country of the Bird number it arrived on.
+	Country *CountryCode `form:"country,omitempty" json:"country,omitempty"`
 
 	// Tag Filter by tag. Accepts `name` to match any record carrying that tag name, or `name:value` to match a specific tag pair (for example `category:welcome`). Repeat the parameter to add more tags. A record must match every tag listed to be returned.
 	Tag *TagFilter `form:"tag,omitempty" json:"tag,omitempty"`
@@ -46374,6 +46698,156 @@ func (a VoiceSequencePresentation) MarshalJSON() ([]byte, error) {
 	return json.Marshal(object)
 }
 
+// AsAMBAttachmentUpload0 returns the union data inside the AMBAttachmentUpload as a AMBAttachmentUpload0
+func (t AMBAttachmentUpload) AsAMBAttachmentUpload0() (AMBAttachmentUpload0, error) {
+	var body AMBAttachmentUpload0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBAttachmentUpload0 overwrites any union data inside the AMBAttachmentUpload as the provided AMBAttachmentUpload0
+func (t *AMBAttachmentUpload) FromAMBAttachmentUpload0(v AMBAttachmentUpload0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBAttachmentUpload0 performs a merge with any union data inside the AMBAttachmentUpload, using the provided AMBAttachmentUpload0
+func (t *AMBAttachmentUpload) MergeAMBAttachmentUpload0(v AMBAttachmentUpload0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAMBAttachmentUpload1 returns the union data inside the AMBAttachmentUpload as a AMBAttachmentUpload1
+func (t AMBAttachmentUpload) AsAMBAttachmentUpload1() (AMBAttachmentUpload1, error) {
+	var body AMBAttachmentUpload1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBAttachmentUpload1 overwrites any union data inside the AMBAttachmentUpload as the provided AMBAttachmentUpload1
+func (t *AMBAttachmentUpload) FromAMBAttachmentUpload1(v AMBAttachmentUpload1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBAttachmentUpload1 performs a merge with any union data inside the AMBAttachmentUpload, using the provided AMBAttachmentUpload1
+func (t *AMBAttachmentUpload) MergeAMBAttachmentUpload1(v AMBAttachmentUpload1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t AMBAttachmentUpload) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	object := make(map[string]json.RawMessage)
+	if t.union != nil {
+		err = json.Unmarshal(b, &object)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if t.File != nil {
+		object["file"], err = json.Marshal(t.File)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'file': %w", err)
+		}
+	}
+
+	object["from"], err = json.Marshal(t.From)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'from': %w", err)
+	}
+
+	if t.MimeType != nil {
+		object["mime_type"], err = json.Marshal(t.MimeType)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'mime_type': %w", err)
+		}
+	}
+
+	if t.Name != nil {
+		object["name"], err = json.Marshal(t.Name)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'name': %w", err)
+		}
+	}
+
+	if t.SourceUrl != nil {
+		object["source_url"], err = json.Marshal(t.SourceUrl)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'source_url': %w", err)
+		}
+	}
+	b, err = json.Marshal(object)
+	return b, err
+}
+
+func (t *AMBAttachmentUpload) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	if err != nil {
+		return err
+	}
+	object := make(map[string]json.RawMessage)
+	err = json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["file"]; found {
+		err = json.Unmarshal(raw, &t.File)
+		if err != nil {
+			return fmt.Errorf("error reading 'file': %w", err)
+		}
+	}
+
+	if raw, found := object["from"]; found {
+		err = json.Unmarshal(raw, &t.From)
+		if err != nil {
+			return fmt.Errorf("error reading 'from': %w", err)
+		}
+	}
+
+	if raw, found := object["mime_type"]; found {
+		err = json.Unmarshal(raw, &t.MimeType)
+		if err != nil {
+			return fmt.Errorf("error reading 'mime_type': %w", err)
+		}
+	}
+
+	if raw, found := object["name"]; found {
+		err = json.Unmarshal(raw, &t.Name)
+		if err != nil {
+			return fmt.Errorf("error reading 'name': %w", err)
+		}
+	}
+
+	if raw, found := object["source_url"]; found {
+		err = json.Unmarshal(raw, &t.SourceUrl)
+		if err != nil {
+			return fmt.Errorf("error reading 'source_url': %w", err)
+		}
+	}
+
+	return err
+}
+
 // AsAMBFormSelectPage returns the union data inside the AMBFormPage as a AMBFormSelectPage
 func (t AMBFormPage) AsAMBFormSelectPage() (AMBFormSelectPage, error) {
 	var body AMBFormSelectPage
@@ -47091,10 +47565,10 @@ func (t AMBNativeAttachment) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if t.Key != nil {
-		object["key"], err = json.Marshal(t.Key)
+	if t.AttachmentId != nil {
+		object["attachment_id"], err = json.Marshal(t.AttachmentId)
 		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'key': %w", err)
+			return nil, fmt.Errorf("error marshaling 'attachment_id': %w", err)
 		}
 	}
 
@@ -47112,20 +47586,6 @@ func (t AMBNativeAttachment) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if t.Owner != nil {
-		object["owner"], err = json.Marshal(t.Owner)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'owner': %w", err)
-		}
-	}
-
-	if t.SignatureBase64 != nil {
-		object["signature_base64"], err = json.Marshal(t.SignatureBase64)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'signature_base64': %w", err)
-		}
-	}
-
 	if t.Size != nil {
 		object["size"], err = json.Marshal(t.Size)
 		if err != nil {
@@ -47137,13 +47597,6 @@ func (t AMBNativeAttachment) MarshalJSON() ([]byte, error) {
 		object["source_url"], err = json.Marshal(t.SourceUrl)
 		if err != nil {
 			return nil, fmt.Errorf("error marshaling 'source_url': %w", err)
-		}
-	}
-
-	if t.Url != nil {
-		object["url"], err = json.Marshal(t.Url)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'url': %w", err)
 		}
 	}
 	b, err = json.Marshal(object)
@@ -47161,10 +47614,10 @@ func (t *AMBNativeAttachment) UnmarshalJSON(b []byte) error {
 		return err
 	}
 
-	if raw, found := object["key"]; found {
-		err = json.Unmarshal(raw, &t.Key)
+	if raw, found := object["attachment_id"]; found {
+		err = json.Unmarshal(raw, &t.AttachmentId)
 		if err != nil {
-			return fmt.Errorf("error reading 'key': %w", err)
+			return fmt.Errorf("error reading 'attachment_id': %w", err)
 		}
 	}
 
@@ -47182,20 +47635,6 @@ func (t *AMBNativeAttachment) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if raw, found := object["owner"]; found {
-		err = json.Unmarshal(raw, &t.Owner)
-		if err != nil {
-			return fmt.Errorf("error reading 'owner': %w", err)
-		}
-	}
-
-	if raw, found := object["signature_base64"]; found {
-		err = json.Unmarshal(raw, &t.SignatureBase64)
-		if err != nil {
-			return fmt.Errorf("error reading 'signature_base64': %w", err)
-		}
-	}
-
 	if raw, found := object["size"]; found {
 		err = json.Unmarshal(raw, &t.Size)
 		if err != nil {
@@ -47207,178 +47646,6 @@ func (t *AMBNativeAttachment) UnmarshalJSON(b []byte) error {
 		err = json.Unmarshal(raw, &t.SourceUrl)
 		if err != nil {
 			return fmt.Errorf("error reading 'source_url': %w", err)
-		}
-	}
-
-	if raw, found := object["url"]; found {
-		err = json.Unmarshal(raw, &t.Url)
-		if err != nil {
-			return fmt.Errorf("error reading 'url': %w", err)
-		}
-	}
-
-	return err
-}
-
-// AsAMBNativeInteractiveContent0 returns the union data inside the AMBNativeInteractiveContent as a AMBNativeInteractiveContent0
-func (t AMBNativeInteractiveContent) AsAMBNativeInteractiveContent0() (AMBNativeInteractiveContent0, error) {
-	var body AMBNativeInteractiveContent0
-	err := json.Unmarshal(t.union, &body)
-	return body, err
-}
-
-// FromAMBNativeInteractiveContent0 overwrites any union data inside the AMBNativeInteractiveContent as the provided AMBNativeInteractiveContent0
-func (t *AMBNativeInteractiveContent) FromAMBNativeInteractiveContent0(v AMBNativeInteractiveContent0) error {
-	b, err := json.Marshal(v)
-	t.union = b
-	return err
-}
-
-// MergeAMBNativeInteractiveContent0 performs a merge with any union data inside the AMBNativeInteractiveContent, using the provided AMBNativeInteractiveContent0
-func (t *AMBNativeInteractiveContent) MergeAMBNativeInteractiveContent0(v AMBNativeInteractiveContent0) error {
-	b, err := json.Marshal(v)
-	if err != nil {
-		return err
-	}
-
-	merged, err := runtime.JSONMerge(t.union, b)
-	t.union = merged
-	return err
-}
-
-// AsAMBNativeInteractiveContent1 returns the union data inside the AMBNativeInteractiveContent as a AMBNativeInteractiveContent1
-func (t AMBNativeInteractiveContent) AsAMBNativeInteractiveContent1() (AMBNativeInteractiveContent1, error) {
-	var body AMBNativeInteractiveContent1
-	err := json.Unmarshal(t.union, &body)
-	return body, err
-}
-
-// FromAMBNativeInteractiveContent1 overwrites any union data inside the AMBNativeInteractiveContent as the provided AMBNativeInteractiveContent1
-func (t *AMBNativeInteractiveContent) FromAMBNativeInteractiveContent1(v AMBNativeInteractiveContent1) error {
-	b, err := json.Marshal(v)
-	t.union = b
-	return err
-}
-
-// MergeAMBNativeInteractiveContent1 performs a merge with any union data inside the AMBNativeInteractiveContent, using the provided AMBNativeInteractiveContent1
-func (t *AMBNativeInteractiveContent) MergeAMBNativeInteractiveContent1(v AMBNativeInteractiveContent1) error {
-	b, err := json.Marshal(v)
-	if err != nil {
-		return err
-	}
-
-	merged, err := runtime.JSONMerge(t.union, b)
-	t.union = merged
-	return err
-}
-
-func (t AMBNativeInteractiveContent) MarshalJSON() ([]byte, error) {
-	b, err := t.union.MarshalJSON()
-	if err != nil {
-		return nil, err
-	}
-	object := make(map[string]json.RawMessage)
-	if t.union != nil {
-		err = json.Unmarshal(b, &object)
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	if t.Attachments != nil {
-		object["attachments"], err = json.Marshal(t.Attachments)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'attachments': %w", err)
-		}
-	}
-
-	if t.Body != nil {
-		object["body"], err = json.Marshal(t.Body)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'body': %w", err)
-		}
-	}
-
-	if t.InteractiveData != nil {
-		object["interactive_data"], err = json.Marshal(t.InteractiveData)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'interactive_data': %w", err)
-		}
-	}
-
-	if t.InteractiveDataRef != nil {
-		object["interactive_data_ref"], err = json.Marshal(t.InteractiveDataRef)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'interactive_data_ref': %w", err)
-		}
-	}
-
-	if t.Subject != nil {
-		object["subject"], err = json.Marshal(t.Subject)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'subject': %w", err)
-		}
-	}
-
-	object["type"], err = json.Marshal(t.Type)
-	if err != nil {
-		return nil, fmt.Errorf("error marshaling 'type': %w", err)
-	}
-
-	b, err = json.Marshal(object)
-	return b, err
-}
-
-func (t *AMBNativeInteractiveContent) UnmarshalJSON(b []byte) error {
-	err := t.union.UnmarshalJSON(b)
-	if err != nil {
-		return err
-	}
-	object := make(map[string]json.RawMessage)
-	err = json.Unmarshal(b, &object)
-	if err != nil {
-		return err
-	}
-
-	if raw, found := object["attachments"]; found {
-		err = json.Unmarshal(raw, &t.Attachments)
-		if err != nil {
-			return fmt.Errorf("error reading 'attachments': %w", err)
-		}
-	}
-
-	if raw, found := object["body"]; found {
-		err = json.Unmarshal(raw, &t.Body)
-		if err != nil {
-			return fmt.Errorf("error reading 'body': %w", err)
-		}
-	}
-
-	if raw, found := object["interactive_data"]; found {
-		err = json.Unmarshal(raw, &t.InteractiveData)
-		if err != nil {
-			return fmt.Errorf("error reading 'interactive_data': %w", err)
-		}
-	}
-
-	if raw, found := object["interactive_data_ref"]; found {
-		err = json.Unmarshal(raw, &t.InteractiveDataRef)
-		if err != nil {
-			return fmt.Errorf("error reading 'interactive_data_ref': %w", err)
-		}
-	}
-
-	if raw, found := object["subject"]; found {
-		err = json.Unmarshal(raw, &t.Subject)
-		if err != nil {
-			return fmt.Errorf("error reading 'subject': %w", err)
-		}
-	}
-
-	if raw, found := object["type"]; found {
-		err = json.Unmarshal(raw, &t.Type)
-		if err != nil {
-			return fmt.Errorf("error reading 'type': %w", err)
 		}
 	}
 
@@ -47957,32 +48224,6 @@ func (t *AMBNativeRichLinkContent) MergeAMBNativeRichLinkContent1(v AMBNativeRic
 	return err
 }
 
-// AsAMBNativeRichLinkContent2 returns the union data inside the AMBNativeRichLinkContent as a AMBNativeRichLinkContent2
-func (t AMBNativeRichLinkContent) AsAMBNativeRichLinkContent2() (AMBNativeRichLinkContent2, error) {
-	var body AMBNativeRichLinkContent2
-	err := json.Unmarshal(t.union, &body)
-	return body, err
-}
-
-// FromAMBNativeRichLinkContent2 overwrites any union data inside the AMBNativeRichLinkContent as the provided AMBNativeRichLinkContent2
-func (t *AMBNativeRichLinkContent) FromAMBNativeRichLinkContent2(v AMBNativeRichLinkContent2) error {
-	b, err := json.Marshal(v)
-	t.union = b
-	return err
-}
-
-// MergeAMBNativeRichLinkContent2 performs a merge with any union data inside the AMBNativeRichLinkContent, using the provided AMBNativeRichLinkContent2
-func (t *AMBNativeRichLinkContent) MergeAMBNativeRichLinkContent2(v AMBNativeRichLinkContent2) error {
-	b, err := json.Marshal(v)
-	if err != nil {
-		return err
-	}
-
-	merged, err := runtime.JSONMerge(t.union, b)
-	t.union = merged
-	return err
-}
-
 func (t AMBNativeRichLinkContent) MarshalJSON() ([]byte, error) {
 	b, err := t.union.MarshalJSON()
 	if err != nil {
@@ -48021,13 +48262,6 @@ func (t AMBNativeRichLinkContent) MarshalJSON() ([]byte, error) {
 		object["rich_link_data"], err = json.Marshal(t.RichLinkData)
 		if err != nil {
 			return nil, fmt.Errorf("error marshaling 'rich_link_data': %w", err)
-		}
-	}
-
-	if t.RichLinkDataRef != nil {
-		object["rich_link_data_ref"], err = json.Marshal(t.RichLinkDataRef)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'rich_link_data_ref': %w", err)
 		}
 	}
 
@@ -48083,13 +48317,6 @@ func (t *AMBNativeRichLinkContent) UnmarshalJSON(b []byte) error {
 		err = json.Unmarshal(raw, &t.RichLinkData)
 		if err != nil {
 			return fmt.Errorf("error reading 'rich_link_data': %w", err)
-		}
-	}
-
-	if raw, found := object["rich_link_data_ref"]; found {
-		err = json.Unmarshal(raw, &t.RichLinkDataRef)
-		if err != nil {
-			return fmt.Errorf("error reading 'rich_link_data_ref': %w", err)
 		}
 	}
 
@@ -48241,193 +48468,6 @@ func (t *AMBNativeTextContent) UnmarshalJSON(b []byte) error {
 		err = json.Unmarshal(raw, &t.Type)
 		if err != nil {
 			return fmt.Errorf("error reading 'type': %w", err)
-		}
-	}
-
-	return err
-}
-
-// AsAMBRichLinkReference0 returns the union data inside the AMBRichLinkReference as a AMBRichLinkReference0
-func (t AMBRichLinkReference) AsAMBRichLinkReference0() (AMBRichLinkReference0, error) {
-	var body AMBRichLinkReference0
-	err := json.Unmarshal(t.union, &body)
-	return body, err
-}
-
-// FromAMBRichLinkReference0 overwrites any union data inside the AMBRichLinkReference as the provided AMBRichLinkReference0
-func (t *AMBRichLinkReference) FromAMBRichLinkReference0(v AMBRichLinkReference0) error {
-	b, err := json.Marshal(v)
-	t.union = b
-	return err
-}
-
-// MergeAMBRichLinkReference0 performs a merge with any union data inside the AMBRichLinkReference, using the provided AMBRichLinkReference0
-func (t *AMBRichLinkReference) MergeAMBRichLinkReference0(v AMBRichLinkReference0) error {
-	b, err := json.Marshal(v)
-	if err != nil {
-		return err
-	}
-
-	merged, err := runtime.JSONMerge(t.union, b)
-	t.union = merged
-	return err
-}
-
-// AsAMBRichLinkReference1 returns the union data inside the AMBRichLinkReference as a AMBRichLinkReference1
-func (t AMBRichLinkReference) AsAMBRichLinkReference1() (AMBRichLinkReference1, error) {
-	var body AMBRichLinkReference1
-	err := json.Unmarshal(t.union, &body)
-	return body, err
-}
-
-// FromAMBRichLinkReference1 overwrites any union data inside the AMBRichLinkReference as the provided AMBRichLinkReference1
-func (t *AMBRichLinkReference) FromAMBRichLinkReference1(v AMBRichLinkReference1) error {
-	b, err := json.Marshal(v)
-	t.union = b
-	return err
-}
-
-// MergeAMBRichLinkReference1 performs a merge with any union data inside the AMBRichLinkReference, using the provided AMBRichLinkReference1
-func (t *AMBRichLinkReference) MergeAMBRichLinkReference1(v AMBRichLinkReference1) error {
-	b, err := json.Marshal(v)
-	if err != nil {
-		return err
-	}
-
-	merged, err := runtime.JSONMerge(t.union, b)
-	t.union = merged
-	return err
-}
-
-func (t AMBRichLinkReference) MarshalJSON() ([]byte, error) {
-	b, err := t.union.MarshalJSON()
-	if err != nil {
-		return nil, err
-	}
-	object := make(map[string]json.RawMessage)
-	if t.union != nil {
-		err = json.Unmarshal(b, &object)
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	if t.Bid != nil {
-		object["bid"], err = json.Marshal(t.Bid)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'bid': %w", err)
-		}
-	}
-
-	if t.DataRefSig != nil {
-		object["data_ref_sig"], err = json.Marshal(t.DataRefSig)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'data_ref_sig': %w", err)
-		}
-	}
-
-	if t.Key != nil {
-		object["key"], err = json.Marshal(t.Key)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'key': %w", err)
-		}
-	}
-
-	object["owner"], err = json.Marshal(t.Owner)
-	if err != nil {
-		return nil, fmt.Errorf("error marshaling 'owner': %w", err)
-	}
-
-	object["signature_base64"], err = json.Marshal(t.SignatureBase64)
-	if err != nil {
-		return nil, fmt.Errorf("error marshaling 'signature_base64': %w", err)
-	}
-
-	object["size"], err = json.Marshal(t.Size)
-	if err != nil {
-		return nil, fmt.Errorf("error marshaling 'size': %w", err)
-	}
-
-	if t.Title != nil {
-		object["title"], err = json.Marshal(t.Title)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'title': %w", err)
-		}
-	}
-
-	object["url"], err = json.Marshal(t.Url)
-	if err != nil {
-		return nil, fmt.Errorf("error marshaling 'url': %w", err)
-	}
-
-	b, err = json.Marshal(object)
-	return b, err
-}
-
-func (t *AMBRichLinkReference) UnmarshalJSON(b []byte) error {
-	err := t.union.UnmarshalJSON(b)
-	if err != nil {
-		return err
-	}
-	object := make(map[string]json.RawMessage)
-	err = json.Unmarshal(b, &object)
-	if err != nil {
-		return err
-	}
-
-	if raw, found := object["bid"]; found {
-		err = json.Unmarshal(raw, &t.Bid)
-		if err != nil {
-			return fmt.Errorf("error reading 'bid': %w", err)
-		}
-	}
-
-	if raw, found := object["data_ref_sig"]; found {
-		err = json.Unmarshal(raw, &t.DataRefSig)
-		if err != nil {
-			return fmt.Errorf("error reading 'data_ref_sig': %w", err)
-		}
-	}
-
-	if raw, found := object["key"]; found {
-		err = json.Unmarshal(raw, &t.Key)
-		if err != nil {
-			return fmt.Errorf("error reading 'key': %w", err)
-		}
-	}
-
-	if raw, found := object["owner"]; found {
-		err = json.Unmarshal(raw, &t.Owner)
-		if err != nil {
-			return fmt.Errorf("error reading 'owner': %w", err)
-		}
-	}
-
-	if raw, found := object["signature_base64"]; found {
-		err = json.Unmarshal(raw, &t.SignatureBase64)
-		if err != nil {
-			return fmt.Errorf("error reading 'signature_base64': %w", err)
-		}
-	}
-
-	if raw, found := object["size"]; found {
-		err = json.Unmarshal(raw, &t.Size)
-		if err != nil {
-			return fmt.Errorf("error reading 'size': %w", err)
-		}
-	}
-
-	if raw, found := object["title"]; found {
-		err = json.Unmarshal(raw, &t.Title)
-		if err != nil {
-			return fmt.Errorf("error reading 'title': %w", err)
-		}
-	}
-
-	if raw, found := object["url"]; found {
-		err = json.Unmarshal(raw, &t.Url)
-		if err != nil {
-			return fmt.Errorf("error reading 'url': %w", err)
 		}
 	}
 
@@ -50303,6 +50343,32 @@ func (t *SMSMessageSendRequest) FromSMSMessageSendRequest1(v SMSMessageSendReque
 
 // MergeSMSMessageSendRequest1 performs a merge with any union data inside the SMSMessageSendRequest, using the provided SMSMessageSendRequest1
 func (t *SMSMessageSendRequest) MergeSMSMessageSendRequest1(v SMSMessageSendRequest1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsSMSMessageSendRequest2 returns the union data inside the SMSMessageSendRequest as a SMSMessageSendRequest2
+func (t SMSMessageSendRequest) AsSMSMessageSendRequest2() (SMSMessageSendRequest2, error) {
+	var body SMSMessageSendRequest2
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromSMSMessageSendRequest2 overwrites any union data inside the SMSMessageSendRequest as the provided SMSMessageSendRequest2
+func (t *SMSMessageSendRequest) FromSMSMessageSendRequest2(v SMSMessageSendRequest2) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeSMSMessageSendRequest2 performs a merge with any union data inside the SMSMessageSendRequest, using the provided SMSMessageSendRequest2
+func (t *SMSMessageSendRequest) MergeSMSMessageSendRequest2(v SMSMessageSendRequest2) error {
 	b, err := json.Marshal(v)
 	if err != nil {
 		return err
@@ -54331,6 +54397,13 @@ func (t WhatsAppTemplateSend) MarshalJSON() ([]byte, error) {
 		}
 	}
 
+	if t.BidMultiplier != nil {
+		object["bid_multiplier"], err = json.Marshal(t.BidMultiplier)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'bid_multiplier': %w", err)
+		}
+	}
+
 	if t.Components != nil {
 		object["components"], err = json.Marshal(t.Components)
 		if err != nil {
@@ -54371,6 +54444,13 @@ func (t *WhatsAppTemplateSend) UnmarshalJSON(b []byte) error {
 	err = json.Unmarshal(b, &object)
 	if err != nil {
 		return err
+	}
+
+	if raw, found := object["bid_multiplier"]; found {
+		err = json.Unmarshal(raw, &t.BidMultiplier)
+		if err != nil {
+			return fmt.Errorf("error reading 'bid_multiplier': %w", err)
+		}
 	}
 
 	if raw, found := object["components"]; found {
@@ -55000,52 +55080,52 @@ type ClientInterface interface {
 	CreateMailbox(ctx context.Context, params *CreateMailboxParams, body CreateMailboxJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// DeleteMailbox request
-	DeleteMailbox(ctx context.Context, mailboxId MailboxID, params *DeleteMailboxParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteMailbox(ctx context.Context, mailboxId MailboxIdentifier, params *DeleteMailboxParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetMailbox request
-	GetMailbox(ctx context.Context, mailboxId MailboxID, params *GetMailboxParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetMailbox(ctx context.Context, mailboxId MailboxIdentifier, params *GetMailboxParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// UpdateMailboxWithBody request with any body
-	UpdateMailboxWithBody(ctx context.Context, mailboxId MailboxID, params *UpdateMailboxParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateMailboxWithBody(ctx context.Context, mailboxId MailboxIdentifier, params *UpdateMailboxParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	UpdateMailbox(ctx context.Context, mailboxId MailboxID, params *UpdateMailboxParams, body UpdateMailboxJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateMailbox(ctx context.Context, mailboxId MailboxIdentifier, params *UpdateMailboxParams, body UpdateMailboxJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListMailboxLabels request
-	ListMailboxLabels(ctx context.Context, mailboxId MailboxID, params *ListMailboxLabelsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ListMailboxLabels(ctx context.Context, mailboxId MailboxIdentifier, params *ListMailboxLabelsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateMailboxMessageWithBody request with any body
-	CreateMailboxMessageWithBody(ctx context.Context, mailboxId MailboxID, params *CreateMailboxMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateMailboxMessageWithBody(ctx context.Context, mailboxId MailboxIdentifier, params *CreateMailboxMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	CreateMailboxMessage(ctx context.Context, mailboxId MailboxID, params *CreateMailboxMessageParams, body CreateMailboxMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateMailboxMessage(ctx context.Context, mailboxId MailboxIdentifier, params *CreateMailboxMessageParams, body CreateMailboxMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListMailboxReceiveRules request
-	ListMailboxReceiveRules(ctx context.Context, mailboxId MailboxID, params *ListMailboxReceiveRulesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ListMailboxReceiveRules(ctx context.Context, mailboxId MailboxIdentifier, params *ListMailboxReceiveRulesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateMailboxReceiveRuleWithBody request with any body
-	CreateMailboxReceiveRuleWithBody(ctx context.Context, mailboxId MailboxID, params *CreateMailboxReceiveRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateMailboxReceiveRuleWithBody(ctx context.Context, mailboxId MailboxIdentifier, params *CreateMailboxReceiveRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	CreateMailboxReceiveRule(ctx context.Context, mailboxId MailboxID, params *CreateMailboxReceiveRuleParams, body CreateMailboxReceiveRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateMailboxReceiveRule(ctx context.Context, mailboxId MailboxIdentifier, params *CreateMailboxReceiveRuleParams, body CreateMailboxReceiveRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// DeleteMailboxReceiveRule request
-	DeleteMailboxReceiveRule(ctx context.Context, mailboxId MailboxID, ruleId ReceiveRuleID, params *DeleteMailboxReceiveRuleParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteMailboxReceiveRule(ctx context.Context, mailboxId MailboxIdentifier, ruleId ReceiveRuleID, params *DeleteMailboxReceiveRuleParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// RestoreMailbox request
-	RestoreMailbox(ctx context.Context, mailboxId MailboxID, params *RestoreMailboxParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+	RestoreMailbox(ctx context.Context, mailboxId MailboxIdentifier, params *RestoreMailboxParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ResumeMailbox request
-	ResumeMailbox(ctx context.Context, mailboxId MailboxID, params *ResumeMailboxParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ResumeMailbox(ctx context.Context, mailboxId MailboxIdentifier, params *ResumeMailboxParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListMailboxScheduledMessages request
-	ListMailboxScheduledMessages(ctx context.Context, mailboxId MailboxID, params *ListMailboxScheduledMessagesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ListMailboxScheduledMessages(ctx context.Context, mailboxId MailboxIdentifier, params *ListMailboxScheduledMessagesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetMailboxScheduledMessage request
-	GetMailboxScheduledMessage(ctx context.Context, mailboxId MailboxID, scheduledMessageId MailboxScheduledMessageID, params *GetMailboxScheduledMessageParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetMailboxScheduledMessage(ctx context.Context, mailboxId MailboxIdentifier, scheduledMessageId MailboxScheduledMessageID, params *GetMailboxScheduledMessageParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CancelMailboxScheduledMessage request
-	CancelMailboxScheduledMessage(ctx context.Context, mailboxId MailboxID, scheduledMessageId MailboxScheduledMessageID, params *CancelMailboxScheduledMessageParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CancelMailboxScheduledMessage(ctx context.Context, mailboxId MailboxIdentifier, scheduledMessageId MailboxScheduledMessageID, params *CancelMailboxScheduledMessageParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetMailboxStats request
-	GetMailboxStats(ctx context.Context, mailboxId MailboxID, params *GetMailboxStatsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetMailboxStats(ctx context.Context, mailboxId MailboxIdentifier, params *GetMailboxStatsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListEmailMessages request
 	ListEmailMessages(ctx context.Context, params *ListEmailMessagesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -58257,7 +58337,7 @@ func (c *Client) CreateMailbox(ctx context.Context, params *CreateMailboxParams,
 	return c.Client.Do(req)
 }
 
-func (c *Client) DeleteMailbox(ctx context.Context, mailboxId MailboxID, params *DeleteMailboxParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) DeleteMailbox(ctx context.Context, mailboxId MailboxIdentifier, params *DeleteMailboxParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewDeleteMailboxRequest(c.Server, mailboxId, params)
 	if err != nil {
 		return nil, err
@@ -58269,7 +58349,7 @@ func (c *Client) DeleteMailbox(ctx context.Context, mailboxId MailboxID, params 
 	return c.Client.Do(req)
 }
 
-func (c *Client) GetMailbox(ctx context.Context, mailboxId MailboxID, params *GetMailboxParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) GetMailbox(ctx context.Context, mailboxId MailboxIdentifier, params *GetMailboxParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetMailboxRequest(c.Server, mailboxId, params)
 	if err != nil {
 		return nil, err
@@ -58281,7 +58361,7 @@ func (c *Client) GetMailbox(ctx context.Context, mailboxId MailboxID, params *Ge
 	return c.Client.Do(req)
 }
 
-func (c *Client) UpdateMailboxWithBody(ctx context.Context, mailboxId MailboxID, params *UpdateMailboxParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) UpdateMailboxWithBody(ctx context.Context, mailboxId MailboxIdentifier, params *UpdateMailboxParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewUpdateMailboxRequestWithBody(c.Server, mailboxId, params, contentType, body)
 	if err != nil {
 		return nil, err
@@ -58293,7 +58373,7 @@ func (c *Client) UpdateMailboxWithBody(ctx context.Context, mailboxId MailboxID,
 	return c.Client.Do(req)
 }
 
-func (c *Client) UpdateMailbox(ctx context.Context, mailboxId MailboxID, params *UpdateMailboxParams, body UpdateMailboxJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) UpdateMailbox(ctx context.Context, mailboxId MailboxIdentifier, params *UpdateMailboxParams, body UpdateMailboxJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewUpdateMailboxRequest(c.Server, mailboxId, params, body)
 	if err != nil {
 		return nil, err
@@ -58305,7 +58385,7 @@ func (c *Client) UpdateMailbox(ctx context.Context, mailboxId MailboxID, params 
 	return c.Client.Do(req)
 }
 
-func (c *Client) ListMailboxLabels(ctx context.Context, mailboxId MailboxID, params *ListMailboxLabelsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) ListMailboxLabels(ctx context.Context, mailboxId MailboxIdentifier, params *ListMailboxLabelsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListMailboxLabelsRequest(c.Server, mailboxId, params)
 	if err != nil {
 		return nil, err
@@ -58317,7 +58397,7 @@ func (c *Client) ListMailboxLabels(ctx context.Context, mailboxId MailboxID, par
 	return c.Client.Do(req)
 }
 
-func (c *Client) CreateMailboxMessageWithBody(ctx context.Context, mailboxId MailboxID, params *CreateMailboxMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) CreateMailboxMessageWithBody(ctx context.Context, mailboxId MailboxIdentifier, params *CreateMailboxMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewCreateMailboxMessageRequestWithBody(c.Server, mailboxId, params, contentType, body)
 	if err != nil {
 		return nil, err
@@ -58329,7 +58409,7 @@ func (c *Client) CreateMailboxMessageWithBody(ctx context.Context, mailboxId Mai
 	return c.Client.Do(req)
 }
 
-func (c *Client) CreateMailboxMessage(ctx context.Context, mailboxId MailboxID, params *CreateMailboxMessageParams, body CreateMailboxMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) CreateMailboxMessage(ctx context.Context, mailboxId MailboxIdentifier, params *CreateMailboxMessageParams, body CreateMailboxMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewCreateMailboxMessageRequest(c.Server, mailboxId, params, body)
 	if err != nil {
 		return nil, err
@@ -58341,7 +58421,7 @@ func (c *Client) CreateMailboxMessage(ctx context.Context, mailboxId MailboxID, 
 	return c.Client.Do(req)
 }
 
-func (c *Client) ListMailboxReceiveRules(ctx context.Context, mailboxId MailboxID, params *ListMailboxReceiveRulesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) ListMailboxReceiveRules(ctx context.Context, mailboxId MailboxIdentifier, params *ListMailboxReceiveRulesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListMailboxReceiveRulesRequest(c.Server, mailboxId, params)
 	if err != nil {
 		return nil, err
@@ -58353,7 +58433,7 @@ func (c *Client) ListMailboxReceiveRules(ctx context.Context, mailboxId MailboxI
 	return c.Client.Do(req)
 }
 
-func (c *Client) CreateMailboxReceiveRuleWithBody(ctx context.Context, mailboxId MailboxID, params *CreateMailboxReceiveRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) CreateMailboxReceiveRuleWithBody(ctx context.Context, mailboxId MailboxIdentifier, params *CreateMailboxReceiveRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewCreateMailboxReceiveRuleRequestWithBody(c.Server, mailboxId, params, contentType, body)
 	if err != nil {
 		return nil, err
@@ -58365,7 +58445,7 @@ func (c *Client) CreateMailboxReceiveRuleWithBody(ctx context.Context, mailboxId
 	return c.Client.Do(req)
 }
 
-func (c *Client) CreateMailboxReceiveRule(ctx context.Context, mailboxId MailboxID, params *CreateMailboxReceiveRuleParams, body CreateMailboxReceiveRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) CreateMailboxReceiveRule(ctx context.Context, mailboxId MailboxIdentifier, params *CreateMailboxReceiveRuleParams, body CreateMailboxReceiveRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewCreateMailboxReceiveRuleRequest(c.Server, mailboxId, params, body)
 	if err != nil {
 		return nil, err
@@ -58377,7 +58457,7 @@ func (c *Client) CreateMailboxReceiveRule(ctx context.Context, mailboxId Mailbox
 	return c.Client.Do(req)
 }
 
-func (c *Client) DeleteMailboxReceiveRule(ctx context.Context, mailboxId MailboxID, ruleId ReceiveRuleID, params *DeleteMailboxReceiveRuleParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) DeleteMailboxReceiveRule(ctx context.Context, mailboxId MailboxIdentifier, ruleId ReceiveRuleID, params *DeleteMailboxReceiveRuleParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewDeleteMailboxReceiveRuleRequest(c.Server, mailboxId, ruleId, params)
 	if err != nil {
 		return nil, err
@@ -58389,7 +58469,7 @@ func (c *Client) DeleteMailboxReceiveRule(ctx context.Context, mailboxId Mailbox
 	return c.Client.Do(req)
 }
 
-func (c *Client) RestoreMailbox(ctx context.Context, mailboxId MailboxID, params *RestoreMailboxParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) RestoreMailbox(ctx context.Context, mailboxId MailboxIdentifier, params *RestoreMailboxParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewRestoreMailboxRequest(c.Server, mailboxId, params)
 	if err != nil {
 		return nil, err
@@ -58401,7 +58481,7 @@ func (c *Client) RestoreMailbox(ctx context.Context, mailboxId MailboxID, params
 	return c.Client.Do(req)
 }
 
-func (c *Client) ResumeMailbox(ctx context.Context, mailboxId MailboxID, params *ResumeMailboxParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) ResumeMailbox(ctx context.Context, mailboxId MailboxIdentifier, params *ResumeMailboxParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewResumeMailboxRequest(c.Server, mailboxId, params)
 	if err != nil {
 		return nil, err
@@ -58413,7 +58493,7 @@ func (c *Client) ResumeMailbox(ctx context.Context, mailboxId MailboxID, params 
 	return c.Client.Do(req)
 }
 
-func (c *Client) ListMailboxScheduledMessages(ctx context.Context, mailboxId MailboxID, params *ListMailboxScheduledMessagesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) ListMailboxScheduledMessages(ctx context.Context, mailboxId MailboxIdentifier, params *ListMailboxScheduledMessagesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListMailboxScheduledMessagesRequest(c.Server, mailboxId, params)
 	if err != nil {
 		return nil, err
@@ -58425,7 +58505,7 @@ func (c *Client) ListMailboxScheduledMessages(ctx context.Context, mailboxId Mai
 	return c.Client.Do(req)
 }
 
-func (c *Client) GetMailboxScheduledMessage(ctx context.Context, mailboxId MailboxID, scheduledMessageId MailboxScheduledMessageID, params *GetMailboxScheduledMessageParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) GetMailboxScheduledMessage(ctx context.Context, mailboxId MailboxIdentifier, scheduledMessageId MailboxScheduledMessageID, params *GetMailboxScheduledMessageParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetMailboxScheduledMessageRequest(c.Server, mailboxId, scheduledMessageId, params)
 	if err != nil {
 		return nil, err
@@ -58437,7 +58517,7 @@ func (c *Client) GetMailboxScheduledMessage(ctx context.Context, mailboxId Mailb
 	return c.Client.Do(req)
 }
 
-func (c *Client) CancelMailboxScheduledMessage(ctx context.Context, mailboxId MailboxID, scheduledMessageId MailboxScheduledMessageID, params *CancelMailboxScheduledMessageParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) CancelMailboxScheduledMessage(ctx context.Context, mailboxId MailboxIdentifier, scheduledMessageId MailboxScheduledMessageID, params *CancelMailboxScheduledMessageParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewCancelMailboxScheduledMessageRequest(c.Server, mailboxId, scheduledMessageId, params)
 	if err != nil {
 		return nil, err
@@ -58449,7 +58529,7 @@ func (c *Client) CancelMailboxScheduledMessage(ctx context.Context, mailboxId Ma
 	return c.Client.Do(req)
 }
 
-func (c *Client) GetMailboxStats(ctx context.Context, mailboxId MailboxID, params *GetMailboxStatsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) GetMailboxStats(ctx context.Context, mailboxId MailboxIdentifier, params *GetMailboxStatsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetMailboxStatsRequest(c.Server, mailboxId, params)
 	if err != nil {
 		return nil, err
@@ -76657,7 +76737,7 @@ func NewCreateMailboxRequestWithBody(server string, params *CreateMailboxParams,
 }
 
 // NewDeleteMailboxRequest generates requests for DeleteMailbox
-func NewDeleteMailboxRequest(server string, mailboxId MailboxID, params *DeleteMailboxParams) (*http.Request, error) {
+func NewDeleteMailboxRequest(server string, mailboxId MailboxIdentifier, params *DeleteMailboxParams) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -76728,7 +76808,7 @@ func NewDeleteMailboxRequest(server string, mailboxId MailboxID, params *DeleteM
 }
 
 // NewGetMailboxRequest generates requests for GetMailbox
-func NewGetMailboxRequest(server string, mailboxId MailboxID, params *GetMailboxParams) (*http.Request, error) {
+func NewGetMailboxRequest(server string, mailboxId MailboxIdentifier, params *GetMailboxParams) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -76788,7 +76868,7 @@ func NewGetMailboxRequest(server string, mailboxId MailboxID, params *GetMailbox
 }
 
 // NewUpdateMailboxRequest calls the generic UpdateMailbox builder with application/json body
-func NewUpdateMailboxRequest(server string, mailboxId MailboxID, params *UpdateMailboxParams, body UpdateMailboxJSONRequestBody) (*http.Request, error) {
+func NewUpdateMailboxRequest(server string, mailboxId MailboxIdentifier, params *UpdateMailboxParams, body UpdateMailboxJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
@@ -76799,7 +76879,7 @@ func NewUpdateMailboxRequest(server string, mailboxId MailboxID, params *UpdateM
 }
 
 // NewUpdateMailboxRequestWithBody generates requests for UpdateMailbox with any type of body
-func NewUpdateMailboxRequestWithBody(server string, mailboxId MailboxID, params *UpdateMailboxParams, contentType string, body io.Reader) (*http.Request, error) {
+func NewUpdateMailboxRequestWithBody(server string, mailboxId MailboxIdentifier, params *UpdateMailboxParams, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -76899,7 +76979,7 @@ func NewUpdateMailboxRequestWithBody(server string, mailboxId MailboxID, params 
 }
 
 // NewListMailboxLabelsRequest generates requests for ListMailboxLabels
-func NewListMailboxLabelsRequest(server string, mailboxId MailboxID, params *ListMailboxLabelsParams) (*http.Request, error) {
+func NewListMailboxLabelsRequest(server string, mailboxId MailboxIdentifier, params *ListMailboxLabelsParams) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -76959,7 +77039,7 @@ func NewListMailboxLabelsRequest(server string, mailboxId MailboxID, params *Lis
 }
 
 // NewCreateMailboxMessageRequest calls the generic CreateMailboxMessage builder with application/json body
-func NewCreateMailboxMessageRequest(server string, mailboxId MailboxID, params *CreateMailboxMessageParams, body CreateMailboxMessageJSONRequestBody) (*http.Request, error) {
+func NewCreateMailboxMessageRequest(server string, mailboxId MailboxIdentifier, params *CreateMailboxMessageParams, body CreateMailboxMessageJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
@@ -76970,7 +77050,7 @@ func NewCreateMailboxMessageRequest(server string, mailboxId MailboxID, params *
 }
 
 // NewCreateMailboxMessageRequestWithBody generates requests for CreateMailboxMessage with any type of body
-func NewCreateMailboxMessageRequestWithBody(server string, mailboxId MailboxID, params *CreateMailboxMessageParams, contentType string, body io.Reader) (*http.Request, error) {
+func NewCreateMailboxMessageRequestWithBody(server string, mailboxId MailboxIdentifier, params *CreateMailboxMessageParams, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -77043,7 +77123,7 @@ func NewCreateMailboxMessageRequestWithBody(server string, mailboxId MailboxID, 
 }
 
 // NewListMailboxReceiveRulesRequest generates requests for ListMailboxReceiveRules
-func NewListMailboxReceiveRulesRequest(server string, mailboxId MailboxID, params *ListMailboxReceiveRulesParams) (*http.Request, error) {
+func NewListMailboxReceiveRulesRequest(server string, mailboxId MailboxIdentifier, params *ListMailboxReceiveRulesParams) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -77166,7 +77246,7 @@ func NewListMailboxReceiveRulesRequest(server string, mailboxId MailboxID, param
 }
 
 // NewCreateMailboxReceiveRuleRequest calls the generic CreateMailboxReceiveRule builder with application/json body
-func NewCreateMailboxReceiveRuleRequest(server string, mailboxId MailboxID, params *CreateMailboxReceiveRuleParams, body CreateMailboxReceiveRuleJSONRequestBody) (*http.Request, error) {
+func NewCreateMailboxReceiveRuleRequest(server string, mailboxId MailboxIdentifier, params *CreateMailboxReceiveRuleParams, body CreateMailboxReceiveRuleJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
@@ -77177,7 +77257,7 @@ func NewCreateMailboxReceiveRuleRequest(server string, mailboxId MailboxID, para
 }
 
 // NewCreateMailboxReceiveRuleRequestWithBody generates requests for CreateMailboxReceiveRule with any type of body
-func NewCreateMailboxReceiveRuleRequestWithBody(server string, mailboxId MailboxID, params *CreateMailboxReceiveRuleParams, contentType string, body io.Reader) (*http.Request, error) {
+func NewCreateMailboxReceiveRuleRequestWithBody(server string, mailboxId MailboxIdentifier, params *CreateMailboxReceiveRuleParams, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -77250,7 +77330,7 @@ func NewCreateMailboxReceiveRuleRequestWithBody(server string, mailboxId Mailbox
 }
 
 // NewDeleteMailboxReceiveRuleRequest generates requests for DeleteMailboxReceiveRule
-func NewDeleteMailboxReceiveRuleRequest(server string, mailboxId MailboxID, ruleId ReceiveRuleID, params *DeleteMailboxReceiveRuleParams) (*http.Request, error) {
+func NewDeleteMailboxReceiveRuleRequest(server string, mailboxId MailboxIdentifier, ruleId ReceiveRuleID, params *DeleteMailboxReceiveRuleParams) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -77328,7 +77408,7 @@ func NewDeleteMailboxReceiveRuleRequest(server string, mailboxId MailboxID, rule
 }
 
 // NewRestoreMailboxRequest generates requests for RestoreMailbox
-func NewRestoreMailboxRequest(server string, mailboxId MailboxID, params *RestoreMailboxParams) (*http.Request, error) {
+func NewRestoreMailboxRequest(server string, mailboxId MailboxIdentifier, params *RestoreMailboxParams) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -77399,7 +77479,7 @@ func NewRestoreMailboxRequest(server string, mailboxId MailboxID, params *Restor
 }
 
 // NewResumeMailboxRequest generates requests for ResumeMailbox
-func NewResumeMailboxRequest(server string, mailboxId MailboxID, params *ResumeMailboxParams) (*http.Request, error) {
+func NewResumeMailboxRequest(server string, mailboxId MailboxIdentifier, params *ResumeMailboxParams) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -77470,7 +77550,7 @@ func NewResumeMailboxRequest(server string, mailboxId MailboxID, params *ResumeM
 }
 
 // NewListMailboxScheduledMessagesRequest generates requests for ListMailboxScheduledMessages
-func NewListMailboxScheduledMessagesRequest(server string, mailboxId MailboxID, params *ListMailboxScheduledMessagesParams) (*http.Request, error) {
+func NewListMailboxScheduledMessagesRequest(server string, mailboxId MailboxIdentifier, params *ListMailboxScheduledMessagesParams) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -77605,7 +77685,7 @@ func NewListMailboxScheduledMessagesRequest(server string, mailboxId MailboxID, 
 }
 
 // NewGetMailboxScheduledMessageRequest generates requests for GetMailboxScheduledMessage
-func NewGetMailboxScheduledMessageRequest(server string, mailboxId MailboxID, scheduledMessageId MailboxScheduledMessageID, params *GetMailboxScheduledMessageParams) (*http.Request, error) {
+func NewGetMailboxScheduledMessageRequest(server string, mailboxId MailboxIdentifier, scheduledMessageId MailboxScheduledMessageID, params *GetMailboxScheduledMessageParams) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -77672,7 +77752,7 @@ func NewGetMailboxScheduledMessageRequest(server string, mailboxId MailboxID, sc
 }
 
 // NewCancelMailboxScheduledMessageRequest generates requests for CancelMailboxScheduledMessage
-func NewCancelMailboxScheduledMessageRequest(server string, mailboxId MailboxID, scheduledMessageId MailboxScheduledMessageID, params *CancelMailboxScheduledMessageParams) (*http.Request, error) {
+func NewCancelMailboxScheduledMessageRequest(server string, mailboxId MailboxIdentifier, scheduledMessageId MailboxScheduledMessageID, params *CancelMailboxScheduledMessageParams) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -77750,7 +77830,7 @@ func NewCancelMailboxScheduledMessageRequest(server string, mailboxId MailboxID,
 }
 
 // NewGetMailboxStatsRequest generates requests for GetMailboxStats
-func NewGetMailboxStatsRequest(server string, mailboxId MailboxID, params *GetMailboxStatsParams) (*http.Request, error) {
+func NewGetMailboxStatsRequest(server string, mailboxId MailboxIdentifier, params *GetMailboxStatsParams) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -90361,6 +90441,18 @@ func NewListSMSMessagesRequest(server string, params *ListSMSMessagesParams) (*h
 		if params.From != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Country != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "country", *params.Country, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -105471,52 +105563,52 @@ type ClientWithResponsesInterface interface {
 	CreateMailboxWithResponse(ctx context.Context, params *CreateMailboxParams, body CreateMailboxJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateMailboxResponse, error)
 
 	// DeleteMailboxWithResponse request
-	DeleteMailboxWithResponse(ctx context.Context, mailboxId MailboxID, params *DeleteMailboxParams, reqEditors ...RequestEditorFn) (*DeleteMailboxResponse, error)
+	DeleteMailboxWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *DeleteMailboxParams, reqEditors ...RequestEditorFn) (*DeleteMailboxResponse, error)
 
 	// GetMailboxWithResponse request
-	GetMailboxWithResponse(ctx context.Context, mailboxId MailboxID, params *GetMailboxParams, reqEditors ...RequestEditorFn) (*GetMailboxResponse, error)
+	GetMailboxWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *GetMailboxParams, reqEditors ...RequestEditorFn) (*GetMailboxResponse, error)
 
 	// UpdateMailboxWithBodyWithResponse request with any body
-	UpdateMailboxWithBodyWithResponse(ctx context.Context, mailboxId MailboxID, params *UpdateMailboxParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateMailboxResponse, error)
+	UpdateMailboxWithBodyWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *UpdateMailboxParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateMailboxResponse, error)
 
-	UpdateMailboxWithResponse(ctx context.Context, mailboxId MailboxID, params *UpdateMailboxParams, body UpdateMailboxJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateMailboxResponse, error)
+	UpdateMailboxWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *UpdateMailboxParams, body UpdateMailboxJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateMailboxResponse, error)
 
 	// ListMailboxLabelsWithResponse request
-	ListMailboxLabelsWithResponse(ctx context.Context, mailboxId MailboxID, params *ListMailboxLabelsParams, reqEditors ...RequestEditorFn) (*ListMailboxLabelsResponse, error)
+	ListMailboxLabelsWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *ListMailboxLabelsParams, reqEditors ...RequestEditorFn) (*ListMailboxLabelsResponse, error)
 
 	// CreateMailboxMessageWithBodyWithResponse request with any body
-	CreateMailboxMessageWithBodyWithResponse(ctx context.Context, mailboxId MailboxID, params *CreateMailboxMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateMailboxMessageResponse, error)
+	CreateMailboxMessageWithBodyWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *CreateMailboxMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateMailboxMessageResponse, error)
 
-	CreateMailboxMessageWithResponse(ctx context.Context, mailboxId MailboxID, params *CreateMailboxMessageParams, body CreateMailboxMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateMailboxMessageResponse, error)
+	CreateMailboxMessageWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *CreateMailboxMessageParams, body CreateMailboxMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateMailboxMessageResponse, error)
 
 	// ListMailboxReceiveRulesWithResponse request
-	ListMailboxReceiveRulesWithResponse(ctx context.Context, mailboxId MailboxID, params *ListMailboxReceiveRulesParams, reqEditors ...RequestEditorFn) (*ListMailboxReceiveRulesResponse, error)
+	ListMailboxReceiveRulesWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *ListMailboxReceiveRulesParams, reqEditors ...RequestEditorFn) (*ListMailboxReceiveRulesResponse, error)
 
 	// CreateMailboxReceiveRuleWithBodyWithResponse request with any body
-	CreateMailboxReceiveRuleWithBodyWithResponse(ctx context.Context, mailboxId MailboxID, params *CreateMailboxReceiveRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateMailboxReceiveRuleResponse, error)
+	CreateMailboxReceiveRuleWithBodyWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *CreateMailboxReceiveRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateMailboxReceiveRuleResponse, error)
 
-	CreateMailboxReceiveRuleWithResponse(ctx context.Context, mailboxId MailboxID, params *CreateMailboxReceiveRuleParams, body CreateMailboxReceiveRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateMailboxReceiveRuleResponse, error)
+	CreateMailboxReceiveRuleWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *CreateMailboxReceiveRuleParams, body CreateMailboxReceiveRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateMailboxReceiveRuleResponse, error)
 
 	// DeleteMailboxReceiveRuleWithResponse request
-	DeleteMailboxReceiveRuleWithResponse(ctx context.Context, mailboxId MailboxID, ruleId ReceiveRuleID, params *DeleteMailboxReceiveRuleParams, reqEditors ...RequestEditorFn) (*DeleteMailboxReceiveRuleResponse, error)
+	DeleteMailboxReceiveRuleWithResponse(ctx context.Context, mailboxId MailboxIdentifier, ruleId ReceiveRuleID, params *DeleteMailboxReceiveRuleParams, reqEditors ...RequestEditorFn) (*DeleteMailboxReceiveRuleResponse, error)
 
 	// RestoreMailboxWithResponse request
-	RestoreMailboxWithResponse(ctx context.Context, mailboxId MailboxID, params *RestoreMailboxParams, reqEditors ...RequestEditorFn) (*RestoreMailboxResponse, error)
+	RestoreMailboxWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *RestoreMailboxParams, reqEditors ...RequestEditorFn) (*RestoreMailboxResponse, error)
 
 	// ResumeMailboxWithResponse request
-	ResumeMailboxWithResponse(ctx context.Context, mailboxId MailboxID, params *ResumeMailboxParams, reqEditors ...RequestEditorFn) (*ResumeMailboxResponse, error)
+	ResumeMailboxWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *ResumeMailboxParams, reqEditors ...RequestEditorFn) (*ResumeMailboxResponse, error)
 
 	// ListMailboxScheduledMessagesWithResponse request
-	ListMailboxScheduledMessagesWithResponse(ctx context.Context, mailboxId MailboxID, params *ListMailboxScheduledMessagesParams, reqEditors ...RequestEditorFn) (*ListMailboxScheduledMessagesResponse, error)
+	ListMailboxScheduledMessagesWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *ListMailboxScheduledMessagesParams, reqEditors ...RequestEditorFn) (*ListMailboxScheduledMessagesResponse, error)
 
 	// GetMailboxScheduledMessageWithResponse request
-	GetMailboxScheduledMessageWithResponse(ctx context.Context, mailboxId MailboxID, scheduledMessageId MailboxScheduledMessageID, params *GetMailboxScheduledMessageParams, reqEditors ...RequestEditorFn) (*GetMailboxScheduledMessageResponse, error)
+	GetMailboxScheduledMessageWithResponse(ctx context.Context, mailboxId MailboxIdentifier, scheduledMessageId MailboxScheduledMessageID, params *GetMailboxScheduledMessageParams, reqEditors ...RequestEditorFn) (*GetMailboxScheduledMessageResponse, error)
 
 	// CancelMailboxScheduledMessageWithResponse request
-	CancelMailboxScheduledMessageWithResponse(ctx context.Context, mailboxId MailboxID, scheduledMessageId MailboxScheduledMessageID, params *CancelMailboxScheduledMessageParams, reqEditors ...RequestEditorFn) (*CancelMailboxScheduledMessageResponse, error)
+	CancelMailboxScheduledMessageWithResponse(ctx context.Context, mailboxId MailboxIdentifier, scheduledMessageId MailboxScheduledMessageID, params *CancelMailboxScheduledMessageParams, reqEditors ...RequestEditorFn) (*CancelMailboxScheduledMessageResponse, error)
 
 	// GetMailboxStatsWithResponse request
-	GetMailboxStatsWithResponse(ctx context.Context, mailboxId MailboxID, params *GetMailboxStatsParams, reqEditors ...RequestEditorFn) (*GetMailboxStatsResponse, error)
+	GetMailboxStatsWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *GetMailboxStatsParams, reqEditors ...RequestEditorFn) (*GetMailboxStatsResponse, error)
 
 	// ListEmailMessagesWithResponse request
 	ListEmailMessagesWithResponse(ctx context.Context, params *ListEmailMessagesParams, reqEditors ...RequestEditorFn) (*ListEmailMessagesResponse, error)
@@ -124685,7 +124777,7 @@ func (c *ClientWithResponses) CreateMailboxWithResponse(ctx context.Context, par
 }
 
 // DeleteMailboxWithResponse request returning *DeleteMailboxResponse
-func (c *ClientWithResponses) DeleteMailboxWithResponse(ctx context.Context, mailboxId MailboxID, params *DeleteMailboxParams, reqEditors ...RequestEditorFn) (*DeleteMailboxResponse, error) {
+func (c *ClientWithResponses) DeleteMailboxWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *DeleteMailboxParams, reqEditors ...RequestEditorFn) (*DeleteMailboxResponse, error) {
 	rsp, err := c.DeleteMailbox(ctx, mailboxId, params, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -124694,7 +124786,7 @@ func (c *ClientWithResponses) DeleteMailboxWithResponse(ctx context.Context, mai
 }
 
 // GetMailboxWithResponse request returning *GetMailboxResponse
-func (c *ClientWithResponses) GetMailboxWithResponse(ctx context.Context, mailboxId MailboxID, params *GetMailboxParams, reqEditors ...RequestEditorFn) (*GetMailboxResponse, error) {
+func (c *ClientWithResponses) GetMailboxWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *GetMailboxParams, reqEditors ...RequestEditorFn) (*GetMailboxResponse, error) {
 	rsp, err := c.GetMailbox(ctx, mailboxId, params, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -124703,7 +124795,7 @@ func (c *ClientWithResponses) GetMailboxWithResponse(ctx context.Context, mailbo
 }
 
 // UpdateMailboxWithBodyWithResponse request with arbitrary body returning *UpdateMailboxResponse
-func (c *ClientWithResponses) UpdateMailboxWithBodyWithResponse(ctx context.Context, mailboxId MailboxID, params *UpdateMailboxParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateMailboxResponse, error) {
+func (c *ClientWithResponses) UpdateMailboxWithBodyWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *UpdateMailboxParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateMailboxResponse, error) {
 	rsp, err := c.UpdateMailboxWithBody(ctx, mailboxId, params, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -124711,7 +124803,7 @@ func (c *ClientWithResponses) UpdateMailboxWithBodyWithResponse(ctx context.Cont
 	return ParseUpdateMailboxResponse(rsp)
 }
 
-func (c *ClientWithResponses) UpdateMailboxWithResponse(ctx context.Context, mailboxId MailboxID, params *UpdateMailboxParams, body UpdateMailboxJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateMailboxResponse, error) {
+func (c *ClientWithResponses) UpdateMailboxWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *UpdateMailboxParams, body UpdateMailboxJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateMailboxResponse, error) {
 	rsp, err := c.UpdateMailbox(ctx, mailboxId, params, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -124720,7 +124812,7 @@ func (c *ClientWithResponses) UpdateMailboxWithResponse(ctx context.Context, mai
 }
 
 // ListMailboxLabelsWithResponse request returning *ListMailboxLabelsResponse
-func (c *ClientWithResponses) ListMailboxLabelsWithResponse(ctx context.Context, mailboxId MailboxID, params *ListMailboxLabelsParams, reqEditors ...RequestEditorFn) (*ListMailboxLabelsResponse, error) {
+func (c *ClientWithResponses) ListMailboxLabelsWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *ListMailboxLabelsParams, reqEditors ...RequestEditorFn) (*ListMailboxLabelsResponse, error) {
 	rsp, err := c.ListMailboxLabels(ctx, mailboxId, params, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -124729,7 +124821,7 @@ func (c *ClientWithResponses) ListMailboxLabelsWithResponse(ctx context.Context,
 }
 
 // CreateMailboxMessageWithBodyWithResponse request with arbitrary body returning *CreateMailboxMessageResponse
-func (c *ClientWithResponses) CreateMailboxMessageWithBodyWithResponse(ctx context.Context, mailboxId MailboxID, params *CreateMailboxMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateMailboxMessageResponse, error) {
+func (c *ClientWithResponses) CreateMailboxMessageWithBodyWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *CreateMailboxMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateMailboxMessageResponse, error) {
 	rsp, err := c.CreateMailboxMessageWithBody(ctx, mailboxId, params, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -124737,7 +124829,7 @@ func (c *ClientWithResponses) CreateMailboxMessageWithBodyWithResponse(ctx conte
 	return ParseCreateMailboxMessageResponse(rsp)
 }
 
-func (c *ClientWithResponses) CreateMailboxMessageWithResponse(ctx context.Context, mailboxId MailboxID, params *CreateMailboxMessageParams, body CreateMailboxMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateMailboxMessageResponse, error) {
+func (c *ClientWithResponses) CreateMailboxMessageWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *CreateMailboxMessageParams, body CreateMailboxMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateMailboxMessageResponse, error) {
 	rsp, err := c.CreateMailboxMessage(ctx, mailboxId, params, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -124746,7 +124838,7 @@ func (c *ClientWithResponses) CreateMailboxMessageWithResponse(ctx context.Conte
 }
 
 // ListMailboxReceiveRulesWithResponse request returning *ListMailboxReceiveRulesResponse
-func (c *ClientWithResponses) ListMailboxReceiveRulesWithResponse(ctx context.Context, mailboxId MailboxID, params *ListMailboxReceiveRulesParams, reqEditors ...RequestEditorFn) (*ListMailboxReceiveRulesResponse, error) {
+func (c *ClientWithResponses) ListMailboxReceiveRulesWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *ListMailboxReceiveRulesParams, reqEditors ...RequestEditorFn) (*ListMailboxReceiveRulesResponse, error) {
 	rsp, err := c.ListMailboxReceiveRules(ctx, mailboxId, params, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -124755,7 +124847,7 @@ func (c *ClientWithResponses) ListMailboxReceiveRulesWithResponse(ctx context.Co
 }
 
 // CreateMailboxReceiveRuleWithBodyWithResponse request with arbitrary body returning *CreateMailboxReceiveRuleResponse
-func (c *ClientWithResponses) CreateMailboxReceiveRuleWithBodyWithResponse(ctx context.Context, mailboxId MailboxID, params *CreateMailboxReceiveRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateMailboxReceiveRuleResponse, error) {
+func (c *ClientWithResponses) CreateMailboxReceiveRuleWithBodyWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *CreateMailboxReceiveRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateMailboxReceiveRuleResponse, error) {
 	rsp, err := c.CreateMailboxReceiveRuleWithBody(ctx, mailboxId, params, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -124763,7 +124855,7 @@ func (c *ClientWithResponses) CreateMailboxReceiveRuleWithBodyWithResponse(ctx c
 	return ParseCreateMailboxReceiveRuleResponse(rsp)
 }
 
-func (c *ClientWithResponses) CreateMailboxReceiveRuleWithResponse(ctx context.Context, mailboxId MailboxID, params *CreateMailboxReceiveRuleParams, body CreateMailboxReceiveRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateMailboxReceiveRuleResponse, error) {
+func (c *ClientWithResponses) CreateMailboxReceiveRuleWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *CreateMailboxReceiveRuleParams, body CreateMailboxReceiveRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateMailboxReceiveRuleResponse, error) {
 	rsp, err := c.CreateMailboxReceiveRule(ctx, mailboxId, params, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -124772,7 +124864,7 @@ func (c *ClientWithResponses) CreateMailboxReceiveRuleWithResponse(ctx context.C
 }
 
 // DeleteMailboxReceiveRuleWithResponse request returning *DeleteMailboxReceiveRuleResponse
-func (c *ClientWithResponses) DeleteMailboxReceiveRuleWithResponse(ctx context.Context, mailboxId MailboxID, ruleId ReceiveRuleID, params *DeleteMailboxReceiveRuleParams, reqEditors ...RequestEditorFn) (*DeleteMailboxReceiveRuleResponse, error) {
+func (c *ClientWithResponses) DeleteMailboxReceiveRuleWithResponse(ctx context.Context, mailboxId MailboxIdentifier, ruleId ReceiveRuleID, params *DeleteMailboxReceiveRuleParams, reqEditors ...RequestEditorFn) (*DeleteMailboxReceiveRuleResponse, error) {
 	rsp, err := c.DeleteMailboxReceiveRule(ctx, mailboxId, ruleId, params, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -124781,7 +124873,7 @@ func (c *ClientWithResponses) DeleteMailboxReceiveRuleWithResponse(ctx context.C
 }
 
 // RestoreMailboxWithResponse request returning *RestoreMailboxResponse
-func (c *ClientWithResponses) RestoreMailboxWithResponse(ctx context.Context, mailboxId MailboxID, params *RestoreMailboxParams, reqEditors ...RequestEditorFn) (*RestoreMailboxResponse, error) {
+func (c *ClientWithResponses) RestoreMailboxWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *RestoreMailboxParams, reqEditors ...RequestEditorFn) (*RestoreMailboxResponse, error) {
 	rsp, err := c.RestoreMailbox(ctx, mailboxId, params, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -124790,7 +124882,7 @@ func (c *ClientWithResponses) RestoreMailboxWithResponse(ctx context.Context, ma
 }
 
 // ResumeMailboxWithResponse request returning *ResumeMailboxResponse
-func (c *ClientWithResponses) ResumeMailboxWithResponse(ctx context.Context, mailboxId MailboxID, params *ResumeMailboxParams, reqEditors ...RequestEditorFn) (*ResumeMailboxResponse, error) {
+func (c *ClientWithResponses) ResumeMailboxWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *ResumeMailboxParams, reqEditors ...RequestEditorFn) (*ResumeMailboxResponse, error) {
 	rsp, err := c.ResumeMailbox(ctx, mailboxId, params, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -124799,7 +124891,7 @@ func (c *ClientWithResponses) ResumeMailboxWithResponse(ctx context.Context, mai
 }
 
 // ListMailboxScheduledMessagesWithResponse request returning *ListMailboxScheduledMessagesResponse
-func (c *ClientWithResponses) ListMailboxScheduledMessagesWithResponse(ctx context.Context, mailboxId MailboxID, params *ListMailboxScheduledMessagesParams, reqEditors ...RequestEditorFn) (*ListMailboxScheduledMessagesResponse, error) {
+func (c *ClientWithResponses) ListMailboxScheduledMessagesWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *ListMailboxScheduledMessagesParams, reqEditors ...RequestEditorFn) (*ListMailboxScheduledMessagesResponse, error) {
 	rsp, err := c.ListMailboxScheduledMessages(ctx, mailboxId, params, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -124808,7 +124900,7 @@ func (c *ClientWithResponses) ListMailboxScheduledMessagesWithResponse(ctx conte
 }
 
 // GetMailboxScheduledMessageWithResponse request returning *GetMailboxScheduledMessageResponse
-func (c *ClientWithResponses) GetMailboxScheduledMessageWithResponse(ctx context.Context, mailboxId MailboxID, scheduledMessageId MailboxScheduledMessageID, params *GetMailboxScheduledMessageParams, reqEditors ...RequestEditorFn) (*GetMailboxScheduledMessageResponse, error) {
+func (c *ClientWithResponses) GetMailboxScheduledMessageWithResponse(ctx context.Context, mailboxId MailboxIdentifier, scheduledMessageId MailboxScheduledMessageID, params *GetMailboxScheduledMessageParams, reqEditors ...RequestEditorFn) (*GetMailboxScheduledMessageResponse, error) {
 	rsp, err := c.GetMailboxScheduledMessage(ctx, mailboxId, scheduledMessageId, params, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -124817,7 +124909,7 @@ func (c *ClientWithResponses) GetMailboxScheduledMessageWithResponse(ctx context
 }
 
 // CancelMailboxScheduledMessageWithResponse request returning *CancelMailboxScheduledMessageResponse
-func (c *ClientWithResponses) CancelMailboxScheduledMessageWithResponse(ctx context.Context, mailboxId MailboxID, scheduledMessageId MailboxScheduledMessageID, params *CancelMailboxScheduledMessageParams, reqEditors ...RequestEditorFn) (*CancelMailboxScheduledMessageResponse, error) {
+func (c *ClientWithResponses) CancelMailboxScheduledMessageWithResponse(ctx context.Context, mailboxId MailboxIdentifier, scheduledMessageId MailboxScheduledMessageID, params *CancelMailboxScheduledMessageParams, reqEditors ...RequestEditorFn) (*CancelMailboxScheduledMessageResponse, error) {
 	rsp, err := c.CancelMailboxScheduledMessage(ctx, mailboxId, scheduledMessageId, params, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -124826,7 +124918,7 @@ func (c *ClientWithResponses) CancelMailboxScheduledMessageWithResponse(ctx cont
 }
 
 // GetMailboxStatsWithResponse request returning *GetMailboxStatsResponse
-func (c *ClientWithResponses) GetMailboxStatsWithResponse(ctx context.Context, mailboxId MailboxID, params *GetMailboxStatsParams, reqEditors ...RequestEditorFn) (*GetMailboxStatsResponse, error) {
+func (c *ClientWithResponses) GetMailboxStatsWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *GetMailboxStatsParams, reqEditors ...RequestEditorFn) (*GetMailboxStatsResponse, error) {
 	rsp, err := c.GetMailboxStats(ctx, mailboxId, params, reqEditors...)
 	if err != nil {
 		return nil, err
