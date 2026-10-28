@@ -5685,24 +5685,6 @@ func (e EventWhatsAppReadDataDirection) Valid() bool {
 	}
 }
 
-// Defines values for EventWhatsAppReceivedDataDirection.
-const (
-	EventWhatsAppReceivedDataDirectionInbound  EventWhatsAppReceivedDataDirection = "inbound"
-	EventWhatsAppReceivedDataDirectionOutbound EventWhatsAppReceivedDataDirection = "outbound"
-)
-
-// Valid indicates whether the value is a known member of the EventWhatsAppReceivedDataDirection enum.
-func (e EventWhatsAppReceivedDataDirection) Valid() bool {
-	switch e {
-	case EventWhatsAppReceivedDataDirectionInbound:
-		return true
-	case EventWhatsAppReceivedDataDirectionOutbound:
-		return true
-	default:
-		return false
-	}
-}
-
 // Defines values for EventWhatsAppRejectedType.
 const (
 	WhatsappRejected EventWhatsAppRejectedType = "whatsapp.rejected"
@@ -6948,6 +6930,75 @@ func (e SMSMessageStatus) Valid() bool {
 	}
 }
 
+// Defines values for SMSMessagingProfileCallbackEvent.
+const (
+	SMSMessagingProfileCallbackEventSmsAccepted    SMSMessagingProfileCallbackEvent = "sms.accepted"
+	SMSMessagingProfileCallbackEventSmsDelivered   SMSMessagingProfileCallbackEvent = "sms.delivered"
+	SMSMessagingProfileCallbackEventSmsExpired     SMSMessagingProfileCallbackEvent = "sms.expired"
+	SMSMessagingProfileCallbackEventSmsFailed      SMSMessagingProfileCallbackEvent = "sms.failed"
+	SMSMessagingProfileCallbackEventSmsRejected    SMSMessagingProfileCallbackEvent = "sms.rejected"
+	SMSMessagingProfileCallbackEventSmsSent        SMSMessagingProfileCallbackEvent = "sms.sent"
+	SMSMessagingProfileCallbackEventSmsUndelivered SMSMessagingProfileCallbackEvent = "sms.undelivered"
+)
+
+// Valid indicates whether the value is a known member of the SMSMessagingProfileCallbackEvent enum.
+func (e SMSMessagingProfileCallbackEvent) Valid() bool {
+	switch e {
+	case SMSMessagingProfileCallbackEventSmsAccepted:
+		return true
+	case SMSMessagingProfileCallbackEventSmsDelivered:
+		return true
+	case SMSMessagingProfileCallbackEventSmsExpired:
+		return true
+	case SMSMessagingProfileCallbackEventSmsFailed:
+		return true
+	case SMSMessagingProfileCallbackEventSmsRejected:
+		return true
+	case SMSMessagingProfileCallbackEventSmsSent:
+		return true
+	case SMSMessagingProfileCallbackEventSmsUndelivered:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SMSMessagingProfileSortField.
+const (
+	SMSMessagingProfileSortFieldCreatedAt SMSMessagingProfileSortField = "created_at"
+)
+
+// Valid indicates whether the value is a known member of the SMSMessagingProfileSortField enum.
+func (e SMSMessagingProfileSortField) Valid() bool {
+	switch e {
+	case SMSMessagingProfileSortFieldCreatedAt:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SMSMessagingProfileTimeWindow.
+const (
+	N1d SMSMessagingProfileTimeWindow = "1d"
+	N1h SMSMessagingProfileTimeWindow = "1h"
+	N7d SMSMessagingProfileTimeWindow = "7d"
+)
+
+// Valid indicates whether the value is a known member of the SMSMessagingProfileTimeWindow enum.
+func (e SMSMessagingProfileTimeWindow) Valid() bool {
+	switch e {
+	case N1d:
+		return true
+	case N1h:
+		return true
+	case N7d:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for SMSReceivedEventType.
 const (
 	SmsReceived SMSReceivedEventType = "sms.received"
@@ -6965,19 +7016,19 @@ func (e SMSReceivedEventType) Valid() bool {
 
 // Defines values for SMSRegistrationMode.
 const (
-	None     SMSRegistrationMode = "none"
-	Optional SMSRegistrationMode = "optional"
-	Required SMSRegistrationMode = "required"
+	SMSRegistrationModeNone     SMSRegistrationMode = "none"
+	SMSRegistrationModeOptional SMSRegistrationMode = "optional"
+	SMSRegistrationModeRequired SMSRegistrationMode = "required"
 )
 
 // Valid indicates whether the value is a known member of the SMSRegistrationMode enum.
 func (e SMSRegistrationMode) Valid() bool {
 	switch e {
-	case None:
+	case SMSRegistrationModeNone:
 		return true
-	case Optional:
+	case SMSRegistrationModeOptional:
 		return true
-	case Required:
+	case SMSRegistrationModeRequired:
 		return true
 	default:
 		return false
@@ -8010,6 +8061,27 @@ func (e VoiceLegInboundRouteType) Valid() bool {
 	}
 }
 
+// Defines values for VoiceLegMediaEncryption.
+const (
+	VoiceLegMediaEncryptionDtls VoiceLegMediaEncryption = "dtls"
+	VoiceLegMediaEncryptionNone VoiceLegMediaEncryption = "none"
+	VoiceLegMediaEncryptionSdes VoiceLegMediaEncryption = "sdes"
+)
+
+// Valid indicates whether the value is a known member of the VoiceLegMediaEncryption enum.
+func (e VoiceLegMediaEncryption) Valid() bool {
+	switch e {
+	case VoiceLegMediaEncryptionDtls:
+		return true
+	case VoiceLegMediaEncryptionNone:
+		return true
+	case VoiceLegMediaEncryptionSdes:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for VoiceLegRejectionReason.
 const (
 	VoiceCallRejectionReasonCallNotPermitted           VoiceLegRejectionReason = "call_not_permitted"
@@ -8178,6 +8250,27 @@ const (
 func (e VoiceSequenceExpressionEnvironment) Valid() bool {
 	switch e {
 	case BirdCelV1:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for VoiceTrunkMediaEncryption.
+const (
+	VoiceTrunkMediaEncryptionOff       VoiceTrunkMediaEncryption = "off"
+	VoiceTrunkMediaEncryptionPreferred VoiceTrunkMediaEncryption = "preferred"
+	VoiceTrunkMediaEncryptionRequired  VoiceTrunkMediaEncryption = "required"
+)
+
+// Valid indicates whether the value is a known member of the VoiceTrunkMediaEncryption enum.
+func (e VoiceTrunkMediaEncryption) Valid() bool {
+	switch e {
+	case VoiceTrunkMediaEncryptionOff:
+		return true
+	case VoiceTrunkMediaEncryptionPreferred:
+		return true
+	case VoiceTrunkMediaEncryptionRequired:
 		return true
 	default:
 		return false
@@ -9476,16 +9569,16 @@ func (e WhatsAppKeywordRuleScope) Valid() bool {
 
 // Defines values for WhatsAppMessageDirection.
 const (
-	WhatsAppMessageDirectionInbound  WhatsAppMessageDirection = "inbound"
-	WhatsAppMessageDirectionOutbound WhatsAppMessageDirection = "outbound"
+	Inbound  WhatsAppMessageDirection = "inbound"
+	Outbound WhatsAppMessageDirection = "outbound"
 )
 
 // Valid indicates whether the value is a known member of the WhatsAppMessageDirection enum.
 func (e WhatsAppMessageDirection) Valid() bool {
 	switch e {
-	case WhatsAppMessageDirectionInbound:
+	case Inbound:
 		return true
-	case WhatsAppMessageDirectionOutbound:
+	case Outbound:
 		return true
 	default:
 		return false
@@ -10413,6 +10506,27 @@ func (e WorkspaceQuotaKind) Valid() bool {
 	}
 }
 
+// Defines values for WorkspaceQuotaLimitSource.
+const (
+	WorkspaceQuotaLimitSourceAutomatic    WorkspaceQuotaLimitSource = "automatic"
+	WorkspaceQuotaLimitSourceManual       WorkspaceQuotaLimitSource = "manual"
+	WorkspaceQuotaLimitSourceOrganization WorkspaceQuotaLimitSource = "organization"
+)
+
+// Valid indicates whether the value is a known member of the WorkspaceQuotaLimitSource enum.
+func (e WorkspaceQuotaLimitSource) Valid() bool {
+	switch e {
+	case WorkspaceQuotaLimitSourceAutomatic:
+		return true
+	case WorkspaceQuotaLimitSourceManual:
+		return true
+	case WorkspaceQuotaLimitSourceOrganization:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for WorkspaceQuotaUsageStatus.
 const (
 	WorkspaceQuotaUsageStatusAvailable   WorkspaceQuotaUsageStatus = "available"
@@ -10425,6 +10539,24 @@ func (e WorkspaceQuotaUsageStatus) Valid() bool {
 	case WorkspaceQuotaUsageStatusAvailable:
 		return true
 	case WorkspaceQuotaUsageStatusUnavailable:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WorkspaceSortField.
+const (
+	WorkspaceSortFieldCreatedAt WorkspaceSortField = "created_at"
+	WorkspaceSortFieldName      WorkspaceSortField = "name"
+)
+
+// Valid indicates whether the value is a known member of the WorkspaceSortField enum.
+func (e WorkspaceSortField) Valid() bool {
+	switch e {
+	case WorkspaceSortFieldCreatedAt:
+		return true
+	case WorkspaceSortFieldName:
 		return true
 	default:
 		return false
@@ -11159,16 +11291,16 @@ type AMBConversation struct {
 	BusinessAccountId AMBBusinessID `json:"business_account_id"`
 
 	// ClosedAt When the native Apple conversation was closed. Null while its native status is open; independent of inbox status.
-	ClosedAt *time.Time `json:"closed_at,omitempty"`
+	ClosedAt *time.Time `json:"closed_at"`
 
 	// ClosedReason Why the native Apple conversation was closed. Null while its native status is open; independent of inbox status.
-	ClosedReason *AMBConversationClosedReason `json:"closed_reason,omitempty"`
+	ClosedReason *AMBConversationClosedReason `json:"closed_reason"`
 
 	// CreatedAt When this conversation was created.
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	CreatedAt time.Time `json:"created_at"`
 
-	// DeviceCapabilities The capability tokens the customer's device advertised on its most recent message, replaced by each inbound rather than accumulated, so this describes the device in use now. An empty list means the device's capabilities are unknown. Implemented message types may still be sent, but device rendering support has not been confirmed. Authentication requires an explicitly advertised AUTH2 capability.
-	DeviceCapabilities *[]string         `json:"device_capabilities,omitempty"`
+	// DeviceCapabilities The device capability tokens recorded for this conversation. When an inbound message creates, reopens, or updates an open conversation, a non-empty list replaces the previous tokens. Empty lists and delayed messages that leave the conversation closed preserve the previous tokens. An empty stored list means the device's capabilities are unknown. Implemented message types may still be sent, but device rendering support has not been confirmed. Authentication requires an explicitly advertised AUTH2 capability.
+	DeviceCapabilities []string          `json:"device_capabilities"`
 	Id                 AMBConversationID `json:"id"`
 
 	// InboxStatus Whether the conversation needs attention in the workspace inbox. Set it to `resolved` when the work is finished. A new inbound message reopens the same conversation. Changing inbox status preserves message history and does not change the channel's permission to send messages or mark messages read.
@@ -11180,8 +11312,8 @@ type AMBConversation struct {
 	// LastMessage Most recent message, or null when its identity has not been recorded.
 	LastMessage *AMBConversationLastMessage `json:"last_message"`
 
-	// Locale The customer's locale from the most recent inbound message, or your business's default locale before any inbound arrives. Preserved in Apple's locale format, for example `en_US@rg=nlzzzz`.
-	Locale *string `json:"locale,omitempty"`
+	// Locale The customer's locale recorded for this conversation. Messages without a locale and delayed messages that leave the conversation closed preserve the previous value. Empty when no locale is known. Preserved in Apple's locale format, for example `en_US@rg=nlzzzz`.
+	Locale string `json:"locale"`
 
 	// Origin How the conversation started. `entry_point` means the customer opened it from one of your configured Apple Messages for Business entry points. `invitation` means the customer accepted an invitation and sent a message. This is set once when the conversation is created and never changes.
 	Origin AMBConversationOrigin `json:"origin"`
@@ -11199,13 +11331,13 @@ type AMBConversation struct {
 	Status AMBConversationStatus `json:"status"`
 
 	// SupportedContentKinds Implemented baseline types plus interactive types confirmed by `device_capabilities`. An empty capability list yields text, attachments and rich links; it does not establish support for other types. Unadvertised quick replies, list pickers, time pickers and forms are refused when capabilities are known. Custom apps and opaque interactive references are not included because their device support cannot be inferred from these tokens. Unsupported roadmap types cannot be sent.
-	SupportedContentKinds *[]AMBContentKind `json:"supported_content_kinds,omitempty"`
+	SupportedContentKinds []AMBContentKind `json:"supported_content_kinds"`
 
 	// UnreadCount Number of inbound messages the workspace has not acknowledged. Shared across the workspace. Pass read with a date-time to acknowledge received inbound messages through that timestamp. Sending a reply does not change this count.
-	UnreadCount *int `json:"unread_count,omitempty"`
+	UnreadCount int `json:"unread_count"`
 
 	// UpdatedAt When this conversation last changed.
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 // AMBConversationClosedEventType Always `amb.conversation_closed` for this event.
@@ -11975,6 +12107,9 @@ type AMBMessage struct {
 	// Metadata Arbitrary JSON object for per-message context. Maximum 2 KB serialized. Top-level keys beginning with `__bird` are reserved. Returned in the send response, message reads and customer message webhooks.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 
+	// Reference The `reference` from the send request. Absent when the send set none, and on inbound messages.
+	Reference *MessageReference `json:"reference,omitempty"`
+
 	// RepliedAt When Apple delivered the reply in `reply_message_id` to Bird. This can be slightly earlier than that reply's `created_at`, which records when Bird processed it. Omitted until a reply is matched, and in webhook payloads.
 	RepliedAt      *time.Time    `json:"replied_at,omitempty"`
 	ReplyMessageId *AMBMessageID `json:"reply_message_id,omitempty"`
@@ -12185,6 +12320,9 @@ type AMBMessageSendRequest struct {
 
 	// Metadata Arbitrary JSON object for per-message context. Maximum 2 KB serialized. Top-level keys beginning with `__bird` are reserved. Returned in the send response, message reads and customer message webhooks.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+
+	// Reference An identifier you want to find this message by, such as an order or ticket number, matched exactly by the message list's `reference` filter. Set it only when you need to search on it, and put any other data in `metadata`. Stored on the message, returned on reads and echoed in webhook payloads. Several messages can share one.
+	Reference *MessageReference `json:"reference,omitempty"`
 
 	// Source Who sent an outbound message:
 	//
@@ -19743,6 +19881,9 @@ type EmailMessage struct {
 	// ProcessingLatencyMs Time between the send being accepted and the message being prepared for delivery, in milliseconds, for the fastest recipient. Null until the first recipient reaches `processed`.
 	ProcessingLatencyMs *int `json:"processing_latency_ms,omitempty"`
 
+	// Reference The `reference` from the send request. Absent when the send set none.
+	Reference *MessageReference `json:"reference,omitempty"`
+
 	// RejectedCount Number of recipients rejected before delivery. Read the per-recipient `rejection_reason` field on `GET /v1/email/messages/{message_id}/recipients` for the specific cause.
 	RejectedCount *int `json:"rejected_count,omitempty"`
 
@@ -19894,6 +20035,9 @@ type EmailMessageSendRequest struct {
 
 	// Parameters Parameter values used to personalize inline content, shared across all recipients of this send. Tokens such as `{{ animal }}` are replaced with matching values; missing values render empty. Include this object, even as `{}`, to use Liquid, or omit it to leave tokens unchanged. Use single-word names other than `bird`. Cap: 16 KB serialized. For a stored template, use `template.parameters` instead. See [inline personalization](https://bird.com/docs/guides/email/sending-email#content) for validation and URL encoding examples.
 	Parameters *map[string]interface{} `json:"parameters,omitempty"`
+
+	// Reference An identifier you want to find this message by, such as an order or ticket number, matched exactly by the message list's `reference` filter. Set it only when you need to search on it, and put any other data in `metadata`. Stored on the message, returned on reads and echoed in webhook payloads. Several messages can share one.
+	Reference *MessageReference `json:"reference,omitempty"`
 
 	// ReplyTo Reply-To addresses, each a plain email string, an RFC 5322 mailbox string, or an object with an optional display name. RFC 5322 allows multiple. Every recipient reply hits all listed addresses, so 1-2 is typical. The 25 cap exists to prevent header sizes that some receiving mail servers reject.
 	ReplyTo *[]EmailAddressInput `json:"reply_to,omitempty"`
@@ -22410,7 +22554,7 @@ type ErrorBody struct {
 	// Param Identifies the offending field. Omitted when not applicable.
 	Param *string `json:"param,omitempty"`
 
-	// Quota The quota limit that refused a resource change. A change in a workspace is checked against its organization's limit and any limit set for its workspace; the organization limit is reported when both refuse. When scope is workspace, follow the response remediation instead of the error code's organization-wide recovery guidance. An organization administrator can raise or remove the workspace ceiling; the shared organization limit still applies.
+	// Quota The quota limit that refused a resource change. A change in a workspace is checked against its organization's limit and its workspace's limit, whether set manually or derived from the organization's automatic allocation; the organization limit is reported when both refuse. When scope is workspace, follow the response remediation instead of the error code's organization-wide recovery guidance. An organization administrator can adjust the workspace limit or the automatic allocation; the shared organization limit still applies.
 	Quota *QuotaErrorContext `json:"quota,omitempty"`
 
 	// Remediation A human-readable next step to resolve this error. Present when a recovery is known.
@@ -23927,6 +24071,9 @@ type EventEmailBase struct {
 	// RecipientRole Envelope position of a recipient on an outbound email event.
 	RecipientRole RecipientRole `json:"recipient_role"`
 
+	// Reference The `reference` from the send request, echoed on the message's events. Absent when the send set none, and on `email.unsubscribed` and `email.list_unsubscribed` events Bird records from its own unsubscribe links, which carry no send fields.
+	Reference *MessageReference `json:"reference,omitempty"`
+
 	// Tags Tags provided on the send request, echoed on every event for the send so you can route and correlate without an extra lookup. Null when the send carried no tags.
 	Tags        *[]Tag      `json:"tags"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
@@ -23980,6 +24127,9 @@ type EventEmailBouncedData struct {
 
 	// RecipientRole Envelope position of a recipient on an outbound email event.
 	RecipientRole RecipientRole `json:"recipient_role"`
+
+	// Reference The `reference` from the send request, echoed on the message's events. Absent when the send set none, and on `email.unsubscribed` and `email.list_unsubscribed` events Bird records from its own unsubscribe links, which carry no send fields.
+	Reference *MessageReference `json:"reference,omitempty"`
 
 	// SendingIp The IP address used to send this message, or null when it is not known.
 	SendingIp *string `json:"sending_ip"`
@@ -24041,6 +24191,9 @@ type EventEmailClickedData struct {
 	// RecipientRole Envelope position of a recipient on an outbound email event.
 	RecipientRole RecipientRole `json:"recipient_role"`
 
+	// Reference The `reference` from the send request, echoed on the message's events. Absent when the send set none, and on `email.unsubscribed` and `email.list_unsubscribed` events Bird records from its own unsubscribe links, which carry no send fields.
+	Reference *MessageReference `json:"reference,omitempty"`
+
 	// Tags Tags provided on the send request, echoed on every event for the send so you can route and correlate without an extra lookup. Null when the send carried no tags.
 	Tags *[]Tag `json:"tags"`
 
@@ -24085,6 +24238,9 @@ type EventEmailComplainedData struct {
 
 	// RecipientRole Envelope position of a recipient on an outbound email event.
 	RecipientRole RecipientRole `json:"recipient_role"`
+
+	// Reference The `reference` from the send request, echoed on the message's events. Absent when the send set none, and on `email.unsubscribed` and `email.list_unsubscribed` events Bird records from its own unsubscribe links, which carry no send fields.
+	Reference *MessageReference `json:"reference,omitempty"`
 
 	// Tags Tags provided on the send request, echoed on every event for the send so you can route and correlate without an extra lookup. Null when the send carried no tags.
 	Tags        *[]Tag      `json:"tags"`
@@ -24136,6 +24292,9 @@ type EventEmailDeferredData struct {
 
 	// RecipientRole Envelope position of a recipient on an outbound email event.
 	RecipientRole RecipientRole `json:"recipient_role"`
+
+	// Reference The `reference` from the send request, echoed on the message's events. Absent when the send set none, and on `email.unsubscribed` and `email.list_unsubscribed` events Bird records from its own unsubscribe links, which carry no send fields.
+	Reference *MessageReference `json:"reference,omitempty"`
 
 	// SendingIp The IP address used to send this message, or null when it is not known.
 	SendingIp *string `json:"sending_ip"`
@@ -24378,6 +24537,9 @@ type EventEmailMessageBase struct {
 	// Metadata The metadata object provided on the send request, echoed on the event so you can correlate events with your own records. Null when the send carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
 
+	// Reference The `reference` from the send request. Absent when the send set none.
+	Reference *MessageReference `json:"reference,omitempty"`
+
 	// Tags Tags provided on the send request, echoed on the event so you can route and correlate without an extra lookup. Null when the send carried no tags.
 	Tags        *[]Tag      `json:"tags"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
@@ -24416,6 +24578,9 @@ type EventEmailOpenedData struct {
 
 	// RecipientRole Envelope position of a recipient on an outbound email event.
 	RecipientRole RecipientRole `json:"recipient_role"`
+
+	// Reference The `reference` from the send request, echoed on the message's events. Absent when the send set none, and on `email.unsubscribed` and `email.list_unsubscribed` events Bird records from its own unsubscribe links, which carry no send fields.
+	Reference *MessageReference `json:"reference,omitempty"`
 
 	// Tags Tags provided on the send request, echoed on every event for the send so you can route and correlate without an extra lookup. Null when the send carried no tags.
 	Tags *[]Tag `json:"tags"`
@@ -24473,6 +24638,9 @@ type EventEmailOutOfBandBounceData struct {
 
 	// RecipientRole Envelope position of a recipient on an outbound email event.
 	RecipientRole RecipientRole `json:"recipient_role"`
+
+	// Reference The `reference` from the send request, echoed on the message's events. Absent when the send set none, and on `email.unsubscribed` and `email.list_unsubscribed` events Bird records from its own unsubscribe links, which carry no send fields.
+	Reference *MessageReference `json:"reference,omitempty"`
 
 	// SendingIp The IP address used to send this message, or null when it is not known.
 	SendingIp *string `json:"sending_ip"`
@@ -24596,6 +24764,9 @@ type EventEmailRejectedData struct {
 	// RecipientRole Envelope position of a recipient on an outbound email event.
 	RecipientRole RecipientRole `json:"recipient_role"`
 
+	// Reference The `reference` from the send request, echoed on the message's events. Absent when the send set none, and on `email.unsubscribed` and `email.list_unsubscribed` events Bird records from its own unsubscribe links, which carry no send fields.
+	Reference *MessageReference `json:"reference,omitempty"`
+
 	// RejectionReason Why an email was rejected before delivery.
 	//
 	// - `recipient_suppressed`: The recipient is on the workspace suppression list, so
@@ -24636,6 +24807,9 @@ type EventEmailScheduledData struct {
 
 	// Metadata The metadata object provided on the send request, echoed on the event so you can correlate events with your own records. Null when the send carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
+
+	// Reference The `reference` from the send request. Absent when the send set none.
+	Reference *MessageReference `json:"reference,omitempty"`
 
 	// ScheduledAt When the message is scheduled to send.
 	ScheduledAt time.Time `json:"scheduled_at"`
@@ -24769,23 +24943,29 @@ type EventSMSAccepted struct {
 // EventSMSAcceptedType Event type.
 type EventSMSAcceptedType string
 
-// EventSMSAcceptedData defines model for EventSMSAcceptedData.
-type EventSMSAcceptedData struct {
+// EventSMSAcceptedData Fields shared by every outbound SMS lifecycle event payload.
+type EventSMSAcceptedData = EventSMSBase
+
+// EventSMSBase Fields shared by every outbound SMS lifecycle event payload.
+type EventSMSBase struct {
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
-	// CostCenter Preview feature: the `cost_center` applied to the message, from the send request or else its messaging profile, echoed on every event for the message. Absent when neither set one, and on inbound messages.
+	// CostCenter The `cost_center` applied to the message, from the send request or else its messaging profile, echoed on every event for the message. Absent when neither set one.
 	CostCenter *string `json:"cost_center,omitempty"`
 
-	// CountryCode On an outbound message, the country of the recipient's number. On a received message, the country of the sender's number, or of your number that received it when the sender is not a phone number, such as a short code or an alphanumeric sender. Absent when not known.
+	// CountryCode The country of the recipient's number. Absent when not known.
 	CountryCode *CountryCode `json:"country_code,omitempty"`
 
-	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
+	// From The sender you sent the message from: an E.164 number, an alphanumeric sender ID, or a short code.
 	From               string                 `json:"from"`
 	MessagingProfileId *SMSMessagingProfileID `json:"messaging_profile_id,omitempty"`
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
+
+	// Reference The `reference` from the send request, echoed on every event for the message. Absent when the send set none.
+	Reference *MessageReference `json:"reference,omitempty"`
 
 	// RequestedLanguage The template language requested by the send, in canonical form. Null when the send named no language or used no template.
 	RequestedLanguage *LanguageTag `json:"requested_language"`
@@ -24809,49 +24989,7 @@ type EventSMSAcceptedData struct {
 	// TemplateVersionId The workspace published version or synthetic built-in version rendered at acceptance, or null for a free-text message. For a built-in template, `template_content_hash` identifies the exact catalogue source.
 	TemplateVersionId *SMSTemplateVersionID `json:"template_version_id"`
 
-	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
-	To          string      `json:"to"`
-	WorkspaceId WorkspaceID `json:"workspace_id"`
-}
-
-// EventSMSBase Identity fields shared by every SMS lifecycle event payload.
-type EventSMSBase struct {
-	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
-	Cost *MessageCost `json:"cost,omitempty"`
-
-	// CostCenter Preview feature: the `cost_center` applied to the message, from the send request or else its messaging profile, echoed on every event for the message. Absent when neither set one, and on inbound messages.
-	CostCenter *string `json:"cost_center,omitempty"`
-
-	// CountryCode On an outbound message, the country of the recipient's number. On a received message, the country of the sender's number, or of your number that received it when the sender is not a phone number, such as a short code or an alphanumeric sender. Absent when not known.
-	CountryCode *CountryCode `json:"country_code,omitempty"`
-
-	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
-	From               string                 `json:"from"`
-	MessagingProfileId *SMSMessagingProfileID `json:"messaging_profile_id,omitempty"`
-
-	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
-	Metadata *map[string]interface{} `json:"metadata"`
-
-	// RequestedLanguage The template language requested by the send, in canonical form. Null when the send named no language or used no template.
-	RequestedLanguage *LanguageTag `json:"requested_language"`
-
-	// ResolvedLanguage The template language rendered at acceptance, in canonical form. Null when the send used no template.
-	ResolvedLanguage *LanguageTag `json:"resolved_language"`
-	SmsId            SMSMessageID `json:"sms_id"`
-
-	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
-	Tags *[]Tag `json:"tags"`
-
-	// TemplateContentHash The rendered language's source fingerprint, or null for a free-text message.
-	TemplateContentHash *SMSTemplateContentHash `json:"template_content_hash"`
-
-	// TemplateId The template rendered at acceptance, or null for a free-text message.
-	TemplateId *SMSTemplateID `json:"template_id"`
-
-	// TemplateVersionId The workspace published version or synthetic built-in version rendered at acceptance, or null for a free-text message. For a built-in template, `template_content_hash` identifies the exact catalogue source.
-	TemplateVersionId *SMSTemplateVersionID `json:"template_version_id"`
-
-	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
+	// To The recipient's phone number, in E.164 format.
 	To          string      `json:"to"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
@@ -24879,13 +25017,13 @@ type EventSMSDeliveredData struct {
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
-	// CostCenter Preview feature: the `cost_center` applied to the message, from the send request or else its messaging profile, echoed on every event for the message. Absent when neither set one, and on inbound messages.
+	// CostCenter The `cost_center` applied to the message, from the send request or else its messaging profile, echoed on every event for the message. Absent when neither set one.
 	CostCenter *string `json:"cost_center,omitempty"`
 
-	// CountryCode On an outbound message, the country of the recipient's number. On a received message, the country of the sender's number, or of your number that received it when the sender is not a phone number, such as a short code or an alphanumeric sender. Absent when not known.
+	// CountryCode The country of the recipient's number. Absent when not known.
 	CountryCode *CountryCode `json:"country_code,omitempty"`
 
-	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
+	// From The sender you sent the message from: an E.164 number, an alphanumeric sender ID, or a short code.
 	From string `json:"from"`
 
 	// MccMnc Mobile country code and mobile network code of the carrier. Absent when the carrier does not report one.
@@ -24895,12 +25033,18 @@ type EventSMSDeliveredData struct {
 	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
 
+	// Reference The `reference` from the send request, echoed on every event for the message. Absent when the send set none.
+	Reference *MessageReference `json:"reference,omitempty"`
+
 	// RequestedLanguage The template language requested by the send, in canonical form. Null when the send named no language or used no template.
 	RequestedLanguage *LanguageTag `json:"requested_language"`
 
 	// ResolvedLanguage The template language rendered at acceptance, in canonical form. Null when the send used no template.
 	ResolvedLanguage *LanguageTag `json:"resolved_language"`
-	SmsId            SMSMessageID `json:"sms_id"`
+
+	// Segments Segment breakdown for the message body. Segment count drives billing.
+	Segments SMSSegments  `json:"segments"`
+	SmsId    SMSMessageID `json:"sms_id"`
 
 	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
 	Tags *[]Tag `json:"tags"`
@@ -24914,7 +25058,7 @@ type EventSMSDeliveredData struct {
 	// TemplateVersionId The workspace published version or synthetic built-in version rendered at acceptance, or null for a free-text message. For a built-in template, `template_content_hash` identifies the exact catalogue source.
 	TemplateVersionId *SMSTemplateVersionID `json:"template_version_id"`
 
-	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
+	// To The recipient's phone number, in E.164 format.
 	To          string      `json:"to"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
@@ -24936,31 +25080,43 @@ type EventSMSExpiredType string
 
 // EventSMSExpiredData defines model for EventSMSExpiredData.
 type EventSMSExpiredData struct {
+	// Carrier Carrier that reported the expiry. Absent when the carrier does not report one.
+	Carrier *string `json:"carrier,omitempty"`
+
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
-	// CostCenter Preview feature: the `cost_center` applied to the message, from the send request or else its messaging profile, echoed on every event for the message. Absent when neither set one, and on inbound messages.
+	// CostCenter The `cost_center` applied to the message, from the send request or else its messaging profile, echoed on every event for the message. Absent when neither set one.
 	CostCenter *string `json:"cost_center,omitempty"`
 
-	// CountryCode On an outbound message, the country of the recipient's number. On a received message, the country of the sender's number, or of your number that received it when the sender is not a phone number, such as a short code or an alphanumeric sender. Absent when not known.
+	// CountryCode The country of the recipient's number. Absent when not known.
 	CountryCode *CountryCode `json:"country_code,omitempty"`
 
 	// Error Failure detail for a message that could not be delivered or was rejected.
 	Error *SMSError `json:"error,omitempty"`
 
-	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
-	From               string                 `json:"from"`
+	// From The sender you sent the message from: an E.164 number, an alphanumeric sender ID, or a short code.
+	From string `json:"from"`
+
+	// MccMnc Mobile country code and mobile network code of the carrier. Absent when the carrier does not report one.
+	MccMnc             *string                `json:"mcc_mnc,omitempty"`
 	MessagingProfileId *SMSMessagingProfileID `json:"messaging_profile_id,omitempty"`
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
+
+	// Reference The `reference` from the send request, echoed on every event for the message. Absent when the send set none.
+	Reference *MessageReference `json:"reference,omitempty"`
 
 	// RequestedLanguage The template language requested by the send, in canonical form. Null when the send named no language or used no template.
 	RequestedLanguage *LanguageTag `json:"requested_language"`
 
 	// ResolvedLanguage The template language rendered at acceptance, in canonical form. Null when the send used no template.
 	ResolvedLanguage *LanguageTag `json:"resolved_language"`
-	SmsId            SMSMessageID `json:"sms_id"`
+
+	// Segments Segment breakdown for the message body. Segment count drives billing.
+	Segments SMSSegments  `json:"segments"`
+	SmsId    SMSMessageID `json:"sms_id"`
 
 	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
 	Tags *[]Tag `json:"tags"`
@@ -24974,7 +25130,7 @@ type EventSMSExpiredData struct {
 	// TemplateVersionId The workspace published version or synthetic built-in version rendered at acceptance, or null for a free-text message. For a built-in template, `template_content_hash` identifies the exact catalogue source.
 	TemplateVersionId *SMSTemplateVersionID `json:"template_version_id"`
 
-	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
+	// To The recipient's phone number, in E.164 format.
 	To          string      `json:"to"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
@@ -24996,31 +25152,43 @@ type EventSMSFailedType string
 
 // EventSMSFailedData defines model for EventSMSFailedData.
 type EventSMSFailedData struct {
+	// Carrier Carrier that reported the failure. Absent when the carrier does not report one.
+	Carrier *string `json:"carrier,omitempty"`
+
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
-	// CostCenter Preview feature: the `cost_center` applied to the message, from the send request or else its messaging profile, echoed on every event for the message. Absent when neither set one, and on inbound messages.
+	// CostCenter The `cost_center` applied to the message, from the send request or else its messaging profile, echoed on every event for the message. Absent when neither set one.
 	CostCenter *string `json:"cost_center,omitempty"`
 
-	// CountryCode On an outbound message, the country of the recipient's number. On a received message, the country of the sender's number, or of your number that received it when the sender is not a phone number, such as a short code or an alphanumeric sender. Absent when not known.
+	// CountryCode The country of the recipient's number. Absent when not known.
 	CountryCode *CountryCode `json:"country_code,omitempty"`
 
 	// Error Failure detail for a message that could not be delivered or was rejected.
 	Error *SMSError `json:"error,omitempty"`
 
-	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
-	From               string                 `json:"from"`
+	// From The sender you sent the message from: an E.164 number, an alphanumeric sender ID, or a short code.
+	From string `json:"from"`
+
+	// MccMnc Mobile country code and mobile network code of the carrier. Absent when the carrier does not report one.
+	MccMnc             *string                `json:"mcc_mnc,omitempty"`
 	MessagingProfileId *SMSMessagingProfileID `json:"messaging_profile_id,omitempty"`
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
+
+	// Reference The `reference` from the send request, echoed on every event for the message. Absent when the send set none.
+	Reference *MessageReference `json:"reference,omitempty"`
 
 	// RequestedLanguage The template language requested by the send, in canonical form. Null when the send named no language or used no template.
 	RequestedLanguage *LanguageTag `json:"requested_language"`
 
 	// ResolvedLanguage The template language rendered at acceptance, in canonical form. Null when the send used no template.
 	ResolvedLanguage *LanguageTag `json:"resolved_language"`
-	SmsId            SMSMessageID `json:"sms_id"`
+
+	// Segments Segment breakdown for the message body. Segment count drives billing.
+	Segments SMSSegments  `json:"segments"`
+	SmsId    SMSMessageID `json:"sms_id"`
 
 	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
 	Tags *[]Tag `json:"tags"`
@@ -25034,7 +25202,7 @@ type EventSMSFailedData struct {
 	// TemplateVersionId The workspace published version or synthetic built-in version rendered at acceptance, or null for a free-text message. For a built-in template, `template_content_hash` identifies the exact catalogue source.
 	TemplateVersionId *SMSTemplateVersionID `json:"template_version_id"`
 
-	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
+	// To The recipient's phone number, in E.164 format.
 	To          string      `json:"to"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
@@ -25059,30 +25227,18 @@ type EventSMSReceivedData struct {
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
-	// CostCenter Preview feature: the `cost_center` applied to the message, from the send request or else its messaging profile, echoed on every event for the message. Absent when neither set one, and on inbound messages.
-	CostCenter *string `json:"cost_center,omitempty"`
-
-	// CountryCode On an outbound message, the country of the recipient's number. On a received message, the country of the sender's number, or of your number that received it when the sender is not a phone number, such as a short code or an alphanumeric sender. Absent when not known.
+	// CountryCode Country of the sender's number. When the sender is not a phone number, such as a short code or an alphanumeric sender, the country of your number that received the message. Absent when neither is known.
 	CountryCode *CountryCode `json:"country_code,omitempty"`
 
-	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
+	// From The sender: an E.164 number, or a short code or alphanumeric sender ID when the message came from one.
 	From string `json:"from"`
 
-	// InReplyToMessage Preview feature: the outbound message this one was paired with through its messaging profile's outbound matching. Absent when it was not paired.
+	// InReplyToMessage The outbound message this one was paired with through its messaging profile's outbound matching. Absent when it was not paired.
 	InReplyToMessage *SMSInReplyToMessage `json:"in_reply_to_message,omitempty"`
 
 	// MccMnc Mobile country code and mobile network code of the carrier. Absent when not known.
 	MccMnc             *string                `json:"mcc_mnc,omitempty"`
 	MessagingProfileId *SMSMessagingProfileID `json:"messaging_profile_id,omitempty"`
-
-	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
-	Metadata *map[string]interface{} `json:"metadata"`
-
-	// RequestedLanguage The template language requested by the send, in canonical form. Null when the send named no language or used no template.
-	RequestedLanguage *LanguageTag `json:"requested_language"`
-
-	// ResolvedLanguage The template language rendered at acceptance, in canonical form. Null when the send used no template.
-	ResolvedLanguage *LanguageTag `json:"resolved_language"`
 
 	// Segments Segment breakdown for the message body. Segment count drives billing.
 	Segments SMSSegments  `json:"segments"`
@@ -25091,25 +25247,20 @@ type EventSMSReceivedData struct {
 	// Subject Subject line. Absent when the message carried none.
 	Subject *string `json:"subject,omitempty"`
 
-	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
-	Tags *[]Tag `json:"tags"`
-
-	// TemplateContentHash The rendered language's source fingerprint, or null for a free-text message.
-	TemplateContentHash *SMSTemplateContentHash `json:"template_content_hash"`
-
-	// TemplateId The template rendered at acceptance, or null for a free-text message.
-	TemplateId *SMSTemplateID `json:"template_id"`
-
-	// TemplateVersionId The workspace published version or synthetic built-in version rendered at acceptance, or null for a free-text message. For a built-in template, `template_content_hash` identifies the exact catalogue source.
-	TemplateVersionId *SMSTemplateVersionID `json:"template_version_id"`
-
 	// Text The message body, so you can act on it without a follow-up read. Absent when the message carried only attachments and no text of its own.
 	Text *string `json:"text,omitempty"`
 
-	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
+	// To Your number that received the message: an E.164 number, or a short code.
 	To          string      `json:"to"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
+	union       json.RawMessage
 }
+
+// EventSMSReceivedData0 defines model for .
+type EventSMSReceivedData0 = interface{}
+
+// EventSMSReceivedData1 defines model for .
+type EventSMSReceivedData1 = interface{}
 
 // EventSMSRejected The API rejected the message before sending it to the carrier because of an invalid destination, suppression, or content or policy restriction.
 type EventSMSRejected struct {
@@ -25128,31 +25279,43 @@ type EventSMSRejectedType string
 
 // EventSMSRejectedData defines model for EventSMSRejectedData.
 type EventSMSRejectedData struct {
+	// Carrier Carrier the message was routed to. Absent when Bird rejected the message before routing it, or the carrier does not report one.
+	Carrier *string `json:"carrier,omitempty"`
+
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
-	// CostCenter Preview feature: the `cost_center` applied to the message, from the send request or else its messaging profile, echoed on every event for the message. Absent when neither set one, and on inbound messages.
+	// CostCenter The `cost_center` applied to the message, from the send request or else its messaging profile, echoed on every event for the message. Absent when neither set one.
 	CostCenter *string `json:"cost_center,omitempty"`
 
-	// CountryCode On an outbound message, the country of the recipient's number. On a received message, the country of the sender's number, or of your number that received it when the sender is not a phone number, such as a short code or an alphanumeric sender. Absent when not known.
+	// CountryCode The country of the recipient's number. Absent when not known.
 	CountryCode *CountryCode `json:"country_code,omitempty"`
 
 	// Error Failure detail for a message that could not be delivered or was rejected.
 	Error *SMSError `json:"error,omitempty"`
 
-	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
-	From               string                 `json:"from"`
+	// From The sender you sent the message from: an E.164 number, an alphanumeric sender ID, or a short code.
+	From string `json:"from"`
+
+	// MccMnc Mobile country code and mobile network code of the carrier. Absent when the carrier does not report one.
+	MccMnc             *string                `json:"mcc_mnc,omitempty"`
 	MessagingProfileId *SMSMessagingProfileID `json:"messaging_profile_id,omitempty"`
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
+
+	// Reference The `reference` from the send request, echoed on every event for the message. Absent when the send set none.
+	Reference *MessageReference `json:"reference,omitempty"`
 
 	// RequestedLanguage The template language requested by the send, in canonical form. Null when the send named no language or used no template.
 	RequestedLanguage *LanguageTag `json:"requested_language"`
 
 	// ResolvedLanguage The template language rendered at acceptance, in canonical form. Null when the send used no template.
 	ResolvedLanguage *LanguageTag `json:"resolved_language"`
-	SmsId            SMSMessageID `json:"sms_id"`
+
+	// Segments Segment breakdown for the message body. Segment count drives billing.
+	Segments SMSSegments  `json:"segments"`
+	SmsId    SMSMessageID `json:"sms_id"`
 
 	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
 	Tags *[]Tag `json:"tags"`
@@ -25166,7 +25329,7 @@ type EventSMSRejectedData struct {
 	// TemplateVersionId The workspace published version or synthetic built-in version rendered at acceptance, or null for a free-text message. For a built-in template, `template_content_hash` identifies the exact catalogue source.
 	TemplateVersionId *SMSTemplateVersionID `json:"template_version_id"`
 
-	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
+	// To The recipient's phone number, in E.164 format.
 	To          string      `json:"to"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
@@ -25194,13 +25357,13 @@ type EventSMSSentData struct {
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
-	// CostCenter Preview feature: the `cost_center` applied to the message, from the send request or else its messaging profile, echoed on every event for the message. Absent when neither set one, and on inbound messages.
+	// CostCenter The `cost_center` applied to the message, from the send request or else its messaging profile, echoed on every event for the message. Absent when neither set one.
 	CostCenter *string `json:"cost_center,omitempty"`
 
-	// CountryCode On an outbound message, the country of the recipient's number. On a received message, the country of the sender's number, or of your number that received it when the sender is not a phone number, such as a short code or an alphanumeric sender. Absent when not known.
+	// CountryCode The country of the recipient's number. Absent when not known.
 	CountryCode *CountryCode `json:"country_code,omitempty"`
 
-	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
+	// From The sender you sent the message from: an E.164 number, an alphanumeric sender ID, or a short code.
 	From string `json:"from"`
 
 	// MccMnc Mobile country code and mobile network code of the carrier. Absent when the carrier does not report one.
@@ -25210,12 +25373,18 @@ type EventSMSSentData struct {
 	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
 
+	// Reference The `reference` from the send request, echoed on every event for the message. Absent when the send set none.
+	Reference *MessageReference `json:"reference,omitempty"`
+
 	// RequestedLanguage The template language requested by the send, in canonical form. Null when the send named no language or used no template.
 	RequestedLanguage *LanguageTag `json:"requested_language"`
 
 	// ResolvedLanguage The template language rendered at acceptance, in canonical form. Null when the send used no template.
 	ResolvedLanguage *LanguageTag `json:"resolved_language"`
-	SmsId            SMSMessageID `json:"sms_id"`
+
+	// Segments Segment breakdown for the message body. Segment count drives billing.
+	Segments SMSSegments  `json:"segments"`
+	SmsId    SMSMessageID `json:"sms_id"`
 
 	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
 	Tags *[]Tag `json:"tags"`
@@ -25229,7 +25398,7 @@ type EventSMSSentData struct {
 	// TemplateVersionId The workspace published version or synthetic built-in version rendered at acceptance, or null for a free-text message. For a built-in template, `template_content_hash` identifies the exact catalogue source.
 	TemplateVersionId *SMSTemplateVersionID `json:"template_version_id"`
 
-	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
+	// To The recipient's phone number, in E.164 format.
 	To          string      `json:"to"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
@@ -25275,31 +25444,43 @@ type EventSMSUndeliveredType string
 
 // EventSMSUndeliveredData defines model for EventSMSUndeliveredData.
 type EventSMSUndeliveredData struct {
+	// Carrier Carrier that reported the delivery failure. Absent when the carrier does not report one.
+	Carrier *string `json:"carrier,omitempty"`
+
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
-	// CostCenter Preview feature: the `cost_center` applied to the message, from the send request or else its messaging profile, echoed on every event for the message. Absent when neither set one, and on inbound messages.
+	// CostCenter The `cost_center` applied to the message, from the send request or else its messaging profile, echoed on every event for the message. Absent when neither set one.
 	CostCenter *string `json:"cost_center,omitempty"`
 
-	// CountryCode On an outbound message, the country of the recipient's number. On a received message, the country of the sender's number, or of your number that received it when the sender is not a phone number, such as a short code or an alphanumeric sender. Absent when not known.
+	// CountryCode The country of the recipient's number. Absent when not known.
 	CountryCode *CountryCode `json:"country_code,omitempty"`
 
 	// Error Failure detail for a message that could not be delivered or was rejected.
 	Error *SMSError `json:"error,omitempty"`
 
-	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
-	From               string                 `json:"from"`
+	// From The sender you sent the message from: an E.164 number, an alphanumeric sender ID, or a short code.
+	From string `json:"from"`
+
+	// MccMnc Mobile country code and mobile network code of the carrier. Absent when the carrier does not report one.
+	MccMnc             *string                `json:"mcc_mnc,omitempty"`
 	MessagingProfileId *SMSMessagingProfileID `json:"messaging_profile_id,omitempty"`
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
+
+	// Reference The `reference` from the send request, echoed on every event for the message. Absent when the send set none.
+	Reference *MessageReference `json:"reference,omitempty"`
 
 	// RequestedLanguage The template language requested by the send, in canonical form. Null when the send named no language or used no template.
 	RequestedLanguage *LanguageTag `json:"requested_language"`
 
 	// ResolvedLanguage The template language rendered at acceptance, in canonical form. Null when the send used no template.
 	ResolvedLanguage *LanguageTag `json:"resolved_language"`
-	SmsId            SMSMessageID `json:"sms_id"`
+
+	// Segments Segment breakdown for the message body. Segment count drives billing.
+	Segments SMSSegments  `json:"segments"`
+	SmsId    SMSMessageID `json:"sms_id"`
 
 	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
 	Tags *[]Tag `json:"tags"`
@@ -25313,7 +25494,7 @@ type EventSMSUndeliveredData struct {
 	// TemplateVersionId The workspace published version or synthetic built-in version rendered at acceptance, or null for a free-text message. For a built-in template, `template_content_hash` identifies the exact catalogue source.
 	TemplateVersionId *SMSTemplateVersionID `json:"template_version_id"`
 
-	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
+	// To The recipient's phone number, in E.164 format.
 	To          string      `json:"to"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
@@ -25730,10 +25911,10 @@ type EventWhatsAppAccepted struct {
 // EventWhatsAppAcceptedType Event type.
 type EventWhatsAppAcceptedType string
 
-// EventWhatsAppAcceptedData Identity fields shared by every WhatsApp lifecycle event payload.
+// EventWhatsAppAcceptedData Fields shared by every outbound WhatsApp message event payload.
 type EventWhatsAppAcceptedData = EventWhatsAppBase
 
-// EventWhatsAppBase Identity fields shared by every WhatsApp lifecycle event payload.
+// EventWhatsAppBase Fields shared by every outbound WhatsApp message event payload.
 type EventWhatsAppBase struct {
 	// Direction Whether the message was sent by the business (`outbound`) or received from the contact (`inbound`).
 	Direction EventWhatsAppBaseDirection `json:"direction"`
@@ -25741,14 +25922,17 @@ type EventWhatsAppBase struct {
 	// From Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both. A message received from a WhatsApp user carries whatever profile they publish, which may be neither.
 	From WhatsAppAddress `json:"from"`
 
-	// InReplyToMessageId The message this one answers. On an outbound message it is the message it quoted: for a send request, its `in_reply_to_message_id`. On an inbound message it is what WhatsApp reports as the reply's target: a tap on a button or a list row, and equally a text or media message the contact sent as a quoted reply. Absent when the message answers nothing, and absent on an inbound message whose target we cannot match to a message we hold, which is the case for one sent before this workspace started recording them or one already past the 15-day window we keep provider ids for.
+	// InReplyToMessageId The message this one quoted: for a send request, its `in_reply_to_message_id`. Absent when the message quoted nothing, or quoted one we cannot match to a message we hold.
 	InReplyToMessageId *WhatsAppMessageID `json:"in_reply_to_message_id,omitempty"`
 
 	// Metadata The metadata object from the send request, echoed on every event for the message. Null when the message was not sent through Bird, or its request carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
 
-	// Origin Where the message came from when it did not come through Bird live, the same value `GET /v1/whatsapp/messages/{message_id}` returns. Absent when your workspace sent the message through Bird, or the contact sent it to Bird.
+	// Origin Where the message came from when it did not come through Bird live, the same value `GET /v1/whatsapp/messages/{message_id}` returns. Absent when your workspace sent the message through Bird.
 	Origin *WhatsAppMessageOrigin `json:"origin,omitempty"`
+
+	// Reference The `reference` from the send request, echoed on every event for the message. Absent when the send set none.
+	Reference *MessageReference `json:"reference,omitempty"`
 
 	// Tags Tags from the send request, echoed on every event for the message. Null when the message was not sent through Bird, or its request carried no tags.
 	Tags *[]Tag `json:"tags"`
@@ -25785,17 +25969,20 @@ type EventWhatsAppDeliveredData struct {
 	// From Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both. A message received from a WhatsApp user carries whatever profile they publish, which may be neither.
 	From WhatsAppAddress `json:"from"`
 
-	// InReplyToMessageId The message this one answers. On an outbound message it is the message it quoted: for a send request, its `in_reply_to_message_id`. On an inbound message it is what WhatsApp reports as the reply's target: a tap on a button or a list row, and equally a text or media message the contact sent as a quoted reply. Absent when the message answers nothing, and absent on an inbound message whose target we cannot match to a message we hold, which is the case for one sent before this workspace started recording them or one already past the 15-day window we keep provider ids for.
+	// InReplyToMessageId The message this one quoted: for a send request, its `in_reply_to_message_id`. Absent when the message quoted nothing, or quoted one we cannot match to a message we hold.
 	InReplyToMessageId *WhatsAppMessageID `json:"in_reply_to_message_id,omitempty"`
 
 	// Metadata The metadata object from the send request, echoed on every event for the message. Null when the message was not sent through Bird, or its request carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
 
-	// Origin Where the message came from when it did not come through Bird live, the same value `GET /v1/whatsapp/messages/{message_id}` returns. Absent when your workspace sent the message through Bird, or the contact sent it to Bird.
+	// Origin Where the message came from when it did not come through Bird live, the same value `GET /v1/whatsapp/messages/{message_id}` returns. Absent when your workspace sent the message through Bird.
 	Origin *WhatsAppMessageOrigin `json:"origin,omitempty"`
 
 	// Recipient The participant delivery was confirmed to, on a group message. A group send raises this event once per participant, so this is what tells the deliveries apart. Absent on a one-to-one message, whose `to` already names its recipient.
 	Recipient *WhatsAppAddress `json:"recipient,omitempty"`
+
+	// Reference The `reference` from the send request, echoed on every event for the message. Absent when the send set none.
+	Reference *MessageReference `json:"reference,omitempty"`
 
 	// Tags Tags from the send request, echoed on every event for the message. Null when the message was not sent through Bird, or its request carried no tags.
 	Tags *[]Tag `json:"tags"`
@@ -25835,14 +26022,17 @@ type EventWhatsAppFailedData struct {
 	// From Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both. A message received from a WhatsApp user carries whatever profile they publish, which may be neither.
 	From WhatsAppAddress `json:"from"`
 
-	// InReplyToMessageId The message this one answers. On an outbound message it is the message it quoted: for a send request, its `in_reply_to_message_id`. On an inbound message it is what WhatsApp reports as the reply's target: a tap on a button or a list row, and equally a text or media message the contact sent as a quoted reply. Absent when the message answers nothing, and absent on an inbound message whose target we cannot match to a message we hold, which is the case for one sent before this workspace started recording them or one already past the 15-day window we keep provider ids for.
+	// InReplyToMessageId The message this one quoted: for a send request, its `in_reply_to_message_id`. Absent when the message quoted nothing, or quoted one we cannot match to a message we hold.
 	InReplyToMessageId *WhatsAppMessageID `json:"in_reply_to_message_id,omitempty"`
 
 	// Metadata The metadata object from the send request, echoed on every event for the message. Null when the message was not sent through Bird, or its request carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
 
-	// Origin Where the message came from when it did not come through Bird live, the same value `GET /v1/whatsapp/messages/{message_id}` returns. Absent when your workspace sent the message through Bird, or the contact sent it to Bird.
+	// Origin Where the message came from when it did not come through Bird live, the same value `GET /v1/whatsapp/messages/{message_id}` returns. Absent when your workspace sent the message through Bird.
 	Origin *WhatsAppMessageOrigin `json:"origin,omitempty"`
+
+	// Reference The `reference` from the send request, echoed on every event for the message. Absent when the send set none.
+	Reference *MessageReference `json:"reference,omitempty"`
 
 	// Tags Tags from the send request, echoed on every event for the message. Null when the message was not sent through Bird, or its request carried no tags.
 	Tags *[]Tag `json:"tags"`
@@ -25944,17 +26134,20 @@ type EventWhatsAppReadData struct {
 	// From Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both. A message received from a WhatsApp user carries whatever profile they publish, which may be neither.
 	From WhatsAppAddress `json:"from"`
 
-	// InReplyToMessageId The message this one answers. On an outbound message it is the message it quoted: for a send request, its `in_reply_to_message_id`. On an inbound message it is what WhatsApp reports as the reply's target: a tap on a button or a list row, and equally a text or media message the contact sent as a quoted reply. Absent when the message answers nothing, and absent on an inbound message whose target we cannot match to a message we hold, which is the case for one sent before this workspace started recording them or one already past the 15-day window we keep provider ids for.
+	// InReplyToMessageId The message this one quoted: for a send request, its `in_reply_to_message_id`. Absent when the message quoted nothing, or quoted one we cannot match to a message we hold.
 	InReplyToMessageId *WhatsAppMessageID `json:"in_reply_to_message_id,omitempty"`
 
 	// Metadata The metadata object from the send request, echoed on every event for the message. Null when the message was not sent through Bird, or its request carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
 
-	// Origin Where the message came from when it did not come through Bird live, the same value `GET /v1/whatsapp/messages/{message_id}` returns. Absent when your workspace sent the message through Bird, or the contact sent it to Bird.
+	// Origin Where the message came from when it did not come through Bird live, the same value `GET /v1/whatsapp/messages/{message_id}` returns. Absent when your workspace sent the message through Bird.
 	Origin *WhatsAppMessageOrigin `json:"origin,omitempty"`
 
 	// Recipient The participant who opened the message, on a group message. A group send raises this event once per participant, so this is what tells the deliveries apart. Absent on a one-to-one message, whose `to` already names its recipient.
 	Recipient *WhatsAppAddress `json:"recipient,omitempty"`
+
+	// Reference The `reference` from the send request, echoed on every event for the message. Absent when the send set none.
+	Reference *MessageReference `json:"reference,omitempty"`
 
 	// Tags Tags from the send request, echoed on every event for the message. Null when the message was not sent through Bird, or its request carried no tags.
 	Tags *[]Tag `json:"tags"`
@@ -25970,7 +26163,7 @@ type EventWhatsAppReadDataDirection string
 
 // EventWhatsAppReceived A contact sent the business a WhatsApp message. Not raised while the Meta Business Agent holds the conversation; the message is still stored and returned by the message reads.
 type EventWhatsAppReceived struct {
-	// Data Payload of the whatsapp.received event. Carries the message's content so a subscriber can act on it without reading the message back.
+	// Data Payload of the whatsapp.received event. Carries the message's content so a subscriber can act on it without reading the message back. `from` is the WhatsApp contact who sent the message, the participant who wrote it in a group; `to` is the business number that received it, with the group's `group_id` on a group message.
 	Data EventWhatsAppReceivedData `json:"data"`
 
 	// Timestamp Time the contact sent the message, as reported by WhatsApp.
@@ -25988,8 +26181,8 @@ type EventWhatsAppReceivedData struct {
 	// ContactCards Contact cards the contact shared, either by tapping a button that asked for their number or by sending a card from their address book.
 	ContactCards *[]WhatsAppContactCard `json:"contact_cards,omitempty"`
 
-	// Direction Whether the message was sent by the business (`outbound`) or received from the contact (`inbound`).
-	Direction EventWhatsAppReceivedDataDirection `json:"direction"`
+	// Direction Whether a message was sent from the workspace (`outbound`) or received by it (`inbound`).
+	Direction MessageDirection `json:"direction"`
 
 	// Document Document the contact sent.
 	Document *WhatsAppDocument `json:"document,omitempty"`
@@ -26000,7 +26193,7 @@ type EventWhatsAppReceivedData struct {
 	// Image Image the contact sent.
 	Image *WhatsAppImage `json:"image,omitempty"`
 
-	// InReplyToMessageId The message this one answers. On an outbound message it is the message it quoted: for a send request, its `in_reply_to_message_id`. On an inbound message it is what WhatsApp reports as the reply's target: a tap on a button or a list row, and equally a text or media message the contact sent as a quoted reply. Absent when the message answers nothing, and absent on an inbound message whose target we cannot match to a message we hold, which is the case for one sent before this workspace started recording them or one already past the 15-day window we keep provider ids for.
+	// InReplyToMessageId The message this one answers, as WhatsApp reports the reply's target: a tap on a button or a list row, and equally a text or media message the contact sent as a quoted reply. Absent when the message answers nothing, and absent when we cannot match the target to a message we hold, which is the case for one sent before this workspace started recording them or one already past the 15-day window we keep provider ids for.
 	InReplyToMessageId *WhatsAppMessageID `json:"in_reply_to_message_id,omitempty"`
 
 	// InteractiveReply What the contact tapped, when the message answers an interactive message or a template's quick-reply button.
@@ -26009,17 +26202,11 @@ type EventWhatsAppReceivedData struct {
 	// Location Location the contact sent.
 	Location *WhatsAppLocation `json:"location,omitempty"`
 
-	// Metadata The metadata object from the send request, echoed on every event for the message. Null when the message was not sent through Bird, or its request carried no metadata.
-	Metadata *map[string]interface{} `json:"metadata"`
-
-	// Origin Where the message came from when it did not come through Bird live, the same value `GET /v1/whatsapp/messages/{message_id}` returns. Absent when your workspace sent the message through Bird, or the contact sent it to Bird.
+	// Origin Where the message came from when it did not come through Bird live, the same value `GET /v1/whatsapp/messages/{message_id}` returns. Absent when the contact sent the message to Bird.
 	Origin *WhatsAppMessageOrigin `json:"origin,omitempty"`
 
 	// Sticker Sticker the contact sent.
 	Sticker *WhatsAppSticker `json:"sticker,omitempty"`
-
-	// Tags Tags from the send request, echoed on every event for the message. Null when the message was not sent through Bird, or its request carried no tags.
-	Tags *[]Tag `json:"tags"`
 
 	// Text Text the contact sent.
 	Text *WhatsAppText `json:"text,omitempty"`
@@ -26035,9 +26222,6 @@ type EventWhatsAppReceivedData struct {
 	WhatsappId  WhatsAppMessageID `json:"whatsapp_id"`
 	WorkspaceId WorkspaceID       `json:"workspace_id"`
 }
-
-// EventWhatsAppReceivedDataDirection Whether the message was sent by the business (`outbound`) or received from the contact (`inbound`).
-type EventWhatsAppReceivedDataDirection string
 
 // EventWhatsAppRejected The API rejected the message before sending it to WhatsApp because the recipient is on the workspace suppression list, the wallet has insufficient balance, or the destination is unpriced. The message is not sent or charged.
 type EventWhatsAppRejected struct {
@@ -26065,14 +26249,17 @@ type EventWhatsAppRejectedData struct {
 	// From Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both. A message received from a WhatsApp user carries whatever profile they publish, which may be neither.
 	From WhatsAppAddress `json:"from"`
 
-	// InReplyToMessageId The message this one answers. On an outbound message it is the message it quoted: for a send request, its `in_reply_to_message_id`. On an inbound message it is what WhatsApp reports as the reply's target: a tap on a button or a list row, and equally a text or media message the contact sent as a quoted reply. Absent when the message answers nothing, and absent on an inbound message whose target we cannot match to a message we hold, which is the case for one sent before this workspace started recording them or one already past the 15-day window we keep provider ids for.
+	// InReplyToMessageId The message this one quoted: for a send request, its `in_reply_to_message_id`. Absent when the message quoted nothing, or quoted one we cannot match to a message we hold.
 	InReplyToMessageId *WhatsAppMessageID `json:"in_reply_to_message_id,omitempty"`
 
 	// Metadata The metadata object from the send request, echoed on every event for the message. Null when the message was not sent through Bird, or its request carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
 
-	// Origin Where the message came from when it did not come through Bird live, the same value `GET /v1/whatsapp/messages/{message_id}` returns. Absent when your workspace sent the message through Bird, or the contact sent it to Bird.
+	// Origin Where the message came from when it did not come through Bird live, the same value `GET /v1/whatsapp/messages/{message_id}` returns. Absent when your workspace sent the message through Bird.
 	Origin *WhatsAppMessageOrigin `json:"origin,omitempty"`
+
+	// Reference The `reference` from the send request, echoed on every event for the message. Absent when the send set none.
+	Reference *MessageReference `json:"reference,omitempty"`
 
 	// Tags Tags from the send request, echoed on every event for the message. Null when the message was not sent through Bird, or its request carried no tags.
 	Tags *[]Tag `json:"tags"`
@@ -26101,7 +26288,7 @@ type EventWhatsAppSent struct {
 // EventWhatsAppSentType Event type.
 type EventWhatsAppSentType string
 
-// EventWhatsAppSentData Identity fields shared by every WhatsApp lifecycle event payload.
+// EventWhatsAppSentData Fields shared by every outbound WhatsApp message event payload.
 type EventWhatsAppSentData = EventWhatsAppBase
 
 // EventWhatsAppSuppressionCreated An address was added to the workspace's WhatsApp suppression ledger.
@@ -26845,6 +27032,9 @@ type MessageCost struct {
 // MessageDirection Whether a message was sent from the workspace (`outbound`) or received by it (`inbound`).
 type MessageDirection string
 
+// MessageReference Your own reference for a message, such as an order or ticket identifier. Several messages can share one.
+type MessageReference = string
+
 // Money defines model for Money.
 type Money struct {
 	// Amount Decimal amount as a string, in major currency units.
@@ -27117,6 +27307,29 @@ type NumbersOrderStatus string
 // OrganizationID defines model for OrganizationID.
 type OrganizationID = string
 
+// OrganizationWorkspaceList defines model for OrganizationWorkspaceList.
+type OrganizationWorkspaceList struct {
+	Data []Workspace `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed, and omitted otherwise.
+	Total *int64 `json:"total,omitempty"`
+}
+
+// OrganizationWorkspaceUpdate defines model for OrganizationWorkspaceUpdate.
+type OrganizationWorkspaceUpdate struct {
+	// Name Must include at least one letter or number.
+	Name *TenantName `json:"name,omitempty"`
+}
+
 // PhoneNumberLookup Information about a phone number.
 //
 // The number, its flags, and its line type are included in the base lookup and
@@ -27311,7 +27524,7 @@ type PreferenceWriteResult struct {
 // ProductID defines model for ProductID.
 type ProductID = string
 
-// QuotaErrorContext The quota limit that refused a resource change. A change in a workspace is checked against its organization's limit and any limit set for its workspace; the organization limit is reported when both refuse. When scope is workspace, follow the response remediation instead of the error code's organization-wide recovery guidance. An organization administrator can raise or remove the workspace ceiling; the shared organization limit still applies.
+// QuotaErrorContext The quota limit that refused a resource change. A change in a workspace is checked against its organization's limit and its workspace's limit, whether set manually or derived from the organization's automatic allocation; the organization limit is reported when both refuse. When scope is workspace, follow the response remediation instead of the error code's organization-wide recovery guidance. An organization administrator can adjust the workspace limit or the automatic allocation; the shared organization limit still applies.
 type QuotaErrorContext struct {
 	// QuotaKey Stable key of the quota that refused the change.
 	QuotaKey string `json:"quota_key"`
@@ -27918,7 +28131,7 @@ type SMSError struct {
 	// OccurredAt When the failure occurred.
 	OccurredAt time.Time `json:"occurred_at"`
 
-	// Permanent Whether the cause is permanent, so sending the same message again would fail the same way. Describes the cause, not whether Bird retries. Null when Bird cannot tell, which is currently always.
+	// Permanent Whether the cause is permanent, so sending the same message again would fail the same way. Describes the cause, not whether Bird retries. Null when Bird cannot tell, such as when the provider returned no code or one without a known permanence, or when Bird blocked the message itself.
 	Permanent *bool `json:"permanent,omitempty"`
 }
 
@@ -27979,7 +28192,7 @@ type SMSEventList struct {
 	Data []SMSEvent `json:"data"`
 }
 
-// SMSInReplyToMessage Preview feature: the outbound message a received message was paired with. Bird pairs a reply with the last message the messaging profile sent this subscriber from the receiving number, within the profile's outbound-matching window. The pairing is inferred from timing; the subscriber does not report which message they answered.
+// SMSInReplyToMessage The outbound message a received message was paired with. Bird pairs a reply with the last message the messaging profile sent this subscriber from the receiving number, within the profile's outbound-matching window. The pairing is inferred from timing; the subscriber does not report which message they answered.
 type SMSInReplyToMessage struct {
 	Id SMSMessageID `json:"id"`
 
@@ -28273,7 +28486,7 @@ type SMSLatencyStats struct {
 
 // SMSMessage defines model for SMSMessage.
 type SMSMessage struct {
-	// Binary Preview feature: the payload of a binary send, in place of `text`. Absent on every other message.
+	// Binary The payload of a binary send, in place of `text`. Absent on every other message.
 	Binary *SMSBinary `json:"binary,omitempty"`
 
 	// Carrier Carrier that handled the message. Absent until a delivery receipt identifies it, and on a received message the carrier reports it only where a carrier fee applies.
@@ -28285,7 +28498,7 @@ type SMSMessage struct {
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
-	// CostCenter Preview feature: the `cost_center` applied to the message: the send's own, or else its messaging profile's. Absent when neither set one, and on inbound messages.
+	// CostCenter The `cost_center` applied to the message: the send's own, or else its messaging profile's. Absent when neither set one, and on inbound messages.
 	CostCenter *string `json:"cost_center,omitempty"`
 
 	// CountryCode On an outbound message, the country of the recipient's number. On a received message, the country of the sender's number, or of your number that received it when the sender is not a phone number, such as a short code or an alphanumeric sender. The same value as the message's `sms.*` events' `country_code`. Absent when not known.
@@ -28304,7 +28517,7 @@ type SMSMessage struct {
 	From string       `json:"from"`
 	Id   SMSMessageID `json:"id"`
 
-	// InReplyToMessage Preview feature: on a received message, the outbound message it was paired with through its messaging profile's outbound matching. Absent on outbound messages and on received messages that were not paired.
+	// InReplyToMessage On a received message, the outbound message it was paired with through its messaging profile's outbound matching. Absent on outbound messages and on received messages that were not paired.
 	InReplyToMessage *SMSInReplyToMessage `json:"in_reply_to_message,omitempty"`
 
 	// LastError Failure detail for a message that could not be delivered or was rejected.
@@ -28317,8 +28530,11 @@ type SMSMessage struct {
 	// Metadata Arbitrary JSON metadata stored on the message and echoed in webhook payloads.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 
-	// Options The settings applied to this message, with any option you omitted filled in with the default in force when you sent it. Absent on inbound messages, and on any outbound message for which no settings were recorded.
+	// Options The settings applied to this message, with any option you omitted filled in with the default in force when you sent it. Absent on received messages, and on any outbound message for which no settings were recorded.
 	Options *SMSMessageEffectiveOptions `json:"options,omitempty"`
+
+	// Reference The `reference` from the send request. Absent when the send set none, and on inbound messages.
+	Reference *MessageReference `json:"reference,omitempty"`
 
 	// RequestedLanguage The template language requested by the send, in canonical form. Null when the send named no language or used no template.
 	RequestedLanguage *LanguageTag `json:"requested_language,omitempty"`
@@ -28351,7 +28567,7 @@ type SMSMessage struct {
 	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
 	To string `json:"to"`
 
-	// ValidityPeriod Preview feature: the `validity_period` applied to the message, in seconds: the send's own, or else its messaging profile's. Absent when neither set one.
+	// ValidityPeriod The `validity_period` applied to the message, in seconds: the send's own, or else its messaging profile's. Absent when neither set one.
 	ValidityPeriod *int `json:"validity_period,omitempty"`
 }
 
@@ -28378,13 +28594,10 @@ type SMSMessageCategory string
 
 // SMSMessageEffectiveOptions The settings Bird applied to this message. Every option is reported, whether you set it on the send or took the default that was in force at the time.
 type SMSMessageEffectiveOptions struct {
-	// CallbackUrl Preview feature: the callback URL the send recorded. Absent when it recorded none. Recorded only: status events go to your webhook subscriptions either way.
+	// CallbackUrl The callback URL that applies to this message, which receives its events instead of your webhook endpoints. Absent when the message has none, in which case its events go to your webhook subscriptions.
 	CallbackUrl *string `json:"callback_url,omitempty"`
 
-	// IgnoreDeliveryWindow Preview feature: `true` when this message is excluded from any future quiet-hours delivery window. Absent otherwise.
-	IgnoreDeliveryWindow *bool `json:"ignore_delivery_window,omitempty"`
-
-	// IgnoreSuppression Preview feature: `true` when the send asked to skip opt-outs. Recorded only: every opt-out still applied. Absent otherwise.
+	// IgnoreSuppression `true` when the send may reach the recipient even if they are suppressed for the sender, including after replying STOP. Only `authentication` and `transactional` messages can set it. Absent otherwise.
 	IgnoreSuppression *bool `json:"ignore_suppression,omitempty"`
 
 	// SmartEncoding Whether Bird replaced characters outside the GSM-7 alphabet in this message's body with their closest equivalent before sending it. When `true`, `text` is the body as sent and `segments` describes that body.
@@ -28409,10 +28622,13 @@ type SMSMessageList struct {
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
-// SMSMessageSendRequest A message to send. Supply exactly one of `text` (free-text, which also requires `category` unless a messaging profile supplies a default), `template` (a stored template, whose category is derived), or the preview `binary` (which also requires `category`). Supplying more than one, or none, is rejected.
+// SMSMessageSendRequest A message to send. Supply exactly one of `text` (free-text, which also requires `category` unless a messaging profile supplies a default), `template` (a stored template, whose category is derived), or `binary` (which also requires `category`). Supplying more than one, or none, is rejected.
 type SMSMessageSendRequest struct {
 	// AudienceId Preview feature: audience-targeted sends. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	AudienceId *string `json:"audience_id,omitempty"`
+
+	// Binary Send an 8-bit binary payload instead of `text` or `template`. Requires `category` `transactional` and refuses `options.smart_encoding`. It is sent and charged as one segment.
+	Binary *SMSBinary `json:"binary,omitempty"`
 
 	// BroadcastId Preview feature: broadcast correlation. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	BroadcastId *string `json:"broadcast_id,omitempty"`
@@ -28426,13 +28642,16 @@ type SMSMessageSendRequest struct {
 	// ContactId Preview feature: contact-targeted sends. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	ContactId *string `json:"contact_id,omitempty"`
 
+	// CostCenter Your accounting identifier for this message, such as a department code. Stored on the message and its usage record, returned on reads, and echoed in webhook payloads. Omit it to use the cost center of the messaging profile in `messaging_profile_id`. Accepting it does not change how the message is priced.
+	CostCenter *string `json:"cost_center,omitempty"`
+
 	// From Sender to send from. It must be a sender the workspace holds: a number it owns in E.164, such as `+15557654321`, a short code it holds, such as `24680`, or an alphanumeric sender ID it has claimed, such as `MyBrand`. A sender the workspace does not hold returns a `422` `SMSSenderNotConfigured`, and an alphanumeric sender must also be permitted, and where required registered, for the destination country. Required on a free-text send and when sending a workspace template, unless `messaging_profile_id` is set and the profile selects a sender for the destination country or has a default sender. Omitting it otherwise returns `422`. A built-in template selects its sender automatically and rejects `from`.
 	From *string `json:"from,omitempty"`
 
 	// MediaUrls Preview feature: multimedia (MMS) attachments. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	MediaUrls *[]string `json:"media_urls,omitempty"`
 
-	// MessagingProfileId Preview feature: the messaging profile that supplies this message's sender and defaults. When `from` is omitted, Bird sends from the profile's sender for the destination country, or its default sender. An omitted `category` on a free-text send takes the profile's default category, and `smart_encoding`, `cost_center` and `validity_period` take the profile's settings. So do `options.callback_url`, `options.ignore_delivery_window` and `options.ignore_suppression`, which Bird records on the message; the profile's `options.validation.network` is not inherited. Values you set on the message take precedence. A built-in template sends from Bird's system sender and ignores the profile's senders. A profile that does not exist in this workspace returns `422` `SMSMessagingProfileNotFound`; a `from` bound to a different profile returns `422` `SMSMessagingProfileSenderBound`. Organizations outside the preview get `422` `SMSUnsupportedFeature`.
+	// MessagingProfileId The messaging profile that supplies this message's sender and defaults. When `from` is omitted, Bird sends from the profile's sender for the destination country, or its default sender. An omitted `category` on a free-text send takes the profile's default category, and `smart_encoding`, `cost_center` and `validity_period` take the profile's settings. So do `options.callback_url` and `options.ignore_suppression`, which apply to the message. Values you set on the message take precedence. A built-in template sends from Bird's system sender and ignores the profile's senders. A profile that does not exist in this workspace returns `422` `SMSMessagingProfileNotFound`; a `from` bound to a different profile returns `422` `SMSMessagingProfileSenderBound`.
 	MessagingProfileId *string `json:"messaging_profile_id,omitempty"`
 
 	// Metadata Arbitrary JSON object stored on the message, returned on API reads, and echoed in webhook payloads. Maximum 2 KB serialized. Use metadata for per-send context like internal IDs and foreign keys. For low-cardinality filterable labels, use `tags` instead.
@@ -28443,6 +28662,9 @@ type SMSMessageSendRequest struct {
 
 	// Personalization Preview feature: per-recipient substitution for batch sends. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	Personalization *map[string]interface{} `json:"personalization,omitempty"`
+
+	// Reference An identifier you want to find this message by, such as an order or ticket number, matched exactly by the message list's `reference` filter. Set it only when you need to search on it, and put any other data in `metadata`. Stored on the message, returned on reads and echoed in webhook payloads. Several messages can share one.
+	Reference *MessageReference `json:"reference,omitempty"`
 
 	// ScheduledAt Preview feature: send-later scheduling. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	ScheduledAt *time.Time `json:"scheduled_at,omitempty"`
@@ -28459,10 +28681,13 @@ type SMSMessageSendRequest struct {
 	// To Recipient phone number in E.164 format (for example `+14155550100`), or in national format when you also pass `to_country_code`. One recipient per message. The number is stored and returned in canonical E.164; a recipient that cannot be routed returns a `422` `SMSInvalidRecipient`.
 	To string `json:"to"`
 
+	// ToCountryCode The ISO 3166-1 alpha-2 country whose national numbering plan `to` is written in, such as `NL` for `0612345678`. Bird converts `to` to E.164 before checking the destination, price and sender. An E.164 `to` is still accepted when its country calling code matches this country; a mismatch, or a national number that is not valid in this country, returns a `422` `SMSInvalidRecipient`. Omit it to send `to` in E.164.
+	ToCountryCode *string `json:"to_country_code,omitempty"`
+
 	// TopicId Preview feature: topic-gated sends. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	TopicId *string `json:"topic_id,omitempty"`
 
-	// ValidityPeriod Preview feature: how long, in seconds (60-172800), the message may wait for delivery, counted from acceptance. Bird does not submit the message to the carrier after this deadline and passes the remaining time to the carrier where the route supports it. A message that misses the deadline before reaching the carrier ends `rejected` or `failed`, not `expired`; `expired` comes only from a carrier report. Omit it to use the validity period of the messaging profile in `messaging_profile_id`, or the carrier's own validity rules when the profile sets none. Organizations outside the preview receive `422 SMSUnsupportedFeature`.
+	// ValidityPeriod How long, in seconds (60-172800), the message may wait for delivery, counted from acceptance. Bird does not submit the message to the carrier after this deadline and passes the remaining time to the carrier where the route supports it. A message that misses the deadline before reaching the carrier ends `rejected` or `failed`, not `expired`; `expired` comes only from a carrier report. Omit it to use the validity period of the messaging profile in `messaging_profile_id`, or the carrier's own validity rules when the profile sets none.
 	ValidityPeriod *int `json:"validity_period,omitempty"`
 	union          json.RawMessage
 }
@@ -28492,8 +28717,229 @@ type SMSMessageSendRequest2 = interface{}
 // message carries either status today.
 type SMSMessageStatus string
 
+// SMSMessagingProfile A messaging profile: the senders, reply numbers, and defaults for one program in your workspace. A send that names the profile takes its sender, default category, smart encoding, validity period, cost center, and options from it when the send leaves them out. A message that names the profile sends its events to the profile's `options.callback_url`, filtered by `callback_events`, and a reply on one of the profile's numbers goes to `inbound.callback_url`, then `options.callback_url`. With outbound matching on, a reply is paired with the message it answers.
+type SMSMessagingProfile struct {
+	// CallbackEvents The events of this profile's outbound messages that go to a callback URL: `sms.accepted`, `sms.sent`, `sms.delivered`, `sms.undelivered`, `sms.failed`, `sms.rejected`, and `sms.expired`. The list is fixed when a message is accepted, and applies only while the message has a callback URL: an event outside it then reaches neither the URL nor a plain webhook endpoint. Without a callback URL the list has no effect, and every event goes to your webhook endpoints. `sms.received` is never filtered. Null means every outbound event goes to the URL.
+	CallbackEvents *[]SMSMessagingProfileCallbackEvent `json:"callback_events"`
+
+	// CostCenter A label for assigning the cost of this profile's messages. Null when none is set. A send that omits `cost_center` uses it.
+	CostCenter *string `json:"cost_center"`
+
+	// CreatedAt When the profile was created.
+	CreatedAt time.Time `json:"created_at"`
+
+	// DefaultCategory The category a free-text send that names this profile uses when it sets none: `transactional`, `marketing`, `authentication`, or `service`. A template send takes the template's category. Null when none is set.
+	DefaultCategory *SMSMessageCategory   `json:"default_category"`
+	Id              SMSMessagingProfileID `json:"id"`
+
+	// Inbound How the profile receives replies. A profile without numbers only sends.
+	Inbound SMSMessagingProfileInbound `json:"inbound"`
+
+	// Name A label for the profile. Names are not unique, so two profiles can share one.
+	Name string `json:"name"`
+
+	// Options Sending options that messages from this profile use when a message does not set its own.
+	Options SMSMessagingProfileOptions `json:"options"`
+
+	// Senders The sender for each destination country, and the default sender when an entry has no `country_code`.
+	Senders []SMSMessagingProfileSenderSelector `json:"senders"`
+
+	// UpdatedAt When the profile was last changed.
+	UpdatedAt time.Time `json:"updated_at"`
+
+	// ValidityPeriod How many seconds a message stays valid before it expires undelivered. Null when none is set. A send that omits `validity_period` uses it.
+	ValidityPeriod *int `json:"validity_period"`
+}
+
+// SMSMessagingProfileCallbackEvent An outbound SMS event type. A write accepts only the listed values; a newer server can add events, so read an unknown one as a string.
+type SMSMessagingProfileCallbackEvent string
+
+// SMSMessagingProfileCreate Parameters for creating a messaging profile. Omitted booleans are `false`, the matching window is `1d`, and everything else is unset.
+type SMSMessagingProfileCreate struct {
+	// CallbackEvents The events of this profile's outbound messages that go to a callback URL. The list is fixed when a message is accepted, and applies only while the message has a callback URL: an event outside it then reaches neither the URL nor a plain webhook endpoint. Without a callback URL the list has no effect, and every event goes to your webhook endpoints. A value other than `sms.accepted`, `sms.sent`, `sms.delivered`, `sms.undelivered`, `sms.failed`, `sms.rejected` or `sms.expired` returns `422`. `sms.received` is never filtered. Omit it to deliver every event.
+	CallbackEvents *[]SMSMessagingProfileCallbackEvent `json:"callback_events,omitempty"`
+
+	// CostCenter A label for assigning the cost of this profile's messages. A send that omits `cost_center` uses it.
+	CostCenter *string `json:"cost_center,omitempty"`
+
+	// DefaultCategory The category a free-text send that names this profile uses when it sets none: `transactional`, `marketing`, `authentication`, or `service`. A template send takes the template's category.
+	DefaultCategory *SMSMessageCategory `json:"default_category,omitempty"`
+
+	// Inbound How the profile receives replies. Omit it for a profile that only sends.
+	Inbound *SMSMessagingProfileInboundCreate `json:"inbound,omitempty"`
+
+	// Name A label for the profile. Names are not unique, so two profiles can share one.
+	Name string `json:"name"`
+
+	// Options Sending options for messages that do not set their own. Booleans default to `false`.
+	Options *SMSMessagingProfileOptionsCreate `json:"options,omitempty"`
+
+	// Senders The sender for each destination country, and optionally a default sender. Each country appears at most once, and at most one entry omits `country_code`.
+	Senders *[]SMSMessagingProfileSenderSelector `json:"senders,omitempty"`
+
+	// ValidityPeriod How many seconds a message stays valid before it expires undelivered. A send that omits `validity_period` uses it.
+	ValidityPeriod *int `json:"validity_period,omitempty"`
+}
+
 // SMSMessagingProfileID defines model for SMSMessagingProfileID.
 type SMSMessagingProfileID = string
+
+// SMSMessagingProfileInbound How the profile receives replies. A profile without numbers only sends.
+type SMSMessagingProfileInbound struct {
+	// CallbackUrl The HTTPS URL that receives `sms.received` events for replies on this profile's numbers, signed with your workspace callback signing secret. Null when none is set, in which case replies use `options.callback_url`, then your webhook subscriptions. While a URL applies, a reply skips your plain webhook endpoints.
+	CallbackUrl *string `json:"callback_url"`
+
+	// Numbers The numbers that receive replies for this profile.
+	Numbers []SMSMessagingProfileInboundNumber `json:"numbers"`
+
+	// OutboundMatching Settings for pairing each reply with the message it answers, reported as the reply's `in_reply_to_message`. Bird pairs only messages sent from one of this profile's reply numbers while matching is on. Turning it off stops pairing, and turning it back on resumes it for messages still inside their window.
+	OutboundMatching SMSMessagingProfileOutboundMatching `json:"outbound_matching"`
+}
+
+// SMSMessagingProfileInboundCreate How the profile receives replies. Omit it for a profile that only sends.
+type SMSMessagingProfileInboundCreate struct {
+	// CallbackUrl The HTTPS URL that receives `sms.received` events for replies on this profile's numbers, signed with your workspace callback signing secret. Without it, replies use `options.callback_url`, then your webhook subscriptions. While a URL applies, a reply skips your plain webhook endpoints. It must be an absolute HTTPS URL of at most 2048 characters with a public host: an HTTP URL, a malformed one, or a private, loopback or link-local host returns `422`.
+	CallbackUrl *string `json:"callback_url,omitempty"`
+
+	// Numbers The numbers that receive replies for this profile.
+	Numbers *[]SMSMessagingProfileInboundNumber `json:"numbers,omitempty"`
+
+	// OutboundMatching Settings for pairing each reply with the message it answers, reported as the reply's `in_reply_to_message`. Bird pairs only messages sent from one of this profile's reply numbers while matching is on. Turning it off stops pairing, and turning it back on resumes it for messages still inside their window.
+	OutboundMatching *SMSMessagingProfileOutboundMatchingInput `json:"outbound_matching,omitempty"`
+}
+
+// SMSMessagingProfileInboundNumber A number that receives replies for a profile.
+type SMSMessagingProfileInboundNumber struct {
+	// CountryCode The country of a short code, as an uppercase ISO 3166-1 alpha-2 code. Required for a short code. Omit it for a number in E.164 format, which receives replies from subscribers in any country.
+	CountryCode *string `json:"country_code,omitempty"`
+
+	// Number A short code as digits, or a number in E.164 format. It must be a number your workspace holds that can receive SMS, and it can belong to one profile at a time.
+	Number string `json:"number"`
+}
+
+// SMSMessagingProfileInboundUpdate Changes how the profile receives replies. Omitted properties keep their value.
+type SMSMessagingProfileInboundUpdate struct {
+	// CallbackUrl The HTTPS URL that receives `sms.received` events for replies on this profile's numbers, signed with your workspace callback signing secret. Send `null` to clear it, so replies use `options.callback_url`, then your webhook subscriptions. While a URL applies, a reply skips your plain webhook endpoints. It must be an absolute HTTPS URL of at most 2048 characters with a public host: an HTTP URL, a malformed one, or a private, loopback or link-local host returns `422`.
+	CallbackUrl nullable.Nullable[string] `json:"callback_url,omitempty"`
+
+	// Numbers Replaces the numbers that receive replies. Send an empty array to remove them all.
+	Numbers *[]SMSMessagingProfileInboundNumber `json:"numbers,omitempty"`
+
+	// OutboundMatching Settings for pairing each reply with the message it answers, reported as the reply's `in_reply_to_message`. Bird pairs only messages sent from one of this profile's reply numbers while matching is on. Turning it off stops pairing, and turning it back on resumes it for messages still inside their window.
+	OutboundMatching *SMSMessagingProfileOutboundMatchingInput `json:"outbound_matching,omitempty"`
+}
+
+// SMSMessagingProfileList defines model for SMSMessagingProfileList.
+type SMSMessagingProfileList struct {
+	// Data Your workspace's messaging profiles, newest first.
+	Data []SMSMessagingProfile `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed, and omitted otherwise.
+	Total *int64 `json:"total,omitempty"`
+}
+
+// SMSMessagingProfileOptions Sending options that messages from this profile use when a message does not set its own.
+type SMSMessagingProfileOptions struct {
+	// CallbackUrl The HTTPS URL that receives this profile's message events instead of your webhook endpoints. Null when none is set. Messages that do not set `callback_url` use it, and so do replies on the profile's numbers that have no `inbound.callback_url`. Each event is a signed POST, signed with your workspace callback signing secret, which `rotateWebhookCallbackSigningSecret` creates and returns once. While a URL applies, a message's events skip your plain webhook endpoints. MCP Events subscriptions and connector endpoints still receive them.
+	CallbackUrl *string `json:"callback_url"`
+
+	// IgnoreSuppression Whether messages are sent even if the recipient is suppressed for the sender, including after replying STOP. Messages that do not set `ignore_suppression` use this value. Only `authentication` and `transactional` messages can skip suppressions. It cannot be `true` while `default_category` is `marketing` or `service`. Bird must enable it for your workspace; until then, messages that use it are refused.
+	IgnoreSuppression bool `json:"ignore_suppression"`
+
+	// SmartEncoding Whether text is converted to the GSM-7 character set where possible, to fit more characters in a segment.
+	SmartEncoding bool `json:"smart_encoding"`
+}
+
+// SMSMessagingProfileOptionsCreate Sending options for messages that do not set their own. Booleans default to `false`.
+type SMSMessagingProfileOptionsCreate struct {
+	// CallbackUrl The HTTPS URL that receives this profile's message events instead of your webhook endpoints. Messages that do not set `callback_url` use it, and so do replies on the profile's numbers that have no `inbound.callback_url`. Each event is a signed POST, signed with your workspace callback signing secret, which `rotateWebhookCallbackSigningSecret` creates and returns once. While a URL applies, a message's events skip your plain webhook endpoints. MCP Events subscriptions and connector endpoints still receive them. It must be an absolute HTTPS URL of at most 2048 characters with a public host: an HTTP URL, a malformed one, or a private, loopback or link-local host returns `422`.
+	CallbackUrl *string `json:"callback_url,omitempty"`
+
+	// IgnoreSuppression Whether messages are sent even if the recipient is suppressed for the sender, including after replying STOP. Messages that do not set `ignore_suppression` use this value. Only `authentication` and `transactional` messages can skip suppressions. It cannot be `true` when `default_category` is `marketing` or `service`. Bird must enable it for your workspace; until then, messages that use it are refused.
+	IgnoreSuppression *bool `json:"ignore_suppression,omitempty"`
+
+	// SmartEncoding Whether text is converted to the GSM-7 character set where possible.
+	SmartEncoding *bool `json:"smart_encoding,omitempty"`
+}
+
+// SMSMessagingProfileOptionsUpdate Changes the sending options for messages that do not set their own. Omitted properties keep their value.
+type SMSMessagingProfileOptionsUpdate struct {
+	// CallbackUrl The HTTPS URL that receives this profile's message events instead of your webhook endpoints. Send `null` to clear it. Messages that do not set `callback_url` use it, and so do replies on the profile's numbers that have no `inbound.callback_url`. Each event is a signed POST, signed with your workspace callback signing secret, which `rotateWebhookCallbackSigningSecret` creates and returns once. While a URL applies, a message's events skip your plain webhook endpoints. MCP Events subscriptions and connector endpoints still receive them. It must be an absolute HTTPS URL of at most 2048 characters with a public host: an HTTP URL, a malformed one, or a private, loopback or link-local host returns `422`.
+	CallbackUrl nullable.Nullable[string] `json:"callback_url,omitempty"`
+
+	// IgnoreSuppression Whether messages are sent even if the recipient is suppressed for the sender, including after replying STOP. Messages that do not set `ignore_suppression` use this value. Only `authentication` and `transactional` messages can skip suppressions. It cannot be `true` when `default_category` is `marketing` or `service`. Bird must enable it for your workspace; until then, messages that use it are refused.
+	IgnoreSuppression *bool `json:"ignore_suppression,omitempty"`
+
+	// SmartEncoding Whether text is converted to the GSM-7 character set where possible.
+	SmartEncoding *bool `json:"smart_encoding,omitempty"`
+}
+
+// SMSMessagingProfileOutboundMatching Settings for pairing each reply with the message it answers, reported as the reply's `in_reply_to_message`. Bird pairs only messages sent from one of this profile's reply numbers while matching is on. Turning it off stops pairing, and turning it back on resumes it for messages still inside their window.
+type SMSMessagingProfileOutboundMatching struct {
+	// Enabled Whether replies are paired with the messages they answer.
+	Enabled bool `json:"enabled"`
+
+	// TimeWindow How long after a message is sent a reply can still be paired with it: one hour (`1h`), 24 hours (`1d`), or 168 hours (`7d`). `1d` is the default.
+	TimeWindow SMSMessagingProfileTimeWindow `json:"time_window"`
+}
+
+// SMSMessagingProfileOutboundMatchingInput Settings for pairing each reply with the message it answers, reported as the reply's `in_reply_to_message`. Bird pairs only messages sent from one of this profile's reply numbers while matching is on. Turning it off stops pairing, and turning it back on resumes it for messages still inside their window.
+type SMSMessagingProfileOutboundMatchingInput struct {
+	// Enabled Whether replies are paired with the messages they answer. A new profile defaults to `false`.
+	Enabled *bool `json:"enabled,omitempty"`
+
+	// TimeWindow How long after a message is sent a reply can still be paired with it: one hour (`1h`), 24 hours (`1d`), or 168 hours (`7d`). `1d` is the default.
+	TimeWindow *SMSMessagingProfileTimeWindow `json:"time_window,omitempty"`
+}
+
+// SMSMessagingProfileSenderSelector Chooses the sender for messages to one destination country, or the default sender when `country_code` is omitted.
+type SMSMessagingProfileSenderSelector struct {
+	// CountryCode The destination country this sender is used for, as an uppercase ISO 3166-1 alpha-2 code. Omit it to make this the default sender, which is used for every destination country that has no entry of its own. A profile can have one entry per country and one default. An empty string is rejected rather than treated as the default.
+	CountryCode *string     `json:"country_code,omitempty"`
+	SenderId    SMSSenderID `json:"sender_id"`
+}
+
+// SMSMessagingProfileSortField Field to sort messaging profiles by.
+type SMSMessagingProfileSortField string
+
+// SMSMessagingProfileTimeWindow How long after a message is sent a reply can still be paired with it: one hour (`1h`), 24 hours (`1d`), or 168 hours (`7d`). `1d` is the default.
+type SMSMessagingProfileTimeWindow string
+
+// SMSMessagingProfileUpdate Changes a messaging profile. Omitted properties keep their value, including inside `inbound` and `options`. Send `null` to clear a property that accepts it. `senders` and `inbound.numbers` replace the whole list.
+type SMSMessagingProfileUpdate struct {
+	// CallbackEvents The events of this profile's outbound messages that go to a callback URL. The list is fixed when a message is accepted, and applies only while the message has a callback URL: an event outside it then reaches neither the URL nor a plain webhook endpoint. Without a callback URL the list has no effect, and every event goes to your webhook endpoints. A value other than `sms.accepted`, `sms.sent`, `sms.delivered`, `sms.undelivered`, `sms.failed`, `sms.rejected` or `sms.expired` returns `422`. `sms.received` is never filtered. Send `null` to deliver every event.
+	CallbackEvents nullable.Nullable[[]SMSMessagingProfileCallbackEvent] `json:"callback_events,omitempty"`
+
+	// CostCenter A label for assigning the cost of this profile's messages. Send `null` to clear it. A send that omits `cost_center` uses it.
+	CostCenter nullable.Nullable[string] `json:"cost_center,omitempty"`
+
+	// DefaultCategory The category a free-text send that names this profile uses when it sets none: `transactional`, `marketing`, `authentication`, or `service`. A template send takes the template's category. Send `null` to clear it.
+	DefaultCategory nullable.Nullable[SMSMessageCategory] `json:"default_category,omitempty"`
+
+	// Inbound Changes how the profile receives replies. Omitted properties keep their value.
+	Inbound *SMSMessagingProfileInboundUpdate `json:"inbound,omitempty"`
+
+	// Name A new label for the profile. Names are not unique, so two profiles can share one.
+	Name *string `json:"name,omitempty"`
+
+	// Options Changes the sending options for messages that do not set their own. Omitted properties keep their value.
+	Options *SMSMessagingProfileOptionsUpdate `json:"options,omitempty"`
+
+	// Senders Replaces the profile's senders. Each country appears at most once, and at most one entry omits `country_code`. Send an empty array to remove them all.
+	Senders *[]SMSMessagingProfileSenderSelector `json:"senders,omitempty"`
+
+	// ValidityPeriod How many seconds a message stays valid before it expires undelivered. Send `null` to clear it. A send that omits `validity_period` uses it.
+	ValidityPeriod nullable.Nullable[int] `json:"validity_period,omitempty"`
+}
 
 // SMSOriginatorStatsPoint Aggregate delivery and latency stats for a single originator (the sender address messages were sent from) over the requested period.
 type SMSOriginatorStatsPoint struct {
@@ -28560,7 +29006,7 @@ type SMSSegments struct {
 	// outside the Basic Multilingual Plane is a surrogate pair costing two code
 	// units, so 35 of those fill a single segment.
 	//
-	// `BINARY` marks an 8-bit binary payload, sent as one segment, where `characters` counts its octets. Only the preview binary send produces it; it is declared ahead of general availability so clients see the value before any message carries it outside the preview.
+	// `BINARY` marks an 8-bit binary payload, sent as one segment, where `characters` counts its octets. Only a binary send produces it.
 	Encoding *SMSSegmentsEncoding `json:"encoding,omitempty"`
 }
 
@@ -28577,11 +29023,17 @@ type SMSSegments struct {
 // outside the Basic Multilingual Plane is a surrogate pair costing two code
 // units, so 35 of those fill a single segment.
 //
-// `BINARY` marks an 8-bit binary payload, sent as one segment, where `characters` counts its octets. Only the preview binary send produces it; it is declared ahead of general availability so clients see the value before any message carries it outside the preview.
+// `BINARY` marks an 8-bit binary payload, sent as one segment, where `characters` counts its octets. Only a binary send produces it.
 type SMSSegmentsEncoding string
 
 // SMSSendOptions Settings that change how Bird processes this message. Each option applies to this send only; omit one to use the value of the messaging profile in `messaging_profile_id`, or its default when the profile sets none.
 type SMSSendOptions struct {
+	// CallbackUrl An HTTPS URL that receives this message's events instead of your webhook endpoints. It must be a public address: a private, loopback or link-local host returns `422`. Bird fixes the URL when it accepts the message, so later profile changes do not reroute it. Each event is a signed POST, retried on failure, and signed with your workspace callback signing secret, which `rotateWebhookCallbackSigningSecret` creates and returns once. While a URL applies, this message's events skip your plain webhook endpoints, and a failed callback never falls back to them. MCP Events subscriptions and connector endpoints still receive them. The `callback_events` of the messaging profile in `messaging_profile_id` choose which events go to the URL. Omit the field to use the callback URL of that profile; send `null` to send this message's events to your webhook subscriptions.
+	CallbackUrl *string `json:"callback_url,omitempty"`
+
+	// IgnoreSuppression Send this message even if the recipient is suppressed for the sender, including after replying STOP. Bird skips every suppression reason and records the flag on the message; communication preferences the recipient revoked still apply. Only `authentication` and `transactional` messages can use it; setting it to `true` on a `marketing` or `service` message returns `422`. Bird must enable it for your workspace first; until then, a message that uses it is refused with `422`. Omit it to use the setting of the messaging profile in `messaging_profile_id`.
+	IgnoreSuppression *bool `json:"ignore_suppression,omitempty"`
+
 	// MaxPricePerSegment Preview feature: per-segment price ceiling. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	MaxPricePerSegment *float32 `json:"max_price_per_segment,omitempty"`
 
@@ -29685,12 +30137,12 @@ type TemplateSlug = string
 // a template reaching either is not a breaking change.
 type TemplateStatus string
 
-// TemplateVariable A single variable slot a template fills in when it sends. Most slots are filled from the values supplied when sending; on email, a slot with `system` true is filled by Bird itself, per recipient. The same shape on email, SMS and WhatsApp, so reading what a template needs works the same way whichever channel you are sending on.
+// TemplateVariable A single variable slot a template fills in when it sends. Most slots are filled from the values supplied when sending; a slot with `system` true is filled by Bird itself, per recipient. The same shape on email, SMS and WhatsApp, so reading what a template needs works the same way whichever channel you are sending on.
 type TemplateVariable struct {
 	// Constraint A plain-language description of what values this variable accepts. When `system` is true it names where Bird takes the value from instead, because there is no value for you to send.
 	Constraint *string `json:"constraint,omitempty"`
 
-	// Key The key this slot is filled by. When `system` is true it is the reserved `bird` key or a dotted path beneath it, such as `bird.contact.first_name`, and naming it in a send is rejected. Otherwise, on email and SMS it is the key you set in the send's `parameters` object, and on WhatsApp the `name` you repeat on the matching parameter inside `components`, or, for a template whose placeholders are positional, the position itself as `1`, `2` and so on.
+	// Key The key this slot is filled by. When `system` is true it is the reserved `bird` key or a dotted path beneath it, such as `bird.contact.first_name`, and naming it in a send is rejected. Otherwise, on email and SMS it is the key you set in the send's `parameters` object, and on WhatsApp the `name` on the matching parameter inside `components`, or, in the template parameters preview, the key in the send's `template.parameters`. A WhatsApp template whose placeholders are positional uses the position itself as `1`, `2` and so on, and values with no placeholder use fixed keys: `header_url`, `header_filename`, `header_location` and `code`.
 	Key *string `json:"key,omitempty"`
 
 	// Required Whether the send must supply this variable. Omitting a required value returns `422` on email, SMS, and WhatsApp sends. Always false when `system` is true, because you do not supply that slot's value.
@@ -29699,10 +30151,10 @@ type TemplateVariable struct {
 	// Sensitive Whether this slot's value is redacted from stored message content. A placeholder replaces the sensitive value in message history; transport queues can still carry the text needed for delivery.
 	Sensitive *bool `json:"sensitive,omitempty"`
 
-	// System Whether the value comes from Bird rather than from the send. Absent means false. Only email templates have system slots, identified by the reserved `bird` key or a dotted path beneath it; every SMS and WhatsApp slot is yours to fill. A draft can also name a reserved key no Bird value fills, including `bird` itself: `constraint` says so, and publishing that draft is rejected.
+	// System Whether the value comes from Bird rather than from the send. Absent means false. System slots are identified by the reserved `bird` key or a dotted path beneath it. They appear on email templates, and, in the template parameters preview, on WhatsApp templates whose parameter bindings read contact data; every SMS slot is yours to fill. A draft can also name a reserved key no Bird value fills, including `bird` itself: `constraint` says so, and publishing that draft is rejected.
 	System *bool `json:"system,omitempty"`
 
-	// Type The value type this slot accepts. Each typed slot rejects a value that does not match its `constraint`. Built-in SMS templates use typed slots (`code`, `amount` and the rest). Apple Messages templates type a variable from its content: the field it fills (`url`, `image`, `timestamp`) or the formatting filter applied to it (`date`, `date_time`, `amount`, `currency`). Email, WhatsApp and workspace SMS templates use `text`. Workspace SMS parameters must be scalar values. Open enum: treat an unrecognized value as a future type rather than an error.
+	// Type The value type this slot accepts. Each typed slot rejects a value that does not match its `constraint`. Built-in SMS templates use typed slots (`code`, `amount` and the rest). Apple Messages templates type a variable from its content: the field it fills (`url`, `image`, `timestamp`) or the formatting filter applied to it (`date`, `date_time`, `amount`, `currency`). Email and workspace SMS templates use `text`. WhatsApp templates use `text`, plus `url` for a media header's file and `location` for a location header. Workspace SMS parameters must be scalar values. Open enum: treat an unrecognized value as a future type rather than an error.
 	Type *string `json:"type,omitempty"`
 }
 
@@ -30200,8 +30652,11 @@ type VoiceLeg struct {
 	EndedAt *time.Time `json:"ended_at,omitempty"`
 
 	// From Calling party number in E.164 format.
-	From         *string            `json:"from,omitempty"`
-	Id           VoiceCallID        `json:"id"`
+	From *string     `json:"from,omitempty"`
+	Id   VoiceCallID `json:"id"`
+
+	// Media How the leg's audio travelled between us and your side. Absent when we recorded nothing about it, including on legs recorded before this field existed.
+	Media        *VoiceLegMediaPath `json:"media,omitempty"`
 	MediaQuality *VoiceMediaQuality `json:"media_quality,omitempty"`
 
 	// PddMs Post-dial delay in milliseconds: how long the caller heard nothing between dialing and the phone starting to ring at the other end. High values are what callers experience as the leg `not going through`. Absent when the leg never rang, either because it failed first or because the carrier answered it immediately.
@@ -30335,6 +30790,25 @@ type VoiceLegList struct {
 
 	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// VoiceLegMediaEncryption How a leg's audio was encrypted between us and the party it connects us to.
+//
+// - `none`: plain RTP.
+// - `sdes`: SRTP with keys exchanged in the SDP over TLS signalling (SDES, RFC 4568).
+// - `dtls`: DTLS-SRTP, which every call placed from a browser uses.
+type VoiceLegMediaEncryption string
+
+// VoiceLegMediaPath defines model for VoiceLegMediaPath.
+type VoiceLegMediaPath struct {
+	// Encryption How the audio between us and your side of the leg was encrypted: your SIP trunk's equipment, or the browser that placed the call. On a leg with neither, such as an incoming call a Sequence answered, it describes the carrier's side. Use it to confirm that a call on a trunk with `preferred` media encryption was actually encrypted: such a trunk delivers plain audio to a gateway not reached over TLS or behind an `exit_region`.
+	//
+	// - `none`: plain RTP.
+	// - `sdes`: SRTP with keys exchanged in the SDP over TLS signalling (SDES, RFC 4568). The audio between us and the carrier stays plain RTP.
+	// - `dtls`: DTLS-SRTP, which every call placed from a browser uses.
+	//
+	// Absent when we did not record it: on a leg whose audio bypassed us, on an encrypted offer to a SIP trunk whose media encryption is `off`, on a leg placed without an SDP offer in its INVITE, on an incoming leg that was not answered, and on legs recorded before this field existed.
+	Encryption VoiceLegMediaEncryption `json:"encryption"`
 }
 
 // VoiceLegRejectionReason Why we rejected the leg. Use `rejection_reason` to identify the cause;
@@ -30734,6 +31208,9 @@ type VoiceTrunk struct {
 	// IpAcls The trunk's IP allow list. IP filtering is active whenever this has at least one entry: calls admitted through the allow lists must come from those CIDR ranges. This restriction does not apply to session credentials when `session_credentials_enabled` is true. An empty list means no IP restriction. Replace the whole `ip_acls` list through the trunk update operation.
 	IpAcls *[]VoiceTrunkIPACL `json:"ip_acls,omitempty"`
 
+	// Media How the trunk carries call audio. Set it through the trunk update operation.
+	Media VoiceTrunkMedia `json:"media"`
+
 	// MediaBypass Whether we take ourselves out of the audio path for calls we forward to this trunk: your equipment and the originating carrier exchange audio directly, and only the call signalling passes through us. Off by default. It applies to inbound calls alone (calls this trunk places are always carried through us, whatever this says). While it is on we cannot record those calls, report their audio quality, or end one because its audio stopped. Your equipment must be reachable for audio from the public internet. Set `media_bypass` through the trunk update operation.
 	MediaBypass *bool `json:"media_bypass,omitempty"`
 
@@ -30791,6 +31268,9 @@ type VoiceTrunkCreate struct {
 
 	// InboundEnabled Whether the new trunk may receive calls. Omit it to create a trunk that does neither direction yet. A trunk receives no calls until it also has at least one gateway and at least one number, both added after create.
 	InboundEnabled *bool `json:"inbound_enabled,omitempty"`
+
+	// Media How the new trunk carries call audio. An omitted member takes its default.
+	Media *VoiceTrunkMediaCreate `json:"media,omitempty"`
 
 	// MediaBypass Whether we take ourselves out of the audio path for calls we forward to this trunk. Omit it to create the trunk with this off, which is what suits equipment behind NAT and any account that wants call recording. It is an inbound setting, so `true` is accepted only alongside `inbound_enabled: true`; `false` is always accepted. It can be changed later.
 	MediaBypass *bool `json:"media_bypass,omitempty"`
@@ -30953,6 +31433,45 @@ type VoiceTrunkList struct {
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
+// VoiceTrunkMedia How the trunk carries call audio. Set it through the trunk update operation.
+type VoiceTrunkMedia struct {
+	// Encryption Whether audio between your equipment and Bird is encrypted with SRTP, keyed with SDES (`a=crypto`) over TLS signalling. Audio between Bird and the carrier network stays plain RTP.
+	//
+	// `preferred` encrypts when it can. A call your equipment places is encrypted when it offers `RTP/SAVP` or `RTP/SAVPF` with an `AES_CM_128_HMAC_SHA1_80` or `_32` key over TLS, and carried plain when it offers plain RTP. A call Bird delivers is encrypted to a gateway reached over TLS (`sips:` or `;transport=tls`) and plain to the rest. Deliveries through a gateway `exit_region`, and on a trunk with `media_bypass`, stay plain.
+	//
+	// `required` refuses a plain call with `488 Not Acceptable Here` and delivers encrypted to every gateway, so every gateway must use TLS.
+	//
+	// With `preferred` or `required`, an SDES offer over plain SIP (UDP or TCP), an offer without a usable key, and DTLS-SRTP are refused with `488` and a `Warning` header naming why. `required` cannot be set alongside `media_bypass` or a gateway `exit_region`, since their audio does not pass through the relay that encrypts it. `off` encrypts nothing and relays an SRTP offer as it is. Calls from a web browser are always encrypted with DTLS-SRTP, whatever this says.
+	Encryption VoiceTrunkMediaEncryption `json:"encryption"`
+}
+
+// VoiceTrunkMediaCreate How the new trunk carries call audio. An omitted member takes its default.
+type VoiceTrunkMediaCreate struct {
+	// Encryption Omit it for `preferred`, which encrypts whenever your equipment and gateways allow and otherwise carries calls as before.
+	Encryption *VoiceTrunkMediaEncryption `json:"encryption,omitempty"`
+}
+
+// VoiceTrunkMediaEncryption Whether audio between your equipment and Bird is encrypted with SRTP, keyed with SDES (`a=crypto`) over TLS signalling. Audio between Bird and the carrier network stays plain RTP.
+//
+// `preferred` encrypts when it can. A call your equipment places is encrypted when it offers `RTP/SAVP` or `RTP/SAVPF` with an `AES_CM_128_HMAC_SHA1_80` or `_32` key over TLS, and carried plain when it offers plain RTP. A call Bird delivers is encrypted to a gateway reached over TLS (`sips:` or `;transport=tls`) and plain to the rest. Deliveries through a gateway `exit_region`, and on a trunk with `media_bypass`, stay plain.
+//
+// `required` refuses a plain call with `488 Not Acceptable Here` and delivers encrypted to every gateway, so every gateway must use TLS.
+//
+// With `preferred` or `required`, an SDES offer over plain SIP (UDP or TCP), an offer without a usable key, and DTLS-SRTP are refused with `488` and a `Warning` header naming why. `required` cannot be set alongside `media_bypass` or a gateway `exit_region`, since their audio does not pass through the relay that encrypts it. `off` encrypts nothing and relays an SRTP offer as it is. Calls from a web browser are always encrypted with DTLS-SRTP, whatever this says.
+type VoiceTrunkMediaEncryption string
+
+// VoiceTrunkMediaUpdate A change to how the trunk carries call audio. An omitted member is left unchanged.
+type VoiceTrunkMediaUpdate struct {
+	// Encryption Whether audio between your equipment and Bird is encrypted with SRTP, keyed with SDES (`a=crypto`) over TLS signalling. Audio between Bird and the carrier network stays plain RTP.
+	//
+	// `preferred` encrypts when it can. A call your equipment places is encrypted when it offers `RTP/SAVP` or `RTP/SAVPF` with an `AES_CM_128_HMAC_SHA1_80` or `_32` key over TLS, and carried plain when it offers plain RTP. A call Bird delivers is encrypted to a gateway reached over TLS (`sips:` or `;transport=tls`) and plain to the rest. Deliveries through a gateway `exit_region`, and on a trunk with `media_bypass`, stay plain.
+	//
+	// `required` refuses a plain call with `488 Not Acceptable Here` and delivers encrypted to every gateway, so every gateway must use TLS.
+	//
+	// With `preferred` or `required`, an SDES offer over plain SIP (UDP or TCP), an offer without a usable key, and DTLS-SRTP are refused with `488` and a `Warning` header naming why. `required` cannot be set alongside `media_bypass` or a gateway `exit_region`, since their audio does not pass through the relay that encrypts it. `off` encrypts nothing and relays an SRTP offer as it is. Calls from a web browser are always encrypted with DTLS-SRTP, whatever this says.
+	Encryption *VoiceTrunkMediaEncryption `json:"encryption,omitempty"`
+}
+
 // VoiceTrunkSortField Field used to sort the list.
 type VoiceTrunkSortField string
 
@@ -30976,6 +31495,9 @@ type VoiceTrunkUpdate struct {
 
 	// IpAcls Replaces the trunk's entire IP allow list. When present, the allow list is set to exactly these CIDR blocks: ranges not listed are removed and new ones are added. Send an empty array to clear the list, turning IP filtering off. Omit the field to leave the allow list unchanged.
 	IpAcls *[]VoiceTrunkIPACLCreate `json:"ip_acls,omitempty"`
+
+	// Media A change to how the trunk carries call audio. An omitted member is left unchanged.
+	Media *VoiceTrunkMediaUpdate `json:"media,omitempty"`
 
 	// MediaBypass Whether we take ourselves out of the audio path for calls we forward to this trunk. Turning it on takes effect at the next call setup and leaves calls already up untouched. It is an inbound setting, so the trunk must have `inbound_enabled` on; one update can do both. While it is on we cannot record those calls, report their audio quality, or end one because its audio stopped, and your equipment must be reachable for audio from the public internet. Turning it off puts us back in the path at the next call setup. Omit the field to leave it unchanged.
 	MediaBypass *bool `json:"media_bypass,omitempty"`
@@ -31092,7 +31614,7 @@ type WebhookAttempt struct {
 	// EventType Webhook event type. This is an open enum, so accept unrecognized values in deliveries. Subscribing to a type outside the event catalog returns a `422`.
 	EventType WebhookEventType `json:"event_type"`
 
-	// FailureReason Why the attempt failed before any request was sent, for example a connector body that could not be rendered or an endpoint whose connection changed after the event was queued. Absent for an attempt that reached the network.
+	// FailureReason Why the attempt failed when no HTTP response explains it: a failure before any request was sent, such as a connector body that could not be rendered, or a TLS failure, such as an endpoint certificate that could not be verified. Absent for other attempts.
 	FailureReason *string `json:"failure_reason,omitempty"`
 
 	// Id Identifier of this individual delivery attempt. Each retry is a separate attempt with its own id; use `event_id` to group the attempts for one event.
@@ -31117,7 +31639,7 @@ type WebhookAttempt struct {
 	//   replayed delivery takes a single attempt and is never retried.
 	Status WebhookAttemptStatus `json:"status"`
 
-	// Url URL the request was sent to: the endpoint's `url` at the time of the attempt, which can differ from the current configuration after an update.
+	// Url URL the request was sent to. For a webhook endpoint, its `url` at the time of the attempt, which can differ from the current configuration after an update. For an SMS callback, the callback URL resolved for the message's event.
 	Url string `json:"url"`
 }
 
@@ -31135,6 +31657,15 @@ type WebhookAttemptStatus string
 type WebhookAttemptList struct {
 	// Data Delivery attempts, newest first.
 	Data []WebhookAttempt `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
 }
 
 // WebhookConnectorBinding defines model for WebhookConnectorBinding.
@@ -31170,25 +31701,7 @@ type WebhookConnectorDestinationCreate struct {
 // WebhookConnectorDestinationCreateType defines model for WebhookConnectorDestinationCreate.Type.
 type WebhookConnectorDestinationCreateType string
 
-// WebhookConnectorID The connector to deliver through. Each connector, its fields and the setup to do on its
-// platform first:
-//
-// - `claude_managed_agents`: Claude Managed Agents. Send each message you receive to your Claude managed agent.
-//   - `agent_id` (`config`, required): Returned when you create the agent. Sessions use its latest version.
-//   - `environment_id` (`config`, required): Returned when you create the environment.
-//   - `vault_id` (`config`, optional): A credential vault the agent uses, such as the one holding its Bird MCP credential, so it can reply through Bird.
-//   - `api_key` (secret, in `credentials`, required): From the Claude workspace your agent runs in.
-//   - Events: `whatsapp.received`, `sms.received`, `email_mailbox.message_received`, `amb.received`.
-//   - Setup 1: First, set up your agent in Claude. In the Claude Console, create the agent, its environment and an API key in the same workspace, then come back here with their IDs and the key. See https://platform.claude.com/docs/en/managed-agents/quickstart#create-your-first-session.
-//   - Setup 2: Create an API key. In the Claude workspace your agent runs in. See https://platform.claude.com/settings/keys.
-//   - Setup 3: Copy the agent and environment IDs. Each create returns its ID. See https://platform.claude.com/docs/en/managed-agents/quickstart#create-your-first-session.
-//   - Setup 4: Optionally, add a credential vault. To let the agent reply through Bird, store its Bird MCP credential in a Claude credential vault and give the vault ID here. Each session gets that vault. See https://platform.claude.com/docs/en/managed-agents/vaults.
-//
-// - `grok_bot`: Grok Bot. Send each message you receive to a Grok Bot routine.
-//   - `webhook_url` (`config`, required): The routine's webhook URL.
-//   - `sender_key` (secret, in `credentials`, required): The routine's sender key. Bird sends it only as the Bearer token.
-//   - Events: `whatsapp.received`, `sms.received`, `email_mailbox.message_received`, `amb.received`.
-//   - Setup 1: First, ask Grok Bot to create a routine. Ask Grok Bot to create a routine with a webhook trigger, then paste the webhook URL and sender key it gives you below. See https://cursor.com/docs/cloud-agent/automations#webhook-triggers.
+// WebhookConnectorID The connector to deliver through; [Webhook connectors](/docs/ai/webhook-connectors) lists each one's fields, accepted events and platform setup.
 type WebhookConnectorID = string
 
 // WebhookConnectorSetup The connector to deliver through and the values it needs. Omit the endpoint's `url`: Bird builds it from the connector's URL and these `config` values, and a URL given anyway must equal that. The credentials belong to this endpoint alone, and deleting the endpoint erases them.
@@ -31199,24 +31712,7 @@ type WebhookConnectorSetup struct {
 	// Config Values for the connector's nonsecret fields, keyed by field `name`, such as the URL the endpoint's requests go to. A URL must be HTTPS, on one of the connector's `allowed_origins`, and under its `path_prefix` when it has one. It cannot include user info, a fragment, an IP address as its host, dot segments, or encoded slashes.
 	Config *ConnectionConfig `json:"config,omitempty"`
 
-	// ConnectorId The connector to deliver through. Each connector, its fields and the setup to do on its
-	// platform first:
-	//
-	// - `claude_managed_agents`: Claude Managed Agents. Send each message you receive to your Claude managed agent.
-	//   - `agent_id` (`config`, required): Returned when you create the agent. Sessions use its latest version.
-	//   - `environment_id` (`config`, required): Returned when you create the environment.
-	//   - `vault_id` (`config`, optional): A credential vault the agent uses, such as the one holding its Bird MCP credential, so it can reply through Bird.
-	//   - `api_key` (secret, in `credentials`, required): From the Claude workspace your agent runs in.
-	//   - Events: `whatsapp.received`, `sms.received`, `email_mailbox.message_received`, `amb.received`.
-	//   - Setup 1: First, set up your agent in Claude. In the Claude Console, create the agent, its environment and an API key in the same workspace, then come back here with their IDs and the key. See https://platform.claude.com/docs/en/managed-agents/quickstart#create-your-first-session.
-	//   - Setup 2: Create an API key. In the Claude workspace your agent runs in. See https://platform.claude.com/settings/keys.
-	//   - Setup 3: Copy the agent and environment IDs. Each create returns its ID. See https://platform.claude.com/docs/en/managed-agents/quickstart#create-your-first-session.
-	//   - Setup 4: Optionally, add a credential vault. To let the agent reply through Bird, store its Bird MCP credential in a Claude credential vault and give the vault ID here. Each session gets that vault. See https://platform.claude.com/docs/en/managed-agents/vaults.
-	// - `grok_bot`: Grok Bot. Send each message you receive to a Grok Bot routine.
-	//   - `webhook_url` (`config`, required): The routine's webhook URL.
-	//   - `sender_key` (secret, in `credentials`, required): The routine's sender key. Bird sends it only as the Bearer token.
-	//   - Events: `whatsapp.received`, `sms.received`, `email_mailbox.message_received`, `amb.received`.
-	//   - Setup 1: First, ask Grok Bot to create a routine. Ask Grok Bot to create a routine with a webhook trigger, then paste the webhook URL and sender key it gives you below. See https://cursor.com/docs/cloud-agent/automations#webhook-triggers.
+	// ConnectorId The connector to deliver through; [Webhook connectors](/docs/ai/webhook-connectors) lists each one's fields, accepted events and platform setup.
 	ConnectorId WebhookConnectorID `json:"connector_id"`
 
 	// Credentials Values for the connector's secret fields, keyed by field `name`. Every required secret field must be present, after merging with the stored values on an update, and a key the connector does not declare as secret returns a `422`. No response includes these values.
@@ -31660,6 +32156,17 @@ type WhatsAppBusinessAccount struct {
 
 	// Name The account's name, as WhatsApp reports it.
 	Name *string `json:"name,omitempty"`
+
+	// Next What to do next about this account's ban. Each entry names one action and says why
+	// it is worth taking. An empty list means Bird holds no `ban` record for this account.
+	// A ban Bird was never told of still shows as `banned` on the account's numbers, whose
+	// own `next` carries the appeal, and as Meta error `141014` on the `waba` entity in
+	// `meta_health_status`. Neither list says whether the account can send;
+	// `meta_health_status` does.
+	//
+	// While `ban` is present this links the account restrictions and appeals guide, which
+	// names `ban.appeal_url`, because neither Bird nor this API can lift a ban.
+	Next *[]NextAction `json:"next,omitempty"`
 
 	// Portfolio The Meta business portfolio that owns this account. Absent until Meta has reported it. The portfolio is where a messaging limit is set, so every account it owns shares one.
 	Portfolio *WhatsAppBusinessPortfolio `json:"portfolio,omitempty"`
@@ -33408,6 +33915,9 @@ type WhatsAppMessage struct {
 	// and `read_at` are the first recipient's, not the last.
 	RecipientCount *int `json:"recipient_count,omitempty"`
 
+	// Reference The `reference` from the send request. Absent when the send set none, and on inbound messages.
+	Reference *MessageReference `json:"reference,omitempty"`
+
 	// SentAt When the message was handed to the WhatsApp network. Null until then.
 	SentAt *time.Time             `json:"sent_at,omitempty"`
 	Status *WhatsAppMessageStatus `json:"status,omitempty"`
@@ -33490,6 +34000,9 @@ type WhatsAppMessageSendRequest struct {
 
 	// Metadata Arbitrary JSON object stored on the message and returned on API reads. Maximum 2 KB serialized. Use metadata for per-send context like internal IDs and foreign keys. For low-cardinality filterable labels, use `tags` instead.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+
+	// Reference An identifier you want to find this message by, such as an order or ticket number, matched exactly by the message list's `reference` filter. Set it only when you need to search on it, and put any other data in `metadata`. Stored on the message, returned on reads and echoed in webhook payloads. Several messages can share one.
+	Reference *MessageReference `json:"reference,omitempty"`
 
 	// Sticker A free-form sticker. Deliverable only inside an open customer service window.
 	Sticker *WhatsAppStickerSend `json:"sticker,omitempty"`
@@ -35063,7 +35576,7 @@ type WhatsAppTemplateSubmitProblem struct {
 	// Field Where the problem sits inside the language's content, as a dotted path with indexes, or null when it is not about one field. The path is rooted at the language you wrote, so `components[0].text` is the first block's text.
 	Field *string `json:"field,omitempty"`
 
-	// Language The language the problem belongs to, or null when it concerns the version as a whole.
+	// Language The language the problem belongs to, or null when it concerns the version as a whole. Always null in an analysis, which checks one language's unsaved content.
 	Language *LanguageTag `json:"language,omitempty"`
 
 	// Message What is wrong, in a form you can show the author.
@@ -35266,7 +35779,12 @@ type WorkspaceNotificationEmails struct {
 
 // WorkspaceQuota A resource or value quota as it applies to one workspace.
 type WorkspaceQuota struct {
-	Description string `json:"description"`
+	// AllocationEnabled Whether the organization has an automatic allocation of this quota. It can be `true` while `limit_source` is `manual`, or `organization` when the organization limit is unlimited. When `true`, changing or removing this workspace's limit can change other workspaces' automatic shares.
+	AllocationEnabled bool `json:"allocation_enabled"`
+
+	// AutomaticLimit The workspace's share under the organization's automatic allocation. Set only when `limit_source` is `automatic`; it is never saved as a workspace limit.
+	AutomaticLimit *int64 `json:"automatic_limit"`
+	Description    string `json:"description"`
 
 	// Enforcement When the limits are applied.
 	//
@@ -35284,8 +35802,15 @@ type WorkspaceQuota struct {
 	// - `value`: the largest setting a resource may be given, such as a retention period. No usage is counted.
 	Kind WorkspaceQuotaKind `json:"kind"`
 
-	// Limit The lower of the organization limit currently applied to requests and any active workspace limit. The applied organization limit can briefly differ from the configured `organization_limit` after a change. A request can still be refused below this value when other workspaces use the shared organization limit.
+	// Limit The lower of the organization limit currently applied to requests and the workspace's active limit or automatic share. The applied organization limit can briefly differ from the configured `organization_limit` after a change. A request can still be refused below this value when other workspaces use the shared organization limit.
 	Limit int64 `json:"limit"`
+
+	// LimitSource Which limit bounds the workspace's own usage.
+	//
+	// - `manual`: the workspace's own active limit.
+	// - `automatic`: the workspace's share of the organization limit under its automatic allocation.
+	// - `organization`: no workspace limit applies; only the shared organization limit does. This includes an automatic allocation of an unlimited organization limit.
+	LimitSource WorkspaceQuotaLimitSource `json:"limit_source"`
 
 	// MaximumValue The largest workspace limit this quota accepts, in its unit.
 	MaximumValue int64  `json:"maximum_value"`
@@ -35307,7 +35832,7 @@ type WorkspaceQuota struct {
 	// Usage Current usage. `null` for a `value` quota, which counts nothing.
 	Usage *WorkspaceQuotaUsage `json:"usage"`
 
-	// WorkspaceLimit The workspace's own limit. `null` when the workspace has none and uses only the shared organization limit.
+	// WorkspaceLimit The workspace's own saved limit. `null` when none is saved; `limit_source` and `automatic_limit` then show whether an automatic share applies.
 	WorkspaceLimit *WorkspaceQuotaCeiling `json:"workspace_limit"`
 }
 
@@ -35354,6 +35879,13 @@ type WorkspaceQuotaEnforcement string
 // - `value`: the largest setting a resource may be given, such as a retention period. No usage is counted.
 type WorkspaceQuotaKind string
 
+// WorkspaceQuotaLimitSource Which limit bounds the workspace's own usage.
+//
+// - `manual`: the workspace's own active limit.
+// - `automatic`: the workspace's share of the organization limit under its automatic allocation.
+// - `organization`: no workspace limit applies; only the shared organization limit does. This includes an automatic allocation of an unlimited organization limit.
+type WorkspaceQuotaLimitSource string
+
 // WorkspaceQuotaList defines model for WorkspaceQuotaList.
 type WorkspaceQuotaList struct {
 	// Configuration Whether workspace limits can be set.
@@ -35399,6 +35931,9 @@ type WorkspaceQuotaUsage struct {
 // - `available`: the counts reflect usage at `observed_at`.
 // - `unavailable`: usage could not be read. The counts are unknown, not zero.
 type WorkspaceQuotaUsageStatus string
+
+// WorkspaceSortField Field used to order workspaces.
+type WorkspaceSortField string
 
 // UnderscoreConversationUpdate defines model for _ConversationUpdate.
 type UnderscoreConversationUpdate struct {
@@ -35500,6 +36035,9 @@ type IdempotencyKey = string
 
 // IncludeTotal defines model for IncludeTotal.
 type IncludeTotal = bool
+
+// MessageReferenceFilter Your own reference for a message, such as an order or ticket identifier. Several messages can share one.
+type MessageReferenceFilter = MessageReference
 
 // OrderAsc Sort direction, ascending or descending.
 type OrderAsc = SortOrder
@@ -36038,6 +36576,9 @@ type ListAMBMessagesParams struct {
 
 	// Tag Filter by tag. Accepts `name` to match any record carrying that tag name, or `name:value` to match a specific tag pair (for example `category:welcome`). Repeat the parameter to add more tags. A record must match every tag listed to be returned.
 	Tag *TagFilter `form:"tag,omitempty" json:"tag,omitempty"`
+
+	// Reference Keep only messages whose `reference` is exactly this value. The match is case-sensitive, and several messages can share a reference.
+	Reference *MessageReferenceFilter `form:"reference,omitempty" json:"reference,omitempty"`
 
 	// CreatedAfter Limits the response to resources created at or after this timestamp. Combine it with `created_before` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
 	CreatedAfter *CreatedAfter `form:"created_after,omitempty" json:"created_after,omitempty"`
@@ -39543,6 +40084,9 @@ type ListEmailMessagesParams struct {
 	// Tag Filter by tag. Accepts `name` to match any record carrying that tag name, or `name:value` to match a specific tag pair (for example `category:welcome`). Repeat the parameter to add more tags. A record must match every tag listed to be returned.
 	Tag *TagFilter `form:"tag,omitempty" json:"tag,omitempty"`
 
+	// Reference Keep only messages whose `reference` is exactly this value. The match is case-sensitive, and several messages can share a reference.
+	Reference *MessageReferenceFilter `form:"reference,omitempty" json:"reference,omitempty"`
+
 	// Category Filter by category.
 	Category *EmailMessageCategory `form:"category,omitempty" json:"category,omitempty"`
 
@@ -42230,6 +42774,123 @@ type ListBillingWalletsParams struct {
 	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
 }
 
+// ListWorkspacesParams defines parameters for ListWorkspaces.
+type ListWorkspacesParams struct {
+	// Name Substring match against the workspace name (case-insensitive).
+	Name *string `form:"name,omitempty" json:"name,omitempty"`
+
+	// Sort Sort by `created_at` or `name`. Defaults to `created_at`.
+	Sort *WorkspaceSortField `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
+	Order *OrderDesc `form:"order,omitempty" json:"order,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// IncludeTotal When true, the response includes a `total` field with the total number of items matching the request's filters across all pages.
+	IncludeTotal *IncludeTotal `form:"include_total,omitempty" json:"include_total,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// CreateWorkspaceParams defines parameters for CreateWorkspace.
+type CreateWorkspaceParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// DeleteOrganizationWorkspaceParams defines parameters for DeleteOrganizationWorkspace.
+type DeleteOrganizationWorkspaceParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetOrganizationWorkspaceParams defines parameters for GetOrganizationWorkspace.
+type GetOrganizationWorkspaceParams struct {
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// UpdateOrganizationWorkspaceParams defines parameters for UpdateOrganizationWorkspace.
+type UpdateOrganizationWorkspaceParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
 // ListPreferencesParams defines parameters for ListPreferences.
 type ListPreferencesParams struct {
 	// Channel Return only preferences on this channel.
@@ -42683,6 +43344,9 @@ type ListSMSMessagesParams struct {
 	// Tag Filter by tag. Accepts `name` to match any record carrying that tag name, or `name:value` to match a specific tag pair (for example `category:welcome`). Repeat the parameter to add more tags. A record must match every tag listed to be returned.
 	Tag *TagFilter `form:"tag,omitempty" json:"tag,omitempty"`
 
+	// Reference Keep only messages whose `reference` is exactly this value. The match is case-sensitive, and several messages can share a reference.
+	Reference *MessageReferenceFilter `form:"reference,omitempty" json:"reference,omitempty"`
+
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
@@ -42959,16 +43623,16 @@ type GetSMSStatsDailyParams struct {
 	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
-	// Originator Restrict the statistics to a single originator (the sender address messages were sent from). Mutually exclusive with the other dimension filters (`country`, `category`, `carrier`); only one may be set per request. Matches the message `from`.
+	// Originator Restrict the statistics to a single originator (the sender address messages were sent from). Mutually exclusive with the other dimension filters; only one may be set per request. Matches the message `from`.
 	Originator *string `form:"originator,omitempty" json:"originator,omitempty"`
 
-	// Country Restrict the statistics to a single destination country, as an ISO 3166-1 alpha-2 code. Mutually exclusive with the other dimension filters (`originator`, `category`, `carrier`); only one may be set per request.
+	// Country Restrict the statistics to a single destination country, as an ISO 3166-1 alpha-2 code. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Country *string `form:"country,omitempty" json:"country,omitempty"`
 
-	// Category Restrict the statistics to a single category. Mutually exclusive with the other dimension filters (`originator`, `country`, `carrier`); only one may be set per request.
+	// Category Restrict the statistics to a single category. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
-	// Carrier Restrict the statistics to a single delivery carrier. Mutually exclusive with the other dimension filters (`originator`, `country`, `category`); only one may be set per request.
+	// Carrier Restrict the statistics to a single delivery carrier. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Carrier *string `form:"carrier,omitempty" json:"carrier,omitempty"`
 
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
@@ -43019,16 +43683,16 @@ type GetSMSStatsHourlyParams struct {
 	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
-	// Originator Restrict the statistics to a single originator (the sender address messages were sent from). Mutually exclusive with the other dimension filters (`country`, `category`, `carrier`); only one may be set per request. Matches the message `from`.
+	// Originator Restrict the statistics to a single originator (the sender address messages were sent from). Mutually exclusive with the other dimension filters; only one may be set per request. Matches the message `from`.
 	Originator *string `form:"originator,omitempty" json:"originator,omitempty"`
 
-	// Country Restrict the statistics to a single destination country, as an ISO 3166-1 alpha-2 code. Mutually exclusive with the other dimension filters (`originator`, `category`, `carrier`); only one may be set per request.
+	// Country Restrict the statistics to a single destination country, as an ISO 3166-1 alpha-2 code. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Country *string `form:"country,omitempty" json:"country,omitempty"`
 
-	// Category Restrict the statistics to a single category. Mutually exclusive with the other dimension filters (`originator`, `country`, `carrier`); only one may be set per request.
+	// Category Restrict the statistics to a single category. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
-	// Carrier Restrict the statistics to a single delivery carrier. Mutually exclusive with the other dimension filters (`originator`, `country`, `category`); only one may be set per request.
+	// Carrier Restrict the statistics to a single delivery carrier. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Carrier *string `form:"carrier,omitempty" json:"carrier,omitempty"`
 
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
@@ -43217,16 +43881,16 @@ type GetSMSStatsSummaryParams struct {
 	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
-	// Originator Restrict the statistics to a single originator (the sender address messages were sent from). Mutually exclusive with the other dimension filters (`country`, `category`, `carrier`); only one may be set per request. Matches the message `from`.
+	// Originator Restrict the statistics to a single originator (the sender address messages were sent from). Mutually exclusive with the other dimension filters; only one may be set per request. Matches the message `from`.
 	Originator *string `form:"originator,omitempty" json:"originator,omitempty"`
 
-	// Country Restrict the statistics to a single destination country, as an ISO 3166-1 alpha-2 code. Mutually exclusive with the other dimension filters (`originator`, `category`, `carrier`); only one may be set per request.
+	// Country Restrict the statistics to a single destination country, as an ISO 3166-1 alpha-2 code. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Country *string `form:"country,omitempty" json:"country,omitempty"`
 
-	// Category Restrict the statistics to a single category. Mutually exclusive with the other dimension filters (`originator`, `country`, `carrier`); only one may be set per request.
+	// Category Restrict the statistics to a single category. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
-	// Carrier Restrict the statistics to a single delivery carrier. Mutually exclusive with the other dimension filters (`originator`, `country`, `category`); only one may be set per request.
+	// Carrier Restrict the statistics to a single delivery carrier. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Carrier *string `form:"carrier,omitempty" json:"carrier,omitempty"`
 
 	// Compare Set to `previous_period` to also include the same statistics for the immediately preceding window of equal length, plus the change between the two, so you can show "+X% vs last period" without a second request.
@@ -44362,6 +45026,12 @@ type ListWebhookAttemptsParams struct {
 	// After Only return attempts strictly after this timestamp.
 	After *time.Time `form:"after,omitempty" json:"after,omitempty"`
 
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
@@ -45213,6 +45883,9 @@ type ListWhatsAppMessagesParams struct {
 	// Tag Filter by tag. Accepts `name` to match any record carrying that tag name, or `name:value` to match a specific tag pair (for example `category:welcome`). Repeat the parameter to add more tags. A record must match every tag listed to be returned.
 	Tag *TagFilter `form:"tag,omitempty" json:"tag,omitempty"`
 
+	// Reference Keep only messages whose `reference` is exactly this value. The match is case-sensitive, and several messages can share a reference.
+	Reference *MessageReferenceFilter `form:"reference,omitempty" json:"reference,omitempty"`
+
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
@@ -45397,7 +46070,7 @@ type ListWhatsAppNumbersParams struct {
 	// Waba Filter to a single WhatsApp Business Account by its Meta-assigned ID. Use the `waba` of a connected WhatsApp Business Account, or the `waba` on a number this list returns. A platform-managed number belongs to no WhatsApp Business Account and is never returned when this is set, so pairing it with `scope=system` always returns an empty page. An account this workspace does not hold returns an empty page.
 	Waba *string `form:"waba,omitempty" json:"waba,omitempty"`
 
-	// PhoneNumber Filter to a single number, given in E.164 format. The value is normalized before matching, so `+31612340001` and `+31 6 1234 0001` are the same filter. A value that cannot be normalized is matched exactly as given. A number this workspace cannot send from returns an empty page, rather than being rejected.
+	// PhoneNumber Filter to a single number. The value is read as an international number and normalized before matching, so `+31612340001`, `+31 6 1234 0001`, `0031612340001` and `31612340001` are the same filter. A value that cannot be normalized is matched exactly as given. A number this workspace cannot send from returns an empty page, rather than being rejected.
 	PhoneNumber *string `form:"phone_number,omitempty" json:"phone_number,omitempty"`
 
 	// Status Filter by the number's WhatsApp state: the `status` a number in this list carries. Every value matches that status exactly, so repeat the parameter for each state you want. `pending` covers both a number WhatsApp reports as not registered and one it has reported no state for at all, while the two states before that keep their own values: a number we are still verifying carries `preparing`, and one waiting for someone to finish signup carries `awaiting_signup`. Asking for all three reaches every connection that has not finished, plus any finished one WhatsApp has not reported on yet. `failed` matches a connection refused permanently. A value this vocabulary does not recognize matches nothing, rather than being rejected. Omit to return numbers in every state.
@@ -46486,6 +47159,12 @@ type CreateNumbersOrderJSONRequestBody = NumbersOrderCreate
 // UpdateWorkspaceNumberJSONRequestBody defines body for UpdateWorkspaceNumber for application/json ContentType.
 type UpdateWorkspaceNumberJSONRequestBody = NumberUpdate
 
+// CreateWorkspaceJSONRequestBody defines body for CreateWorkspace for application/json ContentType.
+type CreateWorkspaceJSONRequestBody = WorkspaceCreate
+
+// UpdateOrganizationWorkspaceJSONRequestBody defines body for UpdateOrganizationWorkspace for application/json ContentType.
+type UpdateOrganizationWorkspaceJSONRequestBody = OrganizationWorkspaceUpdate
+
 // CreatePreferenceJSONRequestBody defines body for CreatePreference for application/json ContentType.
 type CreatePreferenceJSONRequestBody = PreferenceCreate
 
@@ -47379,6 +48058,13 @@ func (t AMBMessageSendRequest) MarshalJSON() ([]byte, error) {
 		}
 	}
 
+	if t.Reference != nil {
+		object["reference"], err = json.Marshal(t.Reference)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'reference': %w", err)
+		}
+	}
+
 	if t.Source != nil {
 		object["source"], err = json.Marshal(t.Source)
 		if err != nil {
@@ -47466,6 +48152,13 @@ func (t *AMBMessageSendRequest) UnmarshalJSON(b []byte) error {
 		err = json.Unmarshal(raw, &t.Metadata)
 		if err != nil {
 			return fmt.Errorf("error reading 'metadata': %w", err)
+		}
+	}
+
+	if raw, found := object["reference"]; found {
+		err = json.Unmarshal(raw, &t.Reference)
+		if err != nil {
+			return fmt.Errorf("error reading 'reference': %w", err)
 		}
 	}
 
@@ -50301,6 +50994,261 @@ func (t *EsimRecurringSubscription) UnmarshalJSON(b []byte) error {
 	return err
 }
 
+// AsEventSMSReceivedData0 returns the union data inside the EventSMSReceivedData as a EventSMSReceivedData0
+func (t EventSMSReceivedData) AsEventSMSReceivedData0() (EventSMSReceivedData0, error) {
+	var body EventSMSReceivedData0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventSMSReceivedData0 overwrites any union data inside the EventSMSReceivedData as the provided EventSMSReceivedData0
+func (t *EventSMSReceivedData) FromEventSMSReceivedData0(v EventSMSReceivedData0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventSMSReceivedData0 performs a merge with any union data inside the EventSMSReceivedData, using the provided EventSMSReceivedData0
+func (t *EventSMSReceivedData) MergeEventSMSReceivedData0(v EventSMSReceivedData0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventSMSReceivedData1 returns the union data inside the EventSMSReceivedData as a EventSMSReceivedData1
+func (t EventSMSReceivedData) AsEventSMSReceivedData1() (EventSMSReceivedData1, error) {
+	var body EventSMSReceivedData1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventSMSReceivedData1 overwrites any union data inside the EventSMSReceivedData as the provided EventSMSReceivedData1
+func (t *EventSMSReceivedData) FromEventSMSReceivedData1(v EventSMSReceivedData1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventSMSReceivedData1 performs a merge with any union data inside the EventSMSReceivedData, using the provided EventSMSReceivedData1
+func (t *EventSMSReceivedData) MergeEventSMSReceivedData1(v EventSMSReceivedData1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t EventSMSReceivedData) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	object := make(map[string]json.RawMessage)
+	if t.union != nil {
+		err = json.Unmarshal(b, &object)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if t.Carrier != nil {
+		object["carrier"], err = json.Marshal(t.Carrier)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'carrier': %w", err)
+		}
+	}
+
+	if t.Cost != nil {
+		object["cost"], err = json.Marshal(t.Cost)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'cost': %w", err)
+		}
+	}
+
+	if t.CountryCode != nil {
+		object["country_code"], err = json.Marshal(t.CountryCode)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'country_code': %w", err)
+		}
+	}
+
+	object["from"], err = json.Marshal(t.From)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'from': %w", err)
+	}
+
+	if t.InReplyToMessage != nil {
+		object["in_reply_to_message"], err = json.Marshal(t.InReplyToMessage)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'in_reply_to_message': %w", err)
+		}
+	}
+
+	if t.MccMnc != nil {
+		object["mcc_mnc"], err = json.Marshal(t.MccMnc)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'mcc_mnc': %w", err)
+		}
+	}
+
+	if t.MessagingProfileId != nil {
+		object["messaging_profile_id"], err = json.Marshal(t.MessagingProfileId)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'messaging_profile_id': %w", err)
+		}
+	}
+
+	object["segments"], err = json.Marshal(t.Segments)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'segments': %w", err)
+	}
+
+	object["sms_id"], err = json.Marshal(t.SmsId)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'sms_id': %w", err)
+	}
+
+	if t.Subject != nil {
+		object["subject"], err = json.Marshal(t.Subject)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'subject': %w", err)
+		}
+	}
+
+	if t.Text != nil {
+		object["text"], err = json.Marshal(t.Text)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'text': %w", err)
+		}
+	}
+
+	object["to"], err = json.Marshal(t.To)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'to': %w", err)
+	}
+
+	object["workspace_id"], err = json.Marshal(t.WorkspaceId)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'workspace_id': %w", err)
+	}
+
+	b, err = json.Marshal(object)
+	return b, err
+}
+
+func (t *EventSMSReceivedData) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	if err != nil {
+		return err
+	}
+	object := make(map[string]json.RawMessage)
+	err = json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["carrier"]; found {
+		err = json.Unmarshal(raw, &t.Carrier)
+		if err != nil {
+			return fmt.Errorf("error reading 'carrier': %w", err)
+		}
+	}
+
+	if raw, found := object["cost"]; found {
+		err = json.Unmarshal(raw, &t.Cost)
+		if err != nil {
+			return fmt.Errorf("error reading 'cost': %w", err)
+		}
+	}
+
+	if raw, found := object["country_code"]; found {
+		err = json.Unmarshal(raw, &t.CountryCode)
+		if err != nil {
+			return fmt.Errorf("error reading 'country_code': %w", err)
+		}
+	}
+
+	if raw, found := object["from"]; found {
+		err = json.Unmarshal(raw, &t.From)
+		if err != nil {
+			return fmt.Errorf("error reading 'from': %w", err)
+		}
+	}
+
+	if raw, found := object["in_reply_to_message"]; found {
+		err = json.Unmarshal(raw, &t.InReplyToMessage)
+		if err != nil {
+			return fmt.Errorf("error reading 'in_reply_to_message': %w", err)
+		}
+	}
+
+	if raw, found := object["mcc_mnc"]; found {
+		err = json.Unmarshal(raw, &t.MccMnc)
+		if err != nil {
+			return fmt.Errorf("error reading 'mcc_mnc': %w", err)
+		}
+	}
+
+	if raw, found := object["messaging_profile_id"]; found {
+		err = json.Unmarshal(raw, &t.MessagingProfileId)
+		if err != nil {
+			return fmt.Errorf("error reading 'messaging_profile_id': %w", err)
+		}
+	}
+
+	if raw, found := object["segments"]; found {
+		err = json.Unmarshal(raw, &t.Segments)
+		if err != nil {
+			return fmt.Errorf("error reading 'segments': %w", err)
+		}
+	}
+
+	if raw, found := object["sms_id"]; found {
+		err = json.Unmarshal(raw, &t.SmsId)
+		if err != nil {
+			return fmt.Errorf("error reading 'sms_id': %w", err)
+		}
+	}
+
+	if raw, found := object["subject"]; found {
+		err = json.Unmarshal(raw, &t.Subject)
+		if err != nil {
+			return fmt.Errorf("error reading 'subject': %w", err)
+		}
+	}
+
+	if raw, found := object["text"]; found {
+		err = json.Unmarshal(raw, &t.Text)
+		if err != nil {
+			return fmt.Errorf("error reading 'text': %w", err)
+		}
+	}
+
+	if raw, found := object["to"]; found {
+		err = json.Unmarshal(raw, &t.To)
+		if err != nil {
+			return fmt.Errorf("error reading 'to': %w", err)
+		}
+	}
+
+	if raw, found := object["workspace_id"]; found {
+		err = json.Unmarshal(raw, &t.WorkspaceId)
+		if err != nil {
+			return fmt.Errorf("error reading 'workspace_id': %w", err)
+		}
+	}
+
+	return err
+}
+
 // AsSMSMessageSendRequest0 returns the union data inside the SMSMessageSendRequest as a SMSMessageSendRequest0
 func (t SMSMessageSendRequest) AsSMSMessageSendRequest0() (SMSMessageSendRequest0, error) {
 	var body SMSMessageSendRequest0
@@ -50399,6 +51347,13 @@ func (t SMSMessageSendRequest) MarshalJSON() ([]byte, error) {
 		}
 	}
 
+	if t.Binary != nil {
+		object["binary"], err = json.Marshal(t.Binary)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'binary': %w", err)
+		}
+	}
+
 	if t.BroadcastId != nil {
 		object["broadcast_id"], err = json.Marshal(t.BroadcastId)
 		if err != nil {
@@ -50424,6 +51379,13 @@ func (t SMSMessageSendRequest) MarshalJSON() ([]byte, error) {
 		object["contact_id"], err = json.Marshal(t.ContactId)
 		if err != nil {
 			return nil, fmt.Errorf("error marshaling 'contact_id': %w", err)
+		}
+	}
+
+	if t.CostCenter != nil {
+		object["cost_center"], err = json.Marshal(t.CostCenter)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'cost_center': %w", err)
 		}
 	}
 
@@ -50469,6 +51431,13 @@ func (t SMSMessageSendRequest) MarshalJSON() ([]byte, error) {
 		}
 	}
 
+	if t.Reference != nil {
+		object["reference"], err = json.Marshal(t.Reference)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'reference': %w", err)
+		}
+	}
+
 	if t.ScheduledAt != nil {
 		object["scheduled_at"], err = json.Marshal(t.ScheduledAt)
 		if err != nil {
@@ -50500,6 +51469,13 @@ func (t SMSMessageSendRequest) MarshalJSON() ([]byte, error) {
 	object["to"], err = json.Marshal(t.To)
 	if err != nil {
 		return nil, fmt.Errorf("error marshaling 'to': %w", err)
+	}
+
+	if t.ToCountryCode != nil {
+		object["to_country_code"], err = json.Marshal(t.ToCountryCode)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'to_country_code': %w", err)
+		}
 	}
 
 	if t.TopicId != nil {
@@ -50537,6 +51513,13 @@ func (t *SMSMessageSendRequest) UnmarshalJSON(b []byte) error {
 		}
 	}
 
+	if raw, found := object["binary"]; found {
+		err = json.Unmarshal(raw, &t.Binary)
+		if err != nil {
+			return fmt.Errorf("error reading 'binary': %w", err)
+		}
+	}
+
 	if raw, found := object["broadcast_id"]; found {
 		err = json.Unmarshal(raw, &t.BroadcastId)
 		if err != nil {
@@ -50562,6 +51545,13 @@ func (t *SMSMessageSendRequest) UnmarshalJSON(b []byte) error {
 		err = json.Unmarshal(raw, &t.ContactId)
 		if err != nil {
 			return fmt.Errorf("error reading 'contact_id': %w", err)
+		}
+	}
+
+	if raw, found := object["cost_center"]; found {
+		err = json.Unmarshal(raw, &t.CostCenter)
+		if err != nil {
+			return fmt.Errorf("error reading 'cost_center': %w", err)
 		}
 	}
 
@@ -50607,6 +51597,13 @@ func (t *SMSMessageSendRequest) UnmarshalJSON(b []byte) error {
 		}
 	}
 
+	if raw, found := object["reference"]; found {
+		err = json.Unmarshal(raw, &t.Reference)
+		if err != nil {
+			return fmt.Errorf("error reading 'reference': %w", err)
+		}
+	}
+
 	if raw, found := object["scheduled_at"]; found {
 		err = json.Unmarshal(raw, &t.ScheduledAt)
 		if err != nil {
@@ -50639,6 +51636,13 @@ func (t *SMSMessageSendRequest) UnmarshalJSON(b []byte) error {
 		err = json.Unmarshal(raw, &t.To)
 		if err != nil {
 			return fmt.Errorf("error reading 'to': %w", err)
+		}
+	}
+
+	if raw, found := object["to_country_code"]; found {
+		err = json.Unmarshal(raw, &t.ToCountryCode)
+		if err != nil {
+			return fmt.Errorf("error reading 'to_country_code': %w", err)
 		}
 	}
 
@@ -55495,6 +56499,25 @@ type ClientInterface interface {
 	// ListBillingWallets request
 	ListBillingWallets(ctx context.Context, params *ListBillingWalletsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// ListWorkspaces request
+	ListWorkspaces(ctx context.Context, params *ListWorkspacesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateWorkspaceWithBody request with any body
+	CreateWorkspaceWithBody(ctx context.Context, params *CreateWorkspaceParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateWorkspace(ctx context.Context, params *CreateWorkspaceParams, body CreateWorkspaceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteOrganizationWorkspace request
+	DeleteOrganizationWorkspace(ctx context.Context, workspaceId WorkspaceID, params *DeleteOrganizationWorkspaceParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetOrganizationWorkspace request
+	GetOrganizationWorkspace(ctx context.Context, workspaceId WorkspaceID, params *GetOrganizationWorkspaceParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateOrganizationWorkspaceWithBody request with any body
+	UpdateOrganizationWorkspaceWithBody(ctx context.Context, workspaceId WorkspaceID, params *UpdateOrganizationWorkspaceParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateOrganizationWorkspace(ctx context.Context, workspaceId WorkspaceID, params *UpdateOrganizationWorkspaceParams, body UpdateOrganizationWorkspaceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// ListPreferences request
 	ListPreferences(ctx context.Context, params *ListPreferencesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -60113,6 +61136,90 @@ func (c *Client) ListBillingWallets(ctx context.Context, params *ListBillingWall
 	return c.Client.Do(req)
 }
 
+func (c *Client) ListWorkspaces(ctx context.Context, params *ListWorkspacesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListWorkspacesRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateWorkspaceWithBody(ctx context.Context, params *CreateWorkspaceParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateWorkspaceRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateWorkspace(ctx context.Context, params *CreateWorkspaceParams, body CreateWorkspaceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateWorkspaceRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteOrganizationWorkspace(ctx context.Context, workspaceId WorkspaceID, params *DeleteOrganizationWorkspaceParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteOrganizationWorkspaceRequest(c.Server, workspaceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetOrganizationWorkspace(ctx context.Context, workspaceId WorkspaceID, params *GetOrganizationWorkspaceParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetOrganizationWorkspaceRequest(c.Server, workspaceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateOrganizationWorkspaceWithBody(ctx context.Context, workspaceId WorkspaceID, params *UpdateOrganizationWorkspaceParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateOrganizationWorkspaceRequestWithBody(c.Server, workspaceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateOrganizationWorkspace(ctx context.Context, workspaceId WorkspaceID, params *UpdateOrganizationWorkspaceParams, body UpdateOrganizationWorkspaceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateOrganizationWorkspaceRequest(c.Server, workspaceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 func (c *Client) ListPreferences(ctx context.Context, params *ListPreferencesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListPreferencesRequest(c.Server, params)
 	if err != nil {
@@ -64372,6 +65479,18 @@ func NewListAMBMessagesRequest(server string, params *ListAMBMessagesParams) (*h
 		if params.Tag != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "tag", *params.Tag, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Reference != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "reference", *params.Reference, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -78076,6 +79195,18 @@ func NewListEmailMessagesRequest(server string, params *ListEmailMessagesParams)
 
 		}
 
+		if params.Reference != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "reference", *params.Reference, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if params.Category != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
@@ -88860,6 +89991,395 @@ func NewListBillingWalletsRequest(server string, params *ListBillingWalletsParam
 	return req, nil
 }
 
+// NewListWorkspacesRequest generates requests for ListWorkspaces
+func NewListWorkspacesRequest(server string, params *ListWorkspacesParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/organization/workspaces")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Name != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "name", *params.Name, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTotal != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_total", *params.IncludeTotal, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XOrganizationId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateWorkspaceRequest calls the generic CreateWorkspace builder with application/json body
+func NewCreateWorkspaceRequest(server string, params *CreateWorkspaceParams, body CreateWorkspaceJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateWorkspaceRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateWorkspaceRequestWithBody generates requests for CreateWorkspace with any type of body
+func NewCreateWorkspaceRequestWithBody(server string, params *CreateWorkspaceParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/organization/workspaces")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteOrganizationWorkspaceRequest generates requests for DeleteOrganizationWorkspace
+func NewDeleteOrganizationWorkspaceRequest(server string, workspaceId WorkspaceID, params *DeleteOrganizationWorkspaceParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "workspace_id", workspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/organization/workspaces/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetOrganizationWorkspaceRequest generates requests for GetOrganizationWorkspace
+func NewGetOrganizationWorkspaceRequest(server string, workspaceId WorkspaceID, params *GetOrganizationWorkspaceParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "workspace_id", workspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/organization/workspaces/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XOrganizationId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUpdateOrganizationWorkspaceRequest calls the generic UpdateOrganizationWorkspace builder with application/json body
+func NewUpdateOrganizationWorkspaceRequest(server string, workspaceId WorkspaceID, params *UpdateOrganizationWorkspaceParams, body UpdateOrganizationWorkspaceJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateOrganizationWorkspaceRequestWithBody(server, workspaceId, params, "application/json", bodyReader)
+}
+
+// NewUpdateOrganizationWorkspaceRequestWithBody generates requests for UpdateOrganizationWorkspace with any type of body
+func NewUpdateOrganizationWorkspaceRequestWithBody(server string, workspaceId WorkspaceID, params *UpdateOrganizationWorkspaceParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "workspace_id", workspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/organization/workspaces/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewListPreferencesRequest generates requests for ListPreferences
 func NewListPreferencesRequest(server string, params *ListPreferencesParams) (*http.Request, error) {
 	var err error
@@ -90465,6 +91985,18 @@ func NewListSMSMessagesRequest(server string, params *ListSMSMessagesParams) (*h
 		if params.Tag != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "tag", *params.Tag, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Reference != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "reference", *params.Reference, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -97348,6 +98880,30 @@ func NewListWebhookAttemptsRequest(server string, webhookId WebhookEndpointID, p
 
 		}
 
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if encoded := queryValues.Encode(); encoded != "" {
 			rawQueryFragments = append(rawQueryFragments, encoded)
 		}
@@ -100438,6 +101994,18 @@ func NewListWhatsAppMessagesRequest(server string, params *ListWhatsAppMessagesP
 		if params.Tag != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "tag", *params.Tag, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Reference != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "reference", *params.Reference, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -105977,6 +107545,25 @@ type ClientWithResponsesInterface interface {
 
 	// ListBillingWalletsWithResponse request
 	ListBillingWalletsWithResponse(ctx context.Context, params *ListBillingWalletsParams, reqEditors ...RequestEditorFn) (*ListBillingWalletsResponse, error)
+
+	// ListWorkspacesWithResponse request
+	ListWorkspacesWithResponse(ctx context.Context, params *ListWorkspacesParams, reqEditors ...RequestEditorFn) (*ListWorkspacesResponse, error)
+
+	// CreateWorkspaceWithBodyWithResponse request with any body
+	CreateWorkspaceWithBodyWithResponse(ctx context.Context, params *CreateWorkspaceParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateWorkspaceResponse, error)
+
+	CreateWorkspaceWithResponse(ctx context.Context, params *CreateWorkspaceParams, body CreateWorkspaceJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateWorkspaceResponse, error)
+
+	// DeleteOrganizationWorkspaceWithResponse request
+	DeleteOrganizationWorkspaceWithResponse(ctx context.Context, workspaceId WorkspaceID, params *DeleteOrganizationWorkspaceParams, reqEditors ...RequestEditorFn) (*DeleteOrganizationWorkspaceResponse, error)
+
+	// GetOrganizationWorkspaceWithResponse request
+	GetOrganizationWorkspaceWithResponse(ctx context.Context, workspaceId WorkspaceID, params *GetOrganizationWorkspaceParams, reqEditors ...RequestEditorFn) (*GetOrganizationWorkspaceResponse, error)
+
+	// UpdateOrganizationWorkspaceWithBodyWithResponse request with any body
+	UpdateOrganizationWorkspaceWithBodyWithResponse(ctx context.Context, workspaceId WorkspaceID, params *UpdateOrganizationWorkspaceParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateOrganizationWorkspaceResponse, error)
+
+	UpdateOrganizationWorkspaceWithResponse(ctx context.Context, workspaceId WorkspaceID, params *UpdateOrganizationWorkspaceParams, body UpdateOrganizationWorkspaceJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateOrganizationWorkspaceResponse, error)
 
 	// ListPreferencesWithResponse request
 	ListPreferencesWithResponse(ctx context.Context, params *ListPreferencesParams, reqEditors ...RequestEditorFn) (*ListPreferencesResponse, error)
@@ -116792,6 +118379,195 @@ func (r ListBillingWalletsResponse) ContentType() string {
 	return ""
 }
 
+type ListWorkspacesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *OrganizationWorkspaceList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListWorkspacesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListWorkspacesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListWorkspacesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateWorkspaceResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *Workspace
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateWorkspaceResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateWorkspaceResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateWorkspaceResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteOrganizationWorkspaceResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteOrganizationWorkspaceResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteOrganizationWorkspaceResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteOrganizationWorkspaceResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetOrganizationWorkspaceResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *Workspace
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetOrganizationWorkspaceResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetOrganizationWorkspaceResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetOrganizationWorkspaceResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateOrganizationWorkspaceResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *Workspace
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateOrganizationWorkspaceResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateOrganizationWorkspaceResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateOrganizationWorkspaceResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type ListPreferencesResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -126078,6 +127854,67 @@ func (c *ClientWithResponses) ListBillingWalletsWithResponse(ctx context.Context
 		return nil, err
 	}
 	return ParseListBillingWalletsResponse(rsp)
+}
+
+// ListWorkspacesWithResponse request returning *ListWorkspacesResponse
+func (c *ClientWithResponses) ListWorkspacesWithResponse(ctx context.Context, params *ListWorkspacesParams, reqEditors ...RequestEditorFn) (*ListWorkspacesResponse, error) {
+	rsp, err := c.ListWorkspaces(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListWorkspacesResponse(rsp)
+}
+
+// CreateWorkspaceWithBodyWithResponse request with arbitrary body returning *CreateWorkspaceResponse
+func (c *ClientWithResponses) CreateWorkspaceWithBodyWithResponse(ctx context.Context, params *CreateWorkspaceParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateWorkspaceResponse, error) {
+	rsp, err := c.CreateWorkspaceWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateWorkspaceResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateWorkspaceWithResponse(ctx context.Context, params *CreateWorkspaceParams, body CreateWorkspaceJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateWorkspaceResponse, error) {
+	rsp, err := c.CreateWorkspace(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateWorkspaceResponse(rsp)
+}
+
+// DeleteOrganizationWorkspaceWithResponse request returning *DeleteOrganizationWorkspaceResponse
+func (c *ClientWithResponses) DeleteOrganizationWorkspaceWithResponse(ctx context.Context, workspaceId WorkspaceID, params *DeleteOrganizationWorkspaceParams, reqEditors ...RequestEditorFn) (*DeleteOrganizationWorkspaceResponse, error) {
+	rsp, err := c.DeleteOrganizationWorkspace(ctx, workspaceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteOrganizationWorkspaceResponse(rsp)
+}
+
+// GetOrganizationWorkspaceWithResponse request returning *GetOrganizationWorkspaceResponse
+func (c *ClientWithResponses) GetOrganizationWorkspaceWithResponse(ctx context.Context, workspaceId WorkspaceID, params *GetOrganizationWorkspaceParams, reqEditors ...RequestEditorFn) (*GetOrganizationWorkspaceResponse, error) {
+	rsp, err := c.GetOrganizationWorkspace(ctx, workspaceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetOrganizationWorkspaceResponse(rsp)
+}
+
+// UpdateOrganizationWorkspaceWithBodyWithResponse request with arbitrary body returning *UpdateOrganizationWorkspaceResponse
+func (c *ClientWithResponses) UpdateOrganizationWorkspaceWithBodyWithResponse(ctx context.Context, workspaceId WorkspaceID, params *UpdateOrganizationWorkspaceParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateOrganizationWorkspaceResponse, error) {
+	rsp, err := c.UpdateOrganizationWorkspaceWithBody(ctx, workspaceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateOrganizationWorkspaceResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateOrganizationWorkspaceWithResponse(ctx context.Context, workspaceId WorkspaceID, params *UpdateOrganizationWorkspaceParams, body UpdateOrganizationWorkspaceJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateOrganizationWorkspaceResponse, error) {
+	rsp, err := c.UpdateOrganizationWorkspace(ctx, workspaceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateOrganizationWorkspaceResponse(rsp)
 }
 
 // ListPreferencesWithResponse request returning *ListPreferencesResponse
@@ -150161,6 +151998,409 @@ func ParseListBillingWalletsResponse(rsp *http.Response) (*ListBillingWalletsRes
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListWorkspacesResponse parses an HTTP response from a ListWorkspacesWithResponse call
+func ParseListWorkspacesResponse(rsp *http.Response) (*ListWorkspacesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListWorkspacesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest OrganizationWorkspaceList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateWorkspaceResponse parses an HTTP response from a CreateWorkspaceWithResponse call
+func ParseCreateWorkspaceResponse(rsp *http.Response) (*CreateWorkspaceResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateWorkspaceResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest Workspace
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteOrganizationWorkspaceResponse parses an HTTP response from a DeleteOrganizationWorkspaceWithResponse call
+func ParseDeleteOrganizationWorkspaceResponse(rsp *http.Response) (*DeleteOrganizationWorkspaceResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteOrganizationWorkspaceResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetOrganizationWorkspaceResponse parses an HTTP response from a GetOrganizationWorkspaceWithResponse call
+func ParseGetOrganizationWorkspaceResponse(rsp *http.Response) (*GetOrganizationWorkspaceResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetOrganizationWorkspaceResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Workspace
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateOrganizationWorkspaceResponse parses an HTTP response from a UpdateOrganizationWorkspaceWithResponse call
+func ParseUpdateOrganizationWorkspaceResponse(rsp *http.Response) (*UpdateOrganizationWorkspaceResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateOrganizationWorkspaceResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Workspace
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 

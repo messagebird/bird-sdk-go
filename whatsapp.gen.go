@@ -39,6 +39,8 @@ type WhatsappListParams struct {
 	GroupID string
 	// Filter by tag. Accepts `name` to match any record carrying that tag name, or `name:value` to match a specific tag pair (for example `category:welcome`). Repeat the parameter to add more tags. A record must match every tag listed to be returned.
 	Tag []string
+	// Keep only messages whose `reference` is exactly this value. The match is case-sensitive, and several messages can share a reference.
+	Reference string
 }
 
 func (p WhatsappListParams) toWire(startingAfter string) *oapi.ListWhatsAppMessagesParams {
@@ -56,6 +58,7 @@ func (p WhatsappListParams) toWire(startingAfter string) *oapi.ListWhatsAppMessa
 		Category:      optZero(p.Category),
 		GroupId:       optZero(p.GroupID),
 		Tag:           optSlice(p.Tag),
+		Reference:     optZero(p.Reference),
 		StartingAfter: optStr(startingAfter),
 	}
 }

@@ -339,6 +339,11 @@ output-options:
     - getEmailThreadMessageBody
     - replyEmailThreadMessage
     - listEmailThreadMessageAttachments
+    - listWorkspaces
+    - createWorkspace
+    - getOrganizationWorkspace
+    - updateOrganizationWorkspace
+    - deleteOrganizationWorkspace
     - publishRealtimeAppEvent
     - publishRealtimeAppBatch
     - listRealtimeAppChannels

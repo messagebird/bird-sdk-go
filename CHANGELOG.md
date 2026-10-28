@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.111.0
+
+- Apple Messages for Business sends accept `reference`, your own identifier for the message such as an order number. Message reads and webhooks return it, and listing messages filters on it with an exact `reference` match.
+- Export the `BillingWallet` model, the type of each wallet in a `BillingWalletList`, so a wallet returned by the billing wallets list can be typed without importing the generated wire layer.
+- SMS, email and WhatsApp sends accept `reference`, your own identifier for the message such as an order number, and the SMS, email and WhatsApp message lists filter on it by exact match. Messages and their webhook events return it when the send set one.
+- Add organization workspace create, list, get, update, and delete methods, for organizations with several workspaces. They need organization workspace access, which an organization master key or an authorized CLI or MCP access token carries; a workspace API key is refused.
+- SMS API: sends accept `to_country_code`, `cost_center`, `validity_period`, `binary`, `options.callback_url` and `options.ignore_suppression`, and `messaging_profile_id` names a messaging profile whose sender and defaults the send takes, for every organization. Message reads report the applied `cost_center`, `validity_period` and `options.callback_url`. The typed SDK send helpers do not set the new fields yet.
+- SMS API: `options.ignore_suppression` now lets authentication and transactional sends reach suppressed recipients, including after STOP, once Bird enables it for the workspace; communication preferences the recipient revoked still apply. Marketing and service sends, and sends from workspaces without it, return `422`. Message reads report the effective flag; the typed SDK send helpers do not set it yet.
+- The `sms.received` event no longer includes `tags`, `metadata`, `requested_language`, `resolved_language`, `template_id`, `template_version_id`, `template_content_hash` or `cost_center`, which were always null or absent on a received message.
+- The `sms.sent`, `sms.delivered`, `sms.undelivered`, `sms.failed`, `sms.rejected` and `sms.expired` events now include `segments`, and the four failure events also include `carrier` and `mcc_mnc` when the carrier reports them.
+- The shared template variable `type` open enum gains `location`, and its key and system-slot descriptions now cover WhatsApp templates.
+- Voice legs gain an optional `media` object whose `encryption` says whether the audio between Bird and your side of the leg was encrypted: none, sdes for SRTP on a SIP trunk, or dtls for a call placed from a browser. It is absent where Bird did not record it, including on legs recorded before this release.
+- SIP trunks gain a `media` object whose `encryption` sets whether audio between your equipment and Bird is encrypted with SDES-SRTP over TLS: `off` turns off Bird's encryption and relays an SRTP offer unchanged (calls from a web browser are encrypted with DTLS-SRTP whatever the setting), `preferred` encrypts calls whose equipment and gateway support it, and `required` refuses unencrypted calls. Set it when you create or update a trunk. New trunks start `preferred`, and trunks created before this release keep `off` until you change it.
+- **Breaking:** the webhooks `attempts` method now pages with cursors like the other lists, so it returns an iterable of attempts that follows `next_cursor` instead of one response with a `data` array; iterate the result rather than reading `data`, and paging no longer skips attempts that share a millisecond.
+- Getting or listing WhatsApp Business Accounts now returns `next` on each account: a banned account carries a step linking the account restrictions and appeals guide, which names `ban.appeal_url`, and a re-read; an account with no `ban` carries an empty list.
+- The `whatsapp.received` event no longer includes `tags` or `metadata`, which were always null on a received message.
+- **Breaking:** positional `WorkspaceQuota` struct literals must account for the added allocation fields. Use keyed fields when constructing a workspace quota value.
+- A webhook attempt's `failure_reason` now also names TLS failures, for example a receiver certificate that could not be verified.
+- Listing WhatsApp numbers by phone number now matches a number given without its leading `+`, or with `00` in its place.
+
 ## 0.110.0
 
 - Add `default_ip_pool_id` to sending domains to configure a default sending pool per workspace; set it to null to clear the default.

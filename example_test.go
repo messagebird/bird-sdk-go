@@ -2867,11 +2867,10 @@ func ExampleWebhooksService_Attempts() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	attempts, err := client.Webhooks.Attempts(context.Background(), "whk_123", bird.WebhooksAttemptsParams{})
-	if err != nil {
-		log.Fatal(err)
-	}
-	for _, attempt := range attempts.Data {
+	for attempt, err := range client.Webhooks.Attempts(context.Background(), "whk_123", bird.WebhooksAttemptsParams{}) {
+		if err != nil {
+			log.Fatal(err)
+		}
 		fmt.Println(attempt.Status)
 	}
 }
@@ -6242,4 +6241,64 @@ func ExampleComplianceDocumentTemplatesService_Get() {
 		log.Fatal(err)
 	}
 	fmt.Println(form.ContentType)
+}
+
+func ExampleOrganizationWorkspacesService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_MASTER_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	workspace, err := client.Organization.Workspaces.Create(context.Background(), bird.OrganizationWorkspacesCreateParams{Name: "Staging"})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(workspace.Id)
+}
+
+func ExampleOrganizationWorkspacesService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_MASTER_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for workspace, err := range client.Organization.Workspaces.List(context.Background(), bird.OrganizationWorkspacesListParams{Name: "Staging"}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(workspace.Id, workspace.Name)
+	}
+}
+
+func ExampleOrganizationWorkspacesService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_MASTER_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	workspace, err := client.Organization.Workspaces.Get(context.Background(), "ws_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(workspace.Name)
+}
+
+func ExampleOrganizationWorkspacesService_Update() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_MASTER_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	workspace, err := client.Organization.Workspaces.Update(context.Background(), "ws_01krdgeqcxet5s7t44vh8rt9mg", bird.OrganizationWorkspacesUpdateParams{Name: bird.String("Production")})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(workspace.Name)
+}
+
+func ExampleOrganizationWorkspacesService_Delete() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_MASTER_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = client.Organization.Workspaces.Delete(context.Background(), "ws_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
 }

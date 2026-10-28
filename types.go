@@ -1006,7 +1006,9 @@ type (
 
 	// Workspace is the workspace a credential is scoped to: its id, name, and
 	// organization.
-	Workspace = oapi.Workspace
+	Workspace                 = oapi.Workspace
+	OrganizationWorkspaceList = oapi.OrganizationWorkspaceList
+	WorkspaceSortField        = oapi.WorkspaceSortField
 	// WorkspaceQuotaList is every resource and value quota as it applies to the
 	// workspace. Null usage counts are unknown, not zero.
 	WorkspaceQuotaList = oapi.WorkspaceQuotaList
@@ -1027,6 +1029,7 @@ type (
 	ConnectionConfig                  = oapi.ConnectionConfig
 	ConnectionCredentials             = oapi.ConnectionCredentials
 
+	WebhookAttempt              = oapi.WebhookAttempt
 	WebhookAttemptList          = oapi.WebhookAttemptList
 	WebhookEndpoint             = oapi.WebhookEndpoint
 	WebhookEndpointCreate       = oapi.WebhookEndpointCreate
@@ -1157,6 +1160,7 @@ type (
 	SMSSenderRequirementList = oapi.SMSSenderRequirementList
 	SMSCountryRegistration   = oapi.SMSCountryRegistration
 	BillingResolvedPrice     = oapi.BillingResolvedPrice
+	BillingWallet            = oapi.BillingWallet
 	BillingWalletList        = oapi.BillingWalletList
 )
 

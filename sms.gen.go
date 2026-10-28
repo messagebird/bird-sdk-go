@@ -37,6 +37,8 @@ type SmsListParams struct {
 	Country string
 	// Filter by tag. Accepts `name` to match any record carrying that tag name, or `name:value` to match a specific tag pair (for example `category:welcome`). Repeat the parameter to add more tags. A record must match every tag listed to be returned.
 	Tag []string
+	// Keep only messages whose `reference` is exactly this value. The match is case-sensitive, and several messages can share a reference.
+	Reference string
 }
 
 func (p SmsListParams) toWire(startingAfter string) *oapi.ListSMSMessagesParams {
@@ -53,6 +55,7 @@ func (p SmsListParams) toWire(startingAfter string) *oapi.ListSMSMessagesParams 
 		From:          optStr(p.From),
 		Country:       optZero(p.Country),
 		Tag:           optSlice(p.Tag),
+		Reference:     optZero(p.Reference),
 		StartingAfter: optStr(startingAfter),
 	}
 }

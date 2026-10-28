@@ -27,6 +27,8 @@ type EmailListParams struct {
 	Status EmailMessageStatus
 	// Filter by tag. Accepts `name` to match any record carrying that tag name, or `name:value` to match a specific tag pair (for example `category:welcome`). Repeat the parameter to add more tags. A record must match every tag listed to be returned.
 	Tag []string
+	// Keep only messages whose `reference` is exactly this value. The match is case-sensitive, and several messages can share a reference.
+	Reference string
 	// Filter by category.
 	Category EmailMessageCategory
 	// Filter by recipient address. Exact match against any `to`/`cc`/`bcc` recipient on the message. The address is normalized to lowercase before comparison.
@@ -44,6 +46,7 @@ func (p EmailListParams) toWire(startingAfter string) *oapi.ListEmailMessagesPar
 		BroadcastId:   optZero(p.BroadcastID),
 		Status:        optZero(p.Status),
 		Tag:           optSlice(p.Tag),
+		Reference:     optZero(p.Reference),
 		Category:      optZero(p.Category),
 		To:            optEmail(p.To),
 		From:          optEmail(p.From),

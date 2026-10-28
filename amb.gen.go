@@ -39,6 +39,8 @@ type AmbListParams struct {
 	Category string
 	// Filter by tag. Accepts `name` to match any record carrying that tag name, or `name:value` to match a specific tag pair (for example `category:welcome`). Repeat the parameter to add more tags. A record must match every tag listed to be returned.
 	Tag []string
+	// Keep only messages whose `reference` is exactly this value. The match is case-sensitive, and several messages can share a reference.
+	Reference string
 	// Limits the response to resources created at or after this timestamp. Combine it with `created_before` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
 	CreatedAfter time.Time
 	// Limits the response to resources created before this timestamp. Combine it with `created_after` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
@@ -58,6 +60,7 @@ func (p AmbListParams) toWire(startingAfter string) *oapi.ListAMBMessagesParams 
 		Kind:              optZero(p.Kind),
 		Category:          optStr(p.Category),
 		Tag:               optSlice(p.Tag),
+		Reference:         optZero(p.Reference),
 		CreatedAfter:      optTime(p.CreatedAfter),
 		CreatedBefore:     optTime(p.CreatedBefore),
 		Limit:             optInt(p.Limit),

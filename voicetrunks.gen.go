@@ -14,6 +14,18 @@ type VoiceSIPDigestAlgorithm = oapi.VoiceSIPDigestAlgorithm
 
 type VoiceTrunkIPACLCreate = oapi.VoiceTrunkIPACLCreate
 
+type VoiceTrunkMediaCreate = oapi.VoiceTrunkMediaCreate
+
+type VoiceTrunkMediaUpdate = oapi.VoiceTrunkMediaUpdate
+
+type VoiceTrunkMediaEncryption = oapi.VoiceTrunkMediaEncryption
+
+const (
+	VoiceTrunkMediaEncryptionOff       VoiceTrunkMediaEncryption = "off"
+	VoiceTrunkMediaEncryptionPreferred VoiceTrunkMediaEncryption = "preferred"
+	VoiceTrunkMediaEncryptionRequired  VoiceTrunkMediaEncryption = "required"
+)
+
 // VoiceTrunksListParams filters the list. Zero-value fields are omitted.
 type VoiceTrunksListParams struct {
 	// Field to sort by.
@@ -46,6 +58,8 @@ type VoiceTrunksCreateParams struct {
 	InboundEnabled *bool
 	// Whether we take ourselves out of the audio path for calls we forward to this trunk. Omit it to create the trunk with this off, which is what suits equipment behind NAT and any account that wants call recording. It is an inbound setting, so `true` is accepted only alongside `inbound_enabled: true`; `false` is always accepted. It can be changed later.
 	MediaBypass *bool
+	// How the new trunk carries call audio. An omitted member takes its default.
+	Media *VoiceTrunkMediaCreate
 	// The Digest hash algorithms to offer, in the order they should be offered. Omit this to use the default of `["SHA-256", "MD5"]`, which suits most equipment. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. This can be changed later without re-issuing credentials.
 	DigestAlgorithms []VoiceSIPDigestAlgorithm
 	// Whether a session credential may be used to connect to this trunk from a web browser, the CLI or MCP. Omit it to create the trunk with this off, which is what a trunk reached only by a PBX wants. It can be changed later.
@@ -58,6 +72,9 @@ func (p VoiceTrunksCreateParams) toWire() oapi.VoiceTrunkCreate {
 	body.OutboundEnabled = p.OutboundEnabled
 	body.InboundEnabled = p.InboundEnabled
 	body.MediaBypass = p.MediaBypass
+	if p.Media != nil {
+		body.Media = p.Media
+	}
 	digestAlgorithms := make([]oapi.VoiceSIPDigestAlgorithm, len(p.DigestAlgorithms))
 	for i, v := range p.DigestAlgorithms {
 		digestAlgorithms[i] = oapi.VoiceSIPDigestAlgorithm(v)
@@ -79,6 +96,8 @@ type VoiceTrunksUpdateParams struct {
 	InboundEnabled *bool
 	// Whether we take ourselves out of the audio path for calls we forward to this trunk. Turning it on takes effect at the next call setup and leaves calls already up untouched. It is an inbound setting, so the trunk must have `inbound_enabled` on; one update can do both. While it is on we cannot record those calls, report their audio quality, or end one because its audio stopped, and your equipment must be reachable for audio from the public internet. Turning it off puts us back in the path at the next call setup. Omit the field to leave it unchanged.
 	MediaBypass *bool
+	// A change to how the trunk carries call audio. An omitted member is left unchanged.
+	Media *VoiceTrunkMediaUpdate
 	// Replaces the trunk's entire IP allow list. When present, the allow list is set to exactly these CIDR blocks: ranges not listed are removed and new ones are added. Send an empty array to clear the list, turning IP filtering off. Omit the field to leave the allow list unchanged.
 	IPACLs []VoiceTrunkIPACLCreate
 	// Replaces the trunk's entire set of allowed API keys. When present, exactly these keys may authenticate the trunk over SIP Digest. Each key you ADD must belong to this workspace and hold `voice` at write level; a key that does not is refused and the whole update is rolled back. A key already on the list that has since lost the permission or expired does not block the update, so you can keep editing the trunk while you put its permission back. A non-empty list turns API-key authentication on; send an empty array to turn it off. Omit the field to leave the allowed keys unchanged.
@@ -95,6 +114,9 @@ func (p VoiceTrunksUpdateParams) toWire() oapi.VoiceTrunkUpdate {
 	body.OutboundEnabled = p.OutboundEnabled
 	body.InboundEnabled = p.InboundEnabled
 	body.MediaBypass = p.MediaBypass
+	if p.Media != nil {
+		body.Media = p.Media
+	}
 	if p.IPACLs != nil {
 		v := p.IPACLs
 		body.IpAcls = &v

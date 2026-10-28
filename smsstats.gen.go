@@ -18,13 +18,13 @@ type SmsStatsSummaryParams struct {
 	To string
 	// IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone string
-	// Restrict the statistics to a single originator (the sender address messages were sent from). Mutually exclusive with the other dimension filters (`country`, `category`, `carrier`); only one may be set per request. Matches the message `from`.
+	// Restrict the statistics to a single originator (the sender address messages were sent from). Mutually exclusive with the other dimension filters; only one may be set per request. Matches the message `from`.
 	Originator string
-	// Restrict the statistics to a single destination country, as an ISO 3166-1 alpha-2 code. Mutually exclusive with the other dimension filters (`originator`, `category`, `carrier`); only one may be set per request.
+	// Restrict the statistics to a single destination country, as an ISO 3166-1 alpha-2 code. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Country string
-	// Restrict the statistics to a single category. Mutually exclusive with the other dimension filters (`originator`, `country`, `carrier`); only one may be set per request.
+	// Restrict the statistics to a single category. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Category string
-	// Restrict the statistics to a single delivery carrier. Mutually exclusive with the other dimension filters (`originator`, `country`, `category`); only one may be set per request.
+	// Restrict the statistics to a single delivery carrier. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Carrier string
 	// Set to `previous_period` to also include the same statistics for the immediately preceding window of equal length, plus the change between the two, so you can show "+X% vs last period" without a second request.
 	Compare StatsComparePeriod
@@ -51,13 +51,13 @@ type SmsStatsDailyParams struct {
 	To time.Time
 	// IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone string
-	// Restrict the statistics to a single originator (the sender address messages were sent from). Mutually exclusive with the other dimension filters (`country`, `category`, `carrier`); only one may be set per request. Matches the message `from`.
+	// Restrict the statistics to a single originator (the sender address messages were sent from). Mutually exclusive with the other dimension filters; only one may be set per request. Matches the message `from`.
 	Originator string
-	// Restrict the statistics to a single destination country, as an ISO 3166-1 alpha-2 code. Mutually exclusive with the other dimension filters (`originator`, `category`, `carrier`); only one may be set per request.
+	// Restrict the statistics to a single destination country, as an ISO 3166-1 alpha-2 code. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Country string
-	// Restrict the statistics to a single category. Mutually exclusive with the other dimension filters (`originator`, `country`, `carrier`); only one may be set per request.
+	// Restrict the statistics to a single category. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Category string
-	// Restrict the statistics to a single delivery carrier. Mutually exclusive with the other dimension filters (`originator`, `country`, `category`); only one may be set per request.
+	// Restrict the statistics to a single delivery carrier. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Carrier string
 }
 
@@ -81,13 +81,13 @@ type SmsStatsHourlyParams struct {
 	To time.Time
 	// IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone string
-	// Restrict the statistics to a single originator (the sender address messages were sent from). Mutually exclusive with the other dimension filters (`country`, `category`, `carrier`); only one may be set per request. Matches the message `from`.
+	// Restrict the statistics to a single originator (the sender address messages were sent from). Mutually exclusive with the other dimension filters; only one may be set per request. Matches the message `from`.
 	Originator string
-	// Restrict the statistics to a single destination country, as an ISO 3166-1 alpha-2 code. Mutually exclusive with the other dimension filters (`originator`, `category`, `carrier`); only one may be set per request.
+	// Restrict the statistics to a single destination country, as an ISO 3166-1 alpha-2 code. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Country string
-	// Restrict the statistics to a single category. Mutually exclusive with the other dimension filters (`originator`, `country`, `carrier`); only one may be set per request.
+	// Restrict the statistics to a single category. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Category string
-	// Restrict the statistics to a single delivery carrier. Mutually exclusive with the other dimension filters (`originator`, `country`, `category`); only one may be set per request.
+	// Restrict the statistics to a single delivery carrier. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Carrier string
 }
 

@@ -340,6 +340,11 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Email.Threads.Messages.Body
 	_ = c.Email.Threads.Messages.Reply
 	_ = c.Email.Threads.Messages.Attachments
+	_ = c.Organization.Workspaces.List
+	_ = c.Organization.Workspaces.Create
+	_ = c.Organization.Workspaces.Get
+	_ = c.Organization.Workspaces.Update
+	_ = c.Organization.Workspaces.Delete
 	_ = c.Realtime.Publish
 	_ = c.Realtime.PublishBatch
 	_ = c.Realtime.Channels.List

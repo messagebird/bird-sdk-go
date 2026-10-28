@@ -736,6 +736,21 @@ const (
 	SMSKeywordOperationStop    = oapi.SMSKeywordOperationStop
 )
 
+// SMSMessagingProfileCallbackEvent is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the SMSMessagingProfileCallbackEvent* constants with a
+// default branch rather than treating the set as closed.
+type SMSMessagingProfileCallbackEvent = oapi.SMSMessagingProfileCallbackEvent
+
+const (
+	SMSMessagingProfileCallbackEventSmsAccepted    = oapi.SMSMessagingProfileCallbackEventSmsAccepted
+	SMSMessagingProfileCallbackEventSmsDelivered   = oapi.SMSMessagingProfileCallbackEventSmsDelivered
+	SMSMessagingProfileCallbackEventSmsExpired     = oapi.SMSMessagingProfileCallbackEventSmsExpired
+	SMSMessagingProfileCallbackEventSmsFailed      = oapi.SMSMessagingProfileCallbackEventSmsFailed
+	SMSMessagingProfileCallbackEventSmsRejected    = oapi.SMSMessagingProfileCallbackEventSmsRejected
+	SMSMessagingProfileCallbackEventSmsSent        = oapi.SMSMessagingProfileCallbackEventSmsSent
+	SMSMessagingProfileCallbackEventSmsUndelivered = oapi.SMSMessagingProfileCallbackEventSmsUndelivered
+)
+
 // SMSRegistrationProgram is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the SMSRegistrationProgram* constants with a
 // default branch rather than treating the set as closed.
@@ -886,6 +901,17 @@ const (
 	VerificationTerminalReasonAttemptsExhausted = oapi.VerificationTerminalReasonAttemptsExhausted
 	VerificationTerminalReasonTtlElapsed        = oapi.VerificationTerminalReasonTtlElapsed
 	VerificationTerminalReasonUndeliverable     = oapi.VerificationTerminalReasonUndeliverable
+)
+
+// VoiceLegMediaEncryption is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the VoiceLegMediaEncryption* constants with a
+// default branch rather than treating the set as closed.
+type VoiceLegMediaEncryption = oapi.VoiceLegMediaEncryption
+
+const (
+	VoiceLegMediaEncryptionDtls = oapi.VoiceLegMediaEncryptionDtls
+	VoiceLegMediaEncryptionNone = oapi.VoiceLegMediaEncryptionNone
+	VoiceLegMediaEncryptionSdes = oapi.VoiceLegMediaEncryptionSdes
 )
 
 // VoicePartyEndpointType is an open string on the wire: a value added by a newer server
@@ -1326,4 +1352,15 @@ const (
 	WhatsAppUsernameStatusApproved = oapi.WhatsAppUsernameStatusApproved
 	WhatsAppUsernameStatusDeleted  = oapi.WhatsAppUsernameStatusDeleted
 	WhatsAppUsernameStatusReserved = oapi.WhatsAppUsernameStatusReserved
+)
+
+// WorkspaceQuotaLimitSource is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WorkspaceQuotaLimitSource* constants with a
+// default branch rather than treating the set as closed.
+type WorkspaceQuotaLimitSource = oapi.WorkspaceQuotaLimitSource
+
+const (
+	WorkspaceQuotaLimitSourceAutomatic    = oapi.WorkspaceQuotaLimitSourceAutomatic
+	WorkspaceQuotaLimitSourceManual       = oapi.WorkspaceQuotaLimitSourceManual
+	WorkspaceQuotaLimitSourceOrganization = oapi.WorkspaceQuotaLimitSourceOrganization
 )

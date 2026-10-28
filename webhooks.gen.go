@@ -66,7 +66,7 @@ func (p WebhooksTestParams) toWire() oapi.WebhookTestRequest {
 	return body
 }
 
-// WebhooksAttemptsParams filters the attempts read.
+// WebhooksAttemptsParams filters the list. Zero-value fields are omitted.
 type WebhooksAttemptsParams struct {
 	// Maximum number of attempts to return. Defaults to 50, capped at 100.
 	Limit int
@@ -74,13 +74,17 @@ type WebhooksAttemptsParams struct {
 	Before time.Time
 	// Only return attempts strictly after this timestamp.
 	After time.Time
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 }
 
-func (p WebhooksAttemptsParams) toWire() *oapi.ListWebhookAttemptsParams {
+func (p WebhooksAttemptsParams) toWire(startingAfter string) *oapi.ListWebhookAttemptsParams {
 	return &oapi.ListWebhookAttemptsParams{
-		Limit:  optInt(p.Limit),
-		Before: optTime(p.Before),
-		After:  optTime(p.After),
+		Limit:         optInt(p.Limit),
+		Before:        optTime(p.Before),
+		After:         optTime(p.After),
+		EndingBefore:  optStr(p.EndingBefore),
+		StartingAfter: optStr(startingAfter),
 	}
 }
 
@@ -215,10 +219,11 @@ func (s *WebhooksService) Delete(ctx context.Context, webhookId string, opts ...
 	return err
 }
 
-// Attempts List an endpoint's recent delivery attempts, newest first. Each entry is one HTTP request, so a retried event appears once per try. Pagination uses the `before`/`after` timestamps; page further back by passing the oldest `attempted_at` you received as `before`.
-func (s *WebhooksService) Attempts(ctx context.Context, webhookId string, params WebhooksAttemptsParams, opts ...option.RequestOption) (*WebhookAttemptList, error) {
+// AttemptsPage fetches one page of results. Pass the previous page's NextCursor as
+// startingAfter to advance; "" starts from the first page.
+func (s *WebhooksService) AttemptsPage(ctx context.Context, webhookId string, params WebhooksAttemptsParams, startingAfter string, opts ...option.RequestOption) (*WebhookAttemptList, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.ListWebhookAttempts(ctx, oapi.WebhookEndpointID(webhookId), params.toWire(), cfg...)
+		return s.client.oapi.ListWebhookAttempts(ctx, oapi.WebhookEndpointID(webhookId), params.toWire(startingAfter), cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -228,6 +233,23 @@ func (s *WebhooksService) Attempts(ctx context.Context, webhookId string, params
 		return nil, err
 	}
 	return &out, nil
+}
+
+// Attempts List an endpoint's recent delivery attempts, newest first. Each entry is one HTTP request, so a retried event appears once per try. Pass `next_cursor` as `starting_after` to page to older attempts. `before` and `after` bound the time window and combine with a cursor. Pass only one of `starting_after` and `ending_before`; both returns 422.
+// Range over it; the second value is non-nil only on the iteration where a
+// fetch failed.
+func (s *WebhooksService) Attempts(ctx context.Context, webhookId string, params WebhooksAttemptsParams, opts ...option.RequestOption) iter.Seq2[*WebhookAttempt, error] {
+	return paginate(func(cursor string) ([]WebhookAttempt, *string, error) {
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.AttemptsPage(ctx, webhookId, pageParams, cursor, opts...)
+		if err != nil {
+			return nil, nil, err
+		}
+		return page.Data, page.NextCursor, nil
+	})
 }
 
 // Replay Queue redelivery of this endpoint's failed attempts in a window (default: the last 24 hours). An event is skipped only if one of its attempts inside the window was delivered, so re-running a replay whose `until` has passed redelivers everything the first one sent; the receiver must deduplicate on `webhook-id`. Only failed attempts are replayed, the window reaches back at most three days, and a paused endpoint redelivers nothing until it is re-enabled. One replay covers at most the oldest 10,000 events in the window. Nothing is returned beyond acceptance; each redelivery is one attempt, so check the outcome with the delivery attempts list. Limited to 20 per organization per UTC day.
