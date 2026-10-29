@@ -12495,6 +12495,9 @@ type AMBMessageSendRequest struct {
 	// RichLink A link with a preview card.
 	RichLink *AMBRichLink `json:"rich_link,omitempty"`
 
+	// SkipTyping Send the first part without the typing indicator and one-second pause Bird otherwise shows before it. Set it only after you sent `typing_start` with the conversation typing operation, so the customer already sees typing. A first part that Apple accepts clears that indicator when it arrives. If Bird accepts the message but it fails before then, such as a failed send or a rejection during processing, Bird sends `typing_end` instead. If the request itself returns an error, nothing is sent, so send `typing_end` yourself. When Bird splits the message into several parts, such as text around a link, the parts after the first keep their typing indicator.
+	SkipTyping *bool `json:"skip_typing,omitempty"`
+
 	// Source Who sent an outbound message:
 	//
 	// - `operator`: A person, through a signed-in dashboard session.
@@ -29061,7 +29064,7 @@ type SMSSegmentsEncoding string
 // SMSSendOptions Settings that change how Bird processes this message. Each option applies to this send only; omit one to use the value of the messaging profile in `messaging_profile_id`, or its default when the profile sets none.
 type SMSSendOptions struct {
 	// CallbackUrl An HTTPS URL that receives this message's events instead of your webhook endpoints. It must be a public address: a private, loopback or link-local host returns `422`. Bird fixes the URL when it accepts the message, so later profile changes do not reroute it. Each event is a signed POST, retried on failure, and signed with your workspace callback signing secret, which `rotateWebhookCallbackSigningSecret` creates and returns once. While a URL applies, this message's events skip your plain webhook endpoints, and a failed callback never falls back to them. MCP Events subscriptions and connector endpoints still receive them. The `callback_events` of the messaging profile in `messaging_profile_id` choose which events go to the URL. Omit the field to use the callback URL of that profile; send `null` to send this message's events to your webhook subscriptions.
-	CallbackUrl *string `json:"callback_url,omitempty"`
+	CallbackUrl nullable.Nullable[string] `json:"callback_url,omitempty"`
 
 	// IgnoreSuppression Send this message even if the recipient is suppressed for the sender, including after replying STOP. Bird skips every suppression reason and records the flag on the message; communication preferences the recipient revoked still apply. Only `authentication` and `transactional` messages can use it; setting it to `true` on a `marketing` or `service` message returns `422`. Bird must enable it for your workspace first; until then, a message that uses it is refused with `422`. Omit it to use the setting of the messaging profile in `messaging_profile_id`.
 	IgnoreSuppression *bool `json:"ignore_suppression,omitempty"`
@@ -30186,7 +30189,7 @@ type TemplateVariable struct {
 	// Constraint A plain-language description of what values this variable accepts. When `system` is true it names where Bird takes the value from instead, because there is no value for you to send.
 	Constraint *string `json:"constraint,omitempty"`
 
-	// Key The key this slot is filled by. When `system` is true it is the reserved `bird` key or a dotted path beneath it, such as `bird.contact.first_name`, and naming it in a send is rejected. Otherwise, on email and SMS it is the key you set in the send's `parameters` object, and on WhatsApp the `name` on the matching parameter inside `components`, or, in the template parameters preview, the key in the send's `template.parameters`. A WhatsApp template whose placeholders are positional uses the position itself as `1`, `2` and so on, and values with no placeholder use fixed keys: `header_url`, `header_filename`, `header_location` and `code`.
+	// Key The key this slot is filled by. When `system` is true it is the reserved `bird` key or a dotted path beneath it, such as `bird.contact.first_name`, and naming it in a send is rejected. Otherwise, on email and SMS it is the key you set in the send's `parameters` object, and on WhatsApp the `name` on the matching parameter inside `components`, or, in the template parameters preview, the key in the send's `template.parameters`. A WhatsApp template whose placeholders are positional uses the position itself as `1`, `2` and so on, and values with no placeholder use fixed keys: `header_url`, `header_filename`, `header_location` and `code`, plus `button_url` (or `button_url_1`, `button_url_2` for a carousel card) for a url button whose suffix is numbered.
 	Key *string `json:"key,omitempty"`
 
 	// Required Whether the send must supply this variable. Omitting a required value returns `422` on every channel. On Apple Messages, a later time slot's start that is used nowhere else is optional: a send that omits it drops that slot. Always false when `system` is true, because you do not supply that slot's value.
@@ -31360,7 +31363,7 @@ type VoiceTrunkGateway struct {
 	// every call, whoever called.
 	OriginationFormat string `json:"origination_format"`
 
-	// Priority The order gateways are tried in, lowest first. Gateways sharing a priority take an equal share of calls, and any of them may be tried first on a given call.
+	// Priority The gateway's place in the trunk's **All gateways (automatic)** hunt group, which tries the lowest priority first. Gateways sharing a priority take an equal share of calls, and any of them may be tried first on a given call. Hunt groups you build in the trunk's inbound routing in the dashboard set their own order.
 	Priority int `json:"priority"`
 
 	// SipUri SIP URI an inbound call to this trunk is forwarded to. The host only: which number is dialed at that host comes from `destination_format`, because it changes with every call.
@@ -31397,7 +31400,7 @@ type VoiceTrunkGatewayCreate struct {
 	// call then carries nothing about who really called.
 	OriginationFormat *string `json:"origination_format,omitempty"`
 
-	// Priority The order gateways are tried in, lowest first. Give two gateways the same priority to share calls between them evenly.
+	// Priority The gateway's place in the trunk's **All gateways (automatic)** hunt group, which tries the lowest priority first. Give two gateways the same priority to share calls between them evenly. Hunt groups you build in the trunk's inbound routing in the dashboard set their own order.
 	Priority int `json:"priority"`
 
 	// SipUri SIP URI an inbound call to this trunk should be forwarded to. Give the host only, with an optional port: which number is dialed there comes from `destination_format`, so a URI carrying a user part is rejected.
@@ -31441,7 +31444,7 @@ type VoiceTrunkGatewayUpdate struct {
 	// call then carries nothing about who really called.
 	OriginationFormat *string `json:"origination_format,omitempty"`
 
-	// Priority The order gateways are tried in, lowest first. Give two gateways the same priority to share calls between them evenly.
+	// Priority The gateway's place in the trunk's **All gateways (automatic)** hunt group, which tries the lowest priority first. Give two gateways the same priority to share calls between them evenly. Hunt groups you build in the trunk's inbound routing in the dashboard set their own order.
 	Priority *int `json:"priority,omitempty"`
 
 	// SipUri SIP URI an inbound call to this trunk should be forwarded to. Give the host only, with an optional port: which number is dialed there comes from `destination_format`, so a URI carrying a user part is rejected.
@@ -36142,6 +36145,12 @@ type UnderscoreListEnvelopeWithTotal struct {
 	Total *int64 `json:"total,omitempty"`
 }
 
+// BroadcastAudienceFilter defines model for BroadcastAudienceFilter.
+type BroadcastAudienceFilter = AudienceID
+
+// BroadcastTagFilter defines model for BroadcastTagFilter.
+type BroadcastTagFilter = string
+
 // BroadcastTestIdempotencyKey defines model for BroadcastTestIdempotencyKey.
 type BroadcastTestIdempotencyKey = string
 
@@ -36160,17 +36169,11 @@ type CreatedAfter = time.Time
 // CreatedBefore defines model for CreatedBefore.
 type CreatedBefore = time.Time
 
-// EmailBroadcastAudienceFilter defines model for EmailBroadcastAudienceFilter.
-type EmailBroadcastAudienceFilter = AudienceID
-
 // EmailBroadcastSearchFilter defines model for EmailBroadcastSearchFilter.
 type EmailBroadcastSearchFilter = string
 
 // EmailBroadcastStatusFilter defines model for EmailBroadcastStatusFilter.
 type EmailBroadcastStatusFilter = []EmailBroadcastStatus
-
-// EmailBroadcastTagFilter defines model for EmailBroadcastTagFilter.
-type EmailBroadcastTagFilter = string
 
 // EmailCompetitiveRange defines model for EmailCompetitiveRange.
 type EmailCompetitiveRange int
@@ -38778,10 +38781,10 @@ type ListEmailBroadcastsParams struct {
 	Status *EmailBroadcastStatusFilter `form:"status,omitempty" json:"status,omitempty"`
 
 	// AudienceId Filter by audience. Only broadcasts that use this audience are returned.
-	AudienceId *EmailBroadcastAudienceFilter `form:"audience_id,omitempty" json:"audience_id,omitempty"`
+	AudienceId *BroadcastAudienceFilter `form:"audience_id,omitempty" json:"audience_id,omitempty"`
 
 	// Tag Filter by tag. Pass `name` to match any broadcast that has that tag name, or pass `name:value` to match a specific tag pair, for example `campaign:spring_launch`.
-	Tag *EmailBroadcastTagFilter `form:"tag,omitempty" json:"tag,omitempty"`
+	Tag *BroadcastTagFilter `form:"tag,omitempty" json:"tag,omitempty"`
 
 	// Q Case-insensitive literal substring match against the broadcast's tags or the referenced template's name. With `email_management` read access, also matches the subject in the effective language of the template version resolved when this broadcast's execution starts. Draft and scheduled broadcasts have no execution subject to search. Percent signs, underscores, and backslashes are literal characters.
 	Q *EmailBroadcastSearchFilter `form:"q,omitempty" json:"q,omitempty"`
@@ -39076,8 +39079,8 @@ type SendEmailBroadcastTestParams struct {
 	// caller and this operation. Reuse the same key and the exact same request when retrying.
 	//
 	// - A confirmed `202` response replays unchanged for the same key and request within the
-	//   configured window, 3 hours by default. Authorization and the destination's member access are
-	//   checked again on every retry.
+	//   configured window, 3 hours by default. Authorization is checked again on every retry; on an
+	//   email test, so is the destination's member access.
 	// - `409 request_in_progress` (E01004) or `503 IdempotencyUnavailable` (E01033): retry with
 	//   backoff using the same key. Switching keys can send another test.
 	// - `409 idempotency_key_reuse` (E01005): the key was used for a different request or
@@ -39916,6 +39919,37 @@ type UpdateMailboxParams struct {
 	// Confirm Set to `true` when lowering `retention_tier` would make remembered messages older than the new cutoff eligible for deletion. The request is rejected without it in that case.
 	Confirm *bool `form:"confirm,omitempty" json:"confirm,omitempty"`
 
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// CreateMailboxForwardingAddressParams defines parameters for CreateMailboxForwardingAddress.
+type CreateMailboxForwardingAddressParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
@@ -55580,6 +55614,9 @@ type ClientInterface interface {
 
 	UpdateMailbox(ctx context.Context, mailboxId MailboxIdentifier, params *UpdateMailboxParams, body UpdateMailboxJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// CreateMailboxForwardingAddress request
+	CreateMailboxForwardingAddress(ctx context.Context, mailboxId MailboxIdentifier, params *CreateMailboxForwardingAddressParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// ListMailboxLabels request
 	ListMailboxLabels(ctx context.Context, mailboxId MailboxIdentifier, params *ListMailboxLabelsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -58890,6 +58927,18 @@ func (c *Client) UpdateMailboxWithBody(ctx context.Context, mailboxId MailboxIde
 
 func (c *Client) UpdateMailbox(ctx context.Context, mailboxId MailboxIdentifier, params *UpdateMailboxParams, body UpdateMailboxJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewUpdateMailboxRequest(c.Server, mailboxId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateMailboxForwardingAddress(ctx context.Context, mailboxId MailboxIdentifier, params *CreateMailboxForwardingAddressParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateMailboxForwardingAddressRequest(c.Server, mailboxId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -77572,6 +77621,77 @@ func NewUpdateMailboxRequestWithBody(server string, mailboxId MailboxIdentifier,
 	}
 
 	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateMailboxForwardingAddressRequest generates requests for CreateMailboxForwardingAddress
+func NewCreateMailboxForwardingAddressRequest(server string, mailboxId MailboxIdentifier, params *CreateMailboxForwardingAddressParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "mailbox_id", mailboxId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/mailboxes/%s/forwarding-address", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
 
 	if params != nil {
 
@@ -106898,6 +107018,9 @@ type ClientWithResponsesInterface interface {
 
 	UpdateMailboxWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *UpdateMailboxParams, body UpdateMailboxJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateMailboxResponse, error)
 
+	// CreateMailboxForwardingAddressWithResponse request
+	CreateMailboxForwardingAddressWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *CreateMailboxForwardingAddressParams, reqEditors ...RequestEditorFn) (*CreateMailboxForwardingAddressResponse, error)
+
 	// ListMailboxLabelsWithResponse request
 	ListMailboxLabelsWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *ListMailboxLabelsParams, reqEditors ...RequestEditorFn) (*ListMailboxLabelsResponse, error)
 
@@ -113674,6 +113797,45 @@ func (r UpdateMailboxResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r UpdateMailboxResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateMailboxForwardingAddressResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *Mailbox
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateMailboxForwardingAddressResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateMailboxForwardingAddressResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateMailboxForwardingAddressResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -126424,6 +126586,15 @@ func (c *ClientWithResponses) UpdateMailboxWithResponse(ctx context.Context, mai
 		return nil, err
 	}
 	return ParseUpdateMailboxResponse(rsp)
+}
+
+// CreateMailboxForwardingAddressWithResponse request returning *CreateMailboxForwardingAddressResponse
+func (c *ClientWithResponses) CreateMailboxForwardingAddressWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *CreateMailboxForwardingAddressParams, reqEditors ...RequestEditorFn) (*CreateMailboxForwardingAddressResponse, error) {
+	rsp, err := c.CreateMailboxForwardingAddress(ctx, mailboxId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateMailboxForwardingAddressResponse(rsp)
 }
 
 // ListMailboxLabelsWithResponse request returning *ListMailboxLabelsResponse
@@ -142100,6 +142271,95 @@ func ParseUpdateMailboxResponse(rsp *http.Response) (*UpdateMailboxResponse, err
 			return nil, err
 		}
 		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateMailboxForwardingAddressResponse parses an HTTP response from a CreateMailboxForwardingAddressWithResponse call
+func ParseCreateMailboxForwardingAddressResponse(rsp *http.Response) (*CreateMailboxForwardingAddressResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateMailboxForwardingAddressResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Mailbox
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
 		var dest Forbidden

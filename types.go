@@ -374,6 +374,10 @@ type (
 // SMSTag is a structured {name, value} label on an SMS send.
 type SMSTag = oapi.Tag
 
+// SMSBinary is an 8-bit binary SMS payload: a hexadecimal user data header (Udh)
+// and its hexadecimal Data.
+type SMSBinary = oapi.SMSBinary
+
 // SMSStatus is a message's delivery status.
 type SMSStatus = oapi.SMSMessageStatus
 

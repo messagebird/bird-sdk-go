@@ -13,7 +13,7 @@ import (
 type VoiceTrunksGatewaysCreateParams struct {
 	// SIP URI an inbound call to this trunk should be forwarded to. Give the host only, with an optional port: which number is dialed there comes from `destination_format`, so a URI carrying a user part is rejected.
 	SipURI string
-	// The order gateways are tried in, lowest first. Give two gateways the same priority to share calls between them evenly.
+	// The gateway's place in the trunk's **All gateways (automatic)** hunt group, which tries the lowest priority first. Give two gateways the same priority to share calls between them evenly. Hunt groups you build in the trunk's inbound routing in the dashboard set their own order.
 	Priority int
 	// How this gateway wants the calling number spelled. Write a template whose `{number}` stands for the number without its leading `+`; the result is stated in the `P-Asserted-Identity` header of the delivered call. Omit it for E.164, which is `+{number}`. The template may add digits, letters and the characters `-_.!~*'()&=+$,;?/%#` around `{number}`, which may appear at most once, and anything else in braces is rejected so a misspelled placeholder cannot reach a call. A format with no `{number}` at all states the same identity on every call, which is what a peer that only accepts one authorized number wants. The call then carries nothing about who really called.
 	OriginationFormat *string
@@ -34,7 +34,7 @@ func (p VoiceTrunksGatewaysCreateParams) toWire() oapi.VoiceTrunkGatewayCreate {
 type VoiceTrunksGatewaysUpdateParams struct {
 	// SIP URI an inbound call to this trunk should be forwarded to. Give the host only, with an optional port: which number is dialed there comes from `destination_format`, so a URI carrying a user part is rejected.
 	SipURI *string
-	// The order gateways are tried in, lowest first. Give two gateways the same priority to share calls between them evenly.
+	// The gateway's place in the trunk's **All gateways (automatic)** hunt group, which tries the lowest priority first. Give two gateways the same priority to share calls between them evenly. Hunt groups you build in the trunk's inbound routing in the dashboard set their own order.
 	Priority *int
 	// How this gateway wants the calling number spelled, as a template whose `{number}` stands for the number without its leading `+`. The result is stated in the `P-Asserted-Identity` header of the delivered call. Send an empty string to go back to E.164, which is `+{number}`. The template may add digits, letters and the characters `-_.!~*'()&=+$,;?/%#` around `{number}`, which may appear at most once, and anything else in braces is rejected so a misspelled placeholder cannot reach a call. A format with no `{number}` at all states the same identity on every call, which is what a peer that only accepts one authorized number wants. The call then carries nothing about who really called.
 	OriginationFormat *string

@@ -323,6 +323,7 @@ output-options:
     - deleteMailbox
     - restoreMailbox
     - resumeMailbox
+    - createMailboxForwardingAddress
     - getMailboxStats
     - listMailboxScheduledMessages
     - getMailboxScheduledMessage

@@ -105,10 +105,14 @@ type AmbSendParams struct {
 	Group       *string
 	Intent      *string
 	Locale      *string
+	// SkipTyping sends the first part without Bird's typing indicator and
+	// pause, after you sent typing_start yourself. Later parts of a split
+	// send keep theirs.
+	SkipTyping *bool
 }
 
 func (s *AmbService) Send(ctx context.Context, params AmbSendParams, opts ...option.RequestOption) (*AMBMessage, error) {
-	wire := oapi.AMBMessageSendRequest{From: params.From, To: params.To, Text: params.Text, RichLink: params.RichLink, Interactive: params.Interactive, Source: params.Source, Category: params.Category, Group: params.Group, Intent: params.Intent, Locale: params.Locale}
+	wire := oapi.AMBMessageSendRequest{From: params.From, To: params.To, Text: params.Text, RichLink: params.RichLink, Interactive: params.Interactive, Source: params.Source, Category: params.Category, Group: params.Group, Intent: params.Intent, Locale: params.Locale, SkipTyping: params.SkipTyping}
 	if params.Template != "" {
 		var tmpl oapi.AMBTemplateSend
 		if params.Template != "" {

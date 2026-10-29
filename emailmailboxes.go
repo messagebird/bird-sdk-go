@@ -4,6 +4,7 @@ package bird
 // your own domain that receive, store, and send email. Reach it via
 // Client.Email.Mailboxes.
 type EmailMailboxesService struct {
+	ForwardingAddress *EmailMailboxesForwardingAddressService
 	ScheduledMessages *EmailMailboxesScheduledMessagesService
 	resource
 

@@ -1601,6 +1601,18 @@ func ExampleEmailMailboxesService_Resume() {
 	fmt.Println(mailbox.Id)
 }
 
+func ExampleEmailMailboxesForwardingAddressService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	mailbox, err := client.Email.Mailboxes.ForwardingAddress.Create(context.Background(), "mbx_123")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(*mailbox.ForwardingAddress)
+}
+
 func ExampleEmailMailboxesService_Stats() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {

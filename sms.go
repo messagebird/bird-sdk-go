@@ -30,10 +30,11 @@ const (
 	SMSCategoryService        SMSCategory = "service"
 )
 
-// SmsSendParams is a single SMS send. Provide either Text (with Category and
-// From) or a Template (by id or slug, with Parameters). A workspace template
-// requires an owned From; a built-in template selects its sender and rejects
-// From. The two content forms are mutually exclusive.
+// SmsSendParams is a single SMS send. Provide one of Text (with Category and
+// From), a Template (by id or slug, with Parameters), or Binary (with Category
+// transactional). A workspace template requires an owned From; a built-in
+// template selects its sender and rejects From. The content forms are mutually
+// exclusive.
 // Zero-value fields are omitted from the request.
 type SmsSendParams struct {
 	To         string         // required; recipient phone number in E.164 format
@@ -47,9 +48,35 @@ type SmsSendParams struct {
 	Metadata   map[string]any // arbitrary JSON stored on the message and echoed in webhooks
 	// SmartEncoding replaces characters outside the GSM-7 alphabet with their closest
 	// equivalent, which often lowers the segment count and the cost. A pointer because
-	// false is a real value the send carries: nil omits the option and takes Bird's
+	// false is a real value the send carries: nil omits the option and takes the
 	// default (off), &false records the choice explicitly.
 	SmartEncoding *bool
+	// IgnoreSuppression sends even if the recipient is suppressed for the sender.
+	// Only authentication and transactional messages can use it, and it must be
+	// enabled for your workspace first. A pointer for the same reason as SmartEncoding.
+	IgnoreSuppression *bool
+	// CallbackURL is an HTTPS URL that receives this message's events instead of
+	// your webhook endpoints. Leave it unspecified to use the messaging profile's
+	// URL, build it with Value to set one, and with Null to send this message's
+	// events to your webhook subscriptions.
+	CallbackURL Nullable[string]
+	// MessagingProfileID supplies the sender and defaults when From, Category or an
+	// option is left out.
+	MessagingProfileID string
+	// Reference is your own identifier for the message, such as an order number; the
+	// message list filters on it.
+	Reference string
+	// ToCountryCode is the ISO 3166-1 alpha-2 country whose national numbering plan
+	// To is written in, such as "NL" for 0612345678.
+	ToCountryCode string
+	// ValidityPeriod is how many seconds (60-172800) the message may wait for
+	// delivery; zero uses the messaging profile's or carrier's default.
+	ValidityPeriod int
+	// CostCenter is your accounting identifier for the message.
+	CostCenter string
+	// Binary sends an 8-bit payload instead of Text or Template; it needs Category
+	// transactional.
+	Binary *SMSBinary
 }
 
 func (p SmsSendParams) toWire() oapi.SMSMessageSendRequest {
@@ -98,8 +125,18 @@ func (p SmsSendParams) toWire() oapi.SMSMessageSendRequest {
 		metadata := p.Metadata
 		body.Metadata = &metadata
 	}
-	if p.SmartEncoding != nil {
-		body.Options = &oapi.SMSSendOptions{SmartEncoding: p.SmartEncoding}
+	body.MessagingProfileId = optStr(p.MessagingProfileID)
+	body.Reference = optStr(p.Reference)
+	body.ToCountryCode = optStr(p.ToCountryCode)
+	body.CostCenter = optStr(p.CostCenter)
+	body.ValidityPeriod = optInt(p.ValidityPeriod)
+	body.Binary = p.Binary
+	if p.SmartEncoding != nil || p.IgnoreSuppression != nil || p.CallbackURL.IsSpecified() {
+		body.Options = &oapi.SMSSendOptions{
+			SmartEncoding:     p.SmartEncoding,
+			IgnoreSuppression: p.IgnoreSuppression,
+			CallbackUrl:       p.CallbackURL,
+		}
 	}
 	return body
 }
