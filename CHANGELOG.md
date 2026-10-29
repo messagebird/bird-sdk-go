@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.115.0
+
+- Creating a verification accepts `options.autofill_origin`, the website the passcode is entered on, so the SMS ends with an `@host #code` line browsers can autofill and the email carries an OTP-Token header. For a code entered in a cross-origin iframe, also set `options.autofill_top_level_origin` to the embedding page, which must differ from `autofill_origin`; such verifications send no email header.
+
 ## 0.114.0
 
 - Read the binding policy, organization or workspace scope, limit and window of a rate-limit refusal from `error.rate_limit` in CLI errors and from the rate-limit details on each SDK's API error in Go, TypeScript, Python and PHP.
