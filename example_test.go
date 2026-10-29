@@ -2291,6 +2291,26 @@ func ExampleSmsStatsService_ByTag() {
 	}
 }
 
+// ByCostCenter ranks the cost centers sends were billed to.
+func ExampleSmsStatsService_ByCostCenter() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Sms.Stats.ByCostCenter(context.Background(), bird.SmsStatsByCostCenterParams{
+		From: time.Now().AddDate(0, -1, 0),
+		To:   time.Now(),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, row := range stats.Data {
+		// Messages sent without a cost center are not counted, so rows do not
+		// sum to the period total.
+		fmt.Println(row.CostCenter, *row.Delivery.Accepted)
+	}
+}
+
 // Summary returns how many messages the workspace's numbers received.
 func ExampleSmsStatsInboundService_Summary() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
@@ -4978,7 +4998,7 @@ func ExampleAmbService_Send() {
 		log.Fatal(err)
 	}
 	ctx := context.Background()
-	result, err := client.Amb.Send(ctx, bird.AmbSendParams{From: "b52d6267-2b62-4f8a-8842-0533d0f1dc07", To: "opaque-customer", Content: map[string]any{"type": "text", "body": "Your order is ready."}})
+	result, err := client.Amb.Send(ctx, bird.AmbSendParams{From: "b52d6267-2b62-4f8a-8842-0533d0f1dc07", To: "opaque-customer", Text: &bird.AMBText{Body: bird.String("Your order is ready.")}})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -5808,7 +5828,7 @@ func ExampleAmbTemplatesVersionsLanguagesService_Get() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(language.Language, language.Content)
+	fmt.Println(language.Language, language.Text)
 }
 
 func ExampleAssetsService_List() {

@@ -29,7 +29,7 @@ func main() {
 	}
 	message, err := client.Amb.Send(ctx, bird.AmbSendParams{
 		From: business.AppleBusinessId.String(), To: *conversation.Recipient.OpaqueUserId,
-		Content: map[string]any{"type": "text", "body": "Your order is ready."},
+		Text: &bird.AMBText{Body: bird.String("Your order is ready.")},
 	})
 	if err != nil {
 		log.Fatal(err)

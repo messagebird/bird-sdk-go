@@ -88,32 +88,27 @@ type AmbStatsInboundService struct {
 }
 
 type AmbSendParams struct {
-	From       string
-	To         string
-	Content    map[string]any
-	Template   string         // stored template id (amt_…) or slug (mutually exclusive with Content)
-	Language   string         // template language as a BCP-47 tag; template sends only
-	Parameters map[string]any // template variable values; template sends only
-	Source     *AMBMessageSource
-	Category   *string
-	Metadata   map[string]any
-	Tags       []Tag
-	Group      *string
-	Intent     *string
-	Locale     *string
+	From string
+	To   string
+	// Text alone is a text message; beside RichLink or Interactive it is sent
+	// first as its own bubble.
+	Text        *AMBText
+	RichLink    *AMBRichLink
+	Interactive *AMBInteractive
+	Template    string         // stored template id (amt_…) or slug, instead of Text, RichLink or Interactive
+	Language    string         // template language as a BCP-47 tag; template sends only
+	Parameters  map[string]any // template variable values; template sends only
+	Source      *AMBMessageSource
+	Category    *string
+	Metadata    map[string]any
+	Tags        []Tag
+	Group       *string
+	Intent      *string
+	Locale      *string
 }
 
 func (s *AmbService) Send(ctx context.Context, params AmbSendParams, opts ...option.RequestOption) (*AMBMessage, error) {
-	wire := oapi.AMBMessageSendRequest{From: params.From, To: params.To, Source: params.Source, Category: params.Category, Group: params.Group, Intent: params.Intent, Locale: params.Locale}
-	if params.Content != nil {
-		content, err := json.Marshal(params.Content)
-		if err != nil {
-			return nil, err
-		}
-		if err := json.Unmarshal(content, &wire.Content); err != nil {
-			return nil, err
-		}
-	}
+	wire := oapi.AMBMessageSendRequest{From: params.From, To: params.To, Text: params.Text, RichLink: params.RichLink, Interactive: params.Interactive, Source: params.Source, Category: params.Category, Group: params.Group, Intent: params.Intent, Locale: params.Locale}
 	if params.Template != "" {
 		var tmpl oapi.AMBTemplateSend
 		if params.Template != "" {

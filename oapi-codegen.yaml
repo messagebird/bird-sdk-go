@@ -117,6 +117,7 @@ output-options:
     - getSMSStatsByStatus
     - getSMSStatsByErrorCode
     - getSMSStatsByTag
+    - getSMSStatsByCostCenter
     - getSMSInboundStatsSummary
     - getSMSInboundStatsDaily
     - getSMSInboundStatsHourly

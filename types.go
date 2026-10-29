@@ -321,6 +321,7 @@ type (
 	SMSStatsByStatusResponse     = oapi.SMSStatsByStatusResponse
 	SMSStatsByErrorCodeResponse  = oapi.SMSStatsByErrorCodeResponse
 	SMSStatsByTagResponse        = oapi.SMSStatsByTagResponse
+	SMSStatsByCostCenterResponse = oapi.SMSStatsByCostCenterResponse
 
 	SMSInboundStatsSummaryResponse    = oapi.SMSInboundStatsSummaryResponse
 	SMSInboundStatsResponse           = oapi.SMSInboundStatsResponse
@@ -699,6 +700,61 @@ type (
 type (
 	WhatsAppMessageTemplateComponent          = oapi.WhatsAppMessageTemplateComponent
 	WhatsAppMessageTemplateComponentParameter = oapi.WhatsAppMessageTemplateComponentParameter
+)
+
+// The content keys an Apple Messages send carries in place of a template, each
+// the wire object verbatim.
+type (
+	AMBText        = oapi.AMBText
+	AMBRichLink    = oapi.AMBRichLink
+	AMBInteractive = oapi.AMBInteractive
+)
+
+// The wire objects nested inside the content keys, so a caller can build any
+// message the keys carry.
+type (
+	AMBAttachmentID                = oapi.AMBAttachmentID
+	AMBAuthenticationID            = oapi.AMBAuthenticationID
+	AMBFormDatePickerOptions       = oapi.AMBFormDatePickerOptions
+	AMBFormDatePickerPage          = oapi.AMBFormDatePickerPage
+	AMBFormDatePickerPageType      = oapi.AMBFormDatePickerPageType
+	AMBFormInputOptions            = oapi.AMBFormInputOptions
+	AMBFormInputPage               = oapi.AMBFormInputPage
+	AMBFormInputPageType           = oapi.AMBFormInputPageType
+	AMBFormInputType               = oapi.AMBFormInputType
+	AMBFormPage                    = oapi.AMBFormPage
+	AMBFormPickerItem              = oapi.AMBFormPickerItem
+	AMBFormPickerPage              = oapi.AMBFormPickerPage
+	AMBFormPickerPageType          = oapi.AMBFormPickerPageType
+	AMBFormSelectItem              = oapi.AMBFormSelectItem
+	AMBFormSelectPage              = oapi.AMBFormSelectPage
+	AMBFormSelectPageType          = oapi.AMBFormSelectPageType
+	AMBFormSplash                  = oapi.AMBFormSplash
+	AMBIMessageApp                 = oapi.AMBIMessageApp
+	AMBListPickerItem              = oapi.AMBListPickerItem
+	AMBListPickerSection           = oapi.AMBListPickerSection
+	AMBLocation                    = oapi.AMBLocation
+	AMBMessageBubble               = oapi.AMBMessageBubble
+	AMBMessageBubbleStyle          = oapi.AMBMessageBubbleStyle
+	AMBNativeAttachment            = oapi.AMBNativeAttachment
+	AMBNativeAuthentication        = oapi.AMBNativeAuthentication
+	AMBNativeDynamic               = oapi.AMBNativeDynamic
+	AMBNativeEvent                 = oapi.AMBNativeEvent
+	AMBNativeFormData              = oapi.AMBNativeFormData
+	AMBNativeImage                 = oapi.AMBNativeImage
+	AMBNativeListPicker            = oapi.AMBNativeListPicker
+	AMBNativePayment               = oapi.AMBNativePayment
+	AMBNativeQuickReply            = oapi.AMBNativeQuickReply
+	AMBNativeRichLinkAssets        = oapi.AMBNativeRichLinkAssets
+	AMBNativeRichLinkData          = oapi.AMBNativeRichLinkData
+	AMBNativeRichLinkImage         = oapi.AMBNativeRichLinkImage
+	AMBNativeRichLinkImageMimeType = oapi.AMBNativeRichLinkImageMimeType
+	AMBNativeRichLinkVideo         = oapi.AMBNativeRichLinkVideo
+	AMBPaymentID                   = oapi.AMBPaymentID
+	AMBQuickReplyItem              = oapi.AMBQuickReplyItem
+	AMBRichLinkConstruct           = oapi.AMBRichLinkConstruct
+	AMBTimeSlot                    = oapi.AMBTimeSlot
+	CountryCode                    = oapi.CountryCode
 )
 
 // The free-form content arms a send carries in place of a template. Each is the

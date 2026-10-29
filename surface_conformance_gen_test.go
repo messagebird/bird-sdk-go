@@ -117,6 +117,7 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Sms.Stats.ByStatus
 	_ = c.Sms.Stats.ByErrorCode
 	_ = c.Sms.Stats.ByTag
+	_ = c.Sms.Stats.ByCostCenter
 	_ = c.Sms.Stats.Inbound.Summary
 	_ = c.Sms.Stats.Inbound.Daily
 	_ = c.Sms.Stats.Inbound.Hourly

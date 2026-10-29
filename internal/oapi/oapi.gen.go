@@ -708,27 +708,6 @@ func (e AMBMessageStatus) Valid() bool {
 	}
 }
 
-// Defines values for AMBMessageType.
-const (
-	AMBMessageTypeInteractive AMBMessageType = "interactive"
-	AMBMessageTypeRichLink    AMBMessageType = "rich_link"
-	AMBMessageTypeText        AMBMessageType = "text"
-)
-
-// Valid indicates whether the value is a known member of the AMBMessageType enum.
-func (e AMBMessageType) Valid() bool {
-	switch e {
-	case AMBMessageTypeInteractive:
-		return true
-	case AMBMessageTypeRichLink:
-		return true
-	case AMBMessageTypeText:
-		return true
-	default:
-		return false
-	}
-}
-
 // Defines values for AMBNativeRichLinkImageMimeType.
 const (
 	AMBNativeRichLinkImageMimeTypeImagepng AMBNativeRichLinkImageMimeType = "image/png"
@@ -10310,25 +10289,25 @@ func (e WhatsAppTemplateParameterType) Valid() bool {
 
 // Defines values for WhatsAppTemplateParameterTypeWrite.
 const (
-	Document WhatsAppTemplateParameterTypeWrite = "document"
-	Gif      WhatsAppTemplateParameterTypeWrite = "gif"
-	Image    WhatsAppTemplateParameterTypeWrite = "image"
-	Text     WhatsAppTemplateParameterTypeWrite = "text"
-	Video    WhatsAppTemplateParameterTypeWrite = "video"
+	WhatsAppTemplateParameterTypeWriteDocument WhatsAppTemplateParameterTypeWrite = "document"
+	WhatsAppTemplateParameterTypeWriteGif      WhatsAppTemplateParameterTypeWrite = "gif"
+	WhatsAppTemplateParameterTypeWriteImage    WhatsAppTemplateParameterTypeWrite = "image"
+	WhatsAppTemplateParameterTypeWriteText     WhatsAppTemplateParameterTypeWrite = "text"
+	WhatsAppTemplateParameterTypeWriteVideo    WhatsAppTemplateParameterTypeWrite = "video"
 )
 
 // Valid indicates whether the value is a known member of the WhatsAppTemplateParameterTypeWrite enum.
 func (e WhatsAppTemplateParameterTypeWrite) Valid() bool {
 	switch e {
-	case Document:
+	case WhatsAppTemplateParameterTypeWriteDocument:
 		return true
-	case Gif:
+	case WhatsAppTemplateParameterTypeWriteGif:
 		return true
-	case Image:
+	case WhatsAppTemplateParameterTypeWriteImage:
 		return true
-	case Text:
+	case WhatsAppTemplateParameterTypeWriteText:
 		return true
-	case Video:
+	case WhatsAppTemplateParameterTypeWriteVideo:
 		return true
 	default:
 		return false
@@ -10944,7 +10923,7 @@ func (e ListEmailThreadMessagesParamsInclude) Valid() bool {
 // AMBAcceptedEventType Always `amb.accepted` for this event.
 type AMBAcceptedEventType string
 
-// AMBAttachment A file Apple holds for one business account. Send it again by passing `id` as `attachment_id` in `content.attachments`. Only the business account in `business_account_id` can send it; a send from another business account is refused with a `422` `AMBAttachmentBusinessMismatch`. `message_id` is absent for an uploaded attachment.
+// AMBAttachment A file Apple holds for one business account. Send it again by passing `id` as `attachment_id` in `text.attachments`. Only the business account in `business_account_id` can send it; a send from another business account is refused with a `422` `AMBAttachmentBusinessMismatch`. `message_id` is absent for an uploaded attachment.
 type AMBAttachment struct {
 	BusinessAccountId AMBBusinessID `json:"business_account_id"`
 
@@ -11269,7 +11248,7 @@ type AMBChannelSettingsUpdate struct {
 	LogoAssetId nullable.Nullable[AssetID] `json:"logo_asset_id,omitempty"`
 }
 
-// AMBContentKind Derived message classification for filtering and statistics. Send requests use the native content.type families. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
+// AMBContentKind Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
 //
 // - text: Text, optionally with a subject.
 // - attachment: One or more files, images, audio clips, or videos.
@@ -11831,17 +11810,33 @@ type AMBGroupStatsPoint struct {
 	Latency *AMBStatsLatency `json:"latency,omitempty"`
 }
 
+// AMBIMessageApp A custom iMessage app interaction. It also requires both `received_message` and `reply_message`.
+type AMBIMessageApp struct {
+	// AppIconSourceUrl Publicly accessible HTTPS URL of the app's PNG icon. The icon must be smaller than 15 kB. We fetch and include it in the request to Apple. A non-HTTPS URL is refused with a `422` `AMBEndpointNotHTTPS`. In a template it may contain `{{ }}` placeholders; the rendered value must be HTTPS.
+	AppIconSourceUrl string `json:"app_icon_source_url" pii:"true"`
+
+	// AppId App Store identifier of the iMessage app.
+	AppId string `json:"app_id"`
+
+	// AppName Name of the iMessage app.
+	AppName string `json:"app_name"`
+
+	// Bid Identifier of the iMessage extension, in Apple's `com.apple.messages.MSMessageExtensionBalloonPlugin:team-id:extension-id` format.
+	Bid string `json:"bid"`
+
+	// Url Opaque URL string that Messages passes to the iMessage app.
+	Url string `json:"url" pii:"true"`
+
+	// UseLiveLayout Whether Messages renders the received and reply bubbles using Live Layout.
+	UseLiveLayout bool `json:"use_live_layout"`
+}
+
 // AMBInboundBusinessStatsPoint Received-message count for a single business over the requested period.
 type AMBInboundBusinessStatsPoint struct {
 	BusinessAccountId AMBBusinessID `json:"business_account_id"`
 
 	// Received Distinct messages received by this business in the period.
 	Received *int `json:"received,omitempty"`
-}
-
-// AMBInboundContent Received text, attachments, and interactive replies, preserving Apple message structure.
-type AMBInboundContent struct {
-	union json.RawMessage
 }
 
 // AMBInboundFormItem defines model for AMBInboundFormItem.
@@ -11871,6 +11866,27 @@ type AMBInboundFormSelection struct {
 
 	// Title Page title returned by Apple. Empty when the page has no title.
 	Title string `json:"title"`
+}
+
+// AMBInboundIMessageApp The custom iMessage app a customer replied from.
+type AMBInboundIMessageApp struct {
+	// AppIconUrl Relative Bird API URL for downloading the custom app icon with the same authentication and workspace as the message.
+	AppIconUrl *string `json:"app_icon_url,omitempty"`
+
+	// AppId Custom app identifier.
+	AppId *string `json:"app_id,omitempty"`
+
+	// AppName Custom app name.
+	AppName *string `json:"app_name,omitempty"`
+
+	// Bid Apple extension identifier.
+	Bid *string `json:"bid,omitempty"`
+
+	// Url Opaque custom app response URL.
+	Url *string `json:"url,omitempty" pii:"true"`
+
+	// UseLiveLayout Whether the app uses live layout.
+	UseLiveLayout *bool `json:"use_live_layout,omitempty"`
 }
 
 // AMBInboundIntentStatsPoint Received-message count for a single entry-point intent over the requested period.
@@ -12001,6 +12017,81 @@ type AMBIntentStatsPoint struct {
 	Latency *AMBStatsLatency `json:"latency,omitempty"`
 }
 
+// AMBInteractive Something for the customer to tap: exactly one of `quick_reply`, `list_picker`, `event` (a time picker), `dynamic` (a form) or `imessage_app`. To introduce it with text or files, send `text` alongside it; that text arrives as its own bubble first. Apple Pay and identity verification requests are created through their conversation endpoints and read back here as `payment` and `authenticate`.
+type AMBInteractive struct {
+	// Authenticate Authentication attempt created through the conversation authentication endpoint. Contains no authorization parameters or credentials.
+	Authenticate *AMBNativeAuthentication `json:"authenticate,omitempty"`
+
+	// Dynamic Form content. Bird supplies Apple’s messageForms template and protocol version.
+	Dynamic *AMBNativeDynamic `json:"dynamic,omitempty"`
+	Event   *AMBNativeEvent   `json:"event,omitempty"`
+
+	// Images Images the interaction references by `image_identifier`, such as list picker thumbnails.
+	Images *[]AMBNativeImage `json:"images,omitempty"`
+
+	// ImessageApp A custom iMessage app interaction. It also requires both `received_message` and `reply_message`.
+	ImessageApp *AMBIMessageApp      `json:"imessage_app,omitempty"`
+	ListPicker  *AMBNativeListPicker `json:"list_picker,omitempty"`
+
+	// Payment Apple Pay request created through the conversation payment endpoint. Contains no payment token or provider credentials.
+	Payment         *AMBNativePayment    `json:"payment,omitempty"`
+	QuickReply      *AMBNativeQuickReply `json:"quick_reply,omitempty"`
+	ReceivedMessage *AMBMessageBubble    `json:"received_message,omitempty"`
+	ReplyMessage    *AMBMessageBubble    `json:"reply_message,omitempty"`
+
+	// RequestIdentifier Correlation identifier for this interaction. Bird generates one when omitted. Use a new value for each message. A reply is linked to its request only when no other sent message in the conversation uses the same identifier.
+	RequestIdentifier *string `json:"request_identifier,omitempty"`
+
+	// SessionIdentifier Session UUID to preserve across interactions. Apple creates one when omitted.
+	SessionIdentifier *string `json:"session_identifier,omitempty"`
+	union             json.RawMessage
+}
+
+// AMBInteractive0 defines model for .
+type AMBInteractive0 = interface{}
+
+// AMBInteractive1 defines model for .
+type AMBInteractive1 = interface{}
+
+// AMBInteractive2 defines model for .
+type AMBInteractive2 = interface{}
+
+// AMBInteractive3 defines model for .
+type AMBInteractive3 = interface{}
+
+// AMBInteractive4 defines model for .
+type AMBInteractive4 = interface{}
+
+// AMBInteractive5 defines model for .
+type AMBInteractive5 = interface{}
+
+// AMBInteractive6 defines model for .
+type AMBInteractive6 = interface{}
+
+// AMBInteractiveReply What the customer answered on an interactive message: their choice, time slot, form answers, payment result, sign-in result or custom app reply, under the same key as the request. Inbound only; a message that offers something to tap reads as `interactive` instead.
+type AMBInteractiveReply struct {
+	Authenticate *AMBNativeInboundAuthentication `json:"authenticate,omitempty" pii:"true"`
+	Dynamic      *AMBNativeInboundDynamic        `json:"dynamic,omitempty"`
+	Event        *AMBNativeInboundEvent          `json:"event,omitempty"`
+
+	// Images Images returned by Apple, with authenticated download URLs.
+	Images *[]AMBNativeInboundImage `json:"images,omitempty"`
+
+	// ImessageApp The custom iMessage app a customer replied from.
+	ImessageApp     *AMBInboundIMessageApp      `json:"imessage_app,omitempty"`
+	ListPicker      *AMBNativeInboundListPicker `json:"list_picker,omitempty"`
+	Payment         *AMBNativeInboundPayment    `json:"payment,omitempty" pii:"true"`
+	QuickReply      *AMBNativeInboundQuickReply `json:"quick_reply,omitempty"`
+	ReceivedMessage *AMBMessageBubble           `json:"received_message,omitempty"`
+	ReplyMessage    *AMBMessageBubble           `json:"reply_message,omitempty"`
+
+	// RequestIdentifier Correlation identifier reported by Apple.
+	RequestIdentifier *string `json:"request_identifier,omitempty"`
+
+	// SessionIdentifier Apple interaction session identifier.
+	SessionIdentifier *string `json:"session_identifier,omitempty"`
+}
+
 // AMBListPickerItem defines model for AMBListPickerItem.
 type AMBListPickerItem struct {
 	// Identifier Opaque item identifier returned in interactive_data.data.list_picker.sections.
@@ -12057,11 +12148,8 @@ type AMBMessage struct {
 	BusinessAccountId AMBBusinessID `json:"business_account_id"`
 
 	// Category The category this message was sent with, for reporting only. It does not affect sending or suppression policy, or select an Apple department or purpose. Defaults to an empty string when a send names no category. Absent on an inbound message, which has no category to report.
-	Category *string `json:"category,omitempty"`
-
-	// Content Native message content. Outgoing interactions contain requests; incoming interactions contain replies.
-	Content        *AMBMessage_Content `json:"content,omitempty" pii:"true"`
-	ConversationId AMBConversationID   `json:"conversation_id"`
+	Category       *string           `json:"category,omitempty"`
+	ConversationId AMBConversationID `json:"conversation_id"`
 
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost"`
@@ -12086,7 +12174,13 @@ type AMBMessage struct {
 	// Intent Apple purpose identifier carried by this message. Omitted when absent from the message or unavailable on a historical record.
 	Intent *string `json:"intent,omitempty"`
 
-	// Kind Derived message classification for filtering and statistics. Send requests use the native content.type families. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
+	// Interactive What an outbound message offered the customer to tap.
+	Interactive *AMBInteractive `json:"interactive,omitempty"`
+
+	// InteractiveReply What the customer answered, on an inbound message replying to an interactive message.
+	InteractiveReply *AMBInteractiveReply `json:"interactive_reply,omitempty"`
+
+	// Kind Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
 	//
 	// - text: Text, optionally with a subject.
 	// - attachment: One or more files, images, audio clips, or videos.
@@ -12122,6 +12216,9 @@ type AMBMessage struct {
 
 	// ResolvedLanguage The template language whose text was rendered, in canonical form. Null when the send used no template. This can differ from `requested_language` when the template's fallback policy selects another language.
 	ResolvedLanguage *LanguageTag `json:"resolved_language,omitempty"`
+
+	// RichLink The link preview an outbound message carried.
+	RichLink *AMBRichLink `json:"rich_link,omitempty"`
 
 	// SentAt When the selected sending outcome occurred. Null unless the current status is `sent` and the message is outbound. For older messages without a retained sending event, the stored record time is used.
 	SentAt *time.Time `json:"sent_at,omitempty"`
@@ -12168,13 +12265,11 @@ type AMBMessage struct {
 	// TemplateVersionId The workspace published version or synthetic built-in version rendered at acceptance, or null for a message sent with native content. For a built-in template, `template_content_hash` identifies the exact catalogue source.
 	TemplateVersionId *AMBTemplateVersionID `json:"template_version_id,omitempty"`
 
+	// Text The message's text and files. Next to `rich_link`, `interactive` or `interactive_reply`, it is the text that came with them.
+	Text *AMBText `json:"text,omitempty"`
+
 	// To Customer's opaque Apple identifier on outbound messages, or the Apple business identifier on inbound messages. Omitted when that address is unavailable on a historical record.
 	To *string `json:"to,omitempty"`
-}
-
-// AMBMessage_Content Native message content. Outgoing interactions contain requests; incoming interactions contain replies.
-type AMBMessage_Content struct {
-	union json.RawMessage
 }
 
 // AMBMessageBubble defines model for AMBMessageBubble.
@@ -12206,11 +12301,6 @@ type AMBMessageBubble struct {
 
 // AMBMessageBubbleStyle Layout of an Apple interactive message bubble.
 type AMBMessageBubbleStyle string
-
-// AMBMessageContent Apple message families with Bird field naming and media URLs. Authentication and Apple Pay requests are created through their dedicated conversation endpoints.
-type AMBMessageContent struct {
-	union json.RawMessage
-}
 
 // AMBMessageDirection Whether a message was sent by the business or received from the customer:
 //
@@ -12270,7 +12360,7 @@ type AMBMessageKindStatsPoint struct {
 	// Latency Processing-latency percentiles in milliseconds for the requested scope, from acceptance to Apple handoff. Apple Messages for Business has no delivery receipt, so there is no `delivery` or `total` member beside `processing`. Conversation response timing is reported separately in `first_response`. Always present; every percentile is null when no qualifying message in scope has a measurement.
 	Latency *AMBStatsLatency `json:"latency,omitempty"`
 
-	// MessageKind Derived message classification for filtering and statistics. Send requests use the native content.type families. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
+	// MessageKind Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
 	//
 	// - text: Text, optionally with a subject.
 	// - attachment: One or more files, images, audio clips, or videos.
@@ -12301,13 +12391,10 @@ type AMBMessageList struct {
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
-// AMBMessageSendRequest A message to send. Supply exactly one of `content` (native content) or `template` (a stored template, whose category is derived). Supplying both, or neither, is rejected.
+// AMBMessageSendRequest A message to send. Supply `text`, `rich_link` or `interactive` (the last two optionally with `text` sent first as its own bubble), or `template` (a stored template, whose category is derived).
 type AMBMessageSendRequest struct {
 	// Category Free-form reporting label; it does not change sending or suppression policy, for example `order_update`. Omit it to send with the default empty category. Rejected alongside `template`, where the category is derived from the template.
 	Category *string `json:"category,omitempty"`
-
-	// Content Apple message families with Bird field naming and media URLs. Authentication and Apple Pay requests are created through their dedicated conversation endpoints.
-	Content *AMBMessageContent `json:"content,omitempty" pii:"true"`
 
 	// From Apple business identifier of the brand sending the message. Read it from the business’s apple_business_id. The customer must have opened the conversation with this business.
 	From string `json:"from"`
@@ -12318,6 +12405,9 @@ type AMBMessageSendRequest struct {
 	// Intent Purpose of this conversation.
 	Intent *string `json:"intent,omitempty"`
 
+	// Interactive Something for the customer to tap, such as quick replies, a list picker, a time picker, a form or a custom iMessage app.
+	Interactive *AMBInteractive `json:"interactive,omitempty"`
+
 	// Locale Apple locale identifier, for example en_US. Defaults to the conversation locale.
 	Locale *string `json:"locale,omitempty"`
 
@@ -12326,6 +12416,9 @@ type AMBMessageSendRequest struct {
 
 	// Reference An identifier you want to find this message by, such as an order or ticket number, matched exactly by the message list's `reference` filter. Set it only when you need to search on it, and put any other data in `metadata`. Stored on the message, returned on reads and echoed in webhook payloads. Several messages can share one.
 	Reference *MessageReference `json:"reference,omitempty"`
+
+	// RichLink A link with a preview card.
+	RichLink *AMBRichLink `json:"rich_link,omitempty"`
 
 	// Source Who sent an outbound message:
 	//
@@ -12344,19 +12437,15 @@ type AMBMessageSendRequest struct {
 	// Tags Structured `{name, value}` labels for filtering. Maximum 20 tags per send.
 	Tags *[]Tag `json:"tags,omitempty"`
 
-	// Template Send using a stored template instead of native content. The category is derived from the template, so `category` is rejected alongside it.
+	// Template Send using a stored template instead of `text`, `rich_link` or `interactive`. The category is derived from the template, so `category` is rejected alongside it.
 	Template *AMBTemplateSend `json:"template,omitempty"`
 
+	// Text A text message. Alongside `rich_link` or `interactive`, it is sent first as its own text bubble, in the same message.
+	Text *AMBText `json:"text,omitempty"`
+
 	// To Apple’s opaque customer identifier for this business, available as the conversation’s recipient.opaque_user_id. The conversation must exist and its native status must be open.
-	To    string `json:"to"`
-	union json.RawMessage
+	To string `json:"to"`
 }
-
-// AMBMessageSendRequest0 defines model for .
-type AMBMessageSendRequest0 = interface{}
-
-// AMBMessageSendRequest1 defines model for .
-type AMBMessageSendRequest1 = interface{}
 
 // AMBMessageSource Who sent an outbound message:
 //
@@ -12387,13 +12476,6 @@ type AMBMessageSource string
 //     content cannot be sent yet. See `last_error`.
 //   - `received`: Received as an inbound message.
 type AMBMessageStatus string
-
-// AMBMessageType Apple Messages for Business message family:
-//
-// - `text` means a text or attachment message.
-// - `rich_link` means a rich URL or video link preview.
-// - `interactive` means an interactive payload such as a list picker, time picker, quick reply, form, authentication request, or Apple Pay request.
-type AMBMessageType string
 
 // AMBNativeAttachment One attachment. A send supplies source_url or attachment_id. attachment_id reuses a received, sent or uploaded attachment of the sending business account instead of source_url; supplying both is refused with a `422`. A read returns the attachment's name, media type and, once Apple holds it, its size. It returns attachment_id when Bird stores the attachment: received attachments with an Apple reference, and sent attachments once Apple holds them. Download the bytes with getAMBAttachmentContent by attachment_id, or with getAMBMessageAttachment by message and position.
 type AMBNativeAttachment struct {
@@ -12532,53 +12614,6 @@ type AMBNativeInboundImage struct {
 	Identifier string `json:"identifier"`
 }
 
-// AMBNativeInboundInteractiveContent defines model for AMBNativeInboundInteractiveContent.
-type AMBNativeInboundInteractiveContent struct {
-	// Attachments Ordered attachments supplied by Apple.
-	Attachments *[]AMBNativeAttachment `json:"attachments,omitempty"`
-
-	// Body Message body supplied by Apple.
-	Body            *string                         `json:"body,omitempty" pii:"true"`
-	InteractiveData AMBNativeInboundInteractiveData `json:"interactive_data"`
-
-	// Subject Message subject supplied by Apple.
-	Subject *string `json:"subject,omitempty" pii:"true"`
-
-	// Type Apple Messages for Business message family:
-	//
-	// - `text` means a text or attachment message.
-	// - `rich_link` means a rich URL or video link preview.
-	// - `interactive` means an interactive payload such as a list picker, time picker, quick reply, form, authentication request, or Apple Pay request.
-	Type AMBMessageType `json:"type"`
-}
-
-// AMBNativeInboundInteractiveData defines model for AMBNativeInboundInteractiveData.
-type AMBNativeInboundInteractiveData struct {
-	// AppIconUrl Relative Bird API URL for downloading the custom app icon with the same authentication and workspace as the message.
-	AppIconUrl *string `json:"app_icon_url,omitempty"`
-
-	// AppId Custom app identifier.
-	AppId *string `json:"app_id,omitempty"`
-
-	// AppName Custom app name.
-	AppName *string `json:"app_name,omitempty"`
-
-	// Bid Apple extension identifier.
-	Bid             *string                  `json:"bid,omitempty"`
-	Data            *AMBNativeInboundPayload `json:"data,omitempty"`
-	ReceivedMessage *AMBMessageBubble        `json:"received_message,omitempty"`
-	ReplyMessage    *AMBMessageBubble        `json:"reply_message,omitempty"`
-
-	// SessionIdentifier Apple interaction session identifier.
-	SessionIdentifier *string `json:"session_identifier,omitempty"`
-
-	// Url Opaque custom app response URL.
-	Url *string `json:"url,omitempty" pii:"true"`
-
-	// UseLiveLayout Whether the app uses live layout.
-	UseLiveLayout *bool `json:"use_live_layout,omitempty"`
-}
-
 // AMBNativeInboundListPicker defines model for AMBNativeInboundListPicker.
 type AMBNativeInboundListPicker struct {
 	// Sections Sections returned by Apple. Sections can include unselected options; preserve their titles and item grouping.
@@ -12600,22 +12635,6 @@ type AMBNativeInboundListPickerSection struct {
 	Title *string `json:"title,omitempty"`
 }
 
-// AMBNativeInboundPayload defines model for AMBNativeInboundPayload.
-type AMBNativeInboundPayload struct {
-	Authenticate *AMBNativeInboundAuthentication `json:"authenticate,omitempty" pii:"true"`
-	Dynamic      *AMBNativeInboundDynamic        `json:"dynamic,omitempty"`
-	Event        *AMBNativeInboundEvent          `json:"event,omitempty"`
-
-	// Images Images returned by Apple, with authenticated download URLs.
-	Images     *[]AMBNativeInboundImage    `json:"images,omitempty"`
-	ListPicker *AMBNativeInboundListPicker `json:"list_picker,omitempty"`
-	Payment    *AMBNativeInboundPayment    `json:"payment,omitempty" pii:"true"`
-	QuickReply *AMBNativeInboundQuickReply `json:"quick_reply,omitempty"`
-
-	// RequestIdentifier Correlation identifier reported by Apple.
-	RequestIdentifier *string `json:"request_identifier,omitempty"`
-}
-
 // AMBNativeInboundPayment defines model for AMBNativeInboundPayment.
 type AMBNativeInboundPayment struct {
 	// State Payment state reported by Apple. This does not confirm that a payment settled.
@@ -12634,104 +12653,6 @@ type AMBNativeInboundQuickReply struct {
 	SelectedIndex *int `json:"selected_index,omitempty"`
 }
 
-// AMBNativeInteractiveContent defines model for AMBNativeInteractiveContent.
-type AMBNativeInteractiveContent struct {
-	// Attachments Ordered attachments. A send supplies each one by source_url or attachment_id.
-	Attachments *[]AMBNativeAttachment `json:"attachments,omitempty"`
-
-	// Body Automatic introductions for inline quick replies are enabled regionally in stages. When enabled for a new send containing `interactive_data.data.quick_reply`, a nonblank body is sent as separate text before the choices. All parts belong to one message, which becomes sent after Apple accepts all parts. Before activation, and for retries retaining legacy behavior, body is included in the interactive request and is not guaranteed to appear on the device. To ensure an introduction without relying on activation, send a separate text message and omit body from the quick reply. Omit body to send choices only. For list pickers, time pickers and forms, use interactive_data.received_message for the visible introduction. Use one U+FFFC object replacement character per attachment to control placement.
-	Body *string `json:"body,omitempty" pii:"true"`
-
-	// InteractiveData A built-in interaction or custom iMessage app. Custom apps require the app metadata and both message bubbles.
-	InteractiveData AMBNativeInteractiveData `json:"interactive_data"`
-
-	// Subject Subject displayed above the message body.
-	Subject *string `json:"subject,omitempty" pii:"true"`
-
-	// Type Apple Messages for Business message family:
-	//
-	// - `text` means a text or attachment message.
-	// - `rich_link` means a rich URL or video link preview.
-	// - `interactive` means an interactive payload such as a list picker, time picker, quick reply, form, authentication request, or Apple Pay request.
-	Type AMBMessageType `json:"type"`
-}
-
-// AMBNativeInteractiveData A built-in interaction or custom iMessage app. Custom apps require the app metadata and both message bubbles.
-type AMBNativeInteractiveData struct {
-	// AppIconSourceUrl Publicly accessible HTTPS URL of the app's PNG icon. The icon must be smaller than 15 kB. We fetch and include it in the request to Apple. A non-HTTPS URL is refused with a `422` `AMBEndpointNotHTTPS`. In a template it may contain `{{ }}` placeholders; the rendered value must be HTTPS.
-	AppIconSourceUrl *string `json:"app_icon_source_url,omitempty" pii:"true"`
-
-	// AppId App Store identifier of the iMessage app.
-	AppId *string `json:"app_id,omitempty"`
-
-	// AppName Name of the iMessage app.
-	AppName *string `json:"app_name,omitempty"`
-
-	// Bid Identifier of the iMessage extension, in Apple's `com.apple.messages.MSMessageExtensionBalloonPlugin:team-id:extension-id` format.
-	Bid *string `json:"bid,omitempty"`
-
-	// Data Exactly one built-in interaction. Protocol versions are managed by Bird.
-	Data            *AMBNativeInteractivePayload `json:"data,omitempty"`
-	ReceivedMessage *AMBMessageBubble            `json:"received_message,omitempty"`
-	ReplyMessage    *AMBMessageBubble            `json:"reply_message,omitempty"`
-
-	// SessionIdentifier Session UUID to preserve across interactions. Apple creates one when omitted.
-	SessionIdentifier *string `json:"session_identifier,omitempty"`
-
-	// Url Opaque URL string that Messages passes to the iMessage app.
-	Url *string `json:"url,omitempty" pii:"true"`
-
-	// UseLiveLayout Whether Messages renders the received and reply bubbles using Live Layout.
-	UseLiveLayout *bool `json:"use_live_layout,omitempty"`
-	union         json.RawMessage
-}
-
-// AMBNativeInteractiveData0 defines model for .
-type AMBNativeInteractiveData0 = interface{}
-
-// AMBNativeInteractiveData1 defines model for .
-type AMBNativeInteractiveData1 = interface{}
-
-// AMBNativeInteractivePayload Exactly one built-in interaction. Protocol versions are managed by Bird.
-type AMBNativeInteractivePayload struct {
-	// Authenticate Authentication attempt created through the conversation authentication endpoint. Contains no authorization parameters or credentials.
-	Authenticate *AMBNativeAuthentication `json:"authenticate,omitempty"`
-
-	// Dynamic Form content. Bird supplies Apple’s messageForms template and protocol version.
-	Dynamic *AMBNativeDynamic `json:"dynamic,omitempty"`
-	Event   *AMBNativeEvent   `json:"event,omitempty"`
-
-	// Images Images referenced by identifier.
-	Images     *[]AMBNativeImage    `json:"images,omitempty"`
-	ListPicker *AMBNativeListPicker `json:"list_picker,omitempty"`
-
-	// Payment Apple Pay request created through the conversation payment endpoint. Contains no payment token or provider credentials.
-	Payment    *AMBNativePayment    `json:"payment,omitempty"`
-	QuickReply *AMBNativeQuickReply `json:"quick_reply,omitempty"`
-
-	// RequestIdentifier Correlation identifier for this interaction. Bird generates one when omitted. Use a new value for each message. A reply is linked to its request only when no other sent message in the conversation uses the same identifier.
-	RequestIdentifier *string `json:"request_identifier,omitempty"`
-	union             json.RawMessage
-}
-
-// AMBNativeInteractivePayload0 defines model for .
-type AMBNativeInteractivePayload0 = interface{}
-
-// AMBNativeInteractivePayload1 defines model for .
-type AMBNativeInteractivePayload1 = interface{}
-
-// AMBNativeInteractivePayload2 defines model for .
-type AMBNativeInteractivePayload2 = interface{}
-
-// AMBNativeInteractivePayload3 defines model for .
-type AMBNativeInteractivePayload3 = interface{}
-
-// AMBNativeInteractivePayload4 defines model for .
-type AMBNativeInteractivePayload4 = interface{}
-
-// AMBNativeInteractivePayload5 defines model for .
-type AMBNativeInteractivePayload5 = interface{}
-
 // AMBNativeListPicker defines model for AMBNativeListPicker.
 type AMBNativeListPicker struct {
 	// Sections The menu's sections, each with its own heading and rows.
@@ -12748,7 +12669,7 @@ type AMBNativeQuickReply struct {
 	// Items The buttons offered to the customer. Apple requires between two and five; outside that range the request is refused with a `422` `AMBQuickReplyItemsInvalid`. For more choices, send `list_picker` content instead.
 	Items []AMBQuickReplyItem `json:"items"`
 
-	// SummaryText Text used for the device notification and shown in the transcript after the customer chooses an item. Automatic introductions through the enclosing content.body depend on regional activation and the send retry mode; see content.body. For an introduction independent of activation, send a separate text message and omit content.body from the quick reply.
+	// SummaryText Text used for the device notification and shown in the transcript after the customer chooses an item. To introduce the choices, send `text` alongside `interactive`; it arrives first as its own bubble.
 	SummaryText string `json:"summary_text" pii:"true"`
 }
 
@@ -12757,36 +12678,6 @@ type AMBNativeRichLinkAssets struct {
 	Image AMBNativeRichLinkImage  `json:"image"`
 	Video *AMBNativeRichLinkVideo `json:"video,omitempty"`
 }
-
-// AMBNativeRichLinkContent defines model for AMBNativeRichLinkContent.
-type AMBNativeRichLinkContent struct {
-	// Attachments Ordered attachments. A send supplies each one by source_url or attachment_id.
-	Attachments *[]AMBNativeAttachment `json:"attachments,omitempty"`
-
-	// Body Automatic introductions for rich links are enabled regionally in stages. When enabled for a new send, a nonblank body is sent as a separate text before the link. All parts belong to one message, which becomes sent after Apple accepts all parts. Before activation, and for retries retaining legacy behavior, body is included in the rich link request and is not guaranteed to appear on the device. To ensure an introduction without relying on activation, send a separate text message and omit body from the rich link. Use one U+FFFC object replacement character per attachment to control placement.
-	Body *string `json:"body,omitempty" pii:"true"`
-
-	// RichLinkConstruct Asks Apple to build the rich link preview when the message is sent. Use `POST /v1/amb/messages/construct-payload` beforehand only to check the URL and see the preview's title.
-	RichLinkConstruct *AMBRichLinkConstruct  `json:"rich_link_construct,omitempty"`
-	RichLinkData      *AMBNativeRichLinkData `json:"rich_link_data,omitempty"`
-
-	// Subject Subject displayed above the message body.
-	Subject *string `json:"subject,omitempty" pii:"true"`
-
-	// Type Apple Messages for Business message family:
-	//
-	// - `text` means a text or attachment message.
-	// - `rich_link` means a rich URL or video link preview.
-	// - `interactive` means an interactive payload such as a list picker, time picker, quick reply, form, authentication request, or Apple Pay request.
-	Type  AMBMessageType `json:"type"`
-	union json.RawMessage
-}
-
-// AMBNativeRichLinkContent0 defines model for .
-type AMBNativeRichLinkContent0 = interface{}
-
-// AMBNativeRichLinkContent1 defines model for .
-type AMBNativeRichLinkContent1 = interface{}
 
 // AMBNativeRichLinkData defines model for AMBNativeRichLinkData.
 type AMBNativeRichLinkData struct {
@@ -12818,34 +12709,6 @@ type AMBNativeRichLinkVideo struct {
 
 	// Url HTTPS video URL fetched by Apple. A non-HTTPS URL is refused with a `422` `AMBEndpointNotHTTPS`. In a template it may contain `{{ }}` placeholders; the rendered value must be HTTPS.
 	Url string `json:"url" pii:"true"`
-}
-
-// AMBNativeTextContent defines model for AMBNativeTextContent.
-type AMBNativeTextContent struct {
-	// Attachments Ordered attachments. A send supplies each one by source_url or attachment_id.
-	Attachments *[]AMBNativeAttachment `json:"attachments,omitempty"`
-
-	// Body Text displayed in the message. Use one U+FFFC object replacement character per attachment to control placement.
-	Body *string `json:"body,omitempty" pii:"true"`
-
-	// Subject Subject displayed above the message body.
-	Subject *string `json:"subject,omitempty" pii:"true"`
-
-	// Type Apple Messages for Business message family:
-	//
-	// - `text` means a text or attachment message.
-	// - `rich_link` means a rich URL or video link preview.
-	// - `interactive` means an interactive payload such as a list picker, time picker, quick reply, form, authentication request, or Apple Pay request.
-	Type  AMBMessageType `json:"type"`
-	union json.RawMessage
-}
-
-// AMBNativeTextContent0 defines model for .
-type AMBNativeTextContent0 = interface{}
-
-// AMBNativeTextContent1 defines model for .
-type AMBNativeTextContent1 struct {
-	Attachments interface{} `json:"attachments"`
 }
 
 // AMBOutboundStatsCounts Outbound Apple Messages for Business counts for the requested scope, attributed to when each message was accepted. Apple Messages for Business has no delivery receipt, so there is no `delivered` count anywhere in this API: `sent` is the last outbound state Bird observes for a message. Very large counts are close estimates rather than exact tallies. Rates are computed once here, clamped to 1, and null when nothing was accepted.
@@ -12889,6 +12752,20 @@ type AMBReceivedEventType string
 
 // AMBRejectedEventType Always `amb.rejected` for this event.
 type AMBRejectedEventType string
+
+// AMBRichLink A link with a preview card. Supply your own preview in `rich_link_data`, or ask Apple to build it with `rich_link_construct`. To introduce the link, send `text` alongside it.
+type AMBRichLink struct {
+	// RichLinkConstruct Asks Apple to build the rich link preview when the message is sent. Use `POST /v1/amb/messages/construct-payload` beforehand only to check the URL and see the preview's title.
+	RichLinkConstruct *AMBRichLinkConstruct  `json:"rich_link_construct,omitempty"`
+	RichLinkData      *AMBNativeRichLinkData `json:"rich_link_data,omitempty"`
+	union             json.RawMessage
+}
+
+// AMBRichLink0 defines model for .
+type AMBRichLink0 = interface{}
+
+// AMBRichLink1 defines model for .
+type AMBRichLink1 = interface{}
 
 // AMBRichLinkConstruct Asks Apple to build the rich link preview when the message is sent. Use `POST /v1/amb/messages/construct-payload` beforehand only to check the URL and see the preview's title.
 type AMBRichLinkConstruct struct {
@@ -13448,7 +13325,7 @@ type AMBTemplate struct {
 	// Category Why messages use this template, fixed at creation. On Apple Messages the category describes intent and becomes the message's reporting `category`; it grants and restricts nothing. Use `marketing` for promotions and `transactional` for service messages.
 	Category AMBTemplateCategory `json:"category"`
 
-	// ContentKind Derived message classification for filtering and statistics. Send requests use the native content.type families. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
+	// ContentKind Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
 	//
 	// - text: Text, optionally with a subject.
 	// - attachment: One or more files, images, audio clips, or videos.
@@ -13547,17 +13424,23 @@ type AMBTemplateID = string
 
 // AMBTemplateLanguage One language's full Apple Messages template content and revision metadata.
 type AMBTemplateLanguage struct {
-	// Content Apple message families with Bird field naming and media URLs. Authentication and Apple Pay requests are created through their dedicated conversation endpoints.
-	Content AMBMessageContent `json:"content"`
-
 	// ContentHash A fingerprint of Apple Messages template content, prefixed with its algorithm. Compare it within this API version to identify the exact source without transferring it.
 	ContentHash *AMBTemplateContentHash `json:"content_hash,omitempty"`
+
+	// Interactive Stored interaction. Includes its `{{ variable }}` placeholders.
+	Interactive *AMBInteractive `json:"interactive,omitempty"`
 
 	// Language A language tag in BCP-47 form, for example `en` or `pt-BR`.
 	Language LanguageTag `json:"language"`
 
 	// Revision This language's revision counter, used for concurrent-edit checks on draft writes.
 	Revision *int `json:"revision,omitempty"`
+
+	// RichLink Stored link preview. Includes its `{{ variable }}` placeholders.
+	RichLink *AMBRichLink `json:"rich_link,omitempty"`
+
+	// Text Stored text and files. Includes its `{{ variable }}` placeholders.
+	Text *AMBText `json:"text,omitempty"`
 
 	// UpdatedAt When this language was last saved. Null for a built-in template.
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
@@ -13646,7 +13529,7 @@ type AMBTemplateSummary struct {
 	// Category Why messages use this template, fixed at creation. On Apple Messages the category describes intent and becomes the message's reporting `category`; it grants and restricts nothing. Use `marketing` for promotions and `transactional` for service messages.
 	Category AMBTemplateCategory `json:"category"`
 
-	// ContentKind Derived message classification for filtering and statistics. Send requests use the native content.type families. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
+	// ContentKind Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
 	//
 	// - text: Text, optionally with a subject.
 	// - attachment: One or more files, images, audio clips, or videos.
@@ -13759,14 +13642,20 @@ type AMBTemplateVersionID = string
 
 // AMBTemplateVersionLanguage One language's content and revision metadata within a version.
 type AMBTemplateVersionLanguage struct {
-	// Content Apple message families with Bird field naming and media URLs. Authentication and Apple Pay requests are created through their dedicated conversation endpoints.
-	Content AMBMessageContent `json:"content"`
-
 	// ContentHash A fingerprint of Apple Messages template content, prefixed with its algorithm. Compare it within this API version to identify the exact source without transferring it.
 	ContentHash *AMBTemplateContentHash `json:"content_hash,omitempty"`
 
+	// Interactive Stored interaction. Includes its `{{ variable }}` placeholders.
+	Interactive *AMBInteractive `json:"interactive,omitempty"`
+
 	// Revision This language's revision counter.
 	Revision *int `json:"revision,omitempty"`
+
+	// RichLink Stored link preview. Includes its `{{ variable }}` placeholders.
+	RichLink *AMBRichLink `json:"rich_link,omitempty"`
+
+	// Text Stored text and files. Includes its `{{ variable }}` placeholders.
+	Text *AMBText `json:"text,omitempty"`
 
 	// UpdatedAt When this language was last saved. Null for a built-in template.
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
@@ -13817,6 +13706,27 @@ type AMBTemplateVersionSummary struct {
 
 	// VersionNumber Sequential publication number. Null for the draft; a built-in template reports 1.
 	VersionNumber *int `json:"version_number,omitempty"`
+}
+
+// AMBText A text message: a body, an optional subject, and files placed in the body. Next to `rich_link` or `interactive`, it is sent first as its own text bubble.
+type AMBText struct {
+	// Attachments Ordered attachments. A send supplies each one by source_url or attachment_id.
+	Attachments *[]AMBNativeAttachment `json:"attachments,omitempty"`
+
+	// Body Text displayed in the message. Use one U+FFFC object replacement character per attachment to control placement.
+	Body *string `json:"body,omitempty" pii:"true"`
+
+	// Subject Subject displayed above the message body.
+	Subject *string `json:"subject,omitempty" pii:"true"`
+	union   json.RawMessage
+}
+
+// AMBText0 defines model for .
+type AMBText0 = interface{}
+
+// AMBText1 defines model for .
+type AMBText1 struct {
+	Attachments interface{} `json:"attachments"`
 }
 
 // AMBTimeSlot defines model for AMBTimeSlot.
@@ -28008,6 +27918,17 @@ type SMSCategoryStatsPoint struct {
 	Trend *[]SMSStatsPoint `json:"trend,omitempty"`
 }
 
+// SMSCostCenterStatsPoint Aggregate delivery and latency stats for a single cost center over the requested period.
+type SMSCostCenterStatsPoint struct {
+	// CostCenter The cost center this row aggregates, as set on the message or taken from its messaging profile at send time.
+	CostCenter string           `json:"cost_center"`
+	Delivery   SMSDeliveryStats `json:"delivery"`
+	Latency    SMSLatencyStats  `json:"latency"`
+
+	// Trend Per-bucket lifecycle counts for this cost center, using `trend_grain`. Includes only buckets with activity. Present when `include_trend=true`.
+	Trend *[]SMSStatsPoint `json:"trend,omitempty"`
+}
+
 // SMSCountryRegistration defines model for SMSCountryRegistration.
 type SMSCountryRegistration struct {
 	// Category Message category this registration is approved for. Null means the registration is unrestricted and admits any category.
@@ -29317,6 +29238,18 @@ type SMSStatsByCategoryResponse struct {
 
 	// Total Total number of distinct categories with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
 	Total *int `json:"total,omitempty"`
+}
+
+// SMSStatsByCostCenterResponse Per-cost-center breakdown for the requested period, ranked by the `sort` metric (default `accepted`) descending and capped at the requested `limit` (default 50, max 200).
+type SMSStatsByCostCenterResponse struct {
+	// Data Cost center breakdown rows, ranked by the `sort` metric (default `accepted`) descending. Empty when no messages with a cost center were sent in the period.
+	Data []SMSCostCenterStatsPoint `json:"data"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period SMSStatsSummaryPeriod `json:"period"`
+
+	// Total Total number of distinct cost centers with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	Total int `json:"total"`
 }
 
 // SMSStatsByCountryResponse Per-country breakdown for the requested period, ranked by the `sort` metric (default `accepted`) descending and capped at the requested `limit` (default 50, max 200).
@@ -43591,6 +43524,36 @@ type GetSMSStatsByCategoryParams struct {
 	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
 }
 
+// GetSMSStatsByCostCenterParams defines parameters for GetSMSStatsByCostCenter.
+type GetSMSStatsByCostCenterParams struct {
+	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to keep the window within the 720-hour trend cap.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Sort Metric to rank rows by, applied descending. Any lifecycle count or derived rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `accepted`.
+	Sort *SMSStatsSortMetric `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Limit Maximum number of cost center rows to return, ranked by the `sort` field descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// IncludeTrend When true, each row also carries a `trend` array: a short per-bucket lifecycle-count series for that row over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422.
+	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
+
+	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
+	TrendGrain *StatsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
 // GetSMSStatsByCountryParams defines parameters for GetSMSStatsByCountry.
 type GetSMSStatsByCountryParams struct {
 	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to keep the window within the 720-hour trend cap.
@@ -43643,6 +43606,9 @@ type GetSMSStatsDailyParams struct {
 
 	// Carrier Restrict the statistics to a single delivery carrier. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Carrier *string `form:"carrier,omitempty" json:"carrier,omitempty"`
+
+	// CostCenter Restrict the statistics to messages sent with this cost center. The match is exact. Mutually exclusive with the other dimension filters; only one may be set per request.
+	CostCenter *string `form:"cost_center,omitempty" json:"cost_center,omitempty"`
 
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
@@ -43703,6 +43669,9 @@ type GetSMSStatsHourlyParams struct {
 
 	// Carrier Restrict the statistics to a single delivery carrier. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Carrier *string `form:"carrier,omitempty" json:"carrier,omitempty"`
+
+	// CostCenter Restrict the statistics to messages sent with this cost center. The match is exact. Mutually exclusive with the other dimension filters; only one may be set per request.
+	CostCenter *string `form:"cost_center,omitempty" json:"cost_center,omitempty"`
 
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
@@ -43901,6 +43870,9 @@ type GetSMSStatsSummaryParams struct {
 
 	// Carrier Restrict the statistics to a single delivery carrier. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Carrier *string `form:"carrier,omitempty" json:"carrier,omitempty"`
+
+	// CostCenter Restrict the statistics to messages sent with this cost center. The match is exact. Mutually exclusive with the other dimension filters; only one may be set per request.
+	CostCenter *string `form:"cost_center,omitempty" json:"cost_center,omitempty"`
 
 	// Compare Set to `previous_period` to also include the same statistics for the immediately preceding window of equal length, plus the change between the two, so you can show "+X% vs last period" without a second request.
 	Compare *StatsComparePeriod `form:"compare,omitempty" json:"compare,omitempty"`
@@ -47685,24 +47657,22 @@ func (t *AMBFormPage) UnmarshalJSON(b []byte) error {
 	return err
 }
 
-// AsAMBNativeTextContent returns the union data inside the AMBInboundContent as a AMBNativeTextContent
-func (t AMBInboundContent) AsAMBNativeTextContent() (AMBNativeTextContent, error) {
-	var body AMBNativeTextContent
+// AsAMBInteractive0 returns the union data inside the AMBInteractive as a AMBInteractive0
+func (t AMBInteractive) AsAMBInteractive0() (AMBInteractive0, error) {
+	var body AMBInteractive0
 	err := json.Unmarshal(t.union, &body)
 	return body, err
 }
 
-// FromAMBNativeTextContent overwrites any union data inside the AMBInboundContent as the provided AMBNativeTextContent
-func (t *AMBInboundContent) FromAMBNativeTextContent(v AMBNativeTextContent) error {
-	v.Type = "text"
+// FromAMBInteractive0 overwrites any union data inside the AMBInteractive as the provided AMBInteractive0
+func (t *AMBInteractive) FromAMBInteractive0(v AMBInteractive0) error {
 	b, err := json.Marshal(v)
 	t.union = b
 	return err
 }
 
-// MergeAMBNativeTextContent performs a merge with any union data inside the AMBInboundContent, using the provided AMBNativeTextContent
-func (t *AMBInboundContent) MergeAMBNativeTextContent(v AMBNativeTextContent) error {
-	v.Type = "text"
+// MergeAMBInteractive0 performs a merge with any union data inside the AMBInteractive, using the provided AMBInteractive0
+func (t *AMBInteractive) MergeAMBInteractive0(v AMBInteractive0) error {
 	b, err := json.Marshal(v)
 	if err != nil {
 		return err
@@ -47713,24 +47683,22 @@ func (t *AMBInboundContent) MergeAMBNativeTextContent(v AMBNativeTextContent) er
 	return err
 }
 
-// AsAMBNativeInboundInteractiveContent returns the union data inside the AMBInboundContent as a AMBNativeInboundInteractiveContent
-func (t AMBInboundContent) AsAMBNativeInboundInteractiveContent() (AMBNativeInboundInteractiveContent, error) {
-	var body AMBNativeInboundInteractiveContent
+// AsAMBInteractive1 returns the union data inside the AMBInteractive as a AMBInteractive1
+func (t AMBInteractive) AsAMBInteractive1() (AMBInteractive1, error) {
+	var body AMBInteractive1
 	err := json.Unmarshal(t.union, &body)
 	return body, err
 }
 
-// FromAMBNativeInboundInteractiveContent overwrites any union data inside the AMBInboundContent as the provided AMBNativeInboundInteractiveContent
-func (t *AMBInboundContent) FromAMBNativeInboundInteractiveContent(v AMBNativeInboundInteractiveContent) error {
-	v.Type = "interactive"
+// FromAMBInteractive1 overwrites any union data inside the AMBInteractive as the provided AMBInteractive1
+func (t *AMBInteractive) FromAMBInteractive1(v AMBInteractive1) error {
 	b, err := json.Marshal(v)
 	t.union = b
 	return err
 }
 
-// MergeAMBNativeInboundInteractiveContent performs a merge with any union data inside the AMBInboundContent, using the provided AMBNativeInboundInteractiveContent
-func (t *AMBInboundContent) MergeAMBNativeInboundInteractiveContent(v AMBNativeInboundInteractiveContent) error {
-	v.Type = "interactive"
+// MergeAMBInteractive1 performs a merge with any union data inside the AMBInteractive, using the provided AMBInteractive1
+func (t *AMBInteractive) MergeAMBInteractive1(v AMBInteractive1) error {
 	b, err := json.Marshal(v)
 	if err != nil {
 		return err
@@ -47741,55 +47709,22 @@ func (t *AMBInboundContent) MergeAMBNativeInboundInteractiveContent(v AMBNativeI
 	return err
 }
 
-func (t AMBInboundContent) Discriminator() (string, error) {
-	var discriminator struct {
-		Discriminator string `json:"type"`
-	}
-	err := json.Unmarshal(t.union, &discriminator)
-	return discriminator.Discriminator, err
-}
-
-func (t AMBInboundContent) ValueByDiscriminator() (interface{}, error) {
-	discriminator, err := t.Discriminator()
-	if err != nil {
-		return nil, err
-	}
-	switch discriminator {
-	case "interactive":
-		return t.AsAMBNativeInboundInteractiveContent()
-	case "text":
-		return t.AsAMBNativeTextContent()
-	default:
-		return nil, errors.New("unknown discriminator value: " + discriminator)
-	}
-}
-
-func (t AMBInboundContent) MarshalJSON() ([]byte, error) {
-	b, err := t.union.MarshalJSON()
-	return b, err
-}
-
-func (t *AMBInboundContent) UnmarshalJSON(b []byte) error {
-	err := t.union.UnmarshalJSON(b)
-	return err
-}
-
-// AsAMBMessageContent returns the union data inside the AMBMessage_Content as a AMBMessageContent
-func (t AMBMessage_Content) AsAMBMessageContent() (AMBMessageContent, error) {
-	var body AMBMessageContent
+// AsAMBInteractive2 returns the union data inside the AMBInteractive as a AMBInteractive2
+func (t AMBInteractive) AsAMBInteractive2() (AMBInteractive2, error) {
+	var body AMBInteractive2
 	err := json.Unmarshal(t.union, &body)
 	return body, err
 }
 
-// FromAMBMessageContent overwrites any union data inside the AMBMessage_Content as the provided AMBMessageContent
-func (t *AMBMessage_Content) FromAMBMessageContent(v AMBMessageContent) error {
+// FromAMBInteractive2 overwrites any union data inside the AMBInteractive as the provided AMBInteractive2
+func (t *AMBInteractive) FromAMBInteractive2(v AMBInteractive2) error {
 	b, err := json.Marshal(v)
 	t.union = b
 	return err
 }
 
-// MergeAMBMessageContent performs a merge with any union data inside the AMBMessage_Content, using the provided AMBMessageContent
-func (t *AMBMessage_Content) MergeAMBMessageContent(v AMBMessageContent) error {
+// MergeAMBInteractive2 performs a merge with any union data inside the AMBInteractive, using the provided AMBInteractive2
+func (t *AMBInteractive) MergeAMBInteractive2(v AMBInteractive2) error {
 	b, err := json.Marshal(v)
 	if err != nil {
 		return err
@@ -47800,22 +47735,22 @@ func (t *AMBMessage_Content) MergeAMBMessageContent(v AMBMessageContent) error {
 	return err
 }
 
-// AsAMBInboundContent returns the union data inside the AMBMessage_Content as a AMBInboundContent
-func (t AMBMessage_Content) AsAMBInboundContent() (AMBInboundContent, error) {
-	var body AMBInboundContent
+// AsAMBInteractive3 returns the union data inside the AMBInteractive as a AMBInteractive3
+func (t AMBInteractive) AsAMBInteractive3() (AMBInteractive3, error) {
+	var body AMBInteractive3
 	err := json.Unmarshal(t.union, &body)
 	return body, err
 }
 
-// FromAMBInboundContent overwrites any union data inside the AMBMessage_Content as the provided AMBInboundContent
-func (t *AMBMessage_Content) FromAMBInboundContent(v AMBInboundContent) error {
+// FromAMBInteractive3 overwrites any union data inside the AMBInteractive as the provided AMBInteractive3
+func (t *AMBInteractive) FromAMBInteractive3(v AMBInteractive3) error {
 	b, err := json.Marshal(v)
 	t.union = b
 	return err
 }
 
-// MergeAMBInboundContent performs a merge with any union data inside the AMBMessage_Content, using the provided AMBInboundContent
-func (t *AMBMessage_Content) MergeAMBInboundContent(v AMBInboundContent) error {
+// MergeAMBInteractive3 performs a merge with any union data inside the AMBInteractive, using the provided AMBInteractive3
+func (t *AMBInteractive) MergeAMBInteractive3(v AMBInteractive3) error {
 	b, err := json.Marshal(v)
 	if err != nil {
 		return err
@@ -47826,34 +47761,22 @@ func (t *AMBMessage_Content) MergeAMBInboundContent(v AMBInboundContent) error {
 	return err
 }
 
-func (t AMBMessage_Content) MarshalJSON() ([]byte, error) {
-	b, err := t.union.MarshalJSON()
-	return b, err
-}
-
-func (t *AMBMessage_Content) UnmarshalJSON(b []byte) error {
-	err := t.union.UnmarshalJSON(b)
-	return err
-}
-
-// AsAMBNativeTextContent returns the union data inside the AMBMessageContent as a AMBNativeTextContent
-func (t AMBMessageContent) AsAMBNativeTextContent() (AMBNativeTextContent, error) {
-	var body AMBNativeTextContent
+// AsAMBInteractive4 returns the union data inside the AMBInteractive as a AMBInteractive4
+func (t AMBInteractive) AsAMBInteractive4() (AMBInteractive4, error) {
+	var body AMBInteractive4
 	err := json.Unmarshal(t.union, &body)
 	return body, err
 }
 
-// FromAMBNativeTextContent overwrites any union data inside the AMBMessageContent as the provided AMBNativeTextContent
-func (t *AMBMessageContent) FromAMBNativeTextContent(v AMBNativeTextContent) error {
-	v.Type = "text"
+// FromAMBInteractive4 overwrites any union data inside the AMBInteractive as the provided AMBInteractive4
+func (t *AMBInteractive) FromAMBInteractive4(v AMBInteractive4) error {
 	b, err := json.Marshal(v)
 	t.union = b
 	return err
 }
 
-// MergeAMBNativeTextContent performs a merge with any union data inside the AMBMessageContent, using the provided AMBNativeTextContent
-func (t *AMBMessageContent) MergeAMBNativeTextContent(v AMBNativeTextContent) error {
-	v.Type = "text"
+// MergeAMBInteractive4 performs a merge with any union data inside the AMBInteractive, using the provided AMBInteractive4
+func (t *AMBInteractive) MergeAMBInteractive4(v AMBInteractive4) error {
 	b, err := json.Marshal(v)
 	if err != nil {
 		return err
@@ -47864,24 +47787,22 @@ func (t *AMBMessageContent) MergeAMBNativeTextContent(v AMBNativeTextContent) er
 	return err
 }
 
-// AsAMBNativeRichLinkContent returns the union data inside the AMBMessageContent as a AMBNativeRichLinkContent
-func (t AMBMessageContent) AsAMBNativeRichLinkContent() (AMBNativeRichLinkContent, error) {
-	var body AMBNativeRichLinkContent
+// AsAMBInteractive5 returns the union data inside the AMBInteractive as a AMBInteractive5
+func (t AMBInteractive) AsAMBInteractive5() (AMBInteractive5, error) {
+	var body AMBInteractive5
 	err := json.Unmarshal(t.union, &body)
 	return body, err
 }
 
-// FromAMBNativeRichLinkContent overwrites any union data inside the AMBMessageContent as the provided AMBNativeRichLinkContent
-func (t *AMBMessageContent) FromAMBNativeRichLinkContent(v AMBNativeRichLinkContent) error {
-	v.Type = "rich_link"
+// FromAMBInteractive5 overwrites any union data inside the AMBInteractive as the provided AMBInteractive5
+func (t *AMBInteractive) FromAMBInteractive5(v AMBInteractive5) error {
 	b, err := json.Marshal(v)
 	t.union = b
 	return err
 }
 
-// MergeAMBNativeRichLinkContent performs a merge with any union data inside the AMBMessageContent, using the provided AMBNativeRichLinkContent
-func (t *AMBMessageContent) MergeAMBNativeRichLinkContent(v AMBNativeRichLinkContent) error {
-	v.Type = "rich_link"
+// MergeAMBInteractive5 performs a merge with any union data inside the AMBInteractive, using the provided AMBInteractive5
+func (t *AMBInteractive) MergeAMBInteractive5(v AMBInteractive5) error {
 	b, err := json.Marshal(v)
 	if err != nil {
 		return err
@@ -47892,24 +47813,22 @@ func (t *AMBMessageContent) MergeAMBNativeRichLinkContent(v AMBNativeRichLinkCon
 	return err
 }
 
-// AsAMBNativeInteractiveContent returns the union data inside the AMBMessageContent as a AMBNativeInteractiveContent
-func (t AMBMessageContent) AsAMBNativeInteractiveContent() (AMBNativeInteractiveContent, error) {
-	var body AMBNativeInteractiveContent
+// AsAMBInteractive6 returns the union data inside the AMBInteractive as a AMBInteractive6
+func (t AMBInteractive) AsAMBInteractive6() (AMBInteractive6, error) {
+	var body AMBInteractive6
 	err := json.Unmarshal(t.union, &body)
 	return body, err
 }
 
-// FromAMBNativeInteractiveContent overwrites any union data inside the AMBMessageContent as the provided AMBNativeInteractiveContent
-func (t *AMBMessageContent) FromAMBNativeInteractiveContent(v AMBNativeInteractiveContent) error {
-	v.Type = "interactive"
+// FromAMBInteractive6 overwrites any union data inside the AMBInteractive as the provided AMBInteractive6
+func (t *AMBInteractive) FromAMBInteractive6(v AMBInteractive6) error {
 	b, err := json.Marshal(v)
 	t.union = b
 	return err
 }
 
-// MergeAMBNativeInteractiveContent performs a merge with any union data inside the AMBMessageContent, using the provided AMBNativeInteractiveContent
-func (t *AMBMessageContent) MergeAMBNativeInteractiveContent(v AMBNativeInteractiveContent) error {
-	v.Type = "interactive"
+// MergeAMBInteractive6 performs a merge with any union data inside the AMBInteractive, using the provided AMBInteractive6
+func (t *AMBInteractive) MergeAMBInteractive6(v AMBInteractive6) error {
 	b, err := json.Marshal(v)
 	if err != nil {
 		return err
@@ -47920,94 +47839,7 @@ func (t *AMBMessageContent) MergeAMBNativeInteractiveContent(v AMBNativeInteract
 	return err
 }
 
-func (t AMBMessageContent) Discriminator() (string, error) {
-	var discriminator struct {
-		Discriminator string `json:"type"`
-	}
-	err := json.Unmarshal(t.union, &discriminator)
-	return discriminator.Discriminator, err
-}
-
-func (t AMBMessageContent) ValueByDiscriminator() (interface{}, error) {
-	discriminator, err := t.Discriminator()
-	if err != nil {
-		return nil, err
-	}
-	switch discriminator {
-	case "interactive":
-		return t.AsAMBNativeInteractiveContent()
-	case "rich_link":
-		return t.AsAMBNativeRichLinkContent()
-	case "text":
-		return t.AsAMBNativeTextContent()
-	default:
-		return nil, errors.New("unknown discriminator value: " + discriminator)
-	}
-}
-
-func (t AMBMessageContent) MarshalJSON() ([]byte, error) {
-	b, err := t.union.MarshalJSON()
-	return b, err
-}
-
-func (t *AMBMessageContent) UnmarshalJSON(b []byte) error {
-	err := t.union.UnmarshalJSON(b)
-	return err
-}
-
-// AsAMBMessageSendRequest0 returns the union data inside the AMBMessageSendRequest as a AMBMessageSendRequest0
-func (t AMBMessageSendRequest) AsAMBMessageSendRequest0() (AMBMessageSendRequest0, error) {
-	var body AMBMessageSendRequest0
-	err := json.Unmarshal(t.union, &body)
-	return body, err
-}
-
-// FromAMBMessageSendRequest0 overwrites any union data inside the AMBMessageSendRequest as the provided AMBMessageSendRequest0
-func (t *AMBMessageSendRequest) FromAMBMessageSendRequest0(v AMBMessageSendRequest0) error {
-	b, err := json.Marshal(v)
-	t.union = b
-	return err
-}
-
-// MergeAMBMessageSendRequest0 performs a merge with any union data inside the AMBMessageSendRequest, using the provided AMBMessageSendRequest0
-func (t *AMBMessageSendRequest) MergeAMBMessageSendRequest0(v AMBMessageSendRequest0) error {
-	b, err := json.Marshal(v)
-	if err != nil {
-		return err
-	}
-
-	merged, err := runtime.JSONMerge(t.union, b)
-	t.union = merged
-	return err
-}
-
-// AsAMBMessageSendRequest1 returns the union data inside the AMBMessageSendRequest as a AMBMessageSendRequest1
-func (t AMBMessageSendRequest) AsAMBMessageSendRequest1() (AMBMessageSendRequest1, error) {
-	var body AMBMessageSendRequest1
-	err := json.Unmarshal(t.union, &body)
-	return body, err
-}
-
-// FromAMBMessageSendRequest1 overwrites any union data inside the AMBMessageSendRequest as the provided AMBMessageSendRequest1
-func (t *AMBMessageSendRequest) FromAMBMessageSendRequest1(v AMBMessageSendRequest1) error {
-	b, err := json.Marshal(v)
-	t.union = b
-	return err
-}
-
-// MergeAMBMessageSendRequest1 performs a merge with any union data inside the AMBMessageSendRequest, using the provided AMBMessageSendRequest1
-func (t *AMBMessageSendRequest) MergeAMBMessageSendRequest1(v AMBMessageSendRequest1) error {
-	b, err := json.Marshal(v)
-	if err != nil {
-		return err
-	}
-
-	merged, err := runtime.JSONMerge(t.union, b)
-	t.union = merged
-	return err
-}
-
-func (t AMBMessageSendRequest) MarshalJSON() ([]byte, error) {
+func (t AMBInteractive) MarshalJSON() ([]byte, error) {
 	b, err := t.union.MarshalJSON()
 	if err != nil {
 		return nil, err
@@ -48020,91 +47852,94 @@ func (t AMBMessageSendRequest) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if t.Category != nil {
-		object["category"], err = json.Marshal(t.Category)
+	if t.Authenticate != nil {
+		object["authenticate"], err = json.Marshal(t.Authenticate)
 		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'category': %w", err)
+			return nil, fmt.Errorf("error marshaling 'authenticate': %w", err)
 		}
 	}
 
-	if t.Content != nil {
-		object["content"], err = json.Marshal(t.Content)
+	if t.Dynamic != nil {
+		object["dynamic"], err = json.Marshal(t.Dynamic)
 		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'content': %w", err)
+			return nil, fmt.Errorf("error marshaling 'dynamic': %w", err)
 		}
 	}
 
-	object["from"], err = json.Marshal(t.From)
-	if err != nil {
-		return nil, fmt.Errorf("error marshaling 'from': %w", err)
-	}
-
-	if t.Group != nil {
-		object["group"], err = json.Marshal(t.Group)
+	if t.Event != nil {
+		object["event"], err = json.Marshal(t.Event)
 		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'group': %w", err)
+			return nil, fmt.Errorf("error marshaling 'event': %w", err)
 		}
 	}
 
-	if t.Intent != nil {
-		object["intent"], err = json.Marshal(t.Intent)
+	if t.Images != nil {
+		object["images"], err = json.Marshal(t.Images)
 		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'intent': %w", err)
+			return nil, fmt.Errorf("error marshaling 'images': %w", err)
 		}
 	}
 
-	if t.Locale != nil {
-		object["locale"], err = json.Marshal(t.Locale)
+	if t.ImessageApp != nil {
+		object["imessage_app"], err = json.Marshal(t.ImessageApp)
 		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'locale': %w", err)
+			return nil, fmt.Errorf("error marshaling 'imessage_app': %w", err)
 		}
 	}
 
-	if t.Metadata != nil {
-		object["metadata"], err = json.Marshal(t.Metadata)
+	if t.ListPicker != nil {
+		object["list_picker"], err = json.Marshal(t.ListPicker)
 		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'metadata': %w", err)
+			return nil, fmt.Errorf("error marshaling 'list_picker': %w", err)
 		}
 	}
 
-	if t.Reference != nil {
-		object["reference"], err = json.Marshal(t.Reference)
+	if t.Payment != nil {
+		object["payment"], err = json.Marshal(t.Payment)
 		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'reference': %w", err)
+			return nil, fmt.Errorf("error marshaling 'payment': %w", err)
 		}
 	}
 
-	if t.Source != nil {
-		object["source"], err = json.Marshal(t.Source)
+	if t.QuickReply != nil {
+		object["quick_reply"], err = json.Marshal(t.QuickReply)
 		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'source': %w", err)
+			return nil, fmt.Errorf("error marshaling 'quick_reply': %w", err)
 		}
 	}
 
-	if t.Tags != nil {
-		object["tags"], err = json.Marshal(t.Tags)
+	if t.ReceivedMessage != nil {
+		object["received_message"], err = json.Marshal(t.ReceivedMessage)
 		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'tags': %w", err)
+			return nil, fmt.Errorf("error marshaling 'received_message': %w", err)
 		}
 	}
 
-	if t.Template != nil {
-		object["template"], err = json.Marshal(t.Template)
+	if t.ReplyMessage != nil {
+		object["reply_message"], err = json.Marshal(t.ReplyMessage)
 		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'template': %w", err)
+			return nil, fmt.Errorf("error marshaling 'reply_message': %w", err)
 		}
 	}
 
-	object["to"], err = json.Marshal(t.To)
-	if err != nil {
-		return nil, fmt.Errorf("error marshaling 'to': %w", err)
+	if t.RequestIdentifier != nil {
+		object["request_identifier"], err = json.Marshal(t.RequestIdentifier)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'request_identifier': %w", err)
+		}
 	}
 
+	if t.SessionIdentifier != nil {
+		object["session_identifier"], err = json.Marshal(t.SessionIdentifier)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'session_identifier': %w", err)
+		}
+	}
 	b, err = json.Marshal(object)
 	return b, err
 }
 
-func (t *AMBMessageSendRequest) UnmarshalJSON(b []byte) error {
+func (t *AMBInteractive) UnmarshalJSON(b []byte) error {
 	err := t.union.UnmarshalJSON(b)
 	if err != nil {
 		return err
@@ -48115,87 +47950,87 @@ func (t *AMBMessageSendRequest) UnmarshalJSON(b []byte) error {
 		return err
 	}
 
-	if raw, found := object["category"]; found {
-		err = json.Unmarshal(raw, &t.Category)
+	if raw, found := object["authenticate"]; found {
+		err = json.Unmarshal(raw, &t.Authenticate)
 		if err != nil {
-			return fmt.Errorf("error reading 'category': %w", err)
+			return fmt.Errorf("error reading 'authenticate': %w", err)
 		}
 	}
 
-	if raw, found := object["content"]; found {
-		err = json.Unmarshal(raw, &t.Content)
+	if raw, found := object["dynamic"]; found {
+		err = json.Unmarshal(raw, &t.Dynamic)
 		if err != nil {
-			return fmt.Errorf("error reading 'content': %w", err)
+			return fmt.Errorf("error reading 'dynamic': %w", err)
 		}
 	}
 
-	if raw, found := object["from"]; found {
-		err = json.Unmarshal(raw, &t.From)
+	if raw, found := object["event"]; found {
+		err = json.Unmarshal(raw, &t.Event)
 		if err != nil {
-			return fmt.Errorf("error reading 'from': %w", err)
+			return fmt.Errorf("error reading 'event': %w", err)
 		}
 	}
 
-	if raw, found := object["group"]; found {
-		err = json.Unmarshal(raw, &t.Group)
+	if raw, found := object["images"]; found {
+		err = json.Unmarshal(raw, &t.Images)
 		if err != nil {
-			return fmt.Errorf("error reading 'group': %w", err)
+			return fmt.Errorf("error reading 'images': %w", err)
 		}
 	}
 
-	if raw, found := object["intent"]; found {
-		err = json.Unmarshal(raw, &t.Intent)
+	if raw, found := object["imessage_app"]; found {
+		err = json.Unmarshal(raw, &t.ImessageApp)
 		if err != nil {
-			return fmt.Errorf("error reading 'intent': %w", err)
+			return fmt.Errorf("error reading 'imessage_app': %w", err)
 		}
 	}
 
-	if raw, found := object["locale"]; found {
-		err = json.Unmarshal(raw, &t.Locale)
+	if raw, found := object["list_picker"]; found {
+		err = json.Unmarshal(raw, &t.ListPicker)
 		if err != nil {
-			return fmt.Errorf("error reading 'locale': %w", err)
+			return fmt.Errorf("error reading 'list_picker': %w", err)
 		}
 	}
 
-	if raw, found := object["metadata"]; found {
-		err = json.Unmarshal(raw, &t.Metadata)
+	if raw, found := object["payment"]; found {
+		err = json.Unmarshal(raw, &t.Payment)
 		if err != nil {
-			return fmt.Errorf("error reading 'metadata': %w", err)
+			return fmt.Errorf("error reading 'payment': %w", err)
 		}
 	}
 
-	if raw, found := object["reference"]; found {
-		err = json.Unmarshal(raw, &t.Reference)
+	if raw, found := object["quick_reply"]; found {
+		err = json.Unmarshal(raw, &t.QuickReply)
 		if err != nil {
-			return fmt.Errorf("error reading 'reference': %w", err)
+			return fmt.Errorf("error reading 'quick_reply': %w", err)
 		}
 	}
 
-	if raw, found := object["source"]; found {
-		err = json.Unmarshal(raw, &t.Source)
+	if raw, found := object["received_message"]; found {
+		err = json.Unmarshal(raw, &t.ReceivedMessage)
 		if err != nil {
-			return fmt.Errorf("error reading 'source': %w", err)
+			return fmt.Errorf("error reading 'received_message': %w", err)
 		}
 	}
 
-	if raw, found := object["tags"]; found {
-		err = json.Unmarshal(raw, &t.Tags)
+	if raw, found := object["reply_message"]; found {
+		err = json.Unmarshal(raw, &t.ReplyMessage)
 		if err != nil {
-			return fmt.Errorf("error reading 'tags': %w", err)
+			return fmt.Errorf("error reading 'reply_message': %w", err)
 		}
 	}
 
-	if raw, found := object["template"]; found {
-		err = json.Unmarshal(raw, &t.Template)
+	if raw, found := object["request_identifier"]; found {
+		err = json.Unmarshal(raw, &t.RequestIdentifier)
 		if err != nil {
-			return fmt.Errorf("error reading 'template': %w", err)
+			return fmt.Errorf("error reading 'request_identifier': %w", err)
 		}
 	}
 
-	if raw, found := object["to"]; found {
-		err = json.Unmarshal(raw, &t.To)
+	if raw, found := object["session_identifier"]; found {
+		err = json.Unmarshal(raw, &t.SessionIdentifier)
 		if err != nil {
-			return fmt.Errorf("error reading 'to': %w", err)
+			return fmt.Errorf("error reading 'session_identifier': %w", err)
 		}
 	}
 
@@ -48354,22 +48189,22 @@ func (t *AMBNativeAttachment) UnmarshalJSON(b []byte) error {
 	return err
 }
 
-// AsAMBNativeInteractiveData0 returns the union data inside the AMBNativeInteractiveData as a AMBNativeInteractiveData0
-func (t AMBNativeInteractiveData) AsAMBNativeInteractiveData0() (AMBNativeInteractiveData0, error) {
-	var body AMBNativeInteractiveData0
+// AsAMBRichLink0 returns the union data inside the AMBRichLink as a AMBRichLink0
+func (t AMBRichLink) AsAMBRichLink0() (AMBRichLink0, error) {
+	var body AMBRichLink0
 	err := json.Unmarshal(t.union, &body)
 	return body, err
 }
 
-// FromAMBNativeInteractiveData0 overwrites any union data inside the AMBNativeInteractiveData as the provided AMBNativeInteractiveData0
-func (t *AMBNativeInteractiveData) FromAMBNativeInteractiveData0(v AMBNativeInteractiveData0) error {
+// FromAMBRichLink0 overwrites any union data inside the AMBRichLink as the provided AMBRichLink0
+func (t *AMBRichLink) FromAMBRichLink0(v AMBRichLink0) error {
 	b, err := json.Marshal(v)
 	t.union = b
 	return err
 }
 
-// MergeAMBNativeInteractiveData0 performs a merge with any union data inside the AMBNativeInteractiveData, using the provided AMBNativeInteractiveData0
-func (t *AMBNativeInteractiveData) MergeAMBNativeInteractiveData0(v AMBNativeInteractiveData0) error {
+// MergeAMBRichLink0 performs a merge with any union data inside the AMBRichLink, using the provided AMBRichLink0
+func (t *AMBRichLink) MergeAMBRichLink0(v AMBRichLink0) error {
 	b, err := json.Marshal(v)
 	if err != nil {
 		return err
@@ -48380,22 +48215,22 @@ func (t *AMBNativeInteractiveData) MergeAMBNativeInteractiveData0(v AMBNativeInt
 	return err
 }
 
-// AsAMBNativeInteractiveData1 returns the union data inside the AMBNativeInteractiveData as a AMBNativeInteractiveData1
-func (t AMBNativeInteractiveData) AsAMBNativeInteractiveData1() (AMBNativeInteractiveData1, error) {
-	var body AMBNativeInteractiveData1
+// AsAMBRichLink1 returns the union data inside the AMBRichLink as a AMBRichLink1
+func (t AMBRichLink) AsAMBRichLink1() (AMBRichLink1, error) {
+	var body AMBRichLink1
 	err := json.Unmarshal(t.union, &body)
 	return body, err
 }
 
-// FromAMBNativeInteractiveData1 overwrites any union data inside the AMBNativeInteractiveData as the provided AMBNativeInteractiveData1
-func (t *AMBNativeInteractiveData) FromAMBNativeInteractiveData1(v AMBNativeInteractiveData1) error {
+// FromAMBRichLink1 overwrites any union data inside the AMBRichLink as the provided AMBRichLink1
+func (t *AMBRichLink) FromAMBRichLink1(v AMBRichLink1) error {
 	b, err := json.Marshal(v)
 	t.union = b
 	return err
 }
 
-// MergeAMBNativeInteractiveData1 performs a merge with any union data inside the AMBNativeInteractiveData, using the provided AMBNativeInteractiveData1
-func (t *AMBNativeInteractiveData) MergeAMBNativeInteractiveData1(v AMBNativeInteractiveData1) error {
+// MergeAMBRichLink1 performs a merge with any union data inside the AMBRichLink, using the provided AMBRichLink1
+func (t *AMBRichLink) MergeAMBRichLink1(v AMBRichLink1) error {
 	b, err := json.Marshal(v)
 	if err != nil {
 		return err
@@ -48406,7 +48241,7 @@ func (t *AMBNativeInteractiveData) MergeAMBNativeInteractiveData1(v AMBNativeInt
 	return err
 }
 
-func (t AMBNativeInteractiveData) MarshalJSON() ([]byte, error) {
+func (t AMBRichLink) MarshalJSON() ([]byte, error) {
 	b, err := t.union.MarshalJSON()
 	if err != nil {
 		return nil, err
@@ -48416,540 +48251,6 @@ func (t AMBNativeInteractiveData) MarshalJSON() ([]byte, error) {
 		err = json.Unmarshal(b, &object)
 		if err != nil {
 			return nil, err
-		}
-	}
-
-	if t.AppIconSourceUrl != nil {
-		object["app_icon_source_url"], err = json.Marshal(t.AppIconSourceUrl)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'app_icon_source_url': %w", err)
-		}
-	}
-
-	if t.AppId != nil {
-		object["app_id"], err = json.Marshal(t.AppId)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'app_id': %w", err)
-		}
-	}
-
-	if t.AppName != nil {
-		object["app_name"], err = json.Marshal(t.AppName)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'app_name': %w", err)
-		}
-	}
-
-	if t.Bid != nil {
-		object["bid"], err = json.Marshal(t.Bid)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'bid': %w", err)
-		}
-	}
-
-	if t.Data != nil {
-		object["data"], err = json.Marshal(t.Data)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'data': %w", err)
-		}
-	}
-
-	if t.ReceivedMessage != nil {
-		object["received_message"], err = json.Marshal(t.ReceivedMessage)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'received_message': %w", err)
-		}
-	}
-
-	if t.ReplyMessage != nil {
-		object["reply_message"], err = json.Marshal(t.ReplyMessage)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'reply_message': %w", err)
-		}
-	}
-
-	if t.SessionIdentifier != nil {
-		object["session_identifier"], err = json.Marshal(t.SessionIdentifier)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'session_identifier': %w", err)
-		}
-	}
-
-	if t.Url != nil {
-		object["url"], err = json.Marshal(t.Url)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'url': %w", err)
-		}
-	}
-
-	if t.UseLiveLayout != nil {
-		object["use_live_layout"], err = json.Marshal(t.UseLiveLayout)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'use_live_layout': %w", err)
-		}
-	}
-	b, err = json.Marshal(object)
-	return b, err
-}
-
-func (t *AMBNativeInteractiveData) UnmarshalJSON(b []byte) error {
-	err := t.union.UnmarshalJSON(b)
-	if err != nil {
-		return err
-	}
-	object := make(map[string]json.RawMessage)
-	err = json.Unmarshal(b, &object)
-	if err != nil {
-		return err
-	}
-
-	if raw, found := object["app_icon_source_url"]; found {
-		err = json.Unmarshal(raw, &t.AppIconSourceUrl)
-		if err != nil {
-			return fmt.Errorf("error reading 'app_icon_source_url': %w", err)
-		}
-	}
-
-	if raw, found := object["app_id"]; found {
-		err = json.Unmarshal(raw, &t.AppId)
-		if err != nil {
-			return fmt.Errorf("error reading 'app_id': %w", err)
-		}
-	}
-
-	if raw, found := object["app_name"]; found {
-		err = json.Unmarshal(raw, &t.AppName)
-		if err != nil {
-			return fmt.Errorf("error reading 'app_name': %w", err)
-		}
-	}
-
-	if raw, found := object["bid"]; found {
-		err = json.Unmarshal(raw, &t.Bid)
-		if err != nil {
-			return fmt.Errorf("error reading 'bid': %w", err)
-		}
-	}
-
-	if raw, found := object["data"]; found {
-		err = json.Unmarshal(raw, &t.Data)
-		if err != nil {
-			return fmt.Errorf("error reading 'data': %w", err)
-		}
-	}
-
-	if raw, found := object["received_message"]; found {
-		err = json.Unmarshal(raw, &t.ReceivedMessage)
-		if err != nil {
-			return fmt.Errorf("error reading 'received_message': %w", err)
-		}
-	}
-
-	if raw, found := object["reply_message"]; found {
-		err = json.Unmarshal(raw, &t.ReplyMessage)
-		if err != nil {
-			return fmt.Errorf("error reading 'reply_message': %w", err)
-		}
-	}
-
-	if raw, found := object["session_identifier"]; found {
-		err = json.Unmarshal(raw, &t.SessionIdentifier)
-		if err != nil {
-			return fmt.Errorf("error reading 'session_identifier': %w", err)
-		}
-	}
-
-	if raw, found := object["url"]; found {
-		err = json.Unmarshal(raw, &t.Url)
-		if err != nil {
-			return fmt.Errorf("error reading 'url': %w", err)
-		}
-	}
-
-	if raw, found := object["use_live_layout"]; found {
-		err = json.Unmarshal(raw, &t.UseLiveLayout)
-		if err != nil {
-			return fmt.Errorf("error reading 'use_live_layout': %w", err)
-		}
-	}
-
-	return err
-}
-
-// AsAMBNativeInteractivePayload0 returns the union data inside the AMBNativeInteractivePayload as a AMBNativeInteractivePayload0
-func (t AMBNativeInteractivePayload) AsAMBNativeInteractivePayload0() (AMBNativeInteractivePayload0, error) {
-	var body AMBNativeInteractivePayload0
-	err := json.Unmarshal(t.union, &body)
-	return body, err
-}
-
-// FromAMBNativeInteractivePayload0 overwrites any union data inside the AMBNativeInteractivePayload as the provided AMBNativeInteractivePayload0
-func (t *AMBNativeInteractivePayload) FromAMBNativeInteractivePayload0(v AMBNativeInteractivePayload0) error {
-	b, err := json.Marshal(v)
-	t.union = b
-	return err
-}
-
-// MergeAMBNativeInteractivePayload0 performs a merge with any union data inside the AMBNativeInteractivePayload, using the provided AMBNativeInteractivePayload0
-func (t *AMBNativeInteractivePayload) MergeAMBNativeInteractivePayload0(v AMBNativeInteractivePayload0) error {
-	b, err := json.Marshal(v)
-	if err != nil {
-		return err
-	}
-
-	merged, err := runtime.JSONMerge(t.union, b)
-	t.union = merged
-	return err
-}
-
-// AsAMBNativeInteractivePayload1 returns the union data inside the AMBNativeInteractivePayload as a AMBNativeInteractivePayload1
-func (t AMBNativeInteractivePayload) AsAMBNativeInteractivePayload1() (AMBNativeInteractivePayload1, error) {
-	var body AMBNativeInteractivePayload1
-	err := json.Unmarshal(t.union, &body)
-	return body, err
-}
-
-// FromAMBNativeInteractivePayload1 overwrites any union data inside the AMBNativeInteractivePayload as the provided AMBNativeInteractivePayload1
-func (t *AMBNativeInteractivePayload) FromAMBNativeInteractivePayload1(v AMBNativeInteractivePayload1) error {
-	b, err := json.Marshal(v)
-	t.union = b
-	return err
-}
-
-// MergeAMBNativeInteractivePayload1 performs a merge with any union data inside the AMBNativeInteractivePayload, using the provided AMBNativeInteractivePayload1
-func (t *AMBNativeInteractivePayload) MergeAMBNativeInteractivePayload1(v AMBNativeInteractivePayload1) error {
-	b, err := json.Marshal(v)
-	if err != nil {
-		return err
-	}
-
-	merged, err := runtime.JSONMerge(t.union, b)
-	t.union = merged
-	return err
-}
-
-// AsAMBNativeInteractivePayload2 returns the union data inside the AMBNativeInteractivePayload as a AMBNativeInteractivePayload2
-func (t AMBNativeInteractivePayload) AsAMBNativeInteractivePayload2() (AMBNativeInteractivePayload2, error) {
-	var body AMBNativeInteractivePayload2
-	err := json.Unmarshal(t.union, &body)
-	return body, err
-}
-
-// FromAMBNativeInteractivePayload2 overwrites any union data inside the AMBNativeInteractivePayload as the provided AMBNativeInteractivePayload2
-func (t *AMBNativeInteractivePayload) FromAMBNativeInteractivePayload2(v AMBNativeInteractivePayload2) error {
-	b, err := json.Marshal(v)
-	t.union = b
-	return err
-}
-
-// MergeAMBNativeInteractivePayload2 performs a merge with any union data inside the AMBNativeInteractivePayload, using the provided AMBNativeInteractivePayload2
-func (t *AMBNativeInteractivePayload) MergeAMBNativeInteractivePayload2(v AMBNativeInteractivePayload2) error {
-	b, err := json.Marshal(v)
-	if err != nil {
-		return err
-	}
-
-	merged, err := runtime.JSONMerge(t.union, b)
-	t.union = merged
-	return err
-}
-
-// AsAMBNativeInteractivePayload3 returns the union data inside the AMBNativeInteractivePayload as a AMBNativeInteractivePayload3
-func (t AMBNativeInteractivePayload) AsAMBNativeInteractivePayload3() (AMBNativeInteractivePayload3, error) {
-	var body AMBNativeInteractivePayload3
-	err := json.Unmarshal(t.union, &body)
-	return body, err
-}
-
-// FromAMBNativeInteractivePayload3 overwrites any union data inside the AMBNativeInteractivePayload as the provided AMBNativeInteractivePayload3
-func (t *AMBNativeInteractivePayload) FromAMBNativeInteractivePayload3(v AMBNativeInteractivePayload3) error {
-	b, err := json.Marshal(v)
-	t.union = b
-	return err
-}
-
-// MergeAMBNativeInteractivePayload3 performs a merge with any union data inside the AMBNativeInteractivePayload, using the provided AMBNativeInteractivePayload3
-func (t *AMBNativeInteractivePayload) MergeAMBNativeInteractivePayload3(v AMBNativeInteractivePayload3) error {
-	b, err := json.Marshal(v)
-	if err != nil {
-		return err
-	}
-
-	merged, err := runtime.JSONMerge(t.union, b)
-	t.union = merged
-	return err
-}
-
-// AsAMBNativeInteractivePayload4 returns the union data inside the AMBNativeInteractivePayload as a AMBNativeInteractivePayload4
-func (t AMBNativeInteractivePayload) AsAMBNativeInteractivePayload4() (AMBNativeInteractivePayload4, error) {
-	var body AMBNativeInteractivePayload4
-	err := json.Unmarshal(t.union, &body)
-	return body, err
-}
-
-// FromAMBNativeInteractivePayload4 overwrites any union data inside the AMBNativeInteractivePayload as the provided AMBNativeInteractivePayload4
-func (t *AMBNativeInteractivePayload) FromAMBNativeInteractivePayload4(v AMBNativeInteractivePayload4) error {
-	b, err := json.Marshal(v)
-	t.union = b
-	return err
-}
-
-// MergeAMBNativeInteractivePayload4 performs a merge with any union data inside the AMBNativeInteractivePayload, using the provided AMBNativeInteractivePayload4
-func (t *AMBNativeInteractivePayload) MergeAMBNativeInteractivePayload4(v AMBNativeInteractivePayload4) error {
-	b, err := json.Marshal(v)
-	if err != nil {
-		return err
-	}
-
-	merged, err := runtime.JSONMerge(t.union, b)
-	t.union = merged
-	return err
-}
-
-// AsAMBNativeInteractivePayload5 returns the union data inside the AMBNativeInteractivePayload as a AMBNativeInteractivePayload5
-func (t AMBNativeInteractivePayload) AsAMBNativeInteractivePayload5() (AMBNativeInteractivePayload5, error) {
-	var body AMBNativeInteractivePayload5
-	err := json.Unmarshal(t.union, &body)
-	return body, err
-}
-
-// FromAMBNativeInteractivePayload5 overwrites any union data inside the AMBNativeInteractivePayload as the provided AMBNativeInteractivePayload5
-func (t *AMBNativeInteractivePayload) FromAMBNativeInteractivePayload5(v AMBNativeInteractivePayload5) error {
-	b, err := json.Marshal(v)
-	t.union = b
-	return err
-}
-
-// MergeAMBNativeInteractivePayload5 performs a merge with any union data inside the AMBNativeInteractivePayload, using the provided AMBNativeInteractivePayload5
-func (t *AMBNativeInteractivePayload) MergeAMBNativeInteractivePayload5(v AMBNativeInteractivePayload5) error {
-	b, err := json.Marshal(v)
-	if err != nil {
-		return err
-	}
-
-	merged, err := runtime.JSONMerge(t.union, b)
-	t.union = merged
-	return err
-}
-
-func (t AMBNativeInteractivePayload) MarshalJSON() ([]byte, error) {
-	b, err := t.union.MarshalJSON()
-	if err != nil {
-		return nil, err
-	}
-	object := make(map[string]json.RawMessage)
-	if t.union != nil {
-		err = json.Unmarshal(b, &object)
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	if t.Authenticate != nil {
-		object["authenticate"], err = json.Marshal(t.Authenticate)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'authenticate': %w", err)
-		}
-	}
-
-	if t.Dynamic != nil {
-		object["dynamic"], err = json.Marshal(t.Dynamic)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'dynamic': %w", err)
-		}
-	}
-
-	if t.Event != nil {
-		object["event"], err = json.Marshal(t.Event)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'event': %w", err)
-		}
-	}
-
-	if t.Images != nil {
-		object["images"], err = json.Marshal(t.Images)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'images': %w", err)
-		}
-	}
-
-	if t.ListPicker != nil {
-		object["list_picker"], err = json.Marshal(t.ListPicker)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'list_picker': %w", err)
-		}
-	}
-
-	if t.Payment != nil {
-		object["payment"], err = json.Marshal(t.Payment)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'payment': %w", err)
-		}
-	}
-
-	if t.QuickReply != nil {
-		object["quick_reply"], err = json.Marshal(t.QuickReply)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'quick_reply': %w", err)
-		}
-	}
-
-	if t.RequestIdentifier != nil {
-		object["request_identifier"], err = json.Marshal(t.RequestIdentifier)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'request_identifier': %w", err)
-		}
-	}
-	b, err = json.Marshal(object)
-	return b, err
-}
-
-func (t *AMBNativeInteractivePayload) UnmarshalJSON(b []byte) error {
-	err := t.union.UnmarshalJSON(b)
-	if err != nil {
-		return err
-	}
-	object := make(map[string]json.RawMessage)
-	err = json.Unmarshal(b, &object)
-	if err != nil {
-		return err
-	}
-
-	if raw, found := object["authenticate"]; found {
-		err = json.Unmarshal(raw, &t.Authenticate)
-		if err != nil {
-			return fmt.Errorf("error reading 'authenticate': %w", err)
-		}
-	}
-
-	if raw, found := object["dynamic"]; found {
-		err = json.Unmarshal(raw, &t.Dynamic)
-		if err != nil {
-			return fmt.Errorf("error reading 'dynamic': %w", err)
-		}
-	}
-
-	if raw, found := object["event"]; found {
-		err = json.Unmarshal(raw, &t.Event)
-		if err != nil {
-			return fmt.Errorf("error reading 'event': %w", err)
-		}
-	}
-
-	if raw, found := object["images"]; found {
-		err = json.Unmarshal(raw, &t.Images)
-		if err != nil {
-			return fmt.Errorf("error reading 'images': %w", err)
-		}
-	}
-
-	if raw, found := object["list_picker"]; found {
-		err = json.Unmarshal(raw, &t.ListPicker)
-		if err != nil {
-			return fmt.Errorf("error reading 'list_picker': %w", err)
-		}
-	}
-
-	if raw, found := object["payment"]; found {
-		err = json.Unmarshal(raw, &t.Payment)
-		if err != nil {
-			return fmt.Errorf("error reading 'payment': %w", err)
-		}
-	}
-
-	if raw, found := object["quick_reply"]; found {
-		err = json.Unmarshal(raw, &t.QuickReply)
-		if err != nil {
-			return fmt.Errorf("error reading 'quick_reply': %w", err)
-		}
-	}
-
-	if raw, found := object["request_identifier"]; found {
-		err = json.Unmarshal(raw, &t.RequestIdentifier)
-		if err != nil {
-			return fmt.Errorf("error reading 'request_identifier': %w", err)
-		}
-	}
-
-	return err
-}
-
-// AsAMBNativeRichLinkContent0 returns the union data inside the AMBNativeRichLinkContent as a AMBNativeRichLinkContent0
-func (t AMBNativeRichLinkContent) AsAMBNativeRichLinkContent0() (AMBNativeRichLinkContent0, error) {
-	var body AMBNativeRichLinkContent0
-	err := json.Unmarshal(t.union, &body)
-	return body, err
-}
-
-// FromAMBNativeRichLinkContent0 overwrites any union data inside the AMBNativeRichLinkContent as the provided AMBNativeRichLinkContent0
-func (t *AMBNativeRichLinkContent) FromAMBNativeRichLinkContent0(v AMBNativeRichLinkContent0) error {
-	b, err := json.Marshal(v)
-	t.union = b
-	return err
-}
-
-// MergeAMBNativeRichLinkContent0 performs a merge with any union data inside the AMBNativeRichLinkContent, using the provided AMBNativeRichLinkContent0
-func (t *AMBNativeRichLinkContent) MergeAMBNativeRichLinkContent0(v AMBNativeRichLinkContent0) error {
-	b, err := json.Marshal(v)
-	if err != nil {
-		return err
-	}
-
-	merged, err := runtime.JSONMerge(t.union, b)
-	t.union = merged
-	return err
-}
-
-// AsAMBNativeRichLinkContent1 returns the union data inside the AMBNativeRichLinkContent as a AMBNativeRichLinkContent1
-func (t AMBNativeRichLinkContent) AsAMBNativeRichLinkContent1() (AMBNativeRichLinkContent1, error) {
-	var body AMBNativeRichLinkContent1
-	err := json.Unmarshal(t.union, &body)
-	return body, err
-}
-
-// FromAMBNativeRichLinkContent1 overwrites any union data inside the AMBNativeRichLinkContent as the provided AMBNativeRichLinkContent1
-func (t *AMBNativeRichLinkContent) FromAMBNativeRichLinkContent1(v AMBNativeRichLinkContent1) error {
-	b, err := json.Marshal(v)
-	t.union = b
-	return err
-}
-
-// MergeAMBNativeRichLinkContent1 performs a merge with any union data inside the AMBNativeRichLinkContent, using the provided AMBNativeRichLinkContent1
-func (t *AMBNativeRichLinkContent) MergeAMBNativeRichLinkContent1(v AMBNativeRichLinkContent1) error {
-	b, err := json.Marshal(v)
-	if err != nil {
-		return err
-	}
-
-	merged, err := runtime.JSONMerge(t.union, b)
-	t.union = merged
-	return err
-}
-
-func (t AMBNativeRichLinkContent) MarshalJSON() ([]byte, error) {
-	b, err := t.union.MarshalJSON()
-	if err != nil {
-		return nil, err
-	}
-	object := make(map[string]json.RawMessage)
-	if t.union != nil {
-		err = json.Unmarshal(b, &object)
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	if t.Attachments != nil {
-		object["attachments"], err = json.Marshal(t.Attachments)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'attachments': %w", err)
-		}
-	}
-
-	if t.Body != nil {
-		object["body"], err = json.Marshal(t.Body)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'body': %w", err)
 		}
 	}
 
@@ -48966,24 +48267,11 @@ func (t AMBNativeRichLinkContent) MarshalJSON() ([]byte, error) {
 			return nil, fmt.Errorf("error marshaling 'rich_link_data': %w", err)
 		}
 	}
-
-	if t.Subject != nil {
-		object["subject"], err = json.Marshal(t.Subject)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'subject': %w", err)
-		}
-	}
-
-	object["type"], err = json.Marshal(t.Type)
-	if err != nil {
-		return nil, fmt.Errorf("error marshaling 'type': %w", err)
-	}
-
 	b, err = json.Marshal(object)
 	return b, err
 }
 
-func (t *AMBNativeRichLinkContent) UnmarshalJSON(b []byte) error {
+func (t *AMBRichLink) UnmarshalJSON(b []byte) error {
 	err := t.union.UnmarshalJSON(b)
 	if err != nil {
 		return err
@@ -48992,20 +48280,6 @@ func (t *AMBNativeRichLinkContent) UnmarshalJSON(b []byte) error {
 	err = json.Unmarshal(b, &object)
 	if err != nil {
 		return err
-	}
-
-	if raw, found := object["attachments"]; found {
-		err = json.Unmarshal(raw, &t.Attachments)
-		if err != nil {
-			return fmt.Errorf("error reading 'attachments': %w", err)
-		}
-	}
-
-	if raw, found := object["body"]; found {
-		err = json.Unmarshal(raw, &t.Body)
-		if err != nil {
-			return fmt.Errorf("error reading 'body': %w", err)
-		}
 	}
 
 	if raw, found := object["rich_link_construct"]; found {
@@ -49019,157 +48293,6 @@ func (t *AMBNativeRichLinkContent) UnmarshalJSON(b []byte) error {
 		err = json.Unmarshal(raw, &t.RichLinkData)
 		if err != nil {
 			return fmt.Errorf("error reading 'rich_link_data': %w", err)
-		}
-	}
-
-	if raw, found := object["subject"]; found {
-		err = json.Unmarshal(raw, &t.Subject)
-		if err != nil {
-			return fmt.Errorf("error reading 'subject': %w", err)
-		}
-	}
-
-	if raw, found := object["type"]; found {
-		err = json.Unmarshal(raw, &t.Type)
-		if err != nil {
-			return fmt.Errorf("error reading 'type': %w", err)
-		}
-	}
-
-	return err
-}
-
-// AsAMBNativeTextContent0 returns the union data inside the AMBNativeTextContent as a AMBNativeTextContent0
-func (t AMBNativeTextContent) AsAMBNativeTextContent0() (AMBNativeTextContent0, error) {
-	var body AMBNativeTextContent0
-	err := json.Unmarshal(t.union, &body)
-	return body, err
-}
-
-// FromAMBNativeTextContent0 overwrites any union data inside the AMBNativeTextContent as the provided AMBNativeTextContent0
-func (t *AMBNativeTextContent) FromAMBNativeTextContent0(v AMBNativeTextContent0) error {
-	b, err := json.Marshal(v)
-	t.union = b
-	return err
-}
-
-// MergeAMBNativeTextContent0 performs a merge with any union data inside the AMBNativeTextContent, using the provided AMBNativeTextContent0
-func (t *AMBNativeTextContent) MergeAMBNativeTextContent0(v AMBNativeTextContent0) error {
-	b, err := json.Marshal(v)
-	if err != nil {
-		return err
-	}
-
-	merged, err := runtime.JSONMerge(t.union, b)
-	t.union = merged
-	return err
-}
-
-// AsAMBNativeTextContent1 returns the union data inside the AMBNativeTextContent as a AMBNativeTextContent1
-func (t AMBNativeTextContent) AsAMBNativeTextContent1() (AMBNativeTextContent1, error) {
-	var body AMBNativeTextContent1
-	err := json.Unmarshal(t.union, &body)
-	return body, err
-}
-
-// FromAMBNativeTextContent1 overwrites any union data inside the AMBNativeTextContent as the provided AMBNativeTextContent1
-func (t *AMBNativeTextContent) FromAMBNativeTextContent1(v AMBNativeTextContent1) error {
-	b, err := json.Marshal(v)
-	t.union = b
-	return err
-}
-
-// MergeAMBNativeTextContent1 performs a merge with any union data inside the AMBNativeTextContent, using the provided AMBNativeTextContent1
-func (t *AMBNativeTextContent) MergeAMBNativeTextContent1(v AMBNativeTextContent1) error {
-	b, err := json.Marshal(v)
-	if err != nil {
-		return err
-	}
-
-	merged, err := runtime.JSONMerge(t.union, b)
-	t.union = merged
-	return err
-}
-
-func (t AMBNativeTextContent) MarshalJSON() ([]byte, error) {
-	b, err := t.union.MarshalJSON()
-	if err != nil {
-		return nil, err
-	}
-	object := make(map[string]json.RawMessage)
-	if t.union != nil {
-		err = json.Unmarshal(b, &object)
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	if t.Attachments != nil {
-		object["attachments"], err = json.Marshal(t.Attachments)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'attachments': %w", err)
-		}
-	}
-
-	if t.Body != nil {
-		object["body"], err = json.Marshal(t.Body)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'body': %w", err)
-		}
-	}
-
-	if t.Subject != nil {
-		object["subject"], err = json.Marshal(t.Subject)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'subject': %w", err)
-		}
-	}
-
-	object["type"], err = json.Marshal(t.Type)
-	if err != nil {
-		return nil, fmt.Errorf("error marshaling 'type': %w", err)
-	}
-
-	b, err = json.Marshal(object)
-	return b, err
-}
-
-func (t *AMBNativeTextContent) UnmarshalJSON(b []byte) error {
-	err := t.union.UnmarshalJSON(b)
-	if err != nil {
-		return err
-	}
-	object := make(map[string]json.RawMessage)
-	err = json.Unmarshal(b, &object)
-	if err != nil {
-		return err
-	}
-
-	if raw, found := object["attachments"]; found {
-		err = json.Unmarshal(raw, &t.Attachments)
-		if err != nil {
-			return fmt.Errorf("error reading 'attachments': %w", err)
-		}
-	}
-
-	if raw, found := object["body"]; found {
-		err = json.Unmarshal(raw, &t.Body)
-		if err != nil {
-			return fmt.Errorf("error reading 'body': %w", err)
-		}
-	}
-
-	if raw, found := object["subject"]; found {
-		err = json.Unmarshal(raw, &t.Subject)
-		if err != nil {
-			return fmt.Errorf("error reading 'subject': %w", err)
-		}
-	}
-
-	if raw, found := object["type"]; found {
-		err = json.Unmarshal(raw, &t.Type)
-		if err != nil {
-			return fmt.Errorf("error reading 'type': %w", err)
 		}
 	}
 
@@ -49737,6 +48860,130 @@ func (t *AMBTemplateSend) UnmarshalJSON(b []byte) error {
 		err = json.Unmarshal(raw, &t.Slug)
 		if err != nil {
 			return fmt.Errorf("error reading 'slug': %w", err)
+		}
+	}
+
+	return err
+}
+
+// AsAMBText0 returns the union data inside the AMBText as a AMBText0
+func (t AMBText) AsAMBText0() (AMBText0, error) {
+	var body AMBText0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBText0 overwrites any union data inside the AMBText as the provided AMBText0
+func (t *AMBText) FromAMBText0(v AMBText0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBText0 performs a merge with any union data inside the AMBText, using the provided AMBText0
+func (t *AMBText) MergeAMBText0(v AMBText0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAMBText1 returns the union data inside the AMBText as a AMBText1
+func (t AMBText) AsAMBText1() (AMBText1, error) {
+	var body AMBText1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBText1 overwrites any union data inside the AMBText as the provided AMBText1
+func (t *AMBText) FromAMBText1(v AMBText1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBText1 performs a merge with any union data inside the AMBText, using the provided AMBText1
+func (t *AMBText) MergeAMBText1(v AMBText1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t AMBText) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	object := make(map[string]json.RawMessage)
+	if t.union != nil {
+		err = json.Unmarshal(b, &object)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if t.Attachments != nil {
+		object["attachments"], err = json.Marshal(t.Attachments)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'attachments': %w", err)
+		}
+	}
+
+	if t.Body != nil {
+		object["body"], err = json.Marshal(t.Body)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'body': %w", err)
+		}
+	}
+
+	if t.Subject != nil {
+		object["subject"], err = json.Marshal(t.Subject)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'subject': %w", err)
+		}
+	}
+	b, err = json.Marshal(object)
+	return b, err
+}
+
+func (t *AMBText) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	if err != nil {
+		return err
+	}
+	object := make(map[string]json.RawMessage)
+	err = json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["attachments"]; found {
+		err = json.Unmarshal(raw, &t.Attachments)
+		if err != nil {
+			return fmt.Errorf("error reading 'attachments': %w", err)
+		}
+	}
+
+	if raw, found := object["body"]; found {
+		err = json.Unmarshal(raw, &t.Body)
+		if err != nil {
+			return fmt.Errorf("error reading 'body': %w", err)
+		}
+	}
+
+	if raw, found := object["subject"]; found {
+		err = json.Unmarshal(raw, &t.Subject)
+		if err != nil {
+			return fmt.Errorf("error reading 'subject': %w", err)
 		}
 	}
 
@@ -56631,6 +55878,9 @@ type ClientInterface interface {
 	// GetSMSStatsByCategory request
 	GetSMSStatsByCategory(ctx context.Context, params *GetSMSStatsByCategoryParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// GetSMSStatsByCostCenter request
+	GetSMSStatsByCostCenter(ctx context.Context, params *GetSMSStatsByCostCenterParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// GetSMSStatsByCountry request
 	GetSMSStatsByCountry(ctx context.Context, params *GetSMSStatsByCountryParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -61675,6 +60925,18 @@ func (c *Client) GetSMSStatsByCarrier(ctx context.Context, params *GetSMSStatsBy
 
 func (c *Client) GetSMSStatsByCategory(ctx context.Context, params *GetSMSStatsByCategoryParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetSMSStatsByCategoryRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetSMSStatsByCostCenter(ctx context.Context, params *GetSMSStatsByCostCenterParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSMSStatsByCostCenterRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -93055,6 +92317,158 @@ func NewGetSMSStatsByCategoryRequest(server string, params *GetSMSStatsByCategor
 	return req, nil
 }
 
+// NewGetSMSStatsByCostCenterRequest generates requests for GetSMSStatsByCostCenter
+func NewGetSMSStatsByCostCenterRequest(server string, params *GetSMSStatsByCostCenterParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/stats/cost-centers")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTrend != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_trend", *params.IncludeTrend, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.TrendGrain != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "trend_grain", *params.TrendGrain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewGetSMSStatsByCountryRequest generates requests for GetSMSStatsByCountry
 func NewGetSMSStatsByCountryRequest(server string, params *GetSMSStatsByCountryParams) (*http.Request, error) {
 	var err error
@@ -93310,6 +92724,18 @@ func NewGetSMSStatsDailyRequest(server string, params *GetSMSStatsDailyParams) (
 		if params.Carrier != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "carrier", *params.Carrier, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.CostCenter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "cost_center", *params.CostCenter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -93614,6 +93040,18 @@ func NewGetSMSStatsHourlyRequest(server string, params *GetSMSStatsHourlyParams)
 		if params.Carrier != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "carrier", *params.Carrier, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.CostCenter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "cost_center", *params.CostCenter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -94694,6 +94132,18 @@ func NewGetSMSStatsSummaryRequest(server string, params *GetSMSStatsSummaryParam
 		if params.Carrier != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "carrier", *params.Carrier, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.CostCenter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "cost_center", *params.CostCenter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -107678,6 +107128,9 @@ type ClientWithResponsesInterface interface {
 	// GetSMSStatsByCategoryWithResponse request
 	GetSMSStatsByCategoryWithResponse(ctx context.Context, params *GetSMSStatsByCategoryParams, reqEditors ...RequestEditorFn) (*GetSMSStatsByCategoryResponse, error)
 
+	// GetSMSStatsByCostCenterWithResponse request
+	GetSMSStatsByCostCenterWithResponse(ctx context.Context, params *GetSMSStatsByCostCenterParams, reqEditors ...RequestEditorFn) (*GetSMSStatsByCostCenterResponse, error)
+
 	// GetSMSStatsByCountryWithResponse request
 	GetSMSStatsByCountryWithResponse(ctx context.Context, params *GetSMSStatsByCountryParams, reqEditors ...RequestEditorFn) (*GetSMSStatsByCountryResponse, error)
 
@@ -119637,6 +119090,44 @@ func (r GetSMSStatsByCategoryResponse) ContentType() string {
 	return ""
 }
 
+type GetSMSStatsByCostCenterResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSStatsByCostCenterResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSMSStatsByCostCenterResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSMSStatsByCostCenterResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetSMSStatsByCostCenterResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type GetSMSStatsByCountryResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -128256,6 +127747,15 @@ func (c *ClientWithResponses) GetSMSStatsByCategoryWithResponse(ctx context.Cont
 		return nil, err
 	}
 	return ParseGetSMSStatsByCategoryResponse(rsp)
+}
+
+// GetSMSStatsByCostCenterWithResponse request returning *GetSMSStatsByCostCenterResponse
+func (c *ClientWithResponses) GetSMSStatsByCostCenterWithResponse(ctx context.Context, params *GetSMSStatsByCostCenterParams, reqEditors ...RequestEditorFn) (*GetSMSStatsByCostCenterResponse, error) {
+	rsp, err := c.GetSMSStatsByCostCenter(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSMSStatsByCostCenterResponse(rsp)
 }
 
 // GetSMSStatsByCountryWithResponse request returning *GetSMSStatsByCountryResponse
@@ -154618,6 +154118,88 @@ func ParseGetSMSStatsByCategoryResponse(rsp *http.Response) (*GetSMSStatsByCateg
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest SMSStatsByCategoryResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSMSStatsByCostCenterResponse parses an HTTP response from a GetSMSStatsByCostCenterWithResponse call
+func ParseGetSMSStatsByCostCenterResponse(rsp *http.Response) (*GetSMSStatsByCostCenterResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSMSStatsByCostCenterResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSStatsByCostCenterResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}

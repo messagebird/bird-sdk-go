@@ -26,6 +26,8 @@ type SmsStatsSummaryParams struct {
 	Category string
 	// Restrict the statistics to a single delivery carrier. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Carrier string
+	// Restrict the statistics to messages sent with this cost center. The match is exact. Mutually exclusive with the other dimension filters; only one may be set per request.
+	CostCenter string
 	// Set to `previous_period` to also include the same statistics for the immediately preceding window of equal length, plus the change between the two, so you can show "+X% vs last period" without a second request.
 	Compare StatsComparePeriod
 }
@@ -39,6 +41,7 @@ func (p SmsStatsSummaryParams) toWire() *oapi.GetSMSStatsSummaryParams {
 		Country:    optStr(p.Country),
 		Category:   optStr(p.Category),
 		Carrier:    optStr(p.Carrier),
+		CostCenter: optStr(p.CostCenter),
 		Compare:    optZero(p.Compare),
 	}
 }
@@ -59,6 +62,8 @@ type SmsStatsDailyParams struct {
 	Category string
 	// Restrict the statistics to a single delivery carrier. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Carrier string
+	// Restrict the statistics to messages sent with this cost center. The match is exact. Mutually exclusive with the other dimension filters; only one may be set per request.
+	CostCenter string
 }
 
 func (p SmsStatsDailyParams) toWire() *oapi.GetSMSStatsDailyParams {
@@ -70,6 +75,7 @@ func (p SmsStatsDailyParams) toWire() *oapi.GetSMSStatsDailyParams {
 		Country:    optStr(p.Country),
 		Category:   optStr(p.Category),
 		Carrier:    optStr(p.Carrier),
+		CostCenter: optStr(p.CostCenter),
 	}
 }
 
@@ -89,6 +95,8 @@ type SmsStatsHourlyParams struct {
 	Category string
 	// Restrict the statistics to a single delivery carrier. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Carrier string
+	// Restrict the statistics to messages sent with this cost center. The match is exact. Mutually exclusive with the other dimension filters; only one may be set per request.
+	CostCenter string
 }
 
 func (p SmsStatsHourlyParams) toWire() *oapi.GetSMSStatsHourlyParams {
@@ -100,6 +108,7 @@ func (p SmsStatsHourlyParams) toWire() *oapi.GetSMSStatsHourlyParams {
 		Country:    optStr(p.Country),
 		Category:   optStr(p.Category),
 		Carrier:    optStr(p.Carrier),
+		CostCenter: optStr(p.CostCenter),
 	}
 }
 
@@ -301,6 +310,36 @@ func (p SmsStatsByTagParams) toWire() *oapi.GetSMSStatsByTagParams {
 	}
 }
 
+// SmsStatsByCostCenterParams filters the by_cost_center read.
+type SmsStatsByCostCenterParams struct {
+	// Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to keep the window within the 720-hour trend cap.
+	From time.Time
+	// End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	To time.Time
+	// IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone string
+	// Metric to rank rows by, applied descending. Any lifecycle count or derived rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `accepted`.
+	Sort SMSStatsSortMetric
+	// Maximum number of cost center rows to return, ranked by the `sort` field descending.
+	Limit int
+	// When true, each row also carries a `trend` array: a short per-bucket lifecycle-count series for that row over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422.
+	IncludeTrend bool
+	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
+	TrendGrain StatsTrendGrain
+}
+
+func (p SmsStatsByCostCenterParams) toWire() *oapi.GetSMSStatsByCostCenterParams {
+	return &oapi.GetSMSStatsByCostCenterParams{
+		From:         optDate(p.From),
+		To:           optDate(p.To),
+		Timezone:     optStr(p.Timezone),
+		Sort:         optZero(p.Sort),
+		Limit:        optInt(p.Limit),
+		IncludeTrend: optBool(p.IncludeTrend),
+		TrendGrain:   optZero(p.TrendGrain),
+	}
+}
+
 // Summary Aggregate SMS KPIs for one period: accepted, sent, delivered, undelivered, failed, rejected and expired counts, the derived delivery and failure rates, and latency percentiles. The `from` and `to` values are both YYYY-MM-DD days or both RFC 3339 instants (hour grain). Add `compare=previous_period` for deltas against the preceding window. For a per-day or per-hour series use `sms.stats.daily` or `sms.stats.hourly`.
 func (s *SmsStatsService) Summary(ctx context.Context, params SmsStatsSummaryParams, opts ...option.RequestOption) (*SMSStatsSummary, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
@@ -445,6 +484,21 @@ func (s *SmsStatsService) ByTag(ctx context.Context, params SmsStatsByTagParams,
 		return nil, err
 	}
 	var out SMSStatsByTagResponse
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// ByCostCenter SMS delivery and latency stats grouped by the `cost_center` messages were sent with, ranked by the `sort` metric (default `accepted`) and capped by `limit` (default 50, maximum 200). Messages sent without a cost center are not counted, so rows do not sum to the period total.
+func (s *SmsStatsService) ByCostCenter(ctx context.Context, params SmsStatsByCostCenterParams, opts ...option.RequestOption) (*SMSStatsByCostCenterResponse, error) {
+	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
+		return s.client.oapi.GetSMSStatsByCostCenter(ctx, params.toWire(), cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out SMSStatsByCostCenterResponse
 	if err := decodeBody(body, &out); err != nil {
 		return nil, err
 	}

@@ -276,9 +276,13 @@ func TestAmbSendNoTemplateOmitsTemplateField(t *testing.T) {
 	client := newClient(t, server)
 
 	_, err := client.Amb.Send(context.Background(), bird.AmbSendParams{
-		From:       "business",
-		To:         "customer",
-		Content:    map[string]any{"text": "hi"},
+		From: "business",
+		To:   "customer",
+		Text: &bird.AMBText{Body: bird.String("hi")},
+		Interactive: &bird.AMBInteractive{QuickReply: &bird.AMBNativeQuickReply{
+			SummaryText: "Pick one",
+			Items:       []bird.AMBQuickReplyItem{{Identifier: "a", Title: "A"}, {Identifier: "b", Title: "B"}},
+		}},
 		Parameters: map[string]any{},
 	})
 	if err != nil {

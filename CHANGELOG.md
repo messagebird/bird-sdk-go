@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.113.0
+
+- **Breaking:** Apple Messages sends, message reads and template languages carry `text`, `rich_link` and `interactive` instead of `content`, and a customer's answer to an interactive message reads as `interactive_reply`; move `content` to the matching key without its `type`, put `body`, `subject` and `attachments` under `text`, and lift an interactive message's interactive_data.data fields directly under `interactive`, with custom app fields under `interactive.imessage_app`.
+- SMS statistics gain a breakdown by cost center, and the summary, daily and hourly statistics accept a `cost_center` filter (`--cost-center` on the CLI). Messages sent without a cost center are not counted in the breakdown.
+
 ## 0.112.0
 
 - Apple Messages time picker events gain `timezone`, an IANA time zone you set instead of `timezone_offset`. Apple Messages template variables can now be `location`, the same object a WhatsApp location header takes, and the new `timezone` type, which fill a time picker's place and time zone when a template is sent. Template content can carry a time picker `location.coordinates` placeholder that a `location` variable fills.
