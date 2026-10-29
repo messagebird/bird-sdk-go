@@ -6564,6 +6564,24 @@ func (e QuotaSource) Valid() bool {
 	}
 }
 
+// Defines values for RateLimitScope.
+const (
+	RateLimitScopeOrganization RateLimitScope = "organization"
+	RateLimitScopeWorkspace    RateLimitScope = "workspace"
+)
+
+// Valid indicates whether the value is a known member of the RateLimitScope enum.
+func (e RateLimitScope) Valid() bool {
+	switch e {
+	case RateLimitScopeOrganization:
+		return true
+	case RateLimitScopeWorkspace:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for RealtimeAppStatus.
 const (
 	RealtimeAppStatusActive    RealtimeAppStatus = "active"
@@ -10524,6 +10542,63 @@ func (e WorkspaceQuotaUsageStatus) Valid() bool {
 	}
 }
 
+// Defines values for WorkspaceRateLimitAttributionStatus.
+const (
+	WorkspaceRateLimitAttributionStatusReady       WorkspaceRateLimitAttributionStatus = "ready"
+	WorkspaceRateLimitAttributionStatusUnavailable WorkspaceRateLimitAttributionStatus = "unavailable"
+	WorkspaceRateLimitAttributionStatusWarming     WorkspaceRateLimitAttributionStatus = "warming"
+)
+
+// Valid indicates whether the value is a known member of the WorkspaceRateLimitAttributionStatus enum.
+func (e WorkspaceRateLimitAttributionStatus) Valid() bool {
+	switch e {
+	case WorkspaceRateLimitAttributionStatusReady:
+		return true
+	case WorkspaceRateLimitAttributionStatusUnavailable:
+		return true
+	case WorkspaceRateLimitAttributionStatusWarming:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WorkspaceRateLimitCapStatus.
+const (
+	WorkspaceRateLimitCapStatusActive  WorkspaceRateLimitCapStatus = "active"
+	WorkspaceRateLimitCapStatusExpired WorkspaceRateLimitCapStatus = "expired"
+)
+
+// Valid indicates whether the value is a known member of the WorkspaceRateLimitCapStatus enum.
+func (e WorkspaceRateLimitCapStatus) Valid() bool {
+	switch e {
+	case WorkspaceRateLimitCapStatusActive:
+		return true
+	case WorkspaceRateLimitCapStatusExpired:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WorkspaceRateLimitUsageStatus.
+const (
+	WorkspaceRateLimitUsageStatusAvailable   WorkspaceRateLimitUsageStatus = "available"
+	WorkspaceRateLimitUsageStatusUnavailable WorkspaceRateLimitUsageStatus = "unavailable"
+)
+
+// Valid indicates whether the value is a known member of the WorkspaceRateLimitUsageStatus enum.
+func (e WorkspaceRateLimitUsageStatus) Valid() bool {
+	switch e {
+	case WorkspaceRateLimitUsageStatusAvailable:
+		return true
+	case WorkspaceRateLimitUsageStatusUnavailable:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for WorkspaceSortField.
 const (
 	WorkspaceSortFieldCreatedAt WorkspaceSortField = "created_at"
@@ -10688,16 +10763,16 @@ func (e ListDomainsParamsSort) Valid() bool {
 
 // Defines values for ListMailboxesParamsState.
 const (
-	ListMailboxesParamsStateActive    ListMailboxesParamsState = "active"
-	ListMailboxesParamsStateSuspended ListMailboxesParamsState = "suspended"
+	Active    ListMailboxesParamsState = "active"
+	Suspended ListMailboxesParamsState = "suspended"
 )
 
 // Valid indicates whether the value is a known member of the ListMailboxesParamsState enum.
 func (e ListMailboxesParamsState) Valid() bool {
 	switch e {
-	case ListMailboxesParamsStateActive:
+	case Active:
 		return true
-	case ListMailboxesParamsStateSuspended:
+	case Suspended:
 		return true
 	default:
 		return false
@@ -22476,6 +22551,9 @@ type ErrorBody struct {
 	// Quota The quota limit that refused a resource change. A change in a workspace is checked against its organization's limit and its workspace's limit, whether set manually or derived from the organization's automatic allocation; the organization limit is reported when both refuse. When scope is workspace, follow the response remediation instead of the error code's organization-wide recovery guidance. An organization administrator can adjust the workspace limit or the automatic allocation; the shared organization limit still applies.
 	Quota *QuotaErrorContext `json:"quota,omitempty"`
 
+	// RateLimit The rate-limit policy that refused the request. Present only on `rate_limit_error` responses from a rate-limit policy. A workspace-targeted request is checked against its organization's limit and any limit set for its workspace; the organization limit is reported when both are exhausted.
+	RateLimit *RateLimitErrorContext `json:"rate_limit,omitempty"`
+
 	// Remediation A human-readable next step to resolve this error. Present when a recovery is known.
 	Remediation *string `json:"remediation,omitempty"`
 
@@ -26707,7 +26785,7 @@ type Mailbox struct {
 	// DisplayName Display name used as the sender name on mail from this mailbox. `null` when unset.
 	DisplayName *string `json:"display_name"`
 
-	// ForwardingAddress An address we generate on our receiving domain when the mailbox is created on a domain not set up for receiving with us. Forward mail for `address` here from your current email provider, and it lands in this mailbox. Replies still go out from `address`. Immutable. It stops receiving while the mailbox is deleted, works again with the same value after a restore, and keeps working if you later enable receiving on the domain. `null` on mailboxes created on the shared domain or on a domain already enabled for receiving.
+	// ForwardingAddress An address we generate on our receiving domain, either when the mailbox is created on a domain not set up for receiving with us or later, when you set up forwarding for the mailbox. Forward mail for `address` here from your current email provider, and it lands in this mailbox. Replies still go out from `address`. Immutable once set. It stops receiving while the mailbox is deleted, works again with the same value after a restore, and keeps working if you later enable or disable receiving on the domain. `null` until set up; always `null` on the shared domain, which receives directly.
 	ForwardingAddress *openapi_types.Email `json:"forwarding_address,omitempty"`
 	Id                MailboxID            `json:"id"`
 	InboundAddressId  InboundAddressID     `json:"inbound_address_id"`
@@ -26721,7 +26799,7 @@ type Mailbox struct {
 	// Metadata Your own key/value data attached to the mailbox. Up to 2 KB. Keys starting with `__bird` are reserved.
 	Metadata map[string]interface{} `json:"metadata"`
 
-	// Next What to do next with this mailbox. The response that creates it suggests subscribing to the mail it receives; other reads of one mailbox return an empty list, and lists omit it.
+	// Next What to do next with this mailbox. The response that creates it suggests subscribing to the mail it receives. Forwarding-address setup suggests configuring the email provider. Other reads of one mailbox return an empty list, and lists omit it.
 	Next *[]NextAction `json:"next,omitempty"`
 
 	// Owner The principal that owns the mailbox. Always the workspace.
@@ -27467,6 +27545,30 @@ type QuotaScope string
 // - `plan`: the organization's plan.
 // - `override`: a limit Bird set for the organization.
 type QuotaSource string
+
+// RateLimitErrorContext The rate-limit policy that refused the request. Present only on `rate_limit_error` responses from a rate-limit policy. A workspace-targeted request is checked against its organization's limit and any limit set for its workspace; the organization limit is reported when both are exhausted.
+type RateLimitErrorContext struct {
+	// Limit Maximum policy units per rolling window under the limit that refused the request.
+	Limit int `json:"limit"`
+
+	// PolicyKey Stable key of the rate-limit policy that refused the request.
+	PolicyKey string `json:"policy_key"`
+
+	// Scope Which limit refused the request.
+	//
+	// - `organization`: the limit shared by every workspace in the organization.
+	// - `workspace`: the limit set for this workspace.
+	Scope RateLimitScope `json:"scope"`
+
+	// WindowSeconds The rolling window length in seconds.
+	WindowSeconds int `json:"window_seconds"`
+}
+
+// RateLimitScope Which limit refused the request.
+//
+// - `organization`: the limit shared by every workspace in the organization.
+// - `workspace`: the limit set for this workspace.
+type RateLimitScope string
 
 // RealtimeApp defines model for RealtimeApp.
 type RealtimeApp struct {
@@ -32063,10 +32165,10 @@ type WhatsAppAudio struct {
 
 // WhatsAppAudioSend Free-form audio to send, either as a voice note or as a basic audio file. Deliverable only inside an open 24-hour customer service window; outside one, send a template instead.
 type WhatsAppAudioSend struct {
-	// Url Public `https` URL of the audio file. WhatsApp fetches it at send time, so it must still be reachable then. AAC, AMR, MP3, M4A or OGG (OPUS codec, mono), up to 16 MB.
+	// Url Public HTTPS URL fetched at send time. AAC, AMR, MP3, M4A, or OGG (OPUS, mono), up to 16 MB.
 	Url string `json:"url"`
 
-	// Voice Whether to send this as a voice note rather than an audio file. A voice note needs an `.ogg` file encoded with the OPUS codec.
+	// Voice Send as a voice note; requires an `.ogg` file with the OPUS codec.
 	Voice *bool `json:"voice,omitempty"`
 }
 
@@ -32231,7 +32333,7 @@ type WhatsAppContactAddressSend struct {
 	State       *string `json:"state,omitempty"`
 	Street      *string `json:"street,omitempty"`
 
-	// Type A label for the address, shown beside it. Free text, sent exactly as written.
+	// Type Free-text label shown beside the address, sent verbatim.
 	Type *string `json:"type,omitempty"`
 	Zip  *string `json:"zip,omitempty"`
 }
@@ -32263,13 +32365,11 @@ type WhatsAppContactCard struct {
 	Vcard *string `json:"vcard,omitempty"`
 }
 
-// WhatsAppContactCardSend A contact card to send. WhatsApp shows the name on the card and the rest in a profile view the recipient opens from it.
-//
-// A card carrying a phone number renders buttons that message or save the contact; a card without one can only be added to an address book.
+// WhatsAppContactCardSend Contact card with a name and profile details. With a phone number, recipients can message or save it; without one, they can save it.
 type WhatsAppContactCardSend struct {
 	Addresses *[]WhatsAppContactAddressSend `json:"addresses,omitempty"`
 
-	// Birthday The contact's birthday, as `YYYY-MM-DD`. WhatsApp rejects any other shape, and a date no calendar holds is rejected too.
+	// Birthday Valid calendar date in `YYYY-MM-DD` format.
 	Birthday *string                     `json:"birthday,omitempty"`
 	Emails   *[]WhatsAppContactEmailSend `json:"emails,omitempty"`
 	Name     WhatsAppContactNameSend     `json:"name"`
@@ -32277,7 +32377,7 @@ type WhatsAppContactCardSend struct {
 	// Org Where the contact works.
 	Org *WhatsAppContactOrgSend `json:"org,omitempty"`
 
-	// PhoneNumbers The numbers on the card. A number in E.164 renders a button that opens a WhatsApp chat with it; one that is not renders an invite instead.
+	// PhoneNumbers E.164 numbers get a WhatsApp chat button; other formats get an invite button.
 	PhoneNumbers *[]WhatsAppContactPhoneSend `json:"phone_numbers,omitempty"`
 	Urls         *[]WhatsAppContactUrlSend   `json:"urls,omitempty"`
 }
@@ -32294,7 +32394,7 @@ type WhatsAppContactEmail struct {
 type WhatsAppContactEmailSend struct {
 	Email string `json:"email"`
 
-	// Type A label for the address, shown beside it. Free text, sent exactly as written.
+	// Type Free-text label shown beside the address, sent verbatim.
 	Type *string `json:"type,omitempty"`
 }
 
@@ -32310,7 +32410,7 @@ type WhatsAppContactName struct {
 	Suffix        *string `json:"suffix,omitempty"`
 }
 
-// WhatsAppContactNameSend The contact's name. `formatted_name` is what the card shows, and WhatsApp additionally requires at least one of the parts below it, so a card carrying only a formatted name is rejected.
+// WhatsAppContactNameSend Requires `formatted_name` plus at least one other name part.
 type WhatsAppContactNameSend struct {
 	FirstName *string `json:"first_name,omitempty"`
 
@@ -32347,10 +32447,10 @@ type WhatsAppContactPhone struct {
 
 // WhatsAppContactPhoneSend One phone number to put on a contact card.
 type WhatsAppContactPhoneSend struct {
-	// PhoneNumber The number to show. Send it in E.164 to get a card the recipient can message from; any other form still renders, with an invite button.
+	// PhoneNumber E.164 enables a chat button; other formats show an invite button.
 	PhoneNumber string `json:"phone_number"`
 
-	// Type A label for the number, shown beside it. Free text: WhatsApp defines no vocabulary, and the label is sent exactly as written.
+	// Type Free-text label shown beside the number, sent verbatim.
 	Type *string `json:"type,omitempty"`
 }
 
@@ -32365,10 +32465,10 @@ type WhatsAppContactUrl struct {
 
 // WhatsAppContactUrlSend One website to put on a contact card.
 type WhatsAppContactUrlSend struct {
-	// Type A label for the website, shown beside it. Free text, sent exactly as written.
+	// Type Free-text label shown beside the website, sent verbatim.
 	Type *string `json:"type,omitempty"`
 
-	// Url The address to show. Not validated as a URL, because a card commonly carries a bare domain.
+	// Url Website address; bare domains accepted without URL validation.
 	Url string `json:"url"`
 }
 
@@ -32601,10 +32701,10 @@ type WhatsAppDocumentSend struct {
 	// Caption Text shown beneath the document.
 	Caption *string `json:"caption,omitempty"`
 
-	// Filename Name the recipient sees, including the extension. WhatsApp derives one from the URL when you omit it.
+	// Filename Recipient-visible filename with extension.
 	Filename *string `json:"filename,omitempty"`
 
-	// Url Public `https` URL of the document. WhatsApp fetches it at send time, so it must still be reachable then. Up to 100 MB; PDF, Word, Excel, PowerPoint and plain text render reliably in the WhatsApp client.
+	// Url Public HTTPS URL fetched at send time, up to 100 MB. PDF, Word, Excel, PowerPoint, and plain text render reliably.
 	Url string `json:"url"`
 }
 
@@ -33046,7 +33146,7 @@ type WhatsAppImageSend struct {
 	// Caption Text shown beneath the image.
 	Caption *string `json:"caption,omitempty"`
 
-	// Url Public `https` URL of the image. WhatsApp fetches it at send time, so it must still be reachable then. JPEG or PNG, up to 5 MB.
+	// Url Public HTTPS URL fetched at send time. JPEG/PNG, up to 5 MB.
 	Url string `json:"url"`
 }
 
@@ -33156,15 +33256,15 @@ type WhatsAppInteractiveButton struct {
 	Type WhatsAppInteractiveButtonType `json:"type"`
 }
 
-// WhatsAppInteractiveButtonSend One button on an interactive message or on a carousel card. `type` names the kind and the field that carries it, so a button kind WhatsApp adds later arrives as another `type` here rather than as a new shape somewhere else.
+// WhatsAppInteractiveButtonSend Interactive or carousel button. Set `type` and its matching field.
 type WhatsAppInteractiveButtonSend struct {
-	// CtaUrl The button's label and the address it opens. Send this on a `cta_url` button.
+	// CtaUrl Label and destination for `cta_url`.
 	CtaUrl *WhatsAppInteractiveCtaUrlSend `json:"cta_url,omitempty"`
 
-	// QuickReply The button's label and the handle it sends back. Send this on a `quick_reply` button.
+	// QuickReply Label and reply identifier for `quick_reply`.
 	QuickReply *WhatsAppInteractiveQuickReplyButtonSend `json:"quick_reply,omitempty"`
 
-	// Type Which kind of button this is, and which field carries it.
+	// Type Button kind; determines which field to supply.
 	Type  WhatsAppInteractiveButtonTypeWrite `json:"type"`
 	union json.RawMessage
 }
@@ -33212,12 +33312,12 @@ type WhatsAppInteractiveCard struct {
 	Header WhatsAppInteractiveHeader `json:"header"`
 }
 
-// WhatsAppInteractiveCardHeaderSend The media at the top of a carousel card. Every card must carry one, and it must be an image or a video: a card takes no text or document header.
+// WhatsAppInteractiveCardHeaderSend Required carousel-card media: image or video only.
 type WhatsAppInteractiveCardHeaderSend struct {
-	// Type Which kind of media this is. A card accepts `image` or `video` only.
+	// Type Card media kind: `image` or `video`.
 	Type WhatsAppInteractiveHeaderTypeWrite `json:"type"`
 
-	// Url Public `https` URL of the file to show at the top of the card. An image must be JPEG or PNG, up to 5 MB; a video, MP4 with H.264 video and AAC audio, up to 16 MB. WhatsApp fetches it at send time, on the same terms as a message header's `url`.
+	// Url Public HTTPS URL fetched at send time. Image: JPEG/PNG, up to 5 MB. Video: MP4 (H.264/AAC), up to 16 MB.
 	Url   string `json:"url"`
 	union json.RawMessage
 }
@@ -33232,12 +33332,12 @@ type WhatsAppInteractiveCardHeaderSend1 struct {
 	Type interface{} `json:"type,omitempty"`
 }
 
-// WhatsAppInteractiveCardSend One card in a carousel: media at the top, optional text of its own, and the buttons under it. A card has no footer, and its position in `cards` is the position it appears in.
+// WhatsAppInteractiveCardSend Carousel card: media, optional text, and buttons. No footer. Array order determines display order.
 type WhatsAppInteractiveCardSend struct {
-	// BodyText The card's own text, below its media, with at most two line breaks. Optional: a card can carry media and buttons alone.
+	// BodyText Optional text below the media, with at most two line breaks.
 	BodyText *string `json:"body_text,omitempty"`
 
-	// Buttons The buttons under the card, in the order given. Either one `cta_url` button or up to three `quick_reply` buttons: the two kinds cannot be mixed on one card. Every card in the carousel must carry the same kinds in the same number, and a carousel whose cards disagree returns a `422` `WhatsAppInteractiveCardsButtonsMismatch`.
+	// Buttons One `cta_url` or up to three `quick_reply` buttons, in display order. Cards must match button kinds and count, or return `422` `WhatsAppInteractiveCardsButtonsMismatch`.
 	Buttons []WhatsAppInteractiveButtonSend `json:"buttons"`
 
 	// Header The image or video at the top of the card.
@@ -33264,12 +33364,12 @@ type WhatsAppInteractiveCtaUrl struct {
 	Url string `json:"url"`
 }
 
-// WhatsAppInteractiveCtaUrlSend A button that opens a link in the recipient's browser, so a long or opaque address never has to appear in the message body.
+// WhatsAppInteractiveCtaUrlSend Button that opens a link in the recipient's browser.
 type WhatsAppInteractiveCtaUrlSend struct {
 	// Text The button's label.
 	Text string `json:"text"`
 
-	// Url The address the button opens. It is fixed for every recipient, so per recipient tracking belongs in the address you supply, for example as a query parameter you generate per send.
+	// Url Destination URL. Include per-recipient tracking in the supplied URL.
 	Url string `json:"url"`
 }
 
@@ -33285,15 +33385,15 @@ type WhatsAppInteractiveHeader struct {
 	Url *string `json:"url,omitempty"`
 }
 
-// WhatsAppInteractiveHeaderSend What to show above an interactive message's body: `text` for a line of copy, or `url` for an image, video or document. A `list` accepts a `text` header only.
+// WhatsAppInteractiveHeaderSend Content above the body: `text` or a media `url`. Lists accept text headers only.
 type WhatsAppInteractiveHeaderSend struct {
-	// Text A single line of text above the body. Send it on a `text` header.
+	// Text Single line above the body, for `text` headers.
 	Text *string `json:"text,omitempty"`
 
-	// Type Which kind of header this is, and which field carries it.
+	// Type Header kind; determines which field to supply.
 	Type WhatsAppInteractiveHeaderTypeWrite `json:"type"`
 
-	// Url Public `https` URL of the file to show on an `image`, `video` or `document` header, fetched by WhatsApp at send time. The free-form `image`, `video` and `document` limits apply.
+	// Url Public HTTPS URL fetched at send time for `image`, `video`, or `document` headers. The corresponding free-form media limits apply.
 	Url   *string `json:"url,omitempty"`
 	union json.RawMessage
 }
@@ -33337,15 +33437,15 @@ type WhatsAppInteractiveListRow struct {
 	Text string `json:"text"`
 }
 
-// WhatsAppInteractiveListRowSend One option in a list's menu. Choosing it sends `slug` back as an inbound message, which reads as an `interactive_reply`.
+// WhatsAppInteractiveListRowSend Menu option; selection returns `slug` in an inbound `interactive_reply`.
 type WhatsAppInteractiveListRowSend struct {
-	// Description A second line under the label, for detail that will not fit in it.
+	// Description Detail shown below the label.
 	Description *string `json:"description,omitempty"`
 
-	// Slug Your own handle for this option, echoed back on the reply. You choose the value and it is never shown to the recipient. Any characters, up to 200.
+	// Slug Hidden reply identifier, echoed on selection. Any characters, up to 200.
 	Slug string `json:"slug"`
 
-	// Text The option's label, shown as the row's title in the menu. It must differ from every other row's label and from every button's label in the same message, not merely within its own group; a repeat returns a `422` `WhatsAppInteractiveDuplicateLabel`.
+	// Text Row label, unique across every section's rows; duplicates return `422` `WhatsAppInteractiveDuplicateLabel`.
 	Text string `json:"text"`
 }
 
@@ -33358,21 +33458,21 @@ type WhatsAppInteractiveListSection struct {
 	Title string `json:"title"`
 }
 
-// WhatsAppInteractiveListSectionSend One group of options in a list's menu. A menu with a single group still carries a title, which WhatsApp shows above its rows.
+// WhatsAppInteractiveListSectionSend Menu section. A title is required even for a single section.
 type WhatsAppInteractiveListSectionSend struct {
-	// Rows The options in this group. A message carries at most 10 rows across all its groups combined, so this per-group maximum is not additive: more than 10 in total returns a `422` `WhatsAppInteractiveLimitExceeded`. Row labels must be unique across the whole message too, not just within a group.
+	// Rows At most 10 rows across the message (`422` `WhatsAppInteractiveLimitExceeded` otherwise). Labels must be unique across sections.
 	Rows []WhatsAppInteractiveListRowSend `json:"rows"`
 
 	// Title The group's heading, shown above its rows.
 	Title string `json:"title"`
 }
 
-// WhatsAppInteractiveListSend A menu of options behind a single button. The recipient taps the button, WhatsApp opens the menu, and choosing one option sends it back as a reply.
+// WhatsAppInteractiveListSend Button-opened menu; selecting an option sends a reply.
 type WhatsAppInteractiveListSend struct {
 	// ButtonText The label of the button that opens the menu.
 	ButtonText string `json:"button_text"`
 
-	// Sections The groups of options in the menu, in the order shown. At most 10 rows across all groups combined, each carrying a label unique across the whole message.
+	// Sections Sections in display order. At most 10 rows total, with labels unique across the message.
 	Sections []WhatsAppInteractiveListSectionSend `json:"sections"`
 }
 
@@ -33385,12 +33485,12 @@ type WhatsAppInteractiveQuickReplyButton struct {
 	Text string `json:"text"`
 }
 
-// WhatsAppInteractiveQuickReplyButtonSend One tappable reply button. Tapping it sends `slug` back as an inbound message, which reads as an `interactive_reply`.
+// WhatsAppInteractiveQuickReplyButtonSend Reply button; tapping returns `slug` in an inbound `interactive_reply`.
 type WhatsAppInteractiveQuickReplyButtonSend struct {
-	// Slug Your own handle for this button, echoed back on the reply. You choose the value and it is never shown to the recipient, so it can carry whatever your application needs to route the answer. Any characters, up to 256.
+	// Slug Hidden reply identifier, echoed on tap. Any characters, up to 256.
 	Slug string `json:"slug"`
 
-	// Text The button's label. It must differ from every other button's label in the same message, because the recipient's reply is identified to them by the label they tapped.
+	// Text Button label, unique within its message or carousel card.
 	Text string `json:"text"`
 }
 
@@ -33418,30 +33518,30 @@ type WhatsAppInteractiveReply struct {
 // unrecognized value as a future kind rather than an error.
 type WhatsAppInteractiveReplyType string
 
-// WhatsAppInteractiveSend An interactive message: body text plus something for the recipient to tap. Name the kind in `type` and send that kind's field: `buttons`, `list`, `cta_url` or `cards`. `location_request_message` and `request_contact_info` carry only `body_text`.
+// WhatsAppInteractiveSend Set `type` and its matching field: `buttons`, `list`, `cta_url`, or `cards`. `location_request_message` and `request_contact_info` take only `body_text`.
 type WhatsAppInteractiveSend struct {
-	// BodyText The message's main text, required on every kind. Up to 1024 characters, except on a `list`.
+	// BodyText Required main text. Maximum 1024 characters, or 4096 for `list`.
 	BodyText string `json:"body_text"`
 
-	// Buttons The `quick_reply` buttons of a `button` message, in order. Labels must be unique within the message.
+	// Buttons Ordered `quick_reply` buttons for `button` messages. Labels must be unique within the message.
 	Buttons *[]WhatsAppInteractiveButtonSend `json:"buttons,omitempty"`
 
-	// Cards The cards of a `carousel` message, 2 to 10, left to right. A carousel takes no header or footer of its own.
+	// Cards 2–10 carousel cards, in display order. No message-level header or footer.
 	Cards *[]WhatsAppInteractiveCardSend `json:"cards,omitempty"`
 
-	// CtaUrl The link button to show. Send this on a `cta_url` message.
+	// CtaUrl Link button for a `cta_url` message.
 	CtaUrl *WhatsAppInteractiveCtaUrlSend `json:"cta_url,omitempty"`
 
-	// FooterText Optional small print below the body and above the buttons. A `carousel` and both request kinds take no footer.
+	// FooterText Small print below the body. Unsupported for carousel and request kinds.
 	FooterText *string `json:"footer_text,omitempty"`
 
-	// Header Optional content above the body: text on a `list`; text, image, video or document on `button` and `cta_url`. A `carousel` and the two request kinds take none.
+	// Header For `list`: text only. For `button` and `cta_url`: text, image, video, or document. Unsupported for carousel and request kinds.
 	Header *WhatsAppInteractiveHeaderSend `json:"header,omitempty"`
 
-	// List The menu to show. Send this on a `list` message.
+	// List Menu for a `list` message.
 	List *WhatsAppInteractiveListSend `json:"list,omitempty"`
 
-	// Type Which kind of interactive message this is, and which field carries it.
+	// Type Message kind; determines which content field to supply.
 	Type  WhatsAppInteractiveTypeWrite `json:"type"`
 	union json.RawMessage
 }
@@ -33731,7 +33831,7 @@ type WhatsAppLocation struct {
 
 // WhatsAppLocationSend A free-form location to send: a point on the map the recipient can open in their maps app. Deliverable only inside an open 24-hour customer service window; outside one, send a template instead.
 type WhatsAppLocationSend struct {
-	// Address Street address of the place. Shown only when `name` is also set.
+	// Address Street address; shown only with `name`.
 	Address *string `json:"address,omitempty"`
 
 	// Latitude Latitude in decimal degrees.
@@ -33740,7 +33840,7 @@ type WhatsAppLocationSend struct {
 	// Longitude Longitude in decimal degrees.
 	Longitude float64 `json:"longitude"`
 
-	// Name Name of the place, shown above the address.
+	// Name Place name, shown above the address.
 	Name *string `json:"name,omitempty"`
 }
 
@@ -33916,52 +34016,52 @@ type WhatsAppMessageOrigin string
 
 // WhatsAppMessageSendRequest A WhatsApp message to send, carrying exactly one kind of content.
 type WhatsAppMessageSendRequest struct {
-	// Audio Free-form audio. Deliverable only inside an open customer service window.
+	// Audio Free-form audio; requires an open customer service window.
 	Audio *WhatsAppAudioSend `json:"audio,omitempty"`
 
-	// ContactCards Up to five contact cards, each `name` carrying `formatted_name` plus at least one other part. Deliverable only inside an open customer service window.
+	// ContactCards Up to five cards. Each name needs `formatted_name` and another name part. Requires an open customer service window.
 	ContactCards *[]WhatsAppContactCardSend `json:"contact_cards,omitempty"`
 
-	// Document A free-form document. Deliverable only inside an open customer service window.
+	// Document Free-form document; requires an open customer service window.
 	Document *WhatsAppDocumentSend `json:"document,omitempty"`
 
-	// From The business phone number to send from, in E.164 format: a connected number this workspace owns, on the same WhatsApp Business Account as an authored template. Omit it for a Bird-managed template or a group send, which use their own number; every other send requires it.
+	// From Connected E.164 number owned by this workspace; for authored templates, use the same WhatsApp Business Account. Omit for Bird-managed templates and groups; required otherwise.
 	From *string `json:"from,omitempty"`
 
-	// Image A free-form image. Deliverable only inside an open customer service window.
+	// Image Free-form image; requires an open customer service window.
 	Image *WhatsAppImageSend `json:"image,omitempty"`
 
-	// InReplyToMessageId An earlier message to quote above this one: one from the same conversation, between this `to` and `from`, in the last 15 days.
+	// InReplyToMessageId Message to quote, from this conversation (`to` and `from`) within the last 15 days.
 	InReplyToMessageId *WhatsAppMessageID `json:"in_reply_to_message_id,omitempty"`
 
-	// Interactive Free-form interactive content: reply buttons, a list menu, a link button, media cards, or a request for the recipient's location or contact details. Deliverable only inside an open customer service window, and never to a group.
+	// Interactive Reply buttons, a list, a link button, media cards, or a location/contact request. Requires an open customer service window; unsupported for groups.
 	Interactive *WhatsAppInteractiveSend `json:"interactive,omitempty"`
 
-	// Location A free-form location. Deliverable only inside an open customer service window.
+	// Location Free-form location; requires an open customer service window.
 	Location *WhatsAppLocationSend `json:"location,omitempty"`
 
-	// Metadata Arbitrary JSON object stored on the message and returned on API reads. Maximum 2 KB serialized. Use metadata for per-send context like internal IDs and foreign keys. For low-cardinality filterable labels, use `tags` instead.
+	// Metadata Per-message JSON context, such as internal IDs, returned on reads. Maximum 2 KB serialized. Use `tags` for filterable labels.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 
-	// Reference An identifier you want to find this message by, such as an order or ticket number, matched exactly by the message list's `reference` filter. Set it only when you need to search on it, and put any other data in `metadata`. Stored on the message, returned on reads and echoed in webhook payloads. Several messages can share one.
+	// Reference Identifier matched exactly by the message list's `reference` filter; returned on reads and webhooks. May be shared by multiple messages. Put non-searchable context in `metadata`.
 	Reference *MessageReference `json:"reference,omitempty"`
 
-	// Sticker A free-form sticker. Deliverable only inside an open customer service window.
+	// Sticker Free-form sticker; requires an open customer service window.
 	Sticker *WhatsAppStickerSend `json:"sticker,omitempty"`
 
-	// Tags Structured `{name, value}` labels for filtering. Tags become first-class query dimensions: filter the list endpoint by tag name. Maximum 20 tags per send. Use tags for low-cardinality dimensions (`category`, `experiment_variant`). For arbitrary structured context you do not need as a filter dimension, use `metadata` instead.
+	// Tags Up to 20 `{name, value}` labels, filterable by name. Use for low-cardinality dimensions such as category; put other context in `metadata`.
 	Tags *[]Tag `json:"tags,omitempty"`
 
-	// Template The template to send, the only content deliverable outside the customer service window. A group takes only templates your workspace authored, outside the authentication category.
+	// Template Required outside the customer service window. Groups accept workspace-authored, non-authentication templates only.
 	Template *WhatsAppTemplateSend `json:"template,omitempty"`
 
-	// Text Free-form text. Deliverable only inside an open customer service window.
+	// Text Free-form text; requires an open customer service window.
 	Text *WhatsAppTextSend `json:"text,omitempty"`
 
-	// To The recipient: a phone number in E.164 format (for example `+14155550100`), a business-scoped user ID (for example `US.13491208655302741918`) for a WhatsApp user whose number you do not have, or a WhatsApp group ID (for example `wag_01krdgeqcxet5s7t44vh8rt9mg`). One-time-passcode templates need a phone number. Bird tracks the customer service window per identity and business number, so reply to the identity a contact's message came from, from the number it reached.
+	// To Recipient E.164 number, business-scoped user ID (BSUID, such as `US.13491208655302741918`), or group ID (such as `wag_01krdgeqcxet5s7t44vh8rt9mg`). OTP templates require a phone number. For replies, use the inbound sender identity and receiving business number.
 	To string `json:"to"`
 
-	// Video A free-form video. Deliverable only inside an open customer service window.
+	// Video Free-form video; requires an open customer service window.
 	Video *WhatsAppVideoSend `json:"video,omitempty"`
 }
 
@@ -33999,7 +34099,7 @@ type WhatsAppMessageTemplate struct {
 	Slug *TemplateSlug `json:"slug,omitempty"`
 }
 
-// WhatsAppMessageTemplateCard The values that fill one card of a carousel. Cards fill in the order the template was approved with, so send one entry per card and keep them in that order.
+// WhatsAppMessageTemplateCard Placeholder values for one carousel card. Supply one entry per approved card, in approval order.
 type WhatsAppMessageTemplateCard struct {
 	// Components The values that fill this card's blocks.
 	Components []WhatsAppMessageTemplateCardComponent `json:"components"`
@@ -34020,10 +34120,10 @@ type WhatsAppMessageTemplateCardComponent struct {
 
 // WhatsAppMessageTemplateComponent defines model for WhatsAppMessageTemplateComponent.
 type WhatsAppMessageTemplateComponent struct {
-	// Cards Values for each carousel card, one entry per card the template was approved with. Send it only on a `carousel` part.
+	// Cards For `carousel` only: one entry per approved card, in approval order.
 	Cards *[]WhatsAppMessageTemplateCard `json:"cards,omitempty"`
 
-	// Parameters The values for this part's placeholders, in `{{n}}` order unless the template names them. Send it on every part except `carousel`, which uses `cards`. Send no `button` part for a button that takes no value.
+	// Parameters Placeholder values in `{{n}}` order, or named. Required except for `carousel`, which uses `cards`. Omit button parts without variables.
 	Parameters *[]WhatsAppMessageTemplateComponentParameter `json:"parameters,omitempty"`
 
 	// Type Which part of the template this fills in.
@@ -34037,22 +34137,22 @@ type WhatsAppMessageTemplateComponent struct {
 
 // WhatsAppMessageTemplateComponentParameter defines model for WhatsAppMessageTemplateComponentParameter.
 type WhatsAppMessageTemplateComponentParameter struct {
-	// Filename Name the recipient sees on the document, including the extension. Without it, the document arrives untitled. Send it only on a `document` parameter; Bird rejects it on any other kind.
+	// Filename Document name with extension; rejected on other parameter types.
 	Filename *string `json:"filename,omitempty"`
 
-	// Location The point on the map a location header opens. Send it on a `location` parameter.
+	// Location Map point for a `location` header parameter.
 	Location *WhatsAppLocationSend `json:"location,omitempty"`
 
-	// Name The placeholder this value fills, for a template with named parameters (for example `first_name`); name every parameter then. Omit it for a positional template, which takes values in `{{n}}` order.
+	// Name Placeholder name, such as `first_name`; required on every named parameter. Omit for positional templates and supply values in `{{n}}` order.
 	Name *string `json:"name,omitempty"`
 
-	// Text The value substituted into the placeholder, as a plain string. Send it on a `text` parameter.
+	// Text Placeholder value for a `text` parameter.
 	Text *string `json:"text,omitempty"`
 
-	// Type The kind of value this parameter carries, which decides which of the fields below to send.
+	// Type Value kind; determines which field to supply.
 	Type WhatsAppTemplateParameterType `json:"type"`
 
-	// Url Public `https` URL of the file a media header shows, fetched by WhatsApp at send time. Send it on an `image`, `video`, `gif` or `document` parameter.
+	// Url Public HTTPS media-header URL, fetched at send time. For `image`, `video`, `gif`, or `document` parameters.
 	Url *string `json:"url,omitempty"`
 }
 
@@ -34660,7 +34760,7 @@ type WhatsAppSticker struct {
 
 // WhatsAppStickerSend A free-form sticker to send. Deliverable only inside an open 24-hour customer service window; outside one, send a template instead.
 type WhatsAppStickerSend struct {
-	// Url Public `https` URL of the sticker. WhatsApp fetches it at send time, so it must still be reachable then. WebP only, up to 100 KB static or 500 KB animated.
+	// Url Public HTTPS URL fetched at send time. WebP, up to 100 KB static or 500 KB animated.
 	Url string `json:"url"`
 }
 
@@ -35462,19 +35562,19 @@ type WhatsAppTemplateRejectionCategory string
 // WhatsAppTemplateRevision A write counter, incremented every time the content it belongs to changes. It sits at 1 on content that has never been written through this API.
 type WhatsAppTemplateRevision = int
 
-// WhatsAppTemplateSend A send-by-template reference. Identify the template by its `id` or its `slug` (supply exactly one), optionally name a language, and fill its placeholders through `components`.
+// WhatsAppTemplateSend Supply exactly one of `id` or `slug`, optionally a language, and fill required placeholders through `components`.
 type WhatsAppTemplateSend struct {
-	// BidMultiplier Scales the language's maximum price for this message only. The effective bid is the language's `optimization_spec.bid_amount`, times its country multiplier, times this value. At least 0.01 and at most 100; 1 when omitted. Only a language with an `optimization_spec`, on a template still in the `marketing` category, accepts it.
+	// BidMultiplier Multiplies `optimization_spec.bid_amount` × country multiplier for this message. Range 0.01–100; default 1. Requires `optimization_spec` on a marketing template language.
 	BidMultiplier *float64 `json:"bid_multiplier,omitempty"`
 
-	// Components Values for the template's placeholders. Build it from the template language's `components`: each block's `example_parameters`, with real values, becomes that part's `parameters`. A template's `buttons` block becomes one `button` part per button that has `example_parameters`, in order; a `carousel` becomes one `cards` entry per card, built the same way. A `location` header always needs a part with a `location` parameter. Leave out other blocks without any.
+	// Components Copy each language component's `example_parameters` into that part's `parameters`, replacing examples with real values. Map `buttons` to one `button` part per button with examples, in order; map `carousel` to `cards`, built likewise. A location header requires a `location` parameter. Omit other blocks without examples.
 	Components *[]WhatsAppMessageTemplateComponent `json:"components,omitempty"`
 	Id         *WhatsAppTemplateID                 `json:"id,omitempty"`
 
-	// Language Which of the template's languages to send, as a BCP-47 tag (for example `en-US`; Meta's `en_US` is accepted too). Omit it for the template's default language, unless the template sets `language_source_required`. A language the template lacks is handled by its `on_missing_language` setting. The message is priced at the language it resolves to, which the accepted message echoes.
+	// Language BCP-47 tag (`en-US`; `en_US` also accepted). Defaults to the template's default language unless `language_source_required` is set. Missing variants follow `on_missing_language`. The resolved language determines pricing and is echoed in the accepted message.
 	Language *LanguageTag `json:"language,omitempty"`
 
-	// Slug The template to send, by its slug handle (for example `bird_otp`).
+	// Slug Template slug, such as `bird_otp`.
 	Slug  *TemplateSlug `json:"slug,omitempty"`
 	union json.RawMessage
 }
@@ -35651,10 +35751,10 @@ type WhatsAppText struct {
 
 // WhatsAppTextSend Free-form text to send. Deliverable only inside an open 24-hour customer service window; outside one, send a template instead.
 type WhatsAppTextSend struct {
-	// Body The message text. The WhatsApp client turns any URL it contains into a clickable link.
+	// Body Message text; URLs become clickable links.
 	Body string `json:"body"`
 
-	// PreviewUrl Whether the WhatsApp client previews the first link in `body`. Not returned when the message is read back.
+	// PreviewUrl Preview the first link in `body`. Omitted on reads.
 	PreviewUrl *bool `json:"preview_url,omitempty"`
 }
 
@@ -35687,7 +35787,7 @@ type WhatsAppVideoSend struct {
 	// Caption Text shown beneath the video.
 	Caption *string `json:"caption,omitempty"`
 
-	// Url Public `https` URL of the video. WhatsApp fetches it at send time, so it must still be reachable then. MP4 with H.264 video and AAC audio, up to 16 MB.
+	// Url Public HTTPS URL fetched at send time. MP4 with H.264 video and AAC audio, up to 16 MB.
 	Url string `json:"url"`
 }
 
@@ -35873,6 +35973,121 @@ type WorkspaceQuotaUsage struct {
 // - `available`: the counts reflect usage at `observed_at`.
 // - `unavailable`: usage could not be read. The counts are unknown, not zero.
 type WorkspaceQuotaUsageStatus string
+
+// WorkspaceRateLimit A rate-limit policy as it applies to one workspace.
+type WorkspaceRateLimit struct {
+	// Attribution When workspace usage has been measured for long enough to set a new workspace limit for this policy. Readiness covers timing only; a new limit also needs an organization with several workspaces, and with one workspace only an existing unexpired limit can be changed.
+	Attribution WorkspaceRateLimitAttribution `json:"attribution"`
+	Description string                        `json:"description"`
+
+	// Key Stable key of the rate-limit policy.
+	Key string `json:"key"`
+
+	// Limit The lower of the organization limit and any active workspace limit. Requests can still be refused below it when other workspaces use the shared organization limit.
+	Limit int    `json:"limit"`
+	Name  string `json:"name"`
+
+	// OrganizationLimit Maximum policy units per rolling window for the whole organization, shared by all its workspaces.
+	OrganizationLimit int `json:"organization_limit"`
+
+	// Unit What the policy counts, such as `request` or `message`.
+	Unit string `json:"unit"`
+
+	// Usage Remaining capacity in the current rolling window. Taking the observation consumes no capacity, but the request that reads it counts against its own policy, `api_list`, like any other read. It is measured against the limits that requests were checked against when it was read, which can briefly differ from the configured top-level `organization_limit` and `workspace_limit` after a limit changes.
+	Usage WorkspaceRateLimitUsage `json:"usage"`
+
+	// WindowSeconds The rolling window length in seconds.
+	WindowSeconds int `json:"window_seconds"`
+
+	// WorkspaceLimit The workspace's own limit. `null` when the workspace has none and uses only the shared organization limit.
+	WorkspaceLimit *WorkspaceRateLimitCap `json:"workspace_limit"`
+}
+
+// WorkspaceRateLimitAttribution When workspace usage has been measured for long enough to set a new workspace limit for this policy. Readiness covers timing only; a new limit also needs an organization with several workspaces, and with one workspace only an existing unexpired limit can be changed.
+type WorkspaceRateLimitAttribution struct {
+	// ReadyAt When workspace usage has been measured for long enough, from which a workspace limit can be set if the organization's other conditions allow it. `null` while workspace limits are unavailable in this region.
+	ReadyAt *time.Time `json:"ready_at"`
+
+	// Status Whether workspace usage has been measured for long enough to set a new workspace limit.
+	//
+	// - `unavailable`: workspace limits cannot be set in this region yet.
+	// - `warming`: workspace usage is being measured; a limit can be set from `ready_at`.
+	// - `ready`: a workspace limit can be set.
+	//
+	// Existing workspace limits are enforced in every state and can be removed while the workspace can be managed.
+	Status WorkspaceRateLimitAttributionStatus `json:"status"`
+}
+
+// WorkspaceRateLimitAttributionStatus Whether workspace usage has been measured for long enough to set a new workspace limit.
+//
+// - `unavailable`: workspace limits cannot be set in this region yet.
+// - `warming`: workspace usage is being measured; a limit can be set from `ready_at`.
+// - `ready`: a workspace limit can be set.
+//
+// Existing workspace limits are enforced in every state and can be removed while the workspace can be managed.
+type WorkspaceRateLimitAttributionStatus string
+
+// WorkspaceRateLimitCap A workspace's own limit for a policy. It is not reserved capacity; the organization limit still applies.
+type WorkspaceRateLimitCap struct {
+	// ExpiresAt When the workspace limit stops applying. `null` means it has no expiry.
+	ExpiresAt *time.Time `json:"expires_at"`
+
+	// Status Whether the workspace limit applies.
+	//
+	// - `active`: the limit is enforced alongside the organization limit.
+	// - `expired`: the limit passed its expiry and no longer applies. It stays visible until it is replaced or removed.
+	Status WorkspaceRateLimitCapStatus `json:"status"`
+
+	// UpdatedAt When the workspace limit was last set.
+	UpdatedAt time.Time `json:"updated_at"`
+
+	// Value Maximum policy units this workspace can use per rolling window. It can exceed the organization limit.
+	Value int `json:"value"`
+}
+
+// WorkspaceRateLimitCapStatus Whether the workspace limit applies.
+//
+// - `active`: the limit is enforced alongside the organization limit.
+// - `expired`: the limit passed its expiry and no longer applies. It stays visible until it is replaced or removed.
+type WorkspaceRateLimitCapStatus string
+
+// WorkspaceRateLimitList defines model for WorkspaceRateLimitList.
+type WorkspaceRateLimitList struct {
+	Data []WorkspaceRateLimit `json:"data"`
+}
+
+// WorkspaceRateLimitUsage Remaining capacity in the current rolling window. Taking the observation consumes no capacity, but the request that reads it counts against its own policy, `api_list`, like any other read. It is measured against the limits that requests were checked against when it was read, which can briefly differ from the configured top-level `organization_limit` and `workspace_limit` after a limit changes.
+type WorkspaceRateLimitUsage struct {
+	// ObservedAt When usage was read.
+	ObservedAt time.Time `json:"observed_at"`
+
+	// OrganizationLimit The organization limit requests were checked against when usage was read. `null` when usage is unavailable.
+	OrganizationLimit *int `json:"organization_limit"`
+
+	// OrganizationRemaining Units the whole organization can still use in this window, shared by all its workspaces. `null` when usage is unavailable.
+	OrganizationRemaining *int `json:"organization_remaining"`
+
+	// ResetsInSeconds Seconds until the current window ends. `null` when usage is unavailable.
+	ResetsInSeconds *int `json:"resets_in_seconds"`
+
+	// Status Whether current usage could be read.
+	//
+	// - `available`: the remaining counts reflect usage at `observed_at`.
+	// - `unavailable`: usage could not be read. Remaining counts are unknown, not zero.
+	Status WorkspaceRateLimitUsageStatus `json:"status"`
+
+	// WorkspaceLimit The workspace's own limit requests were checked against when usage was read. `null` when no workspace limit applied or usage is unavailable.
+	WorkspaceLimit *int `json:"workspace_limit"`
+
+	// WorkspaceRemaining Units this workspace can still use under its own limit. `null` when no workspace limit applied, usage is unavailable, or workspace usage is not yet measured for long enough.
+	WorkspaceRemaining *int `json:"workspace_remaining"`
+}
+
+// WorkspaceRateLimitUsageStatus Whether current usage could be read.
+//
+// - `available`: the remaining counts reflect usage at `observed_at`.
+// - `unavailable`: usage could not be read. Remaining counts are unknown, not zero.
+type WorkspaceRateLimitUsageStatus string
 
 // WorkspaceSortField Field used to order workspaces.
 type WorkspaceSortField string
@@ -46936,6 +47151,15 @@ type ListWorkspaceQuotasParams struct {
 	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
 }
 
+// ListWorkspaceRateLimitsParams defines parameters for ListWorkspaceRateLimits.
+type ListWorkspaceRateLimitsParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
 // CreateAMBBusinessAccountJSONRequestBody defines body for CreateAMBBusinessAccount for application/json ContentType.
 type CreateAMBBusinessAccountJSONRequestBody = AMBBusinessAccountCreate
 
@@ -56373,6 +56597,9 @@ type ClientInterface interface {
 
 	// ListWorkspaceQuotas request
 	ListWorkspaceQuotas(ctx context.Context, params *ListWorkspaceQuotasParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListWorkspaceRateLimits request
+	ListWorkspaceRateLimits(ctx context.Context, params *ListWorkspaceRateLimitsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 }
 
 func (c *Client) ListAMBBusinessAccounts(ctx context.Context, params *ListAMBBusinessAccountsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -63061,6 +63288,18 @@ func (c *Client) GetCurrentWorkspace(ctx context.Context, params *GetCurrentWork
 
 func (c *Client) ListWorkspaceQuotas(ctx context.Context, params *ListWorkspaceQuotasParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListWorkspaceQuotasRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListWorkspaceRateLimits(ctx context.Context, params *ListWorkspaceRateLimitsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListWorkspaceRateLimitsRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -106024,6 +106263,59 @@ func NewListWorkspaceQuotasRequest(server string, params *ListWorkspaceQuotasPar
 	return req, nil
 }
 
+// NewListWorkspaceRateLimitsRequest generates requests for ListWorkspaceRateLimits
+func NewListWorkspaceRateLimitsRequest(server string, params *ListWorkspaceRateLimitsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/workspace/rate-limits")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
 func (c *Client) applyEditors(ctx context.Context, req *http.Request, additionalEditors []RequestEditorFn) error {
 	for _, r := range c.RequestEditors {
 		if err := r(ctx, req); err != nil {
@@ -107623,6 +107915,9 @@ type ClientWithResponsesInterface interface {
 
 	// ListWorkspaceQuotasWithResponse request
 	ListWorkspaceQuotasWithResponse(ctx context.Context, params *ListWorkspaceQuotasParams, reqEditors ...RequestEditorFn) (*ListWorkspaceQuotasResponse, error)
+
+	// ListWorkspaceRateLimitsWithResponse request
+	ListWorkspaceRateLimitsWithResponse(ctx context.Context, params *ListWorkspaceRateLimitsParams, reqEditors ...RequestEditorFn) (*ListWorkspaceRateLimitsResponse, error)
 }
 
 type ListAMBBusinessAccountsResponse struct {
@@ -124408,6 +124703,44 @@ func (r ListWorkspaceQuotasResponse) ContentType() string {
 	return ""
 }
 
+type ListWorkspaceRateLimitsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WorkspaceRateLimitList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON421      *MisdirectedRequest
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListWorkspaceRateLimitsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListWorkspaceRateLimitsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListWorkspaceRateLimitsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 // ListAMBBusinessAccountsWithResponse request returning *ListAMBBusinessAccountsResponse
 func (c *ClientWithResponses) ListAMBBusinessAccountsWithResponse(ctx context.Context, params *ListAMBBusinessAccountsParams, reqEditors ...RequestEditorFn) (*ListAMBBusinessAccountsResponse, error) {
 	rsp, err := c.ListAMBBusinessAccounts(ctx, params, reqEditors...)
@@ -129311,6 +129644,15 @@ func (c *ClientWithResponses) ListWorkspaceQuotasWithResponse(ctx context.Contex
 		return nil, err
 	}
 	return ParseListWorkspaceQuotasResponse(rsp)
+}
+
+// ListWorkspaceRateLimitsWithResponse request returning *ListWorkspaceRateLimitsResponse
+func (c *ClientWithResponses) ListWorkspaceRateLimitsWithResponse(ctx context.Context, params *ListWorkspaceRateLimitsParams, reqEditors ...RequestEditorFn) (*ListWorkspaceRateLimitsResponse, error) {
+	rsp, err := c.ListWorkspaceRateLimits(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListWorkspaceRateLimitsResponse(rsp)
 }
 
 // ParseListAMBBusinessAccountsResponse parses an HTTP response from a ListAMBBusinessAccountsWithResponse call
@@ -165623,6 +165965,88 @@ func ParseListWorkspaceQuotasResponse(rsp *http.Response) (*ListWorkspaceQuotasR
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListWorkspaceRateLimitsResponse parses an HTTP response from a ListWorkspaceRateLimitsWithResponse call
+func ParseListWorkspaceRateLimitsResponse(rsp *http.Response) (*ListWorkspaceRateLimitsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListWorkspaceRateLimitsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WorkspaceRateLimitList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 421:
+		var dest MisdirectedRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON421 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Unprocessable

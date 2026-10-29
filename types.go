@@ -1065,6 +1065,12 @@ type (
 	Workspace                 = oapi.Workspace
 	OrganizationWorkspaceList = oapi.OrganizationWorkspaceList
 	WorkspaceSortField        = oapi.WorkspaceSortField
+	// WorkspaceRateLimitList is every rate-limit policy as it applies to the
+	// workspace. A null remaining count is unknown, not zero.
+	WorkspaceRateLimitList = oapi.WorkspaceRateLimitList
+	// WorkspaceRateLimit is one policy: the shared organization limit, the
+	// workspace's own limit when set, and observed remaining capacity.
+	WorkspaceRateLimit = oapi.WorkspaceRateLimit
 	// WorkspaceQuotaList is every resource and value quota as it applies to the
 	// workspace. Null usage counts are unknown, not zero.
 	WorkspaceQuotaList = oapi.WorkspaceQuotaList

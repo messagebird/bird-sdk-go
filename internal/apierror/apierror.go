@@ -58,9 +58,22 @@ type APIError struct {
 	Remediation string
 	// Next lists the recovery steps for this error, in the order to take them.
 	Next []NextAction
+	// RateLimit names the rate-limit policy limit that refused the request. It
+	// is nil except on a rate_limit_error from a rate-limit policy.
+	RateLimit *RateLimitContext
 	// Quota identifies the refusing organization or workspace limit; nil means the
 	// request was refused for another reason.
 	Quota *QuotaContext
+}
+
+// RateLimitContext is the policy limit that refused a request. Scope is
+// "organization" for the limit shared by every workspace in the organization,
+// or "workspace" for a limit set on the workspace itself.
+type RateLimitContext struct {
+	PolicyKey     string `json:"policy_key"`
+	Scope         string `json:"scope"`
+	WindowSeconds int    `json:"window_seconds"`
+	Limit         int    `json:"limit"`
 }
 
 // QuotaContext is the quota limit that refused a resource change.
@@ -144,18 +157,19 @@ func (e *WebhookVerificationError) Error() string {
 
 // wireError is the on-the-wire error body (snake_case as sent).
 type wireError struct {
-	Type        string        `json:"type"`
-	Code        string        `json:"code"`
-	Name        string        `json:"name"`
-	Message     string        `json:"message"`
-	DocURL      string        `json:"doc_url"`
-	RequestID   string        `json:"request_id"`
-	Param       string        `json:"param"`
-	VendorCode  string        `json:"vendor_code"`
-	Details     []ErrorDetail `json:"details"`
-	Remediation string        `json:"remediation"`
-	Next        []NextAction  `json:"next"`
-	Quota       *QuotaContext `json:"quota"`
+	Type        string            `json:"type"`
+	Code        string            `json:"code"`
+	Name        string            `json:"name"`
+	Message     string            `json:"message"`
+	DocURL      string            `json:"doc_url"`
+	RequestID   string            `json:"request_id"`
+	Param       string            `json:"param"`
+	VendorCode  string            `json:"vendor_code"`
+	Details     []ErrorDetail     `json:"details"`
+	Remediation string            `json:"remediation"`
+	Next        []NextAction      `json:"next"`
+	RateLimit   *RateLimitContext `json:"rate_limit"`
+	Quota       *QuotaContext     `json:"quota"`
 }
 
 // errorEnvelope is the wire wrapper: the API sends every error as
@@ -201,6 +215,7 @@ func FromResponse(status int, body []byte, header http.Header) error {
 		VendorCode:  w.VendorCode,
 		Remediation: w.Remediation,
 		Next:        w.Next,
+		RateLimit:   w.RateLimit,
 		Quota:       w.Quota,
 	}
 

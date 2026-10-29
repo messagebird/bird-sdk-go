@@ -286,6 +286,7 @@ output-options:
     - rotateWebhookSecret
     - updateWebhook
     - getCurrentWorkspace
+    - listWorkspaceRateLimits
     - listWorkspaceQuotas
     - listPreferences
     - getPreference

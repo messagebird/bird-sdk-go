@@ -286,6 +286,7 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Webhooks.RotateSecret
 	_ = c.Webhooks.Update
 	_ = c.Workspace.Get
+	_ = c.Workspace.RateLimits.List
 	_ = c.Workspace.Quotas.List
 	_ = c.Webhooks.Unwrap
 	_ = c.Preferences.List

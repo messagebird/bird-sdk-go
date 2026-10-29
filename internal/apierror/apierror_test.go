@@ -88,6 +88,26 @@ func TestFromResponseSurfacesRecovery(t *testing.T) {
 	}
 }
 
+// The refusing policy limit is read from the body, never parsed out of the
+// message, and is absent when the API sent none.
+func TestFromResponseSurfacesRateLimitContext(t *testing.T) {
+	t.Parallel()
+	body := `{"error":{"type":"rate_limit_error","code":"E01003","message":"x","rate_limit":{"policy_key":"email_send","scope":"workspace","window_seconds":60,"limit":300}}}`
+	err := FromResponse(http.StatusTooManyRequests, []byte(body), http.Header{"Retry-After": []string{"12"}})
+	var limited *RateLimitError
+	if !errors.As(err, &limited) {
+		t.Fatalf("got %T, want *RateLimitError", err)
+	}
+	want := RateLimitContext{PolicyKey: "email_send", Scope: "workspace", WindowSeconds: 60, Limit: 300}
+	if limited.RateLimit == nil || *limited.RateLimit != want {
+		t.Fatalf("RateLimit = %+v, want %+v", limited.RateLimit, want)
+	}
+	bare := FromResponse(http.StatusTooManyRequests, []byte(`{"error":{"type":"rate_limit_error","code":"E01003","message":"x"}}`), http.Header{})
+	if !errors.As(bare, &limited) || limited.RateLimit != nil {
+		t.Fatalf("got %+v, want a RateLimitError without RateLimit", bare)
+	}
+}
+
 // The refusing quota limit is read from the body, never parsed out of the
 // message, and is absent when the API sent none.
 func TestFromResponseSurfacesQuotaContext(t *testing.T) {

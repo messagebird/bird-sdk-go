@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.114.0
+
+- Read the binding policy, organization or workspace scope, limit and window of a rate-limit refusal from `error.rate_limit` in CLI errors and from the rate-limit details on each SDK's API error in Go, TypeScript, Python and PHP.
+- Add `Workspace.RateLimits.List` in Go, `workspace.rateLimits.list` in TypeScript, `workspace.rate_limits.list` in Python and `workspace->rateLimits->list` in PHP to read workspace limits, shared organization limits and observed remaining capacity. Workspace limits matter with several workspaces, or one that kept a limit after a deletion.
+- WhatsApp message inputs use shorter field descriptions while retaining sending requirements and field guidance.
+
 ## 0.113.0
 
 - **Breaking:** Apple Messages sends, message reads and template languages carry `text`, `rich_link` and `interactive` instead of `content`, and a customer's answer to an interactive message reads as `interactive_reply`; move `content` to the matching key without its `type`, put `body`, `subject` and `attachments` under `text`, and lift an interactive message's interactive_data.data fields directly under `interactive`, with custom app fields under `interactive.imessage_app`.

@@ -2793,6 +2793,21 @@ func ExampleWorkspaceService_Get() {
 	fmt.Println(workspace.Id, workspace.Name)
 }
 
+func ExampleWorkspaceRateLimitsService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	// Workspace limits matter with several workspaces, or one that kept a limit after a deletion.
+	limits, err := client.Workspace.RateLimits.List(context.Background())
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, policy := range limits.Data {
+		fmt.Println(policy.Key, policy.Limit, policy.OrganizationLimit)
+	}
+}
+
 func ExampleWorkspaceQuotasService_List() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
