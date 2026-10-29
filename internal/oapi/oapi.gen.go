@@ -12036,6 +12036,9 @@ type AMBListPickerSection struct {
 
 // AMBLocation defines model for AMBLocation.
 type AMBLocation struct {
+	// Coordinates Apple Messages template content only: exactly one placeholder, such as `{{ store }}`, set instead of `latitude` and `longitude`. When the template is sent, a `location` variable fills it with its `latitude` and `longitude`, and its `name`, when it has one, replaces `title`. A direct send that includes it returns `422`. Never present on an inbound event.
+	Coordinates *string `json:"coordinates,omitempty"`
+
 	// Latitude Latitude in degrees. Set together with `longitude`.
 	Latitude *float64 `json:"latitude,omitempty"`
 
@@ -12442,7 +12445,10 @@ type AMBNativeEvent struct {
 	// Timeslots Appointment times with RFC 3339 timestamps and duration in seconds.
 	Timeslots []AMBTimeSlot `json:"timeslots"`
 
-	// TimezoneOffset Minutes from GMT at the event location. Omit to use the customer's time zone.
+	// Timezone IANA time zone of the event location. Apple receives the zone's offset at the time slots, so a template keeps the right offset across a daylight-saving change. Every slot must have the same offset in the zone: slots on both sides of a clock change return `422`. Set it instead of `timezone_offset`. An unknown zone returns `422`. In Apple Messages template content it may instead be exactly one placeholder, such as `{{ timezone }}`, filled with a `timezone` variable when the template is sent. A direct send with a placeholder returns `422`.
+	Timezone *string `json:"timezone,omitempty"`
+
+	// TimezoneOffset Minutes from GMT at the event location. Omit it and `timezone` to use the customer's time zone.
 	TimezoneOffset *int `json:"timezone_offset,omitempty"`
 
 	// Title Event title. Also supplies the title of each omitted received or reply bubble, where the 512-character bubble text limit applies. Supply both bubbles explicitly to use a longer event title.
@@ -13615,7 +13621,7 @@ type AMBTemplateSend struct {
 	// Language Which of the template's languages to send. Omit it to send the template's default language, unless the template sets `language_source_required`, in which case a send naming no language is rejected. When the template does not carry the language you ask for, its own `on_missing_language` setting decides whether the closest available language is sent instead or the send is rejected.
 	Language *LanguageTag `json:"language,omitempty"`
 
-	// Parameters Values for the template's variables, keyed by variable name. Read the live version to see the accepted keys and formats. A missing key, an undeclared key, an invalid value, or a serialized object over 16 KiB returns `422`.
+	// Parameters Values for the template's variables, keyed by variable name. Read the live version to see the accepted keys and formats. A `location` variable takes an object with `latitude` and `longitude`, and optionally `name`, which becomes the location's title. `address` is accepted for parity with WhatsApp and is not shown on Apple Messages. Every other variable takes a string, number or boolean. A missing required key, an undeclared key, an invalid value, or a serialized object over 16 KiB returns `422`.
 	Parameters *map[string]interface{} `json:"parameters,omitempty"`
 
 	// Slug The workspace or built-in template to send, by its immutable slug. Read the template's live version to see its variables.
@@ -13821,7 +13827,7 @@ type AMBTimeSlot struct {
 	// Identifier Opaque slot identifier. Apple may instead return only a localized label in interactive_data.reply_message.title.
 	Identifier string `json:"identifier"`
 
-	// StartAt When this slot begins, as an ISO 8601 date-time with a UTC offset. Seconds and fractional seconds must be zero, for example `2026-09-02T14:30:00Z`; any other value returns `422` with error code `E01001`. The timestamp is converted to UTC for Apple while preserving the instant. In Apple Messages template content it may instead be exactly one placeholder, such as `{{ slot_1 }}`, filled with a `timestamp` variable when the template is sent.
+	// StartAt When this slot begins, as an ISO 8601 date-time with a UTC offset. Seconds and fractional seconds must be zero, for example `2026-09-02T14:30:00Z`; any other value returns `422` with error code `E01001`. The timestamp is converted to UTC for Apple while preserving the instant. In Apple Messages template content it may instead be exactly one placeholder, such as `{{ slot_1 }}`, filled with a `timestamp` variable when the template is sent. A slot after the first whose variable is used nowhere else is optional: a send that omits that variable drops the slot.
 	StartAt string `json:"start_at"`
 }
 
@@ -18961,6 +18967,9 @@ type EmailInboxInsightsSeedRegionOption struct {
 	Value *string `json:"value,omitempty"`
 }
 
+// EmailInboxInsightsSeedRegions Region names exactly as returned by the seed-test configuration.
+type EmailInboxInsightsSeedRegions = []string
+
 // EmailInboxInsightsSeedTestAuth How the tested send authenticated, measured on the seed mail itself rather than on reporting from receivers.
 type EmailInboxInsightsSeedTestAuth struct {
 	// DkimPassRatePercent Share of the test's seed mail that passed DKIM, as a percentage.
@@ -19022,8 +19031,8 @@ type EmailInboxInsightsSeedTestCreate struct {
 	// ListType Which pool of seed addresses a test uses. Which pools an account can use depends on what has been provisioned for it, so read the usable set from the seed-test options rather than assuming these are the only values.
 	ListType EmailInboxInsightsSeedListType `json:"list_type"`
 
-	// Regions The regions to place seeds in, as the seed-test configuration names them.
-	Regions []string `json:"regions"`
+	// Regions Region names exactly as returned by the seed-test configuration.
+	Regions EmailInboxInsightsSeedRegions `json:"regions"`
 
 	// SendingDomain The sending domain the test measures: one of the workspace's verified sending domains, exactly as it appears there.
 	SendingDomain string `json:"sending_domain"`
@@ -30145,7 +30154,7 @@ type TemplateVariable struct {
 	// Key The key this slot is filled by. When `system` is true it is the reserved `bird` key or a dotted path beneath it, such as `bird.contact.first_name`, and naming it in a send is rejected. Otherwise, on email and SMS it is the key you set in the send's `parameters` object, and on WhatsApp the `name` on the matching parameter inside `components`, or, in the template parameters preview, the key in the send's `template.parameters`. A WhatsApp template whose placeholders are positional uses the position itself as `1`, `2` and so on, and values with no placeholder use fixed keys: `header_url`, `header_filename`, `header_location` and `code`.
 	Key *string `json:"key,omitempty"`
 
-	// Required Whether the send must supply this variable. Omitting a required value returns `422` on email, SMS, and WhatsApp sends. Always false when `system` is true, because you do not supply that slot's value.
+	// Required Whether the send must supply this variable. Omitting a required value returns `422` on every channel. On Apple Messages, a later time slot's start that is used nowhere else is optional: a send that omits it drops that slot. Always false when `system` is true, because you do not supply that slot's value.
 	Required *bool `json:"required,omitempty"`
 
 	// Sensitive Whether this slot's value is redacted from stored message content. A placeholder replaces the sensitive value in message history; transport queues can still carry the text needed for delivery.
@@ -30154,7 +30163,7 @@ type TemplateVariable struct {
 	// System Whether the value comes from Bird rather than from the send. Absent means false. System slots are identified by the reserved `bird` key or a dotted path beneath it. They appear on email templates, and, in the template parameters preview, on WhatsApp templates whose parameter bindings read contact data; every SMS slot is yours to fill. A draft can also name a reserved key no Bird value fills, including `bird` itself: `constraint` says so, and publishing that draft is rejected.
 	System *bool `json:"system,omitempty"`
 
-	// Type The value type this slot accepts. Each typed slot rejects a value that does not match its `constraint`. Built-in SMS templates use typed slots (`code`, `amount` and the rest). Apple Messages templates type a variable from its content: the field it fills (`url`, `image`, `timestamp`) or the formatting filter applied to it (`date`, `date_time`, `amount`, `currency`). Email and workspace SMS templates use `text`. WhatsApp templates use `text`, plus `url` for a media header's file and `location` for a location header. Workspace SMS parameters must be scalar values. Open enum: treat an unrecognized value as a future type rather than an error.
+	// Type The value type this slot accepts. Each typed slot rejects a value that does not match its `constraint`. Built-in SMS templates use typed slots (`code`, `amount` and the rest). Apple Messages templates type a variable from its content: the field it fills (`url`, `image`, `timestamp`, `location`, `timezone`) or the formatting filter applied to it (`date`, `date_time`, `amount`, `currency`). Email and workspace SMS templates use `text`. WhatsApp templates use `text`, plus `url` for a media header's file and `location` for a location header. A `location` value is an object with `latitude` and `longitude`, and optionally `name` and `address`. On Apple Messages, `name` becomes the location's title and `address` is not shown. Workspace SMS parameters must be scalar values.
 	Type *string `json:"type,omitempty"`
 }
 

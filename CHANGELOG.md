@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.112.0
+
+- Apple Messages time picker events gain `timezone`, an IANA time zone you set instead of `timezone_offset`. Apple Messages template variables can now be `location`, the same object a WhatsApp location header takes, and the new `timezone` type, which fill a time picker's place and time zone when a template is sent. Template content can carry a time picker `location.coordinates` placeholder that a `location` variable fills.
+
 ## 0.111.0
 
 - Apple Messages for Business sends accept `reference`, your own identifier for the message such as an order number. Message reads and webhooks return it, and listing messages filters on it with an exact `reference` match.
