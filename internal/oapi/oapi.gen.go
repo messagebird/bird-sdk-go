@@ -6036,6 +6036,45 @@ func (e LookupPropertyStatus) Valid() bool {
 	}
 }
 
+// Defines values for MTLSCRLCheck.
+const (
+	MTLSCRLCheckDisabled  MTLSCRLCheck = "disabled"
+	MTLSCRLCheckFullChain MTLSCRLCheck = "full_chain"
+)
+
+// Valid indicates whether the value is a known member of the MTLSCRLCheck enum.
+func (e MTLSCRLCheck) Valid() bool {
+	switch e {
+	case MTLSCRLCheckDisabled:
+		return true
+	case MTLSCRLCheckFullChain:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for MTLSState.
+const (
+	MTLSStateDisabled   MTLSState = "disabled"
+	MTLSStateEnforced   MTLSState = "enforced"
+	MTLSStateEvaluating MTLSState = "evaluating"
+)
+
+// Valid indicates whether the value is a known member of the MTLSState enum.
+func (e MTLSState) Valid() bool {
+	switch e {
+	case MTLSStateDisabled:
+		return true
+	case MTLSStateEnforced:
+		return true
+	case MTLSStateEvaluating:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for MailboxChannel.
 const (
 	MailboxChannelEmail MailboxChannel = "email"
@@ -6558,6 +6597,48 @@ func (e QuotaSource) Valid() bool {
 	case QuotaSourceOverride:
 		return true
 	case QuotaSourcePlan:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for QuotaType.
+const (
+	QuotaTypeBoolean QuotaType = "boolean"
+	QuotaTypeInteger QuotaType = "integer"
+)
+
+// Valid indicates whether the value is a known member of the QuotaType enum.
+func (e QuotaType) Valid() bool {
+	switch e {
+	case QuotaTypeBoolean:
+		return true
+	case QuotaTypeInteger:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for QuotaUnit.
+const (
+	QuotaUnitBytes      QuotaUnit = "bytes"
+	QuotaUnitCount      QuotaUnit = "count"
+	QuotaUnitDays       QuotaUnit = "days"
+	QuotaUnitMicrounits QuotaUnit = "microunits"
+)
+
+// Valid indicates whether the value is a known member of the QuotaUnit enum.
+func (e QuotaUnit) Valid() bool {
+	switch e {
+	case QuotaUnitBytes:
+		return true
+	case QuotaUnitCount:
+		return true
+	case QuotaUnitDays:
+		return true
+	case QuotaUnitMicrounits:
 		return true
 	default:
 		return false
@@ -8694,6 +8775,27 @@ func (e WebhookSortField) Valid() bool {
 	}
 }
 
+// Defines values for WebhookTestClientCertificate.
+const (
+	WebhookTestClientCertificateNotRequested WebhookTestClientCertificate = "not_requested"
+	WebhookTestClientCertificatePresented    WebhookTestClientCertificate = "presented"
+	WebhookTestClientCertificateRejected     WebhookTestClientCertificate = "rejected"
+)
+
+// Valid indicates whether the value is a known member of the WebhookTestClientCertificate enum.
+func (e WebhookTestClientCertificate) Valid() bool {
+	switch e {
+	case WebhookTestClientCertificateNotRequested:
+		return true
+	case WebhookTestClientCertificatePresented:
+		return true
+	case WebhookTestClientCertificateRejected:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for WebhookTestResponseStatus.
 const (
 	WebhookTestResponseStatusDelivered WebhookTestResponseStatus = "delivered"
@@ -9950,22 +10052,22 @@ func (e WhatsAppReactedEventType) Valid() bool {
 
 // Defines values for WhatsAppReactionEventStatus.
 const (
-	Failed   WhatsAppReactionEventStatus = "failed"
-	Received WhatsAppReactionEventStatus = "received"
-	Rejected WhatsAppReactionEventStatus = "rejected"
-	Sent     WhatsAppReactionEventStatus = "sent"
+	WhatsAppReactionEventStatusFailed   WhatsAppReactionEventStatus = "failed"
+	WhatsAppReactionEventStatusReceived WhatsAppReactionEventStatus = "received"
+	WhatsAppReactionEventStatusRejected WhatsAppReactionEventStatus = "rejected"
+	WhatsAppReactionEventStatusSent     WhatsAppReactionEventStatus = "sent"
 )
 
 // Valid indicates whether the value is a known member of the WhatsAppReactionEventStatus enum.
 func (e WhatsAppReactionEventStatus) Valid() bool {
 	switch e {
-	case Failed:
+	case WhatsAppReactionEventStatusFailed:
 		return true
-	case Received:
+	case WhatsAppReactionEventStatusReceived:
 		return true
-	case Rejected:
+	case WhatsAppReactionEventStatusRejected:
 		return true
-	case Sent:
+	case WhatsAppReactionEventStatusSent:
 		return true
 	default:
 		return false
@@ -26768,6 +26870,45 @@ type LookupSimSwap struct {
 	Status  *LookupPropertyStatus `json:"status,omitempty"`
 }
 
+// MTLSCRLCheck How a certificate chain is checked against the certificate revocation list (CRL) that each certificate names. With `full_chain`, the leaf certificate and each intermediate certificate below the trusted root are checked. A certificate that names no CRL is not checked.
+type MTLSCRLCheck string
+
+// MTLSCertificateAuthority A certificate authority that issues the client certificates of your workspace.
+type MTLSCertificateAuthority struct {
+	// CreatedAt When you added the certificate authority.
+	CreatedAt time.Time `json:"created_at"`
+
+	// FingerprintSha256 The SHA-256 fingerprint of the certificate, in lowercase hexadecimal.
+	FingerprintSha256 string                     `json:"fingerprint_sha256"`
+	Id                MTLSCertificateAuthorityID `json:"id"`
+
+	// NotAfter End of the validity period of the certificate authority.
+	NotAfter time.Time `json:"not_after"`
+
+	// NotBefore Start of the validity period of the certificate authority.
+	NotBefore time.Time `json:"not_before"`
+
+	// Subject The distinguished name of the certificate authority.
+	Subject string `json:"subject"`
+}
+
+// MTLSCertificateAuthorityCreate A certificate authority to add. The certificate must be an unexpired CA certificate that can sign certificates. A workspace has at most two certificate authorities.
+type MTLSCertificateAuthorityCreate struct {
+	// Certificate One PEM-encoded X.509 certificate.
+	Certificate string `json:"certificate"`
+}
+
+// MTLSCertificateAuthorityID defines model for MTLSCertificateAuthorityID.
+type MTLSCertificateAuthorityID = string
+
+// MTLSCertificateAuthorityList The certificate authorities of your workspace.
+type MTLSCertificateAuthorityList struct {
+	Data []MTLSCertificateAuthority `json:"data"`
+}
+
+// MTLSState Whether client certificates are off (`disabled`), checked while the previous behavior stays available (`evaluating`), or required (`enforced`).
+type MTLSState string
+
 // Mailbox A durable mailbox identity for an agent. A mailbox owns an email address, groups mail into threads, applies receive policy, and remembers message metadata, extracted text, and attachments for its retention tier. The body and raw MIME of each message remain available for 30 days.
 type Mailbox struct {
 	// Address The mailbox's email address. Immutable once created.
@@ -27548,6 +27689,20 @@ type QuotaScope string
 // - `plan`: the organization's plan.
 // - `override`: a limit Bird set for the organization.
 type QuotaSource string
+
+// QuotaType How to read the quota's limit.
+//
+// - `integer`: a count or amount, measured in `unit`.
+// - `boolean`: a feature switch. A limit of `1` turns the feature on and `0` turns it off.
+type QuotaType string
+
+// QuotaUnit What the quota's limit is measured in. `null` for a quota whose `type` is `boolean`, because its limit is a switch rather than an amount. `label` names what is counted.
+//
+// - `count`: a plain number: a count of things, such as domains or mailboxes, or a ratio such as a percentage or multiple.
+// - `bytes`: stored data, in bytes.
+// - `days`: a period, in days.
+// - `microunits`: an amount of money in millionths of the billing currency's main unit.
+type QuotaUnit string
 
 // RateLimitErrorContext The rate-limit policy that refused the request. Present only on `rate_limit_error` responses from a rate-limit policy. A workspace-targeted request is checked against its organization's limit and any limit set for its workspace; the organization limit is reported when both are exhausted.
 type RateLimitErrorContext struct {
@@ -31721,6 +31876,69 @@ type WebhookAttemptList struct {
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
+// WebhookClientCertificate The client certificate that we present on webhook deliveries of your workspace. With `disabled`, we present no certificate. With `evaluating`, we present the certificate when the receiver asks for one. If the receiver does not ask, we deliver and report it. If the receiver rejects the certificate, we retry without it and report it. A failed check of the receiver's own certificate fails the attempt without a retry. With `enforced`, we present the certificate and fail the delivery attempt when the receiver does not ask for one or rejects it. `crl_check` applies to the server certificate chain of the receiver and is `disabled` by default. A failed CRL check fails the delivery attempt. When webhook mTLS is not enabled for this workspace, `state` and `crl_check` read `disabled` and deliveries obey them. Neither applies to `realtime.*` events, which Realtime delivers without the certificate, to connector endpoints, which call third-party APIs, or to MCP Events subscriptions, whose callback URL an OAuth authorization chooses.
+type WebhookClientCertificate struct {
+	// Certificate The certificate in use. `null` until you upload one.
+	Certificate *WebhookClientCertificateDetails `json:"certificate"`
+
+	// CrlCheck How a certificate chain is checked against the certificate revocation list (CRL) that each certificate names. With `full_chain`, the leaf certificate and each intermediate certificate below the trusted root are checked. A certificate that names no CRL is not checked.
+	CrlCheck MTLSCRLCheck `json:"crl_check"`
+
+	// SigningRequest The signing request that waits for a signed certificate. `null` when none waits.
+	SigningRequest *WebhookClientCertificateSigningRequest `json:"signing_request"`
+
+	// State Whether client certificates are off (`disabled`), checked while the previous behavior stays available (`evaluating`), or required (`enforced`).
+	State MTLSState `json:"state"`
+
+	// UpdatedAt When the certificate or its state last changed. `null` until the first change.
+	UpdatedAt *time.Time `json:"updated_at"`
+}
+
+// WebhookClientCertificateDetails Public details of a webhook client certificate.
+type WebhookClientCertificateDetails struct {
+	// FingerprintSha256 The SHA-256 fingerprint of the certificate, in lowercase hexadecimal.
+	FingerprintSha256 string `json:"fingerprint_sha256"`
+
+	// Issuer The distinguished name of the certificate authority that signed it.
+	Issuer string `json:"issuer"`
+
+	// NotAfter End of the validity period.
+	NotAfter time.Time `json:"not_after"`
+
+	// NotBefore Start of the validity period.
+	NotBefore time.Time `json:"not_before"`
+
+	// SerialNumber The serial number, in lowercase hexadecimal.
+	SerialNumber string `json:"serial_number"`
+
+	// Subject The distinguished name of the certificate.
+	Subject string `json:"subject"`
+}
+
+// WebhookClientCertificateSigningRequest A certificate signing request (CSR) for a new key pair that we generated. The private key stays with us. Get the CSR signed by your certificate authority, then upload the certificate.
+type WebhookClientCertificateSigningRequest struct {
+	// CreatedAt When we created the signing request.
+	CreatedAt time.Time `json:"created_at"`
+
+	// Csr The PEM-encoded PKCS #10 certificate signing request.
+	Csr string `json:"csr"`
+}
+
+// WebhookClientCertificateUpdate Changes to the webhook client certificate. Omit a field to keep its value. `evaluating` and `enforced` require an uploaded certificate.
+type WebhookClientCertificateUpdate struct {
+	// CrlCheck How a certificate chain is checked against the certificate revocation list (CRL) that each certificate names. With `full_chain`, the leaf certificate and each intermediate certificate below the trusted root are checked. A certificate that names no CRL is not checked.
+	CrlCheck *MTLSCRLCheck `json:"crl_check,omitempty"`
+
+	// State Whether client certificates are off (`disabled`), checked while the previous behavior stays available (`evaluating`), or required (`enforced`).
+	State *MTLSState `json:"state,omitempty"`
+}
+
+// WebhookClientCertificateUpload The signed certificate for the waiting signing request. The certificate must match the key of the signing request, have the `clientAuth` extended key usage and be in its validity period. Each intermediate certificate must be a CA certificate in its validity period that signed the certificate before it. It replaces the certificate in use.
+type WebhookClientCertificateUpload struct {
+	// CertificateChain PEM-encoded certificates, the signed certificate first, then any intermediate certificates.
+	CertificateChain string `json:"certificate_chain"`
+}
+
 // WebhookConnectorBinding defines model for WebhookConnectorBinding.
 type WebhookConnectorBinding struct {
 	// Action Action of the connector that each delivery runs.
@@ -32023,6 +32241,13 @@ type WebhookRotateSecretResponse struct {
 // WebhookSortField Field to sort webhook endpoints by: `created_at` (the default; newest first with the default `order`) or `url`.
 type WebhookSortField string
 
+// WebhookTestClientCertificate What your endpoint did with the client certificate that we present for your workspace. Omitted when your workspace presents no client certificate, or when the test failed before your endpoint answered.
+//
+// - `presented`: your endpoint asked for the certificate and accepted it.
+// - `not_requested`: your endpoint did not ask for a certificate.
+// - `rejected`: your endpoint rejected the certificate. If your workspace allows deliveries without the certificate, we sent the test again without it, and the other fields show the result of that second request.
+type WebhookTestClientCertificate string
+
 // WebhookTestRequest defines model for WebhookTestRequest.
 type WebhookTestRequest struct {
 	// EventType Event type to simulate. Any type from the event catalog is accepted, whether or not the endpoint subscribes to it; an unknown type returns a `422`. When omitted, the endpoint's first subscribed event type is used.
@@ -32031,6 +32256,13 @@ type WebhookTestRequest struct {
 
 // WebhookTestResponse defines model for WebhookTestResponse.
 type WebhookTestResponse struct {
+	// ClientCertificate What your endpoint did with the client certificate that we present for your workspace. Omitted when your workspace presents no client certificate, or when the test failed before your endpoint answered.
+	//
+	// - `presented`: your endpoint asked for the certificate and accepted it.
+	// - `not_requested`: your endpoint did not ask for a certificate.
+	// - `rejected`: your endpoint rejected the certificate. If your workspace allows deliveries without the certificate, we sent the test again without it, and the other fields show the result of that second request.
+	ClientCertificate *WebhookTestClientCertificate `json:"client_certificate,omitempty"`
+
 	// Error A short explanation of why the event could not be delivered. Present only when your endpoint could not be reached.
 	Error *string `json:"error,omitempty"`
 
@@ -35822,6 +36054,30 @@ type WorkspaceCreate struct {
 // WorkspaceID defines model for WorkspaceID.
 type WorkspaceID = string
 
+// WorkspaceMTLSSettings Client certificate (mTLS) settings for API requests to your workspace. The mTLS endpoint is `mtls.<region>.platform.bird.com`. With `disabled`, the mTLS endpoint rejects requests. With `evaluating`, both endpoints accept requests, and the mTLS endpoint rejects a request without a valid client certificate. With `enforced`, only the mTLS endpoint accepts requests. Dashboard and OAuth requests are accepted on the standard endpoint in every state. `crl_check` is `disabled` by default.
+type WorkspaceMTLSSettings struct {
+	// CrlCheck How a certificate chain is checked against the certificate revocation list (CRL) that each certificate names. With `full_chain`, the leaf certificate and each intermediate certificate below the trusted root are checked. A certificate that names no CRL is not checked.
+	CrlCheck MTLSCRLCheck `json:"crl_check"`
+
+	// ExpectedSan A subject alternative name that every client certificate must contain, as a DNS name or a URI. `null` when any subject alternative name is accepted.
+	ExpectedSan *string `json:"expected_san"`
+
+	// State Whether client certificates are off (`disabled`), checked while the previous behavior stays available (`evaluating`), or required (`enforced`).
+	State MTLSState `json:"state"`
+}
+
+// WorkspaceMTLSSettingsUpdate Changes to the client certificate (mTLS) settings. Omit a field to keep its value. `evaluating` and `enforced` require at least one certificate authority.
+type WorkspaceMTLSSettingsUpdate struct {
+	// CrlCheck How a certificate chain is checked against the certificate revocation list (CRL) that each certificate names. With `full_chain`, the leaf certificate and each intermediate certificate below the trusted root are checked. A certificate that names no CRL is not checked.
+	CrlCheck *MTLSCRLCheck `json:"crl_check,omitempty"`
+
+	// ExpectedSan A subject alternative name that every client certificate must contain, as a DNS name or a URI. `null` accepts any subject alternative name.
+	ExpectedSan nullable.Nullable[string] `json:"expected_san,omitempty"`
+
+	// State Whether client certificates are off (`disabled`), checked while the previous behavior stays available (`evaluating`), or required (`enforced`).
+	State *MTLSState `json:"state,omitempty"`
+}
+
 // WorkspaceNotificationEmails defines model for WorkspaceNotificationEmails.
 type WorkspaceNotificationEmails struct {
 	// Operational Addresses for operational notifications about this workspace (sending domain authentication failures, webhook endpoint degradation). When empty, these notifications go to the organization owners. Maximum 10 addresses.
@@ -35853,6 +36109,9 @@ type WorkspaceQuota struct {
 	// - `value`: the largest setting a resource may be given, such as a retention period. No usage is counted.
 	Kind WorkspaceQuotaKind `json:"kind"`
 
+	// Label What the product calls the thing the limit applies to, such as `domains` or `seed tests`, for display next to the limit.
+	Label string `json:"label"`
+
 	// Limit The lower of the organization limit currently applied to requests and the workspace's active limit or automatic share. The applied organization limit can briefly differ from the configured `organization_limit` after a change. A request can still be refused below this value when other workspaces use the shared organization limit.
 	Limit int64 `json:"limit"`
 
@@ -35877,8 +36136,19 @@ type WorkspaceQuota struct {
 	// - `override`: a limit Bird set for the organization.
 	OrganizationSource QuotaSource `json:"organization_source"`
 
-	// Unit What the limit counts, such as `mailboxes`, `bytes` or `days`.
-	Unit string `json:"unit"`
+	// Type How to read the quota's limit.
+	//
+	// - `integer`: a count or amount, measured in `unit`.
+	// - `boolean`: a feature switch. A limit of `1` turns the feature on and `0` turns it off.
+	Type QuotaType `json:"type"`
+
+	// Unit What the quota's limit is measured in. `null` for a quota whose `type` is `boolean`, because its limit is a switch rather than an amount. `label` names what is counted.
+	//
+	// - `count`: a plain number: a count of things, such as domains or mailboxes, or a ratio such as a percentage or multiple.
+	// - `bytes`: stored data, in bytes.
+	// - `days`: a period, in days.
+	// - `microunits`: an amount of money in millionths of the billing currency's main unit.
+	Unit *QuotaUnit `json:"unit"`
 
 	// Usage Current usage. `null` for a `value` quota, which counts nothing.
 	Usage *WorkspaceQuotaUsage `json:"usage"`

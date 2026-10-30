@@ -702,6 +702,28 @@ const (
 	QuotaSourcePlan     = oapi.QuotaSourcePlan
 )
 
+// QuotaType is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the QuotaType* constants with a
+// default branch rather than treating the set as closed.
+type QuotaType = oapi.QuotaType
+
+const (
+	QuotaTypeBoolean = oapi.QuotaTypeBoolean
+	QuotaTypeInteger = oapi.QuotaTypeInteger
+)
+
+// QuotaUnit is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the QuotaUnit* constants with a
+// default branch rather than treating the set as closed.
+type QuotaUnit = oapi.QuotaUnit
+
+const (
+	QuotaUnitBytes      = oapi.QuotaUnitBytes
+	QuotaUnitCount      = oapi.QuotaUnitCount
+	QuotaUnitDays       = oapi.QuotaUnitDays
+	QuotaUnitMicrounits = oapi.QuotaUnitMicrounits
+)
+
 // SMSErrorCode is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the SMSErrorCode* constants with a
 // default branch rather than treating the set as closed.
