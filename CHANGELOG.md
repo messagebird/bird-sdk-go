@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.118.0
+
+- Creating a verification accepts `options.android_app_hash`, the 11-character app hash from Google's SMS Retriever API, so an Android app can read the SMS passcode itself. Each SMS passcode is then a short message ending with the hash, and names no website even when `options.autofill_origin` is set. Email passcodes don't change.
+
 ## 0.117.0
 
 - `WorkspaceQuota` gains `type`, a `QuotaType`: integer for a count or amount, or boolean for a feature switch whose limit is 1 (on) or 0 (off).
