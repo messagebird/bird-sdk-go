@@ -28395,7 +28395,7 @@ type SMSInReplyToMessage struct {
 	// SentAt Time Bird handed the outbound message to the carrier; the matching window counts from here. Absent once that message is past the read window.
 	SentAt *time.Time `json:"sent_at,omitempty"`
 
-	// Text Text of the outbound message as Bird stored it. Authentication messages read `**REDACTED**`. Absent once that message is past the read window.
+	// Text Text of the outbound message as Bird stored it, with sensitive template values masked. Authentication messages without declared sensitive variables read `**REDACTED**`. Absent once that message is past the read window.
 	Text *string `json:"text,omitempty"`
 }
 
@@ -28757,7 +28757,7 @@ type SMSMessage struct {
 	// TemplateVersionId The workspace published version or synthetic built-in version rendered at acceptance, or null for a free-text message. For a built-in template, `template_content_hash` identifies the exact catalogue source.
 	TemplateVersionId *SMSTemplateVersionID `json:"template_version_id,omitempty"`
 
-	// Text The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text, and on a binary message, which returns `binary` instead. For a template send, this is the rendered text after parameter substitution. When `category` is `authentication` (a message carrying a one-time code), this is `**REDACTED**`: the code still reaches the recipient, but the API does not retain it for later reads.
+	// Text The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text, and on a binary message, which returns `binary` instead. For a template send, this is the rendered text after parameter substitution. System template messages preserve the surrounding text and mask sensitive codes with one asterisk per digit. Authentication messages without declared sensitive variables return `**REDACTED**`. The recipient receives the real code; message history retains only its masked representation.
 	Text *string `json:"text,omitempty"`
 
 	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
@@ -30618,7 +30618,7 @@ type VoiceCallRouteForward struct {
 	// - `trunk`: delivers the call to one of your SIP trunks.
 	// - `forward`: places a call to one of your verified caller IDs and connects the two.
 	// - `sequence`: runs the configured sequence from its selected voice-call entry.
-	// - `ring_group`: rings the group's online members. Requires preview access to configure.
+	// - `ring_group`: rings the group's online members.
 	//
 	// It selects the answer's own shape, so a new way to answer a call arrives as a
 	// new value alongside a new set of fields.
@@ -30633,7 +30633,7 @@ type VoiceCallRouteReject struct {
 	// - `trunk`: delivers the call to one of your SIP trunks.
 	// - `forward`: places a call to one of your verified caller IDs and connects the two.
 	// - `sequence`: runs the configured sequence from its selected voice-call entry.
-	// - `ring_group`: rings the group's online members. Requires preview access to configure.
+	// - `ring_group`: rings the group's online members.
 	//
 	// It selects the answer's own shape, so a new way to answer a call arrives as a
 	// new value alongside a new set of fields.
@@ -30651,7 +30651,7 @@ type VoiceCallRouteRingGroup struct {
 	// - `trunk`: delivers the call to one of your SIP trunks.
 	// - `forward`: places a call to one of your verified caller IDs and connects the two.
 	// - `sequence`: runs the configured sequence from its selected voice-call entry.
-	// - `ring_group`: rings the group's online members. Requires preview access to configure.
+	// - `ring_group`: rings the group's online members.
 	//
 	// It selects the answer's own shape, so a new way to answer a call arrives as a
 	// new value alongside a new set of fields.
@@ -30670,7 +30670,7 @@ type VoiceCallRouteSequence struct {
 	// - `trunk`: delivers the call to one of your SIP trunks.
 	// - `forward`: places a call to one of your verified caller IDs and connects the two.
 	// - `sequence`: runs the configured sequence from its selected voice-call entry.
-	// - `ring_group`: rings the group's online members. Requires preview access to configure.
+	// - `ring_group`: rings the group's online members.
 	//
 	// It selects the answer's own shape, so a new way to answer a call arrives as a
 	// new value alongside a new set of fields.
@@ -30687,7 +30687,7 @@ type VoiceCallRouteTrunk struct {
 	// - `trunk`: delivers the call to one of your SIP trunks.
 	// - `forward`: places a call to one of your verified caller IDs and connects the two.
 	// - `sequence`: runs the configured sequence from its selected voice-call entry.
-	// - `ring_group`: rings the group's online members. Requires preview access to configure.
+	// - `ring_group`: rings the group's online members.
 	//
 	// It selects the answer's own shape, so a new way to answer a call arrives as a
 	// new value alongside a new set of fields.
@@ -30700,7 +30700,7 @@ type VoiceCallRouteTrunk struct {
 // - `trunk`: delivers the call to one of your SIP trunks.
 // - `forward`: places a call to one of your verified caller IDs and connects the two.
 // - `sequence`: runs the configured sequence from its selected voice-call entry.
-// - `ring_group`: rings the group's online members. Requires preview access to configure.
+// - `ring_group`: rings the group's online members.
 //
 // It selects the answer's own shape, so a new way to answer a call arrives as a
 // new value alongside a new set of fields.
