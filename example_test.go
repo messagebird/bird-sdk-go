@@ -203,6 +203,10 @@ func ExampleEmailService_Get() {
 		log.Fatal(err)
 	}
 	fmt.Println(*msg.Status, *msg.DeliveredCount)
+	fmt.Println(msg.Subject)
+	if msg.SubjectRecipientId != nil {
+		fmt.Println(*msg.SubjectRecipientId)
+	}
 }
 
 // Cancel stops a message that has not left yet, including a scheduled send
@@ -1026,6 +1030,41 @@ func ExampleContactPropertiesService_Create() {
 		log.Fatal(err)
 	}
 	fmt.Println(property.Id)
+}
+
+func ExampleEmailService_Content() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	content, err := client.Email.Content(context.Background(), "em_01krdgeqcxet5s7t44vh8rt9mg", bird.EmailContentParams{
+		RecipientID: "er_01krdgeqcxet5s7t44vh8rt9mg",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	if content.Html != nil {
+		fmt.Println(*content.Html)
+	}
+	if content.Text != nil {
+		fmt.Println(*content.Text)
+	}
+}
+
+func ExampleEmailService_Recipients() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for recipient, err := range client.Email.Recipients(context.Background(), "em_01krdgeqcxet5s7t44vh8rt9mg", bird.EmailRecipientsParams{}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(recipient.Id)
+		if recipient.Subject != nil {
+			fmt.Println(*recipient.Subject)
+		}
+	}
 }
 
 // Get returns a single contact property by id.

@@ -355,6 +355,8 @@ output-options:
     - getOrganizationWorkspace
     - updateOrganizationWorkspace
     - deleteOrganizationWorkspace
+    - getEmailMessageContent
+    - listEmailMessageRecipients
     - publishRealtimeAppEvent
     - publishRealtimeAppBatch
     - listRealtimeAppChannels

@@ -69,6 +69,34 @@ func (p EmailHealthParams) toWire() *oapi.GetEmailHealthParams {
 	}
 }
 
+// EmailContentParams filters the content read.
+type EmailContentParams struct {
+	// Recipient whose accepted template values to render. Required for a message with multiple recipient snapshots; omission returns 422. A single recipient is selected automatically. An unknown recipient or one belonging to another message returns 404. Get the ID from the message's recipients listing.
+	RecipientID string
+}
+
+func (p EmailContentParams) toWire() *oapi.GetEmailMessageContentParams {
+	return &oapi.GetEmailMessageContentParams{
+		RecipientId: optZero(p.RecipientID),
+	}
+}
+
+// EmailRecipientsParams filters the list. Zero-value fields are omitted.
+type EmailRecipientsParams struct {
+	// Maximum number of items to return per page.
+	Limit int
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
+}
+
+func (p EmailRecipientsParams) toWire(startingAfter string) *oapi.ListEmailMessageRecipientsParams {
+	return &oapi.ListEmailMessageRecipientsParams{
+		Limit:         optInt(p.Limit),
+		EndingBefore:  optStr(p.EndingBefore),
+		StartingAfter: optStr(startingAfter),
+	}
+}
+
 // Get Fetch one email message by `id`, with aggregate delivery status and per-state recipient counts. The message body (`html`, `text`) is not returned. Per-recipient delivery statuses and the event log are separate sub-resources: `GET /v1/email/messages/{message_id}/recipients` and `GET /v1/email/messages/{message_id}/events`. `broadcast_id` identifies the broadcast that sent the message and is absent for other sends. A broadcast records one message per recipient; these copies share the same `broadcast_id`.
 func (s *EmailService) Get(ctx context.Context, messageId string, opts ...option.RequestOption) (*EmailMessage, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
@@ -142,4 +170,52 @@ func (s *EmailService) Health(ctx context.Context, params EmailHealthParams, opt
 		return nil, err
 	}
 	return &out, nil
+}
+
+// Content Read the stored HTML and text bodies of a sent message. Content exists only if the message had content storage enabled, and only for 30 days after sending. A broadcast message can return `404` even when workspace content storage is enabled. Verify email previews preserve the message with the verification code masked. A `404` means content is unavailable. A scheduled send of a workspace template, rather than a built-in one, stores its content when it sends, so it answers `404` until then. A `425` means the content is still being stored, and the call can be retried. A `410` means it has expired.
+func (s *EmailService) Content(ctx context.Context, messageId string, params EmailContentParams, opts ...option.RequestOption) (*EmailMessageContent, error) {
+	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
+		return s.client.oapi.GetEmailMessageContent(ctx, oapi.EmailID(messageId), params.toWire(), cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out EmailMessageContent
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// RecipientsPage fetches one page of results. Pass the previous page's NextCursor as
+// startingAfter to advance; "" starts from the first page.
+func (s *EmailService) RecipientsPage(ctx context.Context, messageId string, params EmailRecipientsParams, startingAfter string, opts ...option.RequestOption) (*EmailRecipientList, error) {
+	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
+		return s.client.oapi.ListEmailMessageRecipients(ctx, oapi.EmailID(messageId), params.toWire(startingAfter), cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out EmailRecipientList
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// Recipients List a message's per-recipient delivery state as a cursor page: each `to`/`cc`/`bcc` address with its role, current `status`, bounce or rejection detail, and open and click counts. This is how you find which specific addresses failed when the message's own `status` is mixed, such as `partial_failure`. It works for a broadcast-sent message too, which has exactly one recipient: the address that copy of the broadcast went to.
+// Range over it; the second value is non-nil only on the iteration where a
+// fetch failed.
+func (s *EmailService) Recipients(ctx context.Context, messageId string, params EmailRecipientsParams, opts ...option.RequestOption) iter.Seq2[*EmailRecipient, error] {
+	return paginate(func(cursor string) ([]EmailRecipient, *string, error) {
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.RecipientsPage(ctx, messageId, pageParams, cursor, opts...)
+		if err != nil {
+			return nil, nil, err
+		}
+		return page.Data, page.NextCursor, nil
+	})
 }

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.120.0
+
+- **Breaking:** `EmailMessage` and `EmailRecipient` gain response fields; replace positional literals with keyed literals such as `EmailMessage{SubjectRecipientId: nil}` and `EmailRecipient{Subject: nil, CopyOfRecipientId: nil}`.
+- Add `Email.Content` and `Email.Recipients` to read stored content and delivery status.
+- **Breaking:** published-template sends reject `null` for a required caller parameter. Supply its value in `template.parameters`; an empty string remains valid for a text parameter.
+
 ## 0.119.1
 
 - SMS message `text` and reply context `in_reply_to_message.text` documentation describe the retained body and masked authentication codes.

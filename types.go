@@ -52,6 +52,9 @@ func Null[T any]() Nullable[T] { return nullable.NewNullNullable[T]() }
 // EmailMessage is a sent message with aggregate delivery status.
 type EmailMessage = oapi.EmailMessage
 
+// EmailMessageContent contains the stored bodies for the selected recipient.
+type EmailMessageContent = oapi.EmailMessageContent
+
 // EmailMessageList is one page of messages plus its pagination cursors.
 type EmailMessageList = oapi.EmailMessageList
 
@@ -931,6 +934,7 @@ const (
 
 const (
 	EmailRecipientStatusAccepted   EmailRecipientStatus = "accepted"
+	EmailRecipientStatusCanceled   EmailRecipientStatus = "canceled"
 	EmailRecipientStatusProcessed  EmailRecipientStatus = "processed"
 	EmailRecipientStatusDeferred   EmailRecipientStatus = "deferred"
 	EmailRecipientStatusDelivered  EmailRecipientStatus = "delivered"
