@@ -242,6 +242,14 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Voice.Numbers.Update
 	_ = c.Voice.Settings.Get
 	_ = c.Voice.Settings.Update
+	_ = c.Voice.RingGroups.List
+	_ = c.Voice.RingGroups.Get
+	_ = c.Voice.RingGroups.Create
+	_ = c.Voice.RingGroups.Update
+	_ = c.Voice.RingGroups.Delete
+	_ = c.Voice.RingGroups.Members.List
+	_ = c.Voice.RingGroups.Members.Create
+	_ = c.Voice.RingGroups.Members.Delete
 	_ = c.Voice.VerifiedNumbers.List
 	_ = c.Voice.VerifiedNumbers.Get
 	_ = c.Voice.VerifiedNumbers.Verify

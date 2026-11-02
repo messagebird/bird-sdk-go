@@ -4594,6 +4594,108 @@ func ExampleVoiceTrunksGatewaysService_Delete() {
 	}
 }
 
+func ExampleVoiceRingGroupsService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	groups, err := client.Voice.RingGroups.List(context.Background())
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, group := range groups.Data {
+		fmt.Println(group.Id, group.Name, group.OnlineMemberCount)
+	}
+}
+
+func ExampleVoiceRingGroupsService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	group, err := client.Voice.RingGroups.Get(context.Background(), "RING_GROUP_ID")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(group.Id, group.Name, group.OnlineMemberCount)
+}
+
+func ExampleVoiceRingGroupsService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	group, err := client.Voice.RingGroups.Create(context.Background(), bird.VoiceRingGroupsCreateParams{
+		Name: "Support",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(group.Id, group.Name)
+}
+
+func ExampleVoiceRingGroupsService_Update() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	group, err := client.Voice.RingGroups.Update(context.Background(), "RING_GROUP_ID", bird.VoiceRingGroupsUpdateParams{
+		Name: bird.Ptr("Tier 2 support"),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(group.Id, group.Name)
+}
+
+func ExampleVoiceRingGroupsService_Delete() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := client.Voice.RingGroups.Delete(context.Background(), "RING_GROUP_ID"); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func ExampleVoiceRingGroupsMembersService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	members, err := client.Voice.RingGroups.Members.List(context.Background(), "RING_GROUP_ID")
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, member := range members.Data {
+		fmt.Println(member.UserId)
+	}
+}
+
+func ExampleVoiceRingGroupsMembersService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	member, err := client.Voice.RingGroups.Members.Create(context.Background(), "RING_GROUP_ID", bird.VoiceRingGroupsMembersCreateParams{
+		UserID: "USER_ID",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(member.UserId)
+}
+
+func ExampleVoiceRingGroupsMembersService_Delete() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := client.Voice.RingGroups.Members.Delete(context.Background(), "RING_GROUP_ID", "USER_ID"); err != nil {
+		log.Fatal(err)
+	}
+}
+
 func ExampleVoiceNumbersService_List() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {

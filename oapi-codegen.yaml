@@ -242,6 +242,14 @@ output-options:
     - updateVoiceNumber
     - getVoiceSettings
     - updateVoiceSettings
+    - listVoiceRingGroups
+    - getVoiceRingGroup
+    - createVoiceRingGroup
+    - updateVoiceRingGroup
+    - deleteVoiceRingGroup
+    - listVoiceRingGroupMembers
+    - createVoiceRingGroupMember
+    - deleteVoiceRingGroupMember
     - listVoiceVerifiedNumbers
     - getVoiceVerifiedNumber
     - verifyVoiceVerifiedNumber

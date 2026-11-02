@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.119.0
+
+- Add `message_send_ttl_seconds` to a WhatsApp template language, to set how long WhatsApp retries an undelivered message.
+- Voice gains a ring groups resource that lists, reads, creates, renames and deletes ring groups, and lists, adds and removes their members. Voice number and workspace settings updates accept a `ring_group` route. Ring groups require preview access to inbound browser calling until it is generally available; without it these calls return `404`.
+- Voice number, workspace settings, and inbound call leg reads now include typed `ring_group` routes with `ring_group_id`.
+- Apple Messages field descriptions now say that a customer's choice comes back under `interactive_reply` and that picker and bubble images are listed in `interactive.images`, or in `interactive_reply.images` on a reply.
+
 ## 0.118.0
 
 - Creating a verification accepts `options.android_app_hash`, the 11-character app hash from Google's SMS Retriever API, so an Android app can read the SMS passcode itself. Each SMS passcode is then a short message ending with the hash, and names no website even when `options.autofill_origin` is set. Email passcodes don't change.

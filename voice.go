@@ -3,26 +3,32 @@ package bird
 import "github.com/messagebird/bird-sdk-go/internal/oapi"
 
 type (
-	VoiceTrunk                   = oapi.VoiceTrunk
-	VoiceTrunkList               = oapi.VoiceTrunkList
-	VoiceTrunkSortField          = oapi.VoiceTrunkSortField
-	VoiceNumber                  = oapi.VoiceNumber
-	VoiceNumberList              = oapi.VoiceNumberList
-	VoiceNumberProviderType      = oapi.VoiceNumberProviderType
-	VoiceNumberSortField         = oapi.VoiceNumberSortField
-	VoiceCallRoute               = oapi.VoiceCallRoute
-	VoiceCallRouteType           = oapi.VoiceCallRouteType
-	VoiceCallRouteWritable       = oapi.VoiceCallRouteWritable
-	VoiceCallRouteReject         = oapi.VoiceCallRouteReject
-	VoiceCallRouteTrunk          = oapi.VoiceCallRouteTrunk
-	VoiceCallRouteForward        = oapi.VoiceCallRouteForward
-	VoiceVerifiedNumber          = oapi.VoiceVerifiedNumber
-	VoiceVerifiedNumberList      = oapi.VoiceVerifiedNumberList
-	VoiceVerifiedNumberSortField = oapi.VoiceVerifiedNumberSortField
-	VoiceDestination             = oapi.VoiceDestination
-	VoiceDestinationList         = oapi.VoiceDestinationList
-	VoiceSessionCredential       = oapi.VoiceSessionCredential
-	VoiceSettings                = oapi.VoiceSettings
+	VoiceTrunk                    = oapi.VoiceTrunk
+	VoiceTrunkList                = oapi.VoiceTrunkList
+	VoiceTrunkSortField           = oapi.VoiceTrunkSortField
+	VoiceNumber                   = oapi.VoiceNumber
+	VoiceNumberList               = oapi.VoiceNumberList
+	VoiceNumberProviderType       = oapi.VoiceNumberProviderType
+	VoiceNumberSortField          = oapi.VoiceNumberSortField
+	VoiceCallRoute                = oapi.VoiceCallRoute
+	VoiceCallRouteType            = oapi.VoiceCallRouteType
+	VoiceCallRouteWritable        = oapi.VoiceCallRouteWritable
+	VoiceCallRouteReject          = oapi.VoiceCallRouteReject
+	VoiceCallRouteTrunk           = oapi.VoiceCallRouteTrunk
+	VoiceCallRouteForward         = oapi.VoiceCallRouteForward
+	VoiceCallRouteRingGroup       = oapi.VoiceCallRouteRingGroup
+	VoiceLegInboundRouteRingGroup = oapi.VoiceLegInboundRouteRingGroup
+	VoiceVerifiedNumber           = oapi.VoiceVerifiedNumber
+	VoiceVerifiedNumberList       = oapi.VoiceVerifiedNumberList
+	VoiceVerifiedNumberSortField  = oapi.VoiceVerifiedNumberSortField
+	VoiceDestination              = oapi.VoiceDestination
+	VoiceDestinationList          = oapi.VoiceDestinationList
+	VoiceSessionCredential        = oapi.VoiceSessionCredential
+	VoiceSettings                 = oapi.VoiceSettings
+	VoiceRingGroup                = oapi.VoiceRingGroup
+	VoiceRingGroupList            = oapi.VoiceRingGroupList
+	VoiceRingGroupMember          = oapi.VoiceRingGroupMember
+	VoiceRingGroupMemberList      = oapi.VoiceRingGroupMemberList
 )
 
 type VoiceService struct {
@@ -34,6 +40,7 @@ type VoiceService struct {
 	Destinations       *VoiceDestinationsService
 	SessionCredentials *VoiceSessionCredentialsService
 	Calls              *VoiceCallsService
+	RingGroups         *VoiceRingGroupsService
 }
 
 type VoiceLegsService struct{ resource }
@@ -55,3 +62,10 @@ type VoiceDestinationsService struct{ resource }
 
 type VoiceSessionCredentialsService struct{ resource }
 type VoiceCallsService struct{ resource }
+
+type VoiceRingGroupsService struct {
+	resource
+	Members *VoiceRingGroupsMembersService
+}
+
+type VoiceRingGroupsMembersService struct{ resource }

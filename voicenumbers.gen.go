@@ -18,7 +18,7 @@ type VoiceNumbersListParams struct {
 	Search string
 	// Filter by number source. `allocation` selects numbers we allocated to your workspace. `verified_number` selects numbers from another carrier that you registered for use as caller IDs.
 	Provider VoiceNumberProviderType
-	// Filter by the answer incoming calls get. A number without a route of its own matches the route of your workspace's default. - `reject`: rejects incoming calls. - `trunk`: delivers calls to a SIP trunk. - `forward`: connects calls to the configured forwarding number. - `sequence`: runs the selected voice sequence entry. Numbers with an unsupported route are excluded when this filter is set.
+	// Filter by the answer incoming calls get. A number without a route of its own matches the route of your workspace's default. - `reject`: rejects incoming calls. - `trunk`: delivers calls to a SIP trunk. - `forward`: connects calls to the configured forwarding number. - `sequence`: runs the selected voice sequence entry. - `ring_group`: rings the group's online members. Numbers with an unsupported route are excluded when this filter is set.
 	Route VoiceCallRouteType
 	// Field to sort by.
 	Sort VoiceNumberSortField
@@ -108,7 +108,7 @@ func (s *VoiceNumbersService) Get(ctx context.Context, numberId string, opts ...
 	return &out, nil
 }
 
-// Update Change what happens to calls arriving for one number, or the workspace's own label for it. Set the route to null to follow the workspace default inbound route from `voice.settings.get`, to `reject` to stop it answering, to `trunk` with a trunk_id to deliver to one of your SIP trunks, or to `forward` with a forward_to and a forward_as to place a call to one of your verified caller IDs. The route replaces whatever was set before, because a number has exactly one answer at a time, and `forward_as` must be stated on every forward. Only a number whose calls arrive at Bird can carry a route.
+// Update Change what happens to calls arriving for one number, or the workspace's own label for it. Set the route to null to follow the workspace default inbound route from `voice.settings.get`, to `reject` to stop it answering, to `trunk` with a trunk_id to deliver to one of your SIP trunks, or to `forward` with a forward_to and a forward_as to place a call to one of your verified caller IDs, or to `ring_group` with a ring_group_id from `voice.ring_groups.list` to ring that group's members online in the browser phone. The route replaces whatever was set before, because a number has exactly one answer at a time, and `forward_as` must be stated on every forward. Only a number whose calls arrive at Bird can carry a route.
 func (s *VoiceNumbersService) Update(ctx context.Context, numberId string, params VoiceNumbersUpdateParams, opts ...option.RequestOption) (*VoiceNumber, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.UpdateVoiceNumberParams{}

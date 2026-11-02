@@ -8021,10 +8021,11 @@ func (e VoiceCallDirection) Valid() bool {
 
 // Defines values for VoiceCallRouteType.
 const (
-	VoiceCallRouteTypeForward  VoiceCallRouteType = "forward"
-	VoiceCallRouteTypeReject   VoiceCallRouteType = "reject"
-	VoiceCallRouteTypeSequence VoiceCallRouteType = "sequence"
-	VoiceCallRouteTypeTrunk    VoiceCallRouteType = "trunk"
+	VoiceCallRouteTypeForward   VoiceCallRouteType = "forward"
+	VoiceCallRouteTypeReject    VoiceCallRouteType = "reject"
+	VoiceCallRouteTypeRingGroup VoiceCallRouteType = "ring_group"
+	VoiceCallRouteTypeSequence  VoiceCallRouteType = "sequence"
+	VoiceCallRouteTypeTrunk     VoiceCallRouteType = "trunk"
 )
 
 // Valid indicates whether the value is a known member of the VoiceCallRouteType enum.
@@ -8033,6 +8034,8 @@ func (e VoiceCallRouteType) Valid() bool {
 	case VoiceCallRouteTypeForward:
 		return true
 	case VoiceCallRouteTypeReject:
+		return true
+	case VoiceCallRouteTypeRingGroup:
 		return true
 	case VoiceCallRouteTypeSequence:
 		return true
@@ -8117,10 +8120,11 @@ func (e VoiceInboundForwardAs) Valid() bool {
 
 // Defines values for VoiceLegInboundRouteType.
 const (
-	VoiceLegInboundRouteTypeForward  VoiceLegInboundRouteType = "forward"
-	VoiceLegInboundRouteTypeReject   VoiceLegInboundRouteType = "reject"
-	VoiceLegInboundRouteTypeSequence VoiceLegInboundRouteType = "sequence"
-	VoiceLegInboundRouteTypeTrunk    VoiceLegInboundRouteType = "trunk"
+	VoiceLegInboundRouteTypeForward   VoiceLegInboundRouteType = "forward"
+	VoiceLegInboundRouteTypeReject    VoiceLegInboundRouteType = "reject"
+	VoiceLegInboundRouteTypeRingGroup VoiceLegInboundRouteType = "ring_group"
+	VoiceLegInboundRouteTypeSequence  VoiceLegInboundRouteType = "sequence"
+	VoiceLegInboundRouteTypeTrunk     VoiceLegInboundRouteType = "trunk"
 )
 
 // Valid indicates whether the value is a known member of the VoiceLegInboundRouteType enum.
@@ -8129,6 +8133,8 @@ func (e VoiceLegInboundRouteType) Valid() bool {
 	case VoiceLegInboundRouteTypeForward:
 		return true
 	case VoiceLegInboundRouteTypeReject:
+		return true
+	case VoiceLegInboundRouteTypeRingGroup:
 		return true
 	case VoiceLegInboundRouteTypeSequence:
 		return true
@@ -12271,10 +12277,10 @@ type AMBInteractiveReply struct {
 
 // AMBListPickerItem defines model for AMBListPickerItem.
 type AMBListPickerItem struct {
-	// Identifier Opaque item identifier returned in interactive_data.data.list_picker.sections.
+	// Identifier Opaque item identifier returned in `interactive_reply.list_picker.sections[].items[]`.
 	Identifier string `json:"identifier"`
 
-	// ImageIdentifier Identifier of an image in interactive_data.data.images, shown next to this row. A key with no matching entry in `images` is refused with a `422` `AMBInteractiveImageInvalid`.
+	// ImageIdentifier Identifier of an image in `interactive.images`, or `interactive_reply.images` on a reply, shown next to this row. A key with no matching entry in `images` is refused with a `422` `AMBInteractiveImageInvalid`.
 	ImageIdentifier *string `json:"image_identifier,omitempty"`
 
 	// Order Position within the section, ascending. Defaults to the row's array position.
@@ -12451,7 +12457,7 @@ type AMBMessage struct {
 
 // AMBMessageBubble defines model for AMBMessageBubble.
 type AMBMessageBubble struct {
-	// ImageIdentifier Identifier of an image in interactive_data.data.images. Apple ignores it for custom iMessage apps.
+	// ImageIdentifier Identifier of an image in `interactive.images`, or `interactive_reply.images` on a reply. Apple ignores it for custom iMessage apps.
 	ImageIdentifier *string `json:"image_identifier,omitempty"`
 
 	// ImageSubtitle Subtitle shown over an attached image in a custom iMessage app bubble.
@@ -12700,7 +12706,7 @@ type AMBNativeEvent struct {
 	// Identifier Your identifier for the event. Defaults to the message identifier.
 	Identifier *string `json:"identifier,omitempty"`
 
-	// ImageIdentifier Identifier of the event image in interactive_data.data.images.
+	// ImageIdentifier Identifier of the event image in `interactive.images`.
 	ImageIdentifier *string      `json:"image_identifier,omitempty"`
 	Location        *AMBLocation `json:"location,omitempty"`
 
@@ -12761,7 +12767,7 @@ type AMBNativeInboundEvent struct {
 	// Identifier Event identifier returned by Apple, when provided.
 	Identifier *string `json:"identifier,omitempty"`
 
-	// ImageIdentifier Identifier of the event image in interactive_data.data.images.
+	// ImageIdentifier Identifier of the event image in `interactive_reply.images`.
 	ImageIdentifier *string      `json:"image_identifier,omitempty"`
 	Location        *AMBLocation `json:"location,omitempty"`
 
@@ -12920,7 +12926,7 @@ type AMBQueue = string
 
 // AMBQuickReplyItem defines model for AMBQuickReplyItem.
 type AMBQuickReplyItem struct {
-	// Identifier Opaque choice identifier returned in interactive_data.data.quick_reply.selected_identifier.
+	// Identifier Opaque choice identifier returned in `interactive_reply.quick_reply.selected_identifier`.
 	Identifier string `json:"identifier"`
 
 	// Title Label shown on the button.
@@ -13914,7 +13920,7 @@ type AMBTimeSlot struct {
 	// DurationSeconds Duration in seconds. Zero indicates no duration.
 	DurationSeconds int `json:"duration_seconds"`
 
-	// Identifier Opaque slot identifier. Apple may instead return only a localized label in interactive_data.reply_message.title.
+	// Identifier Opaque slot identifier. Apple may instead return only a localized label in `interactive_reply.reply_message.title`.
 	Identifier string `json:"identifier"`
 
 	// StartAt When this slot begins, as an ISO 8601 date-time with a UTC offset. Seconds and fractional seconds must be zero, for example `2026-09-02T14:30:00Z`; any other value returns `422` with error code `E01001`. The timestamp is converted to UTC for Apple while preserving the instant. In Apple Messages template content it may instead be exactly one placeholder, such as `{{ slot_1 }}`, filled with a `timestamp` variable when the template is sent. A slot after the first whose variable is used nowhere else is optional: a send that omits that variable drops the slot.
@@ -30612,6 +30618,7 @@ type VoiceCallRouteForward struct {
 	// - `trunk`: delivers the call to one of your SIP trunks.
 	// - `forward`: places a call to one of your verified caller IDs and connects the two.
 	// - `sequence`: runs the configured sequence from its selected voice-call entry.
+	// - `ring_group`: rings the group's online members. Requires preview access to configure.
 	//
 	// It selects the answer's own shape, so a new way to answer a call arrives as a
 	// new value alongside a new set of fields.
@@ -30626,6 +30633,25 @@ type VoiceCallRouteReject struct {
 	// - `trunk`: delivers the call to one of your SIP trunks.
 	// - `forward`: places a call to one of your verified caller IDs and connects the two.
 	// - `sequence`: runs the configured sequence from its selected voice-call entry.
+	// - `ring_group`: rings the group's online members. Requires preview access to configure.
+	//
+	// It selects the answer's own shape, so a new way to answer a call arrives as a
+	// new value alongside a new set of fields.
+	Type VoiceCallRouteType `json:"type"`
+}
+
+// VoiceCallRouteRingGroup defines model for VoiceCallRouteRingGroup.
+type VoiceCallRouteRingGroup struct {
+	// RingGroupId The ring group that rings. It must be one of this workspace's ring groups, or its default group of everyone online.
+	RingGroupId VoiceRingGroupID `json:"ring_group_id"`
+
+	// Type Which answer a number carries.
+	//
+	// - `reject`: refuses the call.
+	// - `trunk`: delivers the call to one of your SIP trunks.
+	// - `forward`: places a call to one of your verified caller IDs and connects the two.
+	// - `sequence`: runs the configured sequence from its selected voice-call entry.
+	// - `ring_group`: rings the group's online members. Requires preview access to configure.
 	//
 	// It selects the answer's own shape, so a new way to answer a call arrives as a
 	// new value alongside a new set of fields.
@@ -30644,6 +30670,7 @@ type VoiceCallRouteSequence struct {
 	// - `trunk`: delivers the call to one of your SIP trunks.
 	// - `forward`: places a call to one of your verified caller IDs and connects the two.
 	// - `sequence`: runs the configured sequence from its selected voice-call entry.
+	// - `ring_group`: rings the group's online members. Requires preview access to configure.
 	//
 	// It selects the answer's own shape, so a new way to answer a call arrives as a
 	// new value alongside a new set of fields.
@@ -30660,6 +30687,7 @@ type VoiceCallRouteTrunk struct {
 	// - `trunk`: delivers the call to one of your SIP trunks.
 	// - `forward`: places a call to one of your verified caller IDs and connects the two.
 	// - `sequence`: runs the configured sequence from its selected voice-call entry.
+	// - `ring_group`: rings the group's online members. Requires preview access to configure.
 	//
 	// It selects the answer's own shape, so a new way to answer a call arrives as a
 	// new value alongside a new set of fields.
@@ -30672,6 +30700,7 @@ type VoiceCallRouteTrunk struct {
 // - `trunk`: delivers the call to one of your SIP trunks.
 // - `forward`: places a call to one of your verified caller IDs and connects the two.
 // - `sequence`: runs the configured sequence from its selected voice-call entry.
+// - `ring_group`: rings the group's online members. Requires preview access to configure.
 //
 // It selects the answer's own shape, so a new way to answer a call arrives as a
 // new value alongside a new set of fields.
@@ -30955,6 +30984,21 @@ type VoiceLegInboundRouteReject struct {
 	Type VoiceLegInboundRouteType `json:"type"`
 }
 
+// VoiceLegInboundRouteRingGroup defines model for VoiceLegInboundRouteRingGroup.
+type VoiceLegInboundRouteRingGroup struct {
+	// RingGroupId The ring group the leg rang. Recorded as it was at the time, so it may name a group you have since deleted.
+	RingGroupId VoiceRingGroupID `json:"ring_group_id"`
+
+	// Type Which answer handled this incoming leg.
+	//
+	// - `reject`: the call was refused.
+	// - `trunk`: the call was delivered to one of your SIP trunks.
+	// - `forward`: the call was forwarded to one of your verified caller IDs.
+	// - `sequence`: the call was handled by one of your sequences.
+	// - `ring_group`: the call rang one of your ring groups.
+	Type VoiceLegInboundRouteType `json:"type"`
+}
+
 // VoiceLegInboundRouteSequence defines model for VoiceLegInboundRouteSequence.
 type VoiceLegInboundRouteSequence struct {
 	// EntryNodeId The entry the leg started from in the publication that handled it. Recorded as it was at the time, so it may name an entry the sequence no longer has.
@@ -30969,6 +31013,7 @@ type VoiceLegInboundRouteSequence struct {
 	// - `trunk`: the call was delivered to one of your SIP trunks.
 	// - `forward`: the call was forwarded to one of your verified caller IDs.
 	// - `sequence`: the call was handled by one of your sequences.
+	// - `ring_group`: the call rang one of your ring groups.
 	Type VoiceLegInboundRouteType `json:"type"`
 }
 
@@ -30987,6 +31032,7 @@ type VoiceLegInboundRouteTrunk struct {
 // - `trunk`: the call was delivered to one of your SIP trunks.
 // - `forward`: the call was forwarded to one of your verified caller IDs.
 // - `sequence`: the call was handled by one of your sequences.
+// - `ring_group`: the call rang one of your ring groups.
 type VoiceLegInboundRouteType string
 
 // VoiceLegList defines model for VoiceLegList.
@@ -31012,11 +31058,11 @@ type VoiceLegMediaEncryption string
 
 // VoiceLegMediaPath defines model for VoiceLegMediaPath.
 type VoiceLegMediaPath struct {
-	// Encryption How the audio between us and your side of the leg was encrypted: your SIP trunk's equipment, or the browser that placed the call. On a leg with neither, such as an incoming call a Sequence answered, it describes the carrier's side. Use it to confirm that a call on a trunk with `preferred` media encryption was actually encrypted: such a trunk delivers plain audio to a gateway not reached over TLS or behind an `exit_region`.
+	// Encryption How the audio between Bird and your SIP trunk equipment or browser was encrypted. For a leg without either, such as an incoming call answered by a Sequence, this describes the carrier's side. Use this field to check whether a call on a trunk with `preferred` media encryption was encrypted. Audio can be plain when the gateway does not use TLS or when encryption is unavailable through an exit.
 	//
 	// - `none`: plain RTP.
 	// - `sdes`: SRTP with keys exchanged in the SDP over TLS signalling (SDES, RFC 4568). The audio between us and the carrier stays plain RTP.
-	// - `dtls`: DTLS-SRTP, which every call placed from a browser uses.
+	// - `dtls`: DTLS-SRTP, used for calls placed from a browser.
 	//
 	// Absent when we did not record it: on a leg whose audio bypassed us, on an encrypted offer to a SIP trunk whose media encryption is `off`, on a leg placed without an SDP offer in its INVITE, on an incoming leg that was not answered, and on legs recorded before this field existed.
 	Encryption VoiceLegMediaEncryption `json:"encryption"`
@@ -31226,6 +31272,64 @@ type VoicePartyEndpointType string
 type VoicePartySIPEndpoint struct {
 	// Contact The address the user agent registered, as a `sip:` or `sips:` URI. It is where the endpoint asked to be reached, which is not always the address that was dialled.
 	Contact string `json:"contact"`
+}
+
+// VoiceRingGroup A set of workspace users that an inbound call rings in the browser phone. Every workspace also has a default group, which rings the workspace's online users and cannot be changed.
+type VoiceRingGroup struct {
+	// CreatedAt When the ring group was created. Null for the default group.
+	CreatedAt *time.Time       `json:"created_at,omitempty"`
+	Id        VoiceRingGroupID `json:"id"`
+
+	// IsDefault Whether this is the workspace's default group, which rings the users who are online in the browser phone.
+	IsDefault *bool `json:"is_default,omitempty"`
+
+	// Name The ring group's name.
+	Name string `json:"name"`
+
+	// OnlineMemberCount How many of the group's members are connected to the browser phone and accepting calls, read live. A member on a call counts, though a call to the group skips them until it ends. For the default group, the count includes every connected user who accepts calls.
+	OnlineMemberCount int `json:"online_member_count"`
+
+	// UpdatedAt When the ring group's name or members last changed. Null for the default group.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+}
+
+// VoiceRingGroupCreate defines model for VoiceRingGroupCreate.
+type VoiceRingGroupCreate struct {
+	// Name The ring group's name.
+	Name string `json:"name"`
+}
+
+// VoiceRingGroupID defines model for VoiceRingGroupID.
+type VoiceRingGroupID = string
+
+// VoiceRingGroupList The workspace's ring groups. Not paginated: a workspace holds at most 50 ring groups besides its default group.
+type VoiceRingGroupList struct {
+	// Data The default group first, then the other ring groups, oldest first.
+	Data []VoiceRingGroup `json:"data"`
+}
+
+// VoiceRingGroupMember A user added to a ring group. A member who later leaves the workspace stays listed until removed, but the group never rings them.
+type VoiceRingGroupMember struct {
+	// CreatedAt When the user joined the ring group. Null for the default group, whose members are the users online now.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	UserId    UserID     `json:"user_id"`
+}
+
+// VoiceRingGroupMemberCreate defines model for VoiceRingGroupMemberCreate.
+type VoiceRingGroupMemberCreate struct {
+	UserId UserID `json:"user_id"`
+}
+
+// VoiceRingGroupMemberList The ring group's members. Not paginated: a ring group holds at most 200 members, and the default group's members are the workspace's online users.
+type VoiceRingGroupMemberList struct {
+	// Data The members, in the order they joined; the default group's online users, by user ID.
+	Data []VoiceRingGroupMember `json:"data"`
+}
+
+// VoiceRingGroupUpdate A change to the ring group. An omitted field is left unchanged.
+type VoiceRingGroupUpdate struct {
+	// Name The ring group's new name.
+	Name *string `json:"name,omitempty"`
 }
 
 // VoiceSIPDigestAlgorithm A hash algorithm for SIP Digest authentication, spelled as it appears in the `algorithm=` parameter on the wire. `SHA-256` is the stronger option and is offered first; `MD5` is the algorithm most PBX and ITSP equipment implements.
@@ -31646,13 +31750,27 @@ type VoiceTrunkList struct {
 
 // VoiceTrunkMedia How the trunk carries call audio. Set it through the trunk update operation.
 type VoiceTrunkMedia struct {
-	// Encryption Whether audio between your equipment and Bird is encrypted with SRTP, keyed with SDES (`a=crypto`) over TLS signalling. Audio between Bird and the carrier network stays plain RTP.
+	// Encryption Controls SRTP encryption between your equipment and Bird. SRTP keys use SDES
+	// (`a=crypto`) over TLS signalling. Audio between Bird and the carrier uses
+	// plain RTP.
 	//
-	// `preferred` encrypts when it can. A call your equipment places is encrypted when it offers `RTP/SAVP` or `RTP/SAVPF` with an `AES_CM_128_HMAC_SHA1_80` or `_32` key over TLS, and carried plain when it offers plain RTP. A call Bird delivers is encrypted to a gateway reached over TLS (`sips:` or `;transport=tls`) and plain to the rest. Deliveries through a gateway `exit_region`, and on a trunk with `media_bypass`, stay plain.
+	// With `preferred`, a call you place is encrypted when your equipment offers
+	// `RTP/SAVP` or `RTP/SAVPF` with an `AES_CM_128_HMAC_SHA1_80` or `_32` key over
+	// TLS. A plain RTP offer stays plain. Calls delivered to a TLS gateway (`sips:`
+	// or `;transport=tls`) use encryption when available. Calls delivered through a
+	// gateway without TLS or with `media_bypass` use plain audio.
 	//
-	// `required` refuses a plain call with `488 Not Acceptable Here` and delivers encrypted to every gateway, so every gateway must use TLS.
+	// With `required`, a plain call is refused with `488 Not Acceptable Here`.
+	// Delivered calls require encrypted media, so your gateways must use TLS.
+	// You cannot combine `required` with `media_bypass` because bypassed audio
+	// does not pass through the relay that encrypts it.
 	//
-	// With `preferred` or `required`, an SDES offer over plain SIP (UDP or TCP), an offer without a usable key, and DTLS-SRTP are refused with `488` and a `Warning` header naming why. `required` cannot be set alongside `media_bypass` or a gateway `exit_region`, since their audio does not pass through the relay that encrypts it. `off` encrypts nothing and relays an SRTP offer as it is. Calls from a web browser are always encrypted with DTLS-SRTP, whatever this says.
+	// With `preferred` or `required`, an SDES offer over plain SIP (UDP or TCP), an
+	// offer without a usable key, and DTLS-SRTP are refused with `488` and a
+	// `Warning` header naming the reason.
+	//
+	// With `off`, Bird does not encrypt audio and relays an SRTP offer unchanged.
+	// Browser calls use DTLS-SRTP regardless of this setting.
 	Encryption VoiceTrunkMediaEncryption `json:"encryption"`
 }
 
@@ -31662,24 +31780,52 @@ type VoiceTrunkMediaCreate struct {
 	Encryption *VoiceTrunkMediaEncryption `json:"encryption,omitempty"`
 }
 
-// VoiceTrunkMediaEncryption Whether audio between your equipment and Bird is encrypted with SRTP, keyed with SDES (`a=crypto`) over TLS signalling. Audio between Bird and the carrier network stays plain RTP.
+// VoiceTrunkMediaEncryption Controls SRTP encryption between your equipment and Bird. SRTP keys use SDES
+// (`a=crypto`) over TLS signalling. Audio between Bird and the carrier uses
+// plain RTP.
 //
-// `preferred` encrypts when it can. A call your equipment places is encrypted when it offers `RTP/SAVP` or `RTP/SAVPF` with an `AES_CM_128_HMAC_SHA1_80` or `_32` key over TLS, and carried plain when it offers plain RTP. A call Bird delivers is encrypted to a gateway reached over TLS (`sips:` or `;transport=tls`) and plain to the rest. Deliveries through a gateway `exit_region`, and on a trunk with `media_bypass`, stay plain.
+// With `preferred`, a call you place is encrypted when your equipment offers
+// `RTP/SAVP` or `RTP/SAVPF` with an `AES_CM_128_HMAC_SHA1_80` or `_32` key over
+// TLS. A plain RTP offer stays plain. Calls delivered to a TLS gateway (`sips:`
+// or `;transport=tls`) use encryption when available. Calls delivered through a
+// gateway without TLS or with `media_bypass` use plain audio.
 //
-// `required` refuses a plain call with `488 Not Acceptable Here` and delivers encrypted to every gateway, so every gateway must use TLS.
+// With `required`, a plain call is refused with `488 Not Acceptable Here`.
+// Delivered calls require encrypted media, so your gateways must use TLS.
+// You cannot combine `required` with `media_bypass` because bypassed audio
+// does not pass through the relay that encrypts it.
 //
-// With `preferred` or `required`, an SDES offer over plain SIP (UDP or TCP), an offer without a usable key, and DTLS-SRTP are refused with `488` and a `Warning` header naming why. `required` cannot be set alongside `media_bypass` or a gateway `exit_region`, since their audio does not pass through the relay that encrypts it. `off` encrypts nothing and relays an SRTP offer as it is. Calls from a web browser are always encrypted with DTLS-SRTP, whatever this says.
+// With `preferred` or `required`, an SDES offer over plain SIP (UDP or TCP), an
+// offer without a usable key, and DTLS-SRTP are refused with `488` and a
+// `Warning` header naming the reason.
+//
+// With `off`, Bird does not encrypt audio and relays an SRTP offer unchanged.
+// Browser calls use DTLS-SRTP regardless of this setting.
 type VoiceTrunkMediaEncryption string
 
 // VoiceTrunkMediaUpdate A change to how the trunk carries call audio. An omitted member is left unchanged.
 type VoiceTrunkMediaUpdate struct {
-	// Encryption Whether audio between your equipment and Bird is encrypted with SRTP, keyed with SDES (`a=crypto`) over TLS signalling. Audio between Bird and the carrier network stays plain RTP.
+	// Encryption Controls SRTP encryption between your equipment and Bird. SRTP keys use SDES
+	// (`a=crypto`) over TLS signalling. Audio between Bird and the carrier uses
+	// plain RTP.
 	//
-	// `preferred` encrypts when it can. A call your equipment places is encrypted when it offers `RTP/SAVP` or `RTP/SAVPF` with an `AES_CM_128_HMAC_SHA1_80` or `_32` key over TLS, and carried plain when it offers plain RTP. A call Bird delivers is encrypted to a gateway reached over TLS (`sips:` or `;transport=tls`) and plain to the rest. Deliveries through a gateway `exit_region`, and on a trunk with `media_bypass`, stay plain.
+	// With `preferred`, a call you place is encrypted when your equipment offers
+	// `RTP/SAVP` or `RTP/SAVPF` with an `AES_CM_128_HMAC_SHA1_80` or `_32` key over
+	// TLS. A plain RTP offer stays plain. Calls delivered to a TLS gateway (`sips:`
+	// or `;transport=tls`) use encryption when available. Calls delivered through a
+	// gateway without TLS or with `media_bypass` use plain audio.
 	//
-	// `required` refuses a plain call with `488 Not Acceptable Here` and delivers encrypted to every gateway, so every gateway must use TLS.
+	// With `required`, a plain call is refused with `488 Not Acceptable Here`.
+	// Delivered calls require encrypted media, so your gateways must use TLS.
+	// You cannot combine `required` with `media_bypass` because bypassed audio
+	// does not pass through the relay that encrypts it.
 	//
-	// With `preferred` or `required`, an SDES offer over plain SIP (UDP or TCP), an offer without a usable key, and DTLS-SRTP are refused with `488` and a `Warning` header naming why. `required` cannot be set alongside `media_bypass` or a gateway `exit_region`, since their audio does not pass through the relay that encrypts it. `off` encrypts nothing and relays an SRTP offer as it is. Calls from a web browser are always encrypted with DTLS-SRTP, whatever this says.
+	// With `preferred` or `required`, an SDES offer over plain SIP (UDP or TCP), an
+	// offer without a usable key, and DTLS-SRTP are refused with `488` and a
+	// `Warning` header naming the reason.
+	//
+	// With `off`, Bird does not encrypt audio and relays an SRTP offer unchanged.
+	// Browser calls use DTLS-SRTP regardless of this setting.
 	Encryption *VoiceTrunkMediaEncryption `json:"encryption,omitempty"`
 }
 
@@ -35542,11 +35688,14 @@ type WhatsAppTemplateLanguage struct {
 	Components  []WhatsAppTemplateComponent  `json:"components"`
 	ContentHash *WhatsAppTemplateContentHash `json:"content_hash,omitempty"`
 
-	// Error Why the submission did not complete. Present when `status` is `submit_failed`. Also present when WhatsApp refused a change to `optimization_spec`; the language keeps sending on the maximum price WhatsApp already held. Absent otherwise, including on a rejection, whose reason is in `rejection`.
+	// Error Why the submission did not complete. Present when `status` is `submit_failed`. Also present when WhatsApp refused a change to `optimization_spec` or `message_send_ttl_seconds`; the language keeps sending on the maximum price and time-to-live WhatsApp already held. Absent otherwise, including on a rejection, whose reason is in `rejection`.
 	Error *WhatsAppTemplateSubmissionError `json:"error,omitempty"`
 
 	// Language A language tag in BCP-47 form, for example `en` or `pt-BR`.
 	Language LanguageTag `json:"language"`
+
+	// MessageSendTtlSeconds How long WhatsApp keeps trying to deliver a message from this language, in seconds, or `null` when the language uses WhatsApp's default (10 minutes for authentication, 30 days otherwise).
+	MessageSendTtlSeconds *int `json:"message_send_ttl_seconds,omitempty"`
 
 	// OptimizationSpec This language's maximum price, or `null` when Meta's standard rate applies.
 	OptimizationSpec *WhatsAppTemplateOptimizationSpec `json:"optimization_spec,omitempty"`
@@ -35631,7 +35780,7 @@ type WhatsAppTemplateLanguageState struct {
 	// EditableAt The next time you can edit this language, if Meta's one-edit-per-day limit on an approved language is currently spent. Null when an edit is allowed right now, though Meta also caps an approved language at ten edits per rolling 30 days: a null here does not guarantee an edit will succeed if you are close to that limit too.
 	EditableAt *time.Time `json:"editable_at,omitempty"`
 
-	// Error Why the submission did not complete. Present when `status` is `submit_failed`. Also present when WhatsApp refused a change to `optimization_spec`; the language keeps sending on the maximum price WhatsApp already held. Absent otherwise, including on a rejection, whose reason is in `rejection`.
+	// Error Why the submission did not complete. Present when `status` is `submit_failed`. Also present when WhatsApp refused a change to `optimization_spec` or `message_send_ttl_seconds`; the language keeps sending on the maximum price and time-to-live WhatsApp already held. Absent otherwise, including on a rejection, whose reason is in `rejection`.
 	Error *WhatsAppTemplateSubmissionError `json:"error,omitempty"`
 
 	// Rejection Why Meta refused this content, present when `status` is `rejected`. Absent otherwise.
@@ -35701,6 +35850,9 @@ type WhatsAppTemplateLanguageSummary struct {
 type WhatsAppTemplateLanguageUpsert struct {
 	// Components The template's content blocks for this language. Header, footer and buttons are optional. Every variable needs an example value, which is what Meta reviews against. May be omitted or empty on a draft; a body block is required before the language can be submitted.
 	Components *[]WhatsAppTemplateComponentWrite `json:"components,omitempty"`
+
+	// MessageSendTtlSeconds How long WhatsApp keeps trying to deliver a message from this language, in seconds. WhatsApp drops a message it cannot deliver in that time. Omit it to keep the current value. Send `null` to use WhatsApp's default: 10 minutes for authentication, 30 days for utility and marketing. A new language written without it uses WhatsApp's default. The range depends on the language's `category`: 30 to 900 for authentication, 30 to 43200 for utility, and 43200 to 1209600 for marketing. A value outside 30 to 1209600 fails request validation; one inside it but outside the category's range fails with `WhatsAppTemplateTTLOutOfRange`. On a marketing template, the value applies while the business account's `marketing_messages_onboarding_status` is `onboarded`. Changing only this value updates WhatsApp without a new review.
+	MessageSendTtlSeconds nullable.Nullable[int] `json:"message_send_ttl_seconds,omitempty"`
 
 	// OptimizationSpec This language's maximum price. Omit it to keep the current one. A new language written without it uses Meta's standard rate. Send `null` to return to the standard rate. Changing only the price updates Meta without a new review. A send at a maximum price needs the business account's `marketing_messages_onboarding_status` to be `onboarded`. Otherwise it fails with WhatsApp error 131061.
 	OptimizationSpec nullable.Nullable[WhatsAppTemplateOptimizationSpecWrite] `json:"optimization_spec,omitempty"`
@@ -35935,7 +36087,7 @@ type WhatsAppTemplateVersionLanguage struct {
 	// Components This language's content in this version, in display order.
 	Components []WhatsAppTemplateComponent `json:"components"`
 
-	// Error Why the submission did not complete. Present when `status` is `submit_failed`. Also present when WhatsApp refused a change to `optimization_spec`; the language keeps sending on the maximum price WhatsApp already held. Absent otherwise, including on a rejection, whose reason is in `rejection`.
+	// Error Why the submission did not complete. Present when `status` is `submit_failed`. Also present when WhatsApp refused a change to `optimization_spec` or `message_send_ttl_seconds`; the language keeps sending on the maximum price and time-to-live WhatsApp already held. Absent otherwise, including on a rejection, whose reason is in `rejection`.
 	Error *WhatsAppTemplateSubmissionError `json:"error,omitempty"`
 
 	// Rejection Why Meta refused this content, present when `status` is `rejected`. Absent otherwise.
@@ -44880,6 +45032,7 @@ type ListVoiceNumbersParams struct {
 	// - `trunk`: delivers calls to a SIP trunk.
 	// - `forward`: connects calls to the configured forwarding number.
 	// - `sequence`: runs the selected voice sequence entry.
+	// - `ring_group`: rings the group's online members.
 	//
 	// Numbers with an unsupported route are excluded when this filter is set.
 	Route *VoiceCallRouteType `form:"route,omitempty" json:"route,omitempty"`
@@ -44917,6 +45070,188 @@ type GetVoiceNumberParams struct {
 
 // UpdateVoiceNumberParams defines parameters for UpdateVoiceNumber.
 type UpdateVoiceNumberParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ListVoiceRingGroupsParams defines parameters for ListVoiceRingGroups.
+type ListVoiceRingGroupsParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// CreateVoiceRingGroupParams defines parameters for CreateVoiceRingGroup.
+type CreateVoiceRingGroupParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// DeleteVoiceRingGroupParams defines parameters for DeleteVoiceRingGroup.
+type DeleteVoiceRingGroupParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetVoiceRingGroupParams defines parameters for GetVoiceRingGroup.
+type GetVoiceRingGroupParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// UpdateVoiceRingGroupParams defines parameters for UpdateVoiceRingGroup.
+type UpdateVoiceRingGroupParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ListVoiceRingGroupMembersParams defines parameters for ListVoiceRingGroupMembers.
+type ListVoiceRingGroupMembersParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// CreateVoiceRingGroupMemberParams defines parameters for CreateVoiceRingGroupMember.
+type CreateVoiceRingGroupMemberParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// DeleteVoiceRingGroupMemberParams defines parameters for DeleteVoiceRingGroupMember.
+type DeleteVoiceRingGroupMemberParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
@@ -47733,6 +48068,15 @@ type UpdateVoiceDestinationsJSONRequestBody = VoiceDestinationsUpdate
 
 // UpdateVoiceNumberJSONRequestBody defines body for UpdateVoiceNumber for application/json ContentType.
 type UpdateVoiceNumberJSONRequestBody = VoiceNumberUpdate
+
+// CreateVoiceRingGroupJSONRequestBody defines body for CreateVoiceRingGroup for application/json ContentType.
+type CreateVoiceRingGroupJSONRequestBody = VoiceRingGroupCreate
+
+// UpdateVoiceRingGroupJSONRequestBody defines body for UpdateVoiceRingGroup for application/json ContentType.
+type UpdateVoiceRingGroupJSONRequestBody = VoiceRingGroupUpdate
+
+// CreateVoiceRingGroupMemberJSONRequestBody defines body for CreateVoiceRingGroupMember for application/json ContentType.
+type CreateVoiceRingGroupMemberJSONRequestBody = VoiceRingGroupMemberCreate
 
 // UpdateVoiceSettingsJSONRequestBody defines body for UpdateVoiceSettings for application/json ContentType.
 type UpdateVoiceSettingsJSONRequestBody = VoiceSettingsUpdate
@@ -51746,6 +52090,34 @@ func (t *VoiceCallRoute) MergeVoiceCallRouteSequence(v VoiceCallRouteSequence) e
 	return err
 }
 
+// AsVoiceCallRouteRingGroup returns the union data inside the VoiceCallRoute as a VoiceCallRouteRingGroup
+func (t VoiceCallRoute) AsVoiceCallRouteRingGroup() (VoiceCallRouteRingGroup, error) {
+	var body VoiceCallRouteRingGroup
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromVoiceCallRouteRingGroup overwrites any union data inside the VoiceCallRoute as the provided VoiceCallRouteRingGroup
+func (t *VoiceCallRoute) FromVoiceCallRouteRingGroup(v VoiceCallRouteRingGroup) error {
+	v.Type = "ring_group"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeVoiceCallRouteRingGroup performs a merge with any union data inside the VoiceCallRoute, using the provided VoiceCallRouteRingGroup
+func (t *VoiceCallRoute) MergeVoiceCallRouteRingGroup(v VoiceCallRouteRingGroup) error {
+	v.Type = "ring_group"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
 func (t VoiceCallRoute) Discriminator() (string, error) {
 	var discriminator struct {
 		Discriminator string `json:"type"`
@@ -51764,6 +52136,8 @@ func (t VoiceCallRoute) ValueByDiscriminator() (interface{}, error) {
 		return t.AsVoiceCallRouteForward()
 	case "reject":
 		return t.AsVoiceCallRouteReject()
+	case "ring_group":
+		return t.AsVoiceCallRouteRingGroup()
 	case "sequence":
 		return t.AsVoiceCallRouteSequence()
 	case "trunk":
@@ -51867,6 +52241,34 @@ func (t *VoiceCallRouteWritable) MergeVoiceCallRouteForward(v VoiceCallRouteForw
 	return err
 }
 
+// AsVoiceCallRouteRingGroup returns the union data inside the VoiceCallRouteWritable as a VoiceCallRouteRingGroup
+func (t VoiceCallRouteWritable) AsVoiceCallRouteRingGroup() (VoiceCallRouteRingGroup, error) {
+	var body VoiceCallRouteRingGroup
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromVoiceCallRouteRingGroup overwrites any union data inside the VoiceCallRouteWritable as the provided VoiceCallRouteRingGroup
+func (t *VoiceCallRouteWritable) FromVoiceCallRouteRingGroup(v VoiceCallRouteRingGroup) error {
+	v.Type = "ring_group"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeVoiceCallRouteRingGroup performs a merge with any union data inside the VoiceCallRouteWritable, using the provided VoiceCallRouteRingGroup
+func (t *VoiceCallRouteWritable) MergeVoiceCallRouteRingGroup(v VoiceCallRouteRingGroup) error {
+	v.Type = "ring_group"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
 func (t VoiceCallRouteWritable) Discriminator() (string, error) {
 	var discriminator struct {
 		Discriminator string `json:"type"`
@@ -51885,6 +52287,8 @@ func (t VoiceCallRouteWritable) ValueByDiscriminator() (interface{}, error) {
 		return t.AsVoiceCallRouteForward()
 	case "reject":
 		return t.AsVoiceCallRouteReject()
+	case "ring_group":
+		return t.AsVoiceCallRouteRingGroup()
 	case "trunk":
 		return t.AsVoiceCallRouteTrunk()
 	default:
@@ -52014,6 +52418,34 @@ func (t *VoiceLegInboundRoute) MergeVoiceLegInboundRouteSequence(v VoiceLegInbou
 	return err
 }
 
+// AsVoiceLegInboundRouteRingGroup returns the union data inside the VoiceLegInboundRoute as a VoiceLegInboundRouteRingGroup
+func (t VoiceLegInboundRoute) AsVoiceLegInboundRouteRingGroup() (VoiceLegInboundRouteRingGroup, error) {
+	var body VoiceLegInboundRouteRingGroup
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromVoiceLegInboundRouteRingGroup overwrites any union data inside the VoiceLegInboundRoute as the provided VoiceLegInboundRouteRingGroup
+func (t *VoiceLegInboundRoute) FromVoiceLegInboundRouteRingGroup(v VoiceLegInboundRouteRingGroup) error {
+	v.Type = "ring_group"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeVoiceLegInboundRouteRingGroup performs a merge with any union data inside the VoiceLegInboundRoute, using the provided VoiceLegInboundRouteRingGroup
+func (t *VoiceLegInboundRoute) MergeVoiceLegInboundRouteRingGroup(v VoiceLegInboundRouteRingGroup) error {
+	v.Type = "ring_group"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
 func (t VoiceLegInboundRoute) Discriminator() (string, error) {
 	var discriminator struct {
 		Discriminator string `json:"type"`
@@ -52032,6 +52464,8 @@ func (t VoiceLegInboundRoute) ValueByDiscriminator() (interface{}, error) {
 		return t.AsVoiceLegInboundRouteForward()
 	case "reject":
 		return t.AsVoiceLegInboundRouteReject()
+	case "ring_group":
+		return t.AsVoiceLegInboundRouteRingGroup()
 	case "sequence":
 		return t.AsVoiceLegInboundRouteSequence()
 	case "trunk":
@@ -56539,6 +56973,36 @@ type ClientInterface interface {
 	UpdateVoiceNumberWithBody(ctx context.Context, numberId VoiceNumberID, params *UpdateVoiceNumberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	UpdateVoiceNumber(ctx context.Context, numberId VoiceNumberID, params *UpdateVoiceNumberParams, body UpdateVoiceNumberJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListVoiceRingGroups request
+	ListVoiceRingGroups(ctx context.Context, params *ListVoiceRingGroupsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateVoiceRingGroupWithBody request with any body
+	CreateVoiceRingGroupWithBody(ctx context.Context, params *CreateVoiceRingGroupParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateVoiceRingGroup(ctx context.Context, params *CreateVoiceRingGroupParams, body CreateVoiceRingGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteVoiceRingGroup request
+	DeleteVoiceRingGroup(ctx context.Context, ringGroupId VoiceRingGroupID, params *DeleteVoiceRingGroupParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetVoiceRingGroup request
+	GetVoiceRingGroup(ctx context.Context, ringGroupId VoiceRingGroupID, params *GetVoiceRingGroupParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateVoiceRingGroupWithBody request with any body
+	UpdateVoiceRingGroupWithBody(ctx context.Context, ringGroupId VoiceRingGroupID, params *UpdateVoiceRingGroupParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateVoiceRingGroup(ctx context.Context, ringGroupId VoiceRingGroupID, params *UpdateVoiceRingGroupParams, body UpdateVoiceRingGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListVoiceRingGroupMembers request
+	ListVoiceRingGroupMembers(ctx context.Context, ringGroupId VoiceRingGroupID, params *ListVoiceRingGroupMembersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateVoiceRingGroupMemberWithBody request with any body
+	CreateVoiceRingGroupMemberWithBody(ctx context.Context, ringGroupId VoiceRingGroupID, params *CreateVoiceRingGroupMemberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateVoiceRingGroupMember(ctx context.Context, ringGroupId VoiceRingGroupID, params *CreateVoiceRingGroupMemberParams, body CreateVoiceRingGroupMemberJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteVoiceRingGroupMember request
+	DeleteVoiceRingGroupMember(ctx context.Context, ringGroupId VoiceRingGroupID, userId UserID, params *DeleteVoiceRingGroupMemberParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateVoiceSessionCredential request
 	CreateVoiceSessionCredential(ctx context.Context, params *CreateVoiceSessionCredentialParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -61996,6 +62460,138 @@ func (c *Client) UpdateVoiceNumberWithBody(ctx context.Context, numberId VoiceNu
 
 func (c *Client) UpdateVoiceNumber(ctx context.Context, numberId VoiceNumberID, params *UpdateVoiceNumberParams, body UpdateVoiceNumberJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewUpdateVoiceNumberRequest(c.Server, numberId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListVoiceRingGroups(ctx context.Context, params *ListVoiceRingGroupsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListVoiceRingGroupsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateVoiceRingGroupWithBody(ctx context.Context, params *CreateVoiceRingGroupParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateVoiceRingGroupRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateVoiceRingGroup(ctx context.Context, params *CreateVoiceRingGroupParams, body CreateVoiceRingGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateVoiceRingGroupRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteVoiceRingGroup(ctx context.Context, ringGroupId VoiceRingGroupID, params *DeleteVoiceRingGroupParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteVoiceRingGroupRequest(c.Server, ringGroupId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetVoiceRingGroup(ctx context.Context, ringGroupId VoiceRingGroupID, params *GetVoiceRingGroupParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetVoiceRingGroupRequest(c.Server, ringGroupId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateVoiceRingGroupWithBody(ctx context.Context, ringGroupId VoiceRingGroupID, params *UpdateVoiceRingGroupParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateVoiceRingGroupRequestWithBody(c.Server, ringGroupId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateVoiceRingGroup(ctx context.Context, ringGroupId VoiceRingGroupID, params *UpdateVoiceRingGroupParams, body UpdateVoiceRingGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateVoiceRingGroupRequest(c.Server, ringGroupId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListVoiceRingGroupMembers(ctx context.Context, ringGroupId VoiceRingGroupID, params *ListVoiceRingGroupMembersParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListVoiceRingGroupMembersRequest(c.Server, ringGroupId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateVoiceRingGroupMemberWithBody(ctx context.Context, ringGroupId VoiceRingGroupID, params *CreateVoiceRingGroupMemberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateVoiceRingGroupMemberRequestWithBody(c.Server, ringGroupId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateVoiceRingGroupMember(ctx context.Context, ringGroupId VoiceRingGroupID, params *CreateVoiceRingGroupMemberParams, body CreateVoiceRingGroupMemberJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateVoiceRingGroupMemberRequest(c.Server, ringGroupId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteVoiceRingGroupMember(ctx context.Context, ringGroupId VoiceRingGroupID, userId UserID, params *DeleteVoiceRingGroupMemberParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteVoiceRingGroupMemberRequest(c.Server, ringGroupId, userId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -96964,6 +97560,573 @@ func NewUpdateVoiceNumberRequestWithBody(server string, numberId VoiceNumberID, 
 	return req, nil
 }
 
+// NewListVoiceRingGroupsRequest generates requests for ListVoiceRingGroups
+func NewListVoiceRingGroupsRequest(server string, params *ListVoiceRingGroupsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/ring-groups")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateVoiceRingGroupRequest calls the generic CreateVoiceRingGroup builder with application/json body
+func NewCreateVoiceRingGroupRequest(server string, params *CreateVoiceRingGroupParams, body CreateVoiceRingGroupJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateVoiceRingGroupRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateVoiceRingGroupRequestWithBody generates requests for CreateVoiceRingGroup with any type of body
+func NewCreateVoiceRingGroupRequestWithBody(server string, params *CreateVoiceRingGroupParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/ring-groups")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteVoiceRingGroupRequest generates requests for DeleteVoiceRingGroup
+func NewDeleteVoiceRingGroupRequest(server string, ringGroupId VoiceRingGroupID, params *DeleteVoiceRingGroupParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "ring_group_id", ringGroupId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/ring-groups/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetVoiceRingGroupRequest generates requests for GetVoiceRingGroup
+func NewGetVoiceRingGroupRequest(server string, ringGroupId VoiceRingGroupID, params *GetVoiceRingGroupParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "ring_group_id", ringGroupId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/ring-groups/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUpdateVoiceRingGroupRequest calls the generic UpdateVoiceRingGroup builder with application/json body
+func NewUpdateVoiceRingGroupRequest(server string, ringGroupId VoiceRingGroupID, params *UpdateVoiceRingGroupParams, body UpdateVoiceRingGroupJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateVoiceRingGroupRequestWithBody(server, ringGroupId, params, "application/json", bodyReader)
+}
+
+// NewUpdateVoiceRingGroupRequestWithBody generates requests for UpdateVoiceRingGroup with any type of body
+func NewUpdateVoiceRingGroupRequestWithBody(server string, ringGroupId VoiceRingGroupID, params *UpdateVoiceRingGroupParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "ring_group_id", ringGroupId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/ring-groups/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListVoiceRingGroupMembersRequest generates requests for ListVoiceRingGroupMembers
+func NewListVoiceRingGroupMembersRequest(server string, ringGroupId VoiceRingGroupID, params *ListVoiceRingGroupMembersParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "ring_group_id", ringGroupId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/ring-groups/%s/members", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateVoiceRingGroupMemberRequest calls the generic CreateVoiceRingGroupMember builder with application/json body
+func NewCreateVoiceRingGroupMemberRequest(server string, ringGroupId VoiceRingGroupID, params *CreateVoiceRingGroupMemberParams, body CreateVoiceRingGroupMemberJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateVoiceRingGroupMemberRequestWithBody(server, ringGroupId, params, "application/json", bodyReader)
+}
+
+// NewCreateVoiceRingGroupMemberRequestWithBody generates requests for CreateVoiceRingGroupMember with any type of body
+func NewCreateVoiceRingGroupMemberRequestWithBody(server string, ringGroupId VoiceRingGroupID, params *CreateVoiceRingGroupMemberParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "ring_group_id", ringGroupId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/ring-groups/%s/members", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteVoiceRingGroupMemberRequest generates requests for DeleteVoiceRingGroupMember
+func NewDeleteVoiceRingGroupMemberRequest(server string, ringGroupId VoiceRingGroupID, userId UserID, params *DeleteVoiceRingGroupMemberParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "ring_group_id", ringGroupId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "user_id", userId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/ring-groups/%s/members/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewCreateVoiceSessionCredentialRequest generates requests for CreateVoiceSessionCredential
 func NewCreateVoiceSessionCredentialRequest(server string, params *CreateVoiceSessionCredentialParams) (*http.Request, error) {
 	var err error
@@ -107943,6 +109106,36 @@ type ClientWithResponsesInterface interface {
 	UpdateVoiceNumberWithBodyWithResponse(ctx context.Context, numberId VoiceNumberID, params *UpdateVoiceNumberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateVoiceNumberResponse, error)
 
 	UpdateVoiceNumberWithResponse(ctx context.Context, numberId VoiceNumberID, params *UpdateVoiceNumberParams, body UpdateVoiceNumberJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateVoiceNumberResponse, error)
+
+	// ListVoiceRingGroupsWithResponse request
+	ListVoiceRingGroupsWithResponse(ctx context.Context, params *ListVoiceRingGroupsParams, reqEditors ...RequestEditorFn) (*ListVoiceRingGroupsResponse, error)
+
+	// CreateVoiceRingGroupWithBodyWithResponse request with any body
+	CreateVoiceRingGroupWithBodyWithResponse(ctx context.Context, params *CreateVoiceRingGroupParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVoiceRingGroupResponse, error)
+
+	CreateVoiceRingGroupWithResponse(ctx context.Context, params *CreateVoiceRingGroupParams, body CreateVoiceRingGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVoiceRingGroupResponse, error)
+
+	// DeleteVoiceRingGroupWithResponse request
+	DeleteVoiceRingGroupWithResponse(ctx context.Context, ringGroupId VoiceRingGroupID, params *DeleteVoiceRingGroupParams, reqEditors ...RequestEditorFn) (*DeleteVoiceRingGroupResponse, error)
+
+	// GetVoiceRingGroupWithResponse request
+	GetVoiceRingGroupWithResponse(ctx context.Context, ringGroupId VoiceRingGroupID, params *GetVoiceRingGroupParams, reqEditors ...RequestEditorFn) (*GetVoiceRingGroupResponse, error)
+
+	// UpdateVoiceRingGroupWithBodyWithResponse request with any body
+	UpdateVoiceRingGroupWithBodyWithResponse(ctx context.Context, ringGroupId VoiceRingGroupID, params *UpdateVoiceRingGroupParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateVoiceRingGroupResponse, error)
+
+	UpdateVoiceRingGroupWithResponse(ctx context.Context, ringGroupId VoiceRingGroupID, params *UpdateVoiceRingGroupParams, body UpdateVoiceRingGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateVoiceRingGroupResponse, error)
+
+	// ListVoiceRingGroupMembersWithResponse request
+	ListVoiceRingGroupMembersWithResponse(ctx context.Context, ringGroupId VoiceRingGroupID, params *ListVoiceRingGroupMembersParams, reqEditors ...RequestEditorFn) (*ListVoiceRingGroupMembersResponse, error)
+
+	// CreateVoiceRingGroupMemberWithBodyWithResponse request with any body
+	CreateVoiceRingGroupMemberWithBodyWithResponse(ctx context.Context, ringGroupId VoiceRingGroupID, params *CreateVoiceRingGroupMemberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVoiceRingGroupMemberResponse, error)
+
+	CreateVoiceRingGroupMemberWithResponse(ctx context.Context, ringGroupId VoiceRingGroupID, params *CreateVoiceRingGroupMemberParams, body CreateVoiceRingGroupMemberJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVoiceRingGroupMemberResponse, error)
+
+	// DeleteVoiceRingGroupMemberWithResponse request
+	DeleteVoiceRingGroupMemberWithResponse(ctx context.Context, ringGroupId VoiceRingGroupID, userId UserID, params *DeleteVoiceRingGroupMemberParams, reqEditors ...RequestEditorFn) (*DeleteVoiceRingGroupMemberResponse, error)
 
 	// CreateVoiceSessionCredentialWithResponse request
 	CreateVoiceSessionCredentialWithResponse(ctx context.Context, params *CreateVoiceSessionCredentialParams, reqEditors ...RequestEditorFn) (*CreateVoiceSessionCredentialResponse, error)
@@ -121186,6 +122379,310 @@ func (r UpdateVoiceNumberResponse) ContentType() string {
 	return ""
 }
 
+type ListVoiceRingGroupsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *VoiceRingGroupList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListVoiceRingGroupsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListVoiceRingGroupsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListVoiceRingGroupsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateVoiceRingGroupResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *VoiceRingGroup
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateVoiceRingGroupResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateVoiceRingGroupResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateVoiceRingGroupResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteVoiceRingGroupResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteVoiceRingGroupResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteVoiceRingGroupResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteVoiceRingGroupResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetVoiceRingGroupResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *VoiceRingGroup
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetVoiceRingGroupResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetVoiceRingGroupResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetVoiceRingGroupResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateVoiceRingGroupResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *VoiceRingGroup
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateVoiceRingGroupResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateVoiceRingGroupResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateVoiceRingGroupResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListVoiceRingGroupMembersResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *VoiceRingGroupMemberList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListVoiceRingGroupMembersResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListVoiceRingGroupMembersResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListVoiceRingGroupMembersResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateVoiceRingGroupMemberResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *VoiceRingGroupMember
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateVoiceRingGroupMemberResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateVoiceRingGroupMemberResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateVoiceRingGroupMemberResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteVoiceRingGroupMemberResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteVoiceRingGroupMemberResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteVoiceRingGroupMemberResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteVoiceRingGroupMemberResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type CreateVoiceSessionCredentialResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -128910,6 +130407,102 @@ func (c *ClientWithResponses) UpdateVoiceNumberWithResponse(ctx context.Context,
 		return nil, err
 	}
 	return ParseUpdateVoiceNumberResponse(rsp)
+}
+
+// ListVoiceRingGroupsWithResponse request returning *ListVoiceRingGroupsResponse
+func (c *ClientWithResponses) ListVoiceRingGroupsWithResponse(ctx context.Context, params *ListVoiceRingGroupsParams, reqEditors ...RequestEditorFn) (*ListVoiceRingGroupsResponse, error) {
+	rsp, err := c.ListVoiceRingGroups(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListVoiceRingGroupsResponse(rsp)
+}
+
+// CreateVoiceRingGroupWithBodyWithResponse request with arbitrary body returning *CreateVoiceRingGroupResponse
+func (c *ClientWithResponses) CreateVoiceRingGroupWithBodyWithResponse(ctx context.Context, params *CreateVoiceRingGroupParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVoiceRingGroupResponse, error) {
+	rsp, err := c.CreateVoiceRingGroupWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateVoiceRingGroupResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateVoiceRingGroupWithResponse(ctx context.Context, params *CreateVoiceRingGroupParams, body CreateVoiceRingGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVoiceRingGroupResponse, error) {
+	rsp, err := c.CreateVoiceRingGroup(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateVoiceRingGroupResponse(rsp)
+}
+
+// DeleteVoiceRingGroupWithResponse request returning *DeleteVoiceRingGroupResponse
+func (c *ClientWithResponses) DeleteVoiceRingGroupWithResponse(ctx context.Context, ringGroupId VoiceRingGroupID, params *DeleteVoiceRingGroupParams, reqEditors ...RequestEditorFn) (*DeleteVoiceRingGroupResponse, error) {
+	rsp, err := c.DeleteVoiceRingGroup(ctx, ringGroupId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteVoiceRingGroupResponse(rsp)
+}
+
+// GetVoiceRingGroupWithResponse request returning *GetVoiceRingGroupResponse
+func (c *ClientWithResponses) GetVoiceRingGroupWithResponse(ctx context.Context, ringGroupId VoiceRingGroupID, params *GetVoiceRingGroupParams, reqEditors ...RequestEditorFn) (*GetVoiceRingGroupResponse, error) {
+	rsp, err := c.GetVoiceRingGroup(ctx, ringGroupId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetVoiceRingGroupResponse(rsp)
+}
+
+// UpdateVoiceRingGroupWithBodyWithResponse request with arbitrary body returning *UpdateVoiceRingGroupResponse
+func (c *ClientWithResponses) UpdateVoiceRingGroupWithBodyWithResponse(ctx context.Context, ringGroupId VoiceRingGroupID, params *UpdateVoiceRingGroupParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateVoiceRingGroupResponse, error) {
+	rsp, err := c.UpdateVoiceRingGroupWithBody(ctx, ringGroupId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateVoiceRingGroupResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateVoiceRingGroupWithResponse(ctx context.Context, ringGroupId VoiceRingGroupID, params *UpdateVoiceRingGroupParams, body UpdateVoiceRingGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateVoiceRingGroupResponse, error) {
+	rsp, err := c.UpdateVoiceRingGroup(ctx, ringGroupId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateVoiceRingGroupResponse(rsp)
+}
+
+// ListVoiceRingGroupMembersWithResponse request returning *ListVoiceRingGroupMembersResponse
+func (c *ClientWithResponses) ListVoiceRingGroupMembersWithResponse(ctx context.Context, ringGroupId VoiceRingGroupID, params *ListVoiceRingGroupMembersParams, reqEditors ...RequestEditorFn) (*ListVoiceRingGroupMembersResponse, error) {
+	rsp, err := c.ListVoiceRingGroupMembers(ctx, ringGroupId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListVoiceRingGroupMembersResponse(rsp)
+}
+
+// CreateVoiceRingGroupMemberWithBodyWithResponse request with arbitrary body returning *CreateVoiceRingGroupMemberResponse
+func (c *ClientWithResponses) CreateVoiceRingGroupMemberWithBodyWithResponse(ctx context.Context, ringGroupId VoiceRingGroupID, params *CreateVoiceRingGroupMemberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVoiceRingGroupMemberResponse, error) {
+	rsp, err := c.CreateVoiceRingGroupMemberWithBody(ctx, ringGroupId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateVoiceRingGroupMemberResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateVoiceRingGroupMemberWithResponse(ctx context.Context, ringGroupId VoiceRingGroupID, params *CreateVoiceRingGroupMemberParams, body CreateVoiceRingGroupMemberJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVoiceRingGroupMemberResponse, error) {
+	rsp, err := c.CreateVoiceRingGroupMember(ctx, ringGroupId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateVoiceRingGroupMemberResponse(rsp)
+}
+
+// DeleteVoiceRingGroupMemberWithResponse request returning *DeleteVoiceRingGroupMemberResponse
+func (c *ClientWithResponses) DeleteVoiceRingGroupMemberWithResponse(ctx context.Context, ringGroupId VoiceRingGroupID, userId UserID, params *DeleteVoiceRingGroupMemberParams, reqEditors ...RequestEditorFn) (*DeleteVoiceRingGroupMemberResponse, error) {
+	rsp, err := c.DeleteVoiceRingGroupMember(ctx, ringGroupId, userId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteVoiceRingGroupMemberResponse(rsp)
 }
 
 // CreateVoiceSessionCredentialWithResponse request returning *CreateVoiceSessionCredentialResponse
@@ -157893,6 +159486,662 @@ func ParseUpdateVoiceNumberResponse(rsp *http.Response) (*UpdateVoiceNumberRespo
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListVoiceRingGroupsResponse parses an HTTP response from a ListVoiceRingGroupsWithResponse call
+func ParseListVoiceRingGroupsResponse(rsp *http.Response) (*ListVoiceRingGroupsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListVoiceRingGroupsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest VoiceRingGroupList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateVoiceRingGroupResponse parses an HTTP response from a CreateVoiceRingGroupWithResponse call
+func ParseCreateVoiceRingGroupResponse(rsp *http.Response) (*CreateVoiceRingGroupResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateVoiceRingGroupResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest VoiceRingGroup
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteVoiceRingGroupResponse parses an HTTP response from a DeleteVoiceRingGroupWithResponse call
+func ParseDeleteVoiceRingGroupResponse(rsp *http.Response) (*DeleteVoiceRingGroupResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteVoiceRingGroupResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetVoiceRingGroupResponse parses an HTTP response from a GetVoiceRingGroupWithResponse call
+func ParseGetVoiceRingGroupResponse(rsp *http.Response) (*GetVoiceRingGroupResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetVoiceRingGroupResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest VoiceRingGroup
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateVoiceRingGroupResponse parses an HTTP response from a UpdateVoiceRingGroupWithResponse call
+func ParseUpdateVoiceRingGroupResponse(rsp *http.Response) (*UpdateVoiceRingGroupResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateVoiceRingGroupResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest VoiceRingGroup
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListVoiceRingGroupMembersResponse parses an HTTP response from a ListVoiceRingGroupMembersWithResponse call
+func ParseListVoiceRingGroupMembersResponse(rsp *http.Response) (*ListVoiceRingGroupMembersResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListVoiceRingGroupMembersResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest VoiceRingGroupMemberList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateVoiceRingGroupMemberResponse parses an HTTP response from a CreateVoiceRingGroupMemberWithResponse call
+func ParseCreateVoiceRingGroupMemberResponse(rsp *http.Response) (*CreateVoiceRingGroupMemberResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateVoiceRingGroupMemberResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest VoiceRingGroupMember
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteVoiceRingGroupMemberResponse parses an HTTP response from a DeleteVoiceRingGroupMemberWithResponse call
+func ParseDeleteVoiceRingGroupMemberResponse(rsp *http.Response) (*DeleteVoiceRingGroupMemberResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteVoiceRingGroupMemberResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
 		var dest BadRequest
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
