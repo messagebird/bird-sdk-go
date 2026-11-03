@@ -1203,6 +1203,7 @@ const (
 type WhatsAppNumberErrorCode = oapi.WhatsAppNumberErrorCode
 
 const (
+	WhatsAppNumberErrorCodeBillingClose                  = oapi.WhatsAppNumberErrorCodeBillingClose
 	WhatsAppNumberErrorCodeBusinessAccountLocked         = oapi.WhatsAppNumberErrorCodeBusinessAccountLocked
 	WhatsAppNumberErrorCodeBusinessVerificationRequired  = oapi.WhatsAppNumberErrorCodeBusinessVerificationRequired
 	WhatsAppNumberErrorCodeCreditCurrencyMismatch        = oapi.WhatsAppNumberErrorCodeCreditCurrencyMismatch

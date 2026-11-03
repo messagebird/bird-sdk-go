@@ -231,7 +231,7 @@ func (s *WhatsappTemplatesService) Update(ctx context.Context, templateRef strin
 	return &out, nil
 }
 
-// Delete Deletes the template and every language it holds, here first and at WhatsApp afterwards. Sends by this slug stop working. Built-in templates cannot be deleted. To discard unsubmitted work while keeping the template, delete its draft with `whatsapp.templates.versions.delete` instead.
+// Delete Deletes the template and every language it holds, here first and at WhatsApp afterwards. Sends by this slug stop working. Built-in templates cannot be deleted. To discard unsubmitted work while keeping the template, delete its draft with `whatsapp.templates.versions.delete` instead. Fails with a conflict while another resource still uses the template; the error says what to clear first.
 func (s *WhatsappTemplatesService) Delete(ctx context.Context, templateRef string, opts ...option.RequestOption) error {
 	_, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.DeleteWhatsAppTemplateParams{}

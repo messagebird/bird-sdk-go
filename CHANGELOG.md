@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.123.0
+
+- Numbers get and list responses now expose `ownership.registration_due_at` (the deadline for completing ownership details) and `ownership.unavailable_at` (when the number became unavailable).
+- `WhatsAppNumberErrorCode` gains `billing_close`, for a connection WhatsApp refused while its monthly billing close ran. It previously reported `invalid_request`.
+- Add `whatsapp_manager_url` to the WhatsApp template language read (`bird whatsapp templates versions languages get`, the `whatsapp_templates_versions_languages_get` MCP tool), a link that opens the language in Meta's WhatsApp Manager for people with access to the business portfolio. It is null until WhatsApp holds the language, which can take a minute after submitting, null again once WhatsApp has deleted it, and always null for a built-in template's language.
+
 ## 0.122.0
 
 - Add optional Cc and Bcc recipients to mailbox replies; copied recipients are added to the derived reply recipients.
