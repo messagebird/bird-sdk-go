@@ -2,6 +2,8 @@ package bird_test
 
 import (
 	"context"
+	"crypto/sha256"
+	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -11,6 +13,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/google/uuid"
 	bird "github.com/messagebird/bird-sdk-go"
 	"github.com/messagebird/bird-sdk-go/option"
 )
@@ -6489,4 +6492,74 @@ func ExampleOrganizationWorkspacesService_Delete() {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func ExampleAssetsUploadsService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	data, err := os.ReadFile("invoice.pdf")
+	if err != nil {
+		log.Fatal(err)
+	}
+	sum := sha256.Sum256(data)
+	// Keep this reference and the same input when retrying this upload.
+	reference := uuid.NewString()
+	upload, err := client.Assets.Uploads.Create(context.Background(), bird.AssetsUploadsCreateParams{
+		ClientReference: reference,
+		File:            bird.AssetUploadFile{Filename: "invoice.pdf", ContentType: "application/pdf", SizeBytes: int64(len(data)), Sha256: hex.EncodeToString(sum[:])},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(upload.Id)
+}
+
+func ExampleAssetsUploadsService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	upload, err := client.Assets.Uploads.Get(context.Background(), "aus_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(upload.State)
+}
+
+func ExampleAssetsUploadsService_Prepare() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	upload, err := client.Assets.Uploads.Prepare(context.Background(), "aus_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(upload.State)
+}
+
+func ExampleAssetsUploadsService_Complete() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	upload, err := client.Assets.Uploads.Complete(context.Background(), "aus_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(upload.State)
+}
+
+func ExampleAssetsUploadsService_Cancel() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	upload, err := client.Assets.Uploads.Cancel(context.Background(), "aus_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(upload.State)
 }

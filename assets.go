@@ -2,6 +2,7 @@ package bird
 
 type AssetsService struct {
 	resource
+	Uploads    *AssetsUploadsService
 	Folders    *AssetsFoldersService
 	References *AssetsReferencesService
 }

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.121.0
+
+- Add media-library upload-session methods to create, inspect, refresh, complete and cancel an upload. Creation returns session metadata and an optional temporary upload instruction. A successful prepare returns a pending session with a required upload instruction. Your application transfers the original file bytes with HTTPS before completing the session; these methods do not transfer the file themselves. Retries recover the same intent and saved result.
+- **Breaking:** the WhatsApp statistics category, on breakdown rows and on the `category` filter of summary, daily and hourly statistics, is now `WhatsAppStatsMessageCategory` instead of `WhatsAppTemplateCategory`. Convert an existing value with `bird.WhatsAppStatsMessageCategory(c)`. The new type adds `service`, for free-form messages, which the breakdown now returns as its own row.
+
 ## 0.120.0
 
 - **Breaking:** `EmailMessage` and `EmailRecipient` gain response fields; replace positional literals with keyed literals such as `EmailMessage{SubjectRecipientId: nil}` and `EmailRecipient{Subject: nil, CopyOfRecipientId: nil}`.

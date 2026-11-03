@@ -1238,3 +1238,25 @@ type Actor = oapi.Actor
 type EmailMailboxScheduledMessageStatus = oapi.EmailMailboxScheduledMessageStatus
 type EmailMailboxScheduledMessage = oapi.EmailMailboxScheduledMessage
 type EmailMailboxScheduledMessageList = oapi.EmailMailboxScheduledMessageList
+
+type AssetUploadFile = oapi.AssetUploadFile
+type AssetUploadSessionInstruction = oapi.AssetUploadSessionInstruction
+type AssetUploadSessionPrepared = oapi.AssetUploadSessionPrepared
+type AssetUploadSessionDetails = oapi.AssetUploadSessionDetails
+
+type AssetUploadInstruction = oapi.AssetUploadInstruction
+type AssetUploadReceipt = oapi.AssetUploadReceipt
+type AssetUploadSession = oapi.AssetUploadSession
+type AssetUploadSessionState = oapi.AssetUploadSessionState
+type AssetUploadSessionPreparedState = oapi.AssetUploadSessionPreparedState
+
+const AssetUploadSessionPreparedStatePending = oapi.AssetUploadSessionPreparedStatePending
+
+const (
+	AssetUploadSessionStateCancelled  = oapi.AssetUploadSessionStateCancelled
+	AssetUploadSessionStateCompleted  = oapi.AssetUploadSessionStateCompleted
+	AssetUploadSessionStateExpired    = oapi.AssetUploadSessionStateExpired
+	AssetUploadSessionStateFinalizing = oapi.AssetUploadSessionStateFinalizing
+	AssetUploadSessionStatePending    = oapi.AssetUploadSessionStatePending
+	AssetUploadSessionStateRejected   = oapi.AssetUploadSessionStateRejected
+)

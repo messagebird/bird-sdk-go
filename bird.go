@@ -34,7 +34,7 @@ import (
 )
 
 const (
-	version = "0.120.0"
+	version = "0.121.0"
 	// userAgent is human-readable only; the API attributes the SDK from the
 	// Bird-* headers set in callEditors, not the UA.
 	userAgent = "bird-sdk-go/" + version
@@ -262,7 +262,7 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 	c.Numbers = &NumbersService{resource: resource{client: c}}
 	c.Numbers.Available = &NumbersAvailableService{resource{client: c}}
 	c.Numbers.Orders = &NumbersOrdersService{resource{client: c}}
-	c.Assets = &AssetsService{resource: resource{client: c}, Folders: &AssetsFoldersService{resource{client: c}}, References: &AssetsReferencesService{resource{client: c}}}
+	c.Assets = &AssetsService{resource: resource{client: c}, Uploads: &AssetsUploadsService{resource{client: c}}, Folders: &AssetsFoldersService{resource{client: c}}, References: &AssetsReferencesService{resource{client: c}}}
 	c.ComplianceRequirements = &ComplianceRequirementsService{resource{client: c}}
 	c.ComplianceSubmissions = &ComplianceSubmissionsService{resource{client: c}}
 	c.ComplianceAttachments = &ComplianceAttachmentsService{resource{client: c}}

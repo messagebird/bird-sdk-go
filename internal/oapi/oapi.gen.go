@@ -1098,6 +1098,66 @@ func (e AssetSortField) Valid() bool {
 	}
 }
 
+// Defines values for AssetUploadInstructionMethod.
+const (
+	PUT AssetUploadInstructionMethod = "PUT"
+)
+
+// Valid indicates whether the value is a known member of the AssetUploadInstructionMethod enum.
+func (e AssetUploadInstructionMethod) Valid() bool {
+	switch e {
+	case PUT:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AssetUploadSessionPreparedState.
+const (
+	AssetUploadSessionPreparedStatePending AssetUploadSessionPreparedState = "pending"
+)
+
+// Valid indicates whether the value is a known member of the AssetUploadSessionPreparedState enum.
+func (e AssetUploadSessionPreparedState) Valid() bool {
+	switch e {
+	case AssetUploadSessionPreparedStatePending:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AssetUploadSessionState.
+const (
+	AssetUploadSessionStateCancelled  AssetUploadSessionState = "cancelled"
+	AssetUploadSessionStateCompleted  AssetUploadSessionState = "completed"
+	AssetUploadSessionStateExpired    AssetUploadSessionState = "expired"
+	AssetUploadSessionStateFinalizing AssetUploadSessionState = "finalizing"
+	AssetUploadSessionStatePending    AssetUploadSessionState = "pending"
+	AssetUploadSessionStateRejected   AssetUploadSessionState = "rejected"
+)
+
+// Valid indicates whether the value is a known member of the AssetUploadSessionState enum.
+func (e AssetUploadSessionState) Valid() bool {
+	switch e {
+	case AssetUploadSessionStateCancelled:
+		return true
+	case AssetUploadSessionStateCompleted:
+		return true
+	case AssetUploadSessionStateExpired:
+		return true
+	case AssetUploadSessionStateFinalizing:
+		return true
+	case AssetUploadSessionStatePending:
+		return true
+	case AssetUploadSessionStateRejected:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for AttachmentSortField.
 const (
 	AttachmentSortFieldCreatedAt AttachmentSortField = "created_at"
@@ -10095,6 +10155,30 @@ func (e WhatsAppReceivedEventType) Valid() bool {
 	}
 }
 
+// Defines values for WhatsAppStatsMessageCategory.
+const (
+	WhatsAppStatsMessageCategoryAuthentication WhatsAppStatsMessageCategory = "authentication"
+	WhatsAppStatsMessageCategoryMarketing      WhatsAppStatsMessageCategory = "marketing"
+	WhatsAppStatsMessageCategoryService        WhatsAppStatsMessageCategory = "service"
+	WhatsAppStatsMessageCategoryUtility        WhatsAppStatsMessageCategory = "utility"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppStatsMessageCategory enum.
+func (e WhatsAppStatsMessageCategory) Valid() bool {
+	switch e {
+	case WhatsAppStatsMessageCategoryAuthentication:
+		return true
+	case WhatsAppStatsMessageCategoryMarketing:
+		return true
+	case WhatsAppStatsMessageCategoryService:
+		return true
+	case WhatsAppStatsMessageCategoryUtility:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for WhatsAppSuppressionCreatedEventType.
 const (
 	WhatsappSuppressionCreated WhatsAppSuppressionCreatedEventType = "whatsapp_suppression.created"
@@ -14163,6 +14247,217 @@ type AssetUpload struct {
 	// Name A display name for the asset. Defaults to the uploaded file's name when omitted or empty after trimming.
 	Name *string `json:"name,omitempty"`
 }
+
+// AssetUploadFile Exact properties of the original file. Calculate size and SHA-256 from its bytes before creating a session. Images allow up to 5,242,880 bytes; other supported media allow up to 25,000,000 bytes.
+type AssetUploadFile struct {
+	// ContentType Media type of the original file. Supported values are `image/png`, `image/jpeg`, `image/gif`, `video/mp4`, `video/webm`, `video/quicktime`, `audio/mpeg`, `audio/mp4`, `audio/ogg`, `audio/wav`, and `application/pdf`.
+	//
+	// Supply the exact value without parameters. Unsupported values return `E20001`. Completion checks this against the file's contents.
+	ContentType string `json:"content_type"`
+
+	// Filename Original filename, including its extension.
+	Filename string `json:"filename"`
+
+	// Sha256 SHA-256 of the original bytes, encoded as lowercase hexadecimal.
+	Sha256 string `json:"sha256" pii:"true"`
+
+	// SizeBytes Exact size of the original file in bytes.
+	SizeBytes int64 `json:"size_bytes"`
+}
+
+// AssetUploadInstruction Send the original file bytes to this URL with the exact headers and content length. Send no Bird credentials or cookies. Keep the URL private and call complete after the PUT succeeds.
+type AssetUploadInstruction struct {
+	// ContentLength Required HTTP content length in bytes.
+	ContentLength int64 `json:"content_length"`
+
+	// ExpiresAt Upload instruction expiry, bounded by the session and signing credentials.
+	ExpiresAt time.Time `json:"expires_at"`
+
+	// Method HTTP method for transferring the file.
+	Method AssetUploadInstructionMethod `json:"method"`
+
+	// RequiredHeaders Headers the upload request must send exactly as provided.
+	RequiredHeaders map[string]string `json:"required_headers" pii:"true"`
+
+	// Url Temporary HTTPS upload URL. It can be reused for the same fixed file until expiry.
+	Url string `json:"url" pii:"true"`
+}
+
+// AssetUploadInstructionMethod HTTP method for transferring the file.
+type AssetUploadInstructionMethod string
+
+// AssetUploadReceipt Saved publication result. Retrying completion returns this receipt even if the asset has since been removed or become unavailable.
+type AssetUploadReceipt struct {
+	AssetId AssetID `json:"asset_id"`
+
+	// CompletedAt When publication completed.
+	CompletedAt time.Time `json:"completed_at"`
+
+	// ReusedExisting Whether the upload reused an existing active asset with identical source bytes. Reused assets keep their original metadata and folder.
+	ReusedExisting bool `json:"reused_existing"`
+}
+
+// AssetUploadSession An upload session owned by the workspace and the OAuth connection or API key that created it. Its file and metadata are frozen. Sessions expire after one hour; receipts remain available for at least 24 hours after expiry while cleanup finishes.
+type AssetUploadSession struct {
+	// AltText Frozen alternative text, or null when omitted.
+	AltText *string `json:"alt_text"`
+
+	// ExpiresAt Absolute session expiry. Completion must finish before this deadline; starting it or refreshing an upload instruction does not extend it.
+	ExpiresAt time.Time `json:"expires_at"`
+
+	// File Exact properties of the original file. Calculate size and SHA-256 from its bytes before creating a session. Images allow up to 5,242,880 bytes; other supported media allow up to 25,000,000 bytes.
+	File AssetUploadFile `json:"file"`
+
+	// FolderId Frozen destination folder, or null for the library root.
+	FolderId *AssetFolderID       `json:"folder_id"`
+	Id       AssetUploadSessionID `json:"id"`
+
+	// LastError Last completion error, or null when no failure is recorded.
+	LastError *AssetUploadSessionError `json:"last_error"`
+
+	// Name Frozen display name for a newly published asset.
+	Name string `json:"name"`
+
+	// Next Available next steps for this session.
+	Next []NextAction `json:"next"`
+
+	// Result Saved publication receipt, or null until completed.
+	Result *AssetUploadReceipt `json:"result"`
+
+	// State Upload progress. Pending accepts a transfer; finalizing is checking and publishing it. Completed has a saved result. Rejected, cancelled and expired allow no new upload instruction or publication. An already issued upload URL can remain usable until its expiry.
+	State AssetUploadSessionState `json:"state"`
+}
+
+// AssetUploadSessionCreate Start one upload intent. Keep client_reference unchanged when retrying this request. Changing the file or metadata requires a new reference. Optional folder_id must identify an existing folder in this workspace.
+type AssetUploadSessionCreate struct {
+	// AltText Default alternative text for the asset.
+	AltText *string `json:"alt_text,omitempty"`
+
+	// ClientReference Caller-generated UUID for this upload intent. Retries with identical input recover the same session while its receipt is retained.
+	ClientReference openapi_types.UUID `json:"client_reference"`
+
+	// File Exact properties of the original file. Calculate size and SHA-256 from its bytes before creating a session. Images allow up to 5,242,880 bytes; other supported media allow up to 25,000,000 bytes.
+	File     AssetUploadFile `json:"file"`
+	FolderId *AssetFolderID  `json:"folder_id,omitempty"`
+
+	// Name Display name. Omitted or blank names default to the sanitized filename.
+	Name *string `json:"name,omitempty"`
+}
+
+// AssetUploadSessionDetails defines model for AssetUploadSessionDetails.
+type AssetUploadSessionDetails struct {
+	// AltText Frozen alternative text, or null when omitted.
+	AltText *string `json:"alt_text"`
+
+	// Asset Canonical asset when available, or null before completion or when unavailable.
+	Asset *Asset `json:"asset"`
+
+	// ExpiresAt Absolute session expiry. Completion must finish before this deadline; starting it or refreshing an upload instruction does not extend it.
+	ExpiresAt time.Time `json:"expires_at"`
+
+	// File Exact properties of the original file. Calculate size and SHA-256 from its bytes before creating a session. Images allow up to 5,242,880 bytes; other supported media allow up to 25,000,000 bytes.
+	File AssetUploadFile `json:"file"`
+
+	// FolderId Frozen destination folder, or null for the library root.
+	FolderId *AssetFolderID       `json:"folder_id"`
+	Id       AssetUploadSessionID `json:"id"`
+
+	// LastError Last completion error, or null when no failure is recorded.
+	LastError *AssetUploadSessionError `json:"last_error"`
+
+	// Name Frozen display name for a newly published asset.
+	Name string `json:"name"`
+
+	// Next Available next steps for this session.
+	Next []NextAction `json:"next"`
+
+	// Result Saved publication receipt, or null until completed.
+	Result *AssetUploadReceipt `json:"result"`
+
+	// State Upload progress. Pending accepts a transfer; finalizing is checking and publishing it. Completed has a saved result. Rejected, cancelled and expired allow no new upload instruction or publication. An already issued upload URL can remain usable until its expiry.
+	State AssetUploadSessionState `json:"state"`
+}
+
+// AssetUploadSessionError Stable error code from the most recent failed completion attempt. The operation's error response carries its message and recovery steps.
+type AssetUploadSessionError struct {
+	// Code Bird error code for the failed attempt.
+	Code string `json:"code"`
+}
+
+// AssetUploadSessionID defines model for AssetUploadSessionID.
+type AssetUploadSessionID = string
+
+// AssetUploadSessionInstruction defines model for AssetUploadSessionInstruction.
+type AssetUploadSessionInstruction struct {
+	// AltText Frozen alternative text, or null when omitted.
+	AltText *string `json:"alt_text"`
+
+	// ExpiresAt Absolute session expiry. Completion must finish before this deadline; starting it or refreshing an upload instruction does not extend it.
+	ExpiresAt time.Time `json:"expires_at"`
+
+	// File Exact properties of the original file. Calculate size and SHA-256 from its bytes before creating a session. Images allow up to 5,242,880 bytes; other supported media allow up to 25,000,000 bytes.
+	File AssetUploadFile `json:"file"`
+
+	// FolderId Frozen destination folder, or null for the library root.
+	FolderId *AssetFolderID       `json:"folder_id"`
+	Id       AssetUploadSessionID `json:"id"`
+
+	// LastError Last completion error, or null when no failure is recorded.
+	LastError *AssetUploadSessionError `json:"last_error"`
+
+	// Name Frozen display name for a newly published asset.
+	Name string `json:"name"`
+
+	// Next Available next steps for this session.
+	Next []NextAction `json:"next"`
+
+	// Result Saved publication receipt, or null until completed.
+	Result *AssetUploadReceipt `json:"result"`
+
+	// State Upload progress. Pending accepts a transfer; finalizing is checking and publishing it. Completed has a saved result. Rejected, cancelled and expired allow no new upload instruction or publication. An already issued upload URL can remain usable until its expiry.
+	State AssetUploadSessionState `json:"state"`
+
+	// Upload Send the original file bytes to this URL with the exact headers and content length. Send no Bird credentials or cookies. Keep the URL private and call complete after the PUT succeeds.
+	Upload *AssetUploadInstruction `json:"upload,omitempty"`
+}
+
+// AssetUploadSessionPrepared defines model for AssetUploadSessionPrepared.
+type AssetUploadSessionPrepared struct {
+	// AltText Frozen alternative text, or null when omitted.
+	AltText *string `json:"alt_text"`
+
+	// ExpiresAt Absolute session expiry. Completion must finish before this deadline; starting it or refreshing an upload instruction does not extend it.
+	ExpiresAt time.Time `json:"expires_at"`
+
+	// File Exact properties of the original file. Calculate size and SHA-256 from its bytes before creating a session. Images allow up to 5,242,880 bytes; other supported media allow up to 25,000,000 bytes.
+	File AssetUploadFile `json:"file"`
+
+	// FolderId Frozen destination folder, or null for the library root.
+	FolderId *AssetFolderID       `json:"folder_id"`
+	Id       AssetUploadSessionID `json:"id"`
+
+	// LastError Last completion error, or null when no failure is recorded.
+	LastError *AssetUploadSessionError `json:"last_error"`
+
+	// Name Frozen display name for a newly published asset.
+	Name string `json:"name"`
+
+	// Next Available next steps for this session.
+	Next []NextAction `json:"next"`
+
+	// Result Saved publication receipt, or null until completed.
+	Result *AssetUploadReceipt `json:"result"`
+
+	// State The session is awaiting transfer and completion.
+	State  AssetUploadSessionPreparedState `json:"state"`
+	Upload AssetUploadInstruction          `json:"upload"`
+}
+
+// AssetUploadSessionPreparedState The session is awaiting transfer and completion.
+type AssetUploadSessionPreparedState string
+
+// AssetUploadSessionState Upload progress. Pending accepts a transfer; finalizing is checking and publishing it. Completed has a saved result. Rejected, cancelled and expired allow no new upload instruction or publication. An already issued upload URL can remain usable until its expiry.
+type AssetUploadSessionState string
 
 // Attachment defines model for Attachment.
 type Attachment struct {
@@ -22683,7 +22978,7 @@ type ErrorBody struct {
 	// Param Identifies the offending field. Omitted when not applicable.
 	Param *string `json:"param,omitempty"`
 
-	// Quota The quota limit that refused a resource change. A change in a workspace is checked against its organization's limit and its workspace's limit, whether set manually or derived from the organization's automatic allocation; the organization limit is reported when both refuse. When scope is workspace, follow the response remediation instead of the error code's organization-wide recovery guidance. An organization administrator can adjust the workspace limit or the automatic allocation; the shared organization limit still applies.
+	// Quota The quota limit that refused a resource change. A change in a workspace is checked against its organization's limit and its workspace's limit, whether set manually or derived from the organization's automatic allocation; the organization limit is reported when both refuse. When scope is workspace, follow the response remediation instead of the error code's organization-wide recovery guidance. An organization administrator can adjust the workspace limit or the automatic allocation; the shared organization limit still applies. Bird sets the mTLS limits, so for those, contact your Bird representative.
 	Quota *QuotaErrorContext `json:"quota,omitempty"`
 
 	// RateLimit The rate-limit policy that refused the request. Present only on `rate_limit_error` responses from a rate-limit policy. A workspace-targeted request is checked against its organization's limit and any limit set for its workspace; the organization limit is reported when both are exhausted.
@@ -27695,7 +27990,7 @@ type PreferenceWriteResult struct {
 // ProductID defines model for ProductID.
 type ProductID = string
 
-// QuotaErrorContext The quota limit that refused a resource change. A change in a workspace is checked against its organization's limit and its workspace's limit, whether set manually or derived from the organization's automatic allocation; the organization limit is reported when both refuse. When scope is workspace, follow the response remediation instead of the error code's organization-wide recovery guidance. An organization administrator can adjust the workspace limit or the automatic allocation; the shared organization limit still applies.
+// QuotaErrorContext The quota limit that refused a resource change. A change in a workspace is checked against its organization's limit and its workspace's limit, whether set manually or derived from the organization's automatic allocation; the organization limit is reported when both refuse. When scope is workspace, follow the response remediation instead of the error code's organization-wide recovery guidance. An organization administrator can adjust the workspace limit or the automatic allocation; the shared organization limit still applies. Bird sets the mTLS limits, so for those, contact your Bird representative.
 type QuotaErrorContext struct {
 	// QuotaKey Stable key of the quota that refused the change.
 	QuotaKey string `json:"quota_key"`
@@ -35036,7 +35331,7 @@ type WhatsAppStatsByTagResponse struct {
 	Total *int `json:"total,omitempty"`
 }
 
-// WhatsAppStatsByTemplateCategoryResponse Per-template-category breakdown for the requested period, ranked by accepted volume descending and capped at the requested `limit` (default 50, max 200).
+// WhatsAppStatsByTemplateCategoryResponse Per-message-category breakdown for the requested period, ranked by accepted volume descending and capped at the requested `limit` (default 50, max 200).
 type WhatsAppStatsByTemplateCategoryResponse struct {
 	// Data Category rows ranked by accepted volume descending.
 	Data *[]WhatsAppTemplateCategoryStatsPoint `json:"data,omitempty"`
@@ -35100,6 +35395,14 @@ type WhatsAppStatsComparisonDelta struct {
 	// SentPctChange Relative change in sent messages (`delivery.sent`) versus the previous period, as a signed fraction. Null when the previous period had none.
 	SentPctChange *float32 `json:"sent_pct_change,omitempty"`
 }
+
+// WhatsAppStatsMessageCategory The category a message was sent under: its template's category when it was sent, or `service` for a free-form message. Meta can bill a message under a different pricing category.
+//
+// - `authentication`: a template that delivers one-time passcodes.
+// - `utility`: a template that delivers transaction-triggered updates, such as receipts or order status.
+// - `marketing`: a template that carries promotional content.
+// - `service`: a free-form message, sent without a template inside the customer service window.
+type WhatsAppStatsMessageCategory string
 
 // WhatsAppStatsPoint WhatsApp lifecycle counts, engagement, and latency percentiles for one time bucket (a calendar day or hour), bucketed by send time. Every count in a bucket describes the messages accepted in it, regardless of when their later events arrived. Rates apply to the whole window rather than individual buckets.
 type WhatsAppStatsPoint struct {
@@ -35523,13 +35826,13 @@ type WhatsAppTemplateCardWrite struct {
 // Accept unrecognized values.
 type WhatsAppTemplateCategory string
 
-// WhatsAppTemplateCategoryStatsPoint Lifecycle counts, derived rates, and engagement for a single WhatsApp template category over the requested period.
+// WhatsAppTemplateCategoryStatsPoint Lifecycle counts, derived rates, and engagement for a single WhatsApp message category over the requested period. A template send counts under its template's category; a free-form send counts under `service`.
 type WhatsAppTemplateCategoryStatsPoint struct {
-	// Category The template category this row aggregates.
-	Category   *WhatsAppTemplateCategory `json:"category,omitempty"`
-	Delivery   *WhatsAppDeliveryStats    `json:"delivery,omitempty"`
-	Engagement *WhatsAppEngagementStats  `json:"engagement,omitempty"`
-	Latency    *WhatsAppLatencyStats     `json:"latency,omitempty"`
+	// Category The category this row aggregates. `service` aggregates free-form messages.
+	Category   *WhatsAppStatsMessageCategory `json:"category,omitempty"`
+	Delivery   *WhatsAppDeliveryStats        `json:"delivery,omitempty"`
+	Engagement *WhatsAppEngagementStats      `json:"engagement,omitempty"`
+	Latency    *WhatsAppLatencyStats         `json:"latency,omitempty"`
 }
 
 // WhatsAppTemplateCategoryWrite Meta's content classification for a template.
@@ -36593,6 +36896,9 @@ type UnderscoreListEnvelopeWithTotal struct {
 	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed, and omitted otherwise.
 	Total *int64 `json:"total,omitempty"`
 }
+
+// AssetUploadSessionId defines model for AssetUploadSessionId.
+type AssetUploadSessionId = AssetUploadSessionID
 
 // BroadcastAudienceFilter defines model for BroadcastAudienceFilter.
 type BroadcastAudienceFilter = AudienceID
@@ -38100,6 +38406,139 @@ type GetAssetFolderParams struct {
 
 // UpdateAssetFolderParams defines parameters for UpdateAssetFolder.
 type UpdateAssetFolderParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// CreateAssetUploadSessionParams defines parameters for CreateAssetUploadSession.
+type CreateAssetUploadSessionParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetAssetUploadSessionParams defines parameters for GetAssetUploadSession.
+type GetAssetUploadSessionParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// CancelAssetUploadSessionParams defines parameters for CancelAssetUploadSession.
+type CancelAssetUploadSessionParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// PublishAssetUploadSessionParams defines parameters for PublishAssetUploadSession.
+type PublishAssetUploadSessionParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// CreateAssetUploadInstructionParams defines parameters for CreateAssetUploadInstruction.
+type CreateAssetUploadInstructionParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
@@ -47079,8 +47518,8 @@ type GetWhatsAppStatsDailyParams struct {
 	// Template Restricts the statistics to one template, identified by its ID (`wat_…`) or slug. Mutually exclusive with the other dimension filters (`category`, `phone_number`, `tag`); only one may be set per request. An ID matches the `template_id` key on a row of the per-template breakdown; a slug is accepted for callers that predate that key and resolves to the same messages.
 	Template *WhatsAppStatsTemplateFilter `form:"template,omitempty" json:"template,omitempty"`
 
-	// Category Restrict the statistics to a single template category. Mutually exclusive with the other dimension filters (`template`, `phone_number`, `tag`); only one may be set per request. Matches the `category` key on a row of the per-category breakdown.
-	Category *WhatsAppTemplateCategory `form:"category,omitempty" json:"category,omitempty"`
+	// Category Restrict the statistics to a single message category; `service` selects free-form messages. Mutually exclusive with the other dimension filters (`template`, `phone_number`, `tag`); only one may be set per request. Matches the `category` key on a row of the per-category breakdown.
+	Category *WhatsAppStatsMessageCategory `form:"category,omitempty" json:"category,omitempty"`
 
 	// PhoneNumber Restrict the statistics to a single business sender phone number, in E.164 form. Mutually exclusive with the other dimension filters (`template`, `category`, `tag`); only one may be set per request. Matches the `phone_number` key on a row of the per-phone-number breakdown.
 	PhoneNumber *string `form:"phone_number,omitempty" json:"phone_number,omitempty"`
@@ -47130,8 +47569,8 @@ type GetWhatsAppStatsHourlyParams struct {
 	// Template Restricts the statistics to one template, identified by its ID (`wat_…`) or slug. Mutually exclusive with the other dimension filters (`category`, `phone_number`, `tag`); only one may be set per request. An ID matches the `template_id` key on a row of the per-template breakdown; a slug is accepted for callers that predate that key and resolves to the same messages.
 	Template *WhatsAppStatsTemplateFilter `form:"template,omitempty" json:"template,omitempty"`
 
-	// Category Restrict the statistics to a single template category. Mutually exclusive with the other dimension filters (`template`, `phone_number`, `tag`); only one may be set per request. Matches the `category` key on a row of the per-category breakdown.
-	Category *WhatsAppTemplateCategory `form:"category,omitempty" json:"category,omitempty"`
+	// Category Restrict the statistics to a single message category; `service` selects free-form messages. Mutually exclusive with the other dimension filters (`template`, `phone_number`, `tag`); only one may be set per request. Matches the `category` key on a row of the per-category breakdown.
+	Category *WhatsAppStatsMessageCategory `form:"category,omitempty" json:"category,omitempty"`
 
 	// PhoneNumber Restrict the statistics to a single business sender phone number, in E.164 form. Mutually exclusive with the other dimension filters (`template`, `category`, `tag`); only one may be set per request. Matches the `phone_number` key on a row of the per-phone-number breakdown.
 	PhoneNumber *string `form:"phone_number,omitempty" json:"phone_number,omitempty"`
@@ -47259,8 +47698,8 @@ type GetWhatsAppStatsSummaryParams struct {
 	// Template Restricts the statistics to one template, identified by its ID (`wat_…`) or slug. Mutually exclusive with the other dimension filters (`category`, `phone_number`, `tag`); only one may be set per request. An ID matches the `template_id` key on a row of the per-template breakdown; a slug is accepted for callers that predate that key and resolves to the same messages.
 	Template *WhatsAppStatsTemplateFilter `form:"template,omitempty" json:"template,omitempty"`
 
-	// Category Restrict the statistics to a single template category. Mutually exclusive with the other dimension filters (`template`, `phone_number`, `tag`); only one may be set per request. Matches the `category` key on a row of the per-category breakdown.
-	Category *WhatsAppTemplateCategory `form:"category,omitempty" json:"category,omitempty"`
+	// Category Restrict the statistics to a single message category; `service` selects free-form messages. Mutually exclusive with the other dimension filters (`template`, `phone_number`, `tag`); only one may be set per request. Matches the `category` key on a row of the per-category breakdown.
+	Category *WhatsAppStatsMessageCategory `form:"category,omitempty" json:"category,omitempty"`
 
 	// PhoneNumber Restrict the statistics to a single business sender phone number, in E.164 form. Mutually exclusive with the other dimension filters (`template`, `category`, `tag`); only one may be set per request. Matches the `phone_number` key on a row of the per-phone-number breakdown.
 	PhoneNumber *string `form:"phone_number,omitempty" json:"phone_number,omitempty"`
@@ -47310,7 +47749,7 @@ type GetWhatsAppStatsByTemplateCategoryParams struct {
 	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
-	// Limit Maximum number of template-category rows to return, ranked by accepted volume descending.
+	// Limit Maximum number of message-category rows to return, ranked by accepted volume descending.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
@@ -47897,6 +48336,9 @@ type CreateAssetFolderJSONRequestBody = AssetFolderCreate
 
 // UpdateAssetFolderJSONRequestBody defines body for UpdateAssetFolder for application/json ContentType.
 type UpdateAssetFolderJSONRequestBody = AssetFolderUpdate
+
+// CreateAssetUploadSessionJSONRequestBody defines body for CreateAssetUploadSession for application/json ContentType.
+type CreateAssetUploadSessionJSONRequestBody = AssetUploadSessionCreate
 
 // UpdateAssetJSONRequestBody defines body for UpdateAsset for application/json ContentType.
 type UpdateAssetJSONRequestBody = AssetUpdate
@@ -56040,6 +56482,23 @@ type ClientInterface interface {
 
 	UpdateAssetFolder(ctx context.Context, folderId AssetFolderID, params *UpdateAssetFolderParams, body UpdateAssetFolderJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// CreateAssetUploadSessionWithBody request with any body
+	CreateAssetUploadSessionWithBody(ctx context.Context, params *CreateAssetUploadSessionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateAssetUploadSession(ctx context.Context, params *CreateAssetUploadSessionParams, body CreateAssetUploadSessionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAssetUploadSession request
+	GetAssetUploadSession(ctx context.Context, uploadId AssetUploadSessionId, params *GetAssetUploadSessionParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CancelAssetUploadSession request
+	CancelAssetUploadSession(ctx context.Context, uploadId AssetUploadSessionId, params *CancelAssetUploadSessionParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// PublishAssetUploadSession request
+	PublishAssetUploadSession(ctx context.Context, uploadId AssetUploadSessionId, params *PublishAssetUploadSessionParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateAssetUploadInstruction request
+	CreateAssetUploadInstruction(ctx context.Context, uploadId AssetUploadSessionId, params *CreateAssetUploadInstructionParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// ListAssets request
 	ListAssets(ctx context.Context, params *ListAssetsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -58272,6 +58731,78 @@ func (c *Client) UpdateAssetFolderWithBody(ctx context.Context, folderId AssetFo
 
 func (c *Client) UpdateAssetFolder(ctx context.Context, folderId AssetFolderID, params *UpdateAssetFolderParams, body UpdateAssetFolderJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewUpdateAssetFolderRequest(c.Server, folderId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateAssetUploadSessionWithBody(ctx context.Context, params *CreateAssetUploadSessionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateAssetUploadSessionRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateAssetUploadSession(ctx context.Context, params *CreateAssetUploadSessionParams, body CreateAssetUploadSessionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateAssetUploadSessionRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAssetUploadSession(ctx context.Context, uploadId AssetUploadSessionId, params *GetAssetUploadSessionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAssetUploadSessionRequest(c.Server, uploadId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CancelAssetUploadSession(ctx context.Context, uploadId AssetUploadSessionId, params *CancelAssetUploadSessionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCancelAssetUploadSessionRequest(c.Server, uploadId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PublishAssetUploadSession(ctx context.Context, uploadId AssetUploadSessionId, params *PublishAssetUploadSessionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPublishAssetUploadSessionRequest(c.Server, uploadId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateAssetUploadInstruction(ctx context.Context, uploadId AssetUploadSessionId, params *CreateAssetUploadInstructionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateAssetUploadInstructionRequest(c.Server, uploadId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -70300,6 +70831,356 @@ func NewUpdateAssetFolderRequestWithBody(server string, folderId AssetFolderID, 
 	}
 
 	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateAssetUploadSessionRequest calls the generic CreateAssetUploadSession builder with application/json body
+func NewCreateAssetUploadSessionRequest(server string, params *CreateAssetUploadSessionParams, body CreateAssetUploadSessionJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateAssetUploadSessionRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateAssetUploadSessionRequestWithBody generates requests for CreateAssetUploadSession with any type of body
+func NewCreateAssetUploadSessionRequestWithBody(server string, params *CreateAssetUploadSessionParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/asset-upload-sessions")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAssetUploadSessionRequest generates requests for GetAssetUploadSession
+func NewGetAssetUploadSessionRequest(server string, uploadId AssetUploadSessionId, params *GetAssetUploadSessionParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "upload_id", uploadId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/asset-upload-sessions/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCancelAssetUploadSessionRequest generates requests for CancelAssetUploadSession
+func NewCancelAssetUploadSessionRequest(server string, uploadId AssetUploadSessionId, params *CancelAssetUploadSessionParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "upload_id", uploadId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/asset-upload-sessions/%s/cancel", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewPublishAssetUploadSessionRequest generates requests for PublishAssetUploadSession
+func NewPublishAssetUploadSessionRequest(server string, uploadId AssetUploadSessionId, params *PublishAssetUploadSessionParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "upload_id", uploadId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/asset-upload-sessions/%s/complete", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateAssetUploadInstructionRequest generates requests for CreateAssetUploadInstruction
+func NewCreateAssetUploadInstructionRequest(server string, uploadId AssetUploadSessionId, params *CreateAssetUploadInstructionParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "upload_id", uploadId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/asset-upload-sessions/%s/prepare", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
 
 	if params != nil {
 
@@ -108401,6 +109282,23 @@ type ClientWithResponsesInterface interface {
 
 	UpdateAssetFolderWithResponse(ctx context.Context, folderId AssetFolderID, params *UpdateAssetFolderParams, body UpdateAssetFolderJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateAssetFolderResponse, error)
 
+	// CreateAssetUploadSessionWithBodyWithResponse request with any body
+	CreateAssetUploadSessionWithBodyWithResponse(ctx context.Context, params *CreateAssetUploadSessionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateAssetUploadSessionResponse, error)
+
+	CreateAssetUploadSessionWithResponse(ctx context.Context, params *CreateAssetUploadSessionParams, body CreateAssetUploadSessionJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateAssetUploadSessionResponse, error)
+
+	// GetAssetUploadSessionWithResponse request
+	GetAssetUploadSessionWithResponse(ctx context.Context, uploadId AssetUploadSessionId, params *GetAssetUploadSessionParams, reqEditors ...RequestEditorFn) (*GetAssetUploadSessionResponse, error)
+
+	// CancelAssetUploadSessionWithResponse request
+	CancelAssetUploadSessionWithResponse(ctx context.Context, uploadId AssetUploadSessionId, params *CancelAssetUploadSessionParams, reqEditors ...RequestEditorFn) (*CancelAssetUploadSessionResponse, error)
+
+	// PublishAssetUploadSessionWithResponse request
+	PublishAssetUploadSessionWithResponse(ctx context.Context, uploadId AssetUploadSessionId, params *PublishAssetUploadSessionParams, reqEditors ...RequestEditorFn) (*PublishAssetUploadSessionResponse, error)
+
+	// CreateAssetUploadInstructionWithResponse request
+	CreateAssetUploadInstructionWithResponse(ctx context.Context, uploadId AssetUploadSessionId, params *CreateAssetUploadInstructionParams, reqEditors ...RequestEditorFn) (*CreateAssetUploadInstructionResponse, error)
+
 	// ListAssetsWithResponse request
 	ListAssetsWithResponse(ctx context.Context, params *ListAssetsParams, reqEditors ...RequestEditorFn) (*ListAssetsResponse, error)
 
@@ -112000,6 +112898,207 @@ func (r UpdateAssetFolderResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r UpdateAssetFolderResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateAssetUploadSessionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AssetUploadSessionInstruction
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON413      *PayloadTooLarge
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON501      *NotImplemented
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateAssetUploadSessionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateAssetUploadSessionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateAssetUploadSessionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAssetUploadSessionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AssetUploadSessionDetails
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON501      *NotImplemented
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAssetUploadSessionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAssetUploadSessionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAssetUploadSessionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CancelAssetUploadSessionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AssetUploadSessionDetails
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON501      *NotImplemented
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CancelAssetUploadSessionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CancelAssetUploadSessionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CancelAssetUploadSessionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type PublishAssetUploadSessionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AssetUploadSessionDetails
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON413      *PayloadTooLarge
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON501      *NotImplemented
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r PublishAssetUploadSessionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r PublishAssetUploadSessionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r PublishAssetUploadSessionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateAssetUploadInstructionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AssetUploadSessionPrepared
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON501      *NotImplemented
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateAssetUploadInstructionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateAssetUploadInstructionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateAssetUploadInstructionResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -127665,6 +128764,59 @@ func (c *ClientWithResponses) UpdateAssetFolderWithResponse(ctx context.Context,
 	return ParseUpdateAssetFolderResponse(rsp)
 }
 
+// CreateAssetUploadSessionWithBodyWithResponse request with arbitrary body returning *CreateAssetUploadSessionResponse
+func (c *ClientWithResponses) CreateAssetUploadSessionWithBodyWithResponse(ctx context.Context, params *CreateAssetUploadSessionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateAssetUploadSessionResponse, error) {
+	rsp, err := c.CreateAssetUploadSessionWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateAssetUploadSessionResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateAssetUploadSessionWithResponse(ctx context.Context, params *CreateAssetUploadSessionParams, body CreateAssetUploadSessionJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateAssetUploadSessionResponse, error) {
+	rsp, err := c.CreateAssetUploadSession(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateAssetUploadSessionResponse(rsp)
+}
+
+// GetAssetUploadSessionWithResponse request returning *GetAssetUploadSessionResponse
+func (c *ClientWithResponses) GetAssetUploadSessionWithResponse(ctx context.Context, uploadId AssetUploadSessionId, params *GetAssetUploadSessionParams, reqEditors ...RequestEditorFn) (*GetAssetUploadSessionResponse, error) {
+	rsp, err := c.GetAssetUploadSession(ctx, uploadId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAssetUploadSessionResponse(rsp)
+}
+
+// CancelAssetUploadSessionWithResponse request returning *CancelAssetUploadSessionResponse
+func (c *ClientWithResponses) CancelAssetUploadSessionWithResponse(ctx context.Context, uploadId AssetUploadSessionId, params *CancelAssetUploadSessionParams, reqEditors ...RequestEditorFn) (*CancelAssetUploadSessionResponse, error) {
+	rsp, err := c.CancelAssetUploadSession(ctx, uploadId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCancelAssetUploadSessionResponse(rsp)
+}
+
+// PublishAssetUploadSessionWithResponse request returning *PublishAssetUploadSessionResponse
+func (c *ClientWithResponses) PublishAssetUploadSessionWithResponse(ctx context.Context, uploadId AssetUploadSessionId, params *PublishAssetUploadSessionParams, reqEditors ...RequestEditorFn) (*PublishAssetUploadSessionResponse, error) {
+	rsp, err := c.PublishAssetUploadSession(ctx, uploadId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePublishAssetUploadSessionResponse(rsp)
+}
+
+// CreateAssetUploadInstructionWithResponse request returning *CreateAssetUploadInstructionResponse
+func (c *ClientWithResponses) CreateAssetUploadInstructionWithResponse(ctx context.Context, uploadId AssetUploadSessionId, params *CreateAssetUploadInstructionParams, reqEditors ...RequestEditorFn) (*CreateAssetUploadInstructionResponse, error) {
+	rsp, err := c.CreateAssetUploadInstruction(ctx, uploadId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateAssetUploadInstructionResponse(rsp)
+}
+
 // ListAssetsWithResponse request returning *ListAssetsResponse
 func (c *ClientWithResponses) ListAssetsWithResponse(ctx context.Context, params *ListAssetsParams, reqEditors ...RequestEditorFn) (*ListAssetsResponse, error) {
 	rsp, err := c.ListAssets(ctx, params, reqEditors...)
@@ -136753,6 +137905,493 @@ func ParseUpdateAssetFolderResponse(rsp *http.Response) (*UpdateAssetFolderRespo
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest AssetFolder
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 501:
+		var dest NotImplemented
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON501 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateAssetUploadSessionResponse parses an HTTP response from a CreateAssetUploadSessionWithResponse call
+func ParseCreateAssetUploadSessionResponse(rsp *http.Response) (*CreateAssetUploadSessionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateAssetUploadSessionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AssetUploadSessionInstruction
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 413:
+		var dest PayloadTooLarge
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON413 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 501:
+		var dest NotImplemented
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON501 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAssetUploadSessionResponse parses an HTTP response from a GetAssetUploadSessionWithResponse call
+func ParseGetAssetUploadSessionResponse(rsp *http.Response) (*GetAssetUploadSessionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAssetUploadSessionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AssetUploadSessionDetails
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 501:
+		var dest NotImplemented
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON501 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCancelAssetUploadSessionResponse parses an HTTP response from a CancelAssetUploadSessionWithResponse call
+func ParseCancelAssetUploadSessionResponse(rsp *http.Response) (*CancelAssetUploadSessionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CancelAssetUploadSessionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AssetUploadSessionDetails
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 501:
+		var dest NotImplemented
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON501 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParsePublishAssetUploadSessionResponse parses an HTTP response from a PublishAssetUploadSessionWithResponse call
+func ParsePublishAssetUploadSessionResponse(rsp *http.Response) (*PublishAssetUploadSessionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &PublishAssetUploadSessionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AssetUploadSessionDetails
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 413:
+		var dest PayloadTooLarge
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON413 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 501:
+		var dest NotImplemented
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON501 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateAssetUploadInstructionResponse parses an HTTP response from a CreateAssetUploadInstructionWithResponse call
+func ParseCreateAssetUploadInstructionResponse(rsp *http.Response) (*CreateAssetUploadInstructionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateAssetUploadInstructionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AssetUploadSessionPrepared
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}

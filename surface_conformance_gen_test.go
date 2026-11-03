@@ -456,6 +456,11 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Esim.RecurringSubscriptions.Get
 	_ = c.Esim.RecurringSubscriptions.Cancel
 	_ = c.Esim.RecurringSubscriptions.Periods
+	_ = c.Assets.Uploads.Create
+	_ = c.Assets.Uploads.Get
+	_ = c.Assets.Uploads.Prepare
+	_ = c.Assets.Uploads.Complete
+	_ = c.Assets.Uploads.Cancel
 	_ = c.Assets.List
 	_ = c.Assets.Get
 	_ = c.Assets.Update

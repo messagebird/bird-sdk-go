@@ -20,8 +20,8 @@ type WhatsappStatsSummaryParams struct {
 	Timezone string
 	// Restricts the statistics to one template, identified by its ID (`wat_…`) or slug. Mutually exclusive with the other dimension filters (`category`, `phone_number`, `tag`); only one may be set per request. An ID matches the `template_id` key on a row of the per-template breakdown; a slug is accepted for callers that predate that key and resolves to the same messages.
 	Template string
-	// Restrict the statistics to a single template category. Mutually exclusive with the other dimension filters (`template`, `phone_number`, `tag`); only one may be set per request. Matches the `category` key on a row of the per-category breakdown.
-	Category WhatsAppTemplateCategory
+	// Restrict the statistics to a single message category; `service` selects free-form messages. Mutually exclusive with the other dimension filters (`template`, `phone_number`, `tag`); only one may be set per request. Matches the `category` key on a row of the per-category breakdown.
+	Category WhatsAppStatsMessageCategory
 	// Restrict the statistics to a single business sender phone number, in E.164 form. Mutually exclusive with the other dimension filters (`template`, `category`, `tag`); only one may be set per request. Matches the `phone_number` key on a row of the per-phone-number breakdown.
 	PhoneNumber string
 	// Restrict the statistics to a single tag. Use `name` to match any value of a tag, or `name:value` for a specific pair (for example `campaign:spring_launch`). Mutually exclusive with the other dimension filters (`template`, `category`, `phone_number`); only one may be set per request. A row of the per-tag breakdown carries the same pair in its single `tag` key.
@@ -53,8 +53,8 @@ type WhatsappStatsDailyParams struct {
 	Timezone string
 	// Restricts the statistics to one template, identified by its ID (`wat_…`) or slug. Mutually exclusive with the other dimension filters (`category`, `phone_number`, `tag`); only one may be set per request. An ID matches the `template_id` key on a row of the per-template breakdown; a slug is accepted for callers that predate that key and resolves to the same messages.
 	Template string
-	// Restrict the statistics to a single template category. Mutually exclusive with the other dimension filters (`template`, `phone_number`, `tag`); only one may be set per request. Matches the `category` key on a row of the per-category breakdown.
-	Category WhatsAppTemplateCategory
+	// Restrict the statistics to a single message category; `service` selects free-form messages. Mutually exclusive with the other dimension filters (`template`, `phone_number`, `tag`); only one may be set per request. Matches the `category` key on a row of the per-category breakdown.
+	Category WhatsAppStatsMessageCategory
 	// Restrict the statistics to a single business sender phone number, in E.164 form. Mutually exclusive with the other dimension filters (`template`, `category`, `tag`); only one may be set per request. Matches the `phone_number` key on a row of the per-phone-number breakdown.
 	PhoneNumber string
 	// Restrict the statistics to a single tag. Use `name` to match any value of a tag, or `name:value` for a specific pair (for example `campaign:spring_launch`). Mutually exclusive with the other dimension filters (`template`, `category`, `phone_number`); only one may be set per request. A row of the per-tag breakdown carries the same pair in its single `tag` key.
@@ -83,8 +83,8 @@ type WhatsappStatsHourlyParams struct {
 	Timezone string
 	// Restricts the statistics to one template, identified by its ID (`wat_…`) or slug. Mutually exclusive with the other dimension filters (`category`, `phone_number`, `tag`); only one may be set per request. An ID matches the `template_id` key on a row of the per-template breakdown; a slug is accepted for callers that predate that key and resolves to the same messages.
 	Template string
-	// Restrict the statistics to a single template category. Mutually exclusive with the other dimension filters (`template`, `phone_number`, `tag`); only one may be set per request. Matches the `category` key on a row of the per-category breakdown.
-	Category WhatsAppTemplateCategory
+	// Restrict the statistics to a single message category; `service` selects free-form messages. Mutually exclusive with the other dimension filters (`template`, `phone_number`, `tag`); only one may be set per request. Matches the `category` key on a row of the per-category breakdown.
+	Category WhatsAppStatsMessageCategory
 	// Restrict the statistics to a single business sender phone number, in E.164 form. Mutually exclusive with the other dimension filters (`template`, `category`, `tag`); only one may be set per request. Matches the `phone_number` key on a row of the per-phone-number breakdown.
 	PhoneNumber string
 	// Restrict the statistics to a single tag. Use `name` to match any value of a tag, or `name:value` for a specific pair (for example `campaign:spring_launch`). Mutually exclusive with the other dimension filters (`template`, `category`, `phone_number`); only one may be set per request. A row of the per-tag breakdown carries the same pair in its single `tag` key.
@@ -153,7 +153,7 @@ type WhatsappStatsByTemplateCategoryParams struct {
 	To time.Time
 	// IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone string
-	// Maximum number of template-category rows to return, ranked by accepted volume descending.
+	// Maximum number of message-category rows to return, ranked by accepted volume descending.
 	Limit int
 }
 
@@ -304,7 +304,7 @@ func (s *WhatsappStatsService) ByTemplate(ctx context.Context, params WhatsappSt
 	return &out, nil
 }
 
-// ByTemplateCategory Outbound WhatsApp counts grouped by Meta's template category (`authentication`, `utility` and `marketing` today, and the vocabulary is open), ranked by accepted volume. Category is what WhatsApp prices a message on, so this is the breakdown that explains a spend change. A free-form send carries no category, so rows sum to less than the period's accepted total; take the denominator from `whatsapp.stats.summary`. Rows are the whole workspace's: the breakdown takes no dimension filter. Cap the rows with `limit` (default 50, max 200).
+// ByTemplateCategory Outbound WhatsApp counts grouped by the category a message was sent under, ranked by accepted volume. A template send takes its template's category when it was sent (`authentication`, `utility` or `marketing`); a free-form send is `service`. The vocabulary is open. Meta can bill a message under a different pricing category, so these rows do not reconcile with Meta charges. Rows are the whole workspace's: the breakdown takes no dimension filter. Cap the rows with `limit` (default 50, max 200).
 func (s *WhatsappStatsService) ByTemplateCategory(ctx context.Context, params WhatsappStatsByTemplateCategoryParams, opts ...option.RequestOption) (*WhatsAppStatsByTemplateCategoryResponse, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetWhatsAppStatsByTemplateCategory(ctx, params.toWire(), cfg...)

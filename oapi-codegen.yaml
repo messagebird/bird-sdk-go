@@ -455,6 +455,11 @@ output-options:
     - getEsimRecurringSubscription
     - cancelEsimRecurringSubscription
     - listEsimRecurringPeriods
+    - createAssetUploadSession
+    - getAssetUploadSession
+    - createAssetUploadInstruction
+    - publishAssetUploadSession
+    - cancelAssetUploadSession
     - listAssets
     - getAsset
     - updateAsset
