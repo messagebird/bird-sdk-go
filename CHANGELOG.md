@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.122.0
+
+- Add optional Cc and Bcc recipients to mailbox replies; copied recipients are added to the derived reply recipients.
+- **Breaking:** mailbox message `recipients` omits Bcc outcomes on all reads, including previously sent messages; use aggregate `status`, which still counts Bcc failures, rather than deriving it from the visible list.
+- **Breaking:** Required mailbox thread response fields are Go values rather than optional pointers; access required fields directly.
+- **Breaking:** Thread responses and updates now use `folder` and `read`; `labels` contains custom labels only. Replace system-label updates with `folder` and `read`, and filter threads with `folder`, `read_state`, and custom `labels`. To move a trashed thread to another folder, restore it first with your SDK’s thread restore method, `bird email threads restore`, or the `email_threads_restore` MCP tool. `name` is the outgoing sender name; `display_name` is the team-facing label and defaults to `name`.
+
 ## 0.121.0
 
 - Add media-library upload-session methods to create, inspect, refresh, complete and cancel an upload. Creation returns session metadata and an optional temporary upload instruction. A successful prepare returns a pending session with a required upload instruction. Your application transfers the original file bytes with HTTPS before completing the session; these methods do not transfer the file themselves. Retries recover the same intent and saved result.

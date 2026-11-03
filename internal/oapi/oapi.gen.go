@@ -4230,6 +4230,36 @@ func (e EmailThreadLastDirection) Valid() bool {
 	}
 }
 
+// Defines values for EmailThreadFolder.
+const (
+	EmailThreadFolderArchive EmailThreadFolder = "archive"
+	EmailThreadFolderBlocked EmailThreadFolder = "blocked"
+	EmailThreadFolderInbox   EmailThreadFolder = "inbox"
+	EmailThreadFolderSent    EmailThreadFolder = "sent"
+	EmailThreadFolderSpam    EmailThreadFolder = "spam"
+	EmailThreadFolderTrash   EmailThreadFolder = "trash"
+)
+
+// Valid indicates whether the value is a known member of the EmailThreadFolder enum.
+func (e EmailThreadFolder) Valid() bool {
+	switch e {
+	case EmailThreadFolderArchive:
+		return true
+	case EmailThreadFolderBlocked:
+		return true
+	case EmailThreadFolderInbox:
+		return true
+	case EmailThreadFolderSent:
+		return true
+	case EmailThreadFolderSpam:
+		return true
+	case EmailThreadFolderTrash:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for EmailThreadMessageAuthentication.
 const (
 	EmailThreadMessageAuthenticationFail        EmailThreadMessageAuthentication = "fail"
@@ -4284,6 +4314,45 @@ func (e EmailThreadMessageRecipientStatus) Valid() bool {
 	case EmailThreadMessageRecipientStatusDelivered:
 		return true
 	case EmailThreadMessageRecipientStatusFailed:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailThreadReadState.
+const (
+	Read   EmailThreadReadState = "read"
+	Unread EmailThreadReadState = "unread"
+)
+
+// Valid indicates whether the value is a known member of the EmailThreadReadState enum.
+func (e EmailThreadReadState) Valid() bool {
+	switch e {
+	case Read:
+		return true
+	case Unread:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailThreadWritableFolder.
+const (
+	EmailThreadWritableFolderArchive EmailThreadWritableFolder = "archive"
+	EmailThreadWritableFolderInbox   EmailThreadWritableFolder = "inbox"
+	EmailThreadWritableFolderSpam    EmailThreadWritableFolder = "spam"
+)
+
+// Valid indicates whether the value is a known member of the EmailThreadWritableFolder enum.
+func (e EmailThreadWritableFolder) Valid() bool {
+	switch e {
+	case EmailThreadWritableFolderArchive:
+		return true
+	case EmailThreadWritableFolderInbox:
+		return true
+	case EmailThreadWritableFolderSpam:
 		return true
 	default:
 		return false
@@ -19834,7 +19903,7 @@ type EmailInboxInsightsWindow struct {
 	Start *openapi_types.Date `json:"start,omitempty"`
 }
 
-// EmailLabelsUpdate Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. System labels express state changes. On a conversation, adding `spam` files it as spam. Adding `archive` files it away without deleting it. Adding `inbox`, or removing `spam`, `blocked`, or `archive`, returns it to the inbox. Removing `unread` marks all retained received messages as read in one call. On a message, adding or removing `unread` flips read state. Adding or removing `trash` moves it to or out of the trash. The API rejects changes that contradict this model. A request cannot add more than one placement label. It cannot add `blocked`, because blocking a sender is a receive-rule decision. Removing `inbox` requires adding a destination. A conversation cannot add `trash` or `unread`; removing `unread` is the mark-all-read shortcut, and `trash` uses the `DELETE` verb. A message cannot use placement labels; move its conversation instead. A sent message cannot use `unread`. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be used as custom labels, in any casing. A conversation or message has at most 20 labels, system labels included.
+// EmailLabelsUpdate Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. On a message, adding or removing `unread` flips read state. Adding or removing `trash` moves it to or out of the trash. Placement labels cannot be applied to a message; use `folder` on [Update a thread](/docs/api/reference/update-email-thread) (`PATCH /v1/email/threads/{thread_id}`) to move its conversation. A sent message cannot use unread. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be used as custom labels, in any casing. A conversation or message has at most 20 labels, system labels included.
 type EmailLabelsUpdate struct {
 	// Add Labels to apply.
 	Add *[]string `json:"add,omitempty"`
@@ -20609,6 +20678,9 @@ type EmailRecipientRejectionReason string
 // - `complained`: The recipient reported the message as spam.
 // - `rejected`: Delivery was never attempted. Check `rejection_reason`, or the message status for a schedule canceled before delivery.
 type EmailRecipientStatus string
+
+// EmailRecipientAddress Email address without a display name.
+type EmailRecipientAddress = openapi_types.Email
 
 // EmailRecipientDomainStatsPoint Aggregate delivery, engagement, and latency stats for messages sent to a single recipient mailbox domain over the requested period.
 type EmailRecipientDomainStatsPoint struct {
@@ -22632,59 +22704,61 @@ type EmailTemplateVersionSummary struct {
 // EmailThread A conversation in a mailbox. It groups every message in both directions, the mail the mailbox received and the replies it sent, and it holds the conversation's read state, labels, and participant list. A message is retained until it is trashed or ages past the mailbox's retention tier. Only retained messages count toward the totals below.
 type EmailThread struct {
 	// Channel Channel this conversation lives on. Always `email`.
-	Channel *string `json:"channel,omitempty"`
+	Channel string `json:"channel"`
 
 	// ContactId Contact linked to this conversation, or null when none is linked.
 	ContactId *ContactID `json:"contact_id"`
 
 	// CreatedAt When the thread was created.
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	CreatedAt time.Time `json:"created_at"`
+
+	// Folder Primary conversation folder. The supported folders are inbox, archive, spam, blocked, sent, and trash. Blocked and sent are assigned automatically. The sent filter also includes sent conversations that received replies and still sit in the inbox; moving them with PATCH removes them from the sent filter.
+	Folder EmailThreadFolder `json:"folder"`
 
 	// Highlights Matched search fragments for a thread, one array per field the query matched, with the matched terms wrapped in `**`. A field is present only when the query matched it, so the keys that are present tell you which fields produced the hit. Returned only on thread search results.
 	Highlights *EmailThreadHighlights `json:"highlights,omitempty"`
 	Id         ThreadID               `json:"id"`
 
-	// Labels Labels on this conversation. Exactly one system placement label is always present, set by the message that started the conversation:
-	//
-	// - `inbox`: The conversation is in the inbox.
-	// - `archive`: The conversation was filed away and is done for now.
-	// - `spam`: The conversation's opening message is filed in Spam.
-	// - `blocked`: The conversation's opening message was rejected by the mailbox's receive policy or rules.
-	//
-	// Move a conversation by updating its labels. Add `spam` to file it as spam, add `archive` to clean it out of the inbox, and add `inbox`, or remove `spam`, `blocked`, or `archive`, to bring it back. An archived conversation returns to the inbox by itself when a new message arrives. Custom labels share the same list, and a conversation has at most 20 labels in total.
+	// Labels Custom labels applied to this conversation. Folder and read state are separate fields.
 	Labels []string `json:"labels"`
 
 	// LastDirection Direction of the most recent message: `inbound` for a received message, `outbound` for a sent one.
-	LastDirection *EmailThreadLastDirection `json:"last_direction,omitempty"`
+	LastDirection EmailThreadLastDirection `json:"last_direction"`
 
 	// LastMessageAt When the most recent retained message in this conversation was received or sent.
-	LastMessageAt *time.Time `json:"last_message_at,omitempty"`
-	MailboxId     MailboxID  `json:"mailbox_id"`
+	LastMessageAt time.Time `json:"last_message_at"`
+	MailboxId     MailboxID `json:"mailbox_id"`
 
 	// MessageCount Number of retained messages in this conversation, both directions.
-	MessageCount *int `json:"message_count,omitempty"`
+	MessageCount int `json:"message_count"`
 
 	// NextScheduledAt Earliest due time among scheduled or dispatching sends. Returned by conversation get and list only when scheduled_count is positive. Omitted by search and when no sends remain.
 	NextScheduledAt *time.Time `json:"next_scheduled_at,omitempty"`
 
 	// Participants Addresses that appear on the retained messages in this conversation, including the mailbox's own address.
-	Participants *[]openapi_types.Email `json:"participants,omitempty"`
+	Participants []openapi_types.Email `json:"participants"`
+
+	// Read Whether every retained received message is read, including trash, spam and blocked messages. Outbound messages do not affect this state.
+	Read bool `json:"read"`
 
 	// ScheduledCount Scheduled or dispatching sends targeting this conversation. Returned by conversation get and list, including zero when none remain. Omitted by search.
 	ScheduledCount *int64 `json:"scheduled_count,omitempty"`
 
 	// Subject Subject of the conversation, taken from its first message. Null when that message had no subject.
-	Subject *string `json:"subject,omitempty"`
+	Subject *string `json:"subject"`
 
 	// UnreadCount Number of retained received messages that are still unread. Spam and blocked mail is not counted.
-	UnreadCount *int `json:"unread_count,omitempty"`
+	UnreadCount int `json:"unread_count"`
 
 	// UpdatedAt When the thread last changed.
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 // EmailThreadLastDirection Direction of the most recent message: `inbound` for a received message, `outbound` for a sent one.
 type EmailThreadLastDirection string
+
+// EmailThreadFolder Primary conversation folder. The supported folders are inbox, archive, spam, blocked, sent, and trash. Blocked and sent are assigned automatically. The sent filter also includes sent conversations that received replies and still sit in the inbox; moving them with PATCH removes them from the sent filter.
+type EmailThreadFolder string
 
 // EmailThreadHighlights Matched search fragments for a thread, one array per field the query matched, with the matched terms wrapped in `**`. A field is present only when the query matched it, so the keys that are present tell you which fields produced the hit. Returned only on thread search results.
 type EmailThreadHighlights struct {
@@ -22693,6 +22767,15 @@ type EmailThreadHighlights struct {
 
 	// Text Matched fragments from a message's body text.
 	Text *[]string `json:"text,omitempty"`
+}
+
+// EmailThreadLabelsUpdate Custom labels to add or remove. System and reserved names are refused; use read and folder for thread state. The resulting custom-label set must contain at most 20 labels; larger sets return 422.
+type EmailThreadLabelsUpdate struct {
+	// Add Labels to apply.
+	Add *[]string `json:"add,omitempty"`
+
+	// Remove Labels to take off.
+	Remove *[]string `json:"remove,omitempty"`
 }
 
 // EmailThreadList defines model for EmailThreadList.
@@ -22784,7 +22867,7 @@ type EmailThreadMessage struct {
 	// PurgeAt Scheduled permanent-deletion time. For a scheduled acknowledgement, this is based on the due time and replaced with actual dispatch-based retention once it sends. This is the end of the mailbox's retention tier, moved to no more than 30 days in the future while the message is in the trash. Restore a trashed message before then with `PATCH {"labels": {"remove": ["trash"]}}`.
 	PurgeAt *time.Time `json:"purge_at,omitempty"`
 
-	// Recipients Terminal per-recipient delivery outcomes of a sent message, filled in as each one becomes known and kept for the mailbox's full retention tier. Null for received messages and before any recipient reaches a terminal state. Per-recipient event detail lives on the sent-message log (`source`) for 30 days.
+	// Recipients Terminal delivery outcomes for the visible To and Cc recipients of a sent message, filled in as each one becomes known and kept for the mailbox's full retention tier. Bcc recipients are omitted; aggregate status still includes every attempted recipient. Null for received messages and before any visible recipient reaches a terminal state. Per-recipient event detail lives on the sent-message log (`source`) for 30 days.
 	Recipients *[]EmailThreadMessageRecipient `json:"recipients,omitempty"`
 
 	// ReferenceIds RFC 5322 References header entries used to thread the conversation.
@@ -22890,10 +22973,13 @@ type EmailThreadMessageRecipient struct {
 // EmailThreadMessageRecipientStatus Terminal outcome: `delivered`, or `failed` (bounce or provider rejection).
 type EmailThreadMessageRecipientStatus string
 
-// EmailThreadMessageReplyRequest A reply to a conversation message. Recipients are derived from the message being replied to: its Reply-To address when present, otherwise its From address. Set `reply_all` to also include the original To and Cc recipients (minus the mailbox's own address). The subject and threading headers are set automatically. At least one of `html` or `text` must be provided.
+// EmailThreadMessageReplyRequest A reply to a conversation message. For a received message, recipients are derived from its Reply-To address when present, otherwise its From address. For a message the mailbox sent, recipients are derived from its original To line. Set `reply_all` to also include the original To and Cc recipients (minus the mailbox's own address). Add `cc` or `bcc` to copy further recipients. The subject and threading headers are set automatically. At least one of `html` or `text` must be provided.
 type EmailThreadMessageReplyRequest struct {
 	// Attachments File attachments to include with the reply. The send is rejected when the estimated generated message size exceeds 20 MB (bodies plus all attachments after base64 encoding). Keep total raw attachment content at or below 15 MB for reliable headroom. Attachment metadata stays on the message's `attachment_manifest`, and the bytes are downloadable for the mailbox's retention tier.
 	Attachments *[]EmailAttachment `json:"attachments,omitempty"`
+
+	// Bcc Blind-copy recipients. Addresses already on the derived To or merged Cc line are dropped (case-insensitive). Bcc addresses are omitted from conversation participants, visible recipient headers, and the 202 response. Bcc delivery outcomes are excluded from the message's `recipients` list.
+	Bcc *[]EmailRecipientAddress `json:"bcc,omitempty"`
 
 	// CancelOnReply When scheduled_at is set, cancel if an inbound message arrives in the conversation before dispatch is claimed. Defaults to false: the frozen parent, recipients and content are sent unchanged even if new mail arrives.
 	CancelOnReply *bool `json:"cancel_on_reply,omitempty"`
@@ -22903,6 +22989,9 @@ type EmailThreadMessageReplyRequest struct {
 	// - `marketing`: Blocks on all suppression reasons.
 	// - `transactional`: Allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
 	Category *EmailMessageCategory `json:"category,omitempty"`
+
+	// Cc Additional Cc recipients, merged with recipients derived by `reply_all`. Addresses already on the derived To line are dropped (case-insensitive). The merged Cc set must contain at most 50 addresses; larger sets return 422.
+	Cc *[]EmailRecipientAddress `json:"cc,omitempty"`
 
 	// Html HTML body of the reply. At least one of html or text must be provided.
 	Html *string `json:"html,omitempty"`
@@ -22937,18 +23026,30 @@ type EmailThreadMessageUpdateRequest struct {
 	// ContactId Contact to link this message to, or null to unlink the current contact.
 	ContactId nullable.Nullable[ContactID] `json:"contact_id,omitempty"`
 
-	// Labels Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. System labels express state changes. On a conversation, adding `spam` files it as spam. Adding `archive` files it away without deleting it. Adding `inbox`, or removing `spam`, `blocked`, or `archive`, returns it to the inbox. Removing `unread` marks all retained received messages as read in one call. On a message, adding or removing `unread` flips read state. Adding or removing `trash` moves it to or out of the trash. The API rejects changes that contradict this model. A request cannot add more than one placement label. It cannot add `blocked`, because blocking a sender is a receive-rule decision. Removing `inbox` requires adding a destination. A conversation cannot add `trash` or `unread`; removing `unread` is the mark-all-read shortcut, and `trash` uses the `DELETE` verb. A message cannot use placement labels; move its conversation instead. A sent message cannot use `unread`. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be used as custom labels, in any casing. A conversation or message has at most 20 labels, system labels included.
+	// Labels Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. On a message, adding or removing `unread` flips read state. Adding or removing `trash` moves it to or out of the trash. Placement labels cannot be applied to a message; use `folder` on [Update a thread](/docs/api/reference/update-email-thread) (`PATCH /v1/email/threads/{thread_id}`) to move its conversation. A sent message cannot use unread. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be used as custom labels, in any casing. A conversation or message has at most 20 labels, system labels included.
 	Labels *EmailLabelsUpdate `json:"labels,omitempty"`
 }
 
-// EmailThreadUpdateRequest Changes to apply to a thread. Omitted fields are left unchanged.
+// EmailThreadReadState Whether retained received messages in the thread have been read. Includes retained trash, spam and blocked messages.
+type EmailThreadReadState string
+
+// EmailThreadUpdateRequest Changes to apply to a thread. Omitted fields are left unchanged. Folder changes accept inbox, archive or spam and reject trashed threads with 422; first use [Restore a thread from trash](/docs/api/reference/restore-email-thread). Read and custom-label updates remain available in trash.
 type EmailThreadUpdateRequest struct {
 	// ContactId Contact to link this conversation to, or null to unlink the current contact.
 	ContactId nullable.Nullable[ContactID] `json:"contact_id,omitempty"`
 
-	// Labels Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. System labels express state changes. On a conversation, adding `spam` files it as spam. Adding `archive` files it away without deleting it. Adding `inbox`, or removing `spam`, `blocked`, or `archive`, returns it to the inbox. Removing `unread` marks all retained received messages as read in one call. On a message, adding or removing `unread` flips read state. Adding or removing `trash` moves it to or out of the trash. The API rejects changes that contradict this model. A request cannot add more than one placement label. It cannot add `blocked`, because blocking a sender is a receive-rule decision. Removing `inbox` requires adding a destination. A conversation cannot add `trash` or `unread`; removing `unread` is the mark-all-read shortcut, and `trash` uses the `DELETE` verb. A message cannot use placement labels; move its conversation instead. A sent message cannot use `unread`. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be used as custom labels, in any casing. A conversation or message has at most 20 labels, system labels included.
-	Labels *EmailLabelsUpdate `json:"labels,omitempty"`
+	// Folder Folder a caller can choose through PATCH. Use DELETE to move a thread to trash and [Restore a thread from trash](/docs/api/reference/restore-email-thread) (POST /v1/email/threads/{thread_id}/restore) to recover it.
+	Folder *EmailThreadWritableFolder `json:"folder,omitempty"`
+
+	// Labels Custom labels to add or remove. System and reserved names are refused; use read and folder for thread state. The resulting custom-label set must contain at most 20 labels; larger sets return 422.
+	Labels *EmailThreadLabelsUpdate `json:"labels,omitempty"`
+
+	// Read Mark all retained received messages read or unread. Includes trash, spam and blocked messages; unread_count continues to exclude them.
+	Read *bool `json:"read,omitempty"`
 }
+
+// EmailThreadWritableFolder Folder a caller can choose through PATCH. Use DELETE to move a thread to trash and [Restore a thread from trash](/docs/api/reference/restore-email-thread) (POST /v1/email/threads/{thread_id}/restore) to recover it.
+type EmailThreadWritableFolder string
 
 // Error defines model for Error.
 type Error struct {
@@ -27251,7 +27352,7 @@ type Mailbox struct {
 	// DeletedAt When the mailbox was deleted, or `null` if active. Deletion stops receiving; restore is available for 30 days unless permanent erasure has started.
 	DeletedAt *time.Time `json:"deleted_at,omitempty"`
 
-	// DisplayName Display name used as the sender name on mail from this mailbox. `null` when unset.
+	// DisplayName Name shown to your team in the dashboard and tools. Defaults to `name` when no override is set. When `name` is unset, outgoing mail uses this value as the sender name.
 	DisplayName *string `json:"display_name"`
 
 	// ForwardingAddress An address we generate on our receiving domain, either when the mailbox is created on a domain not set up for receiving with us or later, when you set up forwarding for the mailbox. Forward mail for `address` here from your current email provider, and it lands in this mailbox. Replies still go out from `address`. Immutable once set. It stops receiving while the mailbox is deleted, works again with the same value after a restore, and keeps working if you later enable or disable receiving on the domain. `null` until set up; always `null` on the shared domain, which receives directly.
@@ -27267,6 +27368,9 @@ type Mailbox struct {
 
 	// Metadata Your own key/value data attached to the mailbox. Up to 2 KB. Keys starting with `__bird` are reserved.
 	Metadata map[string]interface{} `json:"metadata"`
+
+	// Name Sender name shown alongside the address in outgoing mail. `null` when unset.
+	Name *string `json:"name"`
 
 	// Next What to do next with this mailbox. The response that creates it suggests subscribing to the mail it receives. Forwarding-address setup suggests configuring the email provider. Other reads of one mailbox return an empty list, and lists omit it.
 	Next *[]NextAction `json:"next,omitempty"`
@@ -27329,7 +27433,7 @@ type MailboxCreate struct {
 	// DefaultReplyTo Default `Reply-To` address stamped on mail sent from this mailbox.
 	DefaultReplyTo *openapi_types.Email `json:"default_reply_to,omitempty"`
 
-	// DisplayName Display name used as the sender name on mail from this mailbox.
+	// DisplayName Name shown to your team in the dashboard and tools. Defaults to `name` when omitted. When `name` is unset, outgoing mail uses this value as the sender name.
 	DisplayName *string `json:"display_name,omitempty"`
 
 	// Domain The domain the address lives under. Defaults to `inbox.ai`, our shared mailbox domain. Creating a mailbox claims the shared address for your organization on a first-come, first-served basis. The address remains reserved to your organization after the mailbox is deleted. You can instead use one of your own domains. On a domain enabled for receiving, mail arrives directly. On a domain this workspace has verified (its `status` is `verified`) that is not set up for receiving, the mailbox gets a `forwarding_address`: forward mail for the address there from your current email provider, with no MX change. If another workspace receives the domain's mail, creation fails with `E17009`.
@@ -27340,6 +27444,9 @@ type MailboxCreate struct {
 
 	// Metadata Your own key/value data to attach to the mailbox. Up to 2 KB. Keys starting with `__bird` are reserved.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+
+	// Name Sender name shown alongside the address in outgoing mail. Must contain a non-whitespace character and cannot contain carriage returns or line feeds.
+	Name *string `json:"name,omitempty"`
 
 	// ReceivePolicy Which inbound mail the mailbox accepts:
 	//
@@ -27447,11 +27554,14 @@ type MailboxUpdate struct {
 	// DefaultReplyTo Default `Reply-To` address stamped on mail sent from this mailbox. `null` clears it.
 	DefaultReplyTo nullable.Nullable[string] `json:"default_reply_to,omitempty"`
 
-	// DisplayName Display name used as the sender name on mail from this mailbox. `null` clears it.
+	// DisplayName Name shown to your team in the dashboard and tools. `null` clears the override and uses `name`. When `name` is unset, outgoing mail uses this value as the sender name.
 	DisplayName nullable.Nullable[string] `json:"display_name,omitempty"`
 
 	// Metadata Replaces the mailbox's key/value data. Up to 2 KB. Keys starting with `__bird` are reserved.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+
+	// Name Sender name shown alongside the address in outgoing mail. Must contain a non-whitespace character and cannot contain carriage returns or line feeds. `null` clears it.
+	Name nullable.Nullable[string] `json:"name,omitempty"`
 
 	// ReceivePolicy Which inbound mail the mailbox accepts:
 	//
@@ -40700,7 +40810,7 @@ type ListMailboxesParams struct {
 	// Address Filter to the mailbox with exactly this address.
 	Address *openapi_types.Email `form:"address,omitempty" json:"address,omitempty"`
 
-	// Q Case-insensitive search matching the mailbox's address or display name (substring).
+	// Q Case-insensitive substring match on the mailbox's `address`, `name`, or `display_name`.
 	Q *string `form:"q,omitempty" json:"q,omitempty"`
 
 	// State Return only `active` or `suspended` mailboxes. Use `include_deleted` for restorable deleted mailboxes.
@@ -42509,13 +42619,14 @@ type ListEmailThreadsParams struct {
 	// ContactId Filter to conversations linked to a specific contact.
 	ContactId *ContactID `form:"contact_id,omitempty" json:"contact_id,omitempty"`
 
-	// Label Filter to conversations that have this label. Repeat the parameter to ask for more than one: only conversations that have every label you list are returned.
-	//
-	// A placement label picks a folder: `inbox`, `archive`, `spam`, or `blocked`. A custom label matches a conversation in any folder. Leave this out and you get the inbox.
-	Label *[]string `form:"label,omitempty" json:"label,omitempty"`
+	// Folder Filter to a folder. Defaults to inbox when neither folder nor custom labels are supplied.
+	Folder *EmailThreadFolder `form:"folder,omitempty" json:"folder,omitempty"`
 
-	// HasUnread When `true`, only conversations with unread messages are returned. This filters on the conversation's unread state, so you can combine it with `label`, for example to get unread conversations in the archive. The `unread` label itself lives on individual messages; this filter uses the conversation's aggregate unread state.
-	HasUnread *bool `form:"has_unread,omitempty" json:"has_unread,omitempty"`
+	// ReadState Filter to read or unread conversations. Omit for either state.
+	ReadState *EmailThreadReadState `form:"read_state,omitempty" json:"read_state,omitempty"`
+
+	// Labels Match every listed custom label. Repeat labels to supply more than one. System label names are refused.
+	Labels *[]string `form:"labels,omitempty" json:"labels,omitempty"`
 
 	// Participant Conversations involving this address, matching the sender or any recipient. The match is case-insensitive and matches on any part of the address, so a fragment works as well as the whole address.
 	Participant *string `form:"participant,omitempty" json:"participant,omitempty"`
@@ -42678,6 +42789,37 @@ type GetEmailThreadMessageBodyParams struct {
 
 // ReplyEmailThreadMessageParams defines parameters for ReplyEmailThreadMessage.
 type ReplyEmailThreadMessageParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// RestoreEmailThreadParams defines parameters for RestoreEmailThread.
+type RestoreEmailThreadParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
@@ -57065,6 +57207,9 @@ type ClientInterface interface {
 
 	ReplyEmailThreadMessage(ctx context.Context, threadId ThreadID, messageId string, params *ReplyEmailThreadMessageParams, body ReplyEmailThreadMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// RestoreEmailThread request
+	RestoreEmailThread(ctx context.Context, threadId ThreadID, params *RestoreEmailThreadParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// ListEsimOffers request
 	ListEsimOffers(ctx context.Context, params *ListEsimOffersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -61239,6 +61384,18 @@ func (c *Client) ReplyEmailThreadMessageWithBody(ctx context.Context, threadId T
 
 func (c *Client) ReplyEmailThreadMessage(ctx context.Context, threadId ThreadID, messageId string, params *ReplyEmailThreadMessageParams, body ReplyEmailThreadMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewReplyEmailThreadMessageRequest(c.Server, threadId, messageId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) RestoreEmailThread(ctx context.Context, threadId ThreadID, params *RestoreEmailThreadParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRestoreEmailThreadRequest(c.Server, threadId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -86206,9 +86363,9 @@ func NewListEmailThreadsRequest(server string, params *ListEmailThreadsParams) (
 
 		}
 
-		if params.Label != nil {
+		if params.Folder != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "label", *params.Label, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "folder", *params.Folder, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -86218,9 +86375,21 @@ func NewListEmailThreadsRequest(server string, params *ListEmailThreadsParams) (
 
 		}
 
-		if params.HasUnread != nil {
+		if params.ReadState != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "has_unread", *params.HasUnread, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "read_state", *params.ReadState, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Labels != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "labels", *params.Labels, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -86994,6 +87163,77 @@ func NewReplyEmailThreadMessageRequestWithBody(server string, threadId ThreadID,
 	}
 
 	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewRestoreEmailThreadRequest generates requests for RestoreEmailThread
+func NewRestoreEmailThreadRequest(server string, threadId ThreadID, params *RestoreEmailThreadParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "thread_id", threadId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/threads/%s/restore", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
 
 	if params != nil {
 
@@ -109865,6 +110105,9 @@ type ClientWithResponsesInterface interface {
 
 	ReplyEmailThreadMessageWithResponse(ctx context.Context, threadId ThreadID, messageId string, params *ReplyEmailThreadMessageParams, body ReplyEmailThreadMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*ReplyEmailThreadMessageResponse, error)
 
+	// RestoreEmailThreadWithResponse request
+	RestoreEmailThreadWithResponse(ctx context.Context, threadId ThreadID, params *RestoreEmailThreadParams, reqEditors ...RequestEditorFn) (*RestoreEmailThreadResponse, error)
+
 	// ListEsimOffersWithResponse request
 	ListEsimOffersWithResponse(ctx context.Context, params *ListEsimOffersParams, reqEditors ...RequestEditorFn) (*ListEsimOffersResponse, error)
 
@@ -119206,6 +119449,46 @@ func (r ReplyEmailThreadMessageResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r ReplyEmailThreadMessageResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type RestoreEmailThreadResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailThread
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON410      *Gone
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r RestoreEmailThreadResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r RestoreEmailThreadResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r RestoreEmailThreadResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -130599,6 +130882,15 @@ func (c *ClientWithResponses) ReplyEmailThreadMessageWithResponse(ctx context.Co
 		return nil, err
 	}
 	return ParseReplyEmailThreadMessageResponse(rsp)
+}
+
+// RestoreEmailThreadWithResponse request returning *RestoreEmailThreadResponse
+func (c *ClientWithResponses) RestoreEmailThreadWithResponse(ctx context.Context, threadId ThreadID, params *RestoreEmailThreadParams, reqEditors ...RequestEditorFn) (*RestoreEmailThreadResponse, error) {
+	rsp, err := c.RestoreEmailThread(ctx, threadId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRestoreEmailThreadResponse(rsp)
 }
 
 // ListEsimOffersWithResponse request returning *ListEsimOffersResponse
@@ -151719,6 +152011,102 @@ func ParseReplyEmailThreadMessageResponse(rsp *http.Response) (*ReplyEmailThread
 			return nil, err
 		}
 		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 410:
+		var dest Gone
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON410 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseRestoreEmailThreadResponse parses an HTTP response from a RestoreEmailThreadWithResponse call
+func ParseRestoreEmailThreadResponse(rsp *http.Response) (*RestoreEmailThreadResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &RestoreEmailThreadResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailThread
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
 		var dest Forbidden

@@ -345,6 +345,7 @@ output-options:
     - getEmailThread
     - updateEmailThread
     - deleteEmailThread
+    - restoreEmailThread
     - listEmailThreadMessages
     - getEmailThreadMessage
     - getEmailThreadMessageBody

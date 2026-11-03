@@ -346,6 +346,7 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Email.Threads.Get
 	_ = c.Email.Threads.Update
 	_ = c.Email.Threads.Delete
+	_ = c.Email.Threads.Restore
 	_ = c.Email.Threads.Messages.List
 	_ = c.Email.Threads.Messages.Get
 	_ = c.Email.Threads.Messages.Body

@@ -11,7 +11,9 @@ import (
 	"github.com/messagebird/bird-sdk-go/option"
 )
 
-type EmailLabelsUpdate = oapi.EmailLabelsUpdate
+type EmailThreadLabelsUpdate = oapi.EmailThreadLabelsUpdate
+
+type EmailThreadWritableFolder = oapi.EmailThreadWritableFolder
 
 // EmailThreadsListParams filters the list. Zero-value fields are omitted.
 type EmailThreadsListParams struct {
@@ -19,10 +21,12 @@ type EmailThreadsListParams struct {
 	MailboxID string
 	// Filter to conversations linked to a specific contact.
 	ContactID string
-	// Filter to conversations that have this label. Repeat the parameter to ask for more than one: only conversations that have every label you list are returned. A placement label picks a folder: `inbox`, `archive`, `spam`, or `blocked`. A custom label matches a conversation in any folder. Leave this out and you get the inbox.
-	Label []string
-	// When `true`, only conversations with unread messages are returned. This filters on the conversation's unread state, so you can combine it with `label`, for example to get unread conversations in the archive. The `unread` label itself lives on individual messages; this filter uses the conversation's aggregate unread state.
-	HasUnread bool
+	// Filter to a folder. Defaults to inbox when neither folder nor custom labels are supplied.
+	Folder EmailThreadFolder
+	// Filter to read or unread conversations. Omit for either state.
+	ReadState EmailThreadReadState
+	// Match every listed custom label. Repeat labels to supply more than one. System label names are refused.
+	Labels []string
 	// Conversations involving this address, matching the sender or any recipient. The match is case-insensitive and matches on any part of the address, so a fragment works as well as the whole address.
 	Participant string
 	// Conversations whose subject contains this text (case-insensitive).
@@ -41,8 +45,9 @@ func (p EmailThreadsListParams) toWire(startingAfter string) *oapi.ListEmailThre
 	return &oapi.ListEmailThreadsParams{
 		MailboxId:     optZero(p.MailboxID),
 		ContactId:     optZero(p.ContactID),
-		Label:         optSlice(p.Label),
-		HasUnread:     optBool(p.HasUnread),
+		Folder:        optZero(p.Folder),
+		ReadState:     optZero(p.ReadState),
+		Labels:        optSlice(p.Labels),
 		Participant:   optStr(p.Participant),
 		Subject:       optStr(p.Subject),
 		After:         optTime(p.After),
@@ -55,14 +60,22 @@ func (p EmailThreadsListParams) toWire(startingAfter string) *oapi.ListEmailThre
 
 // EmailThreadsUpdateParams is the request body for update.
 type EmailThreadsUpdateParams struct {
-	// Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. System labels express state changes. On a conversation, adding `spam` files it as spam. Adding `archive` files it away without deleting it. Adding `inbox`, or removing `spam`, `blocked`, or `archive`, returns it to the inbox. Removing `unread` marks all retained received messages as read in one call. On a message, adding or removing `unread` flips read state. Adding or removing `trash` moves it to or out of the trash. The API rejects changes that contradict this model. A request cannot add more than one placement label. It cannot add `blocked`, because blocking a sender is a receive-rule decision. Removing `inbox` requires adding a destination. A conversation cannot add `trash` or `unread`; removing `unread` is the mark-all-read shortcut, and `trash` uses the `DELETE` verb. A message cannot use placement labels; move its conversation instead. A sent message cannot use `unread`. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be used as custom labels, in any casing. A conversation or message has at most 20 labels, system labels included.
-	Labels *EmailLabelsUpdate
+	// Mark all retained received messages read or unread. Includes trash, spam and blocked messages; unread_count continues to exclude them.
+	Read *bool
+	// Move a non-trashed conversation to inbox, archive or spam. Use DELETE to trash it and POST restore to recover it. Blocked and sent folders are assigned automatically.
+	Folder *EmailThreadWritableFolder
+	// Custom labels to add or remove. System and reserved names are refused; use read and folder for thread state. The resulting custom-label set must contain at most 20 labels; larger sets return 422.
+	Labels *EmailThreadLabelsUpdate
 	// Contact to link this conversation to, or null to unlink the current contact.
 	ContactID Nullable[string]
 }
 
 func (p EmailThreadsUpdateParams) toWire() oapi.EmailThreadUpdateRequest {
 	body := oapi.EmailThreadUpdateRequest{}
+	body.Read = p.Read
+	if p.Folder != nil {
+		body.Folder = p.Folder
+	}
 	if p.Labels != nil {
 		body.Labels = p.Labels
 	}
@@ -98,7 +111,7 @@ func (s *EmailThreadsService) ListPage(ctx context.Context, params EmailThreadsL
 	return &out, nil
 }
 
-// List List mailbox conversations as a cursor page, most recently active first. `label` selects the view: inbox (default), archive, spam, blocked, or a custom label. Filter by mailbox, contact, participant address, or subject substring.
+// List List mailbox conversations as a cursor page, most recently active first. `folder` selects the view: inbox (default), archive, spam, blocked, sent, or trash. `labels` matches custom labels. Filter by mailbox, contact, participant address, or subject substring.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *EmailThreadsService) List(ctx context.Context, params EmailThreadsListParams, opts ...option.RequestOption) iter.Seq2[*EmailThread, error] {
@@ -130,7 +143,7 @@ func (s *EmailThreadsService) Get(ctx context.Context, threadId string, opts ...
 	return &out, nil
 }
 
-// Update Add or remove labels on a conversation, or link and unlink a contact. Adding `spam` files it as spam, `archive` clears it out of the inbox, and `inbox` brings it back.
+// Update Set read state, move a conversation with folder, add or remove custom labels, or link and unlink a contact. Use `email.threads.delete` to trash a conversation and `email.threads.restore` to recover it. Restore a trashed conversation before changing its folder. Blocked and sent are assigned automatically.
 func (s *EmailThreadsService) Update(ctx context.Context, threadId string, params EmailThreadsUpdateParams, opts ...option.RequestOption) (*EmailThread, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.UpdateEmailThreadParams{}
@@ -149,7 +162,7 @@ func (s *EmailThreadsService) Update(ctx context.Context, threadId string, param
 	return &out, nil
 }
 
-// Delete Move a conversation and all its messages to trash (purged after 30 days), or delete permanently with `?permanent=true`.
+// Delete Move a conversation and all its messages to trash. Restore retained messages during the 30-day trash window with `email.threads.restore`, or delete permanently with `?permanent=true` without a restore window.
 func (s *EmailThreadsService) Delete(ctx context.Context, threadId string, params EmailThreadsDeleteParams, opts ...option.RequestOption) error {
 	_, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := params.toWire()
@@ -159,4 +172,23 @@ func (s *EmailThreadsService) Delete(ctx context.Context, threadId string, param
 		return s.client.oapi.DeleteEmailThread(ctx, oapi.ThreadID(threadId), op, cfg...)
 	})
 	return err
+}
+
+// Restore Restore messages that remain within their trash deadline and the mailbox retention period. Preserves folder and read state. Repeating the operation does not change messages already restored; canceled scheduled sends remain canceled.
+func (s *EmailThreadsService) Restore(ctx context.Context, threadId string, opts ...option.RequestOption) (*EmailThread, error) {
+	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.RestoreEmailThreadParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.RestoreEmailThread(ctx, oapi.ThreadID(threadId), op, cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out EmailThread
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
 }

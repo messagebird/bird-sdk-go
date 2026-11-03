@@ -1055,7 +1055,9 @@ type (
 	ReceiveRuleList = oapi.ReceiveRuleList
 
 	// EmailThread is a conversation: a group of messages on the same topic.
-	EmailThread = oapi.EmailThread
+	EmailThread          = oapi.EmailThread
+	EmailThreadFolder    = oapi.EmailThreadFolder
+	EmailThreadReadState = oapi.EmailThreadReadState
 	// EmailThreadList is one page of threads plus its pagination cursors.
 	EmailThreadList = oapi.EmailThreadList
 

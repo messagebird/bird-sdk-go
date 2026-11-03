@@ -1575,7 +1575,7 @@ func ExampleEmailMailboxesService_Create() {
 		log.Fatal(err)
 	}
 	mailbox, err := client.Email.Mailboxes.Create(context.Background(), bird.EmailMailboxesCreateParams{
-		DisplayName: bird.Ptr("Support"),
+		Name: bird.Ptr("Support"),
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -1601,7 +1601,7 @@ func ExampleEmailMailboxesService_Update() {
 		log.Fatal(err)
 	}
 	mailbox, err := client.Email.Mailboxes.Update(context.Background(), "mbx_123", bird.EmailMailboxesUpdateParams{
-		DisplayName: bird.Value("Sales"),
+		Name: bird.Value("Sales"),
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -1770,7 +1770,7 @@ func ExampleEmailThreadsService_Update() {
 		log.Fatal(err)
 	}
 	thread, err := client.Email.Threads.Update(context.Background(), "thr_123", bird.EmailThreadsUpdateParams{
-		Labels: &bird.EmailLabelsUpdate{Add: &[]string{"urgent"}},
+		Labels: &bird.EmailThreadLabelsUpdate{Add: &[]string{"urgent"}},
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -1786,6 +1786,18 @@ func ExampleEmailThreadsService_Delete() {
 	if err := client.Email.Threads.Delete(context.Background(), "thr_123", bird.EmailThreadsDeleteParams{Permanent: true}); err != nil {
 		log.Fatal(err)
 	}
+}
+
+func ExampleEmailThreadsService_Restore() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	thread, err := client.Email.Threads.Restore(context.Background(), "thr_123")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(thread.Id)
 }
 
 func ExampleEmailThreadsMessagesService_List() {

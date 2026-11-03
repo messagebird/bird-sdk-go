@@ -24,7 +24,7 @@ type MailboxUpdateRetentionTier = oapi.MailboxUpdateRetentionTier
 type EmailMailboxesListParams struct {
 	// Filter to the mailbox with exactly this address.
 	Address string
-	// Case-insensitive search matching the mailbox's address or display name (substring).
+	// Case-insensitive substring match on the mailbox's `address`, `name`, or `display_name`.
 	Q string
 	// Return only `active` or `suspended` mailboxes. Use `include_deleted` for restorable deleted mailboxes.
 	State string
@@ -57,7 +57,9 @@ type EmailMailboxesCreateParams struct {
 	LocalPart *string
 	// The domain the address lives under. Defaults to `inbox.ai`, our shared mailbox domain. Creating a mailbox claims the shared address for your organization on a first-come, first-served basis. The address remains reserved to your organization after the mailbox is deleted. You can instead use one of your own domains. On a domain enabled for receiving, mail arrives directly. On a domain this workspace has verified (its `status` is `verified`) that is not set up for receiving, the mailbox gets a `forwarding_address`: forward mail for the address there from your current email provider, with no MX change. If another workspace receives the domain's mail, creation fails with `E17009`.
 	Domain *string
-	// Display name used as the sender name on mail from this mailbox.
+	// Sender name shown alongside the address in outgoing mail. Must contain a non-whitespace character and cannot contain carriage returns or line feeds.
+	Name *string
+	// Name shown to your team in the dashboard and tools. Defaults to `name` when omitted. When `name` is unset, outgoing mail uses this value as the sender name.
 	DisplayName *string
 	// Default `Reply-To` address stamped on mail sent from this mailbox.
 	DefaultReplyTo *string
@@ -73,6 +75,7 @@ func (p EmailMailboxesCreateParams) toWire() oapi.MailboxCreate {
 	body := oapi.MailboxCreate{}
 	body.LocalPart = p.LocalPart
 	body.Domain = p.Domain
+	body.Name = p.Name
 	body.DisplayName = p.DisplayName
 	if p.DefaultReplyTo != nil {
 		body.DefaultReplyTo = Ptr(openapi_types.Email(*p.DefaultReplyTo))
@@ -92,7 +95,9 @@ func (p EmailMailboxesCreateParams) toWire() oapi.MailboxCreate {
 
 // EmailMailboxesUpdateParams is the request body for update.
 type EmailMailboxesUpdateParams struct {
-	// Display name used as the sender name on mail from this mailbox. `null` clears it.
+	// Sender name shown alongside the address in outgoing mail. Must contain a non-whitespace character and cannot contain carriage returns or line feeds. `null` clears it.
+	Name Nullable[string]
+	// Name shown to your team in the dashboard and tools. `null` clears the override and uses `name`. When `name` is unset, outgoing mail uses this value as the sender name.
 	DisplayName Nullable[string]
 	// Default `Reply-To` address stamped on mail sent from this mailbox. `null` clears it.
 	DefaultReplyTo Nullable[string]
@@ -108,6 +113,7 @@ type EmailMailboxesUpdateParams struct {
 
 func (p EmailMailboxesUpdateParams) toWire() oapi.MailboxUpdate {
 	body := oapi.MailboxUpdate{}
+	body.Name = p.Name
 	body.DisplayName = p.DisplayName
 	body.DefaultReplyTo = p.DefaultReplyTo
 	if p.ReceivePolicy != nil {
@@ -166,7 +172,7 @@ func (s *EmailMailboxesService) ListPage(ctx context.Context, params EmailMailbo
 	return &out, nil
 }
 
-// List List the workspace's mailboxes as a cursor page, newest first. Search addresses and display names with q, or filter by exact address, state, or domain.
+// List List the workspace's mailboxes as a cursor page, newest first. Search address, name and display_name with q, or filter by exact address, state, or domain.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *EmailMailboxesService) List(ctx context.Context, params EmailMailboxesListParams, opts ...option.RequestOption) iter.Seq2[*Mailbox, error] {

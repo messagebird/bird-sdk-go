@@ -46,6 +46,10 @@ type EmailThreadsMessagesReplyParams struct {
 	HTML *string
 	// Plain-text body of the reply. At least one of html or text must be provided.
 	Text *string
+	// Additional Cc recipients, merged with recipients derived by `reply_all`. Addresses already on the derived To line are dropped (case-insensitive). The merged Cc set must contain at most 50 addresses; larger sets return 422.
+	Cc []string
+	// Blind-copy recipients. Addresses already on the derived To or merged Cc line are dropped (case-insensitive). Bcc addresses are omitted from conversation participants, visible recipient headers, and the 202 response. Bcc delivery outcomes are excluded from the message's `recipients` list.
+	Bcc []string
 	// Also send the reply to the original To and Cc recipients, minus the mailbox's own address.
 	ReplyAll *bool
 	// Structured `{name, value}` labels for filtering and analytics on the sent-message log. Cap: 20 tags per send.
@@ -65,6 +69,20 @@ func (p EmailThreadsMessagesReplyParams) toWire() oapi.EmailThreadMessageReplyRe
 	body.ScheduledAt = optTime(p.ScheduledAt)
 	body.Html = p.HTML
 	body.Text = p.Text
+	cc := make([]oapi.EmailRecipientAddress, len(p.Cc))
+	for i, v := range p.Cc {
+		cc[i] = oapi.EmailRecipientAddress(v)
+	}
+	if p.Cc != nil {
+		body.Cc = &cc
+	}
+	bcc := make([]oapi.EmailRecipientAddress, len(p.Bcc))
+	for i, v := range p.Bcc {
+		bcc[i] = oapi.EmailRecipientAddress(v)
+	}
+	if p.Bcc != nil {
+		body.Bcc = &bcc
+	}
 	body.ReplyAll = p.ReplyAll
 	if p.Tags != nil {
 		v := p.Tags
@@ -148,7 +166,7 @@ func (s *EmailThreadsMessagesService) Body(ctx context.Context, threadId string,
 	return &out, nil
 }
 
-// Reply Reply to a specific conversation message from the mailbox's own address. To reply to a conversation, target its newest received message. Recipients, subject, and threading headers are derived automatically.
+// Reply Reply to a specific conversation message from the mailbox's own address. To reply to a conversation, target its newest received message. Recipients, subject, and threading headers are derived automatically. Add cc or bcc to copy further recipients.
 func (s *EmailThreadsMessagesService) Reply(ctx context.Context, threadId string, messageId string, params EmailThreadsMessagesReplyParams, opts ...option.RequestOption) (*EmailThreadMessage, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.ReplyEmailThreadMessageParams{}
