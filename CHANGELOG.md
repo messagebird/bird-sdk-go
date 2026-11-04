@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.124.0
+
+- Add the `option.WithClientCertificate(certFile, keyFile)` client option to present a client certificate on every request. Without `option.WithBaseURL(url)`, it also sends requests to the region's mTLS endpoint.
+- The effective price for a product now reports `included`, which is `true` while your plan includes the next unit of a unit-subscription product, such as a dedicated IP, at no charge.
+- Correct the Apple Messages descriptions for `origin`, `last_message` and the invitation `conversation_id`, and the `remediation` of a `not_found_error` on a send, to reflect that accepting an invitation opens the conversation while the business is connected and the customer has not left the thread; an acceptance received while the business is disconnected, or after the customer left, opens none; it links an existing conversation at once, and otherwise `conversation_id` stays absent until their next message.
+- The Test a webhook API, `bird webhooks test`, and the `webhooks_test` MCP tool send synthetic events with `test: true`. Only endpoints with a configured filter include `data`, containing the filter’s equality values rather than a full event payload.
+
 ## 0.123.0
 
 - Numbers get and list responses now expose `ownership.registration_due_at` (the deadline for completing ownership details) and `ownership.unavailable_at` (when the number became unavailable).

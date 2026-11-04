@@ -13,15 +13,17 @@ import (
 // Config is the settings for a single API call. Client options seed it at
 // construction; per-call options Clone it and override individual fields.
 //
-// BaseURL, APIKey, Region, and HTTPClient take effect at client construction
-// only — the underlying HTTP client is built once. The remaining fields are
-// honored per call.
+// BaseURL, APIKey, Region, HTTPClient, and the client certificate files take
+// effect at client construction only — the underlying HTTP client is built
+// once. The remaining fields are honored per call.
 type Config struct {
 	BaseURL        string
 	APIKey         string
 	Region         string
 	APIVersion     string
 	HTTPClient     *http.Client
+	ClientCertFile string
+	ClientKeyFile  string
 	MaxRetries     int
 	Timeout        time.Duration
 	IdempotencyKey string

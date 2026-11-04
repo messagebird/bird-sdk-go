@@ -17,7 +17,8 @@ import (
 // RequestOption configures a request. Options are applied in order, so a later
 // option wins over an earlier one. Most options work at construction and per
 // call; the client-only options (WithAPIKey, WithBaseURL, WithRegion,
-// WithHTTPClient) return an error if applied to a single call.
+// WithHTTPClient, WithClientCertificate) return an error if applied to a
+// single call.
 type RequestOption func(*requestconfig.Config) error
 
 // clientOnly rejects an option that only makes sense at client construction.
@@ -47,6 +48,15 @@ func WithBaseURL(url string) RequestOption {
 // applied through the request context, so leave the client's own Timeout unset.
 func WithHTTPClient(client *http.Client) RequestOption {
 	return clientOnly("WithHTTPClient", func(c *requestconfig.Config) { c.HTTPClient = client })
+}
+
+// WithClientCertificate presents a PEM certificate chain (leaf first) and its
+// unencrypted PEM key, and selects the region's mTLS endpoint unless
+// WithBaseURL is set. It cannot be combined with WithHTTPClient.
+func WithClientCertificate(certFile, keyFile string) RequestOption {
+	return clientOnly("WithClientCertificate", func(c *requestconfig.Config) {
+		c.ClientCertFile, c.ClientKeyFile = certFile, keyFile
+	})
 }
 
 // WithRegion selects the region (e.g. "eu1") for base-URL resolution, overriding

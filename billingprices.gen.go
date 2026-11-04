@@ -15,7 +15,7 @@ type BillingPricesResolveParams struct {
 	ProductID string
 	// Product slug to price. Provide exactly one of `product_id` or `product_slug`.
 	ProductSlug string
-	// Published self-serve plan to price under in place of your current plan. Returns `404` if the plan is not an active self-serve plan.
+	// Published self-serve plan to price under in place of your current plan. Returns `404` if the plan is not an active self-serve plan. The response's `included` flag still reflects your current entitlements, not this plan.
 	PlanID string
 	// Key-value pairs that refine attribute-based pricing, such as destination country or sender type. For example, `dimensions[country_code]=US`.
 	Dimensions map[string]string

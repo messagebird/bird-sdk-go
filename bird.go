@@ -16,10 +16,12 @@ package bird
 import (
 	"bytes"
 	"context"
+	"crypto/tls"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
+	"net"
 	"net/http"
 	"net/url"
 	"os"
@@ -34,7 +36,7 @@ import (
 )
 
 const (
-	version = "0.123.0"
+	version = "0.124.0"
 	// userAgent is human-readable only; the API attributes the SDK from the
 	// Bird-* headers set in callEditors, not the UA.
 	userAgent = "bird-sdk-go/" + version
@@ -118,6 +120,7 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 	if cfg.APIKey == "" && cfg.WebhookSecret == "" {
 		return nil, errors.New("bird: pass option.WithAPIKey for API calls, or option.WithWebhookSecret for a receiver-only client")
 	}
+	mtls := cfg.ClientCertFile != "" || cfg.ClientKeyFile != ""
 	if cfg.BaseURL == "" && cfg.APIKey != "" {
 		region := cfg.Region
 		if region == "" {
@@ -126,7 +129,29 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 		if region == "" {
 			return nil, errors.New("bird: cannot determine region; pass option.WithRegion or option.WithBaseURL (or use a bk_{region}_{token} or bm_{region}_{token} key)")
 		}
-		cfg.BaseURL = baseURLForRegion(region)
+		if mtls {
+			cfg.BaseURL = mtlsBaseURLForRegion(region)
+		} else {
+			cfg.BaseURL = baseURLForRegion(region)
+		}
+	}
+	if mtls {
+		if cfg.HTTPClient != nil {
+			return nil, errors.New("bird: option.WithClientCertificate cannot apply to a client from option.WithHTTPClient; set the certificate on that client's transport instead")
+		}
+		if cfg.ClientCertFile == "" {
+			return nil, errors.New("bird: option.WithClientCertificate needs a certificate file")
+		}
+		if cfg.ClientKeyFile == "" {
+			return nil, errors.New("bird: option.WithClientCertificate needs a key file")
+		}
+		pair, err := tls.LoadX509KeyPair(cfg.ClientCertFile, cfg.ClientKeyFile)
+		if err != nil {
+			return nil, fmt.Errorf("bird: option.WithClientCertificate: load %s with key %s: %w", cfg.ClientCertFile, cfg.ClientKeyFile, err)
+		}
+		transport := defaultTransport()
+		transport.TLSClientConfig = &tls.Config{Certificates: []tls.Certificate{pair}, MinVersion: tls.VersionTLS12}
+		cfg.HTTPClient = &http.Client{Transport: transport}
 	}
 	if cfg.HTTPClient == nil {
 		cfg.HTTPClient = &http.Client{}
@@ -298,6 +323,27 @@ func regionFromAPIKey(key string) string {
 
 func baseURLForRegion(region string) string {
 	return "https://" + region + ".platform.bird.com"
+}
+
+func mtlsBaseURLForRegion(region string) string {
+	return "https://mtls." + region + ".platform.bird.com"
+}
+
+// defaultTransport clones http.DefaultTransport, which an application may have
+// replaced with a wrapper, falling back to the standard library's settings.
+func defaultTransport() *http.Transport {
+	if t, ok := http.DefaultTransport.(*http.Transport); ok {
+		return t.Clone()
+	}
+	return &http.Transport{
+		Proxy:                 http.ProxyFromEnvironment,
+		DialContext:           (&net.Dialer{Timeout: 30 * time.Second, KeepAlive: 30 * time.Second}).DialContext,
+		ForceAttemptHTTP2:     true,
+		MaxIdleConns:          100,
+		IdleConnTimeout:       90 * time.Second,
+		TLSHandshakeTimeout:   10 * time.Second,
+		ExpectContinueTimeout: 1 * time.Second,
+	}
 }
 
 // resolveRawRequestURL validates a caller-supplied escape-hatch path before the

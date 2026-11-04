@@ -11627,13 +11627,13 @@ type AMBConversation struct {
 	// Labels Workspace labels on this conversation. Labels do not change read state or inbox status.
 	Labels ConversationLabels `json:"labels"`
 
-	// LastMessage Most recent message, or null when its identity has not been recorded.
+	// LastMessage Most recent message, or null when no message identity has been recorded for the conversation, for example one opened by an invitation acceptance before its first message.
 	LastMessage *AMBConversationLastMessage `json:"last_message"`
 
 	// Locale The customer's locale recorded for this conversation. Messages without a locale and delayed messages that leave the conversation closed preserve the previous value. Empty when no locale is known. Preserved in Apple's locale format, for example `en_US@rg=nlzzzz`.
 	Locale string `json:"locale"`
 
-	// Origin How the conversation started. `entry_point` means the customer opened it from one of your configured Apple Messages for Business entry points. `invitation` means the customer accepted an invitation and sent a message. This is set once when the conversation is created and never changes.
+	// Origin How the conversation started. `entry_point` means the customer opened it from one of your configured Apple Messages for Business entry points. `invitation` means the customer accepted an invitation, which opened the conversation, or whose first message opened it when the acceptance could not (for example while the business was disconnected). This is set once when the conversation is created and never changes.
 	Origin AMBConversationOrigin `json:"origin"`
 
 	// Recipient The customer on the other side of this Apple Messages for Business conversation.
@@ -11695,7 +11695,7 @@ type AMBConversationList struct {
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
-// AMBConversationOrigin How the conversation started. `entry_point` means the customer opened it from one of your configured Apple Messages for Business entry points. `invitation` means the customer accepted an invitation and sent a message. This is set once when the conversation is created and never changes.
+// AMBConversationOrigin How the conversation started. `entry_point` means the customer opened it from one of your configured Apple Messages for Business entry points. `invitation` means the customer accepted an invitation, which opened the conversation, or whose first message opened it when the acceptance could not (for example while the business was disconnected). This is set once when the conversation is created and never changes.
 type AMBConversationOrigin string
 
 // AMBConversationRecipient The customer on the other side of this Apple Messages for Business conversation.
@@ -14870,6 +14870,9 @@ type BillingResolvedPrice struct {
 	// ExternalDescription Customer-facing description of the product this price was resolved for, when set.
 	ExternalDescription *string `json:"external_description,omitempty"`
 	GrossPrice          Money   `json:"gross_price"`
+
+	// Included Whether your organization's next unit of this `unit_subscription` product, with the requested `dimensions`, is free because a plan includes it. It reflects the organization's current active entitlements, whatever `plan_id` is requested, so it does not describe a candidate plan. A unit with dimensions that no included pattern matches is not free. `unit_price` and `gross_price` stay the published price a unit pays beyond the included units. Always `false` for other pricing models.
+	Included bool `json:"included"`
 
 	// Increment The billing rounding window for time-based products, expressed as `{initial_seconds}/{continuation_seconds}`. For example, `60/60` means each unit covers 60 seconds. `null` for per-unit products.
 	Increment *string `json:"increment,omitempty"`
@@ -35114,7 +35117,7 @@ type WhatsAppNumberError struct {
 // - `verification_rate_limited`: WhatsApp declined to send this number another verification code, having been asked too often. It clears with time; retrying sooner extends it.
 // - `business_account_locked`: WhatsApp locked the business account.
 // - `business_verification_required`: WhatsApp refused to register the number because the business portfolio is not verified, usually because an unverified portfolio may hold only a few registered numbers. Verify the business or free a registered number on the portfolio, then repair the number.
-// - `credit_currency_mismatch`: WhatsApp bills the business account in a currency your organization is not billed in. In Meta Business Suite, remove the account's payment method and then set its currency to your organization's billing currency. If Meta doesn't allow the change, connect the number under a business account WhatsApp bills in that same currency or has set no currency on.
+// - `credit_currency_mismatch`: WhatsApp bills the business account in a currency other than USD, EUR, or your organization's billing currency. In Meta Business Suite, remove the account's payment method and then set its currency to one of those. If Meta doesn't allow the change, connect the number under a business account WhatsApp bills in one of them or has set no currency on.
 // - `billing_close`: WhatsApp refused to set up billing for the business account while its monthly billing close ran. The close usually ends within the first few days of the new month; nothing about the number or the account needs changing. Once those days have passed, repair the number.
 // - `permission_denied`: WhatsApp refused access to the account.
 // - `invalid_request`: WhatsApp rejected the connection details.
@@ -43997,7 +44000,7 @@ type GetBillingResolvedPriceParams struct {
 	// ProductSlug Product slug to price. Provide exactly one of `product_id` or `product_slug`.
 	ProductSlug *string `form:"product_slug,omitempty" json:"product_slug,omitempty"`
 
-	// PlanId Published self-serve plan to price under in place of your current plan. Returns `404` if the plan is not an active self-serve plan.
+	// PlanId Published self-serve plan to price under in place of your current plan. Returns `404` if the plan is not an active self-serve plan. The response's `included` flag still reflects your current entitlements, not this plan.
 	PlanId *ProductID `form:"plan_id,omitempty" json:"plan_id,omitempty"`
 
 	// Dimensions Key-value pairs that refine attribute-based pricing, such as destination country or sender type. For example, `dimensions[country_code]=US`.
