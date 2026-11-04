@@ -8931,6 +8931,24 @@ func (e WebhookTestClientCertificate) Valid() bool {
 	}
 }
 
+// Defines values for WebhookTestKind.
+const (
+	Delivery WebhookTestKind = "delivery"
+	Probe    WebhookTestKind = "probe"
+)
+
+// Valid indicates whether the value is a known member of the WebhookTestKind enum.
+func (e WebhookTestKind) Valid() bool {
+	switch e {
+	case Delivery:
+		return true
+	case Probe:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for WebhookTestResponseStatus.
 const (
 	WebhookTestResponseStatusDelivered WebhookTestResponseStatus = "delivered"
@@ -32605,6 +32623,9 @@ type WebhookEndpoint struct {
 	Filter *WebhookFilter    `json:"filter"`
 	Id     WebhookEndpointID `json:"id"`
 
+	// Next What to do next with this endpoint. The responses that create or update a connector endpoint suggest testing it, which checks its fields with the connected platform. Other responses that return one endpoint return an empty list, and lists omit it.
+	Next *[]NextAction `json:"next,omitempty"`
+
 	// Status Delivery state of the endpoint.
 	//
 	// - `active`: The initial state; events are being delivered normally.
@@ -32675,7 +32696,7 @@ type WebhookEndpointCreated struct {
 	Filter *WebhookFilter    `json:"filter"`
 	Id     WebhookEndpointID `json:"id"`
 
-	// Next What to do next with this endpoint. Empty: deliveries start as the events happen, with nothing left to set up.
+	// Next What to do next with this endpoint. The responses that create or update a connector endpoint suggest testing it, which checks its fields with the connected platform. Other responses that return one endpoint return an empty list, and lists omit it.
 	Next *[]NextAction `json:"next,omitempty"`
 
 	// Secret Signing secret for this endpoint (`whsec_` prefix), used to verify every delivery signature. Present in this response only: store it immediately, it cannot be retrieved again. If you lose it, mint a new one with [Rotate webhook signing secret](/docs/api/reference/rotate-webhook-secret).
@@ -32810,6 +32831,9 @@ type WebhookSortField string
 // - `rejected`: your endpoint rejected the certificate. If your workspace allows deliveries without the certificate, we sent the test again without it, and the other fields show the result of that second request.
 type WebhookTestClientCertificate string
 
+// WebhookTestKind What the test did. `delivery` sent the test event to the endpoint. `probe` read the connected platform instead, which checks a connector endpoint's fields, sends no event and starts nothing; the status, HTTP details and latency are then the platform's answer to that read. Absent when the test stopped before sending anything, with `error` saying why.
+type WebhookTestKind string
+
 // WebhookTestRequest defines model for WebhookTestRequest.
 type WebhookTestRequest struct {
 	// EventType Event type to simulate. Any type from the event catalog is accepted, whether or not the endpoint subscribes to it; an unknown type returns a `422`. When omitted, the endpoint's first subscribed event type is used.
@@ -32825,26 +32849,32 @@ type WebhookTestResponse struct {
 	// - `rejected`: your endpoint rejected the certificate. If your workspace allows deliveries without the certificate, we sent the test again without it, and the other fields show the result of that second request.
 	ClientCertificate *WebhookTestClientCertificate `json:"client_certificate,omitempty"`
 
-	// Error A short explanation of why the event could not be delivered. Present only when your endpoint could not be reached.
+	// Error A short explanation of a failed test that got no HTTP answer: the endpoint or platform could not be reached, or the test stopped before sending anything, such as for a connector endpoint whose connection no longer exists (then `kind` is absent).
 	Error *string `json:"error,omitempty"`
 
 	// EventPayload Webhook delivery body. `type` identifies the event variant, `timestamp` is when the event occurred, and `data` contains the event-specific payload. See the [webhooks guide](/docs/guides/webhooks) for signature verification.
 	EventPayload *WebhookEvent `json:"event_payload,omitempty"`
 
+	// Field For a connector endpoint, the request field that the platform's answer shows is wrong, such as `destination.connector.credentials.api_key`. Correct it with [Update a webhook endpoint](/docs/api/reference/update-webhook). Present only when `status` is `failed` and the connector maps that answer to a field.
+	Field *string `json:"field,omitempty"`
+
+	// Kind What the test did. `delivery` sent the test event to the endpoint. `probe` read the connected platform instead, which checks a connector endpoint's fields, sends no event and starts nothing; the status, HTTP details and latency are then the platform's answer to that read. Absent when the test stopped before sending anything, with `error` saying why.
+	Kind *WebhookTestKind `json:"kind,omitempty"`
+
 	// ResponseBody Response body returned by your endpoint, truncated to the first 1024 bytes. Omitted when your endpoint returned no body or could not be reached.
 	ResponseBody *string `json:"response_body,omitempty"`
 
-	// ResponseDurationMs Round-trip delivery latency in milliseconds.
+	// ResponseDurationMs Round-trip latency of the request the test sent, in milliseconds; `0` when it sent none.
 	ResponseDurationMs int `json:"response_duration_ms"`
 
 	// ResponseStatusCode HTTP status returned by your endpoint. Null when no response was received (timeout, connection error, DNS failure).
 	ResponseStatusCode *int `json:"response_status_code"`
 
-	// Status Whether your endpoint accepted the test event. `delivered` means it returned a `2xx` status; `failed` means it returned a non-`2xx` status or could not be reached (see `error` for the latter).
+	// Status Whether the test succeeded. For a `delivery`, `delivered` means your endpoint returned a `2xx` status to the test event. For a `probe`, `delivered` means the platform accepted the endpoint's fields, though no event was sent. `failed` means a non-`2xx` status or no answer at all (see `error` for the latter).
 	Status WebhookTestResponseStatus `json:"status"`
 }
 
-// WebhookTestResponseStatus Whether your endpoint accepted the test event. `delivered` means it returned a `2xx` status; `failed` means it returned a non-`2xx` status or could not be reached (see `error` for the latter).
+// WebhookTestResponseStatus Whether the test succeeded. For a `delivery`, `delivered` means your endpoint returned a `2xx` status to the test event. For a `probe`, `delivered` means the platform accepted the endpoint's fields, though no event was sent. `failed` means a non-`2xx` status or no answer at all (see `error` for the latter).
 type WebhookTestResponseStatus string
 
 // WhatsAppAddress Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both. A message received from a WhatsApp user carries whatever profile they publish, which may be neither.

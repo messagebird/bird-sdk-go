@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.125.0
+
+- Testing a webhook now returns `kind`, whether the test sent an event or read a connector's platform, and `field`, the connector field the platform's answer shows is wrong, each when it applies; creating or updating a connector webhook returns `next` with the step to test it when the response includes the connector's `destination`.
+
 ## 0.124.0
 
 - Add the `option.WithClientCertificate(certFile, keyFile)` client option to present a client certificate on every request. Without `option.WithBaseURL(url)`, it also sends requests to the region's mTLS endpoint.
