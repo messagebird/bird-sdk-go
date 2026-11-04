@@ -21824,6 +21824,9 @@ type EmailTemplate struct {
 	// LastSubmittedAt When this template was last submitted. Null if it never has been. Submitting is the only thing that moves this timestamp: rolling back changes which version is live without counting as a submit, so this keeps reporting the last real submit. Read it alongside `languages`, which says where each language stands.
 	LastSubmittedAt *time.Time `json:"last_submitted_at,omitempty"`
 
+	// LiveDefaultLanguage The live version's default language. While `language_source_required` is false, a send that names no language gets it, and a broadcast that selects no language gets the default of the published version it sends. A single send that names a language also gets it when `on_missing_language` is `fallback` and the live version stocks no form of that language, even one only the draft has added: a request for `pt-BR` is served by the live version's `pt-BR`, then by its `pt` or another `pt` variant, and only then by this default. Null if the template has never been published. A built-in `system` template is always published and reports the same language as `default_language`.
+	LiveDefaultLanguage *LanguageTag `json:"live_default_language,omitempty"`
+
 	// LiveVersionId The version a send resolves to, or null if the template has never been published.
 	LiveVersionId *EmailTemplateVersionID `json:"live_version_id,omitempty"`
 
@@ -22450,6 +22453,9 @@ type EmailTemplateSummary struct {
 
 	// LastSubmittedAt When this template was last submitted. Null if it never has been. Only submitting moves this timestamp, so a rollback keeps reporting the last real submit.
 	LastSubmittedAt *time.Time `json:"last_submitted_at,omitempty"`
+
+	// LiveDefaultLanguage The live version's default language. While the template's `language_source_required` is false, a send that names no language gets it, and a broadcast that selects no language gets the default of the published version it sends. A single send that names a language also gets it when the template's `on_missing_language` is `fallback` and the live version stocks no form of that language, even one only the draft has added: a request for `pt-BR` is served by the live version's `pt-BR`, then by its `pt` or another `pt` variant, and only then by this default. Null if the template has never been published. A built-in `system` template is always published and reports the same language as `default_language`.
+	LiveDefaultLanguage *LanguageTag `json:"live_default_language,omitempty"`
 
 	// LiveVersionId The version a send resolves to, or null if the template has never been published.
 	LiveVersionId *EmailTemplateVersionID `json:"live_version_id,omitempty"`
@@ -38946,7 +38952,7 @@ type UpdateAudienceParams struct {
 
 // ListAudienceContactsParams defines parameters for ListAudienceContacts.
 type ListAudienceContactsParams struct {
-	// Q Case-insensitive substring match against a contact's email address or the digits in its international phone number.
+	// Q Case-insensitive substring match against a contact's email address, first name, last name, or the digits in its international phone number.
 	Q *string `form:"q,omitempty" json:"q,omitempty"`
 
 	// Limit Maximum number of items to return per page.

@@ -69,7 +69,7 @@ func (p AudienceUpdateParams) toWire() oapi.AudienceUpdateRequest {
 
 // AudienceListContactsParams filters the list. Zero-value fields are omitted.
 type AudienceListContactsParams struct {
-	// Case-insensitive substring match against a contact's email address or the digits in its international phone number.
+	// Case-insensitive substring match against a contact's email address, first name, last name, or the digits in its international phone number.
 	Q string
 	// Maximum number of items to return per page.
 	Limit int
