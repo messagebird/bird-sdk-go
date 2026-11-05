@@ -936,6 +936,29 @@ const (
 	VoiceLegMediaEncryptionSdes = oapi.VoiceLegMediaEncryptionSdes
 )
 
+// VoiceLegRejectionReason is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the VoiceLegRejectionReason* constants with a
+// default branch rather than treating the set as closed.
+type VoiceLegRejectionReason = oapi.VoiceLegRejectionReason
+
+const (
+	VoiceLegRejectionReasonCallNotPermitted            = oapi.VoiceLegRejectionReasonCallNotPermitted
+	VoiceLegRejectionReasonCallerIdNotVerified         = oapi.VoiceLegRejectionReasonCallerIdNotVerified
+	VoiceLegRejectionReasonCallsPerSecondExceeded      = oapi.VoiceLegRejectionReasonCallsPerSecondExceeded
+	VoiceLegRejectionReasonConcurrentCallsExceeded     = oapi.VoiceLegRejectionReasonConcurrentCallsExceeded
+	VoiceLegRejectionReasonDailySpendExceeded          = oapi.VoiceLegRejectionReasonDailySpendExceeded
+	VoiceLegRejectionReasonDestinationBlocked          = oapi.VoiceLegRejectionReasonDestinationBlocked
+	VoiceLegRejectionReasonDestinationNotEnabled       = oapi.VoiceLegRejectionReasonDestinationNotEnabled
+	VoiceLegRejectionReasonEmergencyCapExceeded        = oapi.VoiceLegRejectionReasonEmergencyCapExceeded
+	VoiceLegRejectionReasonEmergencyCarrierUnavailable = oapi.VoiceLegRejectionReasonEmergencyCarrierUnavailable
+	VoiceLegRejectionReasonEmergencyNumberInactive     = oapi.VoiceLegRejectionReasonEmergencyNumberInactive
+	VoiceLegRejectionReasonInsufficientBalance         = oapi.VoiceLegRejectionReasonInsufficientBalance
+	VoiceLegRejectionReasonNoRouteFound                = oapi.VoiceLegRejectionReasonNoRouteFound
+	VoiceLegRejectionReasonNumberOwnershipNotVerified  = oapi.VoiceLegRejectionReasonNumberOwnershipNotVerified
+	VoiceLegRejectionReasonRoutingNotConfigured        = oapi.VoiceLegRejectionReasonRoutingNotConfigured
+	VoiceLegRejectionReasonSourceNotAllowed            = oapi.VoiceLegRejectionReasonSourceNotAllowed
+)
+
 // VoicePartyEndpointType is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the VoicePartyEndpointType* constants with a
 // default branch rather than treating the set as closed.

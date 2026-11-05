@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.128.0
+
+- Voice leg `rejection_reason` accepts values added later, so treat a value you don't recognize as a new reason. It gains `emergency_number_inactive`, `emergency_cap_exceeded` and `emergency_carrier_unavailable`.
+
 ## 0.127.0
 
 - **Breaking:** Go broadcast template updates now take a nested model. Replace `Template: bird.Value[string](id)` with `Template: bird.Value(bird.BroadcastsParameterTemplate{ID: &id})`, and move language, parameters and parameter overrides into that model. An empty nested value sends `{"template":{}}`; a null template clears it and omission retains it. See the [broadcast template migration](https://github.com/messagebird/bird-sdk-go#broadcast-template-updates).

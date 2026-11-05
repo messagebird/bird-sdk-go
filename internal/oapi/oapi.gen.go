@@ -8342,46 +8342,55 @@ func (e VoiceLegMediaEncryption) Valid() bool {
 
 // Defines values for VoiceLegRejectionReason.
 const (
-	VoiceCallRejectionReasonCallNotPermitted           VoiceLegRejectionReason = "call_not_permitted"
-	VoiceCallRejectionReasonCallerIDNotVerified        VoiceLegRejectionReason = "caller_id_not_verified"
-	VoiceCallRejectionReasonCallsPerSecondExceeded     VoiceLegRejectionReason = "calls_per_second_exceeded"
-	VoiceCallRejectionReasonConcurrentCallsExceeded    VoiceLegRejectionReason = "concurrent_calls_exceeded"
-	VoiceCallRejectionReasonDailySpendExceeded         VoiceLegRejectionReason = "daily_spend_exceeded"
-	VoiceCallRejectionReasonDestinationBlocked         VoiceLegRejectionReason = "destination_blocked"
-	VoiceCallRejectionReasonDestinationNotEnabled      VoiceLegRejectionReason = "destination_not_enabled"
-	VoiceCallRejectionReasonInsufficientBalance        VoiceLegRejectionReason = "insufficient_balance"
-	VoiceCallRejectionReasonNoRouteFound               VoiceLegRejectionReason = "no_route_found"
-	VoiceCallRejectionReasonNumberOwnershipNotVerified VoiceLegRejectionReason = "number_ownership_not_verified"
-	VoiceCallRejectionReasonRoutingNotConfigured       VoiceLegRejectionReason = "routing_not_configured"
-	VoiceCallRejectionReasonSourceNotAllowed           VoiceLegRejectionReason = "source_not_allowed"
+	VoiceLegRejectionReasonCallNotPermitted            VoiceLegRejectionReason = "call_not_permitted"
+	VoiceLegRejectionReasonCallerIdNotVerified         VoiceLegRejectionReason = "caller_id_not_verified"
+	VoiceLegRejectionReasonCallsPerSecondExceeded      VoiceLegRejectionReason = "calls_per_second_exceeded"
+	VoiceLegRejectionReasonConcurrentCallsExceeded     VoiceLegRejectionReason = "concurrent_calls_exceeded"
+	VoiceLegRejectionReasonDailySpendExceeded          VoiceLegRejectionReason = "daily_spend_exceeded"
+	VoiceLegRejectionReasonDestinationBlocked          VoiceLegRejectionReason = "destination_blocked"
+	VoiceLegRejectionReasonDestinationNotEnabled       VoiceLegRejectionReason = "destination_not_enabled"
+	VoiceLegRejectionReasonEmergencyCapExceeded        VoiceLegRejectionReason = "emergency_cap_exceeded"
+	VoiceLegRejectionReasonEmergencyCarrierUnavailable VoiceLegRejectionReason = "emergency_carrier_unavailable"
+	VoiceLegRejectionReasonEmergencyNumberInactive     VoiceLegRejectionReason = "emergency_number_inactive"
+	VoiceLegRejectionReasonInsufficientBalance         VoiceLegRejectionReason = "insufficient_balance"
+	VoiceLegRejectionReasonNoRouteFound                VoiceLegRejectionReason = "no_route_found"
+	VoiceLegRejectionReasonNumberOwnershipNotVerified  VoiceLegRejectionReason = "number_ownership_not_verified"
+	VoiceLegRejectionReasonRoutingNotConfigured        VoiceLegRejectionReason = "routing_not_configured"
+	VoiceLegRejectionReasonSourceNotAllowed            VoiceLegRejectionReason = "source_not_allowed"
 )
 
 // Valid indicates whether the value is a known member of the VoiceLegRejectionReason enum.
 func (e VoiceLegRejectionReason) Valid() bool {
 	switch e {
-	case VoiceCallRejectionReasonCallNotPermitted:
+	case VoiceLegRejectionReasonCallNotPermitted:
 		return true
-	case VoiceCallRejectionReasonCallerIDNotVerified:
+	case VoiceLegRejectionReasonCallerIdNotVerified:
 		return true
-	case VoiceCallRejectionReasonCallsPerSecondExceeded:
+	case VoiceLegRejectionReasonCallsPerSecondExceeded:
 		return true
-	case VoiceCallRejectionReasonConcurrentCallsExceeded:
+	case VoiceLegRejectionReasonConcurrentCallsExceeded:
 		return true
-	case VoiceCallRejectionReasonDailySpendExceeded:
+	case VoiceLegRejectionReasonDailySpendExceeded:
 		return true
-	case VoiceCallRejectionReasonDestinationBlocked:
+	case VoiceLegRejectionReasonDestinationBlocked:
 		return true
-	case VoiceCallRejectionReasonDestinationNotEnabled:
+	case VoiceLegRejectionReasonDestinationNotEnabled:
 		return true
-	case VoiceCallRejectionReasonInsufficientBalance:
+	case VoiceLegRejectionReasonEmergencyCapExceeded:
 		return true
-	case VoiceCallRejectionReasonNoRouteFound:
+	case VoiceLegRejectionReasonEmergencyCarrierUnavailable:
 		return true
-	case VoiceCallRejectionReasonNumberOwnershipNotVerified:
+	case VoiceLegRejectionReasonEmergencyNumberInactive:
 		return true
-	case VoiceCallRejectionReasonRoutingNotConfigured:
+	case VoiceLegRejectionReasonInsufficientBalance:
 		return true
-	case VoiceCallRejectionReasonSourceNotAllowed:
+	case VoiceLegRejectionReasonNoRouteFound:
+		return true
+	case VoiceLegRejectionReasonNumberOwnershipNotVerified:
+		return true
+	case VoiceLegRejectionReasonRoutingNotConfigured:
+		return true
+	case VoiceLegRejectionReasonSourceNotAllowed:
 		return true
 	default:
 		return false
@@ -31608,14 +31617,17 @@ type VoiceLegMediaPath struct {
 }
 
 // VoiceLegRejectionReason Why we rejected the leg. Use `rejection_reason` to identify the cause;
-// `sip_response_code` alone cannot distinguish these reasons.
+// `sip_response_code` alone cannot distinguish these reasons. Treat an
+// unrecognized value as a reason added later.
 //
 // You can resolve these issues:
 //
 //   - `source_not_allowed`: The leg came from an IP address that is not in the
 //     trunk's allowed-address list. Add the address your PBX sends from.
+//
 //   - `caller_id_not_verified`: The number in the `From` header is not a verified
 //     caller ID for this workspace. Verify it or use a verified caller ID.
+//
 //   - `number_ownership_not_verified`: The ownership documents for this purchased
 //     number have not yet been accepted under its country's requirements. We
 //     block outgoing and incoming legs on the number until verification is
@@ -31623,17 +31635,31 @@ type VoiceLegMediaPath struct {
 //     is `reject` regardless of the number's configuration. Open the number
 //     under **Numbers** and complete its ownership requirements, then retry
 //     the leg.
+//
 //   - `destination_not_enabled`: Calling to this destination country is disabled.
 //     Enable it in your voice destination settings.
+//
 //   - `insufficient_balance`: Your wallet balance was too low for the leg.
 //     Top up or enable automatic top-ups.
+//
 //   - `daily_spend_exceeded`: The leg would exceed your organization's daily
 //     voice spend limit. Retry after the limit resets at the start of the next
 //     UTC day.
+//
 //   - `concurrent_calls_exceeded`: You already have as many legs in progress as
 //     your account allows. Wait for one to end or ask support to raise the limit.
+//
 //   - `calls_per_second_exceeded`: You placed legs faster than your account
 //     allows. Reduce your dialing rate and retry.
+//
+//   - `emergency_number_inactive`: The trunk's emergency number does not have an
+//     active emergency service. If the service is pending, wait for it to become
+//     active. If it needs changes, finish the filing it is waiting on. If it was
+//     rejected or canceled, the number needs a new emergency service, or the trunk
+//     needs a different emergency number.
+//
+//   - `emergency_cap_exceeded`: The trunk already carries 10 emergency calls.
+//     The 11th is refused until one ends.
 //
 // For all other reasons, contact support and provide the leg `id`:
 //
@@ -31644,6 +31670,8 @@ type VoiceLegMediaPath struct {
 //   - `destination_blocked`: The destination is blocked by our routing
 //     configuration.
 //   - `call_not_permitted`: The leg could not be priced for your account.
+//   - `emergency_carrier_unavailable`: No carrier we use accepts emergency calls
+//     from the trunk's emergency number.
 type VoiceLegRejectionReason string
 
 // VoiceMediaQuality defines model for VoiceMediaQuality.
@@ -44706,10 +44734,10 @@ type ListSMSMessagesParams struct {
 	// Direction Filter by direction. Omit for both.
 	Direction *MessageDirection `form:"direction,omitempty" json:"direction,omitempty"`
 
-	// Status Keep only messages whose current `status` matches; repeat the parameter to match any of several. One of `scheduled`, `accepted`, `sent`, `delivered`, `undelivered`, `failed`, `rejected`, `canceled`, `expired`, or `received`. `scheduled` and `canceled` are accepted but match nothing until send-later scheduling ships.
+	// Status Keep only messages whose current `status` matches; repeat the parameter to match any of several. One of `scheduled`, `accepted`, `sent`, `delivered`, `undelivered`, `failed`, `rejected`, `canceled`, `expired`, or `received`. `scheduled` and `canceled` are accepted but match nothing until send-later scheduling ships. With a `status` or `error_code` filter a page can hold fewer messages than `limit`, or none; keep paging until `next_cursor` is null.
 	Status *[]string `form:"status,omitempty" json:"status,omitempty"`
 
-	// ErrorCode Keep only messages whose failure reason (`last_error.code`) matches; repeat the parameter to match any of several. One of `invalid_destination`, `unreachable`, `blocked_by_carrier`, `blocked_by_fraud_protection`, `blocked_by_recipient`, `landline_unreachable`, `content_rejected`, `sender_unregistered`, `recipient_opted_out`, `provider_unavailable`, `insufficient_balance`, or `unknown`.
+	// ErrorCode Keep only messages whose failure reason (`last_error.code`) matches; repeat the parameter to match any of several. One of `invalid_destination`, `unreachable`, `blocked_by_carrier`, `blocked_by_fraud_protection`, `blocked_by_recipient`, `landline_unreachable`, `content_rejected`, `sender_unregistered`, `recipient_opted_out`, `provider_unavailable`, `insufficient_balance`, or `unknown`. With a `status` or `error_code` filter a page can hold fewer messages than `limit`, or none; keep paging until `next_cursor` is null.
 	ErrorCode *[]string `form:"error_code,omitempty" json:"error_code,omitempty"`
 
 	// Category Filter by category.
