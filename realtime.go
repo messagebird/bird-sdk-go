@@ -50,7 +50,7 @@ type RealtimeBatchEventParams struct {
 	// A Realtime channel name. Only letters, digits, and _ - = @ , . ; Prefix with `private-` or `presence-` for authenticated channels, or `private-encrypted-` for channels whose payloads are end-to-end encrypted with a key only you hold.
 	Channel string
 	// Arbitrary JSON payload delivered as the event data — an object, array, or scalar. Cap: 10 KB serialized.
-	Data any
+	Data Nullable[any]
 	// Exclude this connection from delivery, to avoid echoing a change back to the client that triggered it. The value is the client's connection id, assigned when its connection is established.
 	ExcludeConnectionID string
 	// Attributes of this event's channel to return alongside the publish (same semantics and validation errors as on the channel endpoints). Requesting attributes counts as one additional message toward usage.
@@ -61,10 +61,7 @@ func (p RealtimeBatchEventParams) toWire() oapi.RealtimeBatchEvent {
 	body := oapi.RealtimeBatchEvent{}
 	body.Event = p.Event
 	body.Channel = p.Channel
-	if p.Data != nil {
-		v := p.Data
-		body.Data = &v
-	}
+	body.Data = p.Data
 	if p.ExcludeConnectionID != "" {
 		body.ExcludeConnectionId = Ptr(p.ExcludeConnectionID)
 	}
@@ -85,7 +82,7 @@ type RealtimePublishParams struct {
 	// The channels to deliver the event to (up to 100 per call). Prefix with `private-` or `presence-` for authenticated channels. A `private-encrypted-` channel must be the only channel in its publish: each encrypted channel has its own key, so a fan-out would hand the other channels unreadable ciphertext.
 	Channels []string
 	// Arbitrary JSON payload delivered as the event data — an object, array, or scalar. Cap: 10 KB serialized.
-	Data any
+	Data Nullable[any]
 	// Exclude this connection from delivery, to avoid echoing a change back to the client that triggered it. The value is the client's connection id, assigned when its connection is established.
 	ExcludeConnectionID string
 	// Per-channel attributes to return alongside the publish, reflecting each channel's state at publish time (same semantics and validation errors as on the channel endpoints: `member_count` is presence-channels only, `connection_count` requires the app's connection-counting flag). Requesting attributes counts as one additional message toward usage.
@@ -100,10 +97,7 @@ func (p RealtimePublishParams) toWire() oapi.RealtimePublish {
 		channels[i] = oapi.RealtimeChannelName(v)
 	}
 	body.Channels = channels
-	if p.Data != nil {
-		v := p.Data
-		body.Data = &v
-	}
+	body.Data = p.Data
 	if p.ExcludeConnectionID != "" {
 		body.ExcludeConnectionId = Ptr(p.ExcludeConnectionID)
 	}
@@ -156,11 +150,15 @@ func (p *RealtimePublishParams) sealEncrypted(masterKey string) error {
 	if err != nil {
 		return err
 	}
-	envelope, err := realtimecrypto.Seal(channel, p.Data, key)
+	if !p.Data.IsSpecified() {
+		return nil
+	}
+	data, _ := p.Data.Get()
+	envelope, err := realtimecrypto.Seal(channel, data, key)
 	if err != nil {
 		return err
 	}
-	p.Data = envelope
+	p.Data = Value[any](envelope)
 	return nil
 }
 
@@ -190,11 +188,15 @@ func (p *RealtimePublishBatchParams) sealEncrypted(masterKey string) error {
 		if err != nil {
 			return err
 		}
-		envelope, err := realtimecrypto.Seal(e.Channel, e.Data, key)
+		if !e.Data.IsSpecified() {
+			continue
+		}
+		data, _ := e.Data.Get()
+		envelope, err := realtimecrypto.Seal(e.Channel, data, key)
 		if err != nil {
 			return err
 		}
-		events[i].Data = envelope
+		events[i].Data = Value[any](envelope)
 	}
 	p.Events = events
 	return nil

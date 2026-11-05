@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.127.0
+
+- **Breaking:** Go broadcast template updates now take a nested model. Replace `Template: bird.Value[string](id)` with `Template: bird.Value(bird.BroadcastsParameterTemplate{ID: &id})`, and move language, parameters and parameter overrides into that model. An empty nested value sends `{"template":{}}`; a null template clears it and omission retains it. See the [broadcast template migration](https://github.com/messagebird/bird-sdk-go#broadcast-template-updates).
+- **Breaking:** ContactPropertyCreateParams.FallbackValue, ContactPropertyUpdateParams.FallbackValue, RealtimePublishParams.Data, RealtimeBatchEventParams.Data and RealtimeMemberSendParams.Data change from any to Nullable[any]. Use `bird.Value[any](value)`, `bird.Null[any]()` or the zero value for value, null or omission. Null clears a contact fallback or delivers a null event payload.
+- **Breaking:** VoiceVerifiedNumbersUpdateParams.Name now rejects unset locally; pass `bird.Null[string]()` or `bird.Value(label)`. VoiceRingGroupsUpdateParams.Name changes from *string to string, and VoiceTrunkMediaUpdate.Encryption from *VoiceTrunkMediaEncryption to VoiceTrunkMediaEncryption. Supply those required fields; the outer trunk media object remains optional.
+- **Breaking:** nullable request fields now distinguish omission from explicit null; initialize required nullable fields with Value or Null to avoid a local error before sending or retrying, and follow the README migration table when upgrading pointer fields.
+- Add broadcast `waiting_for_funds` and `paused` states, `funding_hold` details, and send-quota fields `can_start` and `on_insufficient_funds` ahead of server support. If `can_start` is absent from the send-quota response, use `allowed` for the current allowance and do not assume the broadcast can wait or resume.
+- Go also exports `EmailBroadcastFundingHold`, `EmailBroadcastFundingHoldReason`, and `EmailBroadcastInsufficientFundsBehavior`, with constants for their enum values.
+- **Breaking:** Encrypted Realtime publishes and batch events now omit data when the caller leaves it unset, instead of encrypting JSON null. Supply an explicit null payload to keep sending encrypted null: use `bird.Null[any]()` in Go, None in Python, `null` in Node, or `setData(null)` in PHP.
+- `bird contact-properties update` and the public SDK contact-property update methods now preserve the stored fallback when `fallback_value` is omitted. Send explicit JSON null to clear the fallback; an empty update no longer erases the stored value.
+
 ## 0.126.0
 
 - Add `live_default_language` to email templates and email template list entries: the live version's default language, the one a single send falls back to when the template's language settings allow. It is null until the template is first published, and a built-in template reports its `default_language`.

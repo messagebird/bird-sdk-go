@@ -219,6 +219,10 @@ func capturePublish(t *testing.T, opts ...option.RequestOption) (*bird.Client, *
 		if err := json.Unmarshal(body, &sent); err != nil {
 			t.Errorf("request body is not JSON: %v", err)
 		}
+		if strings.Contains(r.URL.Path, "/members/") {
+			w.WriteHeader(http.StatusNoContent)
+			return
+		}
 		w.Header().Set("Content-Type", "application/json")
 		_, _ = w.Write([]byte(`{"data":[]}`))
 	})
@@ -264,7 +268,7 @@ func TestRealtimePublishSealsEncryptedChannel(t *testing.T) {
 	_, err := client.Realtime.Publish(context.Background(), "rap_123", bird.RealtimePublishParams{
 		Event:    "order.updated",
 		Channels: []string{"private-encrypted-orders"},
-		Data:     map[string]any{"order_id": "ord_123", "status": "shipped"},
+		Data:     bird.Value[any](map[string]any{"order_id": "ord_123", "status": "shipped"}),
 	})
 	if err != nil {
 		t.Fatalf("Publish: %v", err)
@@ -288,7 +292,7 @@ func TestRealtimePublishLeavesPlainChannelsUntouched(t *testing.T) {
 	_, err := client.Realtime.Publish(context.Background(), "rap_123", bird.RealtimePublishParams{
 		Event:    "order.created",
 		Channels: []string{"orders", "presence-lobby"},
-		Data:     map[string]any{"order_id": "ord_1"},
+		Data:     bird.Value[any](map[string]any{"order_id": "ord_1"}),
 	})
 	if err != nil {
 		t.Fatalf("Publish: %v", err)
@@ -300,6 +304,71 @@ func TestRealtimePublishLeavesPlainChannelsUntouched(t *testing.T) {
 	}
 	if data["order_id"] != "ord_1" {
 		t.Errorf("a plain channel's payload was rewritten: %v", data)
+	}
+}
+
+func TestRealtimeEncryptedDataPreservesPresence(t *testing.T) {
+	for _, state := range []struct {
+		name string
+		data bird.Nullable[any]
+		want string
+	}{
+		{"unset", nil, ""},
+		{"null", bird.Null[any](), "null"},
+		{"value", bird.Value[any](map[string]any{"items": []any{nil, "value"}}), `{"items":[null,"value"]}`},
+	} {
+		for _, method := range []string{"publish", "publish_batch", "members.send"} {
+			t.Run(method+"/"+state.name, func(t *testing.T) {
+				client, sent := capturePublish(t, option.WithRealtimeEncryptionMasterKey(testMasterKey))
+				var err error
+				if method == "publish_batch" {
+					_, err = client.Realtime.PublishBatch(context.Background(), "rap_123", bird.RealtimePublishBatchParams{
+						Events: []bird.RealtimeBatchEventParams{{Event: "changed", Channel: "private-encrypted-orders", Data: state.data}},
+					})
+				}
+				if method == "members.send" {
+					err = client.Realtime.Members.Send(context.Background(), "rap_123", "member_1", bird.RealtimeMemberSendParams{Event: "changed", Data: state.data})
+				}
+				if method == "publish" {
+					_, err = client.Realtime.Publish(context.Background(), "rap_123", bird.RealtimePublishParams{
+						Event: "changed", Channels: []string{"private-encrypted-orders"}, Data: state.data,
+					})
+				}
+				if err != nil {
+					t.Fatal(err)
+				}
+				body := *sent
+				if method == "publish_batch" {
+					events, ok := body["events"].([]any)
+					if !ok || len(events) != 1 {
+						t.Fatalf("events = %#v", body["events"])
+					}
+					body, ok = events[0].(map[string]any)
+					if !ok {
+						t.Fatalf("event = %#v", events[0])
+					}
+				}
+				if state.name == "unset" {
+					if _, present := body["data"]; present {
+						t.Fatal("encrypted publish synthesized an omitted payload")
+					}
+					return
+				}
+				if method == "members.send" {
+					if _, present := body["data"]; !present {
+						t.Fatal("member payload was omitted despite being supplied")
+					}
+					got, err := json.Marshal(body["data"])
+					if err != nil || string(got) != state.want {
+						t.Fatalf("member payload = %s, want %s (error %v)", got, state.want, err)
+					}
+					return
+				}
+				if got := openEnvelope(t, "private-encrypted-orders", body["data"]); string(got) != state.want {
+					t.Fatalf("sealed plaintext = %s, want %s", got, state.want)
+				}
+			})
+		}
 	}
 }
 
@@ -319,7 +388,7 @@ func TestRealtimePublishRejectsEncryptedFanOut(t *testing.T) {
 	_, err := client.Realtime.Publish(context.Background(), "rap_123", bird.RealtimePublishParams{
 		Event:    "order.updated",
 		Channels: []string{"private-encrypted-orders", "orders"},
-		Data:     map[string]any{"order_id": "ord_123"},
+		Data:     bird.Value[any](map[string]any{"order_id": "ord_123"}),
 	})
 	if err == nil {
 		t.Fatal("publishing an encrypted channel alongside another: got nil error")
@@ -346,7 +415,7 @@ func TestRealtimePublishEncryptedWithoutMasterKey(t *testing.T) {
 	_, err := client.Realtime.Publish(context.Background(), "rap_123", bird.RealtimePublishParams{
 		Event:    "order.updated",
 		Channels: []string{"private-encrypted-orders"},
-		Data:     map[string]any{"order_id": "ord_123"},
+		Data:     bird.Value[any](map[string]any{"order_id": "ord_123"}),
 	})
 	if err == nil {
 		t.Fatal("publishing to an encrypted channel without a master key: got nil error")
@@ -367,9 +436,9 @@ func TestRealtimePublishBatchSealsPerEvent(t *testing.T) {
 	client, sent := capturePublish(t, option.WithRealtimeEncryptionMasterKey(testMasterKey))
 
 	events := []bird.RealtimeBatchEventParams{
-		{Event: "order.created", Channel: "orders", Data: map[string]any{"id": 1}},
-		{Event: "order.updated", Channel: "private-encrypted-orders", Data: map[string]any{"id": 2}},
-		{Event: "price.changed", Channel: "private-encrypted-cache-prices", Data: map[string]any{"id": 3}},
+		{Event: "order.created", Channel: "orders", Data: bird.Value[any](map[string]any{"id": 1})},
+		{Event: "order.updated", Channel: "private-encrypted-orders", Data: bird.Value[any](map[string]any{"id": 2})},
+		{Event: "price.changed", Channel: "private-encrypted-cache-prices", Data: bird.Value[any](map[string]any{"id": 3})},
 	}
 	_, err := client.Realtime.PublishBatch(context.Background(), "rap_123", bird.RealtimePublishBatchParams{
 		Events: events,
@@ -396,7 +465,8 @@ func TestRealtimePublishBatchSealsPerEvent(t *testing.T) {
 	}
 
 	for i, e := range events {
-		if _, sealed := e.Data.(realtimecrypto.Envelope); sealed {
+		data, _ := e.Data.Get()
+		if _, sealed := data.(realtimecrypto.Envelope); sealed {
 			t.Errorf("event %d: the caller's Data was replaced with the envelope", i)
 		}
 	}
@@ -414,8 +484,8 @@ func TestRealtimePublishBatchEncryptedWithoutMasterKey(t *testing.T) {
 
 	_, err := client.Realtime.PublishBatch(context.Background(), "rap_123", bird.RealtimePublishBatchParams{
 		Events: []bird.RealtimeBatchEventParams{
-			{Event: "order.created", Channel: "orders", Data: map[string]any{"id": 1}},
-			{Event: "order.updated", Channel: "private-encrypted-orders", Data: map[string]any{"id": 2}},
+			{Event: "order.created", Channel: "orders", Data: bird.Value[any](map[string]any{"id": 1})},
+			{Event: "order.updated", Channel: "private-encrypted-orders", Data: bird.Value[any](map[string]any{"id": 2})},
 		},
 	})
 	if err == nil {

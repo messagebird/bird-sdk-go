@@ -10,7 +10,12 @@ import (
 	"net/http"
 	"strconv"
 	"time"
+
+	"github.com/messagebird/bird-sdk-go/internal/requesterror"
 )
+
+// RequestValidationError reports an unset required field before a request is sent.
+type RequestValidationError = requesterror.RequestValidationError
 
 // ErrorType is the coarse error category clients branch on (ADR-0016). Branch
 // on APIError.Type for the flat categories, or use errors.As for the variants

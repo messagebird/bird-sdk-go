@@ -201,24 +201,21 @@ func (s *BroadcastsService) Create(ctx context.Context, params BroadcastsCreateP
 	return &out, nil
 }
 
-// BroadcastsUpdateParams changes a broadcast that is still a draft or is
-// scheduled. Whatever it sets is applied; anything left at its zero value keeps
-// the value the broadcast already had. Template, ReplyTo, Language and IPPoolID are
-// clearable: build them with Value to set and Null to clear. Setting Template
-// releases the version the broadcast is fixed to, so change Language on its own
-// to keep it.
+// BroadcastsUpdateParams changes a draft or scheduled broadcast. Unspecified
+// fields keep their current values. Template is a nested update: omit ID to keep
+// the selected template/version while changing its language or parameters, except
+// that adding parameters or an initial override map to a legacy draft can adopt
+// parameter-aware execution and clear its pinned version.
+// Repeating the current template ID refreshes the pinned version to that
+// template's latest published version.
 type BroadcastsUpdateParams struct {
-	// One of the template version's languages to send to the whole audience. Value selects it, Null clears it so the version's default language sends, and leaving it unspecified keeps the current selection. On its own it keeps the template and the version the broadcast is fixed to.
-	Language   Nullable[string]
-	Parameters *map[string]json.RawMessage
-	// The complete per-language override map. A nil leaves it alone; a pointer to an empty map clears every override.
-	ParameterOverrides *map[string]map[string]json.RawMessage
 	// The address the broadcast sends from. The domain has to be one this workspace has verified.
 	From string
 	// The audience this broadcast sends to.
 	AudienceID string
-	// The template the broadcast sends, as its ID (`emt_…`). Setting it releases the version the broadcast is fixed to, and repeating the current ID is how a caller takes a newly published one. Null takes the template and its language off a draft.
-	Template Nullable[string]
+	// Value sends the complete nested update, including an empty object. Null removes the template and its language; an unspecified Template leaves them unchanged.
+	// Within the update, omitting Language retains the selected language; Null clears it to the template version's default language, and a value selects that language.
+	Template Nullable[BroadcastsParameterTemplate]
 	// Where replies to this broadcast should go. Null removes the addresses already set.
 	ReplyTo Nullable[[]string]
 	// Headers, Tags and Metadata are pointers because an empty collection is how
@@ -278,30 +275,22 @@ func (p BroadcastsUpdateParams) toWire() oapi.EmailBroadcastUpdateRequest {
 		from := addressInput(p.From)
 		body.From = &from
 	}
-	// The wire nests the template reference and the language in one object, so a
-	// set and a clear have to be rebuilt rather than passed through as the string
-	// Nullables. An id there releases the version the broadcast is fixed to, so a
-	// language on its own is sent without one.
-	switch {
-	case p.Template.IsSpecified() && p.Template.IsNull():
-		body.Template = Null[oapi.EmailBroadcastTemplateUpdate]()
-	case p.Template.IsSpecified():
-		id := p.Template.MustGet()
-		body.Template = Value(oapi.EmailBroadcastTemplateUpdate{Id: &id, Language: p.Language})
-	case p.Language.IsSpecified() || p.Parameters != nil || p.ParameterOverrides != nil:
-		body.Template = Value(oapi.EmailBroadcastTemplateUpdate{Language: p.Language})
-	}
-	if p.Parameters != nil && !body.Template.IsNull() {
-		template := body.Template.MustGet()
-		values := broadcastParametersWire(*emptyIfNil(p.Parameters))
-		template.Parameters = &values
-		body.Template = Value(template)
-	}
-	if p.ParameterOverrides != nil && !body.Template.IsNull() {
-		template := body.Template.MustGet()
-		overrides := broadcastParameterOverridesWire(*p.ParameterOverrides)
-		template.ParameterOverrides = &overrides
-		body.Template = Value(template)
+	if p.Template.IsSpecified() {
+		if p.Template.IsNull() {
+			body.Template = Null[oapi.EmailBroadcastTemplateUpdate]()
+		} else {
+			selected := p.Template.MustGet()
+			template := oapi.EmailBroadcastTemplateUpdate{Id: selected.ID, Language: selected.Language}
+			if selected.Parameters != nil {
+				values := broadcastParametersWire(*emptyIfNil(selected.Parameters))
+				template.Parameters = &values
+			}
+			if selected.ParameterOverrides != nil {
+				overrides := broadcastParameterOverridesWire(*selected.ParameterOverrides)
+				template.ParameterOverrides = &overrides
+			}
+			body.Template = Value(template)
+		}
 	}
 	if p.ReplyTo.IsSpecified() {
 		if p.ReplyTo.IsNull() {
@@ -322,15 +311,6 @@ func (p BroadcastsUpdateParams) toWire() oapi.EmailBroadcastUpdateRequest {
 // stands. A broadcast that has started sending can no longer be edited and is
 // refused with a 409. Retried safely with a reused idempotency key.
 func (s *BroadcastsService) Update(ctx context.Context, broadcastId string, params BroadcastsUpdateParams, opts ...option.RequestOption) (*EmailBroadcast, error) {
-	// Clearing the template takes its language and parameters with it, so any of
-	// them sent in the same call would otherwise be dropped from the wire body. A
-	// Null language beside a Null template asks for the same clear twice and goes
-	// through.
-	if params.Template.IsSpecified() && params.Template.IsNull() {
-		if err := templateInputWithoutTemplate(params.Language.IsSpecified() && !params.Language.IsNull(), params.Parameters != nil, params.ParameterOverrides != nil); err != nil {
-			return nil, err
-		}
-	}
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.UpdateEmailBroadcastParams{}
 		if idempotencyKey != "" {

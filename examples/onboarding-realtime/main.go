@@ -22,7 +22,7 @@ func main() {
 	if _, err := client.Realtime.Publish(context.Background(), "rap_01krdgeqcxet5s7t44vh8rt9mg", bird.RealtimePublishParams{
 		Event:    "order-updated",
 		Channels: []string{"orders"},
-		Data:     map[string]any{"id": 42, "status": "shipped"},
+		Data:     bird.Value[any](map[string]any{"id": 42, "status": "shipped"}),
 	}); err != nil {
 		log.Fatal(err)
 	}

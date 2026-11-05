@@ -34,31 +34,27 @@ type ContactPropertyCreateParams struct {
 	Key string
 	// The value type every contact must use for a property. Cannot be changed after creation. `datetime` values are RFC 3339 timestamps with an explicit offset. Examples include `2024-01-15T09:30:00Z` and `2024-01-15T11:30:00+02:00`. A bare date or a time with no offset is rejected. The value is normalized to UTC with second precision on write, so `2024-01-15T11:30:00+02:00` is stored and returned as `2024-01-15T09:30:00Z`, and any fractional seconds are dropped.
 	Type ContactPropertyType
-	// Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, boolean, or RFC 3339 datetime matching the declared type (strings up to `500` characters), or `null` for no fallback; a value of another type returns a validation error.
-	FallbackValue any
+	// Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, boolean, or RFC 3339 datetime string matching the declared type (strings up to `500` characters); a value of another type returns a validation error. Omit or set to `null` for no fallback.
+	FallbackValue Nullable[any]
 }
 
 func (p ContactPropertyCreateParams) toWire() oapi.ContactPropertyCreateRequest {
 	body := oapi.ContactPropertyCreateRequest{}
 	body.Key = p.Key
 	body.Type = p.Type
-	if p.FallbackValue != nil {
-		body.FallbackValue = p.FallbackValue
-	}
+	body.FallbackValue = p.FallbackValue
 	return body
 }
 
 // ContactPropertyUpdateParams is the request body for update.
 type ContactPropertyUpdateParams struct {
-	// Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, boolean, or RFC 3339 datetime matching the declared type (strings up to `500` characters); a value of another type returns a validation error. Set to `null` to remove the fallback.
-	FallbackValue any
+	// Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, boolean, or RFC 3339 datetime string matching the declared type (strings up to `500` characters); a value of another type returns a validation error. Set to `null` to remove the fallback; omit to leave it unchanged.
+	FallbackValue Nullable[any]
 }
 
 func (p ContactPropertyUpdateParams) toWire() oapi.ContactPropertyUpdateRequest {
 	body := oapi.ContactPropertyUpdateRequest{}
-	if p.FallbackValue != nil {
-		body.FallbackValue = p.FallbackValue
-	}
+	body.FallbackValue = p.FallbackValue
 	return body
 }
 

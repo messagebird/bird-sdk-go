@@ -155,7 +155,7 @@ func (s *BroadcastsService) Delete(ctx context.Context, broadcastId string, opts
 	return err
 }
 
-// Cancel Cancel a scheduled, accepted, or sending broadcast. This stops every delivery that has not gone out yet. Recipients already dispatched are not recalled. Calling this again on a broadcast already canceling or canceled returns its current state rather than an error. A draft cannot be canceled, because it was never sent. Delete it with `broadcasts.delete` instead.
+// Cancel Cancel a broadcast that is scheduled, accepted, sending, waiting for funds, or paused. This stops every delivery that has not gone out yet. Recipients already dispatched are not recalled. Calling this again on a broadcast already canceling or canceled returns its current state rather than an error. A draft cannot be canceled, because it was never sent. Delete it with `broadcasts.delete` instead.
 func (s *BroadcastsService) Cancel(ctx context.Context, broadcastId string, opts ...option.RequestOption) (*EmailBroadcast, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.CancelEmailBroadcastParams{}

@@ -57,6 +57,10 @@ func (cfg Config) Execute(ctx context.Context, mutation bool, call Attempt) ([]b
 			if ctx.Err() != nil { // caller cancellation wins, surfaced verbatim
 				return nil, ctx.Err()
 			}
+			var invalid *apierror.RequestValidationError
+			if errors.As(err, &invalid) {
+				return nil, invalid
+			}
 			if attemptNum >= cfg.MaxRetries {
 				return nil, classifyTransport(err, cfg.Timeout)
 			}

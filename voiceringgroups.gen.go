@@ -24,7 +24,7 @@ func (p VoiceRingGroupsCreateParams) toWire() oapi.VoiceRingGroupCreate {
 // VoiceRingGroupsUpdateParams is the request body for update.
 type VoiceRingGroupsUpdateParams struct {
 	// The ring group's new name.
-	Name *string
+	Name string
 }
 
 func (p VoiceRingGroupsUpdateParams) toWire() oapi.VoiceRingGroupUpdate {

@@ -13,17 +13,14 @@ import (
 type RealtimeMemberSendParams struct {
 	// The event name clients bind to. Application event names are free-form; the `bird:` and `bird_internal:` prefixes are reserved for the protocol and rejected.
 	Event string
-	// Arbitrary JSON payload delivered as the event data: an object, array, or scalar. Cap: 10 KB serialized.
-	Data any
+	// The event payload, up to 10 KB serialized; null delivers a JSON null payload.
+	Data Nullable[any]
 }
 
 func (p RealtimeMemberSendParams) toWire() oapi.RealtimeMemberPublish {
 	body := oapi.RealtimeMemberPublish{}
 	body.Event = p.Event
-	if p.Data != nil {
-		v := p.Data
-		body.Data = &v
-	}
+	body.Data = p.Data
 	return body
 }
 

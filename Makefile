@@ -7,7 +7,7 @@ export GOFLAGS := -trimpath
 prepare:
 	@if [ -x ../../tools/bin/beak ]; then \
 	  $(MAKE) generate; \
-	elif [ ! -f internal/oapi/oapi.gen.go ] || [ ! -f eventtypes.gen.go ] || [ ! -f openenums.gen.go ] || [ ! -f callerrules.gen.go ] || [ ! -f audiences.gen.go ]; then \
+	elif [ ! -f internal/oapi/oapi.gen.go ] || [ ! -f internal/oapi/required_nullable.gen.go ] || [ ! -f eventtypes.gen.go ] || [ ! -f openenums.gen.go ] || [ ! -f callerrules.gen.go ] || [ ! -f audiences.gen.go ]; then \
 	  echo "Generated Go SDK sources missing from standalone mirror" >&2; exit 1; \
 	fi
 

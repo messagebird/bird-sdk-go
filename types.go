@@ -33,8 +33,9 @@ func Email(v string) *openapi_types.Email {
 
 // Nullable is a nullable/clearable request-param field. It carries one of three
 // states: a value, an explicit JSON null (clears the field), or unspecified (the
-// zero value — omitted, leaving the field unchanged). Only request params use it;
-// response fields stay plain pointers. Build it with Value or Null:
+// zero value). Optional fields omit an unspecified value; required fields reject
+// it locally. Request/response-shared models also use it; response-only fields stay pointers.
+// Build it with Value or Null:
 //
 //	bird.AudienceUpdateParams{Description: bird.Null[string]()}   // clear
 //	bird.AudienceUpdateParams{Description: bird.Value("Q4 leads")} // set
@@ -93,9 +94,12 @@ type (
 	EmailBroadcastClickedLinkList = oapi.EmailBroadcastClickedLinkList
 	// EmailBroadcastSendQuota is how much of a broadcast the organization's
 	// email send allowance covers, read before sending it.
-	EmailBroadcastSendQuota = oapi.EmailBroadcastSendQuota
+	EmailBroadcastSendQuota                 = oapi.EmailBroadcastSendQuota
+	EmailBroadcastFundingHold               = oapi.EmailBroadcastFundingHold
+	EmailBroadcastFundingHoldReason         = oapi.EmailBroadcastFundingHoldReason
+	EmailBroadcastInsufficientFundsBehavior = oapi.EmailBroadcastInsufficientFundsBehavior
 	// EmailBroadcastStatus is where a broadcast stands in its lifecycle, reported
-	// as EmailBroadcastCounts.Status and taken by the broadcast list filter.
+	// as EmailBroadcast.Status and taken by the broadcast list filter.
 	EmailBroadcastStatus = oapi.EmailBroadcastStatus
 	// EmailRecipient is one address a broadcast sent to, with its own state.
 	EmailRecipient = oapi.EmailRecipient
@@ -902,14 +906,27 @@ const (
 )
 
 const (
-	EmailBroadcastStatusDraft     EmailBroadcastStatus = "draft"
-	EmailBroadcastStatusScheduled EmailBroadcastStatus = "scheduled"
-	EmailBroadcastStatusAccepted  EmailBroadcastStatus = "accepted"
-	EmailBroadcastStatusSending   EmailBroadcastStatus = "sending"
-	EmailBroadcastStatusSent      EmailBroadcastStatus = "sent"
-	EmailBroadcastStatusCanceling EmailBroadcastStatus = "canceling"
-	EmailBroadcastStatusCanceled  EmailBroadcastStatus = "canceled"
-	EmailBroadcastStatusFailed    EmailBroadcastStatus = "failed"
+	EmailBroadcastStatusDraft           EmailBroadcastStatus = "draft"
+	EmailBroadcastStatusScheduled       EmailBroadcastStatus = "scheduled"
+	EmailBroadcastStatusAccepted        EmailBroadcastStatus = "accepted"
+	EmailBroadcastStatusSending         EmailBroadcastStatus = "sending"
+	EmailBroadcastStatusWaitingForFunds EmailBroadcastStatus = "waiting_for_funds"
+	EmailBroadcastStatusPaused          EmailBroadcastStatus = "paused"
+	EmailBroadcastStatusSent            EmailBroadcastStatus = "sent"
+	EmailBroadcastStatusCanceling       EmailBroadcastStatus = "canceling"
+	EmailBroadcastStatusCanceled        EmailBroadcastStatus = "canceled"
+	EmailBroadcastStatusFailed          EmailBroadcastStatus = "failed"
+)
+
+const (
+	EmailBroadcastFundingHoldReasonAutomaticTopUp EmailBroadcastFundingHoldReason = "automatic_top_up"
+	EmailBroadcastFundingHoldReasonFundsRequired  EmailBroadcastFundingHoldReason = "funds_required"
+	EmailBroadcastFundingHoldReasonWaitExpired    EmailBroadcastFundingHoldReason = "wait_expired"
+)
+
+const (
+	EmailBroadcastInsufficientFundsBehaviorPause        EmailBroadcastInsufficientFundsBehavior = "pause"
+	EmailBroadcastInsufficientFundsBehaviorWaitForTopUp EmailBroadcastInsufficientFundsBehavior = "wait_for_top_up"
 )
 
 const (
@@ -1261,4 +1278,12 @@ const (
 	AssetUploadSessionStateFinalizing = oapi.AssetUploadSessionStateFinalizing
 	AssetUploadSessionStatePending    = oapi.AssetUploadSessionStatePending
 	AssetUploadSessionStateRejected   = oapi.AssetUploadSessionStateRejected
+)
+
+// These aliases let callers construct nested nullable request values without
+// importing internal wire models.
+type (
+	VoiceDestinationDailySpendLimitUpdate = oapi.VoiceDestinationDailySpendLimitUpdate
+	VoiceSequenceSavedExecutionCallSample = oapi.VoiceSequenceSavedExecutionCallSample
+	VoiceSequenceSavedExecutionParty      = oapi.VoiceSequenceSavedExecutionParty
 )

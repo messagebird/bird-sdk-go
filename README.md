@@ -29,6 +29,64 @@ Requires Go 1.24+.
 
 Optional collection fields in generated request params distinguish `nil` from an empty value: `nil` omits the field, while `[]string{}` or `map[string]any{}` sends an empty collection. The API decides whether that clears a value or is rejected.
 
+## Nullable request fields
+
+Use `bird.Value(value)` to send a value and `bird.Null[T]()` to send explicit null. The zero `Nullable[T]` omits an optional property. A required nullable property must be initialized: otherwise the call returns `*bird.RequestValidationError` with its `Field` path before sending, without retrying. For example, clear a number's inbound route with `VoiceInboundConfigurationPut{Route: bird.Null[bird.VoiceCallRouteWritable]()}`.
+
+The following public fields change from pointers to `Nullable[T]`. Update struct literals to use `Value` or `Null`; test presence with `IsSpecified()`, test null with `IsNull()`, and read a non-null value with `MustGet()`.
+
+| Field                                        | Before                              | After                                        |
+| -------------------------------------------- | ----------------------------------- | -------------------------------------------- |
+| `VoiceInboundConfigurationPut.Route`         | `*VoiceCallRouteWritable`           | `Nullable[VoiceCallRouteWritable]`           |
+| `VoiceSequenceSavedExecutionCallSample.Orig` | `*VoiceSequenceSavedExecutionParty` | `Nullable[VoiceSequenceSavedExecutionParty]` |
+| `VoiceSequenceSavedExecutionCallSample.Dest` | `*VoiceSequenceSavedExecutionParty` | `Nullable[VoiceSequenceSavedExecutionParty]` |
+| `AMBListPickerItem.ImageIdentifier`          | `*string`                           | `Nullable[string]`                           |
+| `AMBListPickerItem.Subtitle`                 | `*string`                           | `Nullable[string]`                           |
+| `AMBListPickerSection.Order`                 | `*int`                              | `Nullable[int]`                              |
+
+Apple Messages list-picker types are shared by requests and responses, so reading these three response fields also uses the nullable methods. Response-only fields keep their pointer types.
+
+Untyped nullable request fields also carry explicit presence:
+
+| Public parameter field                      | Before | After           |
+| ------------------------------------------- | ------ | --------------- |
+| `ContactPropertyCreateParams.FallbackValue` | `any`  | `Nullable[any]` |
+| `ContactPropertyUpdateParams.FallbackValue` | `any`  | `Nullable[any]` |
+| `RealtimePublishParams.Data`                | `any`  | `Nullable[any]` |
+| `RealtimeBatchEventParams.Data`             | `any`  | `Nullable[any]` |
+| `RealtimeMemberSendParams.Data`             | `any`  | `Nullable[any]` |
+
+Use `bird.Value[any](value)` for a payload or fallback and `bird.Null[any]()` for JSON null. Realtime null delivers a null payload; contact-property update null removes its fallback.
+
+`VoiceVerifiedNumbersUpdateParams.Name` retains `Nullable[string]` but now requires an explicit label or null.
+
+Closed update objects now state fields already required by server validation:
+
+| Public Go field                    | Before                       | After                       |
+| ---------------------------------- | ---------------------------- | --------------------------- |
+| `VoiceRingGroupsUpdateParams.Name` | `*string`                    | `string`                    |
+| `VoiceTrunkMediaUpdate.Encryption` | `*VoiceTrunkMediaEncryption` | `VoiceTrunkMediaEncryption` |
+
+For example, replace `VoiceRingGroupsUpdateParams{Name: bird.Ptr("Support")}` with `VoiceRingGroupsUpdateParams{Name: "Support"}`, and replace `VoiceTrunkMediaUpdate{Encryption: bird.Ptr(mode)}` with `VoiceTrunkMediaUpdate{Encryption: mode}`. `VoiceTrunksUpdateParams.Media` remains optional; only a supplied media object requires encryption. `AdminMarketingStillUpdate.Name` is staff-only and adds no public SDK field.
+
+`VoiceDailySpendLimitUpdate.WorkspaceLimit` and `VoiceDestinationDailySpendLimitUpdate.Limit` already use `Nullable[Money]`; they now reject an unset value locally as required by the API.
+
+## Broadcast template updates
+
+`BroadcastsUpdateParams.Template` now accepts `Nullable[BroadcastsParameterTemplate]` instead of `Nullable[string]`. Move the replaced top-level `Language`, `Parameters`, and `ParameterOverrides` into that template. The wire body is unchanged; an explicitly supplied empty template is now expressible.
+
+```go
+templateID := "emt_…"
+// Before
+params := bird.BroadcastsUpdateParams{Template: bird.Value(templateID), Language: bird.Value("en")}
+// After
+params := bird.BroadcastsUpdateParams{Template: bird.Value(bird.BroadcastsParameterTemplate{
+    ID: &templateID, Language: bird.Value("en"),
+})}
+// Sends {"template":{}}
+empty := bird.BroadcastsUpdateParams{Template: bird.Value(bird.BroadcastsParameterTemplate{})}
+```
+
 ## Examples
 
 Runnable, per-method examples live in [`example_test.go`](./example_test.go) and render under each method on [pkg.go.dev](https://pkg.go.dev/github.com/messagebird/bird-sdk-go): sending (simple and rich), error handling, get, pagination, channel defaults, the webhook receiver, and the escape hatch.

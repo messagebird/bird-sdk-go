@@ -96,7 +96,7 @@ type VoiceTrunksUpdateParams struct {
 	InboundEnabled *bool
 	// Whether we take ourselves out of the audio path for calls we forward to this trunk. Turning it on takes effect at the next call setup and leaves calls already up untouched. It is an inbound setting, so the trunk must have `inbound_enabled` on; one update can do both. While it is on we cannot record those calls, report their audio quality, or end one because its audio stopped, and your equipment must be reachable for audio from the public internet. Turning it off puts us back in the path at the next call setup. Omit the field to leave it unchanged.
 	MediaBypass *bool
-	// A change to how the trunk carries call audio. An omitted member is left unchanged.
+	// A change to how the trunk encrypts call audio.
 	Media *VoiceTrunkMediaUpdate
 	// Replaces the trunk's entire IP allow list. When present, the allow list is set to exactly these CIDR blocks: ranges not listed are removed and new ones are added. Send an empty array to clear the list, turning IP filtering off. Omit the field to leave the allow list unchanged.
 	IPACLs []VoiceTrunkIPACLCreate

@@ -108,39 +108,6 @@ func TestBroadcastsUpdateClearsCollections(t *testing.T) {
 	}
 }
 
-// A language, parameters and overrides travel inside the template reference,
-// so clearing the template in the same call leaves them nowhere to go; the SDK
-// refuses, naming the input, rather than dropping it on the way to the wire.
-func TestBroadcastsUpdateRefusesTemplateInputsOnAClearedTemplate(t *testing.T) {
-	t.Parallel()
-
-	for _, tc := range []struct {
-		name   string
-		params bird.BroadcastsUpdateParams
-		want   string
-	}{
-		{"language", bird.BroadcastsUpdateParams{Language: bird.Value("nl")}, "Language needs a Template"},
-		{"parameters", bird.BroadcastsUpdateParams{Parameters: &map[string]json.RawMessage{}}, "Parameters need a Template"},
-		{"parameter overrides", bird.BroadcastsUpdateParams{ParameterOverrides: &map[string]map[string]json.RawMessage{}}, "ParameterOverrides need a Template"},
-	} {
-		t.Run(tc.name, func(t *testing.T) {
-			t.Parallel()
-
-			server := newServer(t, func(w http.ResponseWriter, _ *http.Request) {
-				t.Error("request reached the server")
-				w.WriteHeader(http.StatusInternalServerError)
-			})
-
-			tc.params.Template = bird.Null[string]()
-			_, err := newClient(t, server).Broadcasts.Update(
-				context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg", tc.params)
-			if err == nil || !strings.Contains(err.Error(), tc.want) {
-				t.Fatalf("Update: got %v, want a %s error", err, tc.want)
-			}
-		})
-	}
-}
-
 // Overrides travel inside the template reference, so a create without one has
 // nowhere to put them; the SDK refuses rather than sending a legacy draft.
 func TestBroadcastsCreateRefusesParameterOverridesWithoutATemplate(t *testing.T) {
@@ -169,9 +136,7 @@ func TestBroadcastsCreateRefusesParameterOverridesWithoutATemplate(t *testing.T)
 	}
 }
 
-// Clearing the template already clears its language, so a Null language sent
-// beside a Null template is the same request twice, and the wire carries one
-// null template.
+// Clearing the nested template also clears its language in the same wire request.
 func TestBroadcastsUpdateClearsTemplateAndLanguageTogether(t *testing.T) {
 	t.Parallel()
 
@@ -186,7 +151,7 @@ func TestBroadcastsUpdateClearsTemplateAndLanguageTogether(t *testing.T) {
 
 	if _, err := newClient(t, server).Broadcasts.Update(
 		context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg",
-		bird.BroadcastsUpdateParams{Template: bird.Null[string](), Language: bird.Null[string]()}); err != nil {
+		bird.BroadcastsUpdateParams{Template: bird.Null[bird.BroadcastsParameterTemplate]()}); err != nil {
 		t.Fatalf("Update: %v", err)
 	}
 	if string(got["template"]) != "null" {
@@ -268,7 +233,7 @@ func TestBroadcastParameterNumericWire(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	_, err = client.Broadcasts.Update(context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg", bird.BroadcastsUpdateParams{Template: bird.Value(template), Parameters: &parameters, ParameterOverrides: &overrides})
+	_, err = client.Broadcasts.Update(context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg", bird.BroadcastsUpdateParams{Template: bird.Value(bird.BroadcastsParameterTemplate{ID: &template, Parameters: &parameters, ParameterOverrides: &overrides})})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -308,5 +273,42 @@ func TestBroadcastTestRequiresCallerIntentKey(t *testing.T) {
 		if calls != 0 {
 			t.Errorf("sent %d requests without caller intent key", calls)
 		}
+	}
+}
+
+func TestBroadcastsUpdateNestedTemplatePresence(t *testing.T) {
+	for _, tc := range []struct {
+		name     string
+		template bird.Nullable[bird.BroadcastsParameterTemplate]
+		want     string
+	}{
+		{"unset", nil, `{}`},
+		{"empty object", bird.Value(bird.BroadcastsParameterTemplate{}), `{"template":{}}`},
+		{"null", bird.Null[bird.BroadcastsParameterTemplate](), `{"template":null}`},
+		{"language unset", bird.Value(bird.BroadcastsParameterTemplate{ID: bird.Ptr("emt_123")}), `{"template":{"id":"emt_123"}}`},
+		{"language null", bird.Value(bird.BroadcastsParameterTemplate{Language: bird.Null[string]()}), `{"template":{"language":null}}`},
+		{"language value", bird.Value(bird.BroadcastsParameterTemplate{Language: bird.Value("nl")}), `{"template":{"language":"nl"}}`},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			var sent map[string]any
+			server := newServer(t, func(w http.ResponseWriter, r *http.Request) {
+				if err := json.NewDecoder(r.Body).Decode(&sent); err != nil {
+					t.Error(err)
+				}
+				w.Header().Set("Content-Type", "application/json")
+				_, _ = io.WriteString(w, `{"id":"eb_123"}`)
+			})
+			_, err := newClient(t, server).Broadcasts.Update(context.Background(), "eb_123", bird.BroadcastsUpdateParams{Template: tc.template})
+			if err != nil {
+				t.Fatal(err)
+			}
+			got, err := json.Marshal(sent)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if string(got) != tc.want {
+				t.Fatalf("body = %s, want %s", got, tc.want)
+			}
+		})
 	}
 }

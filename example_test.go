@@ -893,7 +893,7 @@ func ExampleBroadcastsService_Update() {
 		log.Fatal(err)
 	}
 	broadcast, err := client.Broadcasts.Update(context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg",
-		bird.BroadcastsUpdateParams{Template: bird.Value("emt_01krdgeqcxet5s7t44vh8rt9mg"), Parameters: &map[string]json.RawMessage{}})
+		bird.BroadcastsUpdateParams{Template: bird.Value(bird.BroadcastsParameterTemplate{ID: bird.Ptr("emt_01krdgeqcxet5s7t44vh8rt9mg"), Parameters: &map[string]json.RawMessage{}})})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -1105,7 +1105,7 @@ func ExampleContactPropertiesService_Update() {
 		log.Fatal(err)
 	}
 	property, err := client.ContactProperties.Update(context.Background(), "prp_123", bird.ContactPropertyUpdateParams{
-		FallbackValue: "free",
+		FallbackValue: bird.Value[any]("free"),
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -1878,7 +1878,7 @@ func ExampleRealtimeService_Publish() {
 	result, err := client.Realtime.Publish(context.Background(), "rap_123", bird.RealtimePublishParams{
 		Event:    "order.created",
 		Channels: []string{"orders", "presence-lobby"},
-		Data:     map[string]any{"order_id": "ord_1", "total": 4200},
+		Data:     bird.Value[any](map[string]any{"order_id": "ord_1", "total": 4200}),
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -1897,8 +1897,8 @@ func ExampleRealtimeService_PublishBatch() {
 	}
 	result, err := client.Realtime.PublishBatch(context.Background(), "rap_123", bird.RealtimePublishBatchParams{
 		Events: []bird.RealtimeBatchEventParams{
-			{Event: "order.created", Channel: "orders", Data: map[string]any{"id": 1}},
-			{Event: "order.updated", Channel: "orders", Data: map[string]any{"id": 2}},
+			{Event: "order.created", Channel: "orders", Data: bird.Value[any](map[string]any{"id": 1})},
+			{Event: "order.updated", Channel: "orders", Data: bird.Value[any](map[string]any{"id": 2})},
 		},
 	})
 	if err != nil {
@@ -2012,7 +2012,7 @@ func ExampleRealtimeMembersService_Send() {
 	}
 	err = client.Realtime.Members.Send(context.Background(), "rap_01krdgeqcxet5s7t44vh8rt9mg", "user_42", bird.RealtimeMemberSendParams{
 		Event: "order-shipped",
-		Data:  map[string]any{"order_id": "ord_123"},
+		Data:  bird.Value[any](map[string]any{"order_id": "ord_123"}),
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -4694,7 +4694,7 @@ func ExampleVoiceRingGroupsService_Update() {
 		log.Fatal(err)
 	}
 	group, err := client.Voice.RingGroups.Update(context.Background(), "RING_GROUP_ID", bird.VoiceRingGroupsUpdateParams{
-		Name: bird.Ptr("Tier 2 support"),
+		Name: "Tier 2 support",
 	})
 	if err != nil {
 		log.Fatal(err)

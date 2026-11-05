@@ -6,9 +6,11 @@ import "github.com/messagebird/bird-sdk-go/internal/apierror"
 // the semver-locked public surface. Catch *APIError (via errors.As) to handle
 // any server error; the variants carry extra data. Transport failures with no
 // HTTP response are *ConnectionError / *TimeoutError; a bad webhook signature is
-// *WebhookVerificationError.
+// *WebhookVerificationError. Unset required nullable fields return
+// *RequestValidationError before HTTP dispatch.
 type (
 	APIError                 = apierror.APIError
+	RequestValidationError   = apierror.RequestValidationError
 	RateLimitError           = apierror.RateLimitError
 	ValidationError          = apierror.ValidationError
 	ConnectionError          = apierror.ConnectionError
