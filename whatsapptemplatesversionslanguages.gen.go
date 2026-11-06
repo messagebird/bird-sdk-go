@@ -13,6 +13,8 @@ type WhatsAppTemplateComponentWrite = oapi.WhatsAppTemplateComponentWrite
 
 type WhatsAppTemplateOptimizationSpecWrite = oapi.WhatsAppTemplateOptimizationSpecWrite
 
+type WhatsAppTemplateParameterBindings = oapi.WhatsAppTemplateParameterBindings
+
 type WhatsAppTemplateBidStrategyWrite = oapi.WhatsAppTemplateBidStrategyWrite
 
 const (
@@ -42,6 +44,8 @@ const (
 
 // WhatsappTemplatesVersionsLanguagesSetParams is the request body for set.
 type WhatsappTemplatesVersionsLanguagesSetParams struct {
+	// Liquid that computes this language's send values from the send's `template.parameters`. Omit it to keep the current bindings, and send `null` to remove them. Changing only the bindings never needs a new review.
+	ParameterBindings Nullable[WhatsAppTemplateParameterBindings]
 	// This language's maximum price. Omit it to keep the current one. A new language written without it uses Meta's standard rate. Send `null` to return to the standard rate. Changing only the price updates Meta without a new review. A send at a maximum price needs the business account's `marketing_messages_onboarding_status` to be `onboarded`. Otherwise it fails with WhatsApp error 131061.
 	OptimizationSpec Nullable[WhatsAppTemplateOptimizationSpecWrite]
 	// How long WhatsApp keeps trying to deliver a message from this language, in seconds. WhatsApp drops a message it cannot deliver in that time. Omit it to keep the current value. Send `null` to use WhatsApp's default: 10 minutes for authentication, 30 days for utility and marketing. A new language written without it uses WhatsApp's default. The range depends on the language's `category`: 30 to 900 for authentication, 30 to 43200 for utility, and 43200 to 1209600 for marketing. A value outside 30 to 1209600 fails request validation; one inside it but outside the category's range fails with `WhatsAppTemplateTTLOutOfRange`. On a marketing template, the value applies while the business account's `marketing_messages_onboarding_status` is `onboarded`. Changing only this value updates WhatsApp without a new review.
@@ -54,6 +58,7 @@ type WhatsappTemplatesVersionsLanguagesSetParams struct {
 
 func (p WhatsappTemplatesVersionsLanguagesSetParams) toWire() oapi.WhatsAppTemplateLanguageUpsert {
 	body := oapi.WhatsAppTemplateLanguageUpsert{}
+	body.ParameterBindings = p.ParameterBindings
 	body.OptimizationSpec = p.OptimizationSpec
 	body.MessageSendTtlSeconds = p.MessageSendTTLSeconds
 	if p.Components != nil {

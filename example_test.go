@@ -6575,3 +6575,17 @@ func ExampleAssetsUploadsService_Cancel() {
 	}
 	fmt.Println(upload.State)
 }
+
+func ExampleAssetsUploadsService_Handoff() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	handoff, err := client.Assets.Uploads.Handoff(context.Background(), "aus_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	if handoff.BrowserUrl != nil {
+		fmt.Println(*handoff.BrowserUrl)
+	}
+}

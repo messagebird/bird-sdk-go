@@ -1261,6 +1261,8 @@ type EmailMailboxScheduledMessageList = oapi.EmailMailboxScheduledMessageList
 type AssetUploadFile = oapi.AssetUploadFile
 type AssetUploadSessionInstruction = oapi.AssetUploadSessionInstruction
 type AssetUploadSessionPrepared = oapi.AssetUploadSessionPrepared
+type AssetUploadBrowserHandoff = oapi.AssetUploadBrowserHandoff
+
 type AssetUploadSessionDetails = oapi.AssetUploadSessionDetails
 
 type AssetUploadInstruction = oapi.AssetUploadInstruction

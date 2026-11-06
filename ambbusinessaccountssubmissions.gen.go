@@ -86,7 +86,7 @@ func (s *AmbBusinessAccountsSubmissionsService) List(ctx context.Context, busine
 	})
 }
 
-// Create Submits an account for review, making its name, Apple UUID and three uploaded evidence attachments available to Bird staff. This does not approve the account.
+// Create Submits an account for review and queues an automated review of its three evidence attachments. The review can reject the attempt with the changes needed. Otherwise Bird staff review it and relay it to Apple when it is ready. Read the outcome with `amb.business_accounts.submissions.list`. This does not approve the account.
 func (s *AmbBusinessAccountsSubmissionsService) Create(ctx context.Context, businessAccountId string, params AmbBusinessAccountsSubmissionsCreateParams, opts ...option.RequestOption) (*AMBBusinessAccountSubmission, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.CreateAMBBusinessAccountSubmissionParams{}

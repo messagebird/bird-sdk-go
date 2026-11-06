@@ -9,6 +9,25 @@ import (
 	"github.com/messagebird/bird-sdk-go/option"
 )
 
+// Handoff Use assets.uploads.handoff only when the code environment cannot PUT to the upload hostname and the customer cannot or does not want to change its network settings. It returns a Bird page where an authorized person selects the original file and publishes it. A generated file must first be downloaded. The person's browser still needs access to the storage hostname. Opening the page does not finish the upload; use assets.uploads.get with the original connection to read the saved result.
+func (s *AssetsUploadsService) Handoff(ctx context.Context, uploadId string, opts ...option.RequestOption) (*AssetUploadBrowserHandoff, error) {
+	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.CreateAssetUploadBrowserHandoffParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.CreateAssetUploadBrowserHandoff(ctx, oapi.AssetUploadSessionID(uploadId), op, cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out AssetUploadBrowserHandoff
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
 // Get Returns current state and any saved result without issuing another upload URL. Use the same workspace and connection that created the session. A new OAuth connection cannot inherit an earlier connection's uploads.
 func (s *AssetsUploadsService) Get(ctx context.Context, uploadId string, opts ...option.RequestOption) (*AssetUploadSessionDetails, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {

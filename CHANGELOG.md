@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.129.0
+
+- Add `assets.uploads.handoff` to return a browser upload page for an existing session when direct transfer is blocked. A signed-in person with asset write access selects the original file and publishes it; read the saved result with `assets.uploads.get` using the original connection.
+- WhatsApp sends gain a template `parameters` map to fill a template by name instead of `components`. A template language with parameter bindings can only be sent this way.
+- WhatsApp template version reads now return `variables`, the inputs a template `parameters` send fills by name. Template languages now read and write `parameter_bindings`: set them to fill a placeholder from Liquid, omit them to keep the stored bindings, or send `null` to clear them. Message reads now return the `parameters` a template send carried.
+- **Breaking:** Workspace rate limit responses add `limit_source`, `automatic_limit`, and `allocation_enabled`. When creating a `WorkspaceRateLimitList` in TypeScript, include these fields in every `data` item. Python applications validating previously saved responses must refresh those responses from the API because validation now rejects missing fields. Go applications using positional `WorkspaceRateLimit` literals must update the field list or use keyed literals. Allocation applies to organizations with several workspaces, or a workspace limit or allocation retained after deletion.
+
 ## 0.128.0
 
 - Voice leg `rejection_reason` accepts values added later, so treat a value you don't recognize as a new reason. It gains `emergency_number_inactive`, `emergency_cap_exceeded` and `emergency_carrier_unavailable`.

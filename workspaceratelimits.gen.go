@@ -9,7 +9,7 @@ import (
 	"github.com/messagebird/bird-sdk-go/option"
 )
 
-// List Only relevant to organizations with several workspaces, or one left with a single workspace that kept a workspace limit after a deletion, which still applies. List every rate-limit policy as it applies to the current workspace: the shared organization limit, any workspace limit, and remaining capacity in the current window. Remaining counts are null, not zero, when usage.status is unavailable. usage.workspace_remaining is also null when the workspace has no limit of its own or attribution.status is not ready, so check usage.status before treating null as a failed read.
+// List Only relevant to organizations with several workspaces, or one left with a workspace limit or enabled allocation after a deletion. List every rate-limit policy as it applies to the current workspace: the shared organization limit, any manual or automatic workspace limit, and remaining capacity in the current window. Remaining counts are null, not zero, when usage.status is unavailable. usage.workspace_remaining is also null when neither a manual nor an automatic limit applies or attribution.status is not ready, so check usage.status before treating null as a failed read.
 func (s *WorkspaceRateLimitsService) List(ctx context.Context, opts ...option.RequestOption) (*WorkspaceRateLimitList, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.ListWorkspaceRateLimits(ctx, &oapi.ListWorkspaceRateLimitsParams{}, cfg...)

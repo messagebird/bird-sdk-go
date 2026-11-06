@@ -138,6 +138,24 @@ func (e AMBBusinessAccountStatus) Valid() bool {
 	}
 }
 
+// Defines values for AMBBusinessAccountSubmissionDecider.
+const (
+	AMBBusinessAccountSubmissionDeciderAutomatedReview AMBBusinessAccountSubmissionDecider = "automated_review"
+	AMBBusinessAccountSubmissionDeciderStaff           AMBBusinessAccountSubmissionDecider = "staff"
+)
+
+// Valid indicates whether the value is a known member of the AMBBusinessAccountSubmissionDecider enum.
+func (e AMBBusinessAccountSubmissionDecider) Valid() bool {
+	switch e {
+	case AMBBusinessAccountSubmissionDeciderAutomatedReview:
+		return true
+	case AMBBusinessAccountSubmissionDeciderStaff:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for AMBBusinessAccountSubmissionSort.
 const (
 	AMBBusinessAccountSubmissionSortCreatedAt AMBBusinessAccountSubmissionSort = "created_at"
@@ -10917,6 +10935,27 @@ func (e WorkspaceRateLimitCapStatus) Valid() bool {
 	}
 }
 
+// Defines values for WorkspaceRateLimitLimitSource.
+const (
+	WorkspaceRateLimitLimitSourceAutomatic    WorkspaceRateLimitLimitSource = "automatic"
+	WorkspaceRateLimitLimitSourceManual       WorkspaceRateLimitLimitSource = "manual"
+	WorkspaceRateLimitLimitSourceOrganization WorkspaceRateLimitLimitSource = "organization"
+)
+
+// Valid indicates whether the value is a known member of the WorkspaceRateLimitLimitSource enum.
+func (e WorkspaceRateLimitLimitSource) Valid() bool {
+	switch e {
+	case WorkspaceRateLimitLimitSourceAutomatic:
+		return true
+	case WorkspaceRateLimitLimitSourceManual:
+		return true
+	case WorkspaceRateLimitLimitSourceOrganization:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for WorkspaceRateLimitUsageStatus.
 const (
 	WorkspaceRateLimitUsageStatusAvailable   WorkspaceRateLimitUsageStatus = "available"
@@ -11474,7 +11513,7 @@ type AMBBusinessAccountEvent struct {
 	CreatedAt *time.Time                `json:"created_at,omitempty"`
 	Id        AMBBusinessAccountEventID `json:"id"`
 
-	// Metadata Details of the change. source identifies whether a customer or Bird staff recorded it.
+	// Metadata Details of the change. `source` identifies who recorded it, `customer`, `staff` or `automated_review`.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 	Summary  *string                 `json:"summary,omitempty"`
 	Type     *string                 `json:"type,omitempty"`
@@ -11547,10 +11586,13 @@ type AMBBusinessAccountStatus string
 // AMBBusinessAccountSubmission defines model for AMBBusinessAccountSubmission.
 type AMBBusinessAccountSubmission struct {
 	// AppleBusinessId The Apple business UUID frozen when this attempt was submitted.
-	AppleBusinessId   *openapi_types.UUID      `json:"apple_business_id,omitempty"`
-	BusinessAccountId *AMBBusinessID           `json:"business_account_id,omitempty"`
-	CreatedAt         *time.Time               `json:"created_at,omitempty"`
-	Id                *AMBBusinessSubmissionID `json:"id,omitempty"`
+	AppleBusinessId   *openapi_types.UUID `json:"apple_business_id,omitempty"`
+	BusinessAccountId *AMBBusinessID      `json:"business_account_id,omitempty"`
+	CreatedAt         *time.Time          `json:"created_at,omitempty"`
+
+	// DecidedBy Who recorded this attempt's outcome, `automated_review` when Bird's automated review rejected it or `staff`. Null while the attempt waits, and for outcomes recorded before automated reviews.
+	DecidedBy *AMBBusinessAccountSubmissionDecider `json:"decided_by,omitempty"`
+	Id        *AMBBusinessSubmissionID             `json:"id,omitempty"`
 
 	// Name The customer-supplied Bird account name frozen when this attempt was submitted.
 	Name *string `json:"name,omitempty"`
@@ -11562,7 +11604,7 @@ type AMBBusinessAccountSubmission struct {
 	// Status The review outcome of this attempt. Earlier attempts retain their outcome when a new attempt is submitted.
 	Status *AMBBusinessAccountSubmissionStatus `json:"status,omitempty"`
 
-	// StatusReason Review feedback on this attempt, such as the reason Apple rejected it. May contain basic Markdown, such as emphasis and lists.
+	// StatusReason Review feedback on this attempt, such as the automated review's feedback or the reason Apple rejected it. May contain basic Markdown, such as emphasis, lists and links.
 	StatusReason       *string     `json:"status_reason,omitempty"`
 	UpdatedAt          *time.Time  `json:"updated_at,omitempty"`
 	UseCasesAttachment *Attachment `json:"use_cases_attachment,omitempty"`
@@ -11575,6 +11617,9 @@ type AMBBusinessAccountSubmissionCreate struct {
 	UseCasesAttachmentId  AttachmentID `json:"use_cases_attachment_id"`
 	VideoAttachmentId     AttachmentID `json:"video_attachment_id"`
 }
+
+// AMBBusinessAccountSubmissionDecider Who recorded an attempt's outcome. `automated_review` is Bird's automated review of the evidence. `staff` is Bird staff, including when they record Apple's decision. Treat unrecognized values as future deciders.
+type AMBBusinessAccountSubmissionDecider string
 
 // AMBBusinessAccountSubmissionList defines model for AMBBusinessAccountSubmissionList.
 type AMBBusinessAccountSubmissionList struct {
@@ -14390,6 +14435,18 @@ type AssetUpload struct {
 
 	// Name A display name for the asset. Defaults to the uploaded file's name when omitted or empty after trimming.
 	Name *string `json:"name,omitempty"`
+}
+
+// AssetUploadBrowserHandoff defines model for AssetUploadBrowserHandoff.
+type AssetUploadBrowserHandoff struct {
+	// BrowserUrl Bird page for a pending session, or null when it no longer accepts an upload. The link grants no access; the person must sign in and have asset write permission in the workspace.
+	BrowserUrl *string `json:"browser_url"`
+
+	// Next Ordered steps to finish the fallback or read its outcome.
+	Next []NextAction `json:"next"`
+
+	// Session The original upload session and any saved publication receipt. In this response, `session.next` is empty; follow the top-level `next` steps.
+	Session AssetUploadSessionDetails `json:"session"`
 }
 
 // AssetUploadFile Exact properties of the original file. Calculate size and SHA-256 from its bytes before creating a session. Images allow up to 5,242,880 bytes; other supported media allow up to 25,000,000 bytes.
@@ -30898,7 +30955,7 @@ type TemplateVariable struct {
 	// Constraint A plain-language description of what values this variable accepts. When `system` is true it names where Bird takes the value from instead, because there is no value for you to send.
 	Constraint *string `json:"constraint,omitempty"`
 
-	// Key The key this slot is filled by. When `system` is true it is the reserved `bird` key or a dotted path beneath it, such as `bird.contact.first_name`, and naming it in a send is rejected. Otherwise, on email and SMS it is the key you set in the send's `parameters` object, and on WhatsApp the `name` on the matching parameter inside `components`, or, in the template parameters preview, the key in the send's `template.parameters`. A WhatsApp template whose placeholders are positional uses the position itself as `1`, `2` and so on, and values with no placeholder use fixed keys: `header_url`, `header_filename`, `header_location` and `code`, plus `button_url` (or `button_url_1`, `button_url_2` for a carousel card) for a url button whose suffix is numbered.
+	// Key The key this slot is filled by. When `system` is true it is the reserved `bird` key or a dotted path beneath it, such as `bird.contact.first_name`, and naming it in a send is rejected. Otherwise, on email and SMS it is the key you set in the send's `parameters` object, and on WhatsApp the key in the send's `template.parameters`, or the `name` on the matching parameter inside `components`. A WhatsApp template whose placeholders are positional uses the position itself as `1`, `2` and so on, and values with no placeholder use fixed keys: `header_url`, `header_filename`, `header_location` and `code`, plus `button_url` (or `button_url_1`, `button_url_2` for a carousel card) for a url button whose suffix is numbered.
 	Key *string `json:"key,omitempty"`
 
 	// Required Whether the send must supply this variable. Omitting a required value returns `422` on every channel. On Apple Messages, a later time slot's start that is used nowhere else is optional: a send that omits it drops that slot. Always false when `system` is true, because you do not supply that slot's value.
@@ -30907,7 +30964,7 @@ type TemplateVariable struct {
 	// Sensitive Whether this slot requires redacted message history. Published email template sends that store recipient snapshots reject sensitive inputs before acceptance. Other channels retain their own sensitive-input delivery and retention rules.
 	Sensitive *bool `json:"sensitive,omitempty"`
 
-	// System Whether the value comes from Bird rather than from the send. Absent means false. System slots are identified by the reserved `bird` key or a dotted path beneath it. They appear on email templates, and, in the template parameters preview, on WhatsApp templates whose parameter bindings read contact data; every SMS slot is yours to fill. A draft can also name a reserved key no Bird value fills, including `bird` itself: `constraint` says so, and publishing that draft is rejected.
+	// System Whether the value comes from Bird rather than from the send. Absent means false. System slots are identified by the reserved `bird` key or a dotted path beneath it. They appear on email templates, and on WhatsApp templates whose parameter bindings read contact data; every SMS slot is yours to fill. A draft can also name a reserved key no Bird value fills, including `bird` itself: `constraint` says so, and publishing that draft is rejected.
 	System *bool `json:"system,omitempty"`
 
 	// Type The value type this slot accepts. Each typed slot rejects a value that does not match its `constraint`. Built-in SMS templates use typed slots (`code`, `amount` and the rest); `domain` is a lowercase DNS domain name such as `example.com`, which the verification templates fill to bind a passcode to a website, and `app_hash` is an 11-character Android SMS Retriever app hash such as `FA+9qCX9VSu`, which they fill to bind it to an Android app. Apple Messages templates type a variable from its content: the field it fills (`url`, `image`, `timestamp`, `location`, `timezone`) or the formatting filter applied to it (`date`, `date_time`, `amount`, `currency`). Email and workspace SMS templates use `text`. WhatsApp templates use `text`, plus `url` for a media header's file and `location` for a location header. A `location` value is an object with `latitude` and `longitude`, and optionally `name` and `address`. On Apple Messages, `name` becomes the location's title and `address` is not shown. Workspace SMS parameters must be scalar values.
@@ -35064,6 +35121,9 @@ type WhatsAppMessageTemplate struct {
 	// Language The canonical BCP-47 tag of the template variant that was sent.
 	Language *LanguageTag `json:"language,omitempty"`
 
+	// Parameters The `template.parameters` map the message was sent with, keeping only the keys the template language reads; keys the send ignored are dropped. `components` shows the values the template rendered from it. Absent for a `components` send, for an authentication template, and for messages sent before Bird stored it.
+	Parameters *map[string]interface{} `json:"parameters,omitempty"`
+
 	// Slug The template's stable handle (for example `bird_otp`).
 	Slug *TemplateSlug `json:"slug,omitempty"`
 }
@@ -36288,6 +36348,9 @@ type WhatsAppTemplateLanguage struct {
 	// OptimizationSpec This language's maximum price, or `null` when Meta's standard rate applies.
 	OptimizationSpec *WhatsAppTemplateOptimizationSpec `json:"optimization_spec,omitempty"`
 
+	// ParameterBindings This language's bindings, absent when it has none.
+	ParameterBindings *WhatsAppTemplateParameterBindings `json:"parameter_bindings,omitempty"`
+
 	// Pause WhatsApp's record of why it paused or disabled one language. Set when WhatsApp pauses or disables the language and removed once the language can send again. Present only on the version currently in service.
 	Pause *WhatsAppTemplatePause `json:"pause,omitempty"`
 
@@ -36448,6 +36511,9 @@ type WhatsAppTemplateLanguageUpsert struct {
 	// OptimizationSpec This language's maximum price. Omit it to keep the current one. A new language written without it uses Meta's standard rate. Send `null` to return to the standard rate. Changing only the price updates Meta without a new review. A send at a maximum price needs the business account's `marketing_messages_onboarding_status` to be `onboarded`. Otherwise it fails with WhatsApp error 131061.
 	OptimizationSpec nullable.Nullable[WhatsAppTemplateOptimizationSpecWrite] `json:"optimization_spec,omitempty"`
 
+	// ParameterBindings Liquid that computes this language's send values from the send's `template.parameters`. Omit it to keep the current bindings, and send `null` to remove them. Changing only the bindings never needs a new review.
+	ParameterBindings nullable.Nullable[WhatsAppTemplateParameterBindings] `json:"parameter_bindings,omitempty"`
+
 	// Revision The revision you last read for this language, making the write a compare-and-set: a mismatch is refused with a conflict, leaving an edit you have not seen in place. Omit it for last-write-wins, which is what a single writer wants. Supplying it for a language that does not exist is also refused with a conflict rather than recreating the language. Inside a template's initial languages seed on create, a value here is refused, since no prior revision exists yet to compare against.
 	Revision *WhatsAppTemplateRevision `json:"revision,omitempty"`
 }
@@ -36465,6 +36531,21 @@ type WhatsAppTemplateList struct {
 
 	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// WhatsAppTemplateLocationBinding The Liquid that fills a location header, one string per field. Latitude and longitude must render to a number.
+type WhatsAppTemplateLocationBinding struct {
+	// Address Liquid for the location's address.
+	Address *string `json:"address,omitempty"`
+
+	// Latitude Liquid for the latitude, in degrees.
+	Latitude string `json:"latitude"`
+
+	// Longitude Liquid for the longitude, in degrees.
+	Longitude string `json:"longitude"`
+
+	// Name Liquid for the location's name.
+	Name *string `json:"name,omitempty"`
 }
 
 // WhatsAppTemplateOptimizationSpec The maximum price for this language's marketing deliveries. Meta charges each delivery a variable amount up to the bid.
@@ -36493,6 +36574,17 @@ type WhatsAppTemplateOptimizationSpecWrite struct {
 	//
 	// - `lowest_cost_with_bid_cap`: Meta delivers at the lowest cost it can find, never above the bid.
 	BidStrategy WhatsAppTemplateBidStrategyWrite `json:"bid_strategy"`
+}
+
+// WhatsAppTemplateParameterBindings Liquid over the send's `template.parameters`, keyed by the name of the value it fills. A placeholder's name is its own, such as `order_id`, or its number, such as `1`. A value with no placeholder has a fixed name: `header_url` (or `header_url_1`, `header_url_2` and so on for a carousel card), `header_filename`, `header_location` and `code`. A numbered url suffix is `button_url` (or `button_url_1`, `button_url_2` for a card). A value is a Liquid string, except `header_location`'s, which is an object of four. A value no key binds is filled by the input of the same name. Bindings never reach WhatsApp.
+type WhatsAppTemplateParameterBindings map[string]WhatsAppTemplateParameterBindings_AdditionalProperties
+
+// WhatsAppTemplateParameterBindings0 defines model for .
+type WhatsAppTemplateParameterBindings0 = string
+
+// WhatsAppTemplateParameterBindings_AdditionalProperties defines model for WhatsAppTemplateParameterBindings.AdditionalProperties.
+type WhatsAppTemplateParameterBindings_AdditionalProperties struct {
+	union json.RawMessage
 }
 
 // WhatsAppTemplateParameterType The kind of value a template parameter carries, which follows the block it fills. The `text` type is a plain string substituted into a placeholder. This includes a coupon button's code, which the recipient copies from the button. The `image`, `video`, `gif`, and `document` types carry a media header's file in `url`. Each matches its header's `format`. The `location` type fills a location header and carries a point on the map. Open enum: more kinds may be added over time.
@@ -36549,7 +36641,7 @@ type WhatsAppTemplateRejectionCategory string
 // WhatsAppTemplateRevision A write counter, incremented every time the content it belongs to changes. It sits at 1 on content that has never been written through this API.
 type WhatsAppTemplateRevision = int
 
-// WhatsAppTemplateSend Supply exactly one of `id` or `slug`, optionally a language, and fill required placeholders through `components`.
+// WhatsAppTemplateSend Supply exactly one of `id` or `slug`, optionally a language, and fill required placeholders through `parameters` or `components`.
 type WhatsAppTemplateSend struct {
 	// BidMultiplier Multiplies `optimization_spec.bid_amount` × country multiplier for this message. Range 0.01–100; default 1. Requires `optimization_spec` on a marketing template language.
 	BidMultiplier *float64 `json:"bid_multiplier,omitempty"`
@@ -36560,6 +36652,9 @@ type WhatsAppTemplateSend struct {
 
 	// Language BCP-47 tag (`en-US`; `en_US` also accepted). Defaults to the template's default language unless `language_source_required` is set. Missing variants follow `on_missing_language`. The resolved language determines pricing and is echoed in the accepted message.
 	Language *LanguageTag `json:"language,omitempty"`
+
+	// Parameters The template's inputs as one map, instead of `components`. Each key is a name in the version's `variables`: a placeholder's own name, or its number (`1`, `2`) for a numbered placeholder, `header_url` (or `header_url_1`, `header_url_2` for a carousel card), `header_filename`, `header_location` and `code` for values with no placeholder, `button_url` (or `button_url_1`, `button_url_2` for a carousel card) for a numbered URL suffix, or an input a parameter binding reads. A media header left out, or whose value is empty, sends the template's approved sample; a template without one, such as one imported from WhatsApp, needs its media URL. A value is a string, number or boolean, except `header_location`, an object with `latitude` and `longitude`, and optionally `name` and `address`. Keys the language does not use are ignored, and `bird` is reserved. At most 16 KB. Send `parameters` or `components`, not both. A template with parameter bindings, or with named variables in a card or a button URL, takes only `parameters`.
+	Parameters *map[string]interface{} `json:"parameters,omitempty"`
 
 	// Slug Template slug, such as `bird_otp`.
 	Slug  *TemplateSlug `json:"slug,omitempty"`
@@ -36666,6 +36761,9 @@ type WhatsAppTemplateVersion struct {
 	SubmittedAt *time.Time         `json:"submitted_at,omitempty"`
 	TemplateId  WhatsAppTemplateID `json:"template_id"`
 
+	// Variables The variable slots this version's content fills in from the values you supply when sending. Combined across every language, because languages need not declare the same slots: if the English body uses `first_name` and the French one uses `last_name`, both appear here. A template with named parameters keys them by name; a positional one keys them by their `{{n}}` position, as `1`, `2` and so on. Supply the slots the language you send declares, by these keys in `template.parameters` or through `components`.
+	Variables *[]TemplateVariable `json:"variables,omitempty"`
+
 	// VersionNumber The version's sequence number, assigned when it is submitted. Null on a draft, which has not been submitted and has no place in the sequence yet.
 	VersionNumber *int `json:"version_number,omitempty"`
 }
@@ -36680,6 +36778,9 @@ type WhatsAppTemplateVersionLanguage struct {
 
 	// Error Why the submission did not complete. Present when `status` is `submit_failed`. Also present when WhatsApp refused a change to `optimization_spec` or `message_send_ttl_seconds`; the language keeps sending on the maximum price and time-to-live WhatsApp already held. Absent otherwise, including on a rejection, whose reason is in `rejection`.
 	Error *WhatsAppTemplateSubmissionError `json:"error,omitempty"`
+
+	// ParameterBindings This language's bindings in this version, absent when it has none.
+	ParameterBindings *WhatsAppTemplateParameterBindings `json:"parameter_bindings,omitempty"`
 
 	// Rejection Why Meta refused this content, present when `status` is `rejected`. Absent otherwise.
 	Rejection *WhatsAppTemplateRejection `json:"rejection,omitempty"`
@@ -36725,6 +36826,9 @@ type WhatsAppTemplateVersionSummary struct {
 	// SubmittedAt When this version was submitted to Meta. Null on a draft, which has not been submitted, and null for a built-in template's version, which Bird ships already approved rather than submitting on your behalf.
 	SubmittedAt *time.Time         `json:"submitted_at,omitempty"`
 	TemplateId  WhatsAppTemplateID `json:"template_id"`
+
+	// Variables The variable slots this version's content fills in from the values you supply when sending. Combined across every language, because languages need not declare the same slots: if the English body uses `first_name` and the French one uses `last_name`, both appear here. A template with named parameters keys them by name; a positional one keys them by their `{{n}}` position, as `1`, `2` and so on. Supply the slots the language you send declares, by these keys in `template.parameters` or through `components`.
+	Variables *[]TemplateVariable `json:"variables,omitempty"`
 
 	// VersionNumber The version's sequence number, assigned when it is submitted. Null on a draft, which has not been submitted and has no place in the sequence yet.
 	VersionNumber *int `json:"version_number,omitempty"`
@@ -37001,16 +37105,29 @@ type WorkspaceQuotaUsageStatus string
 
 // WorkspaceRateLimit A rate-limit policy as it applies to one workspace.
 type WorkspaceRateLimit struct {
+	// AllocationEnabled Whether the organization has an automatic allocation of this policy. It can be `true` while `limit_source` is `manual`. When `true`, changing or removing this workspace's limit can change other workspaces' automatic shares.
+	AllocationEnabled bool `json:"allocation_enabled"`
+
 	// Attribution When workspace usage has been measured for long enough to set a new workspace limit for this policy. Readiness covers timing only; a new limit also needs an organization with several workspaces, and with one workspace only an existing unexpired limit can be changed.
 	Attribution WorkspaceRateLimitAttribution `json:"attribution"`
-	Description string                        `json:"description"`
+
+	// AutomaticLimit The workspace's share under the organization's automatic allocation, at least 1 per window. Set only when `limit_source` is `automatic`; it is never saved as a workspace limit.
+	AutomaticLimit *int   `json:"automatic_limit"`
+	Description    string `json:"description"`
 
 	// Key Stable key of the rate-limit policy.
 	Key string `json:"key"`
 
-	// Limit The lower of the organization limit and any active workspace limit. Requests can still be refused below it when other workspaces use the shared organization limit.
-	Limit int    `json:"limit"`
-	Name  string `json:"name"`
+	// Limit The lower of the organization limit and the workspace's active limit or automatic share. Requests can still be refused below it when other workspaces use the shared organization limit.
+	Limit int `json:"limit"`
+
+	// LimitSource Which limit bounds the workspace's own usage.
+	//
+	// - `manual`: the workspace's own active limit.
+	// - `automatic`: the workspace's share of the organization limit under its automatic allocation.
+	// - `organization`: no workspace limit applies; only the shared organization limit does.
+	LimitSource WorkspaceRateLimitLimitSource `json:"limit_source"`
+	Name        string                        `json:"name"`
 
 	// OrganizationLimit Maximum policy units per rolling window for the whole organization, shared by all its workspaces.
 	OrganizationLimit int `json:"organization_limit"`
@@ -37024,7 +37141,7 @@ type WorkspaceRateLimit struct {
 	// WindowSeconds The rolling window length in seconds.
 	WindowSeconds int `json:"window_seconds"`
 
-	// WorkspaceLimit The workspace's own limit. `null` when the workspace has none and uses only the shared organization limit.
+	// WorkspaceLimit The workspace's own saved limit. `null` when none is saved; `limit_source` and `automatic_limit` then show whether an automatic share applies.
 	WorkspaceLimit *WorkspaceRateLimitCap `json:"workspace_limit"`
 }
 
@@ -37076,6 +37193,13 @@ type WorkspaceRateLimitCap struct {
 // - `expired`: the limit passed its expiry and no longer applies. It stays visible until it is replaced or removed.
 type WorkspaceRateLimitCapStatus string
 
+// WorkspaceRateLimitLimitSource Which limit bounds the workspace's own usage.
+//
+// - `manual`: the workspace's own active limit.
+// - `automatic`: the workspace's share of the organization limit under its automatic allocation.
+// - `organization`: no workspace limit applies; only the shared organization limit does.
+type WorkspaceRateLimitLimitSource string
+
 // WorkspaceRateLimitList defines model for WorkspaceRateLimitList.
 type WorkspaceRateLimitList struct {
 	Data []WorkspaceRateLimit `json:"data"`
@@ -37101,10 +37225,10 @@ type WorkspaceRateLimitUsage struct {
 	// - `unavailable`: usage could not be read. Remaining counts are unknown, not zero.
 	Status WorkspaceRateLimitUsageStatus `json:"status"`
 
-	// WorkspaceLimit The workspace's own limit requests were checked against when usage was read. `null` when no workspace limit applied or usage is unavailable.
+	// WorkspaceLimit The workspace's own limit or automatic share requests were checked against when usage was read. `null` when no workspace limit applied or usage is unavailable.
 	WorkspaceLimit *int `json:"workspace_limit"`
 
-	// WorkspaceRemaining Units this workspace can still use under its own limit. `null` when no workspace limit applied, usage is unavailable, or workspace usage is not yet measured for long enough.
+	// WorkspaceRemaining Units this workspace can still use under its own limit or automatic share. `null` when no workspace limit applied, usage is unavailable, or workspace usage is not yet measured for long enough.
 	WorkspaceRemaining *int `json:"workspace_remaining"`
 }
 
@@ -38732,6 +38856,37 @@ type CreateAssetUploadSessionParams struct {
 
 // GetAssetUploadSessionParams defines parameters for GetAssetUploadSession.
 type GetAssetUploadSessionParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// CreateAssetUploadBrowserHandoffParams defines parameters for CreateAssetUploadBrowserHandoff.
+type CreateAssetUploadBrowserHandoffParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
@@ -56363,6 +56518,68 @@ func (t *WhatsAppInteractiveSend) UnmarshalJSON(b []byte) error {
 	return err
 }
 
+// AsWhatsAppTemplateParameterBindings0 returns the union data inside the WhatsAppTemplateParameterBindings_AdditionalProperties as a WhatsAppTemplateParameterBindings0
+func (t WhatsAppTemplateParameterBindings_AdditionalProperties) AsWhatsAppTemplateParameterBindings0() (WhatsAppTemplateParameterBindings0, error) {
+	var body WhatsAppTemplateParameterBindings0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromWhatsAppTemplateParameterBindings0 overwrites any union data inside the WhatsAppTemplateParameterBindings_AdditionalProperties as the provided WhatsAppTemplateParameterBindings0
+func (t *WhatsAppTemplateParameterBindings_AdditionalProperties) FromWhatsAppTemplateParameterBindings0(v WhatsAppTemplateParameterBindings0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeWhatsAppTemplateParameterBindings0 performs a merge with any union data inside the WhatsAppTemplateParameterBindings_AdditionalProperties, using the provided WhatsAppTemplateParameterBindings0
+func (t *WhatsAppTemplateParameterBindings_AdditionalProperties) MergeWhatsAppTemplateParameterBindings0(v WhatsAppTemplateParameterBindings0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsWhatsAppTemplateLocationBinding returns the union data inside the WhatsAppTemplateParameterBindings_AdditionalProperties as a WhatsAppTemplateLocationBinding
+func (t WhatsAppTemplateParameterBindings_AdditionalProperties) AsWhatsAppTemplateLocationBinding() (WhatsAppTemplateLocationBinding, error) {
+	var body WhatsAppTemplateLocationBinding
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromWhatsAppTemplateLocationBinding overwrites any union data inside the WhatsAppTemplateParameterBindings_AdditionalProperties as the provided WhatsAppTemplateLocationBinding
+func (t *WhatsAppTemplateParameterBindings_AdditionalProperties) FromWhatsAppTemplateLocationBinding(v WhatsAppTemplateLocationBinding) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeWhatsAppTemplateLocationBinding performs a merge with any union data inside the WhatsAppTemplateParameterBindings_AdditionalProperties, using the provided WhatsAppTemplateLocationBinding
+func (t *WhatsAppTemplateParameterBindings_AdditionalProperties) MergeWhatsAppTemplateLocationBinding(v WhatsAppTemplateLocationBinding) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t WhatsAppTemplateParameterBindings_AdditionalProperties) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *WhatsAppTemplateParameterBindings_AdditionalProperties) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
 // AsWhatsAppTemplateSend0 returns the union data inside the WhatsAppTemplateSend as a WhatsAppTemplateSend0
 func (t WhatsAppTemplateSend) AsWhatsAppTemplateSend0() (WhatsAppTemplateSend0, error) {
 	var body WhatsAppTemplateSend0
@@ -56456,6 +56673,13 @@ func (t WhatsAppTemplateSend) MarshalJSON() ([]byte, error) {
 		}
 	}
 
+	if t.Parameters != nil {
+		object["parameters"], err = json.Marshal(t.Parameters)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'parameters': %w", err)
+		}
+	}
+
 	if t.Slug != nil {
 		object["slug"], err = json.Marshal(t.Slug)
 		if err != nil {
@@ -56502,6 +56726,13 @@ func (t *WhatsAppTemplateSend) UnmarshalJSON(b []byte) error {
 		err = json.Unmarshal(raw, &t.Language)
 		if err != nil {
 			return fmt.Errorf("error reading 'language': %w", err)
+		}
+	}
+
+	if raw, found := object["parameters"]; found {
+		err = json.Unmarshal(raw, &t.Parameters)
+		if err != nil {
+			return fmt.Errorf("error reading 'parameters': %w", err)
 		}
 	}
 
@@ -56793,6 +57024,9 @@ type ClientInterface interface {
 
 	// GetAssetUploadSession request
 	GetAssetUploadSession(ctx context.Context, uploadId AssetUploadSessionId, params *GetAssetUploadSessionParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateAssetUploadBrowserHandoff request
+	CreateAssetUploadBrowserHandoff(ctx context.Context, uploadId AssetUploadSessionId, params *CreateAssetUploadBrowserHandoffParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CancelAssetUploadSession request
 	CancelAssetUploadSession(ctx context.Context, uploadId AssetUploadSessionId, params *CancelAssetUploadSessionParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -59074,6 +59308,18 @@ func (c *Client) CreateAssetUploadSession(ctx context.Context, params *CreateAss
 
 func (c *Client) GetAssetUploadSession(ctx context.Context, uploadId AssetUploadSessionId, params *GetAssetUploadSessionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetAssetUploadSessionRequest(c.Server, uploadId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateAssetUploadBrowserHandoff(ctx context.Context, uploadId AssetUploadSessionId, params *CreateAssetUploadBrowserHandoffParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateAssetUploadBrowserHandoffRequest(c.Server, uploadId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -71321,6 +71567,77 @@ func NewGetAssetUploadSessionRequest(server string, uploadId AssetUploadSessionI
 			}
 
 			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateAssetUploadBrowserHandoffRequest generates requests for CreateAssetUploadBrowserHandoff
+func NewCreateAssetUploadBrowserHandoffRequest(server string, uploadId AssetUploadSessionId, params *CreateAssetUploadBrowserHandoffParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "upload_id", uploadId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/asset-upload-sessions/%s/browser", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
 		}
 
 	}
@@ -109692,6 +110009,9 @@ type ClientWithResponsesInterface interface {
 	// GetAssetUploadSessionWithResponse request
 	GetAssetUploadSessionWithResponse(ctx context.Context, uploadId AssetUploadSessionId, params *GetAssetUploadSessionParams, reqEditors ...RequestEditorFn) (*GetAssetUploadSessionResponse, error)
 
+	// CreateAssetUploadBrowserHandoffWithResponse request
+	CreateAssetUploadBrowserHandoffWithResponse(ctx context.Context, uploadId AssetUploadSessionId, params *CreateAssetUploadBrowserHandoffParams, reqEditors ...RequestEditorFn) (*CreateAssetUploadBrowserHandoffResponse, error)
+
 	// CancelAssetUploadSessionWithResponse request
 	CancelAssetUploadSessionWithResponse(ctx context.Context, uploadId AssetUploadSessionId, params *CancelAssetUploadSessionParams, reqEditors ...RequestEditorFn) (*CancelAssetUploadSessionResponse, error)
 
@@ -113383,6 +113703,46 @@ func (r GetAssetUploadSessionResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r GetAssetUploadSessionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateAssetUploadBrowserHandoffResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AssetUploadBrowserHandoff
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON501      *NotImplemented
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateAssetUploadBrowserHandoffResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateAssetUploadBrowserHandoffResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateAssetUploadBrowserHandoffResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -129236,6 +129596,15 @@ func (c *ClientWithResponses) GetAssetUploadSessionWithResponse(ctx context.Cont
 	return ParseGetAssetUploadSessionResponse(rsp)
 }
 
+// CreateAssetUploadBrowserHandoffWithResponse request returning *CreateAssetUploadBrowserHandoffResponse
+func (c *ClientWithResponses) CreateAssetUploadBrowserHandoffWithResponse(ctx context.Context, uploadId AssetUploadSessionId, params *CreateAssetUploadBrowserHandoffParams, reqEditors ...RequestEditorFn) (*CreateAssetUploadBrowserHandoffResponse, error) {
+	rsp, err := c.CreateAssetUploadBrowserHandoff(ctx, uploadId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateAssetUploadBrowserHandoffResponse(rsp)
+}
+
 // CancelAssetUploadSessionWithResponse request returning *CancelAssetUploadSessionResponse
 func (c *ClientWithResponses) CancelAssetUploadSessionWithResponse(ctx context.Context, uploadId AssetUploadSessionId, params *CancelAssetUploadSessionParams, reqEditors ...RequestEditorFn) (*CancelAssetUploadSessionResponse, error) {
 	rsp, err := c.CancelAssetUploadSession(ctx, uploadId, params, reqEditors...)
@@ -138591,6 +138960,102 @@ func ParseGetAssetUploadSessionResponse(rsp *http.Response) (*GetAssetUploadSess
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 501:
+		var dest NotImplemented
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON501 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateAssetUploadBrowserHandoffResponse parses an HTTP response from a CreateAssetUploadBrowserHandoffWithResponse call
+func ParseCreateAssetUploadBrowserHandoffResponse(rsp *http.Response) (*CreateAssetUploadBrowserHandoffResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateAssetUploadBrowserHandoffResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AssetUploadBrowserHandoff
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Unprocessable

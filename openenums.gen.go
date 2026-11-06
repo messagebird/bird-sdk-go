@@ -17,6 +17,16 @@ const (
 	AMBBusinessAccountReviewStatusRejected = oapi.AMBBusinessAccountReviewStatusRejected
 )
 
+// AMBBusinessAccountSubmissionDecider is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the AMBBusinessAccountSubmissionDecider* constants with a
+// default branch rather than treating the set as closed.
+type AMBBusinessAccountSubmissionDecider = oapi.AMBBusinessAccountSubmissionDecider
+
+const (
+	AMBBusinessAccountSubmissionDeciderAutomatedReview = oapi.AMBBusinessAccountSubmissionDeciderAutomatedReview
+	AMBBusinessAccountSubmissionDeciderStaff           = oapi.AMBBusinessAccountSubmissionDeciderStaff
+)
+
 // AMBFormKeyboardType is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the AMBFormKeyboardType* constants with a
 // default branch rather than treating the set as closed.
@@ -1421,4 +1431,15 @@ const (
 	WorkspaceQuotaLimitSourceAutomatic    = oapi.WorkspaceQuotaLimitSourceAutomatic
 	WorkspaceQuotaLimitSourceManual       = oapi.WorkspaceQuotaLimitSourceManual
 	WorkspaceQuotaLimitSourceOrganization = oapi.WorkspaceQuotaLimitSourceOrganization
+)
+
+// WorkspaceRateLimitLimitSource is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WorkspaceRateLimitLimitSource* constants with a
+// default branch rather than treating the set as closed.
+type WorkspaceRateLimitLimitSource = oapi.WorkspaceRateLimitLimitSource
+
+const (
+	WorkspaceRateLimitLimitSourceAutomatic    = oapi.WorkspaceRateLimitLimitSourceAutomatic
+	WorkspaceRateLimitLimitSourceManual       = oapi.WorkspaceRateLimitLimitSourceManual
+	WorkspaceRateLimitLimitSourceOrganization = oapi.WorkspaceRateLimitLimitSourceOrganization
 )

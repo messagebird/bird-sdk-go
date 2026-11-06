@@ -58,6 +58,10 @@ type WhatsappSendParams struct {
 	Template   string                             // the template's id (wat_…) or its slug (e.g. bird_otp)
 	Language   string                             // template language as a BCP-47 tag; omit when the template has a single language
 	Components []WhatsAppMessageTemplateComponent // values that fill the template's placeholders
+	// Parameters fills the template by name instead of Components, keyed by the
+	// names in the version's variables. A language with parameter bindings, or
+	// with named variables in a card or a button URL, takes only Parameters.
+	Parameters map[string]any
 	// BidMultiplier scales a marketing language's maximum price for this message
 	// only, from 0.01 to 100. Nil sends at the language's own bid.
 	BidMultiplier *float64
@@ -94,7 +98,7 @@ func (p WhatsappSendParams) toWire() oapi.WhatsAppMessageSendRequest {
 		from := p.From
 		body.From = &from
 	}
-	if p.Template != "" || p.Language != "" || len(p.Components) > 0 || p.BidMultiplier != nil {
+	if p.Template != "" || p.Language != "" || len(p.Components) > 0 || p.Parameters != nil || p.BidMultiplier != nil {
 		var tmpl oapi.WhatsAppTemplateSend
 		if p.Template != "" {
 			// A wat_-prefixed value is the id; anything else is the slug handle.
@@ -113,6 +117,10 @@ func (p WhatsappSendParams) toWire() oapi.WhatsAppMessageSendRequest {
 		if len(p.Components) > 0 {
 			components := p.Components
 			tmpl.Components = &components
+		}
+		if p.Parameters != nil {
+			parameters := p.Parameters
+			tmpl.Parameters = &parameters
 		}
 		if p.BidMultiplier != nil {
 			multiplier := *p.BidMultiplier
