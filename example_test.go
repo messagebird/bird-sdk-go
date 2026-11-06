@@ -484,15 +484,11 @@ func ExampleWhatsappService_Send() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	code := "123456"
 	msg, err := client.Whatsapp.Send(context.Background(), bird.WhatsappSendParams{
-		To:       "+15551234567",
-		Template: "bird_otp",
-		Language: "en",
-		Components: []bird.WhatsAppMessageTemplateComponent{{
-			Type:       "body",
-			Parameters: &[]bird.WhatsAppMessageTemplateComponentParameter{{Type: "text", Text: &code}},
-		}},
+		To:         "+15551234567",
+		Template:   "bird_otp",
+		Language:   "en",
+		Parameters: map[string]any{"code": "123456"},
 	})
 	if err != nil {
 		log.Fatal(err)

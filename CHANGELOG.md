@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.132.0
+
+- Add `from_name` to mailbox conversation messages and `participant_names` to conversations, carrying the display names senders gave alongside their addresses.
+- Verification failure reason documentation now describes destination and session restrictions for `channel_restricted`.
+
 ## 0.131.0
 
 - **Breaking:** A member who answers a ring-group call or a browser call to a user or ring group no longer has a leg or `voice_call.answered` webhook of their own. The answered leg names the member in `answered_by`. Read the caller's leg with `bird voice legs get <leg-id>`, the `voice_legs_get` MCP tool, the SDK's voice legs get operation, or `GET /v1/voice/legs/{leg-id}` from an integration such as n8n. Follow the caller's call events.

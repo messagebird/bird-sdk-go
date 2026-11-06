@@ -22924,6 +22924,9 @@ type EmailThread struct {
 	// NextScheduledAt Earliest due time among scheduled or dispatching sends. Returned by conversation get and list only when scheduled_count is positive. Omitted by search and when no sends remain.
 	NextScheduledAt *time.Time `json:"next_scheduled_at,omitempty"`
 
+	// ParticipantNames Display names for participants, taken from this conversation's messages. A name is either the one a sender gave in their From header or the one your mailbox gave a To or Cc recipient when sending. When a participant was named more than once, the most recent name is shown. Names are not verified, so identify participants by address. A participant without a name is absent.
+	ParticipantNames []EmailThreadParticipantName `json:"participant_names"`
+
 	// Participants Addresses that appear on the retained messages in this conversation, including the mailbox's own address.
 	Participants []openapi_types.Email `json:"participants"`
 
@@ -23029,6 +23032,9 @@ type EmailThreadMessage struct {
 
 	// From Sender address.
 	From *openapi_types.Email `json:"from,omitempty"`
+
+	// FromName Display name in the sender's From header, such as `Ada Lovelace`. The sender chooses it and it is not verified, so identify the sender by `from`. Null when the sender gave no name or the name is not available.
+	FromName *string `json:"from_name,omitempty"`
 
 	// Id Message ID. Received messages have a `rem_` ID, sent messages an `em_` ID: the same IDs used by the received-message and sent-message logs.
 	Id *string `json:"id,omitempty"`
@@ -23217,6 +23223,15 @@ type EmailThreadMessageUpdateRequest struct {
 
 	// Labels Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. On a message, adding or removing `unread` flips read state. Adding or removing `trash` moves it to or out of the trash. Placement labels cannot be applied to a message; use `folder` on [Update a thread](/docs/api/reference/update-email-thread) (`PATCH /v1/email/threads/{thread_id}`) to move its conversation. A sent message cannot use unread. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be used as custom labels, in any casing. A conversation or message has at most 20 labels, system labels included.
 	Labels *EmailLabelsUpdate `json:"labels,omitempty"`
+}
+
+// EmailThreadParticipantName A conversation participant's display name.
+type EmailThreadParticipantName struct {
+	// Address Participant address, as listed in the conversation's `participants`.
+	Address openapi_types.Email `json:"address"`
+
+	// Name Display name for this participant, such as `Ada Lovelace`. It is not verified.
+	Name string `json:"name"`
 }
 
 // EmailThreadReadState Whether retained received messages in the thread have been read. Includes retained trash, spam and blocked messages.
@@ -26337,9 +26352,9 @@ type EventVerifyAttemptUndeliveredData struct {
 	//   moved to the next channel.
 	// - `channel_disabled`: Sending on the channel is temporarily disabled, so the
 	//   verification moved to the next channel.
-	// - `channel_restricted`: The channel does not carry passcodes to this
-	//   destination country. The verification moves to the next channel enabled
-	//   there, or fails when the country has no other.
+	// - `channel_restricted`: A destination or session restriction prevented the
+	//   channel from being used. The verification can try the next eligible channel
+	//   while the session remains pending and unexpired.
 	// - `delivery_timeout`: No delivery confirmation arrived before the channel's
 	//   timeout, so the verification moved to the next channel.
 	// - `not_billable`: The send could not be charged, so it was never handed to the
@@ -26432,9 +26447,9 @@ type EventVerifyVerificationFailedData struct {
 	//   moved to the next channel.
 	// - `channel_disabled`: Sending on the channel is temporarily disabled, so the
 	//   verification moved to the next channel.
-	// - `channel_restricted`: The channel does not carry passcodes to this
-	//   destination country. The verification moves to the next channel enabled
-	//   there, or fails when the country has no other.
+	// - `channel_restricted`: A destination or session restriction prevented the
+	//   channel from being used. The verification can try the next eligible channel
+	//   while the session remains pending and unexpired.
 	// - `delivery_timeout`: No delivery confirmation arrived before the channel's
 	//   timeout, so the verification moved to the next channel.
 	// - `not_billable`: The send could not be charged, so it was never handed to the
@@ -31068,9 +31083,9 @@ type VerificationStatus string
 //     moved to the next channel.
 //   - `channel_disabled`: Sending on the channel is temporarily disabled, so the
 //     verification moved to the next channel.
-//   - `channel_restricted`: The channel does not carry passcodes to this
-//     destination country. The verification moves to the next channel enabled
-//     there, or fails when the country has no other.
+//   - `channel_restricted`: A destination or session restriction prevented the
+//     channel from being used. The verification can try the next eligible channel
+//     while the session remains pending and unexpired.
 //   - `delivery_timeout`: No delivery confirmation arrived before the channel's
 //     timeout, so the verification moved to the next channel.
 //   - `not_billable`: The send could not be charged, so it was never handed to the

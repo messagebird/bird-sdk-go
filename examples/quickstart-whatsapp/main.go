@@ -18,15 +18,11 @@ func main() {
 	}
 
 	http.HandleFunc("POST /send", func(w http.ResponseWriter, r *http.Request) {
-		code := "123456"
 		msg, err := client.Whatsapp.Send(r.Context(), bird.WhatsappSendParams{
-			To:       "+15551234567",
-			Template: "bird_otp",
-			Language: "en",
-			Components: []bird.WhatsAppMessageTemplateComponent{{
-				Type:       "body",
-				Parameters: &[]bird.WhatsAppMessageTemplateComponentParameter{{Type: "text", Text: &code}},
-			}},
+			To:         "+15551234567",
+			Template:   "bird_otp",
+			Language:   "en",
+			Parameters: map[string]any{"code": "123456"},
 		})
 		if err != nil {
 			var apiErr *bird.APIError
