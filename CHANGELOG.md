@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.131.0
+
+- **Breaking:** A member who answers a ring-group call or a browser call to a user or ring group no longer has a leg or `voice_call.answered` webhook of their own. The answered leg names the member in `answered_by`. Read the caller's leg with `bird voice legs get <leg-id>`, the `voice_legs_get` MCP tool, the SDK's voice legs get operation, or `GET /v1/voice/legs/{leg-id}` from an integration such as n8n. Follow the caller's call events.
+
 ## 0.130.1
 
 - The voice legs `to` filter documents that a `vsq_` ID matches a browser call to that workspace sequence, as a `usr_` or `vrg_` ID does for a user or ring group.
