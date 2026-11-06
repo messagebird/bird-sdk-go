@@ -26508,7 +26508,7 @@ type EventVoiceBase struct {
 	// SessionId Session identifier shared across all legs of a multi-party or transferred call. Use this to correlate related call records. Null when session correlation is not available for the call.
 	SessionId *VoiceSessionID `json:"session_id,omitempty"`
 
-	// To The dialled destination: an E.164 number, a SIP extension such as `1001` on a trunk call, or the `usr_` or `vrg_` ID of the workspace user or ring group a browser called.
+	// To The dialled destination: an E.164 number, a SIP extension such as `1001` on a trunk call, or the `usr_`, `vrg_` or `vsq_` ID of the workspace user, ring group or sequence a browser called.
 	To          string      `json:"to"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
@@ -26590,7 +26590,7 @@ type EventVoiceCallEndedData struct {
 	// both outcomes are reported as `failed` today.
 	Status VoiceCallStatus `json:"status"`
 
-	// To The dialled destination: an E.164 number, a SIP extension such as `1001` on a trunk call, or the `usr_` or `vrg_` ID of the workspace user or ring group a browser called.
+	// To The dialled destination: an E.164 number, a SIP extension such as `1001` on a trunk call, or the `usr_`, `vrg_` or `vsq_` ID of the workspace user, ring group or sequence a browser called.
 	To          string      `json:"to"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
@@ -31495,7 +31495,7 @@ type VoiceLeg struct {
 	// AnsweredAt When the leg was answered (`200` OK received). `null` for unanswered legs.
 	AnsweredAt *time.Time `json:"answered_at,omitempty"`
 
-	// AnsweredBy Who answered when Bird rang your workspace users for this leg, through a ring group or a browser call to a user or a ring group. When a sequence rings more than once, it names who answered the latest ring. `null` when no workspace user answered, and on legs recorded before this field existed. Handle unknown `type` values as future answerer kinds.
+	// AnsweredBy Who answered when Bird rang your workspace users for this leg, through a ring group or a browser call to a user or a ring group. When a sequence rings more than once, it names who answered the latest ring. `null` when no workspace user answered, on legs recorded before this field existed, or when the API does not support the stored answerer kind. New kinds may be added; handle unknown `type` values as future answerer kinds.
 	AnsweredBy *VoiceLegAnsweredBy `json:"answered_by,omitempty"`
 
 	// BillableMs Billable duration in milliseconds, measured from answer to leg end. Zero for unanswered legs, and `null` while the leg is still in progress.
@@ -31553,7 +31553,7 @@ type VoiceLeg struct {
 	// Tags Your own `{name, value}` labels for this leg, taken from the `X-Bird-Call-Tag` headers on the INVITE that placed it. Set them to organise legs by a dimension of your own (campaign, queue, agent, cost centre), then filter this list by them with `tag`. Read-only here: a leg is labelled when it is placed, and never afterwards. What is here may be less than what was sent, and the leg still goes through either way: a tag whose name or value breaks the rules below is dropped, anything past the first five is ignored, and a name sent more than once keeps its first value. Absent when the leg carried none, and on legs recorded before this field existed.
 	Tags *[]Tag `json:"tags,omitempty"`
 
-	// To The dialled destination: an E.164 number, a SIP extension such as `1001` on a trunk call, or the `usr_` or `vrg_` ID of the workspace user or ring group a browser called.
+	// To The dialled destination: an E.164 number, a SIP extension such as `1001` on a trunk call, or the `usr_`, `vrg_` or `vsq_` ID of the workspace user, ring group or sequence a browser called.
 	To          *string     `json:"to,omitempty"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
@@ -45962,7 +45962,7 @@ type ListVoiceLegsParams struct {
 	// From Return only legs placed from this calling party number, matched as a whole number rather than as a fragment. Give it in international form: `+14155551234`, `14155551234`, and `0014155551234` all select the same legs. A number given without a country code is read as an international one, so give the country code to be sure of what you are matching. Use `number` instead to match part of a number, or either side of the leg.
 	From *string `form:"from,omitempty" json:"from,omitempty"`
 
-	// To Return only legs placed to this called party number, matched as a whole number rather than as a fragment. Give it in international form: `+16505559876`, `16505559876`, and `0016505559876` all select the same legs. A number given without a country code is read as an international one, so give the country code to be sure of what you are matching. A `usr_` or `vrg_` ID matches a browser's call to that workspace user or ring group, exactly as given. Use `number` instead to match part of a number, or either side of the leg.
+	// To Return only legs placed to this called party number, matched as a whole number rather than as a fragment. Give it in international form: `+16505559876`, `16505559876`, and `0016505559876` all select the same legs. A number given without a country code is read as an international one, so give the country code to be sure of what you are matching. A `usr_`, `vrg_` or `vsq_` ID matches a browser's call to that workspace user, ring group or sequence, exactly as given. Use `number` instead to match part of a number, or either side of the leg.
 	To *string `form:"to,omitempty" json:"to,omitempty"`
 
 	// Number Return only legs where the calling or called number contains this value. Matches a partial number, so a country or area-code prefix returns every leg to or from it. Combines with `from`/`to`, which match one side exactly.
