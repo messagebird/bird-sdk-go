@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.130.0
+
+- Apple Messages for Business submissions now have `decided_by`: `automated_review` when the automated review rejected the submission, or `staff` when Bird staff recorded its outcome. It is null while the submission waits for a decision, and for outcomes recorded before automated reviews.
+- Creating an Apple Messages for Business submission now queues an automated review of the evidence. The submission stays `submitted` while the review runs. The review can then set it to `rejected` with the changes needed in `status_reason`, which listing the account's submissions returns. Each submission spends one of the organization's daily automated reviews and one of the account's 10 daily reviews, and a submission over either limit is refused.
+- When a workspace user answers a call Bird rang them for, `answered_by` on the caller's leg identifies them. Its `type` says who answered: `user`, whose `user_id` names the workspace user and `registration_id` the browser-phone registration they answered on. Other types may be added later. A member can still have a separate leg and its associated webhooks while the rowed ringing path is in use.
+
 ## 0.129.0
 
 - Add `assets.uploads.handoff` to return a browser upload page for an existing session when direct transfer is blocked. A signed-in person with asset write access selects the original file and publishes it; read the saved result with `assets.uploads.get` using the original connection.
