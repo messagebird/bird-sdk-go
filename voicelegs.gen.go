@@ -21,7 +21,7 @@ type VoiceLegsListParams struct {
 	CallID string
 	// Return only legs carried by this SIP trunk.
 	SipTrunkID string
-	// Return only legs placed from this calling party number, matched as a whole number rather than as a fragment. Give it in international form: `+14155551234`, `14155551234`, and `0014155551234` all select the same legs. A number given without a country code is read as an international one, so give the country code to be sure of what you are matching. Use `number` instead to match part of a number, or either side of the leg.
+	// Return only legs placed from this calling party, matched exactly. Give a number in international form: `+14155551234`, `14155551234`, and `0014155551234` all select the same legs. A number given without a country code is read as an international one, so give the country code to be sure of what you are matching. A `usr_` ID matches the recorded calling party exactly as given; it does not establish who placed the call. Use `number` instead to match part of a number, or either side of the leg.
 	From string
 	// Return only legs placed to this called party number, matched as a whole number rather than as a fragment. Give it in international form: `+16505559876`, `16505559876`, and `0016505559876` all select the same legs. A number given without a country code is read as an international one, so give the country code to be sure of what you are matching. A `usr_`, `vrg_` or `vsq_` ID matches a browser's call to that workspace user, ring group or sequence, exactly as given. Use `number` instead to match part of a number, or either side of the leg.
 	To string
@@ -73,7 +73,7 @@ func (s *VoiceLegsService) ListPage(ctx context.Context, params VoiceLegsListPar
 	return &out, nil
 }
 
-// List List the workspace's legs, newest first. Filter to `ringing`/`in_progress` for the legs in progress right now, to final statuses for completed records, or to any mix of the two. Use `from`/`to` for one known party number in international form, `to` for a SIP extension or an exact `usr_`, `vrg_` or `vsq_` ID for a browser's call to that user, ring group or sequence, and `number` to search either side by fragment. These are per-leg records and do not include aggregate rates or totals. Use `voice.legs.get` to follow one leg to settlement.
+// List List the workspace's legs, newest first. Filter to `ringing`/`in_progress` for the legs in progress right now, to final statuses for completed records, or to any mix of the two. Use `from`/`to` for one known party number in international form, `from` for an exact calling `usr_` ID, `to` for a SIP extension or an exact `usr_`, `vrg_` or `vsq_` ID for a browser's call to that user, ring group or sequence, and `number` to search either side by fragment. These are per-leg records and do not include aggregate rates or totals. Use `voice.legs.get` to follow one leg to settlement.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *VoiceLegsService) List(ctx context.Context, params VoiceLegsListParams, opts ...option.RequestOption) iter.Seq2[*VoiceLeg, error] {

@@ -13246,7 +13246,7 @@ type AMBRichLinkConstruct struct {
 	// StoreRegion ISO 3166-1 alpha-2 country code.
 	StoreRegion *CountryCode `json:"store_region,omitempty"`
 
-	// Url The App Clip, Apple Music, or Apple Maps URL to build a preview for. An `http://` URL is refused with a `422` `AMBEndpointNotHTTPS`. A URL Apple cannot build a preview for is refused with a `422` `AMBConstructPayloadFailed`; send `rich_link` content with your own `title` and `image` instead.
+	// Url The App Clip, Apple Music, or Apple Maps URL to build a preview for. An `http://` URL is refused with a `422` `AMBEndpointNotHTTPS`. Apple builds the preview when the message is sent. If Apple refuses the URL, or fails to build it with a `500` at least 5 times over at least 10 minutes, the message ends `send_failed` with `bird:construct_rejected`; send `rich_link` content with your own `title` and `image` instead. If Apple stays unreachable for the whole retry budget, the message ends `send_failed` with `bird:attempts_exhausted`.
 	Url string `json:"url" pii:"true"`
 }
 
@@ -26517,7 +26517,7 @@ type EventVoiceBase struct {
 	// Direction Whether the call was placed from your side, by your PBX, the API, the browser or Bird dialing onward for you (outbound), or arrived from a remote party (inbound).
 	Direction VoiceCallDirection `json:"direction"`
 
-	// From Calling party number in E.164 format.
+	// From The calling party: an E.164 number, a SIP extension on a trunk call, or the `usr_` ID of a browser caller to a workspace user or ring group. A withheld caller may be `anonymous`.
 	From string `json:"from"`
 
 	// SessionId Session identifier shared across all legs of a multi-party or transferred call. Use this to correlate related call records. Null when session correlation is not available for the call.
@@ -26573,7 +26573,7 @@ type EventVoiceCallEndedData struct {
 	// DurationMs Total call duration in milliseconds, measured from the first SIP `INVITE` to the `BYE` or final response.
 	DurationMs int `json:"duration_ms"`
 
-	// From Calling party number in E.164 format.
+	// From The calling party: an E.164 number, a SIP extension on a trunk call, or the `usr_` ID of a browser caller to a workspace user or ring group. A withheld caller may be `anonymous`.
 	From string `json:"from"`
 
 	// SessionId Session identifier shared across all legs of a multi-party or transferred call. Use this to correlate related call records. Null when session correlation is not available for the call.
@@ -31529,7 +31529,7 @@ type VoiceLeg struct {
 	// EndedAt When the leg ended (BYE or final non-2xx response). `null` for legs that ended abnormally without a recorded end event.
 	EndedAt *time.Time `json:"ended_at,omitempty"`
 
-	// From Calling party number in E.164 format.
+	// From The calling party: an E.164 number, a SIP extension on a trunk call, or the `usr_` ID of a browser caller to a workspace user or ring group. A withheld caller may be `anonymous`.
 	From *string     `json:"from,omitempty"`
 	Id   VoiceCallID `json:"id"`
 
@@ -33757,7 +33757,7 @@ type WhatsAppDeliveryStats struct {
 	Sent *int `json:"sent,omitempty"`
 }
 
-// WhatsAppDisplayNameStatus Where WhatsApp's review of the display name stands. `available_without_review` means the name met WhatsApp's criteria for immediate use without a review step, and `none` means no display name has been submitted yet. WhatsApp adds states over time, so a value outside this list can be returned.
+// WhatsAppDisplayNameStatus Where WhatsApp's review of the display name stands. `available_without_review` means WhatsApp accepted the name without reviewing it; `approved` means the name passed review. `none` means no display name has been submitted yet.
 type WhatsAppDisplayNameStatus string
 
 // WhatsAppDocument defines model for WhatsAppDocument.
@@ -35346,7 +35346,7 @@ type WhatsAppNumber struct {
 	// NumberId The number you hold with us that this WhatsApp number was connected from, as its id in GET /v1/numbers. Absent for a number you brought yourself.
 	NumberId *AllocatedNumberID `json:"number_id,omitempty"`
 
-	// PhoneNumber The number in E.164 format. Null only while the number itself is not yet known: a number your workspace holds carries its E.164 from the moment setup starts, so a value here does not mean the number can send. `status` is what says that.
+	// PhoneNumber The number in E.164 format. Null only while the number itself is not yet known: a number your workspace holds carries its E.164 from the moment setup starts, so a value here does not mean the number can send. Check `status` for connection state.
 	PhoneNumber *string `json:"phone_number,omitempty"`
 
 	// PreVerificationRequestedAt When we last asked WhatsApp to send this number a verification code, which we do only for a number your workspace connected itself from a number you hold with us. Absent for a number we operate on your behalf, and for one you connected through Embedded Signup with a code you read yourself. Wait a few hours after this before repairing a number whose verification failed: WhatsApp rotates the routes it verifies over during that period, and throttles a number asked repeatedly in a short window. Distinct from `updated_at`, which any change to the number moves.
@@ -35358,7 +35358,7 @@ type WhatsAppNumber struct {
 	// Scope Whether the number sends under a WhatsApp Business Account we operate on your behalf (`system`) or one your workspace connected itself (`workspace`).
 	Scope *WhatsAppNumberScope `json:"scope,omitempty"`
 
-	// Status WhatsApp's own state for this number as of `meta_synced_at`, except for the three states we answer ourselves because WhatsApp holds nothing to report. A connection we are still verifying reads `preparing`, one waiting for someone to finish signup reads `awaiting_signup`, and a permanently refused one reads `failed`, with `error` saying why. `pending` is WhatsApp's own token for a number it does not hold as registered, and is also what a number with no stored WhatsApp status reads, including after setup completes, so it does not by itself establish whether setup is complete. A number we operate on your behalf reads `connected` as our own assertion rather than a reading from WhatsApp for every number we ship today; that tier carries no `meta_synced_at`.
+	// Status WhatsApp's own state for this number as of `meta_synced_at`, except for the three states we answer ourselves because WhatsApp holds nothing to report. A connection we are still verifying reads `preparing`, one waiting for someone to finish signup reads `awaiting_signup`, and a permanently refused one reads `failed`, with `error` saying why. `pending` is WhatsApp's own token for a number it does not hold as registered, and is also what a number with no stored WhatsApp status reads, including after setup completes, so it does not by itself establish whether setup is complete. A number we operate on your behalf reads `connected` as our own assertion rather than a reading from WhatsApp for every number we ship today; that tier carries no `meta_synced_at`. A connected virtual +1 555 or +1 711 number still has a daily sending limit until its current name is approved. Read `display_name_status` from the live profile for display name approval.
 	Status *WhatsAppNumberStatus `json:"status,omitempty"`
 
 	// ThroughputLevel The send rate WhatsApp allowed this number as of `meta_synced_at`. Absent until WhatsApp has reported one, and always absent for a number we operate on your behalf.
@@ -35414,7 +35414,7 @@ type WhatsAppNumberEvent struct {
 	CreatedAt time.Time             `json:"created_at"`
 	Id        WhatsAppNumberEventID `json:"id"`
 
-	// Metadata Structured details for the event. `from` and `to` carry the values that changed, and `from` is absent when the number had no prior value to report. A status change into `failed` also carries the `reason`; a display-name decision carries `new_display_name`, `decision`, and, when WhatsApp named one for a rejection, `rejection_reason`. A messaging-limit change also carries the `trigger` WhatsApp named for it, such as `onboarding` or `throughput_upgrade`, when it named one. A `whatsapp_number.created` event carries the `source` the number came from, and its `phone_number` once one is known.
+	// Metadata Structured details for the event. `from` and `to` carry the values that changed, and `from` is absent when the number had no prior value to report. A status change into `failed` also carries the `reason`; a display-name decision carries `new_display_name`, `decision`, and, when WhatsApp named one for a rejection, `rejection_reason`. For `whatsapp_number.profile_name_update`, `decision: available_without_review` means Meta accepted the requested name without review; `approved` records approval. Older events also used `approved` for acceptance without review, so those historical events cannot establish approval. Read `display_name_status` from `GET /v1/whatsapp/numbers/{number_id}/profile` for the current name's approval. A messaging-limit change also carries the `trigger` WhatsApp named for it, such as `onboarding` or `throughput_upgrade`, when it named one. A `whatsapp_number.created` event carries the `source` the number came from, and its `phone_number` once one is known.
 	Metadata map[string]interface{} `json:"metadata"`
 
 	// Summary Human-readable summary of what changed.
@@ -35483,7 +35483,7 @@ type WhatsAppNumberProfile struct {
 	// DisplayName The name WhatsApp verifies for this number. Once WhatsApp approves it, it appears at the top of a chat with this number; `display_name_status` is what says whether it has. Set when the number was connected, and changed from the dashboard or the CLI, as [WhatsApp phone numbers](/docs/guides/whatsapp/phone-number-setup) explains. This field still returns the current name until a requested change completes.
 	DisplayName *string `json:"display_name,omitempty"`
 
-	// DisplayNameStatus Where WhatsApp's review of the display name stands. A name still under review is not yet shown at the top of a chat.
+	// DisplayNameStatus Where WhatsApp's review of the current display name stands. `available_without_review` means the name was accepted without review, and `approved` means it passed review. A virtual +1 555 or +1 711 number still has a daily sending limit while its current name is unapproved. See [virtual-number display name review](/docs/knowledge-base/whatsapp/virtual-numbers#display-name-review).
 	DisplayNameStatus *WhatsAppDisplayNameStatus `json:"display_name_status,omitempty"`
 
 	// Email The contact email shown on the profile.
@@ -35492,7 +35492,7 @@ type WhatsAppNumberProfile struct {
 	// NewDisplayName The display name whose change has been requested, whether or not WhatsApp is reviewing it. Absent when no change is pending.
 	NewDisplayName *string `json:"new_display_name,omitempty"`
 
-	// NewDisplayNameStatus Where the requested display name stands with WhatsApp, including whether it is being reviewed or was accepted for immediate use without a review. Absent when no change is pending. If WhatsApp accepts the name it becomes `display_name`. Every other outcome leaves the number on the name it already had: `declined` is WhatsApp refusing the name, and `expired` is a request that no longer stands and has to be made again.
+	// NewDisplayNameStatus Where the requested display name stands with WhatsApp, including whether it is being reviewed or was accepted without a review. Absent when no change is pending. An accepted name becomes `display_name` once the change is applied. This status belongs to the requested name; check `display_name_status` for approval of the current name. Applying a name accepted without review does not establish display name approval. `declined` is WhatsApp refusing the name, and `expired` is a request that no longer stands and has to be made again.
 	NewDisplayNameStatus *WhatsAppDisplayNameStatus `json:"new_display_name_status,omitempty"`
 
 	// ProfilePictureUrl A link to the profile picture WhatsApp currently shows. WhatsApp signs this link and it expires within days, so load it when you display it and never store it. It is served with permissive cross-origin headers, so a browser can load it directly.
@@ -36432,7 +36432,7 @@ type WhatsAppTemplateLanguage struct {
 	// Status Language review and health status:
 	//
 	// - `approved`: Passed review and can be sent.
-	// - `pending`: Not yet approved or rejected.
+	// - `pending`: Awaiting Meta's verdict, with no estimate. This includes a submission Meta has not yet confirmed receiving. Bird cannot speed it up.
 	// - `rejected`: Failed review.
 	// - `paused` or `disabled`: Sending is suspended.
 	// - `in_appeal`: A decision is being appealed.
@@ -36506,7 +36506,7 @@ type WhatsAppTemplateLanguageState struct {
 // WhatsAppTemplateLanguageStatus Language review and health status:
 //
 // - `approved`: Passed review and can be sent.
-// - `pending`: Not yet approved or rejected.
+// - `pending`: Awaiting Meta's verdict, with no estimate. This includes a submission Meta has not yet confirmed receiving. Bird cannot speed it up.
 // - `rejected`: Failed review.
 // - `paused` or `disabled`: Sending is suspended.
 // - `in_appeal`: A decision is being appealed.
@@ -36542,7 +36542,7 @@ type WhatsAppTemplateLanguageSummary struct {
 	// Status Language review and health status:
 	//
 	// - `approved`: Passed review and can be sent.
-	// - `pending`: Not yet approved or rejected.
+	// - `pending`: Awaiting Meta's verdict, with no estimate. This includes a submission Meta has not yet confirmed receiving. Bird cannot speed it up.
 	// - `rejected`: Failed review.
 	// - `paused` or `disabled`: Sending is suspended.
 	// - `in_appeal`: A decision is being appealed.
@@ -45974,7 +45974,7 @@ type ListVoiceLegsParams struct {
 	// SipTrunkId Return only legs carried by this SIP trunk.
 	SipTrunkId *SIPTrunkID `form:"sip_trunk_id,omitempty" json:"sip_trunk_id,omitempty"`
 
-	// From Return only legs placed from this calling party number, matched as a whole number rather than as a fragment. Give it in international form: `+14155551234`, `14155551234`, and `0014155551234` all select the same legs. A number given without a country code is read as an international one, so give the country code to be sure of what you are matching. Use `number` instead to match part of a number, or either side of the leg.
+	// From Return only legs placed from this calling party, matched exactly. Give a number in international form: `+14155551234`, `14155551234`, and `0014155551234` all select the same legs. A number given without a country code is read as an international one, so give the country code to be sure of what you are matching. A `usr_` ID matches the recorded calling party exactly as given; it does not establish who placed the call. Use `number` instead to match part of a number, or either side of the leg.
 	From *string `form:"from,omitempty" json:"from,omitempty"`
 
 	// To Return only legs placed to this called party number, matched as a whole number rather than as a fragment. Give it in international form: `+16505559876`, `16505559876`, and `0016505559876` all select the same legs. A number given without a country code is read as an international one, so give the country code to be sure of what you are matching. A `usr_`, `vrg_` or `vsq_` ID matches a browser's call to that workspace user, ring group or sequence, exactly as given. Use `number` instead to match part of a number, or either side of the leg.

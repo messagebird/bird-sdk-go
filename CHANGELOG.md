@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.132.1
+
+- WhatsApp number documentation now distinguishes `available_without_review` from `approved` and explains the sending limit on virtual numbers.
+- Display-name activity events now record `metadata.decision: available_without_review` when a deferred rename was accepted without review. Historical `approved` events can also mean acceptance without review.
+- Check the current `display_name_status` through the profile endpoint (`GET /v1/whatsapp/numbers/{number_id}/profile`). Use `client.whatsapp.numbers.profile.get` in Node.js/Python, `client.Whatsapp.Numbers.Profile.Get` in Go, or `$client->whatsapp->numbers->profile->get` in PHP. You can also use the CLI command `bird whatsapp numbers profile get <number-id>` or the MCP tool `whatsapp_numbers_profile_get`.
+
 ## 0.132.0
 
 - Add `from_name` to mailbox conversation messages and `participant_names` to conversations, carrying the display names senders gave alongside their addresses.
