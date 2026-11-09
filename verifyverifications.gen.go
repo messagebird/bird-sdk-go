@@ -17,7 +17,7 @@ type VerificationTo = oapi.VerificationTo
 type VerifyVerificationsCreateParams struct {
 	// The recipient to verify. Provide an `email`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
 	To VerificationTo
-	// Per-request overrides applied to this verification only.
+	// Per-request overrides applied to this verification only. `language` picks one of Bird's built-in translations; a custom sender that carries its own template renders the language that template stocks instead. An email template pinned to a custom email sender falls back to its own default language rather than to English (Verify only accepts templates whose language settings fall back). A WhatsApp authentication template follows its own missing-language policy: it falls back to its default or, when set to fail, refuses the send for a language it does not stock. The requested tag stays fixed for the verification.
 	Options *VerificationOptions
 	// Optional key/value pairs to attach to the verification, for example a correlation id. Returned on the verification.
 	Metadata map[string]any

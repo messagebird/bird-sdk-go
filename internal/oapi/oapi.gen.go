@@ -614,19 +614,19 @@ func (e AMBFormTextContentType) Valid() bool {
 
 // Defines values for AMBMessageBubbleStyle.
 const (
-	Icon  AMBMessageBubbleStyle = "icon"
-	Large AMBMessageBubbleStyle = "large"
-	Small AMBMessageBubbleStyle = "small"
+	AMBMessageBubbleStyleIcon  AMBMessageBubbleStyle = "icon"
+	AMBMessageBubbleStyleLarge AMBMessageBubbleStyle = "large"
+	AMBMessageBubbleStyleSmall AMBMessageBubbleStyle = "small"
 )
 
 // Valid indicates whether the value is a known member of the AMBMessageBubbleStyle enum.
 func (e AMBMessageBubbleStyle) Valid() bool {
 	switch e {
-	case Icon:
+	case AMBMessageBubbleStyleIcon:
 		return true
-	case Large:
+	case AMBMessageBubbleStyleLarge:
 		return true
-	case Small:
+	case AMBMessageBubbleStyleSmall:
 		return true
 	default:
 		return false
@@ -765,6 +765,27 @@ const (
 func (e AMBRejectedEventType) Valid() bool {
 	switch e {
 	case AmbRejected:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBRichLinkLayout.
+const (
+	AMBRichLinkLayoutIcon   AMBRichLinkLayout = "icon"
+	AMBRichLinkLayoutLarge  AMBRichLinkLayout = "large"
+	AMBRichLinkLayoutSquare AMBRichLinkLayout = "square"
+)
+
+// Valid indicates whether the value is a known member of the AMBRichLinkLayout enum.
+func (e AMBRichLinkLayout) Valid() bool {
+	switch e {
+	case AMBRichLinkLayoutIcon:
+		return true
+	case AMBRichLinkLayoutLarge:
+		return true
+	case AMBRichLinkLayoutSquare:
 		return true
 	default:
 		return false
@@ -12563,6 +12584,29 @@ type AMBInteractiveReply struct {
 	SessionIdentifier *string `json:"session_identifier,omitempty"`
 }
 
+// AMBLinkPreviews How the links in `body` of a message you send are previewed. Each `https://`, `http://` or `www.` link is sent as its own rich link, built from the linked page's title and image. Punctuation that ends a link's sentence is dropped, so it does not arrive on its own after the card.
+//
+// For the image, the page's `og:image` is tried first, then its largest `apple-touch-icon` or icon, then the largest image in the page. `layout` applies to every preview in the message: `icon` and `square` try the icon first, and `large` tries the images in the page before the icon.
+//
+// Only a `text` sent on its own can set `link_previews`. A request that sets it beside `rich_link` or `interactive` is refused with `422`. Leave it out there, and links in that text become previews in the default layout.
+//
+// A message is accepted and then ends `send_failed` when:
+//
+// - It has more than 20 links.
+// - A page does not load over HTTPS, or has no title or usable image. Every page is fetched over HTTPS, upgrading `http://` and `www.` links.
+//
+// Every link is checked before the first part is sent, so the customer receives none of the message. A retry after some parts were delivered checks only the parts still to send, so a link that stops loading by then fails the message after those parts arrived.
+type AMBLinkPreviews struct {
+	// Layout How Apple displays a rich link's image. Apple picks the layout from the image's shape and width, so the image is resized or cropped to produce the one you choose:
+	//
+	// - `icon` shows a small image beside the title. The image is scaled to under 150 px wide. Use it for logos.
+	// - `square` shows a square image. The image is cropped to a square and sized to 240 px, or as small as 150 px when it needs to fit Apple's 200 kB limit.
+	// - `large` shows a wide image. A square or portrait image is cropped to a 2:1 rectangle, and a landscape image keeps its shape.
+	//
+	// `square` enlarges an image whose shorter side is under 240 px, and `large` one narrower than 240 px, which can blur it. Omit `layout` to keep the image's own shape, so Apple picks the layout from its shape and width.
+	Layout *AMBRichLinkLayout `json:"layout,omitempty"`
+}
+
 // AMBListPickerItem defines model for AMBListPickerItem.
 type AMBListPickerItem struct {
 	// Identifier Opaque item identifier returned in `interactive_reply.list_picker.sections[].items[]`.
@@ -12862,7 +12906,7 @@ type AMBMessageList struct {
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
-// AMBMessageSendRequest A message to send. Supply `text`, `rich_link` or `interactive` (the last two optionally with `text` sent first as its own bubble), or `template` (a stored template, whose category is derived).
+// AMBMessageSendRequest A message to send. Supply `text`, `rich_link` or `interactive` (the last two optionally with `text` to introduce them), or `template` (a stored template, whose category is derived).
 type AMBMessageSendRequest struct {
 	// Category Free-form reporting label; it does not change sending or suppression policy, for example `order_update`. Omit it to send with the default empty category. Rejected alongside `template`, where the category is derived from the template.
 	Category *string `json:"category,omitempty"`
@@ -12914,7 +12958,7 @@ type AMBMessageSendRequest struct {
 	// Template Send using a stored template instead of `text`, `rich_link` or `interactive`. The category is derived from the template, so `category` is rejected alongside it.
 	Template *AMBTemplateSend `json:"template,omitempty"`
 
-	// Text A text message. Alongside `rich_link` or `interactive`, it is sent first as its own text bubble, in the same message.
+	// Text A text message. Alongside `interactive`, it is sent first as its own text bubble, in the same message. Alongside `rich_link`, the card takes the place of the first copy of its URL in `body`, splitting the text around it, or follows the text when `body` does not contain that URL. Later copies of that URL are removed.
 	Text *AMBText `json:"text,omitempty"`
 
 	// To Apple’s opaque customer identifier for this business, available as the conversation’s recipient.opaque_user_id. The conversation must exist and its native status must be open.
@@ -13166,14 +13210,23 @@ type AMBNativeRichLinkData struct {
 
 // AMBNativeRichLinkImage defines model for AMBNativeRichLinkImage.
 type AMBNativeRichLinkImage struct {
-	// MimeType PNG media type required by Apple. Defaults to image/png.
+	// Layout How Apple displays a rich link's image. Apple picks the layout from the image's shape and width, so the image is resized or cropped to produce the one you choose:
+	//
+	// - `icon` shows a small image beside the title. The image is scaled to under 150 px wide. Use it for logos.
+	// - `square` shows a square image. The image is cropped to a square and sized to 240 px, or as small as 150 px when it needs to fit Apple's 200 kB limit.
+	// - `large` shows a wide image. A square or portrait image is cropped to a 2:1 rectangle, and a landscape image keeps its shape.
+	//
+	// `square` enlarges an image whose shorter side is under 240 px, and `large` one narrower than 240 px, which can blur it. Omit `layout` to keep the image's own shape, so Apple picks the layout from its shape and width.
+	Layout *AMBRichLinkLayout `json:"layout,omitempty"`
+
+	// MimeType Media type sent to Apple, which accepts only PNG. Defaults to image/png.
 	MimeType *AMBNativeRichLinkImageMimeType `json:"mime_type,omitempty"`
 
-	// SourceUrl HTTPS URL of a PNG preview image up to 200 kB. Bird fetches and encodes it when sending. A non-HTTPS URL is refused with a `422` `AMBEndpointNotHTTPS`. In a template it may contain `{{ }}` placeholders; the rendered value must be HTTPS.
+	// SourceUrl HTTPS URL of a PNG, JPEG, GIF or WebP preview image of up to 5 MiB and 6 megapixels, or 3 megapixels for a 16-bit PNG. It is fetched when the message is sent, converted to PNG and shrunk to Apple's 200 kB limit. Without `layout`, a PNG of 200 kB or less goes to Apple unchanged, so the pixel limit does not apply to it. An image over these limits, or one that cannot be converted, ends the message `send_failed`. It is checked before the first part and again on a retry, so an image that changes by then fails the message after the earlier parts arrived. A non-HTTPS URL is refused with a `422` `AMBEndpointNotHTTPS`. In a template it may contain `{{ }}` placeholders; the rendered value must be HTTPS.
 	SourceUrl string `json:"source_url" pii:"true"`
 }
 
-// AMBNativeRichLinkImageMimeType PNG media type required by Apple. Defaults to image/png.
+// AMBNativeRichLinkImageMimeType Media type sent to Apple, which accepts only PNG. Defaults to image/png.
 type AMBNativeRichLinkImageMimeType string
 
 // AMBNativeRichLinkVideo defines model for AMBNativeRichLinkVideo.
@@ -13227,7 +13280,7 @@ type AMBReceivedEventType string
 // AMBRejectedEventType Always `amb.rejected` for this event.
 type AMBRejectedEventType string
 
-// AMBRichLink A link with a preview card. Supply your own preview in `rich_link_data`, or ask Apple to build it with `rich_link_construct`. To introduce the link, send `text` alongside it.
+// AMBRichLink A link with a preview card. Supply your own preview in `rich_link_data`, or ask Apple to build it with `rich_link_construct`. To introduce the link, send `text` alongside it. The card takes the place of the first copy of its URL in that text, or follows the text when it does not contain that URL. Later copies of that URL are removed.
 type AMBRichLink struct {
 	// RichLinkConstruct Asks Apple to build the rich link preview when the message is sent. Use `POST /v1/amb/messages/construct-payload` beforehand only to check the URL and see the preview's title.
 	RichLinkConstruct *AMBRichLinkConstruct  `json:"rich_link_construct,omitempty"`
@@ -13249,6 +13302,15 @@ type AMBRichLinkConstruct struct {
 	// Url The App Clip, Apple Music, or Apple Maps URL to build a preview for. An `http://` URL is refused with a `422` `AMBEndpointNotHTTPS`. Apple builds the preview when the message is sent. If Apple refuses the URL, or fails to build it with a `500` at least 5 times over at least 10 minutes, the message ends `send_failed` with `bird:construct_rejected`; send `rich_link` content with your own `title` and `image` instead. If Apple stays unreachable for the whole retry budget, the message ends `send_failed` with `bird:attempts_exhausted`.
 	Url string `json:"url" pii:"true"`
 }
+
+// AMBRichLinkLayout How Apple displays a rich link's image. Apple picks the layout from the image's shape and width, so the image is resized or cropped to produce the one you choose:
+//
+// - `icon` shows a small image beside the title. The image is scaled to under 150 px wide. Use it for logos.
+// - `square` shows a square image. The image is cropped to a square and sized to 240 px, or as small as 150 px when it needs to fit Apple's 200 kB limit.
+// - `large` shows a wide image. A square or portrait image is cropped to a 2:1 rectangle, and a landscape image keeps its shape.
+//
+// `square` enlarges an image whose shorter side is under 240 px, and `large` one narrower than 240 px, which can blur it. Omit `layout` to keep the image's own shape, so Apple picks the layout from its shape and width.
+type AMBRichLinkLayout string
 
 // AMBRoutingRule defines model for AMBRoutingRule.
 type AMBRoutingRule struct {
@@ -14182,13 +14244,27 @@ type AMBTemplateVersionSummary struct {
 	VersionNumber *int `json:"version_number,omitempty"`
 }
 
-// AMBText A text message: a body, an optional subject, and files placed in the body. Next to `rich_link` or `interactive`, it is sent first as its own text bubble.
+// AMBText A text message: a body, an optional subject, and files placed in the body. Next to `interactive`, it is sent first as its own text bubble. Next to `rich_link`, the card takes the place of the first copy of its URL in `body`, splitting the text around it, or follows the text when `body` does not contain that URL. Later copies of that URL are removed.
 type AMBText struct {
 	// Attachments Ordered attachments. A send supplies each one by source_url or attachment_id.
 	Attachments *[]AMBNativeAttachment `json:"attachments,omitempty"`
 
 	// Body Text displayed in the message. Use one U+FFFC object replacement character per attachment to control placement.
 	Body *string `json:"body,omitempty" pii:"true"`
+
+	// LinkPreviews How the links in `body` of a message you send are previewed. Each `https://`, `http://` or `www.` link is sent as its own rich link, built from the linked page's title and image. Punctuation that ends a link's sentence is dropped, so it does not arrive on its own after the card.
+	//
+	// For the image, the page's `og:image` is tried first, then its largest `apple-touch-icon` or icon, then the largest image in the page. `layout` applies to every preview in the message: `icon` and `square` try the icon first, and `large` tries the images in the page before the icon.
+	//
+	// Only a `text` sent on its own can set `link_previews`. A request that sets it beside `rich_link` or `interactive` is refused with `422`. Leave it out there, and links in that text become previews in the default layout.
+	//
+	// A message is accepted and then ends `send_failed` when:
+	//
+	// - It has more than 20 links.
+	// - A page does not load over HTTPS, or has no title or usable image. Every page is fetched over HTTPS, upgrading `http://` and `www.` links.
+	//
+	// Every link is checked before the first part is sent, so the customer receives none of the message. A retry after some parts were delivered checks only the parts still to send, so a link that stops loading by then fails the message after those parts arrived.
+	LinkPreviews *AMBLinkPreviews `json:"link_previews,omitempty"`
 
 	// Subject Subject displayed above the message body.
 	Subject *string `json:"subject,omitempty" pii:"true"`
@@ -31139,7 +31215,7 @@ type VerificationCreateRequest struct {
 	// Metadata Optional key/value pairs to attach to the verification, for example a correlation id. Returned on the verification.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 
-	// Options Per-request overrides applied to this verification only.
+	// Options Per-request overrides applied to this verification only. `language` picks one of Bird's built-in translations; a custom sender that carries its own template renders the language that template stocks instead. An email template pinned to a custom email sender falls back to its own default language rather than to English (Verify only accepts templates whose language settings fall back). A WhatsApp authentication template follows its own missing-language policy: it falls back to its default or, when set to fail, refuses the send for a language it does not stock. The requested tag stays fixed for the verification.
 	Options *VerificationOptions `json:"options,omitempty"`
 
 	// To The recipient to verify. Provide an `email`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
@@ -31155,7 +31231,7 @@ type VerificationNextChannelRequest struct {
 	To VerificationTo `json:"to"`
 }
 
-// VerificationOptions Per-request overrides applied to this verification only.
+// VerificationOptions Per-request overrides applied to this verification only. `language` picks one of Bird's built-in translations; a custom sender that carries its own template renders the language that template stocks instead. An email template pinned to a custom email sender falls back to its own default language rather than to English (Verify only accepts templates whose language settings fall back). A WhatsApp authentication template follows its own missing-language policy: it falls back to its default or, when set to fail, refuses the send for a language it does not stock. The requested tag stays fixed for the verification.
 type VerificationOptions struct {
 	// AndroidAppHash The Android app that reads this verification's SMS passcodes through Google's SMS Retriever API, replacing the configured hash for this verification only. Send the 11-character app hash computed from the app's package name and signing certificate, such as `FA+9qCX9VSu`; any other form is rejected with `422`. Each SMS passcode is then a short message ending with the hash on its own line, within the API's 140-byte limit, and names no website. Email passcodes don't change: they carry the `OTP-Token` header exactly as they would without a hash. A retry of a verification still in progress keeps the hash it started with.
 	AndroidAppHash *string `json:"android_app_hash,omitempty"`
@@ -50837,6 +50913,13 @@ func (t AMBText) MarshalJSON() ([]byte, error) {
 		}
 	}
 
+	if t.LinkPreviews != nil {
+		object["link_previews"], err = json.Marshal(t.LinkPreviews)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'link_previews': %w", err)
+		}
+	}
+
 	if t.Subject != nil {
 		object["subject"], err = json.Marshal(t.Subject)
 		if err != nil {
@@ -50869,6 +50952,13 @@ func (t *AMBText) UnmarshalJSON(b []byte) error {
 		err = json.Unmarshal(raw, &t.Body)
 		if err != nil {
 			return fmt.Errorf("error reading 'body': %w", err)
+		}
+	}
+
+	if raw, found := object["link_previews"]; found {
+		err = json.Unmarshal(raw, &t.LinkPreviews)
+		if err != nil {
+			return fmt.Errorf("error reading 'link_previews': %w", err)
 		}
 	}
 

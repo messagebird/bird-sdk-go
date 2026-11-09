@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.133.0
+
+- **Breaking:** automatic link previews in an Apple Messages `text` now skip page images over 6 megapixels, or 3 megapixels for a 16-bit PNG. Use smaller preview images on the linked page.
+- Add a `layout` of `icon`, `square`, or `large` to Apple Messages rich link images, and `link_previews.layout` to `text` content for the links Bird sends as rich links. Only a `text` sent on its own can set `link_previews`, and a request that sets it beside `rich_link` or `interactive` is refused with `422`.
+- When a page linked in an Apple Messages `text` has no `og:image`, its automatic preview now uses the page's largest icon before its other images, so it can show as a small icon instead of a large card. To keep the page's images first, set `link_previews.layout` to `large` on a `text` sent on its own. In the CLI, `bird amb send` takes it through `--body-file`.
+- Sentence punctuation right after a link in an Apple Messages `text` is now dropped instead of arriving on its own after the link's card.
+- An Apple Messages `text` that starts with a link and has more text after it now puts its subject on that text instead of the link's card, because Apple does not reliably show a subject on a card.
+- Apple Messages rich link images now accept PNG, JPEG, GIF, and non-animated WebP files up to 5 MiB.
+- An Apple Messages `text` sent beside a `rich_link` now shows the card where its URL first appears in the text, splitting the text around it, and later copies of that URL are dropped.
+- Deleting an email template that an active (non-archived) Verify configuration pins as its custom email sender's body now fails with a resource-in-use conflict; switch that configuration or country sender to Bird's built-in email or another template in the dashboard's Verify settings, then delete.
+
 ## 0.132.1
 
 - WhatsApp number documentation now distinguishes `available_without_review` from `approved` and explains the sending limit on virtual numbers.

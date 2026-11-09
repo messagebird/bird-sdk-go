@@ -90,8 +90,10 @@ type AmbStatsInboundService struct {
 type AmbSendParams struct {
 	From string
 	To   string
-	// Text alone is a text message; beside RichLink or Interactive it is sent
-	// first as its own bubble.
+	// Text alone is a text message. Beside Interactive it is sent first as its
+	// own bubble. Beside RichLink, the card takes the place of the first copy of
+	// its URL in the text, splitting the text around it, or follows the text when
+	// the URL is absent.
 	Text        *AMBText
 	RichLink    *AMBRichLink
 	Interactive *AMBInteractive

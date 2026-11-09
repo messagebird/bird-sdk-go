@@ -742,6 +742,7 @@ type (
 	AMBFormSelectPageType          = oapi.AMBFormSelectPageType
 	AMBFormSplash                  = oapi.AMBFormSplash
 	AMBIMessageApp                 = oapi.AMBIMessageApp
+	AMBLinkPreviews                = oapi.AMBLinkPreviews
 	AMBListPickerItem              = oapi.AMBListPickerItem
 	AMBListPickerSection           = oapi.AMBListPickerSection
 	AMBLocation                    = oapi.AMBLocation
@@ -764,8 +765,15 @@ type (
 	AMBPaymentID                   = oapi.AMBPaymentID
 	AMBQuickReplyItem              = oapi.AMBQuickReplyItem
 	AMBRichLinkConstruct           = oapi.AMBRichLinkConstruct
+	AMBRichLinkLayout              = oapi.AMBRichLinkLayout
 	AMBTimeSlot                    = oapi.AMBTimeSlot
 	CountryCode                    = oapi.CountryCode
+)
+
+const (
+	AMBRichLinkLayoutIcon   = oapi.AMBRichLinkLayoutIcon
+	AMBRichLinkLayoutSquare = oapi.AMBRichLinkLayoutSquare
+	AMBRichLinkLayoutLarge  = oapi.AMBRichLinkLayoutLarge
 )
 
 // The free-form content arms a send carries in place of a template. Each is the

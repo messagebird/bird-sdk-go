@@ -42,7 +42,7 @@ func (s *EmailTemplatesBroadcastsService) ListPage(ctx context.Context, template
 	return &out, nil
 }
 
-// List List the broadcasts that block deleting a template, newest first.
+// List List the broadcasts that block deleting a template, newest first. A Verify configuration pinning the template as its custom email sender's body also blocks the delete but is not listed here; it is cleared in the dashboard's Verify settings.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *EmailTemplatesBroadcastsService) List(ctx context.Context, templateRef string, params EmailTemplatesBroadcastsListParams, opts ...option.RequestOption) iter.Seq2[*EmailTemplateBroadcastSummary, error] {

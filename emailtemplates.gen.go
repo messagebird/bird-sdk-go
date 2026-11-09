@@ -194,7 +194,7 @@ func (s *EmailTemplatesService) Update(ctx context.Context, templateRef string, 
 	return &out, nil
 }
 
-// Delete Delete a template and every version it holds, freeing its slug for reuse in the workspace. The deletion cannot be undone, and a later send naming the template is rejected. A template a `scheduled` or `accepted` broadcast still references cannot be deleted, and returns a conflict. A scheduled message send using the template does not block the delete, and is rejected with `generation_failure` when it falls due.
+// Delete Delete a template and every version it holds, freeing its slug for reuse in the workspace. The deletion cannot be undone, and a later send naming the template is rejected. A template a `scheduled` or `accepted` broadcast still references cannot be deleted, and returns a conflict; so does a template an active Verify configuration pins as its custom email sender's body, directly or for one country; the conflict reports only how many verification configurations pin it, and the pin is cleared in the dashboard's Verify settings. A scheduled message send using the template does not block the delete, and is rejected with `generation_failure` when it falls due.
 func (s *EmailTemplatesService) Delete(ctx context.Context, templateRef string, opts ...option.RequestOption) error {
 	_, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.DeleteEmailTemplateParams{}
