@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.134.0
+
+- Expose `overdial_suffix` on voice-leg responses.
+
 ## 0.133.0
 
 - **Breaking:** automatic link previews in an Apple Messages `text` now skip page images over 6 megapixels, or 3 megapixels for a 16-bit PNG. Use smaller preview images on the linked page.

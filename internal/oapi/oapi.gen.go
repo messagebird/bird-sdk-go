@@ -30174,20 +30174,22 @@ type SMSSenderSortField string
 // SMSSenderSourceKind What backs an SMS sender: a dedicated number, a shared shortcode, or an alphanumeric sender string.
 type SMSSenderSourceKind string
 
-// SMSSenderStatus Where a sender stands on its own setup: the ownership paperwork its number owes, and the
-// registrations it holds.
+// SMSSenderStatus Where a sender stands on its own setup: the ownership paperwork its number owes, and whether
+// any destination is active yet.
 //
-//   - `active`: nothing this sender holds is outstanding.
+//   - `active`: at least one destination is active.
 //   - `pending_number_ownership`: the paperwork proving you own this sender's number is not in
 //     place, either because it has not been supplied or because the country that issued the
 //     number has not accepted it yet. Every send from this sender is refused until it does.
-//   - `pending_registrations`: the sender holds country registrations and none is approved yet.
-//     That covers a registration under review and one that was refused, so read `next` for which.
+//   - `pending_registrations`: no destination is active yet, whether because the sender has not
+//     registered where a registration is required, its registration is under review, or it was
+//     refused.
+//     Follow `next` to the requirements read to see which, country by country.
 //
 // This is not whether a message will be accepted. That is decided per destination country, and
 // [Get sender requirements](/docs/api/reference/list-workspace-sms-sender-requirements) is the
-// only read that answers it. A sender that has registered nowhere is `active`, even where every
-// country it can reach wants a registration first. Read `next` for where to go from here.
+// only read that answers it. A country that requires a registration, where you have not
+// registered, is in none of the three `destinations` lists. Read `next` for where to go from here.
 type SMSSenderStatus string
 
 // SMSSenderType The kind of sender identity a message was sent from: a standard long-code number, a short code, an alphanumeric sender ID, or a toll-free number. Toll-free is its own value rather than a kind of long code, because it carries a separate regulatory regime and both sending policy and pricing key on it directly.
@@ -31613,6 +31615,9 @@ type VoiceLeg struct {
 	Media        *VoiceLegMediaPath `json:"media,omitempty"`
 	MediaQuality *VoiceMediaQuality `json:"media_quality,omitempty"`
 
+	// OverdialSuffix Digits appended to this leg's destination number, preserving leading zeroes. Absent for a call without overdial.
+	OverdialSuffix *string `json:"overdial_suffix,omitempty"`
+
 	// PddMs Post-dial delay in milliseconds: how long the caller heard nothing between dialing and the phone starting to ring at the other end. High values are what callers experience as the leg `not going through`. Absent when the leg never rang, either because it failed first or because the carrier answered it immediately.
 	PddMs *int `json:"pdd_ms,omitempty"`
 
@@ -31978,6 +31983,9 @@ type VoiceParty struct {
 	// `null` on an observation this API could not read. The entry stays, because the call counted it when it deduplicated, and dropping it here would report fewer participants than were observed.
 	Endpoint *VoicePartyEndpoint `json:"endpoint,omitempty"`
 
+	// OverdialSuffix Digits dialled after this party's number, including leading zeroes. Absent when no overdial was received.
+	OverdialSuffix *string `json:"overdial_suffix,omitempty"`
+
 	// TrunkId The workspace trunk on this side of the leg. `null` when this side sat behind no trunk.
 	TrunkId *SIPTrunkID `json:"trunk_id,omitempty"`
 
@@ -32186,6 +32194,9 @@ type VoiceSequenceSavedExecutionEndpoint struct {
 type VoiceSequenceSavedExecutionParty struct {
 	Address  *string                             `json:"address,omitempty"`
 	Endpoint VoiceSequenceSavedExecutionEndpoint `json:"endpoint"`
+
+	// OverdialSuffix Digits appended to the destination number; leading zeroes are preserved. Only the destination party supplies this fact; a value on the origin is ignored.
+	OverdialSuffix *string `json:"overdial_suffix,omitempty"`
 }
 
 // VoiceSequenceSavedExecutionSample Saved hypothetical values, which may be stale or incomplete in meaning. Each string is nonempty and limited to 128 bytes. Explicit preview and evaluation require valid typed identifiers and a timestamp.
