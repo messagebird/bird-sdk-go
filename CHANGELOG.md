@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.135.1
+
+- The number order `status` description now says that a carrier number's first recurring charge is taken on delivery while the order is `pending`, and that a delivered number that still cannot be charged is released no sooner than 72 hours after the order was placed: its order fails and its setup fee is refunded.
+- Creating a number order now documents one exception to the non-refundable setup fee: it is refunded when the carrier delivers the number but it cannot be charged and is released, no sooner than 72 hours after the order was placed.
+- An SMS message's `failed` or `undelivered` status is now documented as replaceable: a carrier report of another outcome that occurred later, such as a delivery, changes the status. The `sms.failed` and `sms.undelivered` events stay as sent, and that later outcome arrives as its own event, such as `sms.delivered`; keep the outcome with the latest `timestamp`.
+- Creating an SMS sender registration (`POST /v1/sms/senders/{sender_id}/registrations`) now documents that a `409` can mean the contract's billing frequency changed just before the call, which still charges the setup fee without keeping a registration, and to contact support instead of retrying.
+
 ## 0.135.0
 
 - **Breaking:** adding a custom label to a mailbox conversation (`client.Email.Threads.Update`) now fails with E17058 when the label is new to the workspace and the workspace already uses 100 distinct labels. Applying a label the workspace already has keeps working, so a caller that reaches the cap can reuse one of the workspace's custom labels: listing a mailbox's labels (`client.Email.Mailboxes.Labels`) returns them beside built-in labels such as `inbox` and `unread`, which label updates refuse, and getting a conversation (`client.Email.Threads.Get`) shows its current labels.

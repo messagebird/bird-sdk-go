@@ -25984,7 +25984,7 @@ type EventSMSExpiredData struct {
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
-// EventSMSFailed Message delivery failed permanently.
+// EventSMSFailed The carrier reported that delivery failed for a reason not expected to clear. Bird does not retry the message, but a carrier report of another outcome that occurred later, such as `sms.delivered`, can follow.
 type EventSMSFailed struct {
 	// Data Payload of the sms.failed event.
 	Data EventSMSFailedData `json:"data"`
@@ -26276,7 +26276,7 @@ type EventSMSSuppressionCreatedData struct {
 	WorkspaceId   WorkspaceID          `json:"workspace_id"`
 }
 
-// EventSMSUndelivered The carrier reported a non-permanent failure to deliver the message.
+// EventSMSUndelivered The carrier reported a non-permanent failure to deliver the message. Bird does not retry it, but a carrier report of another outcome that occurred later, such as `sms.delivered`, can follow.
 type EventSMSUndelivered struct {
 	// Data Payload of the sms.undelivered event.
 	Data EventSMSUndeliveredData `json:"data"`
@@ -28207,14 +28207,17 @@ type NumbersOrderList struct {
 
 // NumbersOrderStatus Lifecycle state of a number purchase order:
 //
-// - `charging`: Securing funds.
-// - `ordering`: Placing the order with the carrier.
-// - `pending`: The carrier accepted the order and is provisioning the number.
-// - `completed`: Your workspace owns the number.
-// - `failed`: The purchase did not complete.
+//   - `charging`: Securing funds.
+//   - `ordering`: Placing the order with the carrier.
+//   - `pending`: The carrier accepted the order and is provisioning the number. A carrier
+//     number's first recurring charge is taken on delivery: keep funds available, because a
+//     delivered number that still cannot be charged is released no sooner than 72 hours after the order
+//     was placed: its order fails and its setup fee is refunded.
+//   - `completed`: Your workspace owns the number.
+//   - `failed`: The purchase did not complete.
 //
-// A setup fee already charged is non-refundable. Contact support about a failed
-// order.
+// Apart from that release, a setup fee already charged is non-refundable. Contact
+// support about a failed order.
 type NumbersOrderStatus string
 
 // OrganizationID defines model for OrganizationID.
@@ -29670,8 +29673,8 @@ type SMSMessageSendRequest2 = interface{}
 // - `accepted`: Accepted and awaiting carrier handoff.
 // - `sent`: Handed to the carrier and awaiting a delivery receipt.
 // - `delivered`: Confirmed as delivered.
-// - `undelivered`: The carrier reported delivery as failed for a reason that may clear later, such as a handset out of coverage or a carrier at capacity. Final all the same: the message is not retried, so reaching the recipient means sending again.
-// - `failed`: The carrier reported delivery as failed for a reason that will not clear, such as an unassigned number, a recipient who has opted out, or content the carrier refused.
+// - `undelivered`: The carrier reported delivery as failed for a reason that may clear later, such as a handset out of coverage or a carrier at capacity. Bird does not retry it, so reaching the recipient means sending again; a carrier report of another outcome that occurred later, such as a delivery, replaces it.
+// - `failed`: The carrier reported delivery as failed for a reason not expected to clear, such as an unassigned number, a recipient who has opted out, or content the carrier refused. Bird does not retry it, but a carrier report of another outcome that occurred later, such as a delivery, replaces it.
 // - `rejected`: Refused before carrier handoff.
 // - `expired`: Reached its validity limit without a final receipt.
 // - `received`: Received as an inbound message.
