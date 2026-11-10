@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.137.0
+
+- **Breaking:** `Mailbox` gains a response field for `last_message_at`, when the mailbox last sent or received a message, recorded from 26 August 2026, where an unset value on an older mailbox means no activity since that date; replace positional literals with keyed literals such as `Mailbox{LastMessageAt: nil}`.
+
 ## 0.136.0
 
 - Add `suspended_at` to workspaces: when Bird suspended the workspace, or `null` while it is active.
