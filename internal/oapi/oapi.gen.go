@@ -2073,6 +2073,7 @@ const (
 	EmailBroadcastFailureReasonInternalError       EmailBroadcastFailureReason = "internal_error"
 	EmailBroadcastFailureReasonLessThannil         EmailBroadcastFailureReason = "<nil>"
 	EmailBroadcastFailureReasonQuotaExceeded       EmailBroadcastFailureReason = "quota_exceeded"
+	EmailBroadcastFailureReasonWorkspaceSuspended  EmailBroadcastFailureReason = "workspace_suspended"
 )
 
 // Valid indicates whether the value is a known member of the EmailBroadcastFailureReason enum.
@@ -2091,6 +2092,8 @@ func (e EmailBroadcastFailureReason) Valid() bool {
 	case EmailBroadcastFailureReasonLessThannil:
 		return true
 	case EmailBroadcastFailureReasonQuotaExceeded:
+		return true
+	case EmailBroadcastFailureReasonWorkspaceSuspended:
 		return true
 	default:
 		return false
@@ -2740,6 +2743,7 @@ const (
 	EmailEventRejectionReasonRecipientNotAllowed EmailEventRejectionReason = "recipient_not_allowed"
 	EmailEventRejectionReasonRecipientSuppressed EmailEventRejectionReason = "recipient_suppressed"
 	EmailEventRejectionReasonTransmissionFailed  EmailEventRejectionReason = "transmission_failed"
+	EmailEventRejectionReasonWorkspaceSuspended  EmailEventRejectionReason = "workspace_suspended"
 )
 
 // Valid indicates whether the value is a known member of the EmailEventRejectionReason enum.
@@ -2760,6 +2764,8 @@ func (e EmailEventRejectionReason) Valid() bool {
 	case EmailEventRejectionReasonRecipientSuppressed:
 		return true
 	case EmailEventRejectionReasonTransmissionFailed:
+		return true
+	case EmailEventRejectionReasonWorkspaceSuspended:
 		return true
 	default:
 		return false
@@ -3556,6 +3562,7 @@ const (
 	EmailRecipientRejectionReasonRecipientNotAllowed EmailRecipientRejectionReason = "recipient_not_allowed"
 	EmailRecipientRejectionReasonRecipientSuppressed EmailRecipientRejectionReason = "recipient_suppressed"
 	EmailRecipientRejectionReasonTransmissionFailed  EmailRecipientRejectionReason = "transmission_failed"
+	EmailRecipientRejectionReasonWorkspaceSuspended  EmailRecipientRejectionReason = "workspace_suspended"
 )
 
 // Valid indicates whether the value is a known member of the EmailRecipientRejectionReason enum.
@@ -3576,6 +3583,8 @@ func (e EmailRecipientRejectionReason) Valid() bool {
 	case EmailRecipientRejectionReasonRecipientSuppressed:
 		return true
 	case EmailRecipientRejectionReasonTransmissionFailed:
+		return true
+	case EmailRecipientRejectionReasonWorkspaceSuspended:
 		return true
 	default:
 		return false
@@ -3624,6 +3633,7 @@ const (
 	EmailRejectionReasonRecipientNotAllowed EmailRejectionReason = "recipient_not_allowed"
 	EmailRejectionReasonRecipientSuppressed EmailRejectionReason = "recipient_suppressed"
 	EmailRejectionReasonTransmissionFailed  EmailRejectionReason = "transmission_failed"
+	EmailRejectionReasonWorkspaceSuspended  EmailRejectionReason = "workspace_suspended"
 )
 
 // Valid indicates whether the value is a known member of the EmailRejectionReason enum.
@@ -3642,6 +3652,8 @@ func (e EmailRejectionReason) Valid() bool {
 	case EmailRejectionReasonRecipientSuppressed:
 		return true
 	case EmailRejectionReasonTransmissionFailed:
+		return true
+	case EmailRejectionReasonWorkspaceSuspended:
 		return true
 	default:
 		return false
@@ -7055,6 +7067,7 @@ const (
 	SMSErrorCodeSenderUnregistered       SMSErrorCode = "sender_unregistered"
 	SMSErrorCodeUnknown                  SMSErrorCode = "unknown"
 	SMSErrorCodeUnreachable              SMSErrorCode = "unreachable"
+	SMSErrorCodeWorkspaceSuspended       SMSErrorCode = "workspace_suspended"
 )
 
 // Valid indicates whether the value is a known member of the SMSErrorCode enum.
@@ -7083,6 +7096,8 @@ func (e SMSErrorCode) Valid() bool {
 	case SMSErrorCodeUnknown:
 		return true
 	case SMSErrorCodeUnreachable:
+		return true
+	case SMSErrorCodeWorkspaceSuspended:
 		return true
 	default:
 		return false
@@ -8123,6 +8138,7 @@ const (
 	VerificationAttemptFailureReasonNotBillable        VerificationAttemptFailureReason = "not_billable"
 	VerificationAttemptFailureReasonSoftBounce         VerificationAttemptFailureReason = "soft_bounce"
 	VerificationAttemptFailureReasonUndelivered        VerificationAttemptFailureReason = "undelivered"
+	VerificationAttemptFailureReasonWorkspaceSuspended VerificationAttemptFailureReason = "workspace_suspended"
 )
 
 // Valid indicates whether the value is a known member of the VerificationAttemptFailureReason enum.
@@ -8145,6 +8161,8 @@ func (e VerificationAttemptFailureReason) Valid() bool {
 	case VerificationAttemptFailureReasonSoftBounce:
 		return true
 	case VerificationAttemptFailureReasonUndelivered:
+		return true
+	case VerificationAttemptFailureReasonWorkspaceSuspended:
 		return true
 	default:
 		return false
@@ -9481,6 +9499,7 @@ const (
 	WhatsAppErrorCodeRecipientSuppressed  WhatsAppErrorCode = "recipient_suppressed"
 	WhatsAppErrorCodeServiceWindowExpired WhatsAppErrorCode = "service_window_expired"
 	WhatsAppErrorCodeUndeliverable        WhatsAppErrorCode = "undeliverable"
+	WhatsAppErrorCodeWorkspaceSuspended   WhatsAppErrorCode = "workspace_suspended"
 )
 
 // Valid indicates whether the value is a known member of the WhatsAppErrorCode enum.
@@ -9501,6 +9520,8 @@ func (e WhatsAppErrorCode) Valid() bool {
 	case WhatsAppErrorCodeServiceWindowExpired:
 		return true
 	case WhatsAppErrorCodeUndeliverable:
+		return true
+	case WhatsAppErrorCodeWorkspaceSuspended:
 		return true
 	default:
 		return false
@@ -12759,12 +12780,15 @@ type AMBMessage struct {
 	//   channel, so `sent` is the furthest an outbound message's status
 	//   advances.
 	// - `send_failed`: Sending stopped because of a business or conversation
-	//   restriction, a recipient opt-out, an Apple refusal, or exhausted attempts.
-	//   An earlier attempt may have reached Apple if its response or the local
-	//   record of success was lost. See `last_error` for why sending stopped.
+	//   restriction, a recipient opt-out, an Apple refusal, a workspace
+	//   suspension, or exhausted attempts. A message stopped after it was charged
+	//   keeps its charge. An earlier attempt may have reached Apple if its
+	//   response or the local record of success was lost. See `last_error` for
+	//   why sending stopped.
 	// - `rejected`: Refused by Bird before any send attempt and never charged:
-	//   the destination has no price, the wallet could not fund the send, or the
-	//   content cannot be sent yet. See `last_error`.
+	//   the destination has no price, the wallet could not fund the send, the
+	//   workspace is suspended, or the content cannot be sent yet. See
+	//   `last_error`.
 	// - `received`: Received as an inbound message.
 	Status AMBMessageStatus `json:"status"`
 
@@ -12986,12 +13010,15 @@ type AMBMessageSource string
 //     channel, so `sent` is the furthest an outbound message's status
 //     advances.
 //   - `send_failed`: Sending stopped because of a business or conversation
-//     restriction, a recipient opt-out, an Apple refusal, or exhausted attempts.
-//     An earlier attempt may have reached Apple if its response or the local
-//     record of success was lost. See `last_error` for why sending stopped.
+//     restriction, a recipient opt-out, an Apple refusal, a workspace
+//     suspension, or exhausted attempts. A message stopped after it was charged
+//     keeps its charge. An earlier attempt may have reached Apple if its
+//     response or the local record of success was lost. See `last_error` for
+//     why sending stopped.
 //   - `rejected`: Refused by Bird before any send attempt and never charged:
-//     the destination has no price, the wallet could not fund the send, or the
-//     content cannot be sent yet. See `last_error`.
+//     the destination has no price, the wallet could not fund the send, the
+//     workspace is suspended, or the content cannot be sent yet. See
+//     `last_error`.
 //   - `received`: Received as an inbound message.
 type AMBMessageStatus string
 
@@ -13243,10 +13270,10 @@ type AMBOutboundStatsCounts struct {
 	// Accepted Distinct messages accepted for sending after admission checks. This is the denominator for `sent_rate` and `send_failure_rate`.
 	Accepted *int `json:"accepted,omitempty"`
 
-	// Rejected Distinct messages refused before any send attempt, because the destination has no price, the wallet could not fund the send, or the content cannot be sent yet. Rejected messages are never charged and are not counted in `accepted`, so the total addressed is `accepted + rejected`. Excluded from `send_failure_rate`, which covers send failures only.
+	// Rejected Distinct messages refused before any send attempt, because the destination has no price, the wallet could not fund the send, the workspace is suspended, or the content cannot be sent yet. Rejected messages are never charged and are not counted in `accepted`, so the total addressed is `accepted + rejected`. Excluded from `send_failure_rate`, which covers send failures only.
 	Rejected *int `json:"rejected,omitempty"`
 
-	// SendFailed Distinct accepted messages that Apple refused or that exhausted their send attempts. See `last_error.code` on the message for the reason; a refused charge is not a send failure, it is `rejected`.
+	// SendFailed Distinct accepted messages that Apple refused, that exhausted their send attempts, or that a workspace suspension stopped. See `last_error.code` on the message for the reason; a refused charge is not a send failure, it is `rejected`.
 	SendFailed *int `json:"send_failed,omitempty"`
 
 	// SendFailureRate Share of accepted messages that failed to send, computed as `send_failed / accepted`. Null when no messages were accepted in scope.
@@ -16713,6 +16740,7 @@ type EmailBroadcast struct {
 	// - `insufficient_funds`: There was not enough in the workspace balance to pay for the send.
 	// - `quota_exceeded`: The send would have gone past your organization's daily or monthly email allowance, whichever runs out first. This can happen when the broadcast is being prepared, or partway through sending if the remaining recipients no longer fit. `failure_detail` gives you the count and the limit.
 	// - `internal_error`: Something went wrong on our side. Retry, and open a support ticket if it keeps happening.
+	// - `workspace_suspended`: The workspace is suspended, so the broadcast stopped sending. Recipients not yet sent to are not sent to, even after reactivation. Contact Bird support to reactivate the workspace.
 	FailureReason *EmailBroadcastFailureReason `json:"failure_reason,omitempty"`
 
 	// From An email address with an optional display name.
@@ -16720,15 +16748,15 @@ type EmailBroadcast struct {
 
 	// FundingHold Why sending stopped for funds and what happens next. Present only while `status` is `waiting_for_funds` or `paused`.
 	//
-	// Funding recovery is declared ahead of server support. The send-allowance response includes `can_start` when waiting and resuming are available. If `can_start` is absent, do not assume a top-up can recover a broadcast or that a failed broadcast can resume.
+	// The send-allowance response includes `can_start` when waiting and resuming are available. If `can_start` is absent, do not assume a top-up can recover a broadcast or that a failed broadcast can resume.
 	//
-	// The automatic wait lasts at most 20 minutes from the first time sending stops for funds. Later stops and top-ups do not extend it. Resuming a paused broadcast starts a new wait for any later stop.
+	// Each interruption can wait up to 20 minutes for funds. Checks, refused batches and partial top-ups during the same interruption do not extend its deadline. Automatic continuation or an explicit resume clears the hold; if sending later stops for funds again, a new 20-minute wait begins.
 	FundingHold *EmailBroadcastFundingHold `json:"funding_hold,omitempty"`
 
-	// Headers Any custom email headers set on the broadcast. Returned on a single broadcast read and on the broadcast that creating, updating, sending or canceling one returns, and absent from the list. The unsubscribe headers we add ourselves are not included.
+	// Headers Any custom email headers set on the broadcast. Returned on a single broadcast read and on the broadcast that creating, updating, sending, resuming or canceling one returns, and absent from the list. The unsubscribe headers we add ourselves are not included.
 	Headers *map[string]string `json:"headers,omitempty"`
 
-	// HtmlBytes Size of the HTML body this broadcast sends, in bytes, or 0 when its content has no HTML part. Measured on the template version the broadcast sends, using the selected language. Recipient merge values can change its size. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending or canceling one returns, none of which measure the content. Absent too when the broadcast has no template or its content can no longer be read.
+	// HtmlBytes Size of the HTML body this broadcast sends, in bytes, or 0 when its content has no HTML part. Measured on the template version the broadcast sends, using the selected language. Recipient merge values can change its size. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending, resuming or canceling one returns, none of which measure the content. Absent too when the broadcast has no template or its content can no longer be read.
 	HtmlBytes *int64 `json:"html_bytes,omitempty"`
 
 	// Id Broadcast ID.
@@ -16741,8 +16769,8 @@ type EmailBroadcast struct {
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 
 	// Next What to do next about this broadcast, given the state it is in. Each entry names one action and
-	// says why it is worth taking. Present on reads that compute it: an empty list means there is
-	// nothing to do, and the field is absent entirely on responses that do not report next actions.
+	// says why it is worth taking. Responses that compute next actions include this field: an empty list means there is
+	// nothing to do. Other responses omit it.
 	Next *[]NextAction `json:"next,omitempty"`
 
 	// OpenCount How many times the message was opened, added up across every recipient. One recipient opening it twice counts twice. Absent when `sent_count` is.
@@ -16760,13 +16788,13 @@ type EmailBroadcast struct {
 	// ScheduledAt When the broadcast is due to send, and absent when it is not scheduled.
 	ScheduledAt *time.Time `json:"scheduled_at,omitempty"`
 
-	// SendingIps The IP addresses this broadcast's messages went out from, up to 100 of them. A broadcast is spread across every address in its pool, so more than one can appear. The receiving mail systems name the address when they deliver, bounce or defer a message, so this stays absent until the first of those comes back. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending or canceling one returns, none of which read them. For delivery and latency broken down per address, read the sending-IP stats.
+	// SendingIps The IP addresses this broadcast's messages went out from, up to 100 of them. A broadcast is spread across every address in its pool, so more than one can appear. The receiving mail systems name the address when they deliver, bounce or defer a message, so this stays absent until the first of those comes back. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending, resuming or canceling one returns, none of which read them. For delivery and latency broken down per address, read the sending-IP stats.
 	SendingIps *[]string `json:"sending_ips,omitempty"`
 
 	// SentAt When the last recipient was sent to and the broadcast became `sent`. Null until then. Compare with `started_at`, which is when the broadcast started sending.
 	SentAt *time.Time `json:"sent_at,omitempty"`
 
-	// SentCount How many recipients the broadcast has been sent to, counting every recipient whose status is `processed` or later. The number rises while the broadcast is `sending` and stops changing once the broadcast has finished. These counters are exact. The email stats endpoints report on the same sending but are approximate, so use these numbers when you need the precise count. Absent when the broadcast comes back from creating, updating, sending or canceling it, none of which read the counters. List and single-broadcast reads return 0 when no delivery events are recorded. When counters are unavailable, those reads still return 200 and omit the counters. Read the broadcast again for the numbers.
+	// SentCount How many recipients the broadcast has been sent to, counting every recipient whose status is `processed` or later. The number rises while the broadcast is `sending` and stops changing once the broadcast has finished. These counters are exact. The email stats endpoints report on the same sending but are approximate, so use these numbers when you need the precise count. Absent when the broadcast comes back from creating, updating, sending, resuming or canceling it, none of which read the counters. List and single-broadcast reads return 0 when no delivery events are recorded. When counters are unavailable, those reads still return 200 and omit the counters. Read the broadcast again for the numbers.
 	SentCount *int64 `json:"sent_count,omitempty"`
 
 	// StartedAt When the broadcast started sending. Absent until then. Older broadcasts waiting or paused for funds may lack that timestamp; they report their send authorization time, or creation time if that is also missing, so late-resume confirmation uses the same conservative time as the server. Compare with `sent_at`, which is when the broadcast finished sending.
@@ -16817,6 +16845,7 @@ type EmailBroadcastCategory string
 // - `insufficient_funds`: There was not enough in the workspace balance to pay for the send.
 // - `quota_exceeded`: The send would have gone past your organization's daily or monthly email allowance, whichever runs out first. This can happen when the broadcast is being prepared, or partway through sending if the remaining recipients no longer fit. `failure_detail` gives you the count and the limit.
 // - `internal_error`: Something went wrong on our side. Retry, and open a support ticket if it keeps happening.
+// - `workspace_suspended`: The workspace is suspended, so the broadcast stopped sending. Recipients not yet sent to are not sent to, even after reactivation. Contact Bird support to reactivate the workspace.
 type EmailBroadcastFailureReason string
 
 // EmailBroadcastClickedLink One destination URL a broadcast's recipients clicked, with its exact click and recipient totals. Grouped over every click event the broadcast has, not a sample.
@@ -16982,9 +17011,9 @@ type EmailBroadcastFailureParameters struct {
 
 // EmailBroadcastFundingHold Why sending stopped for funds and what happens next. Present only while `status` is `waiting_for_funds` or `paused`.
 //
-// Funding recovery is declared ahead of server support. The send-allowance response includes `can_start` when waiting and resuming are available. If `can_start` is absent, do not assume a top-up can recover a broadcast or that a failed broadcast can resume.
+// The send-allowance response includes `can_start` when waiting and resuming are available. If `can_start` is absent, do not assume a top-up can recover a broadcast or that a failed broadcast can resume.
 //
-// The automatic wait lasts at most 20 minutes from the first time sending stops for funds. Later stops and top-ups do not extend it. Resuming a paused broadcast starts a new wait for any later stop.
+// Each interruption can wait up to 20 minutes for funds. Checks, refused batches and partial top-ups during the same interruption do not extend its deadline. Automatic continuation or an explicit resume clears the hold; if sending later stops for funds again, a new 20-minute wait begins.
 type EmailBroadcastFundingHold struct {
 	// PausedAt When the broadcast paused. Present only while `status` is `paused`.
 	PausedAt *time.Time `json:"paused_at,omitempty"`
@@ -17028,9 +17057,9 @@ type EmailBroadcastInputOverrides struct {
 	Template nullable.Nullable[EmailBroadcastTemplateUpdate] `json:"template,omitempty"`
 }
 
-// EmailBroadcastInsufficientFundsBehavior Declared ahead of server support for funding recovery. When returned in the send-allowance response, this describes what a broadcast does if your balance runs out while it is sending. Recipients already sent to are not affected either way.
+// EmailBroadcastInsufficientFundsBehavior When returned in the send-allowance response, this describes what a broadcast does if your balance runs out while it is sending. Recipients already sent to are not affected either way.
 //
-// - `wait_for_top_up`: The broadcast waits up to 20 minutes for a manual or automatic top-up. It checks once a minute and continues by itself when funds cover the next batch of recipients, then pauses if the wait ends. Waiting does not change your automatic top-up settings or initiate a payment.
+// - `wait_for_top_up`: The broadcast waits up to 20 minutes for a manual or automatic top-up. It checks once a minute and continues by itself when the insufficient-funds restriction clears, then pauses if the wait ends. Waiting does not change your automatic top-up settings or initiate a payment.
 // - `pause`: The broadcast pauses until you add funds and resume it.
 type EmailBroadcastInsufficientFundsBehavior string
 
@@ -17250,7 +17279,7 @@ type EmailBroadcastSendNowRequest struct {
 //
 // The organization shares this allowance across its email sends. `allowed` can change as other sends use the allowance. `recipients` can change with audience membership and suppressions. These counts are live estimates. Other sends can use the allowance before a broadcast sends, even if its audience fits now.
 //
-// The optional `can_start` and `on_insufficient_funds` fields are declared ahead of server support for funding recovery. If `can_start` is absent, use `allowed` to check the current allowance and do not assume automatic waiting or resumability. An absent field is different from `can_start: false`, which explicitly says the broadcast cannot start.
+// Servers that support funding recovery return `can_start`; callers with billing read access also receive `on_insufficient_funds`. If `can_start` is absent, use `allowed` to check the current allowance and do not assume automatic waiting or resumability. An absent field is different from `can_start: false`, which explicitly says the broadcast cannot start.
 //
 // `limit_reason` is present only when `limited_by` is `monthly` and you have `org:billing` read access. The reason can reveal the organization's payment state. `broadcasts` is present only for a draft when the organization has a broadcast count limit. `on_insufficient_funds` says what happens if the balance runs out mid-send. Like `limit_reason`, it is present only when you have `org:billing` read access.
 type EmailBroadcastSendQuota struct {
@@ -17258,7 +17287,7 @@ type EmailBroadcastSendQuota struct {
 	//
 	// Partially covered broadcasts send in whole batches. This count is rounded down to a batch boundary and can be lower than `remaining`. Read this value directly instead of calculating it from `limit` and `remaining`.
 	//
-	// A value of 0 means no recipients are currently covered. This happens if the audience exceeds the full email limit, which rejects the send, or if the remaining allowance cannot cover a batch. When `can_start` is present, use it to decide whether a balance-limited broadcast can start and wait for funds. If it is absent, a zero allowance does not provide a way to send.
+	// A value of 0 means no recipients are currently covered. This happens if the audience exceeds a full daily or funded monthly limit, if a temporary funding restriction blocks sending, or if the remaining allowance cannot cover a batch. When `can_start` is present, use it to decide whether a balance-limited broadcast can start and wait for funds. If it is absent, a zero allowance does not provide a way to send.
 	Allowed *int64 `json:"allowed,omitempty"`
 
 	// Broadcasts The organization's broadcast count allowance for the current window. This counts broadcasts rather than emails. The window is the billing period, or the UTC day when no current billing period is available.
@@ -17266,9 +17295,9 @@ type EmailBroadcastSendQuota struct {
 	// Sending or scheduling a draft uses one broadcast from the window current when you submit the request. The scheduled send time does not determine the window. Sending an already scheduled broadcast again uses no additional broadcast allowance. `send_at` on the send-quota request does not change this allowance.
 	Broadcasts *EmailBroadcastCountAllowance `json:"broadcasts,omitempty"`
 
-	// CanStart When present, whether the organization's email limits let this broadcast start at `send_at`, or now if you omit it. A balance that cannot pay for the next batch does not make this `false`: once started, the broadcast waits or pauses until funds return, as `on_insufficient_funds` describes.
+	// CanStart When present, whether the organization's email limits let this broadcast start at `send_at`, or now if you omit it. This ignores a temporary funding restriction, including exhausted included volume when paid overage is available. It still checks daily limits and the monthly limit that applies after funding is restored.
 	//
-	// It is `false` when no recipient would be sent, including when the audience exceeds the full daily or monthly limit or none of that limit remains. A `true` value does not reserve allowance or promise that every recipient is sent. Other checks still apply when you send.
+	// It is `false` when no recipient fits the daily or funded monthly limits, including when the audience exceeds a full daily or funded monthly limit, or when usage has exhausted either limit. The response field `remaining` can instead reflect the temporary funding restriction: with `limit_reason: unfunded`, `remaining: 0` can accompany `can_start: true` if those daily and funded monthly limits allow sending. The broadcast can then start and wait for funds. A `true` value does not reserve allowance or promise that every recipient is sent. Other checks still apply when you send.
 	CanStart *bool `json:"can_start,omitempty"`
 
 	// Limit The email limit identified by `limited_by`, in emails. Omitted when no email limit restricts the send.
@@ -17293,9 +17322,9 @@ type EmailBroadcastSendQuota struct {
 	// When both email limits apply, the response reports the more restrictive one. If you pass `send_at`, the check evaluates both at that time.
 	LimitedBy EmailSendAllowanceWindow `json:"limited_by"`
 
-	// OnInsufficientFunds Declared ahead of server support for funding recovery. When returned in the send-allowance response, this describes what a broadcast does if your balance runs out while it is sending. Recipients already sent to are not affected either way.
+	// OnInsufficientFunds When returned in the send-allowance response, this describes what a broadcast does if your balance runs out while it is sending. Recipients already sent to are not affected either way.
 	//
-	// - `wait_for_top_up`: The broadcast waits up to 20 minutes for a manual or automatic top-up. It checks once a minute and continues by itself when funds cover the next batch of recipients, then pauses if the wait ends. Waiting does not change your automatic top-up settings or initiate a payment.
+	// - `wait_for_top_up`: The broadcast waits up to 20 minutes for a manual or automatic top-up. It checks once a minute and continues by itself when the insufficient-funds restriction clears, then pauses if the wait ends. Waiting does not change your automatic top-up settings or initiate a payment.
 	// - `pause`: The broadcast pauses until you add funds and resume it.
 	OnInsufficientFunds *EmailBroadcastInsufficientFundsBehavior `json:"on_insufficient_funds,omitempty"`
 
@@ -17307,7 +17336,7 @@ type EmailBroadcastSendQuota struct {
 
 	// ResetsAt When usage resets to 0 for the email limit identified by `limited_by`, evaluated at `send_at`, or now if you omit it.
 	//
-	// A broadcast sent before this time uses the same window and the allowance left after other sends. A broadcast sent at or after this time uses a new window. If `recipients` exceeds the full `limit`, the send is rejected in any window with that limit. Pass the later time as `send_at` to check whether the other email limit still restricts the send.
+	// A broadcast sent before this time uses the same window and the allowance left after other sends. A broadcast sent at or after this time uses a new window. If `recipients` exceeds a full daily or funded monthly limit, the send is rejected in any window with that limit. When `limit_reason` is `unfunded`, the reported `limit` can instead be a temporary funding restriction; use `can_start`, when present, to determine whether the broadcast can start and wait for funds. Pass the later time as `send_at` to check whether the other email limit still restricts the send.
 	//
 	// Omitted when no email limit restricts the send, when the reset is at or before `send_at`, or when the billing period has ended and the next one has not started.
 	ResetsAt *time.Time `json:"resets_at,omitempty"`
@@ -17324,7 +17353,7 @@ type EmailBroadcastStatsPoint struct {
 
 // EmailBroadcastStatus Where the broadcast itself has got to. This is separate from what happened to individual recipients, which the broadcast's own `sent_count`, `delivered_count`, `bounced_count` and `complained_count` tell you. Those four are fields on the broadcast, not on everything that carries this status, and reading the broadcast's recipients or its events gives the same outcomes one recipient at a time.
 //
-// The `waiting_for_funds` and `paused` values are declared ahead of server support for funding recovery. The send-allowance response includes `can_start` when that support is available. If the field is absent, do not assume the broadcast can wait for funds or resume.
+// The send-allowance response includes `can_start` when funding recovery is available. If the field is absent, do not assume the broadcast can wait for funds or resume.
 //
 // - `draft`: Created, and not sent or scheduled yet.
 // - `scheduled`: Due to send at `scheduled_at`. You can still edit it, and you can still change the time, right up until sending starts.
@@ -18528,6 +18557,7 @@ type EmailEvent struct {
 	// - `domain_unverified`: The sending domain was not verified.
 	// - `quota_exceeded`: The organization's send quota was reached.
 	// - `recipient_not_allowed`: This recipient was not allowed for this send. For a send from the shared onboarding domain, every recipient has to be a verified member of the workspace.
+	// - `workspace_suspended`: The workspace is suspended, so this mail was not sent and will not be sent after reactivation. Contact Bird support to reactivate the workspace.
 	RejectionReason *EmailEventRejectionReason `json:"rejection_reason,omitempty"`
 
 	// SendingIp The IP address used to send this message. Useful for spotting a deliverability problem that is tied to one specific sending IP rather than affecting all of them. Present on `email.delivered`, `email.bounced`, `email.out_of_band_bounce`, and `email.deferred` events.
@@ -18579,6 +18609,7 @@ type EmailEventBounceType string
 // - `domain_unverified`: The sending domain was not verified.
 // - `quota_exceeded`: The organization's send quota was reached.
 // - `recipient_not_allowed`: This recipient was not allowed for this send. For a send from the shared onboarding domain, every recipient has to be a verified member of the workspace.
+// - `workspace_suspended`: The workspace is suspended, so this mail was not sent and will not be sent after reactivation. Contact Bird support to reactivate the workspace.
 type EmailEventRejectionReason string
 
 // EmailEventList defines model for EmailEventList.
@@ -20186,13 +20217,16 @@ type EmailInboxInsightsWindow struct {
 	Start *openapi_types.Date `json:"start,omitempty"`
 }
 
-// EmailLabelsUpdate Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. On a message, adding or removing `unread` flips read state. Adding or removing `trash` moves it to or out of the trash. Placement labels cannot be applied to a message; use `folder` on [Update a thread](/docs/api/reference/update-email-thread) (`PATCH /v1/email/threads/{thread_id}`) to move its conversation. A sent message cannot use unread. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be used as custom labels, in any casing. A conversation or message has at most 20 labels, system labels included.
+// EmailLabelsUpdate Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. `set` instead replaces every custom label and leaves system labels as they are; send it on its own, since combining it with `add` or `remove` returns 422. On a message, adding or removing `unread` flips read state. Adding or removing `trash` moves it to or out of the trash. Placement labels cannot be applied to a message; use `folder` on [Update a thread](/docs/api/reference/update-email-thread) (`PATCH /v1/email/threads/{thread_id}`) to move its conversation. A sent message cannot use unread. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `assigned`, `closed`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `open`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be applied as custom labels, in any casing. A label applied before its name was reserved can still be removed, added again under the same name with no effect, and kept in a `set` in any casing. A conversation or message has at most 20 labels, system labels included. A custom name added or set that the workspace does not have yet becomes a workspace label that stays after it is removed from every conversation; once the workspace has 100 labels, a write that would create one more is refused with `E17058`. A name in both `add` and `remove` is removed and does not count as added. Custom label names match the workspace's labels in any casing: adding `Urgent` where the workspace has `urgent` applies `urgent`, and responses return the workspace's spelling.
 type EmailLabelsUpdate struct {
 	// Add Labels to apply.
 	Add *[]string `json:"add,omitempty"`
 
 	// Remove Labels to take off.
 	Remove *[]string `json:"remove,omitempty"`
+
+	// Set The custom labels the message should carry, replacing all of its current ones; system labels such as `unread` and `trash` are unchanged. An empty array removes every custom label.
+	Set *[]string `json:"set,omitempty"`
 }
 
 // EmailLatencyQuantiles Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. All three are null when no qualifying event contributed a measurement.
@@ -20898,6 +20932,7 @@ type EmailRecipient struct {
 	// - `quota_exceeded`: The organization's send quota was reached.
 	// - `recipient_not_allowed`: A recipient was not permitted for this send (for shared
 	//   onboarding-domain sends, recipients must be verified workspace members).
+	// - `workspace_suspended`: The workspace is suspended, so this mail was not sent and will not be sent after reactivation. Contact Bird support to reactivate the workspace.
 	RejectionReason *EmailRecipientRejectionReason `json:"rejection_reason,omitempty"`
 
 	// Role Envelope position of a recipient on an outbound email event.
@@ -20943,6 +20978,7 @@ type EmailRecipientBounceType string
 //   - `quota_exceeded`: The organization's send quota was reached.
 //   - `recipient_not_allowed`: A recipient was not permitted for this send (for shared
 //     onboarding-domain sends, recipients must be verified workspace members).
+//   - `workspace_suspended`: The workspace is suspended, so this mail was not sent and will not be sent after reactivation. Contact Bird support to reactivate the workspace.
 type EmailRecipientRejectionReason string
 
 // EmailRecipientStatus Delivery status for this recipient:
@@ -21004,6 +21040,7 @@ type EmailRecipientList struct {
 //   - `quota_exceeded`: The organization's send quota was reached.
 //   - `recipient_not_allowed`: A recipient was not permitted for this send (for shared
 //     onboarding-domain sends, recipients must be verified workspace members).
+//   - `workspace_suspended`: The workspace is suspended, so this mail was not sent and will not be sent after reactivation. Contact Bird support to reactivate the workspace.
 type EmailRejectionReason string
 
 // EmailSendAllowanceLimitReason What sets the monthly email limit and how to raise it.
@@ -23037,13 +23074,16 @@ type EmailThreadHighlights struct {
 	Text *[]string `json:"text,omitempty"`
 }
 
-// EmailThreadLabelsUpdate Custom labels to add or remove. System and reserved names are refused; use read and folder for thread state. The resulting custom-label set must contain at most 20 labels; larger sets return 422.
+// EmailThreadLabelsUpdate Custom labels to add or remove, or the full set to replace them with. Send `set` on its own; combining it with `add` or `remove` returns 422. System names are refused; use read and folder for thread state. Reserved names are refused too, except a label the conversation already carries from before its name was reserved, which can still be removed, and kept in a `set` in any casing. The resulting custom-label set must contain at most 20 labels; larger sets return 422. A custom name added or set that the workspace does not have yet becomes a workspace label that stays after it is removed from every conversation; once the workspace has 100 labels, a write that would create one more is refused with `E17058`. Custom label names match the workspace's labels in any casing, so adding `Urgent` where the workspace has `urgent` applies `urgent`, and responses return the workspace's spelling.
 type EmailThreadLabelsUpdate struct {
 	// Add Labels to apply.
 	Add *[]string `json:"add,omitempty"`
 
 	// Remove Labels to take off.
 	Remove *[]string `json:"remove,omitempty"`
+
+	// Set The custom labels the conversation should carry, replacing all of its current ones. An empty array removes every custom label.
+	Set *[]string `json:"set,omitempty"`
 }
 
 // EmailThreadList defines model for EmailThreadList.
@@ -23297,7 +23337,7 @@ type EmailThreadMessageUpdateRequest struct {
 	// ContactId Contact to link this message to, or null to unlink the current contact.
 	ContactId nullable.Nullable[ContactID] `json:"contact_id,omitempty"`
 
-	// Labels Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. On a message, adding or removing `unread` flips read state. Adding or removing `trash` moves it to or out of the trash. Placement labels cannot be applied to a message; use `folder` on [Update a thread](/docs/api/reference/update-email-thread) (`PATCH /v1/email/threads/{thread_id}`) to move its conversation. A sent message cannot use unread. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be used as custom labels, in any casing. A conversation or message has at most 20 labels, system labels included.
+	// Labels Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. `set` instead replaces every custom label and leaves system labels as they are; send it on its own, since combining it with `add` or `remove` returns 422. On a message, adding or removing `unread` flips read state. Adding or removing `trash` moves it to or out of the trash. Placement labels cannot be applied to a message; use `folder` on [Update a thread](/docs/api/reference/update-email-thread) (`PATCH /v1/email/threads/{thread_id}`) to move its conversation. A sent message cannot use unread. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `assigned`, `closed`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `open`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be applied as custom labels, in any casing. A label applied before its name was reserved can still be removed, added again under the same name with no effect, and kept in a `set` in any casing. A conversation or message has at most 20 labels, system labels included. A custom name added or set that the workspace does not have yet becomes a workspace label that stays after it is removed from every conversation; once the workspace has 100 labels, a write that would create one more is refused with `E17058`. A name in both `add` and `remove` is removed and does not count as added. Custom label names match the workspace's labels in any casing: adding `Urgent` where the workspace has `urgent` applies `urgent`, and responses return the workspace's spelling.
 	Labels *EmailLabelsUpdate `json:"labels,omitempty"`
 }
 
@@ -23321,7 +23361,7 @@ type EmailThreadUpdateRequest struct {
 	// Folder Folder a caller can choose through PATCH. Use DELETE to move a thread to trash and [Restore a thread from trash](/docs/api/reference/restore-email-thread) (POST /v1/email/threads/{thread_id}/restore) to recover it.
 	Folder *EmailThreadWritableFolder `json:"folder,omitempty"`
 
-	// Labels Custom labels to add or remove. System and reserved names are refused; use read and folder for thread state. The resulting custom-label set must contain at most 20 labels; larger sets return 422.
+	// Labels Custom labels to add or remove, or the full set to replace them with. Send `set` on its own; combining it with `add` or `remove` returns 422. System names are refused; use read and folder for thread state. Reserved names are refused too, except a label the conversation already carries from before its name was reserved, which can still be removed, and kept in a `set` in any casing. The resulting custom-label set must contain at most 20 labels; larger sets return 422. A custom name added or set that the workspace does not have yet becomes a workspace label that stays after it is removed from every conversation; once the workspace has 100 labels, a write that would create one more is refused with `E17058`. Custom label names match the workspace's labels in any casing, so adding `Urgent` where the workspace has `urgent` applies `urgent`, and responses return the workspace's spelling.
 	Labels *EmailThreadLabelsUpdate `json:"labels,omitempty"`
 
 	// Read Mark all retained received messages read or unread. Includes trash, spam and blocked messages; unread_count continues to exclude them.
@@ -25587,6 +25627,7 @@ type EventEmailRejectedData struct {
 	// - `quota_exceeded`: The organization's send quota was reached.
 	// - `recipient_not_allowed`: A recipient was not permitted for this send (for shared
 	//   onboarding-domain sends, recipients must be verified workspace members).
+	// - `workspace_suspended`: The workspace is suspended, so this mail was not sent and will not be sent after reactivation. Contact Bird support to reactivate the workspace.
 	RejectionReason EmailRejectionReason `json:"rejection_reason"`
 
 	// Tags Tags provided on the send request, echoed on every event for the send so you can route and correlate without an extra lookup. Null when the send carried no tags.
@@ -26436,6 +26477,11 @@ type EventVerifyAttemptUndeliveredData struct {
 	// - `not_billable`: The send could not be charged, so it was never handed to the
 	//   channel. Usually the workspace balance is too low to cover it. Topping up
 	//   the balance is what clears this.
+	// - `workspace_suspended`: The workspace was suspended, so Bird stopped this
+	//   attempt and no other channel is tried. In rare cases the channel had already
+	//   accepted the passcode, so a passcode can still be checked while the
+	//   verification is `pending`. Contact Bird support to reactivate the workspace; verifications
+	//   created after reactivation send normally.
 	//
 	// New reasons may be added over time. Treat unrecognized values as reasons added
 	// later rather than errors.
@@ -26493,7 +26539,7 @@ type EventVerifyVerificationCreatedData struct {
 	WorkspaceId    WorkspaceID    `json:"workspace_id"`
 }
 
-// EventVerifyVerificationFailed The verification ended without the recipient receiving a passcode: every planned channel reported that its send would not arrive.
+// EventVerifyVerificationFailed The verification ended without the recipient receiving a passcode: no channel Bird tried sent one, and Bird tries no further channel.
 type EventVerifyVerificationFailed struct {
 	// Data Payload of the verify.verification.failed event.
 	Data EventVerifyVerificationFailedData `json:"data"`
@@ -26507,7 +26553,7 @@ type EventVerifyVerificationFailed struct {
 
 // EventVerifyVerificationFailedData defines model for EventVerifyVerificationFailedData.
 type EventVerifyVerificationFailedData struct {
-	// Channel The last channel the verification tried, the one whose failure left it with nowhere else to go. Null when no channel was attributed.
+	// Channel The last channel the verification tried, the one whose failure ended it. Null when no channel was attributed.
 	Channel *VerificationChannel `json:"channel"`
 
 	// FailedAt Time the verification was resolved.
@@ -26531,6 +26577,11 @@ type EventVerifyVerificationFailedData struct {
 	// - `not_billable`: The send could not be charged, so it was never handed to the
 	//   channel. Usually the workspace balance is too low to cover it. Topping up
 	//   the balance is what clears this.
+	// - `workspace_suspended`: The workspace was suspended, so Bird stopped this
+	//   attempt and no other channel is tried. In rare cases the channel had already
+	//   accepted the passcode, so a passcode can still be checked while the
+	//   verification is `pending`. Contact Bird support to reactivate the workspace; verifications
+	//   created after reactivation send normally.
 	//
 	// New reasons may be added over time. Treat unrecognized values as reasons added
 	// later rather than errors.
@@ -29031,6 +29082,7 @@ type SMSError struct {
 	// - `recipient_opted_out`: The recipient is on a suppression list.
 	// - `provider_unavailable`: The provider remained unavailable after retries.
 	// - `insufficient_balance`: The workspace wallet could not fund the send.
+	// - `workspace_suspended`: The workspace is suspended, so Bird stopped this message and will not send it after reactivation. In rare cases an earlier attempt that Bird could not confirm may still have been delivered. A message refused after it was charged keeps its charge. Contact Bird support to reactivate the workspace.
 	// - `unknown`: The failure could not be classified.
 	//
 	// This is an open enum. Accept unrecognized values.
@@ -29059,6 +29111,7 @@ type SMSError struct {
 // - `recipient_opted_out`: The recipient is on a suppression list.
 // - `provider_unavailable`: The provider remained unavailable after retries.
 // - `insufficient_balance`: The workspace wallet could not fund the send.
+// - `workspace_suspended`: The workspace is suspended, so Bird stopped this message and will not send it after reactivation. In rare cases an earlier attempt that Bird could not confirm may still have been delivered. A message refused after it was charged keeps its charge. Contact Bird support to reactivate the workspace.
 // - `unknown`: The failure could not be classified.
 //
 // This is an open enum. Accept unrecognized values.
@@ -31169,6 +31222,11 @@ type VerificationStatus string
 //   - `not_billable`: The send could not be charged, so it was never handed to the
 //     channel. Usually the workspace balance is too low to cover it. Topping up
 //     the balance is what clears this.
+//   - `workspace_suspended`: The workspace was suspended, so Bird stopped this
+//     attempt and no other channel is tried. In rare cases the channel had already
+//     accepted the passcode, so a passcode can still be checked while the
+//     verification is `pending`. Contact Bird support to reactivate the workspace; verifications
+//     created after reactivation send normally.
 //
 // New reasons may be added over time. Treat unrecognized values as reasons added
 // later rather than errors.
@@ -33813,7 +33871,7 @@ type WhatsAppDeliveryCounts struct {
 	// Failed Distinct messages that failed during sending or delivery.
 	Failed *int `json:"failed,omitempty"`
 
-	// Rejected Distinct messages rejected before any send attempt, because the recipient is on the workspace's suppression list, no reachable recipient was given, the destination has no price, or the wallet could not fund the send. Rejected messages are never charged and are not counted in `accepted`, so the total addressed is `accepted + rejected`. Excluded from `failure_rate`, which covers send failures only.
+	// Rejected Distinct messages rejected before any send attempt, because the recipient is on the workspace's suppression list, no reachable recipient was given, the destination has no price, the wallet could not fund the send, or the workspace is suspended. Rejected messages are never charged and are not counted in `accepted`, so the total addressed is `accepted + rejected`. Excluded from `failure_rate`, which covers send failures only.
 	Rejected *int `json:"rejected,omitempty"`
 
 	// Sent Distinct messages handed off for delivery.
@@ -33837,7 +33895,7 @@ type WhatsAppDeliveryStats struct {
 	// FailureRate Share of accepted messages that ultimately failed, computed as `failed / accepted`. Null when no messages were accepted in scope.
 	FailureRate *float32 `json:"failure_rate,omitempty"`
 
-	// Rejected Distinct messages rejected before any send attempt, because the recipient is on the workspace's suppression list, no reachable recipient was given, the destination has no price, or the wallet could not fund the send. Rejected messages are never charged and are not counted in `accepted`, so the total addressed is `accepted + rejected`. Excluded from `failure_rate`, which covers send failures only.
+	// Rejected Distinct messages rejected before any send attempt, because the recipient is on the workspace's suppression list, no reachable recipient was given, the destination has no price, the wallet could not fund the send, or the workspace is suspended. Rejected messages are never charged and are not counted in `accepted`, so the total addressed is `accepted + rejected`. Excluded from `failure_rate`, which covers send failures only.
 	Rejected *int `json:"rejected,omitempty"`
 
 	// Sent Distinct messages handed off for delivery.
@@ -33904,6 +33962,7 @@ type WhatsAppError struct {
 	// - `rate_limited`: The send was throttled.
 	// - `recipient_suppressed`: The recipient is on the workspace suppression list.
 	// - `media_rejected`: WhatsApp could not fetch the media URL, or refused the file it found there; `description` carries its reason.
+	// - `workspace_suspended`: The workspace is suspended, so Bird stopped this message and will not send it after reactivation. In rare cases an earlier attempt that Bird could not confirm may still have been delivered. A message refused after it was charged keeps its charge. Contact Bird support to reactivate the workspace.
 	//
 	// This is an open enum. Accept unrecognized values.
 	Code WhatsAppErrorCode `json:"code"`
@@ -33928,6 +33987,7 @@ type WhatsAppError struct {
 // - `rate_limited`: The send was throttled.
 // - `recipient_suppressed`: The recipient is on the workspace suppression list.
 // - `media_rejected`: WhatsApp could not fetch the media URL, or refused the file it found there; `description` carries its reason.
+// - `workspace_suspended`: The workspace is suspended, so Bird stopped this message and will not send it after reactivation. In rare cases an earlier attempt that Bird could not confirm may still have been delivered. A message refused after it was charged keeps its charge. Contact Bird support to reactivate the workspace.
 //
 // This is an open enum. Accept unrecognized values.
 type WhatsAppErrorCode string
@@ -35412,6 +35472,9 @@ type WhatsAppNumber struct {
 
 	// MessagingLimit The messaging limit WhatsApp applied to this number's business portfolio as of `meta_synced_at`. Absent until WhatsApp has reported one, and always absent for a number we operate on your behalf.
 	MessagingLimit *WhatsAppNumberMessagingLimit `json:"messaging_limit,omitempty"`
+
+	// MetaPreverifiedId WhatsApp's own id for the number while we prepare it for you. We hand it to WhatsApp when you finish signing up, so WhatsApp knows this is the number we already verified for you. Absent for a number you brought yourself. WhatsApp discards the id once signup claims it, so an id still shown here on a connected number no longer names anything.
+	MetaPreverifiedId *string `json:"meta_preverified_id,omitempty"`
 
 	// MetaSyncedAt When this number's state was last read from WhatsApp. `status`, `quality_rating`, `messaging_limit`, `throughput_level`, and `is_official_business_account` all belong to that reading rather than representing live values. We re-read roughly hourly, so a change at WhatsApp can be up to an hour old here. Absent for a number we have never read back and for a number we operate on your behalf.
 	MetaSyncedAt *time.Time `json:"meta_synced_at,omitempty"`
@@ -37035,7 +37098,10 @@ type Workspace struct {
 	Name               string                      `json:"name"`
 	NotificationEmails WorkspaceNotificationEmails `json:"notification_emails"`
 	OrganizationId     OrganizationID              `json:"organization_id"`
-	UpdatedAt          *time.Time                  `json:"updated_at,omitempty"`
+
+	// SuspendedAt When Bird suspended the workspace. `null` while the workspace is active. A suspended workspace cannot send messages, place calls other than emergency calls, or buy numbers or eSIMs. Its members can still sign in, read it and change its configuration.
+	SuspendedAt *time.Time `json:"suspended_at,omitempty"`
+	UpdatedAt   *time.Time `json:"updated_at,omitempty"`
 }
 
 // WorkspaceCreate defines model for WorkspaceCreate.
@@ -43077,7 +43143,7 @@ type ListEmailThreadsParams struct {
 	// ReadState Filter to read or unread conversations. Omit for either state.
 	ReadState *EmailThreadReadState `form:"read_state,omitempty" json:"read_state,omitempty"`
 
-	// Labels Match every listed custom label. Repeat labels to supply more than one. System label names are refused.
+	// Labels Match every listed custom label. Repeat labels to supply more than one. System label names are refused. Names match in any casing.
 	Labels *[]string `form:"labels,omitempty" json:"labels,omitempty"`
 
 	// Participant Conversations involving this address, matching the sender or any recipient. The match is case-insensitive and matches on any part of the address, so a fragment works as well as the whole address.
@@ -43187,7 +43253,7 @@ type ListEmailThreadMessagesParams struct {
 	// Direction Filter to received (`inbound`) or sent (`outbound`) messages.
 	Direction *MessageDirection `form:"direction,omitempty" json:"direction,omitempty"`
 
-	// Label Filter to messages that have this label. `trash` lists trashed messages. Any other label, whether that is `archive`, `spam`, `blocked`, `unread` or one of your own, lists the messages that have it and are not in the trash. When omitted, every message that is not trashed is returned, whichever folder the conversation is in.
+	// Label Filter to messages that have this label. `trash` lists trashed messages. Any other label, whether that is `archive`, `spam`, `blocked`, `unread` or one of your own, lists the messages that have it and are not in the trash. When omitted, every message that is not trashed is returned, whichever folder the conversation is in. A custom label name matches in any casing.
 	Label *string `form:"label,omitempty" json:"label,omitempty"`
 
 	// Include Set to `extracted_text` to inline each message's extracted plain text.
@@ -45035,7 +45101,7 @@ type ListSMSMessagesParams struct {
 	// Status Keep only messages whose current `status` matches; repeat the parameter to match any of several. One of `scheduled`, `accepted`, `sent`, `delivered`, `undelivered`, `failed`, `rejected`, `canceled`, `expired`, or `received`. `scheduled` and `canceled` are accepted but match nothing until send-later scheduling ships. With a `status` or `error_code` filter a page can hold fewer messages than `limit`, or none; keep paging until `next_cursor` is null.
 	Status *[]string `form:"status,omitempty" json:"status,omitempty"`
 
-	// ErrorCode Keep only messages whose failure reason (`last_error.code`) matches; repeat the parameter to match any of several. One of `invalid_destination`, `unreachable`, `blocked_by_carrier`, `blocked_by_fraud_protection`, `blocked_by_recipient`, `landline_unreachable`, `content_rejected`, `sender_unregistered`, `recipient_opted_out`, `provider_unavailable`, `insufficient_balance`, or `unknown`. With a `status` or `error_code` filter a page can hold fewer messages than `limit`, or none; keep paging until `next_cursor` is null.
+	// ErrorCode Keep only messages whose failure reason (`last_error.code`) matches; repeat the parameter to match any of several. Accepts any SMS error code, including codes added later, such as `invalid_destination`, `unreachable`, `blocked_by_carrier`, `blocked_by_fraud_protection`, `blocked_by_recipient`, `landline_unreachable`, `content_rejected`, `sender_unregistered`, `recipient_opted_out`, `provider_unavailable`, `insufficient_balance`, `workspace_suspended`, or `unknown`. With a `status` or `error_code` filter a page can hold fewer messages than `limit`, or none; keep paging until `next_cursor` is null.
 	ErrorCode *[]string `form:"error_code,omitempty" json:"error_code,omitempty"`
 
 	// Category Filter by category.

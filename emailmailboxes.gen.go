@@ -307,7 +307,7 @@ func (s *EmailMailboxesService) Stats(ctx context.Context, mailboxId string, par
 	return &out, nil
 }
 
-// Labels List the labels available in a mailbox: the built-in system labels (inbox, archive, spam, blocked, sent, trash, unread) plus every custom label in use.
+// Labels List the labels available in a mailbox: the built-in system labels (inbox, archive, spam, blocked, sent, trash, unread) plus every custom label in the workspace, which all its mailboxes share.
 func (s *EmailMailboxesService) Labels(ctx context.Context, mailboxId string, opts ...option.RequestOption) (*EmailMailboxLabelList, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.ListMailboxLabels(ctx, oapi.MailboxIdentifier(mailboxId), &oapi.ListMailboxLabelsParams{}, cfg...)

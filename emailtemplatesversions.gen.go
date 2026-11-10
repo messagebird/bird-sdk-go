@@ -95,7 +95,7 @@ func (s *EmailTemplatesVersionsService) List(ctx context.Context, templateRef st
 	})
 }
 
-// Get Read one version of a template: its lifecycle metadata (`status`, `version_number`, `published_at`), the content it froze in every language, and its `variables`: the parameters a send supplies and the values Bird fills in, told apart by `system`.
+// Get Read one version of a template: its lifecycle metadata (`status`, `version_number`, `published_at`), the content it froze in every language, and its `variables`: the parameters a send supplies and the values Bird fills in, told apart by `system`. A deleted workspace template's published versions remain readable by template ID; its slug and draft do not.
 func (s *EmailTemplatesVersionsService) Get(ctx context.Context, templateRef string, versionId string, opts ...option.RequestOption) (*EmailTemplateVersion, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetEmailTemplateVersion(ctx, templateRef, oapi.EmailTemplateVersionID(versionId), &oapi.GetEmailTemplateVersionParams{}, cfg...)

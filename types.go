@@ -978,6 +978,7 @@ const (
 	EmailBroadcastFailureReasonInsufficientFunds   EmailBroadcastFailureReason = "insufficient_funds"
 	EmailBroadcastFailureReasonQuotaExceeded       EmailBroadcastFailureReason = "quota_exceeded"
 	EmailBroadcastFailureReasonInternalError       EmailBroadcastFailureReason = "internal_error"
+	EmailBroadcastFailureReasonWorkspaceSuspended  EmailBroadcastFailureReason = "workspace_suspended"
 )
 
 // An absent bounce_type is how the wire expresses "unclassified", so there is
@@ -1009,6 +1010,7 @@ const (
 	EmailEventRejectionReasonDomainUnverified    EmailEventRejectionReason = "domain_unverified"
 	EmailEventRejectionReasonQuotaExceeded       EmailEventRejectionReason = "quota_exceeded"
 	EmailEventRejectionReasonRecipientNotAllowed EmailEventRejectionReason = "recipient_not_allowed"
+	EmailEventRejectionReasonWorkspaceSuspended  EmailEventRejectionReason = "workspace_suspended"
 )
 
 const (
@@ -1019,6 +1021,7 @@ const (
 	EmailRecipientRejectionReasonDomainUnverified    EmailRecipientRejectionReason = "domain_unverified"
 	EmailRecipientRejectionReasonQuotaExceeded       EmailRecipientRejectionReason = "quota_exceeded"
 	EmailRecipientRejectionReasonRecipientNotAllowed EmailRecipientRejectionReason = "recipient_not_allowed"
+	EmailRecipientRejectionReasonWorkspaceSuspended  EmailRecipientRejectionReason = "workspace_suspended"
 )
 
 const (

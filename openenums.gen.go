@@ -508,6 +508,22 @@ const (
 	EmailLookupResultValid         = oapi.EmailLookupResultValid
 )
 
+// EmailRejectionReason is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the EmailRejectionReason* constants with a
+// default branch rather than treating the set as closed.
+type EmailRejectionReason = oapi.EmailRejectionReason
+
+const (
+	EmailRejectionReasonDomainUnverified    = oapi.EmailRejectionReasonDomainUnverified
+	EmailRejectionReasonGenerationFailure   = oapi.EmailRejectionReasonGenerationFailure
+	EmailRejectionReasonPolicyRejection     = oapi.EmailRejectionReasonPolicyRejection
+	EmailRejectionReasonQuotaExceeded       = oapi.EmailRejectionReasonQuotaExceeded
+	EmailRejectionReasonRecipientNotAllowed = oapi.EmailRejectionReasonRecipientNotAllowed
+	EmailRejectionReasonRecipientSuppressed = oapi.EmailRejectionReasonRecipientSuppressed
+	EmailRejectionReasonTransmissionFailed  = oapi.EmailRejectionReasonTransmissionFailed
+	EmailRejectionReasonWorkspaceSuspended  = oapi.EmailRejectionReasonWorkspaceSuspended
+)
+
 // EmailTemplateParameterType is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the EmailTemplateParameterType* constants with a
 // default branch rather than treating the set as closed.
@@ -752,6 +768,7 @@ const (
 	SMSErrorCodeSenderUnregistered       = oapi.SMSErrorCodeSenderUnregistered
 	SMSErrorCodeUnknown                  = oapi.SMSErrorCodeUnknown
 	SMSErrorCodeUnreachable              = oapi.SMSErrorCodeUnreachable
+	SMSErrorCodeWorkspaceSuspended       = oapi.SMSErrorCodeWorkspaceSuspended
 )
 
 // SMSKeywordOperation is an open string on the wire: a value added by a newer server
@@ -909,6 +926,7 @@ const (
 	VerificationAttemptFailureReasonNotBillable        = oapi.VerificationAttemptFailureReasonNotBillable
 	VerificationAttemptFailureReasonSoftBounce         = oapi.VerificationAttemptFailureReasonSoftBounce
 	VerificationAttemptFailureReasonUndelivered        = oapi.VerificationAttemptFailureReasonUndelivered
+	VerificationAttemptFailureReasonWorkspaceSuspended = oapi.VerificationAttemptFailureReasonWorkspaceSuspended
 )
 
 // VerificationChannel is an open string on the wire: a value added by a newer server
@@ -1133,6 +1151,7 @@ const (
 	WhatsAppErrorCodeRecipientSuppressed  = oapi.WhatsAppErrorCodeRecipientSuppressed
 	WhatsAppErrorCodeServiceWindowExpired = oapi.WhatsAppErrorCodeServiceWindowExpired
 	WhatsAppErrorCodeUndeliverable        = oapi.WhatsAppErrorCodeUndeliverable
+	WhatsAppErrorCodeWorkspaceSuspended   = oapi.WhatsAppErrorCodeWorkspaceSuspended
 )
 
 // WhatsAppEventType is an open string on the wire: a value added by a newer server

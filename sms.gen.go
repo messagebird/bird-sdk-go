@@ -25,7 +25,7 @@ type SmsListParams struct {
 	Direction MessageDirection
 	// Keep only messages whose current `status` matches; repeat the parameter to match any of several. One of `scheduled`, `accepted`, `sent`, `delivered`, `undelivered`, `failed`, `rejected`, `canceled`, `expired`, or `received`. `scheduled` and `canceled` are accepted but match nothing until send-later scheduling ships. With a `status` or `error_code` filter a page can hold fewer messages than `limit`, or none; keep paging until `next_cursor` is null.
 	Status []string
-	// Keep only messages whose failure reason (`last_error.code`) matches; repeat the parameter to match any of several. One of `invalid_destination`, `unreachable`, `blocked_by_carrier`, `blocked_by_fraud_protection`, `blocked_by_recipient`, `landline_unreachable`, `content_rejected`, `sender_unregistered`, `recipient_opted_out`, `provider_unavailable`, `insufficient_balance`, or `unknown`. With a `status` or `error_code` filter a page can hold fewer messages than `limit`, or none; keep paging until `next_cursor` is null.
+	// Keep only messages whose failure reason (`last_error.code`) matches; repeat the parameter to match any of several. Accepts any SMS error code, including codes added later, such as `invalid_destination`, `unreachable`, `blocked_by_carrier`, `blocked_by_fraud_protection`, `blocked_by_recipient`, `landline_unreachable`, `content_rejected`, `sender_unregistered`, `recipient_opted_out`, `provider_unavailable`, `insufficient_balance`, `workspace_suspended`, or `unknown`. With a `status` or `error_code` filter a page can hold fewer messages than `limit`, or none; keep paging until `next_cursor` is null.
 	ErrorCode []string
 	// Filter by category.
 	Category SMSMessageCategory

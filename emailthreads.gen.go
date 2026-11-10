@@ -25,7 +25,7 @@ type EmailThreadsListParams struct {
 	Folder EmailThreadFolder
 	// Filter to read or unread conversations. Omit for either state.
 	ReadState EmailThreadReadState
-	// Match every listed custom label. Repeat labels to supply more than one. System label names are refused.
+	// Match every listed custom label. Repeat labels to supply more than one. System label names are refused. Names match in any casing.
 	Labels []string
 	// Conversations involving this address, matching the sender or any recipient. The match is case-insensitive and matches on any part of the address, so a fragment works as well as the whole address.
 	Participant string
@@ -64,7 +64,7 @@ type EmailThreadsUpdateParams struct {
 	Read *bool
 	// Move a non-trashed conversation to inbox, archive or spam. Use DELETE to trash it and POST restore to recover it. Blocked and sent folders are assigned automatically.
 	Folder *EmailThreadWritableFolder
-	// Custom labels to add or remove. System and reserved names are refused; use read and folder for thread state. The resulting custom-label set must contain at most 20 labels; larger sets return 422.
+	// Custom labels to add or remove, or the full set to replace them with. Send `set` on its own; combining it with `add` or `remove` returns 422. System names are refused; use read and folder for thread state. Reserved names are refused too, except a label the conversation already carries from before its name was reserved, which can still be removed, and kept in a `set` in any casing. The resulting custom-label set must contain at most 20 labels; larger sets return 422. A custom name added or set that the workspace does not have yet becomes a workspace label that stays after it is removed from every conversation; once the workspace has 100 labels, a write that would create one more is refused with `E17058`. Custom label names match the workspace's labels in any casing, so adding `Urgent` where the workspace has `urgent` applies `urgent`, and responses return the workspace's spelling.
 	Labels *EmailThreadLabelsUpdate
 	// Contact to link this conversation to, or null to unlink the current contact.
 	ContactID Nullable[string]

@@ -219,7 +219,7 @@ func (s *AudiencesService) Update(ctx context.Context, audienceId string, params
 	return &out, nil
 }
 
-// Delete Delete an audience and its memberships; contacts themselves are not deleted. Fails while a broadcast targeting the audience is scheduled, accepted, sending, or canceling.
+// Delete Delete an audience and its memberships; contacts themselves are not deleted. Fails while a broadcast targeting the audience is scheduled, accepted, sending, waiting_for_funds, paused, or canceling.
 func (s *AudiencesService) Delete(ctx context.Context, audienceId string, opts ...option.RequestOption) error {
 	_, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.DeleteAudienceParams{}

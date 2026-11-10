@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.135.0
+
+- **Breaking:** adding a custom label to a mailbox conversation (`client.Email.Threads.Update`) now fails with E17058 when the label is new to the workspace and the workspace already uses 100 distinct labels. Applying a label the workspace already has keeps working, so a caller that reaches the cap can reuse one of the workspace's custom labels: listing a mailbox's labels (`client.Email.Mailboxes.Labels`) returns them beside built-in labels such as `inbox` and `unread`, which label updates refuse, and getting a conversation (`client.Email.Threads.Get`) shows its current labels.
+- **Breaking:** Custom mailbox labels now match in any casing. Adding, removing or filtering by “Urgent” acts on the workspace's “urgent” label, and responses return the workspace's spelling. Labels that differed only in casing become one label.
+- Add `EmailRejectionReason` constants for the `rejection_reason` of an `email.rejected` event.
+- **Breaking:** Label updates on mailbox conversations now refuse the reserved names assigned, open and closed. A conversation that already carries one of them keeps it and can still remove it.
+- **Breaking:** Listing a mailbox's labels (`client.Email.Mailboxes.Labels`) now returns every custom label in the workspace, which all its mailboxes share, not only the labels in use in that mailbox. A label stays listed until it is deleted from the workspace, even when no conversation carries it. Don't read this list as the labels in use in the mailbox: to see which labels a conversation carries, read that conversation.
+- **Breaking:** A mailbox conversation or message labelled before this release returns no custom labels, and custom label filters and search don't match it, until Bird converts its labels. Changing a custom label on a conversation converts that conversation at once, and Bird converts the rest after the release.
+- Updating a mailbox conversation takes `labels.set`, which replaces all of its custom labels at once; an empty array removes them all. Send it without `add` or `remove`.
+- WhatsApp number reads return `meta_preverified_id`, WhatsApp's own id for a number Bird pre-verified.
+- Add `workspace_suspended` as a failure reason Bird reports when a workspace suspension stops a message or verification: email `rejection_reason`, email broadcast `failure_reason`, the SMS and WhatsApp message `last_error.code` (`error.code` on their events), and Verify attempt `reason`.
+
 ## 0.134.0
 
 - Expose `overdial_suffix` on voice-leg responses.

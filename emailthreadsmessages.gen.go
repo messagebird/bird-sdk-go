@@ -17,7 +17,7 @@ type Tag = oapi.Tag
 type EmailThreadsMessagesListParams struct {
 	// Filter to received (`inbound`) or sent (`outbound`) messages.
 	Direction MessageDirection
-	// Filter to messages that have this label. `trash` lists trashed messages. Any other label, whether that is `archive`, `spam`, `blocked`, `unread` or one of your own, lists the messages that have it and are not in the trash. When omitted, every message that is not trashed is returned, whichever folder the conversation is in.
+	// Filter to messages that have this label. `trash` lists trashed messages. Any other label, whether that is `archive`, `spam`, `blocked`, `unread` or one of your own, lists the messages that have it and are not in the trash. When omitted, every message that is not trashed is returned, whichever folder the conversation is in. A custom label name matches in any casing.
 	Label string
 	// Set to `extracted_text` to inline each message's extracted plain text.
 	Include string
