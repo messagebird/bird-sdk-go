@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.136.0
+
+- Add `suspended_at` to workspaces: when Bird suspended the workspace, or `null` while it is active.
+
 ## 0.135.1
 
 - The number order `status` description now says that a carrier number's first recurring charge is taken on delivery while the order is `pending`, and that a delivered number that still cannot be charged is released no sooner than 72 hours after the order was placed: its order fails and its setup fee is refunded.

@@ -27691,6 +27691,9 @@ type Mailbox struct {
 	Id                MailboxID            `json:"id"`
 	InboundAddressId  InboundAddressID     `json:"inbound_address_id"`
 
+	// LastMessageAt When the mailbox last sent or received a message. Bird records this activity from 26 August 2026, so compare `null` with `created_at`: a mailbox created after that date has had no activity, while an older one has had none since that date.
+	LastMessageAt *time.Time `json:"last_message_at"`
+
 	// LocalPartGenerated Whether we generated the local part of the address. `false` means a custom handle was chosen at creation. On the shared `inbox.ai` domain a custom handle counts against your plan's custom-handle allowance.
 	LocalPartGenerated *bool `json:"local_part_generated,omitempty"`
 
