@@ -979,11 +979,15 @@ const (
 	VoiceLegRejectionReasonDestinationNotEnabled       = oapi.VoiceLegRejectionReasonDestinationNotEnabled
 	VoiceLegRejectionReasonEmergencyCapExceeded        = oapi.VoiceLegRejectionReasonEmergencyCapExceeded
 	VoiceLegRejectionReasonEmergencyCarrierUnavailable = oapi.VoiceLegRejectionReasonEmergencyCarrierUnavailable
+	VoiceLegRejectionReasonEmergencyCountryMismatch    = oapi.VoiceLegRejectionReasonEmergencyCountryMismatch
 	VoiceLegRejectionReasonEmergencyNumberInactive     = oapi.VoiceLegRejectionReasonEmergencyNumberInactive
 	VoiceLegRejectionReasonInsufficientBalance         = oapi.VoiceLegRejectionReasonInsufficientBalance
 	VoiceLegRejectionReasonNoRouteFound                = oapi.VoiceLegRejectionReasonNoRouteFound
 	VoiceLegRejectionReasonNumberOwnershipNotVerified  = oapi.VoiceLegRejectionReasonNumberOwnershipNotVerified
 	VoiceLegRejectionReasonRoutingNotConfigured        = oapi.VoiceLegRejectionReasonRoutingNotConfigured
+	VoiceLegRejectionReasonSequenceArchived            = oapi.VoiceLegRejectionReasonSequenceArchived
+	VoiceLegRejectionReasonSequencePaused              = oapi.VoiceLegRejectionReasonSequencePaused
+	VoiceLegRejectionReasonSequenceUnpublished         = oapi.VoiceLegRejectionReasonSequenceUnpublished
 	VoiceLegRejectionReasonSourceNotAllowed            = oapi.VoiceLegRejectionReasonSourceNotAllowed
 )
 

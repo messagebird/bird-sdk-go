@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.139.0
+
+- Compliance `subject_kind` gains `number_emergency` for emergency calling on a dedicated number.
+- Mailbox create and update responses now include a `next` action recommending a sender `name` when it is unset. The sender name remains optional.
+- Trunk deletion can return E21077 when an emergency number is attached. Clear that number in the dashboard before deleting the trunk.
+- Number route updates, workspace default updates, and trunk updates or deletions can return E21084 when they would leave a live emergency number without a supported callback route. Configure the number to use a browser ring group or inbound-enabled SIP trunk. A number that follows the workspace default can use a supported default instead. If inbound calling is unavailable for the number, contact support.
+- Voice leg responses include `sequence_paused`, `sequence_archived`, or `sequence_unpublished` in `rejection_reason` when an inbound sequence cannot accept calls.
+
 ## 0.138.0
 
 - Add a method that connects a number your own Embedded Signup onboarded through your multi-partner solution with Bird into one of your workspaces: `Organization.Workspaces.WhatsappNumbers.Create` in Go, `organization.workspaces.whatsappNumbers.create` in TypeScript, `$bird->organization->workspaces->whatsappNumbers->create` in PHP, and `organization.workspaces.whatsapp_numbers.create` in Python. Only organizations with an active multi-partner solution can call it, with an organization credential: a master key, or a signed-in owner or organization admin. A workspace API key gets a 403.

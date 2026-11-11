@@ -1511,9 +1511,10 @@ func (e ComplianceProgram) Valid() bool {
 
 // Defines values for ComplianceSubjectKind.
 const (
-	ComplianceSubjectKindIdentity  ComplianceSubjectKind = "identity"
-	ComplianceSubjectKindNumber    ComplianceSubjectKind = "number"
-	ComplianceSubjectKindSmsSender ComplianceSubjectKind = "sms_sender"
+	ComplianceSubjectKindIdentity        ComplianceSubjectKind = "identity"
+	ComplianceSubjectKindNumber          ComplianceSubjectKind = "number"
+	ComplianceSubjectKindNumberEmergency ComplianceSubjectKind = "number_emergency"
+	ComplianceSubjectKindSmsSender       ComplianceSubjectKind = "sms_sender"
 )
 
 // Valid indicates whether the value is a known member of the ComplianceSubjectKind enum.
@@ -1522,6 +1523,8 @@ func (e ComplianceSubjectKind) Valid() bool {
 	case ComplianceSubjectKindIdentity:
 		return true
 	case ComplianceSubjectKindNumber:
+		return true
+	case ComplianceSubjectKindNumberEmergency:
 		return true
 	case ComplianceSubjectKindSmsSender:
 		return true
@@ -8423,11 +8426,15 @@ const (
 	VoiceLegRejectionReasonDestinationNotEnabled       VoiceLegRejectionReason = "destination_not_enabled"
 	VoiceLegRejectionReasonEmergencyCapExceeded        VoiceLegRejectionReason = "emergency_cap_exceeded"
 	VoiceLegRejectionReasonEmergencyCarrierUnavailable VoiceLegRejectionReason = "emergency_carrier_unavailable"
+	VoiceLegRejectionReasonEmergencyCountryMismatch    VoiceLegRejectionReason = "emergency_country_mismatch"
 	VoiceLegRejectionReasonEmergencyNumberInactive     VoiceLegRejectionReason = "emergency_number_inactive"
 	VoiceLegRejectionReasonInsufficientBalance         VoiceLegRejectionReason = "insufficient_balance"
 	VoiceLegRejectionReasonNoRouteFound                VoiceLegRejectionReason = "no_route_found"
 	VoiceLegRejectionReasonNumberOwnershipNotVerified  VoiceLegRejectionReason = "number_ownership_not_verified"
 	VoiceLegRejectionReasonRoutingNotConfigured        VoiceLegRejectionReason = "routing_not_configured"
+	VoiceLegRejectionReasonSequenceArchived            VoiceLegRejectionReason = "sequence_archived"
+	VoiceLegRejectionReasonSequencePaused              VoiceLegRejectionReason = "sequence_paused"
+	VoiceLegRejectionReasonSequenceUnpublished         VoiceLegRejectionReason = "sequence_unpublished"
 	VoiceLegRejectionReasonSourceNotAllowed            VoiceLegRejectionReason = "source_not_allowed"
 )
 
@@ -8452,6 +8459,8 @@ func (e VoiceLegRejectionReason) Valid() bool {
 		return true
 	case VoiceLegRejectionReasonEmergencyCarrierUnavailable:
 		return true
+	case VoiceLegRejectionReasonEmergencyCountryMismatch:
+		return true
 	case VoiceLegRejectionReasonEmergencyNumberInactive:
 		return true
 	case VoiceLegRejectionReasonInsufficientBalance:
@@ -8461,6 +8470,12 @@ func (e VoiceLegRejectionReason) Valid() bool {
 	case VoiceLegRejectionReasonNumberOwnershipNotVerified:
 		return true
 	case VoiceLegRejectionReasonRoutingNotConfigured:
+		return true
+	case VoiceLegRejectionReasonSequenceArchived:
+		return true
+	case VoiceLegRejectionReasonSequencePaused:
+		return true
+	case VoiceLegRejectionReasonSequenceUnpublished:
 		return true
 	case VoiceLegRejectionReasonSourceNotAllowed:
 		return true
@@ -11518,7 +11533,7 @@ type AMBAuthenticationID = string
 
 // AMBBusinessAccount defines model for AMBBusinessAccount.
 type AMBBusinessAccount struct {
-	// AccountReviewStatus Latest review outcome recorded by Bird staff.
+	// AccountReviewStatus Latest review outcome, recorded by Bird staff or Bird's automated review. Absent while the business is a draft. `approved` can come without a submission, such as for a business that Apple approved under another messaging service provider before it moved to Bird.
 	AccountReviewStatus *AMBBusinessAccountReviewStatus `json:"account_review_status,omitempty"`
 
 	// AppleBusinessId Apple business UUID, or null until supplied. Adding this identifier does not submit the account for review.
@@ -11543,7 +11558,7 @@ type AMBBusinessAccount struct {
 	// Status Pending accounts need setup or review. Active accounts have recorded approval. Suspended accounts retain their recorded suspension. Configured, connected accounts can exchange messages regardless of review status; Apple decides whether to accept outgoing requests. Disconnected accounts retain their identity and history but cannot exchange new messages until reconnected.
 	Status AMBBusinessAccountStatus `json:"status"`
 
-	// StatusReason Reason for the current operational suspension, when recorded. Review feedback is retained on the submission. May contain basic Markdown, such as emphasis and lists.
+	// StatusReason Reason for the current rejection or suspension, when recorded. A rejection's feedback is here even when no submission carries it. May contain basic Markdown, such as emphasis and lists.
 	StatusReason *string `json:"status_reason,omitempty"`
 
 	// UpdatedAt When the business record was last changed.
@@ -11570,7 +11585,7 @@ type AMBBusinessAccountEvent struct {
 	CreatedAt *time.Time                `json:"created_at,omitempty"`
 	Id        AMBBusinessAccountEventID `json:"id"`
 
-	// Metadata Details of the change. `source` identifies who recorded it, `customer`, `staff` or `automated_review`.
+	// Metadata Details of the change. `source` identifies who recorded it, `customer`, `staff` or `automated_review`. Status, review and suspension events have `from` and `to`, and `reason` when Bird staff recorded one. An automated review event has `submission_id` instead, and its feedback is on that submission. An invitation access event has `enabled`.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 	Summary  *string                 `json:"summary,omitempty"`
 	Type     *string                 `json:"type,omitempty"`
@@ -11617,7 +11632,7 @@ type AMBBusinessAccountList struct {
 	Total *int64 `json:"total,omitempty"`
 }
 
-// AMBBusinessAccountReviewStatus Latest review outcome recorded by Bird staff.
+// AMBBusinessAccountReviewStatus Latest review outcome, recorded by Bird staff or Bird's automated review. Absent while the business is a draft. `approved` can come without a submission, such as for a business that Apple approved under another messaging service provider before it moved to Bird.
 type AMBBusinessAccountReviewStatus string
 
 // AMBBusinessAccountSort Field used to order the records.
@@ -11703,7 +11718,7 @@ type AMBBusinessAccountSubmissionStatus string
 
 // AMBBusinessAccountUpdate defines model for AMBBusinessAccountUpdate.
 type AMBBusinessAccountUpdate struct {
-	// AppleBusinessId The Business ID Apple issued for this brand. Accepted only while the account has not yet been submitted and is connected. Updating it does not submit the business.
+	// AppleBusinessId The Business ID Apple issued for this brand. Accepted only while the account is a draft and connected, including after Bird staff return it to draft. Updating it does not submit the business.
 	AppleBusinessId *openapi_types.UUID `json:"apple_business_id,omitempty"`
 
 	// Name The brand name shown for this business record inside Bird.
@@ -15408,7 +15423,7 @@ type ComplianceProgram string
 
 // ComplianceRequirement defines model for ComplianceRequirement.
 type ComplianceRequirement struct {
-	// AnswersEditable Whether you may change any answer, not only one that was refused or has gone stale. True for a number, business identity or SMS sender registration whose submission has not been approved yet, including answers awaiting review or already accepted, and for a closed submission when `resubmission_allowed` is true. An SMS sender registration goes to the carrier or registry when it is approved, so it stays editable only until then. A changed answer loses its verdict and is reviewed again. Send only the answers you change. False once the submission is approved: replace only answers in `fields` whose state is `not_supplied`, `rejected` or `expired`, or those marked `editable_for_verifier_repair`.
+	// AnswersEditable Whether you may change any answer, not only one that was refused or has gone stale. True for a number, emergency calling service, business identity or SMS sender registration whose submission has not been approved yet, including answers awaiting review or already accepted, and for a closed submission when `resubmission_allowed` is true. An SMS sender registration goes to the carrier or registry when it is approved, so it stays editable only until then. A changed answer loses its verdict and is reviewed again. Send only the answers you change. False once the submission is approved: replace only answers in `fields` whose state is `not_supplied`, `rejected` or `expired`, or those marked `editable_for_verifier_repair`.
 	AnswersEditable *bool `json:"answers_editable,omitempty"`
 
 	// ClosedAt When the submission for these requirements was closed. Null while open or not yet submitted.
@@ -15479,7 +15494,7 @@ type ComplianceRequirementField struct {
 	// DocumentKey Stable document key within the parent field. Absent for an ordinary field.
 	DocumentKey *string `json:"document_key,omitempty"`
 
-	// EditableForVerifierRepair Whether you may replace this accepted answer to correct the submission after external verification. This permission does not change its `state` or `reason`. Submit only answers whose content or attachment identity you change.
+	// EditableForVerifierRepair Whether you may replace this accepted answer to correct the submission after external verification or update an approved emergency service address. This permission does not change its `state` or `reason`. Submit only answers whose content or attachment identity you change.
 	EditableForVerifierRepair *bool `json:"editable_for_verifier_repair,omitempty"`
 
 	// ExpiresAt When this answer goes stale and must be supplied again. `null` when it does not expire.
@@ -15545,7 +15560,7 @@ type ComplianceRequirementFieldOption struct {
 	Value string `json:"value"`
 }
 
-// ComplianceSubjectID What is being registered. For `sms_sender` this is the `scr_` id returned when you register a sender for a country. For `number` it is the `nda_` id of a dedicated number you hold, as returned by `GET /v1/numbers`. A shared short code (`nal_`) is not accepted: it is shared, so its ownership paperwork is not yours to file. For `identity` it is the `cid_` id of the party being registered, picked from the parties your workspace holds, as returned by `GET /v1/compliance/identities`.
+// ComplianceSubjectID What is being registered. For `sms_sender` this is the `scr_` id returned when you register a sender for a country. For `number` it is the `nda_` id of a dedicated number you hold, as returned by `GET /v1/numbers`. For `number_emergency`, it is the `nes_` ID of the emergency service being registered. A shared short code (`nal_`) is not accepted: it is shared, so its ownership paperwork is not yours to file. For `identity` it is the `cid_` id of the party being registered, picked from the parties your workspace holds, as returned by `GET /v1/compliance/identities`.
 type ComplianceSubjectID = string
 
 // ComplianceSubjectKind What is being registered.
@@ -15553,6 +15568,8 @@ type ComplianceSubjectID = string
 //   - `sms_sender`: a sender registered to send to one country.
 //   - `number`: a phone number you hold that needs ownership paperwork before it
 //     can carry traffic.
+//   - `number_emergency`: emergency calling on a dedicated number you hold. The
+//     subject is created by turning emergency calling on for the number.
 //   - `identity`: a business you operate as, registered once and reused by
 //     later registrations that name it.
 type ComplianceSubjectKind string
@@ -15620,7 +15637,7 @@ type ComplianceSubmissionCreate struct {
 	// Program The registration program a country runs. Available programs depend on the registered resource. An SMS sender registers under an authority regime (`alpha` or `numeric`). A phone number proves ownership under its number type (`mobile`, `local`, `national`, `short_code`, `short_code_fteu`, or `toll_free`), matching the values of `NumberType`. An identity registers your business itself under `business`, internationally: its coordinate's country is always `ZZ`. A value is therefore only meaningful alongside the subject it describes. More are added as coverage grows, so treat this as an open set rather than a fixed list.
 	Program ComplianceProgram `json:"program"`
 
-	// SubjectId What is being registered. For `sms_sender` this is the `scr_` id returned when you register a sender for a country. For `number` it is the `nda_` id of a dedicated number you hold, as returned by `GET /v1/numbers`. A shared short code (`nal_`) is not accepted: it is shared, so its ownership paperwork is not yours to file. For `identity` it is the `cid_` id of the party being registered, picked from the parties your workspace holds, as returned by `GET /v1/compliance/identities`.
+	// SubjectId What is being registered. For `sms_sender` this is the `scr_` id returned when you register a sender for a country. For `number` it is the `nda_` id of a dedicated number you hold, as returned by `GET /v1/numbers`. For `number_emergency`, it is the `nes_` ID of the emergency service being registered. A shared short code (`nal_`) is not accepted: it is shared, so its ownership paperwork is not yours to file. For `identity` it is the `cid_` id of the party being registered, picked from the parties your workspace holds, as returned by `GET /v1/compliance/identities`.
 	SubjectId ComplianceSubjectID `json:"subject_id"`
 
 	// SubjectKind What is being registered.
@@ -15628,6 +15645,8 @@ type ComplianceSubmissionCreate struct {
 	// - `sms_sender`: a sender registered to send to one country.
 	// - `number`: a phone number you hold that needs ownership paperwork before it
 	//   can carry traffic.
+	// - `number_emergency`: emergency calling on a dedicated number you hold. The
+	//   subject is created by turning emergency calling on for the number.
 	// - `identity`: a business you operate as, registered once and reused by
 	//   later registrations that name it.
 	SubjectKind ComplianceSubjectKind `json:"subject_kind"`
@@ -15687,7 +15706,8 @@ type ComplianceSubmissionItem struct {
 // submission; send only the ones you change. With `submission_id` null, create a new submission instead.
 //
 // When the requirements response marks an accepted answer as `editable_for_verifier_repair`,
-// you can replace it during that open correction and before its deadline. Accepted-answer
+// you can replace it during an open correction and before its deadline, or update an
+// approved emergency service address. Accepted-answer
 // repairs must change content; unchanged accepted entries are ignored. Rejected, expired,
 // or missing answers follow the ordinary resupply rules, including same-value retries
 // after a grant is withdrawn. Supplied replacements are reviewed again.
@@ -26706,7 +26726,7 @@ type EventVoiceCallEndedData struct {
 	// SessionId Session identifier shared across all legs of a multi-party or transferred call. Use this to correlate related call records. Null when session correlation is not available for the call.
 	SessionId *VoiceSessionID `json:"session_id,omitempty"`
 
-	// SipResponseCode Final SIP response code received from the carrier. Null when no SIP response was received, for example on timeout or DNS failure.
+	// SipResponseCode Final SIP response code for the leg, including a Bird refusal. Null when no SIP response was received, for example on timeout or DNS failure.
 	SipResponseCode *int `json:"sip_response_code"`
 
 	// Status Call status.
@@ -27683,7 +27703,7 @@ type Mailbox struct {
 	// DeletedAt When the mailbox was deleted, or `null` if active. Deletion stops receiving; restore is available for 30 days unless permanent erasure has started.
 	DeletedAt *time.Time `json:"deleted_at,omitempty"`
 
-	// DisplayName Name shown to your team in the dashboard and tools. Defaults to `name` when no override is set. When `name` is unset, outgoing mail uses this value as the sender name.
+	// DisplayName Name shown to your team in the dashboard and tools. Defaults to `name` when no override is set.
 	DisplayName *string `json:"display_name"`
 
 	// ForwardingAddress An address we generate on our receiving domain, either when the mailbox is created on a domain not set up for receiving with us or later, when you set up forwarding for the mailbox. Forward mail for `address` here from your current email provider, and it lands in this mailbox. Replies still go out from `address`. Immutable once set. It stops receiving while the mailbox is deleted, works again with the same value after a restore, and keeps working if you later enable or disable receiving on the domain. `null` until set up; always `null` on the shared domain, which receives directly.
@@ -27703,10 +27723,10 @@ type Mailbox struct {
 	// Metadata Your own key/value data attached to the mailbox. Up to 2 KB. Keys starting with `__bird` are reserved.
 	Metadata map[string]interface{} `json:"metadata"`
 
-	// Name Sender name shown alongside the address in outgoing mail. `null` when unset.
+	// Name Optional sender name recipients see in the From header of outgoing mail. We recommend setting it so recipients can recognize the sender. `null` when unset.
 	Name *string `json:"name"`
 
-	// Next What to do next with this mailbox. The response that creates it suggests subscribing to the mail it receives. Forwarding-address setup suggests configuring the email provider. Other reads of one mailbox return an empty list, and lists omit it.
+	// Next What to do next with this mailbox. The response that creates it suggests subscribing to the mail it receives. Forwarding-address setup suggests configuring the email provider. Create and update responses recommend setting the sender name when it is unset. Other single-mailbox responses return an empty list, and lists omit this field.
 	Next *[]NextAction `json:"next,omitempty"`
 
 	// Owner The principal that owns the mailbox. Always the workspace.
@@ -27767,7 +27787,7 @@ type MailboxCreate struct {
 	// DefaultReplyTo Default `Reply-To` address stamped on mail sent from this mailbox.
 	DefaultReplyTo *openapi_types.Email `json:"default_reply_to,omitempty"`
 
-	// DisplayName Name shown to your team in the dashboard and tools. Defaults to `name` when omitted. When `name` is unset, outgoing mail uses this value as the sender name.
+	// DisplayName Name shown to your team in the dashboard and tools. Defaults to `name` when omitted.
 	DisplayName *string `json:"display_name,omitempty"`
 
 	// Domain The domain the address lives under. Defaults to `inbox.ai`, our shared mailbox domain. Creating a mailbox claims the shared address for your organization on a first-come, first-served basis. The address remains reserved to your organization after the mailbox is deleted. You can instead use one of your own domains. On a domain enabled for receiving, mail arrives directly. On a domain this workspace has verified (its `status` is `verified`) that is not set up for receiving, the mailbox gets a `forwarding_address`: forward mail for the address there from your current email provider, with no MX change. If another workspace receives the domain's mail, creation fails with `E17009`.
@@ -27779,7 +27799,7 @@ type MailboxCreate struct {
 	// Metadata Your own key/value data to attach to the mailbox. Up to 2 KB. Keys starting with `__bird` are reserved.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 
-	// Name Sender name shown alongside the address in outgoing mail. Must contain a non-whitespace character and cannot contain carriage returns or line feeds.
+	// Name Optional sender name recipients see in the From header of outgoing mail. We recommend setting it so recipients can recognize the sender. Must contain a non-whitespace character and cannot contain carriage returns or line feeds.
 	Name *string `json:"name,omitempty"`
 
 	// ReceivePolicy Which inbound mail the mailbox accepts:
@@ -27888,13 +27908,13 @@ type MailboxUpdate struct {
 	// DefaultReplyTo Default `Reply-To` address stamped on mail sent from this mailbox. `null` clears it.
 	DefaultReplyTo nullable.Nullable[string] `json:"default_reply_to,omitempty"`
 
-	// DisplayName Name shown to your team in the dashboard and tools. `null` clears the override and uses `name`. When `name` is unset, outgoing mail uses this value as the sender name.
+	// DisplayName Name shown to your team in the dashboard and tools. `null` clears the override and uses `name`.
 	DisplayName nullable.Nullable[string] `json:"display_name,omitempty"`
 
 	// Metadata Replaces the mailbox's key/value data. Up to 2 KB. Keys starting with `__bird` are reserved.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 
-	// Name Sender name shown alongside the address in outgoing mail. Must contain a non-whitespace character and cannot contain carriage returns or line feeds. `null` clears it.
+	// Name Optional sender name recipients see in the From header of outgoing mail. We recommend setting it so recipients can recognize the sender. Must contain a non-whitespace character and cannot contain carriage returns or line feeds. `null` clears it.
 	Name nullable.Nullable[string] `json:"name,omitempty"`
 
 	// ReceivePolicy Which inbound mail the mailbox accepts:
@@ -31709,13 +31729,16 @@ type VoiceLeg struct {
 	// PddMs Post-dial delay in milliseconds: how long the caller heard nothing between dialing and the phone starting to ring at the other end. High values are what callers experience as the leg `not going through`. Absent when the leg never rang, either because it failed first or because the carrier answered it immediately.
 	PddMs *int `json:"pdd_ms,omitempty"`
 
-	// RejectionReason Why we rejected the leg. Absent on connected legs and legs rejected
+	// RejectionReason Why we rejected the leg. Sequence-state reasons require
+	// `voice_management:read`; the field is absent without that permission.
+	// Also absent on connected legs and legs rejected
 	// by the carrier or recipient. For carrier or recipient rejections, see
 	// `sip_response_code`; a `6xx` decline gives the leg a `rejected` status.
 	//
-	// Read alongside `route` when present. A refusal caused by the number's
-	// configuration has no rejection reason; the route records that
-	// configuration.
+	// Read alongside `route` when present. A number's own configured rejection
+	// has no rejection reason; the route records that configuration. An
+	// unavailable sequence has a reason identifying its state when you have
+	// that permission.
 	RejectionReason *VoiceLegRejectionReason `json:"rejection_reason,omitempty"`
 
 	// Route Which answer your number gave an incoming leg. Its `type` selects the shape, and each answer carries its own fields; the variants below are the full set you can receive. Recorded when the leg was handled, so changing the number's setup afterwards does not change what its past legs say. Absent on outbound legs, and on legs recorded before this field existed.
@@ -31724,7 +31747,7 @@ type VoiceLeg struct {
 	// SipCallId The SIP `Call-ID` of this leg's signalling. We relay it unchanged, so it matches what the carrier and your own equipment logged for the same leg: the carrier's value on an incoming leg, and your system's value on a leg you place through a SIP trunk. Use it to match this leg against a carrier's records or your PBX logs. Legs recorded before this field existed carry it only if they were answered.
 	SipCallId *string `json:"sip_call_id,omitempty"`
 
-	// SipResponseCode Final SIP response code received from the carrier. `null` when no SIP response was received, for example on timeout or DNS failure.
+	// SipResponseCode Final SIP response code for the leg. `null` when no SIP response was received, for example on timeout or DNS failure.
 	SipResponseCode *int `json:"sip_response_code,omitempty"`
 
 	// SipTrunkId Identifier of the SIP trunk that originated this leg. `null` when no trunk is associated.
@@ -31825,10 +31848,10 @@ type VoiceLegInboundRouteRingGroup struct {
 
 // VoiceLegInboundRouteSequence defines model for VoiceLegInboundRouteSequence.
 type VoiceLegInboundRouteSequence struct {
-	// EntryNodeId The entry the leg started from in the publication that handled it. Recorded as it was at the time, so it may name an entry the sequence no longer has.
+	// EntryNodeId The selected entry. Recorded as it was at the time, so it may name an entry the sequence no longer has; selection does not mean a run was admitted.
 	EntryNodeId VoiceSequenceNodeID `json:"entry_node_id"`
 
-	// SequenceId The sequence that handled the leg. Recorded as it was at the time, so it may name a sequence you have since changed or deleted.
+	// SequenceId The sequence selected for the leg. Recorded as it was at the time, so it may name a sequence you have since changed or deleted. A refused leg may have no sequence run.
 	SequenceId VoiceSequenceID `json:"sequence_id"`
 
 	// Type Which answer handled this incoming leg.
@@ -31928,11 +31951,24 @@ type VoiceLegMediaPath struct {
 //   - `calls_per_second_exceeded`: You placed legs faster than your account
 //     allows. Reduce your dialing rate and retry.
 //
-//   - `emergency_number_inactive`: The trunk's emergency number does not have an
-//     active emergency service. If the service is pending, wait for it to become
-//     active. If it needs changes, finish the filing it is waiting on. If it was
-//     rejected or canceled, the number needs a new emergency service, or the trunk
-//     needs a different emergency number.
+//   - `sequence_paused`: The sequence receiving this call is paused. Resume it
+//     to receive calls.
+//
+//   - `sequence_archived`: The sequence receiving this call is archived. Route
+//     the number to an available sequence.
+//
+//   - `sequence_unpublished`: The sequence receiving this call has no active
+//     publication. Publish it to receive calls.
+//
+//   - `emergency_number_inactive`: The trunk's emergency number is not active, or
+//     the workspace has no active emergency site for a browser call. Set up an
+//     emergency site if needed. If the service is pending, wait for activation.
+//     If it needs changes, complete the filing. If it was rejected or canceled,
+//     start a new service or choose another emergency number.
+//
+//   - `emergency_country_mismatch`: The dialed emergency number is not recognised
+//     in the configured emergency site's country. Dial an emergency number for
+//     that country or use another line.
 //
 //   - `emergency_cap_exceeded`: The trunk already carries 10 emergency calls.
 //     The 11th is refused until one ends.
@@ -32702,7 +32738,7 @@ type VoiceTrunkUpdate struct {
 	// DigestAlgorithms Replaces the Digest hash algorithms this trunk offers, in the order they should be offered. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. Send an empty array to return to the default of `["SHA-256", "MD5"]`. The offer is never empty, because a trunk that offered nothing could not be authenticated at all. Narrowing the list also narrows what the trunk accepts: an answer using an algorithm no longer offered is rejected. Takes effect on the next call setup; no credential is re-issued. Omit the field to leave the offer unchanged.
 	DigestAlgorithms *[]VoiceSIPDigestAlgorithm `json:"digest_algorithms,omitempty"`
 
-	// InboundEnabled Whether this trunk may receive calls. Turning it off resets number routes that use this trunk to reject incoming calls. Turning it back on does not restore those routes. The gateways remain configured. Omit the field to leave it unchanged.
+	// InboundEnabled Whether this trunk may receive calls. Turning it off resets number routes that use this trunk to reject incoming calls. Turning it back on does not restore those routes. Clear an attached emergency number in the dashboard before turning inbound off. The gateways remain configured. Omit the field to leave it unchanged.
 	InboundEnabled *bool `json:"inbound_enabled,omitempty"`
 
 	// IpAcls Replaces the trunk's entire IP allow list. When present, the allow list is set to exactly these CIDR blocks: ranges not listed are removed and new ones are added. Send an empty array to clear the list, turning IP filtering off. Omit the field to leave the allow list unchanged.
@@ -39853,7 +39889,7 @@ type GetWorkspaceComplianceRequirementsParams struct {
 	// SubjectKind What you are registering.
 	SubjectKind ComplianceSubjectKind `form:"subject_kind" json:"subject_kind"`
 
-	// SubjectId The registration to answer for. Omit it to read the form on its own, before you hold anything to register: the requirements come back unanswered, which is what to do when you are deciding whether to take a number or a sender on in the first place. Omitting it makes `program` required, since the coordinate is otherwise resolved from the subject. When you do supply it, it is an `scr_` id when `subject_kind` is `sms_sender`, an `nda_` id when it is `number`, and a `cid_` party id when it is `identity`.
+	// SubjectId The registration to answer for. Omit it to read the form on its own, before you hold anything to register: the requirements come back unanswered, which is what to do when you are deciding whether to take a number or a sender on in the first place. Omitting it makes `program` required, since the coordinate is otherwise resolved from the subject. When you do supply it, it is an `scr_` id when `subject_kind` is `sms_sender`, an `nda_` id when it is `number`, an `nes_` id when it is `number_emergency`, and a `cid_` party id when it is `identity`.
 	SubjectId *ComplianceSubjectID `form:"subject_id,omitempty" json:"subject_id,omitempty"`
 
 	// CountryCode The destination country. For `identity` send `ZZ`, the international coordinate: your business registers once, not per country.
@@ -122047,6 +122083,7 @@ type ListWorkspaceNumbersResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -122316,6 +122353,7 @@ type GetWorkspaceNumberResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -125110,6 +125148,7 @@ type UpdateVoiceNumberResponse struct {
 	JSON403      *Forbidden
 	JSON404      *NotFound
 	JSON409      *Conflict
+	JSON412      *PreconditionFailed
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
@@ -125645,6 +125684,7 @@ type DeleteVoiceTrunkResponse struct {
 	JSON403      *Forbidden
 	JSON404      *NotFound
 	JSON409      *Conflict
+	JSON412      *PreconditionFailed
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
@@ -156812,6 +156852,13 @@ func ParseListWorkspaceNumbersResponse(rsp *http.Response) (*ListWorkspaceNumber
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -157406,6 +157453,13 @@ func ParseGetWorkspaceNumberResponse(rsp *http.Response) (*GetWorkspaceNumberRes
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -163349,6 +163403,13 @@ func ParseUpdateVoiceNumberResponse(rsp *http.Response) (*UpdateVoiceNumberRespo
 		}
 		response.JSON409 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 412:
+		var dest PreconditionFailed
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON412 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Unprocessable
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -164517,6 +164578,13 @@ func ParseDeleteVoiceTrunkResponse(rsp *http.Response) (*DeleteVoiceTrunkRespons
 			return nil, err
 		}
 		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 412:
+		var dest PreconditionFailed
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON412 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Unprocessable

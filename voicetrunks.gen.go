@@ -92,7 +92,7 @@ type VoiceTrunksUpdateParams struct {
 	Name *string
 	// Whether this trunk may place calls. Turning it off stops the trunk admitting call attempts at the next call setup and leaves its connection and authentication settings stored, so turning it back on restores a working trunk. Omit the field to leave it unchanged.
 	OutboundEnabled *bool
-	// Whether this trunk may receive calls. Turning it off resets number routes that use this trunk to reject incoming calls. Turning it back on does not restore those routes. The gateways remain configured. Omit the field to leave it unchanged.
+	// Whether this trunk may receive calls. Turning it off resets number routes that use this trunk to reject incoming calls. Turning it back on does not restore those routes. Clear an attached emergency number in the dashboard before turning inbound off. The gateways remain configured. Omit the field to leave it unchanged.
 	InboundEnabled *bool
 	// Whether we take ourselves out of the audio path for calls we forward to this trunk. Turning it on takes effect at the next call setup and leaves calls already up untouched. It is an inbound setting, so the trunk must have `inbound_enabled` on; one update can do both. While it is on we cannot record those calls, report their audio quality, or end one because its audio stopped, and your equipment must be reachable for audio from the public internet. Turning it off puts us back in the path at the next call setup. Omit the field to leave it unchanged.
 	MediaBypass *bool
@@ -206,7 +206,7 @@ func (s *VoiceTrunksService) Create(ctx context.Context, params VoiceTrunksCreat
 	return &out, nil
 }
 
-// Update Change a SIP trunk's directions, name, access control and Digest offer. A direction has to be enabled before its settings can be set, and one update can do both, so this is the operation that clears `VoiceTrunkOutboundNotEnabled` and `VoiceTrunkInboundNotEnabled`. The `ip_acls`, `allowed_api_key_ids` and `digest_algorithms` fields each REPLACE their whole list, so read `voice.trunks.get` first and send the list you want to end up with. An empty array clears an allow list; an empty `digest_algorithms` array restores the default offer. Turning `inbound_enabled` off returns numbers routed to this trunk to the workspace default inbound route, and resets a default that names it to reject. Turning it back on does not restore those routes, so confirm that change with the user first.
+// Update Change a SIP trunk's directions, name, access control and Digest offer. A direction has to be enabled before its settings can be set, and one update can do both, so this is the operation that clears `VoiceTrunkOutboundNotEnabled` and `VoiceTrunkInboundNotEnabled`. The `ip_acls`, `allowed_api_key_ids` and `digest_algorithms` fields each REPLACE their whole list, so read `voice.trunks.get` first and send the list you want to end up with. An empty array clears an allow list; an empty `digest_algorithms` array restores the default offer. Turning `inbound_enabled` off returns numbers routed to this trunk to the workspace default inbound route, and resets a default that names it to reject. If an emergency number is attached, clear it in the dashboard before turning inbound off. Turning it back on does not restore those routes, so confirm that change with the user first.
 func (s *VoiceTrunksService) Update(ctx context.Context, trunkId string, params VoiceTrunksUpdateParams, opts ...option.RequestOption) (*VoiceTrunk, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.UpdateVoiceTrunkParams{}
@@ -225,7 +225,7 @@ func (s *VoiceTrunksService) Update(ctx context.Context, trunkId string, params 
 	return &out, nil
 }
 
-// Delete Delete a SIP trunk by ID. Calls in progress are not affected; new calls cannot use the trunk. Its generated domain is not reused.
+// Delete Delete a SIP trunk by ID. Clear an attached emergency number in the dashboard first. Calls in progress are not affected; new calls cannot use the trunk. Its generated domain is not reused.
 func (s *VoiceTrunksService) Delete(ctx context.Context, trunkId string, opts ...option.RequestOption) error {
 	_, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.DeleteVoiceTrunkParams{}

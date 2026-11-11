@@ -13,7 +13,7 @@ import (
 type ComplianceRequirementsGetParams struct {
 	// What you are registering.
 	SubjectKind ComplianceSubjectKind
-	// The registration to answer for. Omit it to read the form on its own, before you hold anything to register: the requirements come back unanswered, which is what to do when you are deciding whether to take a number or a sender on in the first place. Omitting it makes `program` required, since the coordinate is otherwise resolved from the subject. When you do supply it, it is an `scr_` id when `subject_kind` is `sms_sender`, an `nda_` id when it is `number`, and a `cid_` party id when it is `identity`.
+	// The registration to answer for. Omit it to read the form on its own, before you hold anything to register: the requirements come back unanswered, which is what to do when you are deciding whether to take a number or a sender on in the first place. Omitting it makes `program` required, since the coordinate is otherwise resolved from the subject. When you do supply it, it is an `scr_` id when `subject_kind` is `sms_sender`, an `nda_` id when it is `number`, an `nes_` id when it is `number_emergency`, and a `cid_` party id when it is `identity`.
 	SubjectID string
 	// The destination country. For `identity` send `ZZ`, the international coordinate: your business registers once, not per country.
 	CountryCode string
@@ -33,7 +33,7 @@ func (p ComplianceRequirementsGetParams) toWire() *oapi.GetWorkspaceComplianceRe
 	}
 }
 
-// Get What one country asks for before it will approve one registration, with where each item stands and why any was refused. `subject_id` names the registration: a number's `nda_` id, an SMS sender registration's `scr_` id, or a party's `cid_` id. Without `subject_id` it answers the form with no submission behind it, every item unanswered except those `identity_id` prefills, and `program` turns required, because a country can run more than one and there is no registration to read it from. `satisfied` is whether every required item is approved or not applicable; `needs_input` separates items still waiting on you from answers already with a reviewer.
+// Get What one country asks for before it will approve one registration, with where each item stands and why any was refused. `subject_id` names the registration: a number's `nda_` id, an SMS sender registration's `scr_` id, an emergency service's `nes_` id, or a party's `cid_` id. Turn on emergency calling in the dashboard to create an emergency service, then use the `subject_id` in the number's `next` actions. Without `subject_id` it answers the form with no submission behind it, every item unanswered except those `identity_id` prefills, and `program` turns required, because a country can run more than one and there is no registration to read it from. `satisfied` is whether every required item is approved or not applicable; `needs_input` separates items still waiting on you from answers already with a reviewer.
 func (s *ComplianceRequirementsService) Get(ctx context.Context, params ComplianceRequirementsGetParams, opts ...option.RequestOption) (*ComplianceRequirement, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetWorkspaceComplianceRequirements(ctx, params.toWire(), cfg...)
