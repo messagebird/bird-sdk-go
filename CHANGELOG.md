@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.138.0
+
+- Add a method that connects a number your own Embedded Signup onboarded through your multi-partner solution with Bird into one of your workspaces: `Organization.Workspaces.WhatsappNumbers.Create` in Go, `organization.workspaces.whatsappNumbers.create` in TypeScript, `$bird->organization->workspaces->whatsappNumbers->create` in PHP, and `organization.workspaces.whatsapp_numbers.create` in Python. Only organizations with an active multi-partner solution can call it, with an organization credential: a master key, or a signed-in owner or organization admin. A workspace API key gets a 403.
+
 ## 0.137.0
 
 - **Breaking:** `Mailbox` gains a response field for `last_message_at`, when the mailbox last sent or received a message, recorded from 26 August 2026, where an unset value on an older mailbox means no activity since that date; replace positional literals with keyed literals such as `Mailbox{LastMessageAt: nil}`.

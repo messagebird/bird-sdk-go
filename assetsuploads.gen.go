@@ -9,7 +9,7 @@ import (
 	"github.com/messagebird/bird-sdk-go/option"
 )
 
-// Handoff Use assets.uploads.handoff only when the code environment cannot PUT to the upload hostname and the customer cannot or does not want to change its network settings. It returns a Bird page where an authorized person selects the original file and publishes it. A generated file must first be downloaded. The person's browser still needs access to the storage hostname. Opening the page does not finish the upload; use assets.uploads.get with the original connection to read the saved result.
+// Handoff Use assets.uploads.handoff only when the code environment cannot PUT to the upload hostname and the customer cannot or does not want to change its network settings. It returns a Bird page where an authorized person selects the local file they want to publish, even if chat processing changed its bytes. A generated file must first be downloaded. The person's browser still needs access to the storage hostname. Opening the page does not finish the upload; use assets.uploads.get with the original connection to read the saved result.
 func (s *AssetsUploadsService) Handoff(ctx context.Context, uploadId string, opts ...option.RequestOption) (*AssetUploadBrowserHandoff, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.CreateAssetUploadBrowserHandoffParams{}
@@ -43,7 +43,7 @@ func (s *AssetsUploadsService) Get(ctx context.Context, uploadId string, opts ..
 	return &out, nil
 }
 
-// Prepare Returns another PUT instruction for the same frozen file. It does not extend the session or change the file. Refreshes require at least 30 seconds between instructions.
+// Prepare Returns another PUT instruction for the active source file. It does not extend the session or change the file. Refreshes require at least 30 seconds between instructions.
 func (s *AssetsUploadsService) Prepare(ctx context.Context, uploadId string, opts ...option.RequestOption) (*AssetUploadSessionPrepared, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.CreateAssetUploadInstructionParams{}

@@ -14567,24 +14567,24 @@ type AssetUploadBrowserHandoff struct {
 	Session AssetUploadSessionDetails `json:"session"`
 }
 
-// AssetUploadFile Exact properties of the original file. Calculate size and SHA-256 from its bytes before creating a session. Images allow up to 5,242,880 bytes; other supported media allow up to 25,000,000 bytes.
+// AssetUploadFile Exact properties of the active source file. Calculate size and SHA-256 from its bytes before creating a session or preparing a browser-selected source. Images allow up to 5,242,880 bytes; other supported media allow up to 25,000,000 bytes.
 type AssetUploadFile struct {
-	// ContentType Media type of the original file. Supported values are `image/png`, `image/jpeg`, `image/gif`, `video/mp4`, `video/webm`, `video/quicktime`, `audio/mpeg`, `audio/mp4`, `audio/ogg`, `audio/wav`, and `application/pdf`.
+	// ContentType Media type of the source file. Supported values are `image/png`, `image/jpeg`, `image/gif`, `video/mp4`, `video/webm`, `video/quicktime`, `audio/mpeg`, `audio/mp4`, `audio/ogg`, `audio/wav`, and `application/pdf`.
 	//
 	// Supply the exact value without parameters. Unsupported values return `E20001`. Completion checks this against the file's contents.
 	ContentType string `json:"content_type"`
 
-	// Filename Original filename, including its extension.
+	// Filename Source filename, including its extension.
 	Filename string `json:"filename"`
 
-	// Sha256 SHA-256 of the original bytes, encoded as lowercase hexadecimal.
+	// Sha256 SHA-256 of the source bytes, encoded as lowercase hexadecimal.
 	Sha256 string `json:"sha256" pii:"true"`
 
-	// SizeBytes Exact size of the original file in bytes.
+	// SizeBytes Exact size of the source file in bytes.
 	SizeBytes int64 `json:"size_bytes"`
 }
 
-// AssetUploadInstruction Send the original file bytes to this URL with the exact headers and content length. Send no Bird credentials or cookies. Keep the URL private and call complete after the PUT succeeds.
+// AssetUploadInstruction Send the active source bytes described by the session to this URL with the exact headers and content length. Send no Bird credentials or cookies. Keep the URL private and call complete after the PUT succeeds.
 type AssetUploadInstruction struct {
 	// ContentLength Required HTTP content length in bytes.
 	ContentLength int64 `json:"content_length"`
@@ -14616,7 +14616,7 @@ type AssetUploadReceipt struct {
 	ReusedExisting bool `json:"reused_existing"`
 }
 
-// AssetUploadSession An upload session owned by the workspace and the OAuth connection or API key that created it. Its file and metadata are frozen. Sessions expire after one hour; receipts remain available for at least 24 hours after expiry while cleanup finishes.
+// AssetUploadSession An upload session owned by the workspace and the OAuth connection or API key that created it. Its metadata is frozen. The file identifies the active upload source; a signed-in person can bind their selected file when preparing the browser fallback. Completion validates the bytes against the active source. Sessions expire after one hour; receipts remain available for at least 24 hours after expiry while cleanup finishes.
 type AssetUploadSession struct {
 	// AltText Frozen alternative text, or null when omitted.
 	AltText *string `json:"alt_text"`
@@ -14624,7 +14624,7 @@ type AssetUploadSession struct {
 	// ExpiresAt Absolute session expiry. Completion must finish before this deadline; starting it or refreshing an upload instruction does not extend it.
 	ExpiresAt time.Time `json:"expires_at"`
 
-	// File Exact properties of the original file. Calculate size and SHA-256 from its bytes before creating a session. Images allow up to 5,242,880 bytes; other supported media allow up to 25,000,000 bytes.
+	// File Exact properties of the active source file. Calculate size and SHA-256 from its bytes before creating a session or preparing a browser-selected source. Images allow up to 5,242,880 bytes; other supported media allow up to 25,000,000 bytes.
 	File AssetUploadFile `json:"file"`
 
 	// FolderId Frozen destination folder, or null for the library root.
@@ -14655,7 +14655,7 @@ type AssetUploadSessionCreate struct {
 	// ClientReference Caller-generated UUID for this upload intent. Retries with identical input recover the same session while its receipt is retained.
 	ClientReference openapi_types.UUID `json:"client_reference"`
 
-	// File Exact properties of the original file. Calculate size and SHA-256 from its bytes before creating a session. Images allow up to 5,242,880 bytes; other supported media allow up to 25,000,000 bytes.
+	// File Exact properties of the active source file. Calculate size and SHA-256 from its bytes before creating a session or preparing a browser-selected source. Images allow up to 5,242,880 bytes; other supported media allow up to 25,000,000 bytes.
 	File     AssetUploadFile `json:"file"`
 	FolderId *AssetFolderID  `json:"folder_id,omitempty"`
 
@@ -14674,7 +14674,7 @@ type AssetUploadSessionDetails struct {
 	// ExpiresAt Absolute session expiry. Completion must finish before this deadline; starting it or refreshing an upload instruction does not extend it.
 	ExpiresAt time.Time `json:"expires_at"`
 
-	// File Exact properties of the original file. Calculate size and SHA-256 from its bytes before creating a session. Images allow up to 5,242,880 bytes; other supported media allow up to 25,000,000 bytes.
+	// File Exact properties of the active source file. Calculate size and SHA-256 from its bytes before creating a session or preparing a browser-selected source. Images allow up to 5,242,880 bytes; other supported media allow up to 25,000,000 bytes.
 	File AssetUploadFile `json:"file"`
 
 	// FolderId Frozen destination folder, or null for the library root.
@@ -14714,7 +14714,7 @@ type AssetUploadSessionInstruction struct {
 	// ExpiresAt Absolute session expiry. Completion must finish before this deadline; starting it or refreshing an upload instruction does not extend it.
 	ExpiresAt time.Time `json:"expires_at"`
 
-	// File Exact properties of the original file. Calculate size and SHA-256 from its bytes before creating a session. Images allow up to 5,242,880 bytes; other supported media allow up to 25,000,000 bytes.
+	// File Exact properties of the active source file. Calculate size and SHA-256 from its bytes before creating a session or preparing a browser-selected source. Images allow up to 5,242,880 bytes; other supported media allow up to 25,000,000 bytes.
 	File AssetUploadFile `json:"file"`
 
 	// FolderId Frozen destination folder, or null for the library root.
@@ -14736,7 +14736,7 @@ type AssetUploadSessionInstruction struct {
 	// State Upload progress. Pending accepts a transfer; finalizing is checking and publishing it. Completed has a saved result. Rejected, cancelled and expired allow no new upload instruction or publication. An already issued upload URL can remain usable until its expiry.
 	State AssetUploadSessionState `json:"state"`
 
-	// Upload Send the original file bytes to this URL with the exact headers and content length. Send no Bird credentials or cookies. Keep the URL private and call complete after the PUT succeeds.
+	// Upload Send the active source bytes described by the session to this URL with the exact headers and content length. Send no Bird credentials or cookies. Keep the URL private and call complete after the PUT succeeds.
 	Upload *AssetUploadInstruction `json:"upload,omitempty"`
 }
 
@@ -14748,7 +14748,7 @@ type AssetUploadSessionPrepared struct {
 	// ExpiresAt Absolute session expiry. Completion must finish before this deadline; starting it or refreshing an upload instruction does not extend it.
 	ExpiresAt time.Time `json:"expires_at"`
 
-	// File Exact properties of the original file. Calculate size and SHA-256 from its bytes before creating a session. Images allow up to 5,242,880 bytes; other supported media allow up to 25,000,000 bytes.
+	// File Exact properties of the active source file. Calculate size and SHA-256 from its bytes before creating a session or preparing a browser-selected source. Images allow up to 5,242,880 bytes; other supported media allow up to 25,000,000 bytes.
 	File AssetUploadFile `json:"file"`
 
 	// FolderId Frozen destination folder, or null for the library root.
@@ -28249,6 +28249,21 @@ type OrganizationWorkspaceUpdate struct {
 	Name *TenantName `json:"name,omitempty"`
 }
 
+// OrganizationWorkspaceWhatsAppNumberCreate A number your multi-partner solution onboarded, and the workspace label and storage country it takes. `data_localization_region` cannot be changed once the number is connected, so set it in this call if your customer needs one.
+type OrganizationWorkspaceWhatsAppNumberCreate struct {
+	// DataLocalizationRegion A country where WhatsApp can store a business phone number's message content at rest, as its two-letter ISO 3166 code.
+	DataLocalizationRegion *WhatsAppDataLocalizationRegion `json:"data_localization_region,omitempty"`
+
+	// MetaPhoneNumberId The phone number your Embedded Signup returned, from the session info's `phone_number_id`.
+	MetaPhoneNumberId string `json:"meta_phone_number_id"`
+
+	// Name The workspace's own label for the number. Leave it out and the number's own phone number stands in. A number already connected in the workspace keeps its label unless you pass one. This has no bearing on what WhatsApp displays to people the number messages.
+	Name *string `json:"name,omitempty"`
+
+	// Waba The WhatsApp Business Account your Embedded Signup returned, from the session info's `messaging_account_ids`.
+	Waba string `json:"waba"`
+}
+
 // PhoneNumberLookup Information about a phone number.
 //
 // The number, its flags, and its line type are included in the base lookup and
@@ -29687,7 +29702,7 @@ type SMSMessageSendRequest2 = interface{}
 // message carries either status today.
 type SMSMessageStatus string
 
-// SMSMessagingProfile A messaging profile: the senders, reply numbers, and defaults for one program in your workspace. A send that names the profile takes its sender, default category, smart encoding, validity period, cost center, and options from it when the send leaves them out. A message that names the profile sends its events to the profile's `options.callback_url`, filtered by `callback_events`, and a reply on one of the profile's numbers goes to `inbound.callback_url`, then `options.callback_url`. With outbound matching on, a reply is paired with the message it answers.
+// SMSMessagingProfile A messaging profile: the senders, reply numbers, and defaults for one program in your workspace. A send that names the profile takes its sender, default category, smart encoding, validity period, cost center, and options from it when the send leaves them out. A message that names the profile sends its events to the profile's `options.callback_url`, filtered by `callback_events`, and a reply on one of the profile's numbers, or one whose text opens with `inbound.keyword` on any of your numbers, goes to `inbound.callback_url`, then `options.callback_url`. With outbound matching on, a reply on one of the profile's numbers is paired with the message this profile sent from that number.
 type SMSMessagingProfile struct {
 	// CallbackEvents The events of this profile's outbound messages that go to a callback URL: `sms.accepted`, `sms.sent`, `sms.delivered`, `sms.undelivered`, `sms.failed`, `sms.rejected`, and `sms.expired`. The list is fixed when a message is accepted, and applies only while the message has a callback URL: an event outside it then reaches neither the URL nor a plain webhook endpoint. Without a callback URL the list has no effect, and every event goes to your webhook endpoints. `sms.received` is never filtered. Null means every outbound event goes to the URL.
 	CallbackEvents *[]SMSMessagingProfileCallbackEvent `json:"callback_events"`
@@ -29702,7 +29717,7 @@ type SMSMessagingProfile struct {
 	DefaultCategory *SMSMessageCategory   `json:"default_category"`
 	Id              SMSMessagingProfileID `json:"id"`
 
-	// Inbound How the profile receives replies. A profile without numbers only sends.
+	// Inbound How the profile receives replies. A profile with neither numbers nor a keyword only sends.
 	Inbound SMSMessagingProfileInbound `json:"inbound"`
 
 	// Name A label for the profile. Names are not unique, so two profiles can share one.
@@ -29754,10 +29769,13 @@ type SMSMessagingProfileCreate struct {
 // SMSMessagingProfileID defines model for SMSMessagingProfileID.
 type SMSMessagingProfileID = string
 
-// SMSMessagingProfileInbound How the profile receives replies. A profile without numbers only sends.
+// SMSMessagingProfileInbound How the profile receives replies. A profile with neither numbers nor a keyword only sends.
 type SMSMessagingProfileInbound struct {
-	// CallbackUrl The HTTPS URL that receives `sms.received` events for replies on this profile's numbers, signed with your workspace callback signing secret. Null when none is set, in which case replies use `options.callback_url`, then your webhook subscriptions. While a URL applies, a reply skips your plain webhook endpoints.
+	// CallbackUrl The HTTPS URL that receives `sms.received` events for messages received on this profile's numbers or routed to it by `keyword`, signed with your workspace callback signing secret. Null when none is set, in which case replies use `options.callback_url`, then your webhook subscriptions. While a URL applies, a reply skips your plain webhook endpoints.
 	CallbackUrl *string `json:"callback_url"`
+
+	// Keyword The keyword that routes a received message to this profile. A message whose text opens with it, in any letter case and after any leading whitespace, belongs to this profile whichever of your workspace's numbers it arrives on, ahead of the profile bound to that number. The opening word ends at the first character that is not a letter, digit, hyphen or underscore, so `JOIN?source=web` opens with `JOIN`. Null when none is set.
+	Keyword *string `json:"keyword"`
 
 	// Numbers The numbers that receive replies for this profile.
 	Numbers []SMSMessagingProfileInboundNumber `json:"numbers"`
@@ -29768,8 +29786,11 @@ type SMSMessagingProfileInbound struct {
 
 // SMSMessagingProfileInboundCreate How the profile receives replies. Omit it for a profile that only sends.
 type SMSMessagingProfileInboundCreate struct {
-	// CallbackUrl The HTTPS URL that receives `sms.received` events for replies on this profile's numbers, signed with your workspace callback signing secret. Without it, replies use `options.callback_url`, then your webhook subscriptions. While a URL applies, a reply skips your plain webhook endpoints. It must be an absolute HTTPS URL of at most 2048 characters with a public host: an HTTP URL, a malformed one, or a private, loopback or link-local host returns `422`.
+	// CallbackUrl The HTTPS URL that receives `sms.received` events for messages received on this profile's numbers or routed to it by `keyword`, signed with your workspace callback signing secret. Without it, replies use `options.callback_url`, then your webhook subscriptions. While a URL applies, a reply skips your plain webhook endpoints. It must be an absolute HTTPS URL of at most 2048 characters with a public host: an HTTP URL, a malformed one, or a private, loopback or link-local host returns `422`.
 	CallbackUrl *string `json:"callback_url,omitempty"`
+
+	// Keyword The keyword that routes a received message to this profile. It is 1 to 32 ASCII letters, digits, hyphens or underscores. A message whose text opens with it, in any letter case and after any leading whitespace, belongs to this profile whichever of your workspace's numbers it arrives on, ahead of the profile bound to that number. The opening word ends at the first character that is not a letter, digit, hyphen or underscore, so `JOIN?source=web` opens with `JOIN`. Only one profile in a workspace can hold a keyword, compared without regard to letter case: one that another profile holds returns `422`.
+	Keyword *string `json:"keyword,omitempty"`
 
 	// Numbers The numbers that receive replies for this profile.
 	Numbers *[]SMSMessagingProfileInboundNumber `json:"numbers,omitempty"`
@@ -29789,8 +29810,11 @@ type SMSMessagingProfileInboundNumber struct {
 
 // SMSMessagingProfileInboundUpdate Changes how the profile receives replies. Omitted properties keep their value.
 type SMSMessagingProfileInboundUpdate struct {
-	// CallbackUrl The HTTPS URL that receives `sms.received` events for replies on this profile's numbers, signed with your workspace callback signing secret. Send `null` to clear it, so replies use `options.callback_url`, then your webhook subscriptions. While a URL applies, a reply skips your plain webhook endpoints. It must be an absolute HTTPS URL of at most 2048 characters with a public host: an HTTP URL, a malformed one, or a private, loopback or link-local host returns `422`.
+	// CallbackUrl The HTTPS URL that receives `sms.received` events for messages received on this profile's numbers or routed to it by `keyword`, signed with your workspace callback signing secret. Send `null` to clear it, so replies use `options.callback_url`, then your webhook subscriptions. While a URL applies, a reply skips your plain webhook endpoints. It must be an absolute HTTPS URL of at most 2048 characters with a public host: an HTTP URL, a malformed one, or a private, loopback or link-local host returns `422`.
 	CallbackUrl nullable.Nullable[string] `json:"callback_url,omitempty"`
+
+	// Keyword The keyword that routes a received message to this profile. It is 1 to 32 ASCII letters, digits, hyphens or underscores. A message whose text opens with it, in any letter case and after any leading whitespace, belongs to this profile whichever of your workspace's numbers it arrives on, ahead of the profile bound to that number. The opening word ends at the first character that is not a letter, digit, hyphen or underscore, so `JOIN?source=web` opens with `JOIN`. Only one profile in a workspace can hold a keyword, compared without regard to letter case: one that another profile holds returns `422`. Send `null` to clear it.
+	Keyword nullable.Nullable[string] `json:"keyword,omitempty"`
 
 	// Numbers Replaces the numbers that receive replies. Send an empty array to remove them all.
 	Numbers *[]SMSMessagingProfileInboundNumber `json:"numbers,omitempty"`
@@ -44672,6 +44696,34 @@ type UpdateOrganizationWorkspaceParams struct {
 	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
 }
 
+// CreateOrganizationWorkspaceWhatsAppNumberParams defines parameters for CreateOrganizationWorkspaceWhatsAppNumber.
+type CreateOrganizationWorkspaceWhatsAppNumberParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
 // ListPreferencesParams defines parameters for ListPreferences.
 type ListPreferencesParams struct {
 	// Channel Return only preferences on this channel.
@@ -49179,6 +49231,9 @@ type CreateWorkspaceJSONRequestBody = WorkspaceCreate
 
 // UpdateOrganizationWorkspaceJSONRequestBody defines body for UpdateOrganizationWorkspace for application/json ContentType.
 type UpdateOrganizationWorkspaceJSONRequestBody = OrganizationWorkspaceUpdate
+
+// CreateOrganizationWorkspaceWhatsAppNumberJSONRequestBody defines body for CreateOrganizationWorkspaceWhatsAppNumber for application/json ContentType.
+type CreateOrganizationWorkspaceWhatsAppNumberJSONRequestBody = OrganizationWorkspaceWhatsAppNumberCreate
 
 // CreatePreferenceJSONRequestBody defines body for CreatePreference for application/json ContentType.
 type CreatePreferenceJSONRequestBody = PreferenceCreate
@@ -58096,6 +58151,11 @@ type ClientInterface interface {
 
 	UpdateOrganizationWorkspace(ctx context.Context, workspaceId WorkspaceID, params *UpdateOrganizationWorkspaceParams, body UpdateOrganizationWorkspaceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// CreateOrganizationWorkspaceWhatsAppNumberWithBody request with any body
+	CreateOrganizationWorkspaceWhatsAppNumberWithBody(ctx context.Context, workspaceId WorkspaceID, params *CreateOrganizationWorkspaceWhatsAppNumberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateOrganizationWorkspaceWhatsAppNumber(ctx context.Context, workspaceId WorkspaceID, params *CreateOrganizationWorkspaceWhatsAppNumberParams, body CreateOrganizationWorkspaceWhatsAppNumberJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// ListPreferences request
 	ListPreferences(ctx context.Context, params *ListPreferencesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -62956,6 +63016,30 @@ func (c *Client) UpdateOrganizationWorkspaceWithBody(ctx context.Context, worksp
 
 func (c *Client) UpdateOrganizationWorkspace(ctx context.Context, workspaceId WorkspaceID, params *UpdateOrganizationWorkspaceParams, body UpdateOrganizationWorkspaceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewUpdateOrganizationWorkspaceRequest(c.Server, workspaceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateOrganizationWorkspaceWhatsAppNumberWithBody(ctx context.Context, workspaceId WorkspaceID, params *CreateOrganizationWorkspaceWhatsAppNumberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateOrganizationWorkspaceWhatsAppNumberRequestWithBody(c.Server, workspaceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateOrganizationWorkspaceWhatsAppNumber(ctx context.Context, workspaceId WorkspaceID, params *CreateOrganizationWorkspaceWhatsAppNumberParams, body CreateOrganizationWorkspaceWhatsAppNumberJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateOrganizationWorkspaceWhatsAppNumberRequest(c.Server, workspaceId, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -93055,6 +93139,79 @@ func NewUpdateOrganizationWorkspaceRequestWithBody(server string, workspaceId Wo
 	return req, nil
 }
 
+// NewCreateOrganizationWorkspaceWhatsAppNumberRequest calls the generic CreateOrganizationWorkspaceWhatsAppNumber builder with application/json body
+func NewCreateOrganizationWorkspaceWhatsAppNumberRequest(server string, workspaceId WorkspaceID, params *CreateOrganizationWorkspaceWhatsAppNumberParams, body CreateOrganizationWorkspaceWhatsAppNumberJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateOrganizationWorkspaceWhatsAppNumberRequestWithBody(server, workspaceId, params, "application/json", bodyReader)
+}
+
+// NewCreateOrganizationWorkspaceWhatsAppNumberRequestWithBody generates requests for CreateOrganizationWorkspaceWhatsAppNumber with any type of body
+func NewCreateOrganizationWorkspaceWhatsAppNumberRequestWithBody(server string, workspaceId WorkspaceID, params *CreateOrganizationWorkspaceWhatsAppNumberParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "workspace_id", workspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/organization/workspaces/%s/whatsapp/numbers", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewListPreferencesRequest generates requests for ListPreferences
 func NewListPreferencesRequest(server string, params *ListPreferencesParams) (*http.Request, error) {
 	var err error
@@ -111080,6 +111237,11 @@ type ClientWithResponsesInterface interface {
 
 	UpdateOrganizationWorkspaceWithResponse(ctx context.Context, workspaceId WorkspaceID, params *UpdateOrganizationWorkspaceParams, body UpdateOrganizationWorkspaceJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateOrganizationWorkspaceResponse, error)
 
+	// CreateOrganizationWorkspaceWhatsAppNumberWithBodyWithResponse request with any body
+	CreateOrganizationWorkspaceWhatsAppNumberWithBodyWithResponse(ctx context.Context, workspaceId WorkspaceID, params *CreateOrganizationWorkspaceWhatsAppNumberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateOrganizationWorkspaceWhatsAppNumberResponse, error)
+
+	CreateOrganizationWorkspaceWhatsAppNumberWithResponse(ctx context.Context, workspaceId WorkspaceID, params *CreateOrganizationWorkspaceWhatsAppNumberParams, body CreateOrganizationWorkspaceWhatsAppNumberJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateOrganizationWorkspaceWhatsAppNumberResponse, error)
+
 	// ListPreferencesWithResponse request
 	ListPreferencesWithResponse(ctx context.Context, params *ListPreferencesParams, reqEditors ...RequestEditorFn) (*ListPreferencesResponse, error)
 
@@ -122519,6 +122681,45 @@ func (r UpdateOrganizationWorkspaceResponse) ContentType() string {
 	return ""
 }
 
+type CreateOrganizationWorkspaceWhatsAppNumberResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON202      *WhatsAppNumber
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateOrganizationWorkspaceWhatsAppNumberResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateOrganizationWorkspaceWhatsAppNumberResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateOrganizationWorkspaceWhatsAppNumberResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type ListPreferencesResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -132345,6 +132546,23 @@ func (c *ClientWithResponses) UpdateOrganizationWorkspaceWithResponse(ctx contex
 		return nil, err
 	}
 	return ParseUpdateOrganizationWorkspaceResponse(rsp)
+}
+
+// CreateOrganizationWorkspaceWhatsAppNumberWithBodyWithResponse request with arbitrary body returning *CreateOrganizationWorkspaceWhatsAppNumberResponse
+func (c *ClientWithResponses) CreateOrganizationWorkspaceWhatsAppNumberWithBodyWithResponse(ctx context.Context, workspaceId WorkspaceID, params *CreateOrganizationWorkspaceWhatsAppNumberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateOrganizationWorkspaceWhatsAppNumberResponse, error) {
+	rsp, err := c.CreateOrganizationWorkspaceWhatsAppNumberWithBody(ctx, workspaceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateOrganizationWorkspaceWhatsAppNumberResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateOrganizationWorkspaceWhatsAppNumberWithResponse(ctx context.Context, workspaceId WorkspaceID, params *CreateOrganizationWorkspaceWhatsAppNumberParams, body CreateOrganizationWorkspaceWhatsAppNumberJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateOrganizationWorkspaceWhatsAppNumberResponse, error) {
+	rsp, err := c.CreateOrganizationWorkspaceWhatsAppNumber(ctx, workspaceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateOrganizationWorkspaceWhatsAppNumberResponse(rsp)
 }
 
 // ListPreferencesWithResponse request returning *ListPreferencesResponse
@@ -157877,6 +158095,95 @@ func ParseUpdateOrganizationWorkspaceResponse(rsp *http.Response) (*UpdateOrgani
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateOrganizationWorkspaceWhatsAppNumberResponse parses an HTTP response from a CreateOrganizationWorkspaceWhatsAppNumberWithResponse call
+func ParseCreateOrganizationWorkspaceWhatsAppNumberResponse(rsp *http.Response) (*CreateOrganizationWorkspaceWhatsAppNumberResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateOrganizationWorkspaceWhatsAppNumberResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest WhatsAppNumber
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Unprocessable

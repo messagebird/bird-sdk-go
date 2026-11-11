@@ -357,6 +357,7 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Organization.Workspaces.Get
 	_ = c.Organization.Workspaces.Update
 	_ = c.Organization.Workspaces.Delete
+	_ = c.Organization.Workspaces.WhatsappNumbers.Create
 	_ = c.Email.Content
 	_ = c.Email.Recipients
 	_ = c.Realtime.Publish

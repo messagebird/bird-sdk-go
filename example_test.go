@@ -6502,6 +6502,23 @@ func ExampleOrganizationWorkspacesService_Delete() {
 	}
 }
 
+// Connect a number your own Embedded Signup onboarded through your multi-partner solution.
+func ExampleOrganizationWorkspacesWhatsappNumbersService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_MASTER_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	number, err := client.Organization.Workspaces.WhatsappNumbers.Create(context.Background(), "ws_01krdgeqcxet5s7t44vh8rt9mg", bird.OrganizationWorkspacesWhatsappNumbersCreateParams{
+		Waba:              "102290129340398",
+		MetaPhoneNumberID: "109364591979012",
+		Name:              bird.Ptr("Northwind Support"),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(number.Id, number.Status)
+}
+
 func ExampleAssetsUploadsService_Create() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
