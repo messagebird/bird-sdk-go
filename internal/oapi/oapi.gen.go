@@ -11776,7 +11776,7 @@ type AMBChannelSettingsUpdate struct {
 	LogoAssetId nullable.Nullable[AssetID] `json:"logo_asset_id,omitempty"`
 }
 
-// AMBContentKind Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
+// AMBContentKind Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. `apple_pay` and `authenticate` appear on existing messages. Sends and templates do not accept them.
 //
 // - text: Text, optionally with a subject.
 // - attachment: One or more files, images, audio clips, or videos.
@@ -11787,8 +11787,8 @@ type AMBChannelSettingsUpdate struct {
 // - form: A multi-page form.
 // - imessage_app: A custom iMessage app interaction on a compatible device.
 // - interactive: An opaque interactive reference whose subtype is unknown.
-// - apple_pay: An Apple Pay request created through the conversation payment operations.
-// - authenticate: An identity verification request created through the conversation authentication operations.
+// - apple_pay: An Apple Pay request, or the customer's response to one. Apple Pay requests are in preview.
+// - authenticate: An identity verification request, or the customer's response to one.
 type AMBContentKind string
 
 // AMBConversation A conversation between your business and one customer on Apple Messages for Business. It holds the customer's device capabilities, the console's read state, assignment, and labels, and the routing queue the conversation is in.
@@ -12545,9 +12545,9 @@ type AMBIntentStatsPoint struct {
 	Latency *AMBStatsLatency `json:"latency,omitempty"`
 }
 
-// AMBInteractive Something for the customer to tap: exactly one of `quick_reply`, `list_picker`, `event` (a time picker), `dynamic` (a form) or `imessage_app`. To introduce it with text or files, send `text` alongside it; that text arrives as its own bubble first. Apple Pay and identity verification requests are created through their conversation endpoints and read back here as `payment` and `authenticate`.
+// AMBInteractive Something for the customer to tap: exactly one of `quick_reply`, `list_picker`, `event` (a time picker), `dynamic` (a form) or `imessage_app`. To introduce it with text or files, send `text` alongside it; that text arrives as its own bubble first. `payment` and `authenticate` are read-only. They appear on existing messages that contain an Apple Pay or identity verification request. Sends and templates do not accept them.
 type AMBInteractive struct {
-	// Authenticate Authentication attempt created through the conversation authentication endpoint. Contains no authorization parameters or credentials.
+	// Authenticate An identity verification request. Read-only. It appears on existing messages, and sends and templates do not accept it. Contains no authorization parameters or credentials.
 	Authenticate *AMBNativeAuthentication `json:"authenticate,omitempty"`
 
 	// Dynamic Form content. Bird supplies Apple’s messageForms template and protocol version.
@@ -12561,7 +12561,7 @@ type AMBInteractive struct {
 	ImessageApp *AMBIMessageApp      `json:"imessage_app,omitempty"`
 	ListPicker  *AMBNativeListPicker `json:"list_picker,omitempty"`
 
-	// Payment Apple Pay request created through the conversation payment endpoint. Contains no payment token or provider credentials.
+	// Payment An Apple Pay request. Read-only. It appears on existing messages, and sends and templates do not accept it. Apple Pay requests are in preview. Contains no payment token or provider credentials.
 	Payment         *AMBNativePayment    `json:"payment,omitempty"`
 	QuickReply      *AMBNativeQuickReply `json:"quick_reply,omitempty"`
 	ReceivedMessage *AMBMessageBubble    `json:"received_message,omitempty"`
@@ -12731,7 +12731,7 @@ type AMBMessage struct {
 	// InteractiveReply What the customer answered, on an inbound message replying to an interactive message.
 	InteractiveReply *AMBInteractiveReply `json:"interactive_reply,omitempty"`
 
-	// Kind Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
+	// Kind Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. `apple_pay` and `authenticate` appear on existing messages. Sends and templates do not accept them.
 	//
 	// - text: Text, optionally with a subject.
 	// - attachment: One or more files, images, audio clips, or videos.
@@ -12742,8 +12742,8 @@ type AMBMessage struct {
 	// - form: A multi-page form.
 	// - imessage_app: A custom iMessage app interaction on a compatible device.
 	// - interactive: An opaque interactive reference whose subtype is unknown.
-	// - apple_pay: An Apple Pay request created through the conversation payment operations.
-	// - authenticate: An identity verification request created through the conversation authentication operations.
+	// - apple_pay: An Apple Pay request, or the customer's response to one. Apple Pay requests are in preview.
+	// - authenticate: An identity verification request, or the customer's response to one.
 	Kind AMBContentKind `json:"kind"`
 
 	// LastError Failure detail for a message or invitation that could not be sent or was rejected.
@@ -12914,7 +12914,7 @@ type AMBMessageKindStatsPoint struct {
 	// Latency Processing-latency percentiles in milliseconds for the requested scope, from acceptance to Apple handoff. Apple Messages for Business has no delivery receipt, so there is no `delivery` or `total` member beside `processing`. Conversation response timing is reported separately in `first_response`. Always present; every percentile is null when no qualifying message in scope has a measurement.
 	Latency *AMBStatsLatency `json:"latency,omitempty"`
 
-	// MessageKind Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
+	// MessageKind Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. `apple_pay` and `authenticate` appear on existing messages. Sends and templates do not accept them.
 	//
 	// - text: Text, optionally with a subject.
 	// - attachment: One or more files, images, audio clips, or videos.
@@ -12925,8 +12925,8 @@ type AMBMessageKindStatsPoint struct {
 	// - form: A multi-page form.
 	// - imessage_app: A custom iMessage app interaction on a compatible device.
 	// - interactive: An opaque interactive reference whose subtype is unknown.
-	// - apple_pay: An Apple Pay request created through the conversation payment operations.
-	// - authenticate: An identity verification request created through the conversation authentication operations.
+	// - apple_pay: An Apple Pay request, or the customer's response to one. Apple Pay requests are in preview.
+	// - authenticate: An identity verification request, or the customer's response to one.
 	MessageKind AMBContentKind `json:"message_kind"`
 }
 
@@ -13065,7 +13065,7 @@ type AMBNativeAttachment1 struct {
 	AttachmentId interface{} `json:"attachment_id"`
 }
 
-// AMBNativeAuthentication Authentication attempt created through the conversation authentication endpoint. Contains no authorization parameters or credentials.
+// AMBNativeAuthentication An identity verification request. Read-only. It appears on existing messages, and sends and templates do not accept it. Contains no authorization parameters or credentials.
 type AMBNativeAuthentication struct {
 	AuthenticationId AMBAuthenticationID `json:"authentication_id"`
 }
@@ -13219,7 +13219,7 @@ type AMBNativeListPicker struct {
 	Sections []AMBListPickerSection `json:"sections"`
 }
 
-// AMBNativePayment Apple Pay request created through the conversation payment endpoint. Contains no payment token or provider credentials.
+// AMBNativePayment An Apple Pay request. Read-only. It appears on existing messages, and sends and templates do not accept it. Apple Pay requests are in preview. Contains no payment token or provider credentials.
 type AMBNativePayment struct {
 	PaymentId AMBPaymentID `json:"payment_id"`
 }
@@ -13903,7 +13903,7 @@ type AMBTemplate struct {
 	// Category Why messages use this template, fixed at creation. On Apple Messages the category describes intent and becomes the message's reporting `category`; it grants and restricts nothing. Use `marketing` for promotions and `transactional` for service messages.
 	Category AMBTemplateCategory `json:"category"`
 
-	// ContentKind Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
+	// ContentKind Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. `apple_pay` and `authenticate` appear on existing messages. Sends and templates do not accept them.
 	//
 	// - text: Text, optionally with a subject.
 	// - attachment: One or more files, images, audio clips, or videos.
@@ -13914,8 +13914,8 @@ type AMBTemplate struct {
 	// - form: A multi-page form.
 	// - imessage_app: A custom iMessage app interaction on a compatible device.
 	// - interactive: An opaque interactive reference whose subtype is unknown.
-	// - apple_pay: An Apple Pay request created through the conversation payment operations.
-	// - authenticate: An identity verification request created through the conversation authentication operations.
+	// - apple_pay: An Apple Pay request, or the customer's response to one. Apple Pay requests are in preview.
+	// - authenticate: An identity verification request, or the customer's response to one.
 	ContentKind AMBContentKind `json:"content_kind"`
 
 	// CreatedAt When the template was created. Null for built-in templates.
@@ -14107,7 +14107,7 @@ type AMBTemplateSummary struct {
 	// Category Why messages use this template, fixed at creation. On Apple Messages the category describes intent and becomes the message's reporting `category`; it grants and restricts nothing. Use `marketing` for promotions and `transactional` for service messages.
 	Category AMBTemplateCategory `json:"category"`
 
-	// ContentKind Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
+	// ContentKind Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. `apple_pay` and `authenticate` appear on existing messages. Sends and templates do not accept them.
 	//
 	// - text: Text, optionally with a subject.
 	// - attachment: One or more files, images, audio clips, or videos.
@@ -14118,8 +14118,8 @@ type AMBTemplateSummary struct {
 	// - form: A multi-page form.
 	// - imessage_app: A custom iMessage app interaction on a compatible device.
 	// - interactive: An opaque interactive reference whose subtype is unknown.
-	// - apple_pay: An Apple Pay request created through the conversation payment operations.
-	// - authenticate: An identity verification request created through the conversation authentication operations.
+	// - apple_pay: An Apple Pay request, or the customer's response to one. Apple Pay requests are in preview.
+	// - authenticate: An identity verification request, or the customer's response to one.
 	ContentKind AMBContentKind `json:"content_kind"`
 
 	// CreatedAt When the template was created. Null for built-in templates.
@@ -30533,7 +30533,7 @@ type SMSSuppression struct {
 	EndedReason *SMSSuppressionEndReason `json:"ended_reason,omitempty"`
 	Id          SMSSuppressionID         `json:"id"`
 
-	// LastAssertedAt When we last recorded the subscriber opting out of this sender. Later than `created_at` when they texted a stop keyword again while already suppressed, which adds no new record but does earn another confirmation reply.
+	// LastAssertedAt When we last recorded the subscriber opting out of this sender. Later than `created_at` when they texted a stop keyword again, or your workspace added it again, while already suppressed. A repeat adds no new record; a repeated stop keyword also earns another confirmation reply.
 	LastAssertedAt *time.Time            `json:"last_asserted_at,omitempty"`
 	Origin         *SMSSuppressionOrigin `json:"origin,omitempty"`
 
@@ -31705,7 +31705,7 @@ type VoiceLeg struct {
 	// CallId Call identifier shared across all legs of a multi-party or transferred call. Use this to correlate related leg records. `null` when call correlation is not available for the leg.
 	CallId *VoiceSessionID `json:"call_id,omitempty"`
 
-	// Cost What was charged for a leg, split into the components that make it up.
+	// Cost The rated Voice charges for a leg, split into their components. For Flash calling (coming soon), this covers only network usage and excludes the verification attempt fee. A Flash leg that rang without an answer has a total of zero and a null `outbound_amount` because there was no connected usage to charge. The Verify attempt cost includes both charges.
 	Cost      *VoiceLegCost       `json:"cost,omitempty"`
 	Direction *VoiceCallDirection `json:"direction,omitempty"`
 
@@ -31782,9 +31782,9 @@ type VoiceLegAnsweredByUser struct {
 	UserId         UserID                 `json:"user_id"`
 }
 
-// VoiceLegCost What was charged for a leg, split into the components that make it up.
+// VoiceLegCost The rated Voice charges for a leg, split into their components. For Flash calling (coming soon), this covers only network usage and excludes the verification attempt fee. A Flash leg that rang without an answer has a total of zero and a null `outbound_amount` because there was no connected usage to charge. The Verify attempt cost includes both charges.
 type VoiceLegCost struct {
-	// Amount Total charged, as a decimal string: the sum of the components below. Net of tax, which applies to your wallet balance rather than to an individual charge.
+	// Amount Sum of the Voice components below, as a decimal string. Net of tax, which applies to your wallet balance rather than to an individual charge. For Flash calling (coming soon), this excludes the verification attempt fee and can be `0.000000` for a rated, unanswered leg.
 	Amount *string `json:"amount,omitempty"`
 
 	// CallHandlingAmount What we charged for handling the call itself, as a decimal string. A call is charged for handling once, however many legs it has, so only one leg's record carries it. `null` until this component is priced.

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.139.2
+
+- The SMS suppression model's `last_asserted_at` now says that it also moves when your workspace adds an already-suppressed subscriber again.
+
 ## 0.139.1
 
 - The SMS suppression model now says that a subscriber who opts out, opts back in and opts out again has two suppression records on file, not three.
