@@ -30507,7 +30507,7 @@ type SMSStatusStatsPoint struct {
 // SMSStatusStatsPointStatus The lifecycle status this row counts. These are successive lifecycle stages. The `accepted` status was admitted for sending, `sent` was handed to the carrier, and `delivered` was confirmed by the carrier. The `undelivered`, `failed`, and `expired` statuses are failure outcomes. The `rejected` status was refused before a send attempt. Counted outcomes are a subset of the full message status vocabulary. The pre-send `scheduled`, cancellation `canceled`, and inbound-only `received` statuses are not send outcomes, so they never appear here.
 type SMSStatusStatsPointStatus string
 
-// SMSSuppression One period during which a sender's messages to a subscriber are stopped: when it started, what started it, and what ended it. A subscriber who opts out, opts back in, and opts out again has three of these on record rather than one current state, and each keeps its own dates once it ends. The list returns the periods in force; fetch one by ID to read an ended one.
+// SMSSuppression One period during which a sender's messages to a subscriber are stopped: when it started, what started it, and what ended it. A subscriber who opts out, opts back in, and opts out again has two of these on record rather than one current state, and each keeps its own dates once it ends. The list returns the periods in force; fetch one by ID to read an ended one.
 type SMSSuppression struct {
 	AppliesTo *SMSSuppressionCoverage `json:"applies_to,omitempty"`
 

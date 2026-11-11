@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.139.1
+
+- The SMS suppression model now says that a subscriber who opts out, opts back in and opts out again has two suppression records on file, not three.
+
 ## 0.139.0
 
 - Compliance `subject_kind` gains `number_emergency` for emergency calling on a dedicated number.
