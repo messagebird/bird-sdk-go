@@ -37,6 +37,9 @@ const (
 	ErrorTypeInternal           ErrorType = "internal_error"
 	ErrorTypeNotImplemented     ErrorType = "not_implemented_error"
 	ErrorTypeServiceUnavailable ErrorType = "service_unavailable_error"
+	ErrorTypeGone               ErrorType = "gone_error"
+	ErrorTypeTooEarly           ErrorType = "too_early_error"
+	ErrorTypeClientClosed       ErrorType = "client_closed_request_error"
 )
 
 // APIError is the error the server returned. It is the base for every API
@@ -254,12 +257,18 @@ func inferType(status int) ErrorType {
 		return ErrorTypePrecondition
 	case http.StatusRequestEntityTooLarge:
 		return ErrorTypePayloadTooLarge
+	case http.StatusGone:
+		return ErrorTypeGone
 	case http.StatusMisdirectedRequest:
 		return ErrorTypeMisdirected
 	case http.StatusUnprocessableEntity:
 		return ErrorTypeValidation
+	case http.StatusTooEarly:
+		return ErrorTypeTooEarly
 	case http.StatusTooManyRequests:
 		return ErrorTypeRateLimit
+	case 499:
+		return ErrorTypeClientClosed
 	case http.StatusNotImplemented:
 		return ErrorTypeNotImplemented
 	case http.StatusServiceUnavailable:

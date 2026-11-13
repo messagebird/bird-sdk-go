@@ -225,8 +225,11 @@ output-options:
     - getWhatsAppInboundStatsHourly
     - getWhatsAppInboundStatsByPhoneNumber
     - createVoiceCall
+    - listVoiceCallRecordings
+    - getVoiceCallTranscript
     - listVoiceLegs
     - getVoiceLeg
+    - getVoiceLegRecordingAudio
     - createVoiceSessionCredential
     - listVoiceTrunks
     - getVoiceTrunk

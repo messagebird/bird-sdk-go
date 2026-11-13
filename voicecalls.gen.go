@@ -38,7 +38,7 @@ func (p VoiceCallsCreateParams) toWire() oapi.CreateVoiceCallRequest {
 	return body
 }
 
-// Create Proposes a real outbound call for browser confirmation. Requires voice_management:write and voice:write; normal calling charges apply. Set `sequence.id` to run a saved sequence's active publication, or `sequence.definition` to run a complete definition once without saving it; never both. An inline definition must pass publication checks; an invalid one is refused with a 422 naming its first problem under `/sequence/definition` only when the person runs the call. An inline run executes at most 16 commands. Supply a stable idempotency_key and reuse it with identical input for retries. The confirmation expires after 90 minutes. After the person places the call, a 202 response reserves call, leg and run IDs; it does not prove connection. Use `voice.legs.get` with `initial_leg_id` to inspect the leg outcome, and inspect the sequence run in the dashboard. Never use a new key merely because an earlier result is missing.
+// Create Places a real outbound call that runs a voice sequence after the recipient answers. Requires voice_management:write and voice:write; normal calling charges apply. Set `sequence.id` to run a saved sequence's active publication, or `sequence.definition` to run a complete definition once without saving it; never both. An inline definition must pass publication checks; an invalid one is refused with a 422 naming its first problem under `/sequence/definition`. An inline run executes at most 16 commands. Supply a stable idempotency_key and reuse it with identical input for retries. The same key replays the original acceptance for three hours, and a new key places another charged call. A 202 response reserves call, leg and run IDs; it does not prove connection. Use `voice.legs.get` with `initial_leg_id` to inspect the leg outcome, and inspect the sequence run in the dashboard. Never use a new key merely because an earlier result is missing.
 func (s *VoiceCallsService) Create(ctx context.Context, params VoiceCallsCreateParams, opts ...option.RequestOption) (*VoiceCall, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.CreateVoiceCallParams{}
@@ -51,6 +51,21 @@ func (s *VoiceCallsService) Create(ctx context.Context, params VoiceCallsCreateP
 		return nil, err
 	}
 	var out VoiceCall
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// Transcript Read a whole call as one script: `cues` in spoken order, each with `party` (an index into `parties`, `null` when unknown), `start_at`, `end_at` and `text`. Cues of an untimed transcript have null times and sit at their stream's start. `complete: false` means a stream's every transcription failed or the read was cut. An unknown call returns no cues, not 404.
+func (s *VoiceCallsService) Transcript(ctx context.Context, callId string, opts ...option.RequestOption) (*VoiceCallTranscript, error) {
+	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
+		return s.client.oapi.GetVoiceCallTranscript(ctx, oapi.VoiceSessionID(callId), &oapi.GetVoiceCallTranscriptParams{}, cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out VoiceCallTranscript
 	if err := decodeBody(body, &out); err != nil {
 		return nil, err
 	}

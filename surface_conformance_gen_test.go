@@ -225,8 +225,11 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Whatsapp.Stats.Inbound.Hourly
 	_ = c.Whatsapp.Stats.Inbound.ByPhoneNumber
 	_ = c.Voice.Calls.Create
+	_ = c.Voice.Calls.Recordings.List
+	_ = c.Voice.Calls.Transcript
 	_ = c.Voice.Legs.List
 	_ = c.Voice.Legs.Get
+	_ = c.Voice.Legs.Recordings.Audio
 	_ = c.Voice.SessionCredentials.Create
 	_ = c.Voice.Trunks.List
 	_ = c.Voice.Trunks.Get

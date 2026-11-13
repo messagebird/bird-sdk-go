@@ -8367,6 +8367,24 @@ func (e VoiceLegAnsweredByType) Valid() bool {
 	}
 }
 
+// Defines values for VoiceLegChannel.
+const (
+	Rx VoiceLegChannel = "rx"
+	Tx VoiceLegChannel = "tx"
+)
+
+// Valid indicates whether the value is a known member of the VoiceLegChannel enum.
+func (e VoiceLegChannel) Valid() bool {
+	switch e {
+	case Rx:
+		return true
+	case Tx:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for VoiceLegInboundRouteType.
 const (
 	VoiceLegInboundRouteTypeForward   VoiceLegInboundRouteType = "forward"
@@ -8409,6 +8427,30 @@ func (e VoiceLegMediaEncryption) Valid() bool {
 	case VoiceLegMediaEncryptionNone:
 		return true
 	case VoiceLegMediaEncryptionSdes:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for VoiceLegMediaState.
+const (
+	VoiceLegMediaStateAvailable VoiceLegMediaState = "available"
+	VoiceLegMediaStateFailed    VoiceLegMediaState = "failed"
+	VoiceLegMediaStateOpen      VoiceLegMediaState = "open"
+	VoiceLegMediaStatePurged    VoiceLegMediaState = "purged"
+)
+
+// Valid indicates whether the value is a known member of the VoiceLegMediaState enum.
+func (e VoiceLegMediaState) Valid() bool {
+	switch e {
+	case VoiceLegMediaStateAvailable:
+		return true
+	case VoiceLegMediaStateFailed:
+		return true
+	case VoiceLegMediaStateOpen:
+		return true
+	case VoiceLegMediaStatePurged:
 		return true
 	default:
 		return false
@@ -8484,6 +8526,45 @@ func (e VoiceLegRejectionReason) Valid() bool {
 	}
 }
 
+// Defines values for VoiceLegTranscriptSource.
+const (
+	VoiceLegTranscriptSourceAligned VoiceLegTranscriptSource = "aligned"
+	VoiceLegTranscriptSourceLive    VoiceLegTranscriptSource = "live"
+	VoiceLegTranscriptSourceWhole   VoiceLegTranscriptSource = "whole"
+)
+
+// Valid indicates whether the value is a known member of the VoiceLegTranscriptSource enum.
+func (e VoiceLegTranscriptSource) Valid() bool {
+	switch e {
+	case VoiceLegTranscriptSourceAligned:
+		return true
+	case VoiceLegTranscriptSourceLive:
+		return true
+	case VoiceLegTranscriptSourceWhole:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for VoiceLegTranscriptState.
+const (
+	VoiceLegTranscriptStateAvailable VoiceLegTranscriptState = "available"
+	VoiceLegTranscriptStateFailed    VoiceLegTranscriptState = "failed"
+)
+
+// Valid indicates whether the value is a known member of the VoiceLegTranscriptState enum.
+func (e VoiceLegTranscriptState) Valid() bool {
+	switch e {
+	case VoiceLegTranscriptStateAvailable:
+		return true
+	case VoiceLegTranscriptStateFailed:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for VoiceNumberProviderType.
 const (
 	Allocation     VoiceNumberProviderType = "allocation"
@@ -8541,6 +8622,24 @@ func (e VoicePartyEndpointType) Valid() bool {
 	case VoicePartyEndpointTypeVoicemail:
 		return true
 	case VoicePartyEndpointTypeWebhook:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for VoiceRecordingDisposition.
+const (
+	VoiceRecordingDispositionAttachment VoiceRecordingDisposition = "attachment"
+	VoiceRecordingDispositionInline     VoiceRecordingDisposition = "inline"
+)
+
+// Valid indicates whether the value is a known member of the VoiceRecordingDisposition enum.
+func (e VoiceRecordingDisposition) Valid() bool {
+	switch e {
+	case VoiceRecordingDispositionAttachment:
+		return true
+	case VoiceRecordingDispositionInline:
 		return true
 	default:
 		return false
@@ -10355,22 +10454,22 @@ func (e WhatsAppReactedEventType) Valid() bool {
 
 // Defines values for WhatsAppReactionEventStatus.
 const (
-	WhatsAppReactionEventStatusFailed   WhatsAppReactionEventStatus = "failed"
-	WhatsAppReactionEventStatusReceived WhatsAppReactionEventStatus = "received"
-	WhatsAppReactionEventStatusRejected WhatsAppReactionEventStatus = "rejected"
-	WhatsAppReactionEventStatusSent     WhatsAppReactionEventStatus = "sent"
+	Failed   WhatsAppReactionEventStatus = "failed"
+	Received WhatsAppReactionEventStatus = "received"
+	Rejected WhatsAppReactionEventStatus = "rejected"
+	Sent     WhatsAppReactionEventStatus = "sent"
 )
 
 // Valid indicates whether the value is a known member of the WhatsAppReactionEventStatus enum.
 func (e WhatsAppReactionEventStatus) Valid() bool {
 	switch e {
-	case WhatsAppReactionEventStatusFailed:
+	case Failed:
 		return true
-	case WhatsAppReactionEventStatusReceived:
+	case Received:
 		return true
-	case WhatsAppReactionEventStatusRejected:
+	case Rejected:
 		return true
-	case WhatsAppReactionEventStatusSent:
+	case Sent:
 		return true
 	default:
 		return false
@@ -11033,16 +11132,16 @@ func (e WorkspaceRateLimitLimitSource) Valid() bool {
 
 // Defines values for WorkspaceRateLimitUsageStatus.
 const (
-	WorkspaceRateLimitUsageStatusAvailable   WorkspaceRateLimitUsageStatus = "available"
-	WorkspaceRateLimitUsageStatusUnavailable WorkspaceRateLimitUsageStatus = "unavailable"
+	Available   WorkspaceRateLimitUsageStatus = "available"
+	Unavailable WorkspaceRateLimitUsageStatus = "unavailable"
 )
 
 // Valid indicates whether the value is a known member of the WorkspaceRateLimitUsageStatus enum.
 func (e WorkspaceRateLimitUsageStatus) Valid() bool {
 	switch e {
-	case WorkspaceRateLimitUsageStatusAvailable:
+	case Available:
 		return true
-	case WorkspaceRateLimitUsageStatusUnavailable:
+	case Unavailable:
 		return true
 	default:
 		return false
@@ -15058,7 +15157,7 @@ type AvailableNumber struct {
 	//   when it is known.
 	OwnershipAddressScope *string `json:"ownership_address_scope,omitempty"`
 
-	// OwnershipRegistrationRequired Whether ownership paperwork must be approved before outbound SMS and voice use. Customer availability accounts for organization exemptions; admin supplier searches report the general country and number-type requirement. You can acquire the number, including Bird stock, and submit paperwork afterward. Any `pricing.setup_price` is charged during purchase, plus any tax. The recurring charge, net of tax `pricing.recurring_price` multiplied by `pricing.intervals_per_charge`, is taken with any tax at assignment and at each renewal, even while approval is pending; assignment may follow completion of a pending supplier order.
+	// OwnershipRegistrationRequired Whether ownership paperwork must be approved before outbound SMS and voice use. Customer availability accounts for organization exemptions; admin supplier searches report the general country and number-type requirement. You can acquire the number, including Bird stock, and submit paperwork afterward. Any `pricing.setup_price` is charged at assignment for Bird stock and usually on delivery for a carrier number, plus any tax. The recurring charge, net of tax `pricing.recurring_price` multiplied by `pricing.intervals_per_charge`, is taken with any tax at assignment and at each renewal, even while approval is pending; assignment may follow completion of a pending supplier order.
 	OwnershipRegistrationRequired bool `json:"ownership_registration_required"`
 
 	// Pricing What your organization pays for this number. Omitted on admin supplier searches, which have no organization to price for.
@@ -17300,7 +17399,7 @@ type EmailBroadcastResolvedParameters map[string]interface{}
 
 // EmailBroadcastResume defines model for EmailBroadcastResume.
 type EmailBroadcastResume struct {
-	// Confirm Acknowledgment that the message reaches the remaining recipients later than intended. It is required to resume a broadcast that started sending at least 24 hours ago. Before setting it, read the broadcast's `started_at` and have a reviewer with `email_management:read` check its pinned template version using `template.id` and `template.version_id`. Workspace versions retain the original content. Built-in template lookups (`scope: system`) show current catalogue content. Broadcasts with frozen content keep it, but older broadcasts can read the catalogue again when resumed. Neither a current lookup nor an earlier message alone proves what remaining recipients will receive. Leave the broadcast paused unless you can verify that content. Ask an authorized teammate if you lack that permission. It does not skip the funds or concurrent-broadcast checks.
+	// Confirm Acknowledgment that the message reaches the remaining recipients later than intended. It is required to resume a broadcast that started sending at least 24 hours ago. Before setting it, read the broadcast's `started_at` and have a reviewer with `email_management:read` read its template by `template.id` to check `scope`, then, for a workspace template or one the template read reports deleted (`404`), its pinned version using `template.id` and `template.version_id`. Workspace versions retain the original content. A built-in template (`scope: system`) shows current catalogue content, and only the template read returns `scope`. Broadcasts with frozen content keep it, but older broadcasts can read the catalogue again when resumed. Neither a current lookup nor an earlier message alone proves what remaining recipients will receive. Leave the broadcast paused unless you can verify that content. Ask an authorized teammate if you lack that permission. It does not skip the funds or concurrent-broadcast checks.
 	Confirm *bool `json:"confirm,omitempty"`
 }
 
@@ -28247,15 +28346,16 @@ type NumbersOrderList struct {
 //
 //   - `charging`: Securing funds.
 //   - `ordering`: Placing the order with the carrier.
-//   - `pending`: The carrier accepted the order and is provisioning the number. A carrier
-//     number's first recurring charge is taken on delivery: keep funds available, because a
-//     delivered number that still cannot be charged is released no sooner than 72 hours after the order
-//     was placed: its order fails and its setup fee is refunded.
+//   - `pending`: The carrier accepted the order and is provisioning the number. A carrier number
+//     is usually charged on delivery: keep funds available, because a delivered number that still cannot
+//     be charged is released no sooner than 72 hours after the order was placed, and its order fails.
 //   - `completed`: Your workspace owns the number.
 //   - `failed`: The purchase did not complete.
 //
-// Apart from that release, a setup fee already charged is non-refundable. Contact
-// support about a failed order.
+// A number from a carrier is usually charged when the carrier delivers it. A setup fee
+// already charged, for an inventory number or a carrier number charged upfront, is not
+// refunded when its purchase fails, unless the deadline releases the delivered number.
+// Contact support about a failed order.
 type NumbersOrderStatus string
 
 // OrganizationID defines model for OrganizationID.
@@ -31426,6 +31526,12 @@ type VoiceCallDirection string
 // VoiceCallID defines model for VoiceCallID.
 type VoiceCallID = string
 
+// VoiceCallMediaID defines model for VoiceCallMediaID.
+type VoiceCallMediaID = string
+
+// VoiceCallRecordingID defines model for VoiceCallRecordingID.
+type VoiceCallRecordingID = string
+
 // VoiceCallRoute What happens to a call arriving for this number, as it is configured now. Its `type` selects the shape, and each answer carries its own fields. Setting a route is a separate shape, and it does not offer every variant reported here.
 type VoiceCallRoute struct {
 	union json.RawMessage
@@ -31576,6 +31682,46 @@ type VoiceCallSequence struct {
 // for a caller who hung up before it was picked up. Neither is emitted yet and
 // both outcomes are reported as `failed` today.
 type VoiceCallStatus string
+
+// VoiceCallTranscript defines model for VoiceCallTranscript.
+type VoiceCallTranscript struct {
+	CallId VoiceSessionID `json:"call_id"`
+
+	// Complete `false` when a stream's every transcription failed, or the read was cut
+	// at its limit. `true` does not mean every stream has cues: a stream where
+	// nothing was heard, one never transcribed, or one whose transcript has not
+	// arrived yet contributes none and leaves this `true`.
+	Complete bool `json:"complete"`
+
+	// Cues Every cue of the call in spoken order. A cue without times sits at the start of its stream.
+	Cues []VoiceCallTranscriptCue `json:"cues"`
+
+	// EvaluatedAt The instant retention was decided at. A transcript can expire after it.
+	EvaluatedAt time.Time `json:"evaluated_at"`
+
+	// Parties Each distinct stored party heard in `cues`, once. A stream with no recorded party adds nothing here; its cues carry a `null` party.
+	Parties []VoiceParty `json:"parties"`
+}
+
+// VoiceCallTranscriptCue defines model for VoiceCallTranscriptCue.
+type VoiceCallTranscriptCue struct {
+	// EndAt When this cue ended. `null` on the same terms as `start_at`.
+	EndAt *time.Time `json:"end_at"`
+
+	// Party Index into the transcript's `parties` of the party who spoke this cue,
+	// the party its stream was captured from. `null` on a stream with no recorded
+	// party.
+	Party *int `json:"party"`
+
+	// StartAt When this cue began, measured on its stream. `null` on a transcript that timed nothing, whose cues are placed at their stream's start.
+	StartAt *time.Time `json:"start_at"`
+
+	// Text What was transcribed for this cue.
+	Text string `json:"text"`
+}
+
+// VoiceCallTranscriptID defines model for VoiceCallTranscriptID.
+type VoiceCallTranscriptID = string
 
 // VoiceDailySpendLimit defines model for VoiceDailySpendLimit.
 type VoiceDailySpendLimit struct {
@@ -31797,6 +31943,9 @@ type VoiceLegAnsweredByUser struct {
 	UserId         UserID                 `json:"user_id"`
 }
 
+// VoiceLegChannel Which direction of the leg the stream carries: `rx` for what the platform received, `tx` for what it sent.
+type VoiceLegChannel string
+
 // VoiceLegCost The rated Voice charges for a leg, split into their components. For Flash calling (coming soon), this covers only network usage and excludes the verification attempt fee. A Flash leg that rang without an answer has a total of zero and a null `outbound_amount` because there was no connected usage to charge. The Verify attempt cost includes both charges.
 type VoiceLegCost struct {
 	// Amount Sum of the Voice components below, as a decimal string. Net of tax, which applies to your wallet balance rather than to an individual charge. For Flash calling (coming soon), this excludes the verification attempt fee and can be `0.000000` for a rated, unanswered leg.
@@ -31930,6 +32079,94 @@ type VoiceLegMediaPath struct {
 	Encryption VoiceLegMediaEncryption `json:"encryption"`
 }
 
+// VoiceLegMediaState What became of this stored audio.
+//
+// `open` while capture is still running. `available` once the bytes are
+// stored. `failed` when capture did not produce any. `purged` is reserved for
+// future use. Recordings are removed from the response after their retention
+// period.
+type VoiceLegMediaState string
+
+// VoiceLegRecording defines model for VoiceLegRecording.
+type VoiceLegRecording struct {
+	// CallId `null` on a recording captured before calls existed.
+	CallId *VoiceSessionID `json:"call_id,omitempty"`
+
+	// Channel It does not say whose voice it is.
+	Channel VoiceLegChannel `json:"channel"`
+
+	// EndedAt When capture ended, or null while capture is open or its end is unknown.
+	EndedAt *time.Time           `json:"ended_at"`
+	Id      VoiceCallRecordingID `json:"id"`
+	LegId   VoiceCallID          `json:"leg_id"`
+	MediaId VoiceCallMediaID     `json:"media_id"`
+
+	// MediaStartedAt When the referenced stream started, which a view captured from the far leg does not share with its own `started_at`.
+	MediaStartedAt time.Time `json:"media_started_at"`
+
+	// Number The number associated with this recording view, when one was recorded. It can be an outbound destination. Omitted for numberless calls.
+	Number    *string   `json:"number,omitempty"`
+	StartedAt time.Time `json:"started_at"`
+}
+
+// VoiceLegRecordingMedia defines model for VoiceLegRecordingMedia.
+type VoiceLegRecordingMedia struct {
+	// AudioMs Length of the payload itself. This runs shorter than `ended_at - started_at` by the silence before the first packet, so use it for anything about the sound and the window for anything about the leg.
+	AudioMs int `json:"audio_ms"`
+
+	// CallId `null` on a stream captured before calls existed, which only its leg addresses.
+	CallId *VoiceSessionID `json:"call_id,omitempty"`
+
+	// Codec Codec of the stored payload.
+	Codec string `json:"codec"`
+
+	// EndedAt When capture ended, or null while capture is open or its end is unknown.
+	EndedAt *time.Time       `json:"ended_at"`
+	Id      VoiceCallMediaID `json:"id"`
+	LegId   VoiceCallID      `json:"leg_id"`
+
+	// OffsetMs Length of the announcement that played before capture started. Zero when nothing was announced. It is not a position on a call clock.
+	OffsetMs int `json:"offset_ms"`
+
+	// SourceParty The party this audio was captured from, which is what says whose voice it
+	// carries. `channel` only says which direction of the leg the stream came
+	// from. A recording view's `number` identifies a number associated with
+	// that view, which can be an outbound destination.
+	//
+	// `null` on a stream stored before the platform recorded a party for it.
+	SourceParty *VoiceParty `json:"source_party,omitempty"`
+
+	// StartedAt When capture started, which is after any announcement rather than at the answer.
+	StartedAt time.Time          `json:"started_at"`
+	State     VoiceLegMediaState `json:"state"`
+}
+
+// VoiceLegRecordings defines model for VoiceLegRecordings.
+type VoiceLegRecordings struct {
+	// EvaluatedAt The instant each collection's retention was decided at. Nothing here stays true because you are still holding the response. A recording can expire after it.
+	EvaluatedAt time.Time `json:"evaluated_at"`
+
+	// Media The stored audio this read covers, each stream once.
+	Media []VoiceLegRecordingMedia `json:"media"`
+
+	// Recordings Each leg's view of that audio.
+	Recordings []VoiceLegRecording `json:"recordings"`
+
+	// Transcripts Every transcription attempt over that audio, including failed ones.
+	Transcripts []VoiceLegTranscript `json:"transcripts"`
+
+	// Truncated Whether a collection above was cut at this read's per-collection limit of
+	// 500. When `true`, there is more than is shown here and this response is not
+	// the whole set.
+	//
+	// `false` means no collection hit that limit, and a collection that could
+	// not be read in full fails the request rather than returning a short
+	// answer. What `false` does not establish is that every recording made has
+	// arrived: delivery into this store is asynchronous, so a recording made
+	// moments ago can be absent from a complete read.
+	Truncated bool `json:"truncated"`
+}
+
 // VoiceLegRejectionReason Why we rejected the leg. Use `rejection_reason` to identify the cause;
 // `sip_response_code` alone cannot distinguish these reasons. Treat an
 // unrecognized value as a reason added later.
@@ -32000,6 +32237,59 @@ type VoiceLegMediaPath struct {
 //   - `emergency_carrier_unavailable`: No carrier we use accepts emergency calls
 //     from the trunk's emergency number.
 type VoiceLegRejectionReason string
+
+// VoiceLegTranscript defines model for VoiceLegTranscript.
+type VoiceLegTranscript struct {
+	// CallId `null` on a transcript of a stream captured before calls existed.
+	CallId *VoiceSessionID `json:"call_id,omitempty"`
+
+	// Channel The direction of the transcribed stream.
+	Channel   VoiceLegChannel `json:"channel"`
+	CreatedAt time.Time       `json:"created_at"`
+
+	// Cues The transcript, in order. Concatenating cues across streams reads as prose nobody spoke, and a reader matching over it can match the wrong party's words.
+	Cues    []VoiceLegTranscriptCue `json:"cues"`
+	Id      VoiceCallTranscriptID   `json:"id"`
+	LegId   VoiceCallID             `json:"leg_id"`
+	MediaId VoiceCallMediaID        `json:"media_id"`
+
+	// MediaStartedAt When that stream started. A transcript is retained with the stream it describes rather than on its own transcription lag.
+	MediaStartedAt time.Time `json:"media_started_at"`
+
+	// Model The model that produced it.
+	Model  *string                  `json:"model,omitempty"`
+	Source VoiceLegTranscriptSource `json:"source"`
+
+	// SourceParty The party this audio was captured from, which is what says whose voice it
+	// carries. `channel` only says which direction of the leg the stream came
+	// from. A recording view's `number` identifies a number associated with
+	// that view, which can be an outbound destination.
+	//
+	// `null` on a stream stored before the platform recorded a party for it.
+	SourceParty *VoiceParty             `json:"source_party,omitempty"`
+	State       VoiceLegTranscriptState `json:"state"`
+}
+
+// VoiceLegTranscriptCue defines model for VoiceLegTranscriptCue.
+type VoiceLegTranscriptCue struct {
+	// EndMs Offset of the end of this cue from the start of its stream. `null` on the same terms as `start_ms`.
+	EndMs *int `json:"end_ms,omitempty"`
+
+	// Seq Position of this cue in the transcript.
+	Seq int `json:"seq"`
+
+	// StartMs Offset of this cue from the start of its stream, in milliseconds. Set on `aligned` cues; `null` when nothing measured it, because a zero would be a claim about timing that was never made.
+	StartMs *int `json:"start_ms,omitempty"`
+
+	// Text What was transcribed for this cue. Empty on the single cue of a stream where nothing was heard.
+	Text string `json:"text"`
+}
+
+// VoiceLegTranscriptSource What the times in `cues` are worth: `whole` for a pass that times nothing, `aligned` for offline forced alignment, `live` for a streaming producer.
+type VoiceLegTranscriptSource string
+
+// VoiceLegTranscriptState Whether the attempt produced a transcript. `failed` is an outcome, not evidence that a later attempt cannot succeed.
+type VoiceLegTranscriptState string
 
 // VoiceMediaQuality defines model for VoiceMediaQuality.
 type VoiceMediaQuality struct {
@@ -32173,6 +32463,9 @@ type VoicePartySIPEndpoint struct {
 	// Contact The address the user agent registered, as a `sip:` or `sips:` URI. It is where the endpoint asked to be reached, which is not always the address that was dialled.
 	Contact string `json:"contact"`
 }
+
+// VoiceRecordingDisposition Whether a signed audio URL plays the recording or saves it. The signature carries this, so it cannot be changed after the URL is minted.
+type VoiceRecordingDisposition string
 
 // VoiceRegistrationID defines model for VoiceRegistrationID.
 type VoiceRegistrationID = string
@@ -46213,6 +46506,24 @@ type CreateVoiceCallParams struct {
 	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
 }
 
+// ListVoiceCallRecordingsParams defines parameters for ListVoiceCallRecordings.
+type ListVoiceCallRecordingsParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetVoiceCallTranscriptParams defines parameters for GetVoiceCallTranscript.
+type GetVoiceCallTranscriptParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
 // ListVoiceDestinationsParams defines parameters for ListVoiceDestinations.
 type ListVoiceDestinationsParams struct {
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
@@ -46304,6 +46615,18 @@ type ListVoiceLegsParams struct {
 
 // GetVoiceLegParams defines parameters for GetVoiceLeg.
 type GetVoiceLegParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetVoiceLegRecordingAudioParams defines parameters for GetVoiceLegRecordingAudio.
+type GetVoiceLegRecordingAudioParams struct {
+	// Disposition Whether the signed URL plays the audio or saves it. `inline`, the default, streams it in a browser. `attachment` asks the browser to save it under a filename naming the recording and when it started.
+	Disposition *VoiceRecordingDisposition `form:"disposition,omitempty" json:"disposition,omitempty"`
+
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
@@ -58448,6 +58771,12 @@ type ClientInterface interface {
 
 	CreateVoiceCall(ctx context.Context, params *CreateVoiceCallParams, body CreateVoiceCallJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// ListVoiceCallRecordings request
+	ListVoiceCallRecordings(ctx context.Context, callId VoiceSessionID, params *ListVoiceCallRecordingsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetVoiceCallTranscript request
+	GetVoiceCallTranscript(ctx context.Context, callId VoiceSessionID, params *GetVoiceCallTranscriptParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// ListVoiceDestinations request
 	ListVoiceDestinations(ctx context.Context, params *ListVoiceDestinationsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -58461,6 +58790,9 @@ type ClientInterface interface {
 
 	// GetVoiceLeg request
 	GetVoiceLeg(ctx context.Context, legId VoiceCallID, params *GetVoiceLegParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetVoiceLegRecordingAudio request
+	GetVoiceLegRecordingAudio(ctx context.Context, legId VoiceCallID, recordingId VoiceCallRecordingID, params *GetVoiceLegRecordingAudioParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListVoiceNumbers request
 	ListVoiceNumbers(ctx context.Context, params *ListVoiceNumbersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -64029,6 +64361,30 @@ func (c *Client) CreateVoiceCall(ctx context.Context, params *CreateVoiceCallPar
 	return c.Client.Do(req)
 }
 
+func (c *Client) ListVoiceCallRecordings(ctx context.Context, callId VoiceSessionID, params *ListVoiceCallRecordingsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListVoiceCallRecordingsRequest(c.Server, callId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetVoiceCallTranscript(ctx context.Context, callId VoiceSessionID, params *GetVoiceCallTranscriptParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetVoiceCallTranscriptRequest(c.Server, callId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 func (c *Client) ListVoiceDestinations(ctx context.Context, params *ListVoiceDestinationsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListVoiceDestinationsRequest(c.Server, params)
 	if err != nil {
@@ -64079,6 +64435,18 @@ func (c *Client) ListVoiceLegs(ctx context.Context, params *ListVoiceLegsParams,
 
 func (c *Client) GetVoiceLeg(ctx context.Context, legId VoiceCallID, params *GetVoiceLegParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetVoiceLegRequest(c.Server, legId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetVoiceLegRecordingAudio(ctx context.Context, legId VoiceCallID, recordingId VoiceCallRecordingID, params *GetVoiceLegRecordingAudioParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetVoiceLegRecordingAudioRequest(c.Server, legId, recordingId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -99364,6 +99732,126 @@ func NewCreateVoiceCallRequestWithBody(server string, params *CreateVoiceCallPar
 	return req, nil
 }
 
+// NewListVoiceCallRecordingsRequest generates requests for ListVoiceCallRecordings
+func NewListVoiceCallRecordingsRequest(server string, callId VoiceSessionID, params *ListVoiceCallRecordingsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "call_id", callId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/calls/%s/recordings", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetVoiceCallTranscriptRequest generates requests for GetVoiceCallTranscript
+func NewGetVoiceCallTranscriptRequest(server string, callId VoiceSessionID, params *GetVoiceCallTranscriptParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "call_id", callId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/calls/%s/transcript", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewListVoiceDestinationsRequest generates requests for ListVoiceDestinations
 func NewListVoiceDestinationsRequest(server string, params *ListVoiceDestinationsParams) (*http.Request, error) {
 	var err error
@@ -99742,6 +100230,100 @@ func NewGetVoiceLegRequest(server string, legId VoiceCallID, params *GetVoiceLeg
 	queryURL, err := serverURL.Parse(operationPath)
 	if err != nil {
 		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetVoiceLegRecordingAudioRequest generates requests for GetVoiceLegRecordingAudio
+func NewGetVoiceLegRecordingAudioRequest(server string, legId VoiceCallID, recordingId VoiceCallRecordingID, params *GetVoiceLegRecordingAudioParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "leg_id", legId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "recording_id", recordingId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/legs/%s/recordings/%s/audio", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Disposition != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "disposition", *params.Disposition, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
 	}
 
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
@@ -111647,6 +112229,12 @@ type ClientWithResponsesInterface interface {
 
 	CreateVoiceCallWithResponse(ctx context.Context, params *CreateVoiceCallParams, body CreateVoiceCallJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVoiceCallResponse, error)
 
+	// ListVoiceCallRecordingsWithResponse request
+	ListVoiceCallRecordingsWithResponse(ctx context.Context, callId VoiceSessionID, params *ListVoiceCallRecordingsParams, reqEditors ...RequestEditorFn) (*ListVoiceCallRecordingsResponse, error)
+
+	// GetVoiceCallTranscriptWithResponse request
+	GetVoiceCallTranscriptWithResponse(ctx context.Context, callId VoiceSessionID, params *GetVoiceCallTranscriptParams, reqEditors ...RequestEditorFn) (*GetVoiceCallTranscriptResponse, error)
+
 	// ListVoiceDestinationsWithResponse request
 	ListVoiceDestinationsWithResponse(ctx context.Context, params *ListVoiceDestinationsParams, reqEditors ...RequestEditorFn) (*ListVoiceDestinationsResponse, error)
 
@@ -111660,6 +112248,9 @@ type ClientWithResponsesInterface interface {
 
 	// GetVoiceLegWithResponse request
 	GetVoiceLegWithResponse(ctx context.Context, legId VoiceCallID, params *GetVoiceLegParams, reqEditors ...RequestEditorFn) (*GetVoiceLegResponse, error)
+
+	// GetVoiceLegRecordingAudioWithResponse request
+	GetVoiceLegRecordingAudioWithResponse(ctx context.Context, legId VoiceCallID, recordingId VoiceCallRecordingID, params *GetVoiceLegRecordingAudioParams, reqEditors ...RequestEditorFn) (*GetVoiceLegRecordingAudioResponse, error)
 
 	// ListVoiceNumbersWithResponse request
 	ListVoiceNumbersWithResponse(ctx context.Context, params *ListVoiceNumbersParams, reqEditors ...RequestEditorFn) (*ListVoiceNumbersResponse, error)
@@ -125124,6 +125715,80 @@ func (r CreateVoiceCallResponse) ContentType() string {
 	return ""
 }
 
+type ListVoiceCallRecordingsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *VoiceLegRecordings
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListVoiceCallRecordingsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListVoiceCallRecordingsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListVoiceCallRecordingsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetVoiceCallTranscriptResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *VoiceCallTranscript
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetVoiceCallTranscriptResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetVoiceCallTranscriptResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetVoiceCallTranscriptResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type ListVoiceDestinationsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -125268,6 +125933,44 @@ func (r GetVoiceLegResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r GetVoiceLegResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetVoiceLegRecordingAudioResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON425      *TooEarly
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON501      *NotImplemented
+}
+
+// Status returns HTTPResponse.Status
+func (r GetVoiceLegRecordingAudioResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetVoiceLegRecordingAudioResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetVoiceLegRecordingAudioResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -133464,6 +134167,24 @@ func (c *ClientWithResponses) CreateVoiceCallWithResponse(ctx context.Context, p
 	return ParseCreateVoiceCallResponse(rsp)
 }
 
+// ListVoiceCallRecordingsWithResponse request returning *ListVoiceCallRecordingsResponse
+func (c *ClientWithResponses) ListVoiceCallRecordingsWithResponse(ctx context.Context, callId VoiceSessionID, params *ListVoiceCallRecordingsParams, reqEditors ...RequestEditorFn) (*ListVoiceCallRecordingsResponse, error) {
+	rsp, err := c.ListVoiceCallRecordings(ctx, callId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListVoiceCallRecordingsResponse(rsp)
+}
+
+// GetVoiceCallTranscriptWithResponse request returning *GetVoiceCallTranscriptResponse
+func (c *ClientWithResponses) GetVoiceCallTranscriptWithResponse(ctx context.Context, callId VoiceSessionID, params *GetVoiceCallTranscriptParams, reqEditors ...RequestEditorFn) (*GetVoiceCallTranscriptResponse, error) {
+	rsp, err := c.GetVoiceCallTranscript(ctx, callId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetVoiceCallTranscriptResponse(rsp)
+}
+
 // ListVoiceDestinationsWithResponse request returning *ListVoiceDestinationsResponse
 func (c *ClientWithResponses) ListVoiceDestinationsWithResponse(ctx context.Context, params *ListVoiceDestinationsParams, reqEditors ...RequestEditorFn) (*ListVoiceDestinationsResponse, error) {
 	rsp, err := c.ListVoiceDestinations(ctx, params, reqEditors...)
@@ -133506,6 +134227,15 @@ func (c *ClientWithResponses) GetVoiceLegWithResponse(ctx context.Context, legId
 		return nil, err
 	}
 	return ParseGetVoiceLegResponse(rsp)
+}
+
+// GetVoiceLegRecordingAudioWithResponse request returning *GetVoiceLegRecordingAudioResponse
+func (c *ClientWithResponses) GetVoiceLegRecordingAudioWithResponse(ctx context.Context, legId VoiceCallID, recordingId VoiceCallRecordingID, params *GetVoiceLegRecordingAudioParams, reqEditors ...RequestEditorFn) (*GetVoiceLegRecordingAudioResponse, error) {
+	rsp, err := c.GetVoiceLegRecordingAudio(ctx, legId, recordingId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetVoiceLegRecordingAudioResponse(rsp)
 }
 
 // ListVoiceNumbersWithResponse request returning *ListVoiceNumbersResponse
@@ -163212,6 +163942,156 @@ func ParseCreateVoiceCallResponse(rsp *http.Response) (*CreateVoiceCallResponse,
 	return response, nil
 }
 
+// ParseListVoiceCallRecordingsResponse parses an HTTP response from a ListVoiceCallRecordingsWithResponse call
+func ParseListVoiceCallRecordingsResponse(rsp *http.Response) (*ListVoiceCallRecordingsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListVoiceCallRecordingsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest VoiceLegRecordings
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetVoiceCallTranscriptResponse parses an HTTP response from a GetVoiceCallTranscriptWithResponse call
+func ParseGetVoiceCallTranscriptResponse(rsp *http.Response) (*GetVoiceCallTranscriptResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetVoiceCallTranscriptResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest VoiceCallTranscript
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
 // ParseListVoiceDestinationsResponse parses an HTTP response from a ListVoiceDestinationsWithResponse call
 func ParseListVoiceDestinationsResponse(rsp *http.Response) (*ListVoiceDestinationsResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -163520,6 +164400,88 @@ func ParseGetVoiceLegResponse(rsp *http.Response) (*GetVoiceLegResponse, error) 
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetVoiceLegRecordingAudioResponse parses an HTTP response from a GetVoiceLegRecordingAudioWithResponse call
+func ParseGetVoiceLegRecordingAudioResponse(rsp *http.Response) (*GetVoiceLegRecordingAudioResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetVoiceLegRecordingAudioResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 425:
+		var dest TooEarly
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON425 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 501:
+		var dest NotImplemented
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON501 = &dest
 
 	}
 

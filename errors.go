@@ -39,4 +39,7 @@ const (
 	ErrorTypeInternal           = apierror.ErrorTypeInternal
 	ErrorTypeNotImplemented     = apierror.ErrorTypeNotImplemented
 	ErrorTypeServiceUnavailable = apierror.ErrorTypeServiceUnavailable
+	ErrorTypeGone               = apierror.ErrorTypeGone
+	ErrorTypeTooEarly           = apierror.ErrorTypeTooEarly
+	ErrorTypeClientClosed       = apierror.ErrorTypeClientClosed
 )

@@ -6615,3 +6615,47 @@ func ExampleAssetsUploadsService_Handoff() {
 		fmt.Println(*handoff.BrowserUrl)
 	}
 }
+
+func ExampleVoiceCallsRecordingsService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	inventory, err := client.Voice.Calls.Recordings.List(context.Background(), "vcs_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, recording := range inventory.Recordings {
+		fmt.Println(recording.LegId, recording.Id)
+	}
+}
+
+func ExampleVoiceCallsService_Transcript() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	transcript, err := client.Voice.Calls.Transcript(context.Background(), "vcs_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, cue := range transcript.Cues {
+		fmt.Println(cue.Text)
+	}
+}
+
+// Download one recording as a WAV file.
+func ExampleVoiceLegsRecordingsService_Audio() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	audio, err := client.Voice.Legs.Recordings.Audio(context.Background(),
+		"vcl_01krdgeqcxet5s7t44vh8rt9mg", "vrc_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := os.WriteFile("recording.wav", audio.Data, 0o600); err != nil {
+		log.Fatal(err)
+	}
+}

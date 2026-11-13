@@ -2,8 +2,13 @@ package apierror
 
 import (
 	"errors"
+	"go/ast"
+	"go/parser"
+	"go/token"
 	"net/http"
+	"path/filepath"
 	"reflect"
+	"strconv"
 	"strings"
 	"testing"
 
@@ -126,4 +131,105 @@ func TestFromResponseSurfacesQuotaContext(t *testing.T) {
 	if !errors.As(bare, &refused) || refused.Quota != nil {
 		t.Fatalf("got %+v, want a ValidationError without Quota", bare)
 	}
+}
+
+// ErrorType is hand-listed, so a type the spec adds to ErrorBody.type reaches
+// callers only as an unnamed string; too_early_error shipped that way.
+func TestErrorTypeCoversTheWireEnum(t *testing.T) {
+	t.Parallel()
+	facade := stringConsts(t, "apierror.go", "ErrorType")
+	wire := stringConsts(t, filepath.Join("..", "oapi", "oapi.gen.go"), "ErrorBodyType")
+	if len(wire) == 0 {
+		t.Fatal("found no oapi.ErrorBodyType constants; the source scan is broken")
+	}
+	for v := range wire {
+		if !facade[v] {
+			t.Errorf("ErrorBody.type %q has no ErrorType constant; add it in apierror.go and re-export it from errors.go", v)
+		}
+	}
+
+	file, err := parser.ParseFile(token.NewFileSet(), filepath.Join("..", "..", "errors.go"), nil, parser.SkipObjectResolution)
+	if err != nil {
+		t.Fatal(err)
+	}
+	exported := map[string]bool{}
+	ast.Inspect(file, func(n ast.Node) bool {
+		if sel, ok := n.(*ast.SelectorExpr); ok {
+			if pkg, ok := sel.X.(*ast.Ident); ok && pkg.Name == "apierror" {
+				exported[sel.Sel.Name] = true
+			}
+		}
+		return true
+	})
+	for _, name := range constNames(t, "apierror.go", "ErrorType") {
+		if !exported[name] {
+			t.Errorf("%s is not re-exported from the bird package; add it to errors.go", name)
+		}
+	}
+}
+
+func constNames(t *testing.T, path, typeName string) []string {
+	t.Helper()
+	file, err := parser.ParseFile(token.NewFileSet(), path, nil, parser.SkipObjectResolution)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var out []string
+	for _, decl := range file.Decls {
+		gen, ok := decl.(*ast.GenDecl)
+		if !ok || gen.Tok != token.CONST {
+			continue
+		}
+		for _, spec := range gen.Specs {
+			vs := spec.(*ast.ValueSpec)
+			if ident, ok := vs.Type.(*ast.Ident); ok && ident.Name == typeName {
+				out = append(out, vs.Names[0].Name)
+			}
+		}
+	}
+	return out
+}
+
+func TestInferTypeFromBodylessStatus(t *testing.T) {
+	t.Parallel()
+	for status, want := range map[int]ErrorType{
+		http.StatusGone:     ErrorTypeGone,
+		http.StatusTooEarly: ErrorTypeTooEarly,
+		499:                 ErrorTypeClientClosed,
+	} {
+		var apiErr *APIError
+		if !errors.As(FromResponse(status, []byte("upstream"), http.Header{}), &apiErr) || apiErr.Type != want {
+			t.Errorf("status %d: got %+v, want type %s", status, apiErr, want)
+		}
+	}
+}
+
+func stringConsts(t *testing.T, path, typeName string) map[string]bool {
+	t.Helper()
+	file, err := parser.ParseFile(token.NewFileSet(), path, nil, parser.SkipObjectResolution)
+	if err != nil {
+		t.Fatal(err)
+	}
+	out := map[string]bool{}
+	for _, decl := range file.Decls {
+		gen, ok := decl.(*ast.GenDecl)
+		if !ok || gen.Tok != token.CONST {
+			continue
+		}
+		for _, spec := range gen.Specs {
+			vs := spec.(*ast.ValueSpec)
+			ident, ok := vs.Type.(*ast.Ident)
+			if !ok || ident.Name != typeName || len(vs.Values) != 1 {
+				continue
+			}
+			if lit, ok := vs.Values[0].(*ast.BasicLit); ok && lit.Kind == token.STRING {
+				v, err := strconv.Unquote(lit.Value)
+				if err != nil {
+					t.Fatal(err)
+				}
+				out[v] = true
+			}
+		}
+	}
+	return out
 }

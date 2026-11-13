@@ -59,45 +59,46 @@ func (s *WhatsappMessagesService) Media(ctx context.Context, messageID, mediaID 
 	if location == "" {
 		return nil, &apierror.ConnectionError{Err: errors.New("media redirect carried no Location header")}
 	}
-	return fetchStoredMedia(ctx, location)
+	data, contentType, err := fetchStored(ctx, location, "Media")
+	if err != nil {
+		return nil, err
+	}
+	return &WhatsAppMedia{Data: data, ContentType: contentType, ContentLength: int64(len(data))}, nil
 }
 
-// fetchStoredMedia takes the second leg with a bare client: the presigned URL
-// carries its own credential and refuses a second auth mechanism, so nothing
-// from this SDK's request path may ride along. Its failures surface as
-// ConnectionError rather than going through apierror.FromResponse — a storage
-// XML body is no Bird error envelope, and a 403 mapped that way would report
-// the caller's own key as lacking permission.
-func fetchStoredMedia(ctx context.Context, location string) (*WhatsAppMedia, error) {
+// fetchStored takes the second leg of a redirect download with a bare client:
+// the presigned URL carries its own credential and refuses a second auth
+// mechanism, so nothing from this SDK's request path may ride along. Its
+// failures surface as ConnectionError rather than going through
+// apierror.FromResponse — a storage XML body is no Bird error envelope, and a
+// 403 mapped that way would report the caller's own key as lacking permission.
+// method is the SDK method that mints a fresh link, named in those failures.
+func fetchStored(ctx context.Context, location, method string) (data []byte, contentType string, err error) {
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, location, nil)
 	if err != nil {
-		return nil, &apierror.ConnectionError{Err: err}
+		return nil, "", &apierror.ConnectionError{Err: err}
 	}
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		if ctx.Err() != nil {
-			return nil, ctx.Err()
+			return nil, "", ctx.Err()
 		}
-		return nil, &apierror.ConnectionError{Err: fmt.Errorf("downloading media: %w; call Media again for a fresh link", err)}
+		return nil, "", &apierror.ConnectionError{Err: fmt.Errorf("downloading media: %w; call %s again for a fresh link", err, method)}
 	}
 	defer func() { _ = resp.Body.Close() }()
 	if resp.StatusCode/100 != 2 {
-		return nil, &apierror.ConnectionError{Err: fmt.Errorf(
-			"storage refused the download link (status %d): the link expired or was refused, call Media again for a fresh link",
-			resp.StatusCode)}
+		return nil, "", &apierror.ConnectionError{Err: fmt.Errorf(
+			"storage refused the download link (status %d): the link expired or was refused, call %s again for a fresh link",
+			resp.StatusCode, method)}
 	}
-	data, err := io.ReadAll(resp.Body)
+	data, err = io.ReadAll(resp.Body)
 	if err != nil {
 		if ctx.Err() != nil {
-			return nil, ctx.Err()
+			return nil, "", ctx.Err()
 		}
-		return nil, &apierror.ConnectionError{Err: err}
+		return nil, "", &apierror.ConnectionError{Err: err}
 	}
-	return &WhatsAppMedia{
-		Data:          data,
-		ContentType:   mediaContentType(resp.Header.Get("Content-Type")),
-		ContentLength: int64(len(data)),
-	}, nil
+	return data, mediaContentType(resp.Header.Get("Content-Type")), nil
 }
 
 func mediaContentType(value string) string {
