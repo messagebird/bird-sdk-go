@@ -91,6 +91,7 @@ output-options:
     - deleteEmailBroadcast
     - sendEmailBroadcast
     - cancelEmailBroadcast
+    - resumeEmailBroadcast
     - listEmailBroadcastEvents
     - listEmailBroadcastRecipients
     - getEmailBroadcastCounts

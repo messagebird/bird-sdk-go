@@ -45,6 +45,18 @@ func (p BroadcastsListParams) toWire(startingAfter string) *oapi.ListEmailBroadc
 	}
 }
 
+// BroadcastsResumeParams is the request body for resume.
+type BroadcastsResumeParams struct {
+	// Acknowledgment that the message reaches the remaining recipients later than intended. It is required to resume a broadcast that started sending at least 24 hours ago. Before setting it, read the broadcast's `started_at` and have a reviewer with `email_management:read` check its pinned template version using `template.id` and `template.version_id`. Workspace versions retain the original content. Built-in template lookups (`scope: system`) show current catalogue content. Broadcasts with frozen content keep it, but older broadcasts can read the catalogue again when resumed. Neither a current lookup nor an earlier message alone proves what remaining recipients will receive. Leave the broadcast paused unless you can verify that content. Ask an authorized teammate if you lack that permission. It does not skip the funds or concurrent-broadcast checks.
+	Confirm *bool
+}
+
+func (p BroadcastsResumeParams) toWire() oapi.EmailBroadcastResume {
+	body := oapi.EmailBroadcastResume{}
+	body.Confirm = p.Confirm
+	return body
+}
+
 // BroadcastsListEventsParams filters the list. Zero-value fields are omitted.
 type BroadcastsListEventsParams struct {
 	// Maximum number of items to return per page.
@@ -174,6 +186,25 @@ func (s *BroadcastsService) Cancel(ctx context.Context, broadcastId string, opts
 	return &out, nil
 }
 
+// Resume Resume a `paused` broadcast using its saved template references and recipient list. Current consent and suppression checks still apply. Resuming uses no additional monthly broadcast allowance. At 24 hours or more after sending started, set `confirm: true` to acknowledge late delivery. Without `started_at`, the threshold uses send authorization, or creation if neither timestamp was recorded. Read `started_at` and `template` with `broadcasts.get`. For workspace templates, use `email.templates.versions.get` with `template.id` and `template.version_id` to inspect the pinned content, including after deletion. Check `template.language` or the version's `default_language`. Built-in lookups (`scope: system`) return current catalogue content. Broadcasts with frozen content keep it, but older broadcasts can read the catalogue again when resumed. Neither the current lookup nor an earlier message alone proves what remaining recipients will receive. Leave it paused unless you can verify that content. Reading templates requires `email_management:read`; ask an authorized teammate if you lack it. A `403` can indicate suspension now or since send authorization. Reactivation does not restore an older authorization; cancel that broadcast. `402` means funds are still short; `409` means it is not paused or needs late confirmation. A `422` can mean concurrency is full or the sender or IP pool needs repair; read the error details to decide whether to wait or repair. A `429` can indicate a sending limit; `503` means balance or limits could not be checked. These refusals leave a paused broadcast unchanged. A `202` returns a `sending` snapshot, not completed delivery. Poll `broadcasts.get` for progress and later funding holds or terminal status.
+func (s *BroadcastsService) Resume(ctx context.Context, broadcastId string, params BroadcastsResumeParams, opts ...option.RequestOption) (*EmailBroadcast, error) {
+	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.ResumeEmailBroadcastParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.ResumeEmailBroadcast(ctx, oapi.EmailBroadcastID(broadcastId), op, params.toWire(), cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out EmailBroadcast
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
 // ListEventsPage fetches one page of results. Pass the previous page's NextCursor as
 // startingAfter to advance; "" starts from the first page.
 func (s *BroadcastsService) ListEventsPage(ctx context.Context, broadcastId string, params BroadcastsListEventsParams, startingAfter string, opts ...option.RequestOption) (*EmailEventList, error) {
@@ -270,7 +301,7 @@ func (s *BroadcastsService) ListClickedLinks(ctx context.Context, broadcastId st
 	return &out, nil
 }
 
-// SendQuota Check how many recipients a broadcast could reach within your organization's daily and monthly email limits. `recipients` is the current sendable count. `allowed` is the count covered by the email send allowance. `limited_by` identifies the email limit that prevents the rest from receiving the broadcast. Before scheduling, pass your intended `scheduled_at` as `send_at`. If a daily or monthly window resets by that time, the check uses its full allowance. Otherwise, it uses the allowance remaining now. The response identifies the email limit that still restricts the send at that time. The check estimates your send quota using current limits without subtracting broadcasts that are scheduled but have not sent yet, so broadcasts scheduled for the same period may together exceed the limit even if each check shows enough quota. Without `send_at`, it checks a send now, even if the broadcast is already scheduled. An audience larger than a full daily or funded monthly limit cannot send in any window with that limit. A reported monthly `limit` can instead be a temporary funding restriction. When present, use `can_start` to decide whether the email limits permit starting, even when `allowed` or `remaining` is 0. For example, 60,000 recipients can exceed a temporary unfunded `limit` of 50,000 yet have `can_start: true` if the daily and funded monthly limits permit them. The broadcast can then start and wait for funds. If `can_start` is absent, use `allowed` and do not assume waiting is supported. Other send checks still apply. This check reserves nothing. The email send allowance is checked again when the broadcast sends, using what remains after other sends. `limit_reason` explains the monthly email limit if you can read the organization's billing. `broadcasts` reports the separate broadcast count allowance. It is checked when you send or schedule, so `send_at` does not change it. If `broadcasts.remaining` is 0, you cannot send or schedule a draft. The broadcast must have an audience selected.
+// SendQuota Check how many recipients a broadcast could reach within your organization's daily and monthly email limits. `recipients` is the current sendable count. `allowed` is the count covered by the email send allowance. `limited_by` identifies the email limit that prevents the rest from receiving the broadcast. Before scheduling, pass your intended `scheduled_at` as `send_at`. If a daily or monthly window resets by that time, the check uses its full allowance. Otherwise, it uses the allowance remaining now. The response identifies the email limit that still restricts the send at that time. Scheduled broadcasts do not reserve allowance, so broadcasts in the same period may together exceed the limit even when each check shows enough quota. Without `send_at`, it checks a send now, even if the broadcast is already scheduled. An audience larger than a full daily or funded monthly limit cannot send in any window with that limit. A reported monthly `limit` can instead be a temporary funding restriction. When present, use `can_start` to decide whether the email limits permit starting, even when `allowed` or `remaining` is 0. For example, 60,000 recipients can exceed a temporary unfunded `limit` of 50,000 yet have `can_start: true` if the daily and funded monthly limits permit them. The broadcast can then start and wait for funds. If `can_start` is absent, use `allowed` and do not assume waiting is supported. Other send checks still apply. A `503` means email limits are unreadable; retry the check. It reserves nothing. The email send allowance is checked again when the broadcast sends, using what remains after other sends. `limit_reason` explains the monthly email limit if you can read the organization's billing. `broadcasts` reports the separate broadcast count allowance. It is checked when you send or schedule, so `send_at` does not change it. If `broadcasts.remaining` is 0, you cannot send or schedule a draft. The broadcast must have an audience selected.
 func (s *BroadcastsService) SendQuota(ctx context.Context, broadcastId string, params BroadcastsSendQuotaParams, opts ...option.RequestOption) (*EmailBroadcastSendQuota, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetEmailBroadcastSendQuota(ctx, oapi.EmailBroadcastID(broadcastId), params.toWire(), cfg...)

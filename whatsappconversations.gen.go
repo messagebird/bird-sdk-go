@@ -25,7 +25,7 @@ type WhatsappConversationsListParams struct {
 	AssignedTo string
 	// Return only conversations whose customer-service window is `open` or `closed`.
 	ServiceWindowStatus WhatsAppConversationServiceWindowStatus
-	// Return conversations carrying this label. Repeat the parameter to require every supplied label.
+	// Return conversations carrying this label, matched in any casing. Repeat the parameter to require every supplied label. A name the workspace doesn't have matches nothing.
 	Label []string
 	// Return only conversations whose contact phone number, BSUID, username, display name, group name or one of its labels contains this text, ignoring case. A phone number matches with or without its `+`, spaces, dashes, dots or parentheses. A group matches the name it had when its conversation started, and only for callers with `whatsapp_management` read access. The text cannot contain control characters such as tabs or line breaks.
 	Q string
@@ -56,7 +56,7 @@ type WhatsappConversationsUpdateParams struct {
 	AssignedTo Nullable[string]
 	// Whether the conversation needs attention in the workspace inbox. Set it to `resolved` when the work is finished. A new inbound message reopens the same conversation. Changing inbox status preserves message history and does not change the channel's permission to send messages or mark messages read.
 	InboxStatus *ConversationInboxStatus
-	// Labels chosen by your workspace. On update, this replaces the full set; pass an empty array to clear every label. Labels do not change read state or inbox status. Each label must contain 1 to 64 characters, with no commas, control characters, or leading or trailing whitespace. Duplicate labels are rejected. The names `all`, `archived`, `assigned`, `closed`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `inbox`, `junk`, `muted`, `none`, `open`, `pinned`, `read`, `snoozed`, `spam`, `starred`, `trash`, and `unread` are reserved in every casing.
+	// Labels from your workspace's label list. On update, this replaces the full set; pass an empty array to clear every label. Labels do not change read state or inbox status. A name matches the workspace's labels in any casing: adding "Urgent" where the workspace has "urgent" applies "urgent", and responses return the workspace's spelling. A name the workspace doesn't have yet becomes a new label. It must contain 1 to 64 characters, with no commas, control characters, or leading or trailing whitespace, and can't take the workspace past its limit of 100 labels. A new label can't use a reserved name: `all`, `archive`, `archived`, `assigned`, `blocked`, `closed`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `inbox`, `junk`, `muted`, `none`, `open`, `outbox`, `pinned`, `read`, `scheduled`, `sent`, `snoozed`, `spam`, `starred`, `trash` or `unread`, in any casing. A label the workspace already has keeps working even if its name is reserved.
 	Labels []string
 	// Mark received inbound messages with created_at at or before this timestamp as read in the shared workspace inbox. Messages sharing the timestamp are included together. Later arrivals remain unread until another read update. This does not send a read receipt to the customer or change inbox status. Omit to leave read state unchanged.
 	Read time.Time

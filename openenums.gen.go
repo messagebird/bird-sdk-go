@@ -1269,6 +1269,7 @@ const (
 	WhatsAppNumberErrorCodeNumberAlreadyLinked           = oapi.WhatsAppNumberErrorCodeNumberAlreadyLinked
 	WhatsAppNumberErrorCodeNumberNotRegistered           = oapi.WhatsAppNumberErrorCodeNumberNotRegistered
 	WhatsAppNumberErrorCodeNumberVerificationRequired    = oapi.WhatsAppNumberErrorCodeNumberVerificationRequired
+	WhatsAppNumberErrorCodePaymentMethodConflict         = oapi.WhatsAppNumberErrorCodePaymentMethodConflict
 	WhatsAppNumberErrorCodePermissionDenied              = oapi.WhatsAppNumberErrorCodePermissionDenied
 	WhatsAppNumberErrorCodeRegistrationAttemptsExhausted = oapi.WhatsAppNumberErrorCodeRegistrationAttemptsExhausted
 	WhatsAppNumberErrorCodeRegistrationPinRateLimited    = oapi.WhatsAppNumberErrorCodeRegistrationPinRateLimited

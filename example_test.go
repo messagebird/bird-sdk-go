@@ -945,6 +945,19 @@ func ExampleBroadcastsService_Cancel() {
 	fmt.Println(*broadcast.Status)
 }
 
+func ExampleBroadcastsService_Resume() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	// Confirm only after verifying the content remaining recipients will receive and started_at. Leave unverifiable content paused.
+	broadcast, err := client.Broadcasts.Resume(context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg", bird.BroadcastsResumeParams{Confirm: bird.Bool(true)})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(*broadcast.Status)
+}
+
 func ExampleBroadcastsService_SendQuota() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {

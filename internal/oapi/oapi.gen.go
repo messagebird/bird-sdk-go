@@ -10098,6 +10098,7 @@ const (
 	WhatsAppNumberErrorCodeNumberAlreadyLinked           WhatsAppNumberErrorCode = "number_already_linked"
 	WhatsAppNumberErrorCodeNumberNotRegistered           WhatsAppNumberErrorCode = "number_not_registered"
 	WhatsAppNumberErrorCodeNumberVerificationRequired    WhatsAppNumberErrorCode = "number_verification_required"
+	WhatsAppNumberErrorCodePaymentMethodConflict         WhatsAppNumberErrorCode = "payment_method_conflict"
 	WhatsAppNumberErrorCodePermissionDenied              WhatsAppNumberErrorCode = "permission_denied"
 	WhatsAppNumberErrorCodeRegistrationAttemptsExhausted WhatsAppNumberErrorCode = "registration_attempts_exhausted"
 	WhatsAppNumberErrorCodeRegistrationPinRateLimited    WhatsAppNumberErrorCode = "registration_pin_rate_limited"
@@ -10128,6 +10129,8 @@ func (e WhatsAppNumberErrorCode) Valid() bool {
 	case WhatsAppNumberErrorCodeNumberNotRegistered:
 		return true
 	case WhatsAppNumberErrorCodeNumberVerificationRequired:
+		return true
+	case WhatsAppNumberErrorCodePaymentMethodConflict:
 		return true
 	case WhatsAppNumberErrorCodePermissionDenied:
 		return true
@@ -12054,9 +12057,9 @@ type AMBConversationUpdate struct {
 	// InboxStatus Whether the conversation needs attention in the workspace inbox. Set it to `resolved` when the work is finished. A new inbound message reopens the same conversation. Changing inbox status preserves message history and does not change the channel's permission to send messages or mark messages read.
 	InboxStatus *ConversationInboxStatus `json:"inbox_status,omitempty"`
 
-	// Labels Labels chosen by your workspace. On update, this replaces the full set; pass an empty array to clear every label. Labels do not change read state or inbox status.
+	// Labels Labels from your workspace's label list. On update, this replaces the full set; pass an empty array to clear every label. Labels do not change read state or inbox status.
 	//
-	// Each label must contain 1 to 64 characters, with no commas, control characters, or leading or trailing whitespace. Duplicate labels are rejected. The names `all`, `archived`, `assigned`, `closed`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `inbox`, `junk`, `muted`, `none`, `open`, `pinned`, `read`, `snoozed`, `spam`, `starred`, `trash`, and `unread` are reserved in every casing.
+	// A name matches the workspace's labels in any casing: adding "Urgent" where the workspace has "urgent" applies "urgent", and responses return the workspace's spelling. A name the workspace doesn't have yet becomes a new label. It must contain 1 to 64 characters, with no commas, control characters, or leading or trailing whitespace, and can't take the workspace past its limit of 100 labels. A new label can't use a reserved name: `all`, `archive`, `archived`, `assigned`, `blocked`, `closed`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `inbox`, `junk`, `muted`, `none`, `open`, `outbox`, `pinned`, `read`, `scheduled`, `sent`, `snoozed`, `spam`, `starred`, `trash` or `unread`, in any casing. A label the workspace already has keeps working even if its name is reserved.
 	Labels *[]string `json:"labels,omitempty"`
 
 	// Queue Queue to move the conversation to, or null to leave it unrouted. Routing rules do not run, and the conversation keeps its group and intent. Moving the queue clears any pending `routing_change`, and cannot be combined with an `apply` decision.
@@ -15038,15 +15041,21 @@ type AvailableNumber struct {
 	// NumberType Physical type of this phone number.
 	NumberType NumberType `json:"number_type"`
 
+	// OwnershipAddressAreaName Name of the area this local number belongs to, for example `Amsterdam`: the area a `number_area` `ownership_address_scope` refers to. Text for display; the address is not checked against it before purchase. Omitted when the number has no `number_area` rule or the area is not known.
+	OwnershipAddressAreaName *string `json:"ownership_address_area_name,omitempty"`
+
 	// OwnershipAddressScope Where the carrier requires the business address on this number's ownership registration
 	// to be. Present only when the carrier itself registers the number before it carries
-	// traffic and states a rule; omitted otherwise. An address that does not meet the rule
+	// traffic, as `anywhere` when it restricts no address; omitted otherwise. An address that does not meet the rule
 	// is refused after purchase, and only an address that meets it can fix the registration.
+	// If the paperwork is not approved by the registration deadline, the number is removed:
+	// any setup fee is credited back, and the first recurring charge is not refunded.
 	//
 	// - `anywhere`: any business address.
 	// - `country`: a business address in the number's country.
 	// - `number_area`: a business address inside the number's own area code, for example in
-	//   Amsterdam for an Amsterdam (020) number.
+	//   Amsterdam for an Amsterdam (020) number. `ownership_address_area_name` names the area
+	//   when it is known.
 	OwnershipAddressScope *string `json:"ownership_address_scope,omitempty"`
 
 	// OwnershipRegistrationRequired Whether ownership paperwork must be approved before outbound SMS and voice use. Customer availability accounts for organization exemptions; admin supplier searches report the general country and number-type requirement. You can acquire the number, including Bird stock, and submit paperwork afterward. Any `pricing.setup_price` is charged during purchase, plus any tax. The recurring charge, net of tax `pricing.recurring_price` multiplied by `pricing.intervals_per_charge`, is taken with any tax at assignment and at each renewal, even while approval is pending; assignment may follow completion of a pending supplier order.
@@ -17288,6 +17297,12 @@ type EmailBroadcastResolution struct {
 
 // EmailBroadcastResolvedParameters The broadcast inputs this render used, by name, each with the string, number, boolean or null value it used. It holds the values taken from `template.parameters` or the selected language's `template.parameter_overrides` entry, and only for names the rendered content or envelope uses. Contact values are never included. A number keeps the digits it was supplied with.
 type EmailBroadcastResolvedParameters map[string]interface{}
+
+// EmailBroadcastResume defines model for EmailBroadcastResume.
+type EmailBroadcastResume struct {
+	// Confirm Acknowledgment that the message reaches the remaining recipients later than intended. It is required to resume a broadcast that started sending at least 24 hours ago. Before setting it, read the broadcast's `started_at` and have a reviewer with `email_management:read` check its pinned template version using `template.id` and `template.version_id`. Workspace versions retain the original content. Built-in template lookups (`scope: system`) show current catalogue content. Broadcasts with frozen content keep it, but older broadcasts can read the catalogue again when resumed. Neither a current lookup nor an earlier message alone proves what remaining recipients will receive. Leave the broadcast paused unless you can verify that content. Ask an authorized teammate if you lack that permission. It does not skip the funds or concurrent-broadcast checks.
+	Confirm *bool `json:"confirm,omitempty"`
+}
 
 // EmailBroadcastSendNowRequest defines model for EmailBroadcastSendNowRequest.
 type EmailBroadcastSendNowRequest struct {
@@ -35616,6 +35631,7 @@ type WhatsAppNumberError struct {
 // - `business_account_locked`: WhatsApp locked the business account.
 // - `business_verification_required`: WhatsApp refused to register the number because the business portfolio is not verified, usually because an unverified portfolio may hold only a few registered numbers. Verify the business or free a registered number on the portfolio, then repair the number.
 // - `credit_currency_mismatch`: WhatsApp bills the business account in a currency other than USD, EUR, or your organization's billing currency. In Meta Business Suite, remove the account's payment method and then set its currency to one of those. If Meta doesn't allow the change, connect the number under a business account WhatsApp bills in one of them or has set no currency on.
+// - `payment_method_conflict`: The business account already pays through another payment method or another provider's credit line, and WhatsApp doesn't let an account change its credit line once one is attached. Disconnect the number and connect it again under a new WhatsApp Business Account, without adding a payment method to it. For a number also on the WhatsApp Business app, Meta's steps to get a new account are in the coexistence troubleshooting guide.
 // - `billing_close`: WhatsApp refused to set up billing for the business account while its monthly billing close ran. The close usually ends within the first few days of the new month; nothing about the number or the account needs changing. Once those days have passed, repair the number.
 // - `permission_denied`: WhatsApp refused access to the account.
 // - `invalid_request`: WhatsApp rejected the connection details.
@@ -37524,9 +37540,9 @@ type UnderscoreConversationUpdate struct {
 	// InboxStatus Whether the conversation needs attention in the workspace inbox. Set it to `resolved` when the work is finished. A new inbound message reopens the same conversation. Changing inbox status preserves message history and does not change the channel's permission to send messages or mark messages read.
 	InboxStatus *ConversationInboxStatus `json:"inbox_status,omitempty"`
 
-	// Labels Labels chosen by your workspace. On update, this replaces the full set; pass an empty array to clear every label. Labels do not change read state or inbox status.
+	// Labels Labels from your workspace's label list. On update, this replaces the full set; pass an empty array to clear every label. Labels do not change read state or inbox status.
 	//
-	// Each label must contain 1 to 64 characters, with no commas, control characters, or leading or trailing whitespace. Duplicate labels are rejected. The names `all`, `archived`, `assigned`, `closed`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `inbox`, `junk`, `muted`, `none`, `open`, `pinned`, `read`, `snoozed`, `spam`, `starred`, `trash`, and `unread` are reserved in every casing.
+	// A name matches the workspace's labels in any casing: adding "Urgent" where the workspace has "urgent" applies "urgent", and responses return the workspace's spelling. A name the workspace doesn't have yet becomes a new label. It must contain 1 to 64 characters, with no commas, control characters, or leading or trailing whitespace, and can't take the workspace past its limit of 100 labels. A new label can't use a reserved name: `all`, `archive`, `archived`, `assigned`, `blocked`, `closed`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `inbox`, `junk`, `muted`, `none`, `open`, `outbox`, `pinned`, `read`, `scheduled`, `sent`, `snoozed`, `spam`, `starred`, `trash` or `unread`, in any casing. A label the workspace already has keeps working even if its name is reserved.
 	Labels *[]string `json:"labels,omitempty"`
 
 	// Read Mark received inbound messages with created_at at or before this timestamp as read in the shared workspace inbox. Messages sharing the timestamp are included together. Later arrivals remain unread until another read update. This does not send a read receipt to the customer or change inbox status. Omit to leave read state unchanged.
@@ -38027,7 +38043,7 @@ type ListAMBConversationsParams struct {
 	// AssignedTo Return conversations assigned to this workspace member. Pass `me` for the signed-in user or `unassigned` for conversations without an assignee. An API key cannot use `me` and receives a `422` response.
 	AssignedTo *ConversationAssigneeFilter `form:"assigned_to,omitempty" json:"assigned_to,omitempty"`
 
-	// Label Return conversations carrying this label. Repeat the parameter to require every supplied label.
+	// Label Return conversations carrying this label, matched in any casing. Repeat the parameter to require every supplied label. A name the workspace doesn't have matches nothing.
 	Label *ConversationLabelFilter `form:"label,omitempty" json:"label,omitempty"`
 
 	// Limit Maximum number of items to return per page.
@@ -40600,6 +40616,37 @@ type ListEmailBroadcastRecipientsParams struct {
 
 	// To Return only the recipient at this address. Exact match, normalised to lowercase before comparison, so it returns at most one row.
 	To *openapi_types.Email `form:"to,omitempty" json:"to,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ResumeEmailBroadcastParams defines parameters for ResumeEmailBroadcast.
+type ResumeEmailBroadcastParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
@@ -47340,7 +47387,7 @@ type ListWhatsAppConversationsParams struct {
 	// ServiceWindowStatus Return only conversations whose customer-service window is `open` or `closed`.
 	ServiceWindowStatus *WhatsAppConversationServiceWindowStatus `form:"service_window_status,omitempty" json:"service_window_status,omitempty"`
 
-	// Label Return conversations carrying this label. Repeat the parameter to require every supplied label.
+	// Label Return conversations carrying this label, matched in any casing. Repeat the parameter to require every supplied label. A name the workspace doesn't have matches nothing.
 	Label *ConversationLabelFilter `form:"label,omitempty" json:"label,omitempty"`
 
 	// Q Return only conversations whose contact phone number, BSUID, username, display name, group name or one of its labels contains this text, ignoring case. A phone number matches with or without its `+`, spaces, dashes, dots or parentheses. A group matches the name it had when its conversation started, and only for callers with `whatsapp_management` read access. The text cannot contain control characters such as tabs or line breaks.
@@ -49150,6 +49197,9 @@ type UpdateEmailBroadcastJSONRequestBody = EmailBroadcastUpdateRequest
 
 // PreviewEmailBroadcastJSONRequestBody defines body for PreviewEmailBroadcast for application/json ContentType.
 type PreviewEmailBroadcastJSONRequestBody = EmailBroadcastPreviewRequest
+
+// ResumeEmailBroadcastJSONRequestBody defines body for ResumeEmailBroadcast for application/json ContentType.
+type ResumeEmailBroadcastJSONRequestBody = EmailBroadcastResume
 
 // SendEmailBroadcastJSONRequestBody defines body for SendEmailBroadcast for application/json ContentType.
 type SendEmailBroadcastJSONRequestBody = EmailBroadcastSendNowRequest
@@ -57617,6 +57667,11 @@ type ClientInterface interface {
 	// ListEmailBroadcastRecipients request
 	ListEmailBroadcastRecipients(ctx context.Context, broadcastId string, params *ListEmailBroadcastRecipientsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// ResumeEmailBroadcastWithBody request with any body
+	ResumeEmailBroadcastWithBody(ctx context.Context, broadcastId EmailBroadcastID, params *ResumeEmailBroadcastParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	ResumeEmailBroadcast(ctx context.Context, broadcastId EmailBroadcastID, params *ResumeEmailBroadcastParams, body ResumeEmailBroadcastJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// SendEmailBroadcastWithBody request with any body
 	SendEmailBroadcastWithBody(ctx context.Context, broadcastId string, params *SendEmailBroadcastParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -60616,6 +60671,30 @@ func (c *Client) PreviewEmailBroadcast(ctx context.Context, broadcastId EmailBro
 
 func (c *Client) ListEmailBroadcastRecipients(ctx context.Context, broadcastId string, params *ListEmailBroadcastRecipientsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListEmailBroadcastRecipientsRequest(c.Server, broadcastId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ResumeEmailBroadcastWithBody(ctx context.Context, broadcastId EmailBroadcastID, params *ResumeEmailBroadcastParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewResumeEmailBroadcastRequestWithBody(c.Server, broadcastId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ResumeEmailBroadcast(ctx context.Context, broadcastId EmailBroadcastID, params *ResumeEmailBroadcastParams, body ResumeEmailBroadcastJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewResumeEmailBroadcastRequest(c.Server, broadcastId, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -77041,6 +77120,90 @@ func NewListEmailBroadcastRecipientsRequest(server string, broadcastId string, p
 			}
 
 			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewResumeEmailBroadcastRequest calls the generic ResumeEmailBroadcast builder with application/json body
+func NewResumeEmailBroadcastRequest(server string, broadcastId EmailBroadcastID, params *ResumeEmailBroadcastParams, body ResumeEmailBroadcastJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewResumeEmailBroadcastRequestWithBody(server, broadcastId, params, "application/json", bodyReader)
+}
+
+// NewResumeEmailBroadcastRequestWithBody generates requests for ResumeEmailBroadcast with any type of body
+func NewResumeEmailBroadcastRequestWithBody(server string, broadcastId EmailBroadcastID, params *ResumeEmailBroadcastParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "broadcast_id", broadcastId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/broadcasts/%s/resume", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
 		}
 
 	}
@@ -110703,6 +110866,11 @@ type ClientWithResponsesInterface interface {
 	// ListEmailBroadcastRecipientsWithResponse request
 	ListEmailBroadcastRecipientsWithResponse(ctx context.Context, broadcastId string, params *ListEmailBroadcastRecipientsParams, reqEditors ...RequestEditorFn) (*ListEmailBroadcastRecipientsResponse, error)
 
+	// ResumeEmailBroadcastWithBodyWithResponse request with any body
+	ResumeEmailBroadcastWithBodyWithResponse(ctx context.Context, broadcastId EmailBroadcastID, params *ResumeEmailBroadcastParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ResumeEmailBroadcastResponse, error)
+
+	ResumeEmailBroadcastWithResponse(ctx context.Context, broadcastId EmailBroadcastID, params *ResumeEmailBroadcastParams, body ResumeEmailBroadcastJSONRequestBody, reqEditors ...RequestEditorFn) (*ResumeEmailBroadcastResponse, error)
+
 	// SendEmailBroadcastWithBodyWithResponse request with any body
 	SendEmailBroadcastWithBodyWithResponse(ctx context.Context, broadcastId string, params *SendEmailBroadcastParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SendEmailBroadcastResponse, error)
 
@@ -116444,6 +116612,46 @@ func (r ListEmailBroadcastRecipientsResponse) ContentType() string {
 	return ""
 }
 
+type ResumeEmailBroadcastResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON202      *EmailBroadcast
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON402      *PaymentRequired
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r ResumeEmailBroadcastResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ResumeEmailBroadcastResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ResumeEmailBroadcastResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type SendEmailBroadcastResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -116495,6 +116703,7 @@ type GetEmailBroadcastSendQuotaResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -130800,6 +131009,23 @@ func (c *ClientWithResponses) ListEmailBroadcastRecipientsWithResponse(ctx conte
 	return ParseListEmailBroadcastRecipientsResponse(rsp)
 }
 
+// ResumeEmailBroadcastWithBodyWithResponse request with arbitrary body returning *ResumeEmailBroadcastResponse
+func (c *ClientWithResponses) ResumeEmailBroadcastWithBodyWithResponse(ctx context.Context, broadcastId EmailBroadcastID, params *ResumeEmailBroadcastParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ResumeEmailBroadcastResponse, error) {
+	rsp, err := c.ResumeEmailBroadcastWithBody(ctx, broadcastId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseResumeEmailBroadcastResponse(rsp)
+}
+
+func (c *ClientWithResponses) ResumeEmailBroadcastWithResponse(ctx context.Context, broadcastId EmailBroadcastID, params *ResumeEmailBroadcastParams, body ResumeEmailBroadcastJSONRequestBody, reqEditors ...RequestEditorFn) (*ResumeEmailBroadcastResponse, error) {
+	rsp, err := c.ResumeEmailBroadcast(ctx, broadcastId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseResumeEmailBroadcastResponse(rsp)
+}
+
 // SendEmailBroadcastWithBodyWithResponse request with arbitrary body returning *SendEmailBroadcastResponse
 func (c *ClientWithResponses) SendEmailBroadcastWithBodyWithResponse(ctx context.Context, broadcastId string, params *SendEmailBroadcastParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SendEmailBroadcastResponse, error) {
 	rsp, err := c.SendEmailBroadcastWithBody(ctx, broadcastId, params, contentType, body, reqEditors...)
@@ -144434,6 +144660,102 @@ func ParseListEmailBroadcastRecipientsResponse(rsp *http.Response) (*ListEmailBr
 	return response, nil
 }
 
+// ParseResumeEmailBroadcastResponse parses an HTTP response from a ResumeEmailBroadcastWithResponse call
+func ParseResumeEmailBroadcastResponse(rsp *http.Response) (*ResumeEmailBroadcastResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ResumeEmailBroadcastResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest EmailBroadcast
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest PaymentRequired
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
 // ParseSendEmailBroadcastResponse parses an HTTP response from a SendEmailBroadcastWithResponse call
 func ParseSendEmailBroadcastResponse(rsp *http.Response) (*SendEmailBroadcastResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -144599,6 +144921,13 @@ func ParseGetEmailBroadcastSendQuotaResponse(rsp *http.Response) (*GetEmailBroad
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 

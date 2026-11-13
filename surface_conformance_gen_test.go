@@ -91,6 +91,7 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Broadcasts.Delete
 	_ = c.Broadcasts.Send
 	_ = c.Broadcasts.Cancel
+	_ = c.Broadcasts.Resume
 	_ = c.Broadcasts.ListEvents
 	_ = c.Broadcasts.ListRecipients
 	_ = c.Broadcasts.Counts
