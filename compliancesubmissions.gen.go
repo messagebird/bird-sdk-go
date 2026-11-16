@@ -25,11 +25,11 @@ type ComplianceSubmissionsCreateParams struct {
 	Program ComplianceProgram
 	// ISO 3166-1 alpha-2 country code.
 	CountryCode string
-	// An existing party this registration is for. It fills in the business details you left out from what that party already holds, and each single-value answer you file about the party is written back onto it for next time, whatever the verdict. Documents and multi-value answers are asked fresh each time. Send this or `identity`, never both. An id belonging to another organization is rejected; nothing is created here. When `subject_kind` is `identity`, send neither: `subject_id` already names the party.
+	// An existing party this registration is for. It fills in the business details you left out from what that party already holds (except `business_website` on a business verification), and each single-value answer you file about the party is written back onto it for next time, whatever the verdict. Documents and multi-value answers are asked fresh each time. Send this or `identity`, never both. An id belonging to another organization is rejected; nothing is created here. When `subject_kind` is `identity`, send neither: `subject_id` already names the party.
 	IdentityID *string
 	// Registers this on behalf of a party you have not stored yet, creating it as part of the submission so you do not need a separate call. Exclusive with `identity_id`. Each time you send this you get a new party. Single-value identity answers filed for one are reused by registrations naming the same party. Documents and lists are supplied separately for each registration. Send this once and use the `identity_id` from the response for the countries that follow.
 	Identity *ComplianceSubmissionIdentity
-	// Every answer at once. Because submissions have no multi-call draft, send a complete set. Anything missing or malformed comes back named. A requirement the named party already answers may be left out; one you send anyway wins over what the party holds.
+	// Every answer at once. Because submissions have no multi-call draft, send a complete set. Anything missing or malformed comes back named. A requirement the named party already answers may be left out; one you send anyway wins over what the party holds. A business verification never fills in `business_website`: when you send it, its domain is the one your organization proves and `contact_email` must be on, so leave it out if the business's website is on another domain.
 	Answers []ComplianceAnswer
 }
 

@@ -678,6 +678,30 @@ func (e AMBMessageEventType) Valid() bool {
 	}
 }
 
+// Defines values for AMBMessagePartKind.
+const (
+	AMBMessagePartKindInteractive AMBMessagePartKind = "interactive"
+	AMBMessagePartKindLinkPreview AMBMessagePartKind = "link_preview"
+	AMBMessagePartKindRichLink    AMBMessagePartKind = "rich_link"
+	AMBMessagePartKindText        AMBMessagePartKind = "text"
+)
+
+// Valid indicates whether the value is a known member of the AMBMessagePartKind enum.
+func (e AMBMessagePartKind) Valid() bool {
+	switch e {
+	case AMBMessagePartKindInteractive:
+		return true
+	case AMBMessagePartKindLinkPreview:
+		return true
+	case AMBMessagePartKindRichLink:
+		return true
+	case AMBMessagePartKindText:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for AMBMessageSource.
 const (
 	Api        AMBMessageSource = "api"
@@ -1422,6 +1446,24 @@ func (e ComplianceDataType) Valid() bool {
 	case ComplianceDataTypeText:
 		return true
 	case ComplianceDataTypeUrl:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ComplianceDomainProofMethod.
+const (
+	ComplianceDomainProofMethodMemberLogin ComplianceDomainProofMethod = "member_login"
+	ComplianceDomainProofMethodSsoDomain   ComplianceDomainProofMethod = "sso_domain"
+)
+
+// Valid indicates whether the value is a known member of the ComplianceDomainProofMethod enum.
+func (e ComplianceDomainProofMethod) Valid() bool {
+	switch e {
+	case ComplianceDomainProofMethodMemberLogin:
+		return true
+	case ComplianceDomainProofMethodSsoDomain:
 		return true
 	default:
 		return false
@@ -12980,6 +13022,9 @@ type AMBMessage struct {
 	// Metadata Arbitrary JSON object for per-message context. Maximum 2 KB serialized. Top-level keys beginning with `__bird` are reserved. Returned in the send response, message reads and customer message webhooks.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 
+	// Parts The parts an outbound message was sent as, in the order Bird sent them, so one message can arrive as several. Each link in the text goes as its own preview. A `rich_link` takes the place of the first copy of its URL in the text, which splits the text around it, and goes last when the text does not contain it. An `interactive` goes after the text. A card part that the finishing attempt sent also says what it showed. A message can also go out as one `rich_link` or `interactive` part that has its text. Set when the send finishes as `sent` or `send_failed`. Absent on inbound messages, when the text could not be split so nothing was sent, such as a text with more than 20 links, and on older messages, so treat a missing `parts` as unknown.
+	Parts *[]AMBMessagePart `json:"parts,omitempty"`
+
 	// Reference The `reference` from the send request. Absent when the send set none, and on inbound messages.
 	Reference *MessageReference `json:"reference,omitempty"`
 
@@ -13169,6 +13214,55 @@ type AMBMessageList struct {
 	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
 }
+
+// AMBMessagePart One part of the split an outbound message was sent in. `title`, `image_url` and `layout` record what a card showed, as measured when the part was sent, not what a request chose. They are absent when an earlier attempt of a retried send sent the part.
+type AMBMessagePart struct {
+	// Attachments Positions in `text.attachments` of the attachments this part sent.
+	Attachments *[]int `json:"attachments,omitempty"`
+
+	// Body The text this part sent. U+FFFC marks an attachment's place, as in `text.body`.
+	Body *string `json:"body,omitempty" pii:"true"`
+
+	// ImageUrl The page image a `link_preview` part showed, as the address it was fetched from when the part was sent. Absent when the address is longer than 2,048 bytes, and when an earlier attempt of a retried send sent the part.
+	ImageUrl *string `json:"image_url,omitempty" pii:"true"`
+
+	// Kind What one part of an outbound message was:
+	//
+	// - `text`: Part of the message's text, with the attachments placed in it.
+	// - `link_preview`: A link from the text, sent as a preview Bird built from the page.
+	// - `rich_link`: The message's own `rich_link`.
+	// - `interactive`: The message's own `interactive`.
+	Kind AMBMessagePartKind `json:"kind"`
+
+	// Layout How Apple displays a rich link's image. Apple picks the layout from the image's shape and width, so the image is resized or cropped to produce the one you choose:
+	//
+	// - `icon` shows a small image beside the title. The image is scaled to under 150 px wide. Use it for logos.
+	// - `square` shows a square image. The image is cropped to a square and sized to 240 px, or as small as 150 px when it needs to fit Apple's 200 kB limit.
+	// - `large` shows a wide image. A square or portrait image is cropped to a 2:1 rectangle, and a landscape image keeps its shape.
+	//
+	// `square` enlarges an image whose shorter side is under 240 px, and `large` one narrower than 240 px, which can blur it. Omit `layout` to keep the image's own shape, so Apple picks the layout from its shape and width.
+	Layout *AMBRichLinkLayout `json:"layout,omitempty"`
+
+	// Sent Whether Bird saw Apple accept this part. After a failed send, the part that failed and every part after it are `false`, but a `false` part may still have arrived if Apple's answer was lost, so do not resend it on that alone.
+	Sent bool `json:"sent"`
+
+	// Subject The message's subject, on the part that had it.
+	Subject *string `json:"subject,omitempty" pii:"true"`
+
+	// Title The title a `link_preview` part showed, read from the page when the part was sent. A title longer than 512 bytes is cut to that length. Absent when an earlier attempt of a retried send sent the part.
+	Title *string `json:"title,omitempty" pii:"true"`
+
+	// Url The link a `link_preview` part previewed, as Bird sent it.
+	Url *string `json:"url,omitempty" pii:"true"`
+}
+
+// AMBMessagePartKind What one part of an outbound message was:
+//
+// - `text`: Part of the message's text, with the attachments placed in it.
+// - `link_preview`: A link from the text, sent as a preview Bird built from the page.
+// - `rich_link`: The message's own `rich_link`.
+// - `interactive`: The message's own `interactive`.
+type AMBMessagePartKind string
 
 // AMBMessageSendRequest A message to send. Supply `text`, `rich_link` or `interactive` (the last two optionally with `text` to introduce them), or `template` (a stored template, whose category is derived).
 type AMBMessageSendRequest struct {
@@ -14051,6 +14145,9 @@ type AMBSuppression struct {
 	EndedEffectiveAt *time.Time               `json:"ended_effective_at,omitempty"`
 	EndedReason      *AMBSuppressionEndReason `json:"ended_reason,omitempty"`
 	Id               AMBSuppressionID         `json:"id"`
+
+	// LastAssertedAt When we last recorded this suppression being stated. Later than `created_at` when your workspace added it again while it was already in force; a repeat adds no new record.
+	LastAssertedAt *time.Time `json:"last_asserted_at,omitempty"`
 
 	// Origin How the suppression came to exist:
 	//
@@ -15552,6 +15649,24 @@ type ComplianceAnswer3 = interface{}
 // ComplianceDataType The kind of value a requirement takes. The `string` value is a single line, while `text` runs to several. The `enum` value accepts only the values listed with the requirement. The `number`, `boolean`, and `date` values take their corresponding data types. The `url` value takes a link. The `country` value takes an uppercase ISO 3166-1 alpha-2 code, such as `NL`. The `document` value means a file you upload first and then reference. All other values are supplied inline.
 type ComplianceDataType string
 
+// ComplianceDomainProof How your organization proved it controls the business's domain, for a business verification.
+type ComplianceDomainProof struct {
+	// Domain The business's registrable domain, such as `acme.com`.
+	Domain string `json:"domain"`
+
+	// Method How the domain was proven.
+	//
+	// - `member_login`: a member of this workspace signs in with a verified address at the domain.
+	// - `sso_domain`: the domain is your organization's verified single sign-on domain.
+	Method ComplianceDomainProofMethod `json:"method"`
+}
+
+// ComplianceDomainProofMethod How the domain was proven.
+//
+// - `member_login`: a member of this workspace signs in with a verified address at the domain.
+// - `sso_domain`: the domain is your organization's verified single sign-on domain.
+type ComplianceDomainProofMethod string
+
 // ComplianceFieldValidation Constraints a value must satisfy, where the requirement sets any. Which of these apply follows from its data type: `pattern`, `min_length` and `max_length` constrain `string` and `text` values, `minimum` and `maximum` constrain `number` values, and everything else is `null`. Check these before submitting and you avoid a round trip.
 type ComplianceFieldValidation struct {
 	// MaxLength Longest accepted value. `null` when the requirement takes neither `string` nor `text`, or sets no maximum length.
@@ -15863,8 +15978,11 @@ type ComplianceSubmission struct {
 	CountryCode   *CountryCode `json:"country_code,omitempty"`
 
 	// CreatedAt When this was submitted.
-	CreatedAt *time.Time              `json:"created_at,omitempty"`
-	Id        *ComplianceSubmissionID `json:"id,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// DomainProof For a business verification, how your organization proved it controls the business's domain. Absent otherwise.
+	DomainProof *ComplianceDomainProof  `json:"domain_proof,omitempty"`
+	Id          *ComplianceSubmissionID `json:"id,omitempty"`
 
 	// IdentityId The party this registration was filed for, or `null` if none was named.
 	IdentityId *ComplianceIdentityID `json:"identity_id,omitempty"`
@@ -15890,11 +16008,14 @@ type ComplianceSubmission struct {
 
 	// UpdatedAt When it last changed.
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+
+	// VerifyingUserId For a business verification, the member who acts for the business. Absent otherwise.
+	VerifyingUserId *UserID `json:"verifying_user_id,omitempty"`
 }
 
 // ComplianceSubmissionCreate defines model for ComplianceSubmissionCreate.
 type ComplianceSubmissionCreate struct {
-	// Answers Every answer at once. Because submissions have no multi-call draft, send a complete set. Anything missing or malformed comes back named. A requirement the named party already answers may be left out; one you send anyway wins over what the party holds.
+	// Answers Every answer at once. Because submissions have no multi-call draft, send a complete set. Anything missing or malformed comes back named. A requirement the named party already answers may be left out; one you send anyway wins over what the party holds. A business verification never fills in `business_website`: when you send it, its domain is the one your organization proves and `contact_email` must be on, so leave it out if the business's website is on another domain.
 	Answers []ComplianceAnswer `json:"answers"`
 
 	// CountryCode ISO 3166-1 alpha-2 country code.
@@ -15910,7 +16031,7 @@ type ComplianceSubmissionCreate struct {
 	// `identity_id` from the response for the countries that follow.
 	Identity *ComplianceSubmissionIdentity `json:"identity,omitempty"`
 
-	// IdentityId An existing party this registration is for. It fills in the business details you left out from what that party already holds, and each single-value answer you file about the party is written back onto it for next time, whatever the verdict. Documents and multi-value answers are asked fresh each time. Send this or `identity`, never both. An id belonging to another organization is rejected; nothing is created here. When `subject_kind` is `identity`, send neither: `subject_id` already names the party.
+	// IdentityId An existing party this registration is for. It fills in the business details you left out from what that party already holds (except `business_website` on a business verification), and each single-value answer you file about the party is written back onto it for next time, whatever the verdict. Documents and multi-value answers are asked fresh each time. Send this or `identity`, never both. An id belonging to another organization is rejected; nothing is created here. When `subject_kind` is `identity`, send neither: `subject_id` already names the party.
 	IdentityId *ComplianceIdentityID `json:"identity_id,omitempty"`
 
 	// Program The registration program a country runs. Available programs depend on the registered resource. An SMS sender registers under an authority regime (`alpha` or `numeric`). A phone number proves ownership under its number type (`mobile`, `local`, `national`, `short_code`, `short_code_fteu`, or `toll_free`), matching the values of `NumberType`. An identity registers your business itself under `business`, internationally: its coordinate's country is always `ZZ`. A value is therefore only meaningful alongside the subject it describes. More are added as coverage grows, so treat this as an open set rather than a fixed list.
@@ -36631,6 +36752,9 @@ type WhatsAppSuppression struct {
 	EndedReason      *WhatsAppSuppressionEndReason `json:"ended_reason,omitempty"`
 	Id               WhatsAppSuppressionID         `json:"id"`
 
+	// LastAssertedAt When we last recorded this suppression being stated. Later than `created_at` when your workspace added it again while it was already in force; a repeat adds no new record.
+	LastAssertedAt *time.Time `json:"last_asserted_at,omitempty"`
+
 	// Origin How the suppression came to exist:
 	//
 	// - `api_key`: an API call.
@@ -37808,7 +37932,7 @@ type WorkspaceQuota struct {
 	// Label What the product calls the thing the limit applies to, such as `domains` or `seed tests`, for display next to the limit.
 	Label string `json:"label"`
 
-	// Limit The lower of the organization limit currently applied to requests and the workspace's active limit or automatic share. The applied organization limit can briefly differ from the configured `organization_limit` after a change. A request can still be refused below this value when other workspaces use the shared organization limit.
+	// Limit The lower of the organization limit currently applied to requests and the workspace's active limit or automatic share. The applied organization limit can briefly differ from the configured `organization_limit` after a change. A request can still be refused below this value when other workspaces use the shared organization limit. The value `9223372036854775807` represents no limit.
 	Limit int64 `json:"limit"`
 
 	// LimitSource Which limit bounds the workspace's own usage.
@@ -37822,7 +37946,7 @@ type WorkspaceQuota struct {
 	MaximumValue int64  `json:"maximum_value"`
 	Name         string `json:"name"`
 
-	// OrganizationLimit The organization's limit, shared by all its workspaces.
+	// OrganizationLimit The organization's limit, shared by all its workspaces. The value `9223372036854775807` represents no limit.
 	OrganizationLimit int64 `json:"organization_limit"`
 
 	// OrganizationSource Where the organization limit comes from.
@@ -37918,7 +38042,7 @@ type WorkspaceQuotaUsage struct {
 	// ObservedAt When usage was read.
 	ObservedAt time.Time `json:"observed_at"`
 
-	// OrganizationLimit The organization limit requests were checked against when usage was read.
+	// OrganizationLimit The organization limit requests were checked against when usage was read. The value `9223372036854775807` represents no limit.
 	OrganizationLimit int64 `json:"organization_limit"`
 
 	// OrganizationRemaining How much more the whole organization can add, shared by all its workspaces. `null` on the current-workspace endpoint or when usage is unavailable.

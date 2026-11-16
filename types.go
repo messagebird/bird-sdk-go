@@ -478,6 +478,7 @@ type (
 type (
 	ComplianceRequirement       = oapi.ComplianceRequirement
 	ComplianceSubmission        = oapi.ComplianceSubmission
+	ComplianceDomainProof       = oapi.ComplianceDomainProof
 	ComplianceIdentity          = oapi.ComplianceIdentity
 	ComplianceIdentityList      = oapi.ComplianceIdentityList
 	ComplianceIdentitySortField = oapi.ComplianceIdentitySortField
@@ -1203,6 +1204,7 @@ type AMBMessage = oapi.AMBMessage
 type AMBMessageDirection = oapi.AMBMessageDirection
 type AMBMessageEventList = oapi.AMBMessageEventList
 type AMBMessageList = oapi.AMBMessageList
+type AMBMessagePart = oapi.AMBMessagePart
 type AMBMessageSource = oapi.AMBMessageSource
 type AMBMessageStatus = oapi.AMBMessageStatus
 type AMBRoutingRule = oapi.AMBRoutingRule

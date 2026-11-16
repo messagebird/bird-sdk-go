@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.144.0
+
+- Add `parts` to Apple Messages message reads and to the `amb.sent` and `amb.send_failed` webhook events: the parts an outbound message was sent as, in order. Each part has its `kind` and `sent`, which says whether Bird saw Apple accept it. A `link_preview` also has its `url` and, when recorded, the `title`, `image_url` and `layout` it showed; a `rich_link` has its `layout` when recorded. A `false` part may still have arrived, so do not resend it on that alone.
+- Compliance submissions for a business verification report how your organization proved it controls the business's domain (`domain_proof`) and the member who completed the ID check and acts for the business (`verifying_user_id`).
+- WhatsApp and Apple Messages for Business suppression records now carry `last_asserted_at`, when the suppression was last stated. Adding an address that already has a `manual` suppression for that scope moves `last_asserted_at` on that record to the call and opens nothing; an address suppressed for another reason still gets its own `manual` record.
+- Workspace quota `organization_limit`, `limit` and `usage.organization_limit` now document that `9223372036854775807` means no limit.
+
 ## 0.143.0
 
 - Apple Messages for Business suppression records now carry `blocking`, which says whether the suppression is in force right now; `applies_to` says what it blocks.

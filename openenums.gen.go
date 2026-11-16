@@ -93,6 +93,18 @@ const (
 	AMBMessageEventTypeAmbSent       = oapi.AMBMessageEventTypeAmbSent
 )
 
+// AMBMessagePartKind is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the AMBMessagePartKind* constants with a
+// default branch rather than treating the set as closed.
+type AMBMessagePartKind = oapi.AMBMessagePartKind
+
+const (
+	AMBMessagePartKindInteractive = oapi.AMBMessagePartKindInteractive
+	AMBMessagePartKindLinkPreview = oapi.AMBMessagePartKindLinkPreview
+	AMBMessagePartKindRichLink    = oapi.AMBMessagePartKindRichLink
+	AMBMessagePartKindText        = oapi.AMBMessagePartKindText
+)
+
 // AMBSuppressionCoverage is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the AMBSuppressionCoverage* constants with a
 // default branch rather than treating the set as closed.
@@ -157,6 +169,16 @@ const (
 	AssetReferenceUsageBoth      = oapi.AssetReferenceUsageBoth
 	AssetReferenceUsageDraft     = oapi.AssetReferenceUsageDraft
 	AssetReferenceUsagePublished = oapi.AssetReferenceUsagePublished
+)
+
+// ComplianceDomainProofMethod is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the ComplianceDomainProofMethod* constants with a
+// default branch rather than treating the set as closed.
+type ComplianceDomainProofMethod = oapi.ComplianceDomainProofMethod
+
+const (
+	ComplianceDomainProofMethodMemberLogin = oapi.ComplianceDomainProofMethodMemberLogin
+	ComplianceDomainProofMethodSsoDomain   = oapi.ComplianceDomainProofMethodSsoDomain
 )
 
 // ComplianceItemState is an open string on the wire: a value added by a newer server
