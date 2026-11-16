@@ -15335,6 +15335,9 @@ type BillingWalletList struct {
 	Data []BillingWallet `json:"data"`
 }
 
+// BrandID defines model for BrandID.
+type BrandID = string
+
 // CompetitiveWatchlistBrandID defines model for CompetitiveWatchlistBrandID.
 type CompetitiveWatchlistBrandID = string
 
@@ -20746,8 +20749,11 @@ type EmailMessage struct {
 	Bcc *[]EmailAddress `json:"bcc,omitempty"`
 
 	// BouncedCount Number of recipients that resulted in a permanent delivery failure.
-	BouncedCount *int              `json:"bounced_count,omitempty"`
-	BroadcastId  *EmailBroadcastID `json:"broadcast_id,omitempty"`
+	BouncedCount *int `json:"bounced_count,omitempty"`
+
+	// BrandId The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+	BrandId     *BrandID          `json:"brand_id,omitempty"`
+	BroadcastId *EmailBroadcastID `json:"broadcast_id,omitempty"`
 
 	// Category Content classification, which controls suppression policy:
 	//
@@ -20851,6 +20857,9 @@ type EmailMessage struct {
 
 // EmailMessageBatchItem defines model for EmailMessageBatchItem.
 type EmailMessageBatchItem struct {
+	// BrandId The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+	BrandId *BrandID `json:"brand_id,omitempty"`
+
 	// Category Resolved category for this batch item.
 	Category EmailMessageBatchItemCategory `json:"category"`
 	Id       EmailID                       `json:"id"`
@@ -20929,6 +20938,9 @@ type EmailMessageSendRequest struct {
 
 	// Bcc BCC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@acme.com>`), or an object with an optional display name.
 	Bcc *[]EmailAddressInput `json:"bcc,omitempty"`
+
+	// BrandId Preview: selects the business whose email preferences and unsubscribe page apply; explicit input returns `422` when selection is unavailable. When selection is available, omission or null selects the workspace's default Brand. The selection stays fixed for scheduled sends and retries. An explicit ID must belong to this workspace and must not be archived. An unknown, foreign or archived Brand returns `422`. Omitted or null values preserve existing sending behavior while selection is unavailable.
+	BrandId nullable.Nullable[BrandID] `json:"brand_id,omitempty"`
 
 	// Category Content classification, which controls suppression policy:
 	//
@@ -25039,6 +25051,9 @@ type EventEmailAcceptedData = EventEmailBase
 
 // EventEmailBase Identity fields shared by every email lifecycle event payload.
 type EventEmailBase struct {
+	// BrandId The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+	BrandId *BrandID `json:"brand_id,omitempty"`
+
 	// BroadcastId The broadcast this send went out as part of, echoed on every per-recipient event for the send so you can attribute engagement to the broadcast without an extra lookup. Null when the send was not part of a broadcast. On `email.unsubscribed` and `email.list_unsubscribed`, null can also mean the recipient used an unsubscribe link that names no broadcast, so on those two events null does not rule a broadcast out.
 	BroadcastId *EmailBroadcastID `json:"broadcast_id"`
 	EmailId     EmailID           `json:"email_id"`
@@ -25095,6 +25110,9 @@ type EventEmailBouncedData struct {
 	// - `admin`: An administrative refusal, such as relaying denied or a blocklisted domain.
 	// - `undetermined`: The receiving server's response was ambiguous.
 	BounceType EmailBounceType `json:"bounce_type"`
+
+	// BrandId The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+	BrandId *BrandID `json:"brand_id,omitempty"`
 
 	// BroadcastId The broadcast this send went out as part of, echoed on every per-recipient event for the send so you can attribute engagement to the broadcast without an extra lookup. Null when the send was not part of a broadcast. On `email.unsubscribed` and `email.list_unsubscribed`, null can also mean the recipient used an unsubscribe link that names no broadcast, so on those two events null does not rule a broadcast out.
 	BroadcastId *EmailBroadcastID `json:"broadcast_id"`
@@ -25156,6 +25174,9 @@ type EventEmailClickedType string
 
 // EventEmailClickedData defines model for EventEmailClickedData.
 type EventEmailClickedData struct {
+	// BrandId The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+	BrandId *BrandID `json:"brand_id,omitempty"`
+
 	// BroadcastId The broadcast this send went out as part of, echoed on every per-recipient event for the send so you can attribute engagement to the broadcast without an extra lookup. Null when the send was not part of a broadcast. On `email.unsubscribed` and `email.list_unsubscribed`, null can also mean the recipient used an unsubscribe link that names no broadcast, so on those two events null does not rule a broadcast out.
 	BroadcastId *EmailBroadcastID `json:"broadcast_id"`
 	EmailId     EmailID           `json:"email_id"`
@@ -25204,6 +25225,9 @@ type EventEmailComplainedType string
 
 // EventEmailComplainedData defines model for EventEmailComplainedData.
 type EventEmailComplainedData struct {
+	// BrandId The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+	BrandId *BrandID `json:"brand_id,omitempty"`
+
 	// BroadcastId The broadcast this send went out as part of, echoed on every per-recipient event for the send so you can attribute engagement to the broadcast without an extra lookup. Null when the send was not part of a broadcast. On `email.unsubscribed` and `email.list_unsubscribed`, null can also mean the recipient used an unsubscribe link that names no broadcast, so on those two events null does not rule a broadcast out.
 	BroadcastId *EmailBroadcastID `json:"broadcast_id"`
 	EmailId     EmailID           `json:"email_id"`
@@ -25257,6 +25281,9 @@ type EventEmailDeferredData struct {
 	// - `admin`: An administrative refusal, such as relaying denied or a blocklisted domain.
 	// - `undetermined`: The receiving server's response was ambiguous.
 	BounceType EmailBounceType `json:"bounce_type"`
+
+	// BrandId The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+	BrandId *BrandID `json:"brand_id,omitempty"`
 
 	// BroadcastId The broadcast this send went out as part of, echoed on every per-recipient event for the send so you can attribute engagement to the broadcast without an extra lookup. Null when the send was not part of a broadcast. On `email.unsubscribed` and `email.list_unsubscribed`, null can also mean the recipient used an unsubscribe link that names no broadcast, so on those two events null does not rule a broadcast out.
 	BroadcastId *EmailBroadcastID `json:"broadcast_id"`
@@ -25514,7 +25541,9 @@ type EventEmailMailboxThreadCreatedDataInitiatedBy string
 
 // EventEmailMessageBase Identity fields shared by the message-level email lifecycle events (scheduled, canceled), which are not tied to a single recipient.
 type EventEmailMessageBase struct {
-	EmailId EmailID `json:"email_id"`
+	// BrandId The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+	BrandId *BrandID `json:"brand_id,omitempty"`
+	EmailId EmailID  `json:"email_id"`
 
 	// Metadata The metadata object provided on the send request, echoed on the event so you can correlate events with your own records. Null when the send carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
@@ -25544,6 +25573,9 @@ type EventEmailOpenedType string
 
 // EventEmailOpenedData defines model for EventEmailOpenedData.
 type EventEmailOpenedData struct {
+	// BrandId The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+	BrandId *BrandID `json:"brand_id,omitempty"`
+
 	// BroadcastId The broadcast this send went out as part of, echoed on every per-recipient event for the send so you can attribute engagement to the broadcast without an extra lookup. Null when the send was not part of a broadcast. On `email.unsubscribed` and `email.list_unsubscribed`, null can also mean the recipient used an unsubscribe link that names no broadcast, so on those two events null does not rule a broadcast out.
 	BroadcastId *EmailBroadcastID `json:"broadcast_id"`
 	EmailId     EmailID           `json:"email_id"`
@@ -25606,6 +25638,9 @@ type EventEmailOutOfBandBounceData struct {
 	// - `admin`: An administrative refusal, such as relaying denied or a blocklisted domain.
 	// - `undetermined`: The receiving server's response was ambiguous.
 	BounceType EmailBounceType `json:"bounce_type"`
+
+	// BrandId The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+	BrandId *BrandID `json:"brand_id,omitempty"`
 
 	// BroadcastId The broadcast this send went out as part of, echoed on every per-recipient event for the send so you can attribute engagement to the broadcast without an extra lookup. Null when the send was not part of a broadcast. On `email.unsubscribed` and `email.list_unsubscribed`, null can also mean the recipient used an unsubscribe link that names no broadcast, so on those two events null does not rule a broadcast out.
 	BroadcastId *EmailBroadcastID `json:"broadcast_id"`
@@ -25732,6 +25767,9 @@ type EventEmailRejectedType string
 
 // EventEmailRejectedData defines model for EventEmailRejectedData.
 type EventEmailRejectedData struct {
+	// BrandId The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+	BrandId *BrandID `json:"brand_id,omitempty"`
+
 	// BroadcastId The broadcast this send went out as part of, echoed on every per-recipient event for the send so you can attribute engagement to the broadcast without an extra lookup. Null when the send was not part of a broadcast. On `email.unsubscribed` and `email.list_unsubscribed`, null can also mean the recipient used an unsubscribe link that names no broadcast, so on those two events null does not rule a broadcast out.
 	BroadcastId *EmailBroadcastID `json:"broadcast_id"`
 	EmailId     EmailID           `json:"email_id"`
@@ -25786,7 +25824,9 @@ type EventEmailScheduledType string
 
 // EventEmailScheduledData defines model for EventEmailScheduledData.
 type EventEmailScheduledData struct {
-	EmailId EmailID `json:"email_id"`
+	// BrandId The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+	BrandId *BrandID `json:"brand_id,omitempty"`
+	EmailId EmailID  `json:"email_id"`
 
 	// Metadata The metadata object provided on the send request, echoed on the event so you can correlate events with your own records. Null when the send carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
@@ -116756,6 +116796,7 @@ type CreateEmailMessageBatchResponse struct {
 	JSON402      *PaymentRequired
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON409      *Conflict
 	JSON413      *PayloadTooLarge
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
@@ -119213,6 +119254,7 @@ type CreateEmailMessageResponse struct {
 	JSON402      *PaymentRequired
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON409      *Conflict
 	JSON413      *PayloadTooLarge
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
@@ -144462,6 +144504,13 @@ func ParseCreateEmailMessageBatchResponse(rsp *http.Response) (*CreateEmailMessa
 		}
 		response.JSON404 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 413:
 		var dest PayloadTooLarge
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -149884,6 +149933,13 @@ func ParseCreateEmailMessageResponse(rsp *http.Response) (*CreateEmailMessageRes
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 413:
 		var dest PayloadTooLarge

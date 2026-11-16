@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.142.0
+
+- Add optional `brand_id` to individual and batch email requests. Brand selection is in preview. Explicit input returns `422` when selection is unavailable; omitted or null input preserves existing behavior.
+- Expose `brand_id` on email message responses and outbound lifecycle events. Brand attribution is in preview.
+- Nested types and enums that methods and webhook payloads hand you now have exported names in the package, with constants for each enum value, so you can declare variables, parameters and comparisons for fields such as a contact batch result's `status` (ContactUpsertResultItemStatus). Two types take new names because the package already uses theirs: a resource's `next` steps are ResourceNextAction, since NextAction stays the step type on an API error, and a per-row error's `details` entries are ErrorBodyDetail, since ErrorDetail stays the field failure on a validation error. Webhook payloads that had no exported name, such as SMSDeliveredEvent and VoiceCallEndedEvent, are now exported under the existing `<Subject><Action>Event` naming. Webhook `data` structs are exported too, as `<Subject><Action>EventData` (SMSDeliveredEventData, EmailDeliveredEventData), or as `<Subject>EventData` when several actions share it (AMBMessageEventData, WhatsAppGroupJoinRequestEventData).
+
 ## 0.141.0
 
 - Add ErrorTypeTooEarly, ErrorTypeGone and ErrorTypeClientClosed for `too_early_error` (425), `gone_error` (410) and `client_closed_request_error` (499); an error response with no body at those statuses now carries the matching Type instead of `bad_request_error`.

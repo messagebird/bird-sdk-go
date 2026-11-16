@@ -83,6 +83,10 @@ type EmailSendParams struct {
 	// if the template is deleted before it is due. A batch item takes it on
 	// the same terms, so one batch can mix scheduled and immediate messages.
 	ScheduledAt time.Time
+	// BrandID selects a business in the Brands preview. Explicit input returns `422`
+	// when selection is unavailable; unset or null preserves existing behavior.
+	// When selection is available, unset or null uses the workspace default.
+	BrandID Nullable[string]
 }
 
 func (p EmailSendParams) toWire() oapi.EmailMessageSendRequest {
@@ -91,8 +95,9 @@ func (p EmailSendParams) toWire() oapi.EmailMessageSendRequest {
 		from = addressInput(p.From)
 	}
 	body := oapi.EmailMessageSendRequest{
-		From: from,
-		To:   addressInputs(p.To),
+		BrandId: p.BrandID,
+		From:    from,
+		To:      addressInputs(p.To),
 	}
 	// Subject is optional on the wire (a template supplies it); omit it when
 	// empty so a send-by-template doesn't trip subject/template exclusivity.

@@ -154,9 +154,8 @@ type (
 	// TemplateStatus is where a template stands as a whole, on every channel.
 	TemplateStatus = oapi.TemplateStatus
 	// EmailTemplateThemeFilter is the closed set of themes the template list filter
-	// takes. EmailTemplateTheme, the value a template reports back, is open, and the
-	// exported EmailTemplateTheme* constants are its type, not this one -- a filter
-	// takes a string literal, as every other closed enum here does.
+	// takes, with EmailTemplateThemeFilter* constants. EmailTemplateTheme, the value
+	// a template reports back, is open and has its own EmailTemplateTheme* constants.
 	EmailTemplateThemeFilter = oapi.EmailTemplateThemeFilter
 	// EmailTemplateCategory is whether a template is transactional or marketing.
 	EmailTemplateCategory = oapi.EmailTemplateCategory
@@ -1299,4 +1298,14 @@ type (
 	VoiceDestinationDailySpendLimitUpdate = oapi.VoiceDestinationDailySpendLimitUpdate
 	VoiceSequenceSavedExecutionCallSample = oapi.VoiceSequenceSavedExecutionCallSample
 	VoiceSequenceSavedExecutionParty      = oapi.VoiceSequenceSavedExecutionParty
+)
+
+// ResourceNextAction is a step a resource reports in its next field, and
+// ErrorBodyDetail is one per-field failure in a per-row error. They are the
+// wire shapes: optional fields are pointers and the URL field is Url, unlike
+// NextAction on *APIError and ErrorDetail on *ValidationError, which keep
+// those names.
+type (
+	ResourceNextAction = oapi.NextAction
+	ErrorBodyDetail    = oapi.ErrorDetail
 )

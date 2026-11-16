@@ -54,7 +54,7 @@ func wireEnumValues(t *testing.T) map[string]map[string]bool {
 		if !ok {
 			return
 		}
-		if v, ok := stringLit(value); ok && v != "<nil>" {
+		if v, ok := stringLit(value); ok && v != "<nil>" && v != "" {
 			if values[ident.Name] == nil {
 				values[ident.Name] = map[string]bool{}
 			}
@@ -106,11 +106,14 @@ func facadeEnums(t *testing.T, wire map[string]map[string]bool) (map[string]stri
 			}
 		}
 		eachConst(file, func(name string, typ ast.Expr, value ast.Expr) {
+			if !ast.IsExported(name) {
+				return
+			}
 			if ident, ok := typ.(*ast.Ident); ok {
 				if v, ok := stringLit(value); ok {
 					add(ident.Name, v)
+					return
 				}
-				return
 			}
 			if sel, ok := wireSelector(value); ok {
 				if c, ok := wireConst[sel]; ok {
