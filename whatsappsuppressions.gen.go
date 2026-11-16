@@ -12,8 +12,10 @@ import (
 
 // WhatsappSuppressionsListParams filters the list. Zero-value fields are omitted.
 type WhatsappSuppressionsListParams struct {
-	// Address prefix filter (case-insensitive). A complete address returns only that address; a partial value returns all matches.
+	// Return only suppressions for this exact address: a phone number in E.164 form or a business-scoped user ID. A phone number is matched in its canonical form, so spacing and punctuation do not matter. Prefix matching is unsupported.
 	Address string
+	// Return only suppressions covering this WhatsApp Business Account, identified by its WhatsApp-issued account ID or by the `waa_` ID Bird gives it, including the workspace-wide ones that stop it too. Omit for every account in the workspace.
+	Waba string
 	// Return only suppressions with this reason: - `manual`: Added through the API or dashboard.
 	Reason WhatsAppSuppressionReasonFilter
 	// Maximum number of items to return per page.
@@ -25,6 +27,7 @@ type WhatsappSuppressionsListParams struct {
 func (p WhatsappSuppressionsListParams) toWire(startingAfter string) *oapi.ListWhatsAppSuppressionsParams {
 	return &oapi.ListWhatsAppSuppressionsParams{
 		Address:       optStr(p.Address),
+		Waba:          optStr(p.Waba),
 		Reason:        optZero(p.Reason),
 		Limit:         optInt(p.Limit),
 		EndingBefore:  optStr(p.EndingBefore),
@@ -34,9 +37,9 @@ func (p WhatsappSuppressionsListParams) toWire(startingAfter string) *oapi.ListW
 
 // WhatsappSuppressionsAddParams is the request body for add.
 type WhatsappSuppressionsAddParams struct {
-	// WhatsApp address to suppress. For a phone number, supply canonical E.164 with a leading plus sign, such as `+5511977670804`. A value that is not a valid phone number returns a `422`.
+	// The WhatsApp address to stop messaging. For a phone number, supply canonical E.164 with a leading plus sign, such as `+5511977670804`. A value that is not a valid phone number or business-scoped user ID returns `422`.
 	Address string
-	// Limit the suppression to messages sent from this WhatsApp Business Account, identified by its WhatsApp-issued account ID. Omit it to block the address for the whole workspace, whichever account sends.
+	// The WhatsApp Business Account to stop, identified by its WhatsApp-issued account ID or by the `waa_` ID Bird gives it. Either form resolves to the same account, and the suppression stores and returns the WhatsApp-issued one. Omit it to stop the address for the whole workspace, whichever account sends. An account that is not one of yours returns `404` on a single create, and its row reports `error` in a bulk create.
 	Waba *string
 }
 
@@ -63,7 +66,7 @@ func (s *WhatsappSuppressionsService) ListPage(ctx context.Context, params Whats
 	return &out, nil
 }
 
-// List List the workspace's recorded WhatsApp suppression addresses as a cursor page.
+// List List the workspace's WhatsApp suppressions (addresses blocked for one business account or for the whole workspace) as a cursor page.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *WhatsappSuppressionsService) List(ctx context.Context, params WhatsappSuppressionsListParams, opts ...option.RequestOption) iter.Seq2[*WhatsAppSuppression, error] {
@@ -95,7 +98,7 @@ func (s *WhatsappSuppressionsService) Get(ctx context.Context, suppressionId str
 	return &out, nil
 }
 
-// Add Record a WhatsApp address on the workspace suppression list.
+// Add Stop messages to one WhatsApp address, for one business account or for the whole workspace.
 func (s *WhatsappSuppressionsService) Add(ctx context.Context, params WhatsappSuppressionsAddParams, opts ...option.RequestOption) (*WhatsAppSuppression, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.CreateWhatsAppSuppressionParams{}

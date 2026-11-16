@@ -93,6 +93,27 @@ const (
 	AMBMessageEventTypeAmbSent       = oapi.AMBMessageEventTypeAmbSent
 )
 
+// AMBSuppressionCoverage is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the AMBSuppressionCoverage* constants with a
+// default branch rather than treating the set as closed.
+type AMBSuppressionCoverage = oapi.AMBSuppressionCoverage
+
+const (
+	AMBSuppressionCoverageAll         = oapi.AMBSuppressionCoverageAll
+	AMBSuppressionCoverageInvitations = oapi.AMBSuppressionCoverageInvitations
+)
+
+// AMBSuppressionEndReason is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the AMBSuppressionEndReason* constants with a
+// default branch rather than treating the set as closed.
+type AMBSuppressionEndReason = oapi.AMBSuppressionEndReason
+
+const (
+	AMBSuppressionEndReasonApiKey      = oapi.AMBSuppressionEndReasonApiKey
+	AMBSuppressionEndReasonReinitiated = oapi.AMBSuppressionEndReasonReinitiated
+	AMBSuppressionEndReasonUser        = oapi.AMBSuppressionEndReasonUser
+)
+
 // AMBSuppressionOrigin is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the AMBSuppressionOrigin* constants with a
 // default branch rather than treating the set as closed.
@@ -1354,6 +1375,44 @@ const (
 	WhatsAppStatsMessageCategoryMarketing      = oapi.WhatsAppStatsMessageCategoryMarketing
 	WhatsAppStatsMessageCategoryService        = oapi.WhatsAppStatsMessageCategoryService
 	WhatsAppStatsMessageCategoryUtility        = oapi.WhatsAppStatsMessageCategoryUtility
+)
+
+// WhatsAppSuppressionCoverage is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WhatsAppSuppressionCoverage* constants with a
+// default branch rather than treating the set as closed.
+type WhatsAppSuppressionCoverage = oapi.WhatsAppSuppressionCoverage
+
+const (
+	WhatsAppSuppressionCoverageAll = oapi.WhatsAppSuppressionCoverageAll
+)
+
+// WhatsAppSuppressionEndReason is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WhatsAppSuppressionEndReason* constants with a
+// default branch rather than treating the set as closed.
+type WhatsAppSuppressionEndReason = oapi.WhatsAppSuppressionEndReason
+
+const (
+	WhatsAppSuppressionEndReasonApiKey = oapi.WhatsAppSuppressionEndReasonApiKey
+	WhatsAppSuppressionEndReasonUser   = oapi.WhatsAppSuppressionEndReasonUser
+)
+
+// WhatsAppSuppressionOrigin is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WhatsAppSuppressionOrigin* constants with a
+// default branch rather than treating the set as closed.
+type WhatsAppSuppressionOrigin = oapi.WhatsAppSuppressionOrigin
+
+const (
+	WhatsAppSuppressionOriginApiKey = oapi.WhatsAppSuppressionOriginApiKey
+	WhatsAppSuppressionOriginUser   = oapi.WhatsAppSuppressionOriginUser
+)
+
+// WhatsAppSuppressionReason is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WhatsAppSuppressionReason* constants with a
+// default branch rather than treating the set as closed.
+type WhatsAppSuppressionReason = oapi.WhatsAppSuppressionReason
+
+const (
+	WhatsAppSuppressionReasonManual = oapi.WhatsAppSuppressionReasonManual
 )
 
 // WhatsAppTemplateBidStrategy is an open string on the wire: a value added by a newer server

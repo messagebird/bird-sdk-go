@@ -4484,7 +4484,7 @@ func ExampleWhatsappSuppressionsService_List() {
 		log.Fatal(err)
 	}
 	for suppression, err := range client.Whatsapp.Suppressions.List(context.Background(), bird.WhatsappSuppressionsListParams{
-		Address: "+1555", // a prefix, so a partial value matches every address under it
+		Address: "+15550001234", // one complete address, matched exactly; a partial number returns nothing
 	}) {
 		if err != nil {
 			log.Fatal(err)
@@ -5507,13 +5507,13 @@ func ExampleAmbSuppressionsService_Get() {
 	fmt.Println(result)
 }
 
-func ExampleAmbSuppressionsService_Delete() {
+func ExampleAmbSuppressionsService_Remove() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
 	}
 	ctx := context.Background()
-	if err := client.Amb.Suppressions.Delete(ctx, "asp_01krdgeqcxet5s7t44vh8rt9mg"); err != nil {
+	if err := client.Amb.Suppressions.Remove(ctx, "asp_01krdgeqcxet5s7t44vh8rt9mg"); err != nil {
 		log.Fatal(err)
 	}
 }
@@ -5532,13 +5532,13 @@ func ExampleAmbSuppressionsService_List() {
 	}
 }
 
-func ExampleAmbSuppressionsService_Create() {
+func ExampleAmbSuppressionsService_Add() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
 	}
 	ctx := context.Background()
-	result, err := client.Amb.Suppressions.Create(ctx, bird.AmbSuppressionsCreateParams{Address: "opaque-customer", AddressType: "opaque_user_id"})
+	result, err := client.Amb.Suppressions.Add(ctx, bird.AmbSuppressionsAddParams{Address: "opaque-customer", AddressType: "opaque_user_id"})
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -201,6 +201,8 @@ type (
 	// the record's own reason is extensible: a reason the server does not know
 	// matches nothing, and an empty page reads as "not suppressed".
 	WhatsAppSuppressionReasonFilter = oapi.WhatsAppSuppressionReasonFilter
+	// AMBSuppressionReasonFilter is the same closed filter for Apple Messages for Business.
+	AMBSuppressionReasonFilter = oapi.AMBSuppressionReasonFilter
 	// SMSKeywordRuleScope distinguishes Bird's default keyword rules from a
 	// workspace's own.
 	SMSKeywordRuleScope        = oapi.SMSKeywordRuleScope

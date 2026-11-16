@@ -853,6 +853,11 @@ const (
 )
 
 const (
+	AMBSuppressionReasonFilterManual   AMBSuppressionReasonFilter = "manual"
+	AMBSuppressionReasonFilterOptedOut AMBSuppressionReasonFilter = "opted_out"
+)
+
+const (
 	AMBTemplateCategoryMarketing     AMBTemplateCategory = "marketing"
 	AMBTemplateCategoryTransactional AMBTemplateCategory = "transactional"
 )

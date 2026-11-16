@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.143.0
+
+- Apple Messages for Business suppression records now carry `blocking`, which says whether the suppression is in force right now; `applies_to` says what it blocks.
+- **Breaking:** on Apple Messages for Business suppressions, `applies_to` is typed `AMBSuppressionCoverage` and `ended_reason` is typed `AMBSuppressionEndReason` rather than plain strings; code that assigns or compares them as `string` needs a conversion.
+- **Breaking:** Apple Messages for Business suppression records now always carry `source_message_id`, `source_event_id` and `source_end_message_id`, as `null` when they do not apply; callers that read an absent field as the only "none" state need to accept `null` too.
+- **Breaking:** `amb.suppressions.add` and `amb.suppressions.remove` replace the former create and delete methods, matching the SMS and WhatsApp suppression methods; rename the call sites, and in Go, TypeScript and Python the parameters type AmbSuppressionsAddParams replaces AmbSuppressionsCreateParams.
+- **Breaking:** the `address` filter on listing Apple Messages for Business suppressions now matches one exact address, as on SMS and WhatsApp, instead of every address starting with the value, case-insensitively; a partial value returns an empty page. A phone number is matched in its canonical E.164 form, and an opaque identifier exactly as Apple supplied it.
+- Listing Apple Messages for Business suppressions now orders them by `effective_at`, most recent first, as the SMS list does.
+- **Breaking:** listing Apple Messages for Business suppressions now refuses a `reason` filter other than `manual` or `opted_out` with `422` instead of returning an empty page.
+- **Breaking:** on the Apple Messages for Business suppressions list parameters, the Reason field is typed AMBSuppressionReasonFilter, a closed set of `manual` and `opted_out`, rather than AMBSuppressionReason; code that passed an AMBSuppressionReason value needs the filter type.
+- Add `activation_window_days` to eSIM offer responses, and populate `ready_until` on purchased eSIMs when the initial offer has a confirmed activation window.
+- WhatsApp suppression records now carry `blocking`, `effective_at` and `ended_effective_at`, so a record fetched by ID says whether it still stops messages and when its end took effect; `waba`, `ended_at` and `ended_reason` are present on every record, null when they do not apply.
+- **Breaking:** on WhatsApp suppressions, `reason`, `origin`, `applies_to` and `ended_reason` are typed `WhatsAppSuppressionReason`, `WhatsAppSuppressionOrigin`, `WhatsAppSuppressionCoverage` and `WhatsAppSuppressionEndReason` rather than plain strings; code that assigns or compares them as `string` needs a conversion. The `whatsapp_suppression.created` webhook event's `reason` is typed `WhatsAppSuppressionReason` too.
+- **Breaking:** WhatsApp suppression records now always carry `source_whatsapp_id`, as `null` when it does not apply, instead of omitting it; callers that read an absent field as the only "none" state need to accept `null` too.
+- **Breaking:** the `address` filter on listing WhatsApp suppressions now matches one exact address, as the SMS `destination` filter does, instead of every address starting with the value; a partial number returns an empty page. A full phone number is matched in its canonical E.164 form, so spacing and punctuation still do not matter.
+- Listing WhatsApp suppressions now orders them by `effective_at`, most recent first, as the SMS list does.
+- Listing WhatsApp suppressions with `waba` also accepts the `waa_` ID, and returns the same suppressions as the WhatsApp-issued ID.
+- Listing WhatsApp suppressions gains a `waba` filter, which returns that business account's suppressions together with the workspace-wide ones that block it too.
+- **Breaking:** adding a WhatsApp suppression scoped to a `waba` now checks that the WhatsApp Business Account is one of yours: a single add returns `404`, and a bulk row reports `error`, where before the value was stored unchecked. The account can be named by its WhatsApp-issued ID or by its `waa_` ID; the record carries the WhatsApp-issued one.
+
 ## 0.142.0
 
 - Add optional `brand_id` to individual and batch email requests. Brand selection is in preview. Explicit input returns `422` when selection is unavailable; omitted or null input preserves existing behavior.

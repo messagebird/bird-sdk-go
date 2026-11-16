@@ -14,14 +14,14 @@ type AMBSuppressionAddressType = oapi.AMBSuppressionAddressType
 
 // AmbSuppressionsListParams filters the list. Zero-value fields are omitted.
 type AmbSuppressionsListParams struct {
-	// Keep only suppressions for this brand, including the workspace-wide ones that block it too. Omit to see suppressions for every brand in the workspace.
+	// Return only suppressions covering this business account, including the workspace-wide ones that stop it too. Omit for every account in the workspace.
 	BusinessAccountID string
-	// Prefix filter on the suppressed phone number or opaque identifier (case-insensitive). A complete value returns only that address; a partial value returns every match.
+	// Return only suppressions for this exact address: a complete phone number, which is normalized to E.164 first, or an opaque identifier exactly as Apple supplied it. Prefix matching is unsupported, so a partial value returns an empty page.
 	Address string
-	// Keep only suppressions of this kind.
+	// Return only suppressions whose address is of this kind.
 	AddressType AMBSuppressionAddressType
-	// Keep only suppressions with this reason.
-	Reason AMBSuppressionReason
+	// Return only suppressions with this reason: - `manual`: Added through the API or dashboard. - `opted_out`: The customer or Apple signaled they should not be contacted.
+	Reason AMBSuppressionReasonFilter
 	// Maximum number of items to return per page.
 	Limit int
 	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
@@ -40,17 +40,17 @@ func (p AmbSuppressionsListParams) toWire(startingAfter string) *oapi.ListAMBSup
 	}
 }
 
-// AmbSuppressionsCreateParams is the request body for create.
-type AmbSuppressionsCreateParams struct {
-	// Limit this manual block to one account. Omit to cover the same address across the workspace.
+// AmbSuppressionsAddParams is the request body for add.
+type AmbSuppressionsAddParams struct {
+	// The business account to stop. Omit to stop the address for every account in the workspace. An account in another workspace returns `404`.
 	BusinessAccountID *string
-	// The phone number or opaque identifier to suppress. For a phone number, supply canonical E.164 with a leading plus sign.
+	// The customer to stop messaging: a phone number in E.164 format with a leading plus sign, or the exact opaque identifier Apple supplied. `address_type` says which.
 	Address string
 	// What kind of value `address` holds. - `phone_number` means `address` is the customer's phone number. Apple's CloseSession event carries a phone number rather than an opaque identifier, so a suppression opened by a close on a conversation identified by phone number takes this kind. - `opaque_user_id` means `address` is the opaque identifier Apple assigns to the customer's conversation with the business, stable across a close and a later re-initiation.
 	AddressType AMBSuppressionAddressType
 }
 
-func (p AmbSuppressionsCreateParams) toWire() oapi.AMBSuppressionCreate {
+func (p AmbSuppressionsAddParams) toWire() oapi.AMBSuppressionCreate {
 	body := oapi.AMBSuppressionCreate{}
 	body.BusinessAccountId = p.BusinessAccountID
 	body.Address = p.Address
@@ -58,7 +58,7 @@ func (p AmbSuppressionsCreateParams) toWire() oapi.AMBSuppressionCreate {
 	return body
 }
 
-// Get Returns the suppression episode for the given ID, including one that has already ended. An ended episode keeps its dates and reports when and how it ended.
+// Get Read one Apple Messages for Business suppression: the address and account it covers, why messages are stopped, what it stops, and whether it is still in force. To check whether you may message someone, list suppressions filtered by their address instead.
 func (s *AmbSuppressionsService) Get(ctx context.Context, suppressionId string, opts ...option.RequestOption) (*AMBSuppression, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetAMBSuppression(ctx, oapi.AMBSuppressionID(suppressionId), &oapi.GetAMBSuppressionParams{}, cfg...)
@@ -73,8 +73,8 @@ func (s *AmbSuppressionsService) Get(ctx context.Context, suppressionId string, 
 	return &out, nil
 }
 
-// Delete Ends a manual suppression while retaining its history. Recipient opt-outs and automatic conversation facts cannot be ended through this endpoint.
-func (s *AmbSuppressionsService) Delete(ctx context.Context, suppressionId string, opts ...option.RequestOption) error {
+// Remove End a manual Apple Messages for Business suppression. Only reason `manual` can be ended this way: a customer's own close is refused. Messages stay blocked while another suppression covers the address, while the conversation is closed, or while phone invitation consent is revoked in preferences.
+func (s *AmbSuppressionsService) Remove(ctx context.Context, suppressionId string, opts ...option.RequestOption) error {
 	_, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.DeleteAMBSuppressionParams{}
 		if idempotencyKey != "" {
@@ -101,7 +101,7 @@ func (s *AmbSuppressionsService) ListPage(ctx context.Context, params AmbSuppres
 	return &out, nil
 }
 
-// List Returns a paginated list of the workspace's active Apple Messages for Business suppressions: customers who have opted out of one brand, or of the whole workspace. Episodes that have ended are left out; fetch one by ID to read it. Filter by `business_account_id` to see one brand's suppressions, including the workspace-wide ones that block it too.
+// List List the workspace's Apple Messages for Business suppressions (addresses blocked for one business account or for the whole workspace) as a cursor page.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *AmbSuppressionsService) List(ctx context.Context, params AmbSuppressionsListParams, opts ...option.RequestOption) iter.Seq2[*AMBSuppression, error] {
@@ -118,8 +118,8 @@ func (s *AmbSuppressionsService) List(ctx context.Context, params AmbSuppression
 	})
 }
 
-// Create Manually opens a suppression episode for a address, blocking every outbound path to it: operator and automated replies, API sends, typing indicators, and invitations. Set `business_account_id` to block the address for one brand only, or omit it to block the address for every brand in the workspace. If the address already has an active episode with reason `manual`, the API returns `200` with the existing episode instead of creating a second one.
-func (s *AmbSuppressionsService) Create(ctx context.Context, params AmbSuppressionsCreateParams, opts ...option.RequestOption) (*AMBSuppression, error) {
+// Add Stop messages to one address, for one business account or for the whole workspace. Blocks every outbound path to it: replies, API sends, typing indicators and invitations.
+func (s *AmbSuppressionsService) Add(ctx context.Context, params AmbSuppressionsAddParams, opts ...option.RequestOption) (*AMBSuppression, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.CreateAMBSuppressionParams{}
 		if idempotencyKey != "" {

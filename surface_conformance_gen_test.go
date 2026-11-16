@@ -415,9 +415,9 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Amb.Stats.Summary
 	_ = c.Amb.Stats.ByTag
 	_ = c.Amb.Suppressions.Get
-	_ = c.Amb.Suppressions.Delete
+	_ = c.Amb.Suppressions.Remove
 	_ = c.Amb.Suppressions.List
-	_ = c.Amb.Suppressions.Create
+	_ = c.Amb.Suppressions.Add
 	_ = c.Amb.Templates.List
 	_ = c.Amb.Templates.Get
 	_ = c.Amb.Templates.Versions.List
