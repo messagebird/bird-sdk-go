@@ -277,6 +277,7 @@ type EmailBroadcastParameterProblemCode = oapi.EmailBroadcastParameterProblemCod
 
 const (
 	EmailBroadcastParameterProblemCodeAudienceUnavailable       = oapi.EmailBroadcastParameterProblemCodeAudienceUnavailable
+	EmailBroadcastParameterProblemCodeBrandUnavailable          = oapi.EmailBroadcastParameterProblemCodeBrandUnavailable
 	EmailBroadcastParameterProblemCodeContactPropertyUnknown    = oapi.EmailBroadcastParameterProblemCodeContactPropertyUnknown
 	EmailBroadcastParameterProblemCodeLanguageUnavailable       = oapi.EmailBroadcastParameterProblemCodeLanguageUnavailable
 	EmailBroadcastParameterProblemCodeParameterBytesExceeded    = oapi.EmailBroadcastParameterProblemCodeParameterBytesExceeded
@@ -752,6 +753,7 @@ type PreferenceOrigin = oapi.PreferenceOrigin
 
 const (
 	PreferenceOriginApiKey           = oapi.PreferenceOriginApiKey
+	PreferenceOriginComplaint        = oapi.PreferenceOriginComplaint
 	PreferenceOriginImport           = oapi.PreferenceOriginImport
 	PreferenceOriginKeyword          = oapi.PreferenceOriginKeyword
 	PreferenceOriginPreferencePage   = oapi.PreferenceOriginPreferencePage

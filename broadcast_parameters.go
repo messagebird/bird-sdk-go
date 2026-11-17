@@ -20,6 +20,8 @@ type BroadcastsParameterTemplate struct {
 }
 
 type BroadcastsValidateParams struct {
+	// BrandID overrides this operation only. Preview selection is unavailable until enabled.
+	BrandID  Nullable[string]                      `json:"brand_id,omitempty"`
 	Template Nullable[BroadcastsParameterTemplate] `json:"template,omitempty"`
 	From     string                                `json:"from,omitempty"`
 	ReplyTo  Nullable[[]string]                    `json:"reply_to,omitempty"`
@@ -39,6 +41,9 @@ type BroadcastsTestParams struct {
 
 func (p BroadcastsValidateParams) body() map[string]any {
 	body := map[string]any{}
+	if p.BrandID.IsSpecified() {
+		body["brand_id"] = p.BrandID
+	}
 	if p.Template.IsSpecified() {
 		if p.Template.IsNull() {
 			body["template"] = nil

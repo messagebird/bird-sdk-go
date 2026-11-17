@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.145.0
+
+- Add optional `brand_id` to email broadcast creation and updates, with request-only overrides for validation, preview and test sends, and return the retained Brand on broadcast responses. Brand selection is in preview and unavailable until enabled; explicit selection while unavailable returns `422`. Unattributed broadcasts and drafts without a selection return null.
+- Add optional Brand selection and filtering for email preferences in the Brands preview. Explicit selection returns 422 where unavailable; omitted or null selection preserves existing behavior.
+- Preference origins can include `complaint`. Clear a Brand complaint through an individual preference grant with newer `consented_at`; bulk writes and imports cannot clear it. The optional `source` note can describe where consent came from. Check `applied` and the returned preference before treating a grant as effective.
+
 ## 0.144.0
 
 - Add `parts` to Apple Messages message reads and to the `amb.sent` and `amb.send_failed` webhook events: the parts an outbound message was sent as, in order. Each part has its `kind` and `sent`, which says whether Bird saw Apple accept it. A `link_preview` also has its `url` and, when recorded, the `title`, `image_url` and `layout` it showed; a `rich_link` has its `layout` when recorded. A `false` part may still have arrived, so do not resend it on that alone.

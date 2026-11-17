@@ -12,6 +12,8 @@ import (
 
 // ContactsPreferencesListParams filters the list. Zero-value fields are omitted.
 type ContactsPreferencesListParams struct {
+	// Preview: return only this Brand's email preferences, including older preferences belonging to the original business. Explicit selection returns 422 where unavailable. Omit to return all matching preferences. Empty, repeated or malformed values return 422. Where the endpoint also accepts a channel filter, it must be email. A Brand not found in this workspace returns 404.
+	BrandID string
 	// Maximum number of items to return per page.
 	Limit int
 	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
@@ -20,6 +22,7 @@ type ContactsPreferencesListParams struct {
 
 func (p ContactsPreferencesListParams) toWire(startingAfter string) *oapi.ListContactPreferencesParams {
 	return &oapi.ListContactPreferencesParams{
+		BrandId:       optZero(p.BrandID),
 		Limit:         optInt(p.Limit),
 		EndingBefore:  optStr(p.EndingBefore),
 		StartingAfter: optStr(startingAfter),

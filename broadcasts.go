@@ -61,10 +61,13 @@ type BroadcastsCreateParams struct {
 	// When to send the broadcast: at least 30 seconds and at most 365 days from
 	// now. Only meaningful alongside Send; on its own the request is refused.
 	ScheduledAt time.Time
+	// Preview business selection. Omitted or null uses the default Brand at first scheduling or sending when available.
+	BrandID Nullable[string]
 }
 
 func (p BroadcastsCreateParams) toWire() oapi.EmailBroadcastCreateRequest {
 	body := oapi.EmailBroadcastCreateRequest{
+		BrandId:     p.BrandID,
 		AudienceId:  optStr(p.AudienceID),
 		Headers:     (*oapi.EmailBroadcastHeaders)(optMap(p.Headers)),
 		Metadata:    optMap(p.Metadata),
@@ -236,6 +239,8 @@ type BroadcastsUpdateParams struct {
 	IPPoolID Nullable[string]
 	// What kind of email this is: it decides which suppressions apply and whether the one-click unsubscribe headers are added.
 	Category Category
+	// Preview business selection, editable only while draft. Null clears the selection; omitted retains it.
+	BrandID Nullable[string]
 }
 
 // emptyIfNil turns a pointer to a nil map into a pointer to an empty one, so a
@@ -263,6 +268,7 @@ func emptySliceIfNil[T any](s *[]T) *[]T {
 
 func (p BroadcastsUpdateParams) toWire() oapi.EmailBroadcastUpdateRequest {
 	body := oapi.EmailBroadcastUpdateRequest{
+		BrandId:     p.BrandID,
 		AudienceId:  optStr(p.AudienceID),
 		Headers:     (*oapi.EmailBroadcastHeaders)(emptyIfNil(p.Headers)),
 		Metadata:    emptyIfNil(p.Metadata),

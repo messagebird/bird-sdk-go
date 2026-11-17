@@ -427,8 +427,9 @@ const (
 
 // PreferenceWriteResult is the outcome of a preference create or delete.
 // Applied true means the write took effect; applied false means it was
-// refused as older than the key's current statement, and Preference then
-// carries the statement that survived.
+// refused by causal ordering or complaint protection. Preference carries the
+// surviving statement. A recorded individual consent can change protection
+// while a later opt-out or deletion still applies.
 type PreferenceWriteResult = oapi.PreferenceWriteResult
 
 // Audience is a static audience of contacts; AudienceList is a page of

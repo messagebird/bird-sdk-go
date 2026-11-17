@@ -2813,9 +2813,8 @@ func ExamplePreferencesService_Create() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	// A newer statement already on file answers Applied false instead of an
-	// error, with the surviving statement in Preference.
-	if result.Applied != nil && *result.Applied {
+	// A surviving opt-out or deletion answers Applied false instead of an error.
+	if result.Applied != nil && *result.Applied && result.Preference != nil && result.Preference.Status != nil && *result.Preference.Status == bird.PreferenceStatusGranted {
 		fmt.Println("grant recorded")
 	}
 }

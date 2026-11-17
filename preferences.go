@@ -32,16 +32,20 @@ type PreferencesCreateParams struct {
 	// channel. Not supported on email.
 	SenderScope string
 	// Source is a free-form note on where the statement came from: a form
-	// name, an import batch, a campaign.
+	// name, an import batch, a campaign, or how consent was collected.
 	Source string
 	// ConsentedAt is when the person consented, required evidence when
 	// granting over a stored opt-out: the grant applies only if this is later
 	// than the opt-out it reverses. Omitted from the request when zero.
 	ConsentedAt time.Time
+	// BrandID selects an email business in the Brands preview.
+	// Omitted or null preserves default selection; explicit input is refused when unavailable.
+	BrandID Nullable[string]
 }
 
-func (p PreferencesCreateParams) toWire() oapi.PreferenceCreate {
-	return oapi.PreferenceCreate{
+func (p PreferencesCreateParams) toWire() oapi.PreferenceIndividualCreate {
+	return oapi.PreferenceIndividualCreate{
+		BrandId:     p.BrandID,
 		Channel:     p.Channel,
 		Handle:      p.Handle,
 		Status:      p.Status,
@@ -57,9 +61,13 @@ func (p PreferencesCreateParams) toWire() oapi.PreferenceCreate {
 // ordered upsert keyed by channel, handle, and sender scope: a statement
 // older than the one already on record is not an error, it comes back with
 // Applied false and Preference set to the statement that survived. The HTTP
-// status (200 for an existing key, 201 for a fresh one) does not change what
-// is returned, so callers never need to branch on it. Retried safely with a
-// reused idempotency key.
+// status is 201 for a new live record or 200 for updates and refusals.
+// Complaint protection can also refuse a grant. Inspect Preference alongside
+// Applied: a newer opt-out or deletion returns Applied false, with the
+// revoked Preference or nil, even when consent history is retained. Retried safely with a
+// reused idempotency key. Only this individual operation can clear an email
+// Brand complaint with newer ConsentedAt; bulk writes and imports cannot.
+// Source can describe how consent was collected. Other blocks remain.
 func (s *PreferencesService) Create(ctx context.Context, params PreferencesCreateParams, opts ...option.RequestOption) (*PreferenceWriteResult, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.CreatePreferenceParams{}
@@ -81,9 +89,10 @@ func (s *PreferencesService) Create(ctx context.Context, params PreferencesCreat
 // Delete removes a preference statement by ID. The delete is conditional: if
 // a newer statement has since been recorded on the same key, the delete is
 // refused rather than applied, and the returned write result carries Applied
-// false with Preference set to the statement that survived — a person's own
-// opt-out is refused the same way, since it cannot be overridden or deleted
-// through this API. Applied true with a nil Preference means the key now has
+// false with Preference set to the statement that survived. Person-stated
+// opt-outs and protected complaints instead refuse deletion with 422 E25005.
+// Record newer consent with Create; do not erase the opt-out. Applied true
+// with a nil Preference means the key now has
 // no record. Retried safely with a reused idempotency key.
 func (s *PreferencesService) Delete(ctx context.Context, preferenceId string, opts ...option.RequestOption) (*PreferenceWriteResult, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {

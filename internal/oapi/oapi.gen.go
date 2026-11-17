@@ -2262,6 +2262,7 @@ func (e EmailBroadcastInsufficientFundsBehavior) Valid() bool {
 // Defines values for EmailBroadcastParameterProblemCode.
 const (
 	EmailBroadcastParameterProblemCodeAudienceUnavailable       EmailBroadcastParameterProblemCode = "audience_unavailable"
+	EmailBroadcastParameterProblemCodeBrandUnavailable          EmailBroadcastParameterProblemCode = "brand_unavailable"
 	EmailBroadcastParameterProblemCodeContactPropertyUnknown    EmailBroadcastParameterProblemCode = "contact_property_unknown"
 	EmailBroadcastParameterProblemCodeLanguageUnavailable       EmailBroadcastParameterProblemCode = "language_unavailable"
 	EmailBroadcastParameterProblemCodeParameterBytesExceeded    EmailBroadcastParameterProblemCode = "parameter_bytes_exceeded"
@@ -2289,6 +2290,8 @@ const (
 func (e EmailBroadcastParameterProblemCode) Valid() bool {
 	switch e {
 	case EmailBroadcastParameterProblemCodeAudienceUnavailable:
+		return true
+	case EmailBroadcastParameterProblemCodeBrandUnavailable:
 		return true
 	case EmailBroadcastParameterProblemCodeContactPropertyUnknown:
 		return true
@@ -6828,6 +6831,7 @@ func (e PreferenceGrantedEventType) Valid() bool {
 // Defines values for PreferenceOrigin.
 const (
 	PreferenceOriginApiKey           PreferenceOrigin = "api_key"
+	PreferenceOriginComplaint        PreferenceOrigin = "complaint"
 	PreferenceOriginImport           PreferenceOrigin = "import"
 	PreferenceOriginKeyword          PreferenceOrigin = "keyword"
 	PreferenceOriginPreferencePage   PreferenceOrigin = "preference_page"
@@ -6840,6 +6844,8 @@ const (
 func (e PreferenceOrigin) Valid() bool {
 	switch e {
 	case PreferenceOriginApiKey:
+		return true
+	case PreferenceOriginComplaint:
 		return true
 	case PreferenceOriginImport:
 		return true
@@ -17114,6 +17120,9 @@ type EmailBroadcast struct {
 	// BouncedCount How many recipients the message could not be delivered to at all. Absent when `sent_count` is.
 	BouncedCount *int64 `json:"bounced_count,omitempty"`
 
+	// BrandId The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+	BrandId *BrandID `json:"brand_id,omitempty"`
+
 	// CanceledAt When the broadcast was canceled, and absent if it never was. This is when cancellation was requested, so it is set as soon as the status is `canceling` and does not move while the remaining sends stop and the status becomes `canceled`.
 	CanceledAt *time.Time `json:"canceled_at,omitempty"`
 
@@ -17339,6 +17348,9 @@ type EmailBroadcastCounts struct {
 type EmailBroadcastCreateRequest struct {
 	AudienceId *AudienceID `json:"audience_id,omitempty"`
 
+	// BrandId Preview: selects the business whose email preferences and unsubscribe page apply. Explicit selection returns `422` when unavailable. When available, omission or null selects the workspace's default Brand when the broadcast is first scheduled or sent. An explicit ID must belong to this workspace and be active; unknown, foreign or archived IDs return `422`. The selected Brand stays fixed through delivery and retries. Omitted or null input preserves existing sending behavior while selection is unavailable.
+	BrandId nullable.Nullable[BrandID] `json:"brand_id,omitempty"`
+
 	// Category What kind of email this is. A broadcast sets this itself rather than taking it from its template, and it decides two things: which suppressions apply, and whether we add an unsubscribe header.
 	//
 	// `marketing`, the default, is held back from every suppressed address and has the one-click unsubscribe headers. `transactional` still goes to addresses suppressed for a complaint or an unsubscribe, and has no unsubscribe header. Only use `transactional` for genuine operational mail such as a terms-of-service update or a service outage notice. Marketing content sent this way still reaches people who have already unsubscribed from you.
@@ -17404,6 +17416,7 @@ type EmailBroadcastFailureParameters struct {
 	// - `template_unavailable`: the broadcast has no template, or its template no longer exists or has no published version.
 	// - `language_unavailable`: the published version has no content in the selected language.
 	// - `sender_unavailable`: the broadcast cannot send from its `from` address or IP pool.
+	// - `brand_unavailable`: the saved Brand is archived or unavailable for selection. Preview with an available Brand override before sending a test.
 	// - `audience_unavailable`: the broadcast's audience cannot be used for this send.
 	// - `recipient_render_failed`: content could not be rendered for a recipient while the broadcast was sending.
 	// - `render_budget_exceeded`: rendering went over a limit, named by `budget` with its `limit`.
@@ -17464,6 +17477,9 @@ type EmailBroadcastID = string
 
 // EmailBroadcastInputOverrides defines model for EmailBroadcastInputOverrides.
 type EmailBroadcastInputOverrides struct {
+	// BrandId Preview Brand selection. An explicit ID is unavailable until selection is enabled. Changes the Brand for this validation, preview or test only, without changing the saved broadcast. Null resolves the workspace default when selection is enabled; otherwise it clears the request's Brand to unbranded. Omission keeps a historical broadcast's saved identity. An unavailable saved Brand remains renderable with a brand_unavailable diagnostic. Before sending a test, preview again with an available ID or null, then send the same override and fresh preview_fingerprint. Explicit unavailable overrides return 422.
+	BrandId nullable.Nullable[BrandID] `json:"brand_id,omitempty"`
+
 	// From A sender or recipient address. Accepts a plain email string (`jane@acme.com`), an RFC 5322 mailbox string with an embedded display name (`Jane Doe <jane@acme.com>`), or an object carrying the address and an optional display name. All forms can be mixed freely within one request. Responses always return the object form.
 	From *EmailAddressInput `json:"from,omitempty"`
 
@@ -17528,6 +17544,7 @@ type EmailBroadcastParameterProblem struct {
 	// - `template_unavailable`: the broadcast has no template, or its template no longer exists or has no published version.
 	// - `language_unavailable`: the published version has no content in the selected language.
 	// - `sender_unavailable`: the broadcast cannot send from its `from` address or IP pool.
+	// - `brand_unavailable`: the saved Brand is archived or unavailable for selection. Preview with an available Brand override before sending a test.
 	// - `audience_unavailable`: the broadcast's audience cannot be used for this send.
 	// - `recipient_render_failed`: content could not be rendered for a recipient while the broadcast was sending.
 	// - `render_budget_exceeded`: rendering went over a limit, named by `budget` with its `limit`.
@@ -17585,6 +17602,7 @@ type EmailBroadcastParameterProblem struct {
 // - `template_unavailable`: the broadcast has no template, or its template no longer exists or has no published version.
 // - `language_unavailable`: the published version has no content in the selected language.
 // - `sender_unavailable`: the broadcast cannot send from its `from` address or IP pool.
+// - `brand_unavailable`: the saved Brand is archived or unavailable for selection. Preview with an available Brand override before sending a test.
 // - `audience_unavailable`: the broadcast's audience cannot be used for this send.
 // - `recipient_render_failed`: content could not be rendered for a recipient while the broadcast was sending.
 // - `render_budget_exceeded`: rendering went over a limit, named by `budget` with its `limit`.
@@ -17625,7 +17643,9 @@ type EmailBroadcastPreviewContact struct {
 
 // EmailBroadcastPreviewRequest defines model for EmailBroadcastPreviewRequest.
 type EmailBroadcastPreviewRequest struct {
-	ContactId *ContactID `json:"contact_id,omitempty"`
+	// BrandId Preview Brand selection. An explicit ID is unavailable until selection is enabled. Changes the Brand for this validation, preview or test only, without changing the saved broadcast. Null resolves the workspace default when selection is enabled; otherwise it clears the request's Brand to unbranded. Omission keeps a historical broadcast's saved identity. An unavailable saved Brand remains renderable with a brand_unavailable diagnostic. Before sending a test, preview again with an available ID or null, then send the same override and fresh preview_fingerprint. Explicit unavailable overrides return 422.
+	BrandId   nullable.Nullable[BrandID] `json:"brand_id,omitempty"`
+	ContactId *ContactID                 `json:"contact_id,omitempty"`
 
 	// From A sender or recipient address. Accepts a plain email string (`jane@acme.com`), an RFC 5322 mailbox string with an embedded display name (`Jane Doe <jane@acme.com>`), or an object carrying the address and an optional display name. All forms can be mixed freely within one request. Responses always return the object form.
 	From *EmailAddressInput `json:"from,omitempty"`
@@ -17845,7 +17865,9 @@ type EmailBroadcastTemplateUpdate struct {
 
 // EmailBroadcastTestRequest defines model for EmailBroadcastTestRequest.
 type EmailBroadcastTestRequest struct {
-	ContactId *ContactID `json:"contact_id,omitempty"`
+	// BrandId Preview Brand selection. An explicit ID is unavailable until selection is enabled. Changes the Brand for this validation, preview or test only, without changing the saved broadcast. Null resolves the workspace default when selection is enabled; otherwise it clears the request's Brand to unbranded. Omission keeps a historical broadcast's saved identity. An unavailable saved Brand remains renderable with a brand_unavailable diagnostic. Before sending a test, preview again with an available ID or null, then send the same override and fresh preview_fingerprint. Explicit unavailable overrides return 422.
+	BrandId   nullable.Nullable[BrandID] `json:"brand_id,omitempty"`
+	ContactId *ContactID                 `json:"contact_id,omitempty"`
 
 	// From A sender or recipient address. Accepts a plain email string (`jane@acme.com`), an RFC 5322 mailbox string with an embedded display name (`Jane Doe <jane@acme.com>`), or an object carrying the address and an optional display name. All forms can be mixed freely within one request. Responses always return the object form.
 	From *EmailAddressInput `json:"from,omitempty"`
@@ -17872,6 +17894,9 @@ type EmailBroadcastTestResult = EmailMessage
 // EmailBroadcastUpdateRequest Changes a broadcast that is still a draft or is scheduled. Whatever you send here is applied, and anything you leave out keeps the value it already had. Once a broadcast has started sending it can no longer be edited.
 type EmailBroadcastUpdateRequest struct {
 	AudienceId *AudienceID `json:"audience_id,omitempty"`
+
+	// BrandId Preview: changes the business whose email preferences and unsubscribe page apply while this broadcast is a draft. Omission keeps the selection; null clears it so the workspace's default Brand is selected at first scheduling or sending. Explicit selection returns `422` when unavailable or when the ID is unknown, belongs to another workspace or is archived. Changing the Brand on a scheduled broadcast returns `422`. Broadcasts that are no longer editable retain the existing `409` conflict response.
+	BrandId nullable.Nullable[BrandID] `json:"brand_id,omitempty"`
 
 	// Category What kind of email this is. It decides two things: which suppressions apply, and whether we add an unsubscribe header.
 	//
@@ -17925,7 +17950,7 @@ type EmailBroadcastValidationResult struct {
 	// Problems The problems found. Empty when `ready_for_admission` is true.
 	Problems []EmailBroadcastParameterProblem `json:"problems"`
 
-	// ReadyForAdmission Whether the current template and supplied broadcast inputs pass validation, including checks that the sender and audience can be used. Sending also checks permissions, limits, the audience's recipients and their values, so `true` does not guarantee the broadcast sends.
+	// ReadyForAdmission Whether the current template and supplied broadcast inputs pass validation, including checks that the sender, audience and selected Brand can be used. Sending also checks permissions, limits, the audience's recipients and their values, so `true` does not guarantee the broadcast sends.
 	ReadyForAdmission bool `json:"ready_for_admission"`
 
 	// Resolution The published template version and language a validation or preview checked. It does not fix the version a later send uses.
@@ -26190,6 +26215,8 @@ type EventEmailUnsubscribedData = EventEmailBase
 
 // EventPreferenceBase Identity fields shared by every preference lifecycle event: the key plus the ledger entry the write appended. `effective_at` is not repeated here: it is the envelope `timestamp`.
 type EventPreferenceBase struct {
+	// BrandId The business this email preference belongs to. Brand attribution is in preview.
+	BrandId *BrandID          `json:"brand_id,omitempty"`
 	Channel PreferenceChannel `json:"channel"`
 
 	// ContactId The contact whose handle matched when the statement was recorded. Null when no contact matched at that moment.
@@ -28805,6 +28832,8 @@ type PhoneNumberLookupRequest struct {
 
 // Preference defines model for Preference.
 type Preference struct {
+	// BrandId The business this email preference belongs to. Brand attribution is in preview.
+	BrandId *BrandID           `json:"brand_id,omitempty"`
 	Channel *PreferenceChannel `json:"channel,omitempty"`
 
 	// ConsentedAt When the person consented, as evidenced by whoever asserted the grant. Null on statements that carry no consent evidence, including every opt-out.
@@ -28823,7 +28852,7 @@ type Preference struct {
 	Id     PreferenceID      `json:"id"`
 	Origin *PreferenceOrigin `json:"origin,omitempty"`
 
-	// SenderScope The sender the statement is limited to, or null when it covers the whole channel. On SMS this is the originator the person replied to; on WhatsApp it identifies the business account that messaged them; on Apple Messages for Business it is the Apple business ID used for invitations. Email preferences are always channel-wide, so it is always null there.
+	// SenderScope The sender the statement is limited to, or null when it covers the whole channel. On SMS this is the originator the person replied to; on WhatsApp it identifies the business account that messaged them; on Apple Messages for Business it is the Apple business ID used for invitations. Email preferences use brand_id instead, so sender_scope is always null there.
 	SenderScope *string `json:"sender_scope,omitempty"`
 
 	// Source Free-form note on where the statement came from, as supplied when it was recorded: a form name, an import batch, a campaign. Null when none was given.
@@ -28841,8 +28870,20 @@ type PreferenceChannel string
 // PreferenceCoverage How much traffic the statement covers. `non_transactional` covers marketing and other non-essential messages while transactional messages such as receipts and verification codes keep flowing; `all` covers every message including transactional ones. Apple Messages for Business phone invitations have no transactional exemption, so either value covers them.
 type PreferenceCoverage string
 
-// PreferenceCreate defines model for PreferenceCreate.
-type PreferenceCreate struct {
+// PreferenceDeletedEventType Always `preference.deleted` for this event.
+type PreferenceDeletedEventType string
+
+// PreferenceGrantedEventType Always `preference.granted` for this event.
+type PreferenceGrantedEventType string
+
+// PreferenceID defines model for PreferenceID.
+type PreferenceID = string
+
+// PreferenceIndividualCreate defines model for PreferenceIndividualCreate.
+type PreferenceIndividualCreate struct {
+	// BrandId Brand selection is in preview. Select the business for an email preference. Omitted or null selects the original business. Unsupported on other channels. An additional Brand supports non_transactional coverage only. Explicit selection returns 422 when unavailable. Existing opt-outs can be recorded for archived Brands; grants to archived Brands return 422. Consent grants for active additional Brands return 422 when unavailable. A Brand not found in this workspace returns 404.
+	BrandId nullable.Nullable[BrandID] `json:"brand_id,omitempty"`
+
 	// Channel The channel a preference statement applies to. A preference addresses one channel: the handle that identifies the person differs per channel, so opting out of one channel says nothing about the others. New channels can be added over time, so a value outside this list can be returned.
 	Channel PreferenceChannel `json:"channel"`
 
@@ -28855,24 +28896,15 @@ type PreferenceCreate struct {
 	// Handle Who the statement is about: an email address on the email channel, a phone number in E.164 format on SMS, WhatsApp, and Apple Messages for Business.
 	Handle string `json:"handle"`
 
-	// SenderScope Limit the statement to one sender instead of the whole channel. On SMS this is the originator; on WhatsApp it identifies the business account; on Apple Messages for Business it is the Apple business ID used for invitations. Not supported on email, where preferences are always channel-wide.
+	// SenderScope Limit the statement to one sender instead of the whole channel. On SMS this is the originator; on WhatsApp it identifies the business account; on Apple Messages for Business it is the Apple business ID used for invitations. Not supported on email, where preferences belong to the selected Brand.
 	SenderScope *string `json:"sender_scope,omitempty"`
 
-	// Source Free-form note on where the statement came from: a form name, an import batch, a campaign. Stored verbatim and returned on the preference.
+	// Source Free-form note on where the statement came from: a form name, an import batch, a campaign. For a grant, it can describe how you collected consent. Stored verbatim and returned on the preference; Bird does not verify this note. It does not grant permission to clear a complaint.
 	Source *string `json:"source,omitempty"`
 
 	// Status What the statement says: `granted` records consent to receive messages, `revoked` records an opt-out. There is no third state: a person who never stated anything simply has no preference on record.
 	Status PreferenceStatus `json:"status"`
 }
-
-// PreferenceDeletedEventType Always `preference.deleted` for this event.
-type PreferenceDeletedEventType string
-
-// PreferenceGrantedEventType Always `preference.granted` for this event.
-type PreferenceGrantedEventType string
-
-// PreferenceID defines model for PreferenceID.
-type PreferenceID = string
 
 // PreferenceList defines model for PreferenceList.
 type PreferenceList struct {
@@ -28889,7 +28921,7 @@ type PreferenceList struct {
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
-// PreferenceOrigin How the statement was made. Statements the person made themselves (`unsubscribe_link`, `unsubscribe_event`, `keyword`, `preference_page`) carry more weight than ones asserted on their behalf (`api_key`, `user`, `import`): a person's own opt-out cannot be overridden or deleted through this API. New origins can be added over time, so a value outside this list can be returned.
+// PreferenceOrigin How the statement was made. Statements the person made themselves (`unsubscribe_link`, `unsubscribe_event`, `keyword`, `preference_page`, `complaint`) carry more weight than ones asserted on their behalf (`api_key`, `user`, `import`): deletion cannot remove a person's own opt-out. A Brand complaint can be cleared only by a newer opt-in through the individual-recipient preference operation. New origins can be added over time, so a value outside this list can be returned.
 type PreferenceOrigin string
 
 // PreferenceRevokedEventType Always `preference.revoked` for this event.
@@ -28897,6 +28929,9 @@ type PreferenceRevokedEventType string
 
 // PreferenceStatement defines model for PreferenceStatement.
 type PreferenceStatement struct {
+	// BrandId Brand selection is in preview. Select the business for an email preference. Omitted or null selects the original business. Unsupported on other channels. An additional Brand supports non_transactional coverage only. Explicit selection returns 422 when unavailable. Existing opt-outs can be recorded for archived Brands; grants to archived Brands return 422. Consent grants for active additional Brands return 422 when unavailable. A Brand not found in this workspace returns 404.
+	BrandId nullable.Nullable[BrandID] `json:"brand_id,omitempty"`
+
 	// Channel The channel a preference statement applies to. A preference addresses one channel: the handle that identifies the person differs per channel, so opting out of one channel says nothing about the others. New channels can be added over time, so a value outside this list can be returned.
 	Channel PreferenceChannel `json:"channel"`
 
@@ -28906,10 +28941,10 @@ type PreferenceStatement struct {
 	// Coverage How much traffic the statement covers. Defaults to `non_transactional`, which keeps transactional messages such as receipts and verification codes flowing. Apple Messages for Business phone invitations have no transactional exemption, so either value covers them.
 	Coverage *PreferenceCoverage `json:"coverage,omitempty"`
 
-	// SenderScope Limit the statement to one sender instead of the whole channel. On SMS this is the originator; on WhatsApp it identifies the business account; on Apple Messages for Business it is the Apple business ID used for invitations. Not supported on email, where preferences are always channel-wide.
+	// SenderScope Limit the statement to one sender instead of the whole channel. On SMS this is the originator; on WhatsApp it identifies the business account; on Apple Messages for Business it is the Apple business ID used for invitations. Not supported on email, where preferences belong to the selected Brand.
 	SenderScope *string `json:"sender_scope,omitempty"`
 
-	// Source Free-form note on where the statement came from: a form name, an import batch, a campaign. Stored verbatim and returned on the preference.
+	// Source Free-form note on where the statement came from: a form name, an import batch, a campaign. For a grant, it can describe how you collected consent. Stored verbatim and returned on the preference; Bird does not verify this note. It does not grant permission to clear a complaint.
 	Source *string `json:"source,omitempty"`
 
 	// Status What the statement says: `granted` records consent to receive messages, `revoked` records an opt-out. There is no third state: a person who never stated anything simply has no preference on record.
@@ -28922,12 +28957,12 @@ type PreferenceStatus string
 // PreferenceTransitionID defines model for PreferenceTransitionID.
 type PreferenceTransitionID = string
 
-// PreferenceWriteResult The outcome of one preference write or delete. `applied: true` means the request took effect: either it changed the record, or an identical statement already had. `applied: false` means it was refused as older than the key's current statement; `preference` then carries the statement that survived, and `transition_id` identifies the refusal on the key's record.
+// PreferenceWriteResult The outcome of one preference write or delete. `applied: true` means the request took effect, including an identical repeat. `applied: false` means it was refused because a newer statement or protected complaint survives; `preference` carries the statement that survived, and `transition_id` identifies the operation on the key's record.
 type PreferenceWriteResult struct {
-	// Applied Whether the request took effect. False only when it was refused as out of order; the surviving, newer statement is returned in `preference`.
+	// Applied Whether the request took effect. False when causal ordering or protected complaint rules refuse the request; the surviving statement is returned in `preference`. A grant returns false when a newer opt-out or deletion survives, even if its consent history is retained.
 	Applied *bool `json:"applied,omitempty"`
 
-	// Preference The key's surviving statement. Null after an applied delete, when the key is back to having no record.
+	// Preference The key's surviving statement. Null after an applied delete, when the key is back to having no record. It is also null after a refused grant when a later deletion remains in force.
 	Preference *Preference `json:"preference,omitempty"`
 
 	// TransitionId Identifies this write on the key's record, for applied and refused requests alike. Null when the write was a repeat of the current statement and recorded nothing new.
@@ -38327,6 +38362,9 @@ type OrderDesc = SortOrder
 // PaginationLimit defines model for PaginationLimit.
 type PaginationLimit = int
 
+// PreferenceBrandID defines model for PreferenceBrandID.
+type PreferenceBrandID = BrandID
+
 // RequiredIdempotencyKey defines model for RequiredIdempotencyKey.
 type RequiredIdempotencyKey = string
 
@@ -40999,6 +41037,9 @@ type UpdateContactParams struct {
 
 // ListContactPreferencesParams defines parameters for ListContactPreferences.
 type ListContactPreferencesParams struct {
+	// BrandId Preview: return only this Brand's email preferences, including older preferences belonging to the original business. Explicit selection returns 422 where unavailable. Omit to return all matching preferences. Empty, repeated or malformed values return 422. Where the endpoint also accepts a channel filter, it must be email. A Brand not found in this workspace returns 404.
+	BrandId *PreferenceBrandID `form:"brand_id,omitempty" json:"brand_id,omitempty"`
+
 	// Limit Maximum number of items to return per page.
 	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
 
@@ -45496,6 +45537,9 @@ type ListPreferencesParams struct {
 
 	// Handle Return only preferences for this exact handle: an email address or an E.164 phone number. Requires `channel`, since a handle only means something on its channel.
 	Handle *string `form:"handle,omitempty" json:"handle,omitempty"`
+
+	// BrandId Preview: return only this Brand's email preferences, including older preferences belonging to the original business. Explicit selection returns 422 where unavailable. Omit to return all matching preferences. Empty, repeated or malformed values return 422. Where the endpoint also accepts a channel filter, it must be email. A Brand not found in this workspace returns 404.
+	BrandId *PreferenceBrandID `form:"brand_id,omitempty" json:"brand_id,omitempty"`
 
 	// Limit Maximum number of items to return per page.
 	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
@@ -50037,7 +50081,7 @@ type UpdateOrganizationWorkspaceJSONRequestBody = OrganizationWorkspaceUpdate
 type CreateOrganizationWorkspaceWhatsAppNumberJSONRequestBody = OrganizationWorkspaceWhatsAppNumberCreate
 
 // CreatePreferenceJSONRequestBody defines body for CreatePreference for application/json ContentType.
-type CreatePreferenceJSONRequestBody = PreferenceCreate
+type CreatePreferenceJSONRequestBody = PreferenceIndividualCreate
 
 // PublishRealtimeAppBatchJSONRequestBody defines body for PublishRealtimeAppBatch for application/json ContentType.
 type PublishRealtimeAppBatchJSONRequestBody = RealtimeBatchPublish
@@ -76745,6 +76789,18 @@ func NewListContactPreferencesRequest(server string, contactId ContactID, params
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
+		if params.BrandId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "brand_id", *params.BrandId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if params.Limit != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
@@ -94214,6 +94270,18 @@ func NewListPreferencesRequest(server string, params *ListPreferencesParams) (*h
 		if params.Handle != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "handle", *params.Handle, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.BrandId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "brand_id", *params.BrandId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -117125,6 +117193,7 @@ type ListContactPreferencesResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -123975,6 +124044,7 @@ type ListPreferencesResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -124089,6 +124159,7 @@ type GetPreferenceResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -144807,6 +144878,13 @@ func ParseListContactPreferencesResponse(rsp *http.Response) (*ListContactPrefer
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -159821,6 +159899,13 @@ func ParseListPreferencesResponse(rsp *http.Response) (*ListPreferencesResponse,
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -160066,6 +160151,13 @@ func ParseGetPreferenceResponse(rsp *http.Response) (*GetPreferenceResponse, err
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
