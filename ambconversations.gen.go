@@ -165,3 +165,37 @@ func (s *AmbConversationsService) Typing(ctx context.Context, conversationId str
 	})
 	return err
 }
+
+// RequestAuthentication Sends a native sign-in request to an open conversation whose device_capabilities include AUTH2. Returns the request as pending; keep its id. The outcome arrives as an amb.authentication.updated webhook event, or read the request. A new request supersedes an unfinished one in the same conversation, so retry with the same idempotency key.
+func (s *AmbConversationsService) RequestAuthentication(ctx context.Context, conversationId string, opts ...option.RequestOption) (*AMBAuthentication, error) {
+	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.CreateAMBAuthenticationParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.CreateAMBAuthentication(ctx, oapi.AMBConversationID(conversationId), op, cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out AMBAuthentication
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// GetAuthentication Reads one authentication request by its conversation and request IDs. A succeeded request includes the verified identity. Use it when the amb.authentication.updated webhook event has not arrived by expires_at; the read can briefly trail the event.
+func (s *AmbConversationsService) GetAuthentication(ctx context.Context, conversationId string, authenticationId string, opts ...option.RequestOption) (*AMBAuthentication, error) {
+	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
+		return s.client.oapi.GetAMBAuthentication(ctx, oapi.AMBConversationID(conversationId), oapi.AMBAuthenticationID(authenticationId), &oapi.GetAMBAuthenticationParams{}, cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out AMBAuthentication
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}

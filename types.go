@@ -1185,6 +1185,7 @@ type AMBBusinessAccountEventList = oapi.AMBBusinessAccountEventList
 type AMBBusinessAccountEventSort = oapi.AMBBusinessAccountEventSort
 type AMBBusinessAccountList = oapi.AMBBusinessAccountList
 type AMBBusinessAccountSort = oapi.AMBBusinessAccountSort
+type AMBAuthentication = oapi.AMBAuthentication
 type AMBBusinessAccountStatus = oapi.AMBBusinessAccountStatus
 type AMBBusinessAccountSubmission = oapi.AMBBusinessAccountSubmission
 type AMBBusinessAccountSubmissionList = oapi.AMBBusinessAccountSubmissionList

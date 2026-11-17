@@ -99,6 +99,7 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Broadcasts.SendQuota
 	_ = c.Sms.Send
 	_ = c.Sms.SendBatch
+	_ = c.Sms.Messages.Media
 	_ = c.Sms.Get
 	_ = c.Sms.List
 	_ = c.SmsTemplates.List
@@ -150,6 +151,7 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.ComplianceSubmissions.Get
 	_ = c.ComplianceSubmissions.Create
 	_ = c.ComplianceSubmissions.Resupply
+	_ = c.ComplianceSubmissions.SendContactConfirmation
 	_ = c.Whatsapp.Send
 	_ = c.Whatsapp.Get
 	_ = c.Whatsapp.List
@@ -386,6 +388,8 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Amb.Conversations.Update
 	_ = c.Amb.Conversations.ListMessages
 	_ = c.Amb.Conversations.Typing
+	_ = c.Amb.Conversations.RequestAuthentication
+	_ = c.Amb.Conversations.GetAuthentication
 	_ = c.Amb.Conversations.List
 	_ = c.Amb.ListEvents
 	_ = c.Amb.Get

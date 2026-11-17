@@ -16,6 +16,8 @@ type SmsService struct {
 
 	// Stats reads aggregate statistics over the workspace's SMS traffic.
 	Stats *SmsStatsService
+
+	Messages *SmsMessagesService
 }
 
 // SMSCategory classifies a send: carriers see it, and a country sender
@@ -30,17 +32,20 @@ const (
 	SMSCategoryService        SMSCategory = "service"
 )
 
-// SmsSendParams is a single SMS send. Provide one of Text (with Category and
-// From), a Template (by id or slug, with Parameters), or Binary (with Category
-// transactional). A workspace template requires an owned From; a built-in
-// template selects its sender and rejects From. The content forms are mutually
-// exclusive.
-// Zero-value fields are omitted from the request.
+// SmsSendParams is a single SMS or MMS send. Provide direct content (Text and/or
+// MediaURLs), a Template (by id or slug, with Parameters), or Binary (with Category
+// transactional). Direct content needs Category and From unless a messaging profile
+// supplies them. A workspace template requires an owned From; a built-in template
+// selects its sender and rejects From. Subject or MediaURLs selects MMS for +1
+// recipients. Templates and Binary cannot carry MMS fields; Subject alone is rejected.
+// Zero-value scalar fields are omitted from the request.
 type SmsSendParams struct {
 	To         string         // required; recipient phone number in E.164 format
-	From       string         // required with Text or a workspace Template; omit with a built-in Template
+	From       string         // required with direct content or a workspace Template; omit with a built-in Template
 	Text       string         // free-text body (mutually exclusive with Template)
-	Category   SMSCategory    // required with Text; omit on a template send
+	Subject    string         // MMS subject; requires Text or MediaURLs
+	MediaURLs  []string       // absolute HTTP(S) media URLs; may be sent without Text
+	Category   SMSCategory    // required with direct content; omit on a template send
 	Template   string         // stored template id (smt_…) or slug (mutually exclusive with Text)
 	Language   string         // template language as a BCP-47 tag; template sends only
 	Parameters map[string]any // template variable values; template sends only
@@ -88,6 +93,10 @@ func (p SmsSendParams) toWire() oapi.SMSMessageSendRequest {
 	if p.Text != "" {
 		text := p.Text
 		body.Text = &text
+	}
+	body.Subject = optStr(p.Subject)
+	if p.MediaURLs != nil {
+		body.MediaUrls = &p.MediaURLs
 	}
 	if p.Category != "" {
 		category := p.Category

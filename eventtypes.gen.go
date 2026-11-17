@@ -11,6 +11,7 @@ import (
 // unchanged, so switch on these constants with a default branch.
 const (
 	EventTypeAmbAccepted                     = oapi.EventTypeAmbAccepted
+	EventTypeAmbAuthenticationUpdated        = oapi.EventTypeAmbAuthenticationUpdated
 	EventTypeAmbConversationClosed           = oapi.EventTypeAmbConversationClosed
 	EventTypeAmbConversationReopened         = oapi.EventTypeAmbConversationReopened
 	EventTypeAmbConversationStarted          = oapi.EventTypeAmbConversationStarted

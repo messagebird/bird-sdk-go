@@ -177,8 +177,9 @@ const (
 type ComplianceDomainProofMethod = oapi.ComplianceDomainProofMethod
 
 const (
-	ComplianceDomainProofMethodMemberLogin = oapi.ComplianceDomainProofMethodMemberLogin
-	ComplianceDomainProofMethodSsoDomain   = oapi.ComplianceDomainProofMethodSsoDomain
+	ComplianceDomainProofMethodContactConfirmation = oapi.ComplianceDomainProofMethodContactConfirmation
+	ComplianceDomainProofMethodMemberLogin         = oapi.ComplianceDomainProofMethodMemberLogin
+	ComplianceDomainProofMethodSsoDomain           = oapi.ComplianceDomainProofMethodSsoDomain
 )
 
 // ComplianceItemState is an open string on the wire: a value added by a newer server
@@ -187,13 +188,14 @@ const (
 type ComplianceItemState = oapi.ComplianceItemState
 
 const (
-	ComplianceItemStateApproved      = oapi.ComplianceItemStateApproved
-	ComplianceItemStateExpired       = oapi.ComplianceItemStateExpired
-	ComplianceItemStateInReview      = oapi.ComplianceItemStateInReview
-	ComplianceItemStateNotApplicable = oapi.ComplianceItemStateNotApplicable
-	ComplianceItemStateNotSupplied   = oapi.ComplianceItemStateNotSupplied
-	ComplianceItemStateRejected      = oapi.ComplianceItemStateRejected
-	ComplianceItemStateSupplied      = oapi.ComplianceItemStateSupplied
+	ComplianceItemStateApproved             = oapi.ComplianceItemStateApproved
+	ComplianceItemStateAwaitingConfirmation = oapi.ComplianceItemStateAwaitingConfirmation
+	ComplianceItemStateExpired              = oapi.ComplianceItemStateExpired
+	ComplianceItemStateInReview             = oapi.ComplianceItemStateInReview
+	ComplianceItemStateNotApplicable        = oapi.ComplianceItemStateNotApplicable
+	ComplianceItemStateNotSupplied          = oapi.ComplianceItemStateNotSupplied
+	ComplianceItemStateRejected             = oapi.ComplianceItemStateRejected
+	ComplianceItemStateSupplied             = oapi.ComplianceItemStateSupplied
 )
 
 // ComplianceObligationReason is an open string on the wire: a value added by a newer server

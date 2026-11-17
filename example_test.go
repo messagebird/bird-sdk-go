@@ -6214,6 +6214,19 @@ func ExampleComplianceSubmissionsService_Resupply() {
 	fmt.Println(*submission.Satisfied)
 }
 
+// SendContactConfirmation emails a waiting business contact a new confirmation link.
+func ExampleComplianceSubmissionsService_SendContactConfirmation() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	submission, err := client.ComplianceSubmissions.SendContactConfirmation(context.Background(), "csb_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(*submission.Id)
+}
+
 // List finds a document already uploaded, to cite it again.
 func ExampleComplianceAttachmentsService_List() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
@@ -6657,4 +6670,17 @@ func ExampleVoiceLegsRecordingsService_Audio() {
 	if err := os.WriteFile("recording.wav", audio.Data, 0o600); err != nil {
 		log.Fatal(err)
 	}
+}
+
+func ExampleSmsMessagesService_Media() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	media, err := client.Sms.Messages.Media(context.Background(),
+		"sms_01kya19eknftrs2s6p82asmvnh", "smf_01kyb2m4xq7whs0d8n3prv6tez")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(media.ContentType, media.ContentLength)
 }

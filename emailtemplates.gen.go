@@ -24,6 +24,8 @@ type EmailTemplatesListParams struct {
 	Source EmailTemplateSource
 	// Filter by the visual theme a built-in template is designed in. Only our built-in templates have a theme, so naming one returns built-ins alone.
 	Theme EmailTemplateThemeFilter
+	// Return templates with this lifecycle status. Use `active` to list only the templates you can send now, which includes every built-in template. Use `draft` for your workspace's templates that have never been published.
+	Status TemplateStatus
 	// A case-insensitive substring search across the template's slug, name, and description.
 	Q string
 	// Maximum number of items to return per page.
@@ -38,6 +40,7 @@ func (p EmailTemplatesListParams) toWire(startingAfter string) *oapi.ListEmailTe
 		Category:      optZero(p.Category),
 		Source:        optZero(p.Source),
 		Theme:         optZero(p.Theme),
+		Status:        optZero(p.Status),
 		Q:             optStr(p.Q),
 		Limit:         optInt(p.Limit),
 		EndingBefore:  optStr(p.EndingBefore),
@@ -143,7 +146,7 @@ func (s *EmailTemplatesService) ListPage(ctx context.Context, params EmailTempla
 	return &out, nil
 }
 
-// List List email templates as a cursor page. The list covers both the workspace's own templates and our built-in `system` templates. Filter to one tier with `scope`, and filter further by category, source, theme, or a search across slug, name, and description. A theme narrows the built-in catalog to one of its five visual themes, so naming one returns built-ins alone.
+// List List email templates as a cursor page. The list covers both the workspace's own templates and our built-in `system` templates. Filter to one tier with `scope`, and filter further by category, source, theme, status, or a search across slug, name, and description. `status=active` returns only sendable templates, built-ins included. A theme narrows the built-in catalog to one of its five visual themes, so naming one returns built-ins alone.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *EmailTemplatesService) List(ctx context.Context, params EmailTemplatesListParams, opts ...option.RequestOption) iter.Seq2[*EmailTemplateSummary, error] {

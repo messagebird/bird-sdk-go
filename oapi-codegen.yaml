@@ -99,6 +99,7 @@ output-options:
     - getEmailBroadcastSendQuota
     - createSMSMessage
     - createSMSMessageBatch
+    - getSMSMessageMedia
     - getSMSMessage
     - listSMSMessages
     - listSMSTemplates
@@ -150,6 +151,7 @@ output-options:
     - getWorkspaceComplianceSubmission
     - createWorkspaceComplianceSubmission
     - updateWorkspaceComplianceSubmission
+    - sendWorkspaceComplianceSubmissionContactConfirmation
     - createWhatsAppMessage
     - getWhatsAppMessage
     - listWhatsAppMessages
@@ -385,6 +387,8 @@ output-options:
     - updateAMBConversation
     - listAMBConversationMessages
     - createAMBConversationTyping
+    - createAMBAuthentication
+    - getAMBAuthentication
     - listAMBConversations
     - listAMBMessageEvents
     - getAMBMessage

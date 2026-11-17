@@ -63,6 +63,54 @@ func (e AMBAttachmentOrigin) Valid() bool {
 	}
 }
 
+// Defines values for AMBAuthenticationStatus.
+const (
+	AMBAuthenticationStatusCancelled  AMBAuthenticationStatus = "cancelled"
+	AMBAuthenticationStatusExpired    AMBAuthenticationStatus = "expired"
+	AMBAuthenticationStatusFailed     AMBAuthenticationStatus = "failed"
+	AMBAuthenticationStatusPending    AMBAuthenticationStatus = "pending"
+	AMBAuthenticationStatusProcessing AMBAuthenticationStatus = "processing"
+	AMBAuthenticationStatusSucceeded  AMBAuthenticationStatus = "succeeded"
+	AMBAuthenticationStatusSuperseded AMBAuthenticationStatus = "superseded"
+)
+
+// Valid indicates whether the value is a known member of the AMBAuthenticationStatus enum.
+func (e AMBAuthenticationStatus) Valid() bool {
+	switch e {
+	case AMBAuthenticationStatusCancelled:
+		return true
+	case AMBAuthenticationStatusExpired:
+		return true
+	case AMBAuthenticationStatusFailed:
+		return true
+	case AMBAuthenticationStatusPending:
+		return true
+	case AMBAuthenticationStatusProcessing:
+		return true
+	case AMBAuthenticationStatusSucceeded:
+		return true
+	case AMBAuthenticationStatusSuperseded:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBAuthenticationUpdatedEventType.
+const (
+	AmbAuthenticationUpdated AMBAuthenticationUpdatedEventType = "amb.authentication.updated"
+)
+
+// Valid indicates whether the value is a known member of the AMBAuthenticationUpdatedEventType enum.
+func (e AMBAuthenticationUpdatedEventType) Valid() bool {
+	switch e {
+	case AmbAuthenticationUpdated:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for AMBBusinessAccountEventSort.
 const (
 	AMBBusinessAccountEventSortCreatedAt AMBBusinessAccountEventSort = "created_at"
@@ -1454,13 +1502,16 @@ func (e ComplianceDataType) Valid() bool {
 
 // Defines values for ComplianceDomainProofMethod.
 const (
-	ComplianceDomainProofMethodMemberLogin ComplianceDomainProofMethod = "member_login"
-	ComplianceDomainProofMethodSsoDomain   ComplianceDomainProofMethod = "sso_domain"
+	ComplianceDomainProofMethodContactConfirmation ComplianceDomainProofMethod = "contact_confirmation"
+	ComplianceDomainProofMethodMemberLogin         ComplianceDomainProofMethod = "member_login"
+	ComplianceDomainProofMethodSsoDomain           ComplianceDomainProofMethod = "sso_domain"
 )
 
 // Valid indicates whether the value is a known member of the ComplianceDomainProofMethod enum.
 func (e ComplianceDomainProofMethod) Valid() bool {
 	switch e {
+	case ComplianceDomainProofMethodContactConfirmation:
+		return true
 	case ComplianceDomainProofMethodMemberLogin:
 		return true
 	case ComplianceDomainProofMethodSsoDomain:
@@ -1490,19 +1541,22 @@ func (e ComplianceIdentitySortField) Valid() bool {
 
 // Defines values for ComplianceItemState.
 const (
-	ComplianceItemStateApproved      ComplianceItemState = "approved"
-	ComplianceItemStateExpired       ComplianceItemState = "expired"
-	ComplianceItemStateInReview      ComplianceItemState = "in_review"
-	ComplianceItemStateNotApplicable ComplianceItemState = "not_applicable"
-	ComplianceItemStateNotSupplied   ComplianceItemState = "not_supplied"
-	ComplianceItemStateRejected      ComplianceItemState = "rejected"
-	ComplianceItemStateSupplied      ComplianceItemState = "supplied"
+	ComplianceItemStateApproved             ComplianceItemState = "approved"
+	ComplianceItemStateAwaitingConfirmation ComplianceItemState = "awaiting_confirmation"
+	ComplianceItemStateExpired              ComplianceItemState = "expired"
+	ComplianceItemStateInReview             ComplianceItemState = "in_review"
+	ComplianceItemStateNotApplicable        ComplianceItemState = "not_applicable"
+	ComplianceItemStateNotSupplied          ComplianceItemState = "not_supplied"
+	ComplianceItemStateRejected             ComplianceItemState = "rejected"
+	ComplianceItemStateSupplied             ComplianceItemState = "supplied"
 )
 
 // Valid indicates whether the value is a known member of the ComplianceItemState enum.
 func (e ComplianceItemState) Valid() bool {
 	switch e {
 	case ComplianceItemStateApproved:
+		return true
+	case ComplianceItemStateAwaitingConfirmation:
 		return true
 	case ComplianceItemStateExpired:
 		return true
@@ -7161,6 +7215,24 @@ func (e Region) Valid() bool {
 	}
 }
 
+// Defines values for SMSContentType.
+const (
+	Mms SMSContentType = "mms"
+	Sms SMSContentType = "sms"
+)
+
+// Valid indicates whether the value is a known member of the SMSContentType enum.
+func (e SMSContentType) Valid() bool {
+	switch e {
+	case Mms:
+		return true
+	case Sms:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for SMSErrorCode.
 const (
 	SMSErrorCodeBlockedByCarrier         SMSErrorCode = "blocked_by_carrier"
@@ -7519,6 +7591,7 @@ func (e SMSRegistrationStatus) Valid() bool {
 const (
 	BINARY  SMSSegmentsEncoding = "BINARY"
 	GSM7BIT SMSSegmentsEncoding = "GSM_7BIT"
+	MMS     SMSSegmentsEncoding = "MMS"
 	UCS2    SMSSegmentsEncoding = "UCS2"
 )
 
@@ -7528,6 +7601,8 @@ func (e SMSSegmentsEncoding) Valid() bool {
 	case BINARY:
 		return true
 	case GSM7BIT:
+		return true
+	case MMS:
 		return true
 	case UCS2:
 		return true
@@ -9018,6 +9093,7 @@ func (e WebhookEndpointUpdateStatus) Valid() bool {
 // Defines values for WebhookEventType.
 const (
 	EventTypeAmbAccepted                     WebhookEventType = "amb.accepted"
+	EventTypeAmbAuthenticationUpdated        WebhookEventType = "amb.authentication.updated"
 	EventTypeAmbConversationClosed           WebhookEventType = "amb.conversation_closed"
 	EventTypeAmbConversationReopened         WebhookEventType = "amb.conversation_reopened"
 	EventTypeAmbConversationStarted          WebhookEventType = "amb.conversation_started"
@@ -9088,6 +9164,8 @@ const (
 func (e WebhookEventType) Valid() bool {
 	switch e {
 	case EventTypeAmbAccepted:
+		return true
+	case EventTypeAmbAuthenticationUpdated:
 		return true
 	case EventTypeAmbConversationClosed:
 		return true
@@ -10559,22 +10637,22 @@ func (e WhatsAppReactedEventType) Valid() bool {
 
 // Defines values for WhatsAppReactionEventStatus.
 const (
-	Failed   WhatsAppReactionEventStatus = "failed"
-	Received WhatsAppReactionEventStatus = "received"
-	Rejected WhatsAppReactionEventStatus = "rejected"
-	Sent     WhatsAppReactionEventStatus = "sent"
+	WhatsAppReactionEventStatusFailed   WhatsAppReactionEventStatus = "failed"
+	WhatsAppReactionEventStatusReceived WhatsAppReactionEventStatus = "received"
+	WhatsAppReactionEventStatusRejected WhatsAppReactionEventStatus = "rejected"
+	WhatsAppReactionEventStatusSent     WhatsAppReactionEventStatus = "sent"
 )
 
 // Valid indicates whether the value is a known member of the WhatsAppReactionEventStatus enum.
 func (e WhatsAppReactionEventStatus) Valid() bool {
 	switch e {
-	case Failed:
+	case WhatsAppReactionEventStatusFailed:
 		return true
-	case Received:
+	case WhatsAppReactionEventStatusReceived:
 		return true
-	case Rejected:
+	case WhatsAppReactionEventStatusRejected:
 		return true
-	case Sent:
+	case WhatsAppReactionEventStatusSent:
 		return true
 	default:
 		return false
@@ -11801,8 +11879,76 @@ type AMBAttachmentUploadFromURL struct {
 	SourceUrl string `json:"source_url" pii:"true"`
 }
 
+// AMBAuthentication A single attempt to verify the identity associated with an Apple Messages for Business conversation.
+type AMBAuthentication struct {
+	// CompletedAt When the attempt reached a terminal outcome.
+	CompletedAt    *time.Time        `json:"completed_at,omitempty"`
+	ConversationId AMBConversationID `json:"conversation_id"`
+
+	// CreatedAt When the attempt was created.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// ExpiresAt When this attempt expires.
+	ExpiresAt *time.Time `json:"expires_at,omitempty"`
+
+	// FailureCode Why the request did not succeed. Contains no provider response or credentials.
+	//
+	// - `authentication_expired`: ten minutes passed. Request a new sign-in.
+	// - `new_authentication`: a newer request replaced this one.
+	// - `conversation_closed` and `conversation_changed`: the conversation closed or reopened. Wait for the customer to write again.
+	// - `configuration_changed`: the provider settings changed or the business was disconnected.
+	// - `user_cancelled`, `apple_authentication_cancel`: the customer declined.
+	// - `provider_rejected`, `token_exchange_failed`, `identity_verification_failed`: the provider response could not be accepted. Check the provider settings, then request a new sign-in.
+	// - `processing_interrupted`: the exchange or device confirmation did not finish within one minute. Ask the customer to sign in again and return to Messages.
+	// - `apple_authentication_failure`: the Messages device reported a failed sign-in. Request a new sign-in.
+	// - `authentication_replayed`: the provider callback was used more than once. Request a new sign-in.
+	// - `message_submission_failed`, `message_failed`: the sign-in message could not be sent.
+	//
+	// Other values are message delivery reasons passed through unchanged.
+	FailureCode *string             `json:"failure_code,omitempty"`
+	Id          AMBAuthenticationID `json:"id"`
+
+	// Identity Validated identity claims. Verification does not create a persistent login session or grant access to customer systems.
+	Identity *AMBVerifiedIdentity `json:"identity,omitempty"`
+
+	// MessageId Authentication message reference, or null before acceptance.
+	MessageId  *AMBMessageID               `json:"message_id,omitempty"`
+	ProviderId AMBAuthenticationProviderID `json:"provider_id"`
+
+	// ProviderRevision Provider revision used by this attempt.
+	ProviderRevision *int64 `json:"provider_revision,omitempty"`
+
+	// Status Progress of an authentication request. Every value except `pending` and `processing` is terminal.
+	//
+	// - `pending`: the sign-in message was accepted and the customer has not finished.
+	// - `processing`: the authorization code is being exchanged or Bird is waiting for confirmation from the originating Messages device.
+	// - `succeeded`: the identity was validated and the originating Messages device confirmed sign-in.
+	// - `failed`: delivery, identity verification or device confirmation failed, or the provider callback was replayed.
+	// - `cancelled`: the customer or the provider declined authorization.
+	// - `expired`: the request passed its ten-minute lifetime.
+	// - `superseded`: a newer request, or a change to the conversation, business or provider, replaced the request.
+	Status AMBAuthenticationStatus `json:"status"`
+}
+
 // AMBAuthenticationID defines model for AMBAuthenticationID.
 type AMBAuthenticationID = string
+
+// AMBAuthenticationProviderID defines model for AMBAuthenticationProviderID.
+type AMBAuthenticationProviderID = string
+
+// AMBAuthenticationStatus Progress of an authentication request. Every value except `pending` and `processing` is terminal.
+//
+// - `pending`: the sign-in message was accepted and the customer has not finished.
+// - `processing`: the authorization code is being exchanged or Bird is waiting for confirmation from the originating Messages device.
+// - `succeeded`: the identity was validated and the originating Messages device confirmed sign-in.
+// - `failed`: delivery, identity verification or device confirmation failed, or the provider callback was replayed.
+// - `cancelled`: the customer or the provider declined authorization.
+// - `expired`: the request passed its ten-minute lifetime.
+// - `superseded`: a newer request, or a change to the conversation, business or provider, replaced the request.
+type AMBAuthenticationStatus string
+
+// AMBAuthenticationUpdatedEventType Always `amb.authentication.updated` for this event.
+type AMBAuthenticationUpdatedEventType string
 
 // AMBBusinessAccount defines model for AMBBusinessAccount.
 type AMBBusinessAccount struct {
@@ -12067,8 +12213,11 @@ type AMBContentKind string
 // AMBConversation A conversation between your business and one customer on Apple Messages for Business. It holds the customer's device capabilities, the console's read state, assignment, and labels, and the routing queue the conversation is in.
 type AMBConversation struct {
 	// AssignedTo The user this conversation is assigned to, or null when unassigned. Assignment is not rechecked against workspace membership on read, so it can still name a user whose access was removed.
-	AssignedTo        *UserID       `json:"assigned_to"`
-	BusinessAccountId AMBBusinessID `json:"business_account_id"`
+	AssignedTo *UserID `json:"assigned_to"`
+
+	// Authentication Latest authentication request and the last verified identity. Included when you read one conversation, not in list results.
+	Authentication    *AMBConversationAuthentication `json:"authentication,omitempty"`
+	BusinessAccountId AMBBusinessID                  `json:"business_account_id"`
 
 	// ClosedAt When the native Apple conversation was closed. Null while its native status is open; independent of inbox status.
 	ClosedAt *time.Time `json:"closed_at"`
@@ -12120,6 +12269,15 @@ type AMBConversation struct {
 	UpdatedAt time.Time `json:"updated_at"`
 }
 
+// AMBConversationAuthentication Latest attempt and last successful verification. A new pending attempt does not erase an earlier success.
+type AMBConversationAuthentication struct {
+	// LastVerified Most recent successful identity verification for this conversation.
+	LastVerified *AMBConversationVerifiedIdentity `json:"last_verified,omitempty"`
+
+	// LatestAttempt A single attempt to verify the identity associated with an Apple Messages for Business conversation.
+	LatestAttempt *AMBAuthentication `json:"latest_attempt,omitempty"`
+}
+
 // AMBConversationClosedEventType Always `amb.conversation_closed` for this event.
 type AMBConversationClosedEventType string
 
@@ -12162,6 +12320,9 @@ type AMBConversationOrigin string
 
 // AMBConversationRecipient The customer on the other side of this Apple Messages for Business conversation.
 type AMBConversationRecipient struct {
+	// DisplayName Name from the last successful identity verification, or null when none was collected. It can refer to a previous verification and does not establish a current login session.
+	DisplayName *string `json:"display_name,omitempty"`
+
 	// OpaqueUserId Apple's opaque identifier for this customer with this business. Null when no identifier is recorded.
 	OpaqueUserId *string `json:"opaque_user_id"`
 
@@ -12340,6 +12501,21 @@ type AMBConversationUpdate struct {
 
 	// RoutingChange Settles the conversation's pending `routing_change`. `message_id` names the change you reviewed: the request fails with `409` when the pending change has a different message ID, because a newer customer message replaced it or a teammate already settled it. Either action clears `routing_change`.
 	RoutingChange *AMBConversationRoutingChangeDecision `json:"routing_change,omitempty"`
+}
+
+// AMBConversationVerifiedIdentity Most recent successful identity verification for this conversation.
+type AMBConversationVerifiedIdentity struct {
+	AuthenticationId AMBAuthenticationID `json:"authentication_id"`
+
+	// Historical The conversation or provider changed after verification. This result is retained as history.
+	Historical *bool `json:"historical,omitempty"`
+
+	// Identity Validated identity claims. Verification does not create a persistent login session or grant access to customer systems.
+	Identity   AMBVerifiedIdentity         `json:"identity"`
+	ProviderId AMBAuthenticationProviderID `json:"provider_id"`
+
+	// ProviderRevision Provider revision used for verification.
+	ProviderRevision *int64 `json:"provider_revision,omitempty"`
 }
 
 // AMBEntryPoint defines model for AMBEntryPoint.
@@ -13028,7 +13204,7 @@ type AMBMessage struct {
 	// Metadata Arbitrary JSON object for per-message context. Maximum 2 KB serialized. Top-level keys beginning with `__bird` are reserved. Returned in the send response, message reads and customer message webhooks.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 
-	// Parts The parts an outbound message was sent as, in the order Bird sent them, so one message can arrive as several. Each link in the text goes as its own preview. A `rich_link` takes the place of the first copy of its URL in the text, which splits the text around it, and goes last when the text does not contain it. An `interactive` goes after the text. A card part that the finishing attempt sent also says what it showed. A message can also go out as one `rich_link` or `interactive` part that has its text. Set when the send finishes as `sent` or `send_failed`. Absent on inbound messages, when the text could not be split so nothing was sent, such as a text with more than 20 links, and on older messages, so treat a missing `parts` as unknown.
+	// Parts The parts an outbound message was sent as, in the order Bird sent them, so one message can arrive as several. Each link in the text goes as its own preview. A `rich_link` takes the place of the first copy of its URL in the text, which splits the text around it, and goes last when the text does not contain it. An `interactive` goes after the text. A card part also says what it showed, when Bird still has that when the send finishes. A message can also go out as one `rich_link` or `interactive` part that has its text. Set when the send finishes as `sent` or `send_failed`. Absent on inbound messages, when the text could not be split so nothing was sent, such as a text with more than 20 links, and on older messages, so treat a missing `parts` as unknown.
 	Parts *[]AMBMessagePart `json:"parts,omitempty"`
 
 	// Reference The `reference` from the send request. Absent when the send set none, and on inbound messages.
@@ -13221,7 +13397,7 @@ type AMBMessageList struct {
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
-// AMBMessagePart One part of the split an outbound message was sent in. `title`, `image_url` and `layout` record what a card showed, as measured when the part was sent, not what a request chose. They are absent when an earlier attempt of a retried send sent the part.
+// AMBMessagePart One part of the split an outbound message was sent in. `title`, `image_url` and `layout` record what a card showed, not what a request chose. Bird reads them when it sends the part, except on a `rich_link` Apple built from its URL, where it reads the linked page around the time Apple accepts the part. They can be absent, as each field says.
 type AMBMessagePart struct {
 	// Attachments Positions in `text.attachments` of the attachments this part sent.
 	Attachments *[]int `json:"attachments,omitempty"`
@@ -13229,7 +13405,7 @@ type AMBMessagePart struct {
 	// Body The text this part sent. U+FFFC marks an attachment's place, as in `text.body`.
 	Body *string `json:"body,omitempty" pii:"true"`
 
-	// ImageUrl The page image a `link_preview` part showed, as the address it was fetched from when the part was sent. Absent when the address is longer than 2,048 bytes, and when an earlier attempt of a retried send sent the part.
+	// ImageUrl The address of the image a card showed. On a `link_preview` part it is the page image Bird fetched and sent. On a `rich_link` part Apple built from its URL it is the image the linked page offers, read around the time Apple accepted the part. Apple builds that card on the device, so the image it shows can differ. On both kinds the address is the page's own. Bird keeps no copy of the image, and the address can stop serving it later. Absent on other parts, on a part Apple did not accept, when the address is longer than 2,048 bytes, and when Bird could not read the page or the page offers no image. On a `link_preview` part it is also absent when Bird sent the part in an earlier attempt of a retried send, or had to save the send's result again.
 	ImageUrl *string `json:"image_url,omitempty" pii:"true"`
 
 	// Kind What one part of an outbound message was:
@@ -13255,7 +13431,7 @@ type AMBMessagePart struct {
 	// Subject The message's subject, on the part that had it.
 	Subject *string `json:"subject,omitempty" pii:"true"`
 
-	// Title The title a `link_preview` part showed, read from the page when the part was sent. A title longer than 512 bytes is cut to that length. Absent when an earlier attempt of a retried send sent the part.
+	// Title The title a card showed. On a `link_preview` part it is the page's title, read when the part was sent. On a `rich_link` part Apple built from its URL it is the title Apple returned for the card, or the linked page's title when Apple returned none. A title longer than 512 bytes is cut to that length. Absent on other parts, on a part Apple did not accept, and on a `rich_link` Apple built when neither Apple nor a page Bird could read supplied a title. On a `link_preview` part it is also absent when Bird sent the part in an earlier attempt of a retried send, or had to save the send's result again.
 	Title *string `json:"title,omitempty" pii:"true"`
 
 	// Url The link a `link_preview` part previewed, as Bird sent it.
@@ -14152,7 +14328,7 @@ type AMBSuppression struct {
 	EndedReason      *AMBSuppressionEndReason `json:"ended_reason,omitempty"`
 	Id               AMBSuppressionID         `json:"id"`
 
-	// LastAssertedAt When we last recorded this suppression being stated. Later than `created_at` when your workspace added it again while it was already in force; a repeat adds no new record.
+	// LastAssertedAt When we last recorded this suppression being stated. Later than `created_at` when it was stated again while already in force: your workspace adding it again, or the customer closing the conversation again. A repeat adds no new record.
 	LastAssertedAt *time.Time `json:"last_asserted_at,omitempty"`
 
 	// Origin How the suppression came to exist:
@@ -14704,6 +14880,30 @@ type AMBTimeSlot struct {
 
 	// StartAt When this slot begins, as an ISO 8601 date-time with a UTC offset. Seconds and fractional seconds must be zero, for example `2026-09-02T14:30:00Z`; any other value returns `422` with error code `E01001`. The timestamp is converted to UTC for Apple while preserving the instant. In Apple Messages template content it may instead be exactly one placeholder, such as `{{ slot_1 }}`, filled with a `timestamp` variable when the template is sent. A slot after the first whose variable is used nowhere else is optional: a send that omits that variable drops the slot.
 	StartAt string `json:"start_at"`
+}
+
+// AMBVerifiedIdentity Validated identity claims. Verification does not create a persistent login session or grant access to customer systems.
+type AMBVerifiedIdentity struct {
+	// AuthenticatedAt When the provider says the user authenticated. May precede this verification.
+	AuthenticatedAt *time.Time `json:"authenticated_at,omitempty"`
+
+	// Email Email supplied by the provider when email collection is enabled.
+	Email *string `json:"email,omitempty"`
+
+	// EmailVerified Whether the provider verified this email address.
+	EmailVerified *bool `json:"email_verified,omitempty"`
+
+	// Issuer Issuer that verified the identity.
+	Issuer *string `json:"issuer,omitempty"`
+
+	// Name Name supplied by the provider when name collection is enabled.
+	Name *string `json:"name,omitempty"`
+
+	// Subject Provider-issued user identifier. Not necessarily your CRM customer ID.
+	Subject *string `json:"subject,omitempty"`
+
+	// VerifiedAt When Bird completed identity validation and confirmed the originating Messages conversation.
+	VerifiedAt *time.Time `json:"verified_at,omitempty"`
 }
 
 // APIKeyID defines model for APIKeyID.
@@ -15664,6 +15864,7 @@ type ComplianceDomainProof struct {
 	//
 	// - `member_login`: a member of this workspace signs in with a verified address at the domain.
 	// - `sso_domain`: the domain is your organization's verified single sign-on domain.
+	// - `contact_confirmation`: the business contact confirmed a link we emailed to their address at the domain.
 	Method ComplianceDomainProofMethod `json:"method"`
 }
 
@@ -15671,6 +15872,7 @@ type ComplianceDomainProof struct {
 //
 // - `member_login`: a member of this workspace signs in with a verified address at the domain.
 // - `sso_domain`: the domain is your organization's verified single sign-on domain.
+// - `contact_confirmation`: the business contact confirmed a link we emailed to their address at the domain.
 type ComplianceDomainProofMethod string
 
 // ComplianceFieldValidation Constraints a value must satisfy, where the requirement sets any. Which of these apply follows from its data type: `pattern`, `min_length` and `max_length` constrain `string` and `text` values, `minimum` and `maximum` constrain `number` values, and everything else is `null`. Check these before submitting and you avoid a round trip.
@@ -15770,7 +15972,9 @@ type ComplianceItemID = string
 // `approved` and `rejected` states are decisions. You can replace a rejected
 // item without refiling the rest. The `not_applicable` state means this
 // requirement does not apply to you. The `expired` state means the value was
-// accepted but has since gone stale.
+// accepted but has since gone stale. The `awaiting_confirmation` state is a
+// business contact we emailed a confirmation link to: nothing is reviewed until
+// they confirm, and you can resend the link or give another address.
 //
 // An item only ever reports its state. Treat this as an open set because review
 // can gain stages. A value you do not recognise is a valid state that this
@@ -15823,7 +16027,7 @@ type ComplianceProgram string
 
 // ComplianceRequirement defines model for ComplianceRequirement.
 type ComplianceRequirement struct {
-	// AnswersEditable Whether you may change any answer, not only one that was refused or has gone stale. True for a number, emergency calling service, business identity or SMS sender registration whose submission has not been approved yet, including answers awaiting review or already accepted, and for a closed submission when `resubmission_allowed` is true. An SMS sender registration goes to the carrier or registry when it is approved, so it stays editable only until then. A changed answer loses its verdict and is reviewed again. Send only the answers you change. False once the submission is approved: replace only answers in `fields` whose state is `not_supplied`, `rejected` or `expired`, or those marked `editable_for_verifier_repair`.
+	// AnswersEditable Whether you may change any answer, not only one that was refused or has gone stale. True for a number, emergency calling service, business identity or SMS sender registration whose submission has not been approved yet, including answers awaiting review or already accepted, and for a closed submission when `resubmission_allowed` is true. An SMS sender registration goes to the carrier or registry when it is approved, so it stays editable only until then. A changed answer loses its verdict and is reviewed again. Send only the answers you change. False once the submission is approved: replace only answers in `fields` whose state is `not_supplied`, `rejected`, `expired` or `awaiting_confirmation`, or those marked `editable_for_verifier_repair`.
 	AnswersEditable *bool `json:"answers_editable,omitempty"`
 
 	// ClosedAt When the submission for these requirements was closed. Null while open or not yet submitted.
@@ -15839,7 +16043,7 @@ type ComplianceRequirement struct {
 	// Guidance What this country expects of you before and while you fill in the form, written by Bird's compliance team. It may point you to a registration you must complete elsewhere first. `null` when the form needs no introduction, or when no program applies.
 	Guidance *string `json:"guidance,omitempty"`
 
-	// NeedsInput Whether anything is waiting on you. True when a required requirement has no answer, its answer was refused or has gone stale, the registration needs correction as described by `reason`, or a closed submission accepts corrected details (`resubmission_allowed`). False does not imply that review is pending: a closed verifier correction can leave the requirements unsatisfied with no editable answers. Read `review_pending` to determine whether an answer is awaiting review. Read this independently of `satisfied`, which reports whether your paperwork is accepted. An unresolved verifier correction also sets it while the matching grant is live and the correction deadline has not passed, until you supply updated details. At the deadline or after grant withdrawal, an unresolved rejection alone does not set it because accepted answers can no longer be replaced. A corrected optional answer that is rejected or expires still needs your input through ordinary resupply, including after that deadline.
+	// NeedsInput Whether anything is waiting on you. True when a required requirement has no answer, its answer was refused or has gone stale, a business contact has not yet confirmed its emailed link (`awaiting_confirmation`), the registration needs correction as described by `reason`, or a closed submission accepts corrected details (`resubmission_allowed`). False does not imply that review is pending: a closed verifier correction can leave the requirements unsatisfied with no editable answers. Read `review_pending` to determine whether an answer is awaiting review. Read this independently of `satisfied`, which reports whether your paperwork is accepted. An unresolved verifier correction also sets it while the matching grant is live and the correction deadline has not passed, until you supply updated details. At the deadline or after grant withdrawal, an unresolved rejection alone does not set it because accepted answers can no longer be replaced. A corrected optional answer that is rejected or expires still needs your input through ordinary resupply, including after that deadline.
 	NeedsInput *bool `json:"needs_input,omitempty"`
 
 	// Next What to do next about this country's requirements, given the state it is in. Each entry names one action and says
@@ -17217,13 +17421,15 @@ type EmailBroadcast struct {
 	// ScheduledAt When the broadcast is due to send, and absent when it is not scheduled.
 	ScheduledAt *time.Time `json:"scheduled_at,omitempty"`
 
-	// SendingIps The IP addresses this broadcast's messages went out from, up to 100 of them. A broadcast is spread across every address in its pool, so more than one can appear. The receiving mail systems name the address when they deliver, bounce or defer a message, so this stays absent until the first of those comes back. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending, resuming or canceling one returns, none of which read them. For delivery and latency broken down per address, read the sending-IP stats.
+	// SendingIps The saved IP addresses this broadcast's messages went out from, up to 100 of them. These refresh with the counters and stay absent when the saved counters are unavailable or incomplete. A broadcast is spread across every address in its pool, so more than one can appear. The receiving mail systems name the address when they deliver, bounce or defer a message, so this stays absent until the first of those comes back. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending, resuming or canceling one returns, none of which read them. For delivery and latency broken down per address, read the sending-IP stats.
 	SendingIps *[]string `json:"sending_ips,omitempty"`
 
 	// SentAt When the last recipient was sent to and the broadcast became `sent`. Null until then. Compare with `started_at`, which is when the broadcast started sending.
 	SentAt *time.Time `json:"sent_at,omitempty"`
 
-	// SentCount How many recipients the broadcast has been sent to, counting every recipient whose status is `processed` or later. The number rises while the broadcast is `sending` and stops changing once the broadcast has finished. These counters are exact. The email stats endpoints report on the same sending but are approximate, so use these numbers when you need the precise count. Absent when the broadcast comes back from creating, updating, sending, resuming or canceling it, none of which read the counters. List and single-broadcast reads return 0 when no delivery events are recorded. When counters are unavailable, those reads still return 200 and omit the counters. Read the broadcast again for the numbers.
+	// SentCount Saved count of recipients whose status is `processed` or later. Counters refresh periodically and can change after the broadcast reaches `sent`. Read the broadcast again to get the latest saved totals. These counts use exact retained delivery and engagement records; the email stats endpoints report approximate totals.
+	//
+	// List and single-broadcast reads return the last saved values during refresh delays or failures. A new broadcast starts with saved zero counters, which remain until its first refresh. Counters are absent while historical totals have not been calculated or their retained history is incomplete. A failure to read saved counters fails the request. Creating, updating, sending, resuming, and canceling a broadcast return no counters.
 	SentCount *int64 `json:"sent_count,omitempty"`
 
 	// StartedAt When the broadcast started sending. Absent until then. Older broadcasts waiting or paused for funds may lack that timestamp; they report their send authorization time, or creation time if that is also missing, so late-resume confirmation uses the same conservative time as the server. Compare with `sent_at`, which is when the broadcast finished sending.
@@ -25153,6 +25359,26 @@ type EventAMBAccepted struct {
 	Type AMBAcceptedEventType `json:"type"`
 }
 
+// EventAMBAuthenticationData Business routing context and the authentication request at its terminal status.
+type EventAMBAuthenticationData struct {
+	// Authentication A single attempt to verify the identity associated with an Apple Messages for Business conversation.
+	Authentication    AMBAuthentication `json:"authentication"`
+	BusinessAccountId AMBBusinessID     `json:"business_account_id"`
+	WorkspaceId       WorkspaceID       `json:"workspace_id"`
+}
+
+// EventAMBAuthenticationUpdated An Apple Messages for Business authentication request reached a terminal status. A request produces at most one event, and none when its business is disconnected. Read the request to recover a missing outcome. The event never contains the customer's tokens or authorization code.
+type EventAMBAuthenticationUpdated struct {
+	// Data Business routing context and the authentication request at its terminal status.
+	Data EventAMBAuthenticationData `json:"data"`
+
+	// Timestamp When the request reached its terminal status, independent of webhook delivery time.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Always `amb.authentication.updated` for this event.
+	Type AMBAuthenticationUpdatedEventType `json:"type"`
+}
+
 // EventAMBConversationClosed A customer conversation closed. Closing a conversation is not a message.
 type EventAMBConversationClosed struct {
 	// Data Conversation identity and routing context when a lifecycle event occurred.
@@ -26300,6 +26526,9 @@ type EventSMSAcceptedData = EventSMSBase
 
 // EventSMSBase Fields shared by every outbound SMS lifecycle event payload.
 type EventSMSBase struct {
+	// ContentType Message content type. A nonempty subject or media list selects MMS.
+	ContentType *SMSContentType `json:"content_type,omitempty"`
+
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
@@ -26325,7 +26554,7 @@ type EventSMSBase struct {
 	// ResolvedLanguage The template language rendered at acceptance, in canonical form. Null when the send used no template.
 	ResolvedLanguage *LanguageTag `json:"resolved_language"`
 
-	// Segments Segment breakdown for the message body. Segment count drives billing.
+	// Segments Billable SMS segments, or one unit for MMS.
 	Segments SMSSegments  `json:"segments"`
 	SmsId    SMSMessageID `json:"sms_id"`
 
@@ -26366,6 +26595,9 @@ type EventSMSDeliveredData struct {
 	// Carrier Carrier that delivered the message. Absent when the carrier does not report one.
 	Carrier *string `json:"carrier,omitempty"`
 
+	// ContentType Message content type. A nonempty subject or media list selects MMS.
+	ContentType *SMSContentType `json:"content_type,omitempty"`
+
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
@@ -26394,7 +26626,7 @@ type EventSMSDeliveredData struct {
 	// ResolvedLanguage The template language rendered at acceptance, in canonical form. Null when the send used no template.
 	ResolvedLanguage *LanguageTag `json:"resolved_language"`
 
-	// Segments Segment breakdown for the message body. Segment count drives billing.
+	// Segments Billable SMS segments, or one unit for MMS.
 	Segments SMSSegments  `json:"segments"`
 	SmsId    SMSMessageID `json:"sms_id"`
 
@@ -26435,6 +26667,9 @@ type EventSMSExpiredData struct {
 	// Carrier Carrier that reported the expiry. Absent when the carrier does not report one.
 	Carrier *string `json:"carrier,omitempty"`
 
+	// ContentType Message content type. A nonempty subject or media list selects MMS.
+	ContentType *SMSContentType `json:"content_type,omitempty"`
+
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
@@ -26466,7 +26701,7 @@ type EventSMSExpiredData struct {
 	// ResolvedLanguage The template language rendered at acceptance, in canonical form. Null when the send used no template.
 	ResolvedLanguage *LanguageTag `json:"resolved_language"`
 
-	// Segments Segment breakdown for the message body. Segment count drives billing.
+	// Segments Billable SMS segments, or one unit for MMS.
 	Segments SMSSegments  `json:"segments"`
 	SmsId    SMSMessageID `json:"sms_id"`
 
@@ -26507,6 +26742,9 @@ type EventSMSFailedData struct {
 	// Carrier Carrier that reported the failure. Absent when the carrier does not report one.
 	Carrier *string `json:"carrier,omitempty"`
 
+	// ContentType Message content type. A nonempty subject or media list selects MMS.
+	ContentType *SMSContentType `json:"content_type,omitempty"`
+
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
@@ -26538,7 +26776,7 @@ type EventSMSFailedData struct {
 	// ResolvedLanguage The template language rendered at acceptance, in canonical form. Null when the send used no template.
 	ResolvedLanguage *LanguageTag `json:"resolved_language"`
 
-	// Segments Segment breakdown for the message body. Segment count drives billing.
+	// Segments Billable SMS segments, or one unit for MMS.
 	Segments SMSSegments  `json:"segments"`
 	SmsId    SMSMessageID `json:"sms_id"`
 
@@ -26576,6 +26814,9 @@ type EventSMSReceivedData struct {
 	// Carrier Carrier the message came in over. Absent where the carrier does not report one.
 	Carrier *string `json:"carrier,omitempty"`
 
+	// ContentType Message content type. A nonempty subject or media list selects MMS.
+	ContentType *SMSContentType `json:"content_type,omitempty"`
+
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
@@ -26589,10 +26830,13 @@ type EventSMSReceivedData struct {
 	InReplyToMessage *SMSInReplyToMessage `json:"in_reply_to_message,omitempty"`
 
 	// MccMnc Mobile country code and mobile network code of the carrier. Absent when not known.
-	MccMnc             *string                `json:"mcc_mnc,omitempty"`
+	MccMnc *string `json:"mcc_mnc,omitempty"`
+
+	// Media Attachments on the message. Omitted when the message carried none.
+	Media              *[]SMSMedia            `json:"media,omitempty"`
 	MessagingProfileId *SMSMessagingProfileID `json:"messaging_profile_id,omitempty"`
 
-	// Segments Segment breakdown for the message body. Segment count drives billing.
+	// Segments Billable SMS segments, or one unit for MMS.
 	Segments SMSSegments  `json:"segments"`
 	SmsId    SMSMessageID `json:"sms_id"`
 
@@ -26614,6 +26858,9 @@ type EventSMSReceivedData0 = interface{}
 // EventSMSReceivedData1 defines model for .
 type EventSMSReceivedData1 = interface{}
 
+// EventSMSReceivedData2 defines model for .
+type EventSMSReceivedData2 = interface{}
+
 // EventSMSRejected The API rejected the message before sending it to the carrier because of an invalid destination, suppression, or content or policy restriction.
 type EventSMSRejected struct {
 	// Data Payload of the sms.rejected event.
@@ -26633,6 +26880,9 @@ type EventSMSRejectedType string
 type EventSMSRejectedData struct {
 	// Carrier Carrier the message was routed to. Absent when Bird rejected the message before routing it, or the carrier does not report one.
 	Carrier *string `json:"carrier,omitempty"`
+
+	// ContentType Message content type. A nonempty subject or media list selects MMS.
+	ContentType *SMSContentType `json:"content_type,omitempty"`
 
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
@@ -26665,7 +26915,7 @@ type EventSMSRejectedData struct {
 	// ResolvedLanguage The template language rendered at acceptance, in canonical form. Null when the send used no template.
 	ResolvedLanguage *LanguageTag `json:"resolved_language"`
 
-	// Segments Segment breakdown for the message body. Segment count drives billing.
+	// Segments Billable SMS segments, or one unit for MMS.
 	Segments SMSSegments  `json:"segments"`
 	SmsId    SMSMessageID `json:"sms_id"`
 
@@ -26706,6 +26956,9 @@ type EventSMSSentData struct {
 	// Carrier Carrier that handled the message. Absent when the carrier does not report one.
 	Carrier *string `json:"carrier,omitempty"`
 
+	// ContentType Message content type. A nonempty subject or media list selects MMS.
+	ContentType *SMSContentType `json:"content_type,omitempty"`
+
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
@@ -26734,7 +26987,7 @@ type EventSMSSentData struct {
 	// ResolvedLanguage The template language rendered at acceptance, in canonical form. Null when the send used no template.
 	ResolvedLanguage *LanguageTag `json:"resolved_language"`
 
-	// Segments Segment breakdown for the message body. Segment count drives billing.
+	// Segments Billable SMS segments, or one unit for MMS.
 	Segments SMSSegments  `json:"segments"`
 	SmsId    SMSMessageID `json:"sms_id"`
 
@@ -26799,6 +27052,9 @@ type EventSMSUndeliveredData struct {
 	// Carrier Carrier that reported the delivery failure. Absent when the carrier does not report one.
 	Carrier *string `json:"carrier,omitempty"`
 
+	// ContentType Message content type. A nonempty subject or media list selects MMS.
+	ContentType *SMSContentType `json:"content_type,omitempty"`
+
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
@@ -26830,7 +27086,7 @@ type EventSMSUndeliveredData struct {
 	// ResolvedLanguage The template language rendered at acceptance, in canonical form. Null when the send used no template.
 	ResolvedLanguage *LanguageTag `json:"resolved_language"`
 
-	// Segments Segment breakdown for the message body. Segment count drives billing.
+	// Segments Billable SMS segments, or one unit for MMS.
 	Segments SMSSegments  `json:"segments"`
 	SmsId    SMSMessageID `json:"sms_id"`
 
@@ -29485,6 +29741,9 @@ type SMSCategoryStatsPoint struct {
 	Trend *[]SMSStatsPoint `json:"trend,omitempty"`
 }
 
+// SMSContentType Message content type. A nonempty subject or media list selects MMS.
+type SMSContentType string
+
 // SMSCostCenterStatsPoint Aggregate delivery and latency stats for a single cost center over the requested period.
 type SMSCostCenterStatsPoint struct {
 	// CostCenter The cost center this row aggregates, as set on the message or taken from its messaging profile at send time.
@@ -29690,6 +29949,9 @@ type SMSEventList struct {
 	// Data Timeline events for this SMS message, in chronological order. The bounded timeline is returned in full and is not paginated.
 	Data []SMSEvent `json:"data"`
 }
+
+// SMSFileID defines model for SMSFileID.
+type SMSFileID = string
 
 // SMSInReplyToMessage The outbound message a received message was paired with. Bird pairs a reply with the last message the messaging profile sent this subscriber from the receiving number, within the profile's outbound-matching window. The pairing is inferred from timing; the subscriber does not report which message they answered.
 type SMSInReplyToMessage struct {
@@ -29983,6 +30245,21 @@ type SMSLatencyStats struct {
 	Total *SMSLatencyQuantiles `json:"total,omitempty"`
 }
 
+// SMSMedia A media attachment on an MMS. Inbound attachments include carrier metadata even when their contents could not be retrieved. Outbound attachments retain the submitted URL.
+type SMSMedia struct {
+	// Filename Filename the sender's device supplied, when it supplied one.
+	Filename *string `json:"filename,omitempty"`
+
+	// Id ID of the stored attachment. Absent for outbound URLs and inbound attachments that were not stored.
+	Id *SMSFileID `json:"id,omitempty"`
+
+	// MimeType Carrier-reported media type for inbound attachments; application/octet-stream when unknown or outbound.
+	MimeType *string `json:"mime_type,omitempty"`
+
+	// Url Where to download the attachment, kept for 30 days after the message is received. Null when the attachment was not stored, for example because Bird could not retrieve it from the carrier. For outbound MMS this is the submitted URL, whose availability the caller controls.
+	Url *string `json:"url,omitempty"`
+}
+
 // SMSMessage defines model for SMSMessage.
 type SMSMessage struct {
 	// Binary The payload of a binary send, in place of `text`. Absent on every other message.
@@ -29993,6 +30270,9 @@ type SMSMessage struct {
 
 	// Category Content classification supplied for free text or derived from the template. Null for inbound messages.
 	Category *SMSMessageCategory `json:"category,omitempty"`
+
+	// ContentType Message content type. A nonempty subject or media list selects MMS.
+	ContentType *SMSContentType `json:"content_type,omitempty"`
 
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
@@ -30023,7 +30303,10 @@ type SMSMessage struct {
 	LastError *SMSError `json:"last_error,omitempty"`
 
 	// MccMnc Mobile country code and mobile network code of the carrier. Absent until the carrier is identified.
-	MccMnc             *string                `json:"mcc_mnc,omitempty"`
+	MccMnc *string `json:"mcc_mnc,omitempty"`
+
+	// Media MMS attachments. Omitted when absent or redacted for an authentication send. Outbound entries retain submitted URLs; inbound entries describe stored attachments.
+	Media              *[]SMSMedia            `json:"media,omitempty"`
 	MessagingProfileId *SMSMessagingProfileID `json:"messaging_profile_id,omitempty"`
 
 	// Metadata Arbitrary JSON metadata stored on the message and echoed in webhook payloads.
@@ -30041,12 +30324,15 @@ type SMSMessage struct {
 	// ResolvedLanguage The template language whose text was rendered, in canonical form. Null when the send used no template. This can differ from `requested_language` when the template's fallback policy selects another language.
 	ResolvedLanguage *LanguageTag `json:"resolved_language,omitempty"`
 
-	// Segments Segment breakdown for the message body. Segment count drives billing.
+	// Segments Billable SMS segments, or one unit for MMS.
 	Segments SMSSegments `json:"segments"`
 
 	// SentAt When the message was handed to the carrier. Null until then.
 	SentAt *time.Time        `json:"sent_at,omitempty"`
 	Status *SMSMessageStatus `json:"status,omitempty"`
+
+	// Subject MMS subject. Absent on any message that carries none.
+	Subject *string `json:"subject,omitempty"`
 
 	// Tags Structured `{name, value}` filter labels applied to this message.
 	Tags *[]Tag `json:"tags,omitempty"`
@@ -30060,7 +30346,7 @@ type SMSMessage struct {
 	// TemplateVersionId The workspace published version or synthetic built-in version rendered at acceptance, or null for a free-text message. For a built-in template, `template_content_hash` identifies the exact catalogue source.
 	TemplateVersionId *SMSTemplateVersionID `json:"template_version_id,omitempty"`
 
-	// Text The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text, and on a binary message, which returns `binary` instead. For a template send, this is the rendered text after parameter substitution. System template messages preserve the surrounding text and mask sensitive codes with one asterisk per digit. Authentication messages without declared sensitive variables return `**REDACTED**`. The recipient receives the real code; message history retains only its masked representation.
+	// Text The message body. Absent on media-only or subject-only MMS and on a binary message, which returns `binary` instead. For a template send, this is the rendered text after parameter substitution. System template messages preserve the surrounding text and mask sensitive codes with one asterisk per digit. Authentication messages without declared sensitive variables return `**REDACTED**`. The recipient receives the real code; message history retains only its masked representation.
 	Text *string `json:"text,omitempty"`
 
 	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
@@ -30121,7 +30407,7 @@ type SMSMessageList struct {
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
-// SMSMessageSendRequest A message to send. Supply exactly one of `text` (free-text, which also requires `category` unless a messaging profile supplies a default), `template` (a stored template, whose category is derived), or `binary` (which also requires `category`). Supplying more than one, or none, is rejected.
+// SMSMessageSendRequest A message to send. Supply direct content (`text` and/or `media_urls`, with an optional `subject`), a stored `template`, or `binary`. A nonempty subject or media list selects MMS, which requires a recipient with calling code +1 and is charged as one message. Direct content requires `category` unless a messaging profile supplies a default. A subject alone is rejected.
 type SMSMessageSendRequest struct {
 	// AudienceId Preview feature: audience-targeted sends. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	AudienceId *string `json:"audience_id,omitempty"`
@@ -30147,7 +30433,7 @@ type SMSMessageSendRequest struct {
 	// From Sender the workspace holds: a number it owns in E.164, such as `+15557654321`, a short code, such as `24680`, or an alphanumeric sender ID it has claimed, such as `MyBrand`. Any other sender returns `422` `SMSSenderNotConfigured`, and an alphanumeric sender must also be permitted, and where required registered, for the destination country. Required on a free-text send and a workspace-template send, unless the profile in `messaging_profile_id` selects a sender for the destination country or has a default sender; omitting it otherwise returns `422`. A built-in template selects its sender itself and rejects `from`.
 	From *string `json:"from,omitempty"`
 
-	// MediaUrls Preview feature: multimedia (MMS) attachments. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
+	// MediaUrls Absolute HTTP(S) attachment URLs accessible without authentication. A nonempty list selects MMS. Keep URLs accessible through delivery retries. The carrier checks downloads after acceptance: each file may be at most 600 KiB and the total at most 900 KiB. Unreachable, nonpublic or oversized media fails asynchronously through delivery status.
 	MediaUrls *[]string `json:"media_urls,omitempty"`
 
 	// MessagingProfileId The messaging profile that supplies this message's sender and defaults. Without `from`, Bird sends from the profile's sender for the destination country, or its default sender. An omitted `category` on a free-text send, `smart_encoding`, `cost_center`, `validity_period`, `options.callback_url` and `options.ignore_suppression` take the profile's settings, and values set on the message take precedence. A built-in template sends from Bird's system sender and ignores the profile's senders. A profile that does not exist in this workspace returns `422` `SMSMessagingProfileNotFound`, and a `from` bound to a different profile returns `422` `SMSMessagingProfileSenderBound`.
@@ -30168,13 +30454,16 @@ type SMSMessageSendRequest struct {
 	// ScheduledAt Preview feature: send-later scheduling. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	ScheduledAt *time.Time `json:"scheduled_at,omitempty"`
 
+	// Subject MMS subject. A nonempty subject selects MMS and requires text or media. Cannot accompany a template or binary payload.
+	Subject *string `json:"subject,omitempty"`
+
 	// Tags Structured `{name, value}` labels, up to 20 per send. You can filter the list endpoint by tag name, slice analytics by tag, and read them in webhook payloads. Use them for low-cardinality dimensions such as `category` or `experiment_variant`, and `metadata` for context you do not filter by.
 	Tags *[]Tag `json:"tags,omitempty"`
 
-	// Template Send using a stored template instead of free text. The category is derived from the template, so `category` and `media_urls` are rejected. A workspace template requires `from`; a built-in template selects its sender and rejects `from`.
+	// Template Send using a stored template instead of free text. The category is derived from the template, so `category`, `subject` and `media_urls` are rejected. A workspace template requires `from`; a built-in template selects its sender and rejects `from`.
 	Template *SMSTemplateSend `json:"template,omitempty"`
 
-	// Text Free-text message body, required unless `template` is set; the two are mutually exclusive. From 1 character up to 12 segments, roughly 1836 GSM-7 or 804 UCS-2 characters, since the two encodings fit different numbers of characters in a segment. Bird does not truncate: a longer body returns `422`.
+	// Text Message body. Required for direct content unless `media_urls` is nonempty. Text-only SMS allows up to 12 segments; longer SMS returns `422`. MMS text is sent without SMS segmentation or smart encoding.
 	Text *string `json:"text,omitempty"`
 
 	// To Recipient phone number in E.164 format (for example `+14155550100`), or in national format when you also pass `to_country_code`. One recipient per message. The number is stored and returned in canonical E.164; a recipient that cannot be routed returns a `422` `SMSInvalidRecipient`.
@@ -30199,6 +30488,11 @@ type SMSMessageSendRequest1 = interface{}
 
 // SMSMessageSendRequest2 defines model for .
 type SMSMessageSendRequest2 = interface{}
+
+// SMSMessageSendRequest3 defines model for .
+type SMSMessageSendRequest3 struct {
+	MediaUrls interface{} `json:"media_urls"`
+}
 
 // SMSMessageStatus Delivery status:
 //
@@ -30493,12 +30787,12 @@ type SMSRegistrationProgram string
 // - `not_required`: The country does not require registration.
 type SMSRegistrationStatus string
 
-// SMSSegments Segment breakdown for the message body. Segment count drives billing.
+// SMSSegments Billable SMS segments, or one unit for MMS.
 type SMSSegments struct {
 	// Characters Character count of the body, counted in Unicode code points under `GSM_7BIT` and `UCS2`; under `BINARY` it is the payload's octets, header included. This is not the segment measure: a `GSM_7BIT` extended-table character counts once here but costs two septets, and a `UCS2` emoji outside the Basic Multilingual Plane counts once here but costs two of the segment's 70 code units.
 	Characters *int `json:"characters,omitempty"`
 
-	// Count Number of segments the body is split into. Each segment is a billable unit.
+	// Count Number of billable units. MMS always has one unit and is not split into SMS segments.
 	Count *int `json:"count,omitempty"`
 
 	// Encoding Encoding used for the body. The `GSM_7BIT` encoding fits 160 septets
@@ -30513,6 +30807,8 @@ type SMSSegments struct {
 	// feed control. Eighty of those fill a single segment. Under `UCS2` an emoji
 	// outside the Basic Multilingual Plane is a surrogate pair costing two code
 	// units, so 35 of those fill a single segment.
+	//
+	// `MMS` marks a multimedia message billed as one unit; `characters` counts text code points.
 	//
 	// `BINARY` marks an 8-bit binary payload, sent as one segment, where `characters` counts its octets. Only a binary send produces it.
 	Encoding *SMSSegmentsEncoding `json:"encoding,omitempty"`
@@ -30530,6 +30826,8 @@ type SMSSegments struct {
 // feed control. Eighty of those fill a single segment. Under `UCS2` an emoji
 // outside the Basic Multilingual Plane is a surrogate pair costing two code
 // units, so 35 of those fill a single segment.
+//
+// `MMS` marks a multimedia message billed as one unit; `characters` counts text code points.
 //
 // `BINARY` marks an 8-bit binary payload, sent as one segment, where `characters` counts its octets. Only a binary send produces it.
 type SMSSegmentsEncoding string
@@ -38819,6 +39117,46 @@ type UpdateAMBConversationParams struct {
 	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
 }
 
+// CreateAMBAuthenticationParams defines parameters for CreateAMBAuthentication.
+type CreateAMBAuthenticationParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetAMBAuthenticationParams defines parameters for GetAMBAuthentication.
+type GetAMBAuthenticationParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
 // ListAMBConversationMessagesParams defines parameters for ListAMBConversationMessages.
 type ListAMBConversationMessagesParams struct {
 	// Direction Filter to received (`inbound`) or sent (`outbound`) messages.
@@ -40677,6 +41015,37 @@ type CreateWorkspaceComplianceSubmissionParams struct {
 
 // GetWorkspaceComplianceSubmissionParams defines parameters for GetWorkspaceComplianceSubmission.
 type GetWorkspaceComplianceSubmissionParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// SendWorkspaceComplianceSubmissionContactConfirmationParams defines parameters for SendWorkspaceComplianceSubmissionContactConfirmation.
+type SendWorkspaceComplianceSubmissionContactConfirmationParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
@@ -43521,6 +43890,9 @@ type ListEmailTemplatesParams struct {
 	// Theme Filter by the visual theme a built-in template is designed in. Only our built-in templates have a theme, so naming one returns built-ins alone.
 	Theme *EmailTemplateThemeFilter `form:"theme,omitempty" json:"theme,omitempty"`
 
+	// Status Return templates with this lifecycle status. Use `active` to list only the templates you can send now, which includes every built-in template. Use `draft` for your workspace's templates that have never been published.
+	Status *TemplateStatus `form:"status,omitempty" json:"status,omitempty"`
+
 	// Q A case-insensitive substring search across the template's slug, name, and description.
 	Q *string `form:"q,omitempty" json:"q,omitempty"`
 
@@ -46041,6 +46413,15 @@ type ListSMSMessageEventsParams struct {
 	// Type Filter by event type, such as `sms.delivered` or `sms.failed`.
 	Type *string `form:"type,omitempty" json:"type,omitempty"`
 
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetSMSMessageMediaParams defines parameters for GetSMSMessageMedia.
+type GetSMSMessageMediaParams struct {
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
@@ -53267,6 +53648,32 @@ func (t *EventSMSReceivedData) MergeEventSMSReceivedData1(v EventSMSReceivedData
 	return err
 }
 
+// AsEventSMSReceivedData2 returns the union data inside the EventSMSReceivedData as a EventSMSReceivedData2
+func (t EventSMSReceivedData) AsEventSMSReceivedData2() (EventSMSReceivedData2, error) {
+	var body EventSMSReceivedData2
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventSMSReceivedData2 overwrites any union data inside the EventSMSReceivedData as the provided EventSMSReceivedData2
+func (t *EventSMSReceivedData) FromEventSMSReceivedData2(v EventSMSReceivedData2) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventSMSReceivedData2 performs a merge with any union data inside the EventSMSReceivedData, using the provided EventSMSReceivedData2
+func (t *EventSMSReceivedData) MergeEventSMSReceivedData2(v EventSMSReceivedData2) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
 func (t EventSMSReceivedData) MarshalJSON() ([]byte, error) {
 	b, err := t.union.MarshalJSON()
 	if err != nil {
@@ -53284,6 +53691,13 @@ func (t EventSMSReceivedData) MarshalJSON() ([]byte, error) {
 		object["carrier"], err = json.Marshal(t.Carrier)
 		if err != nil {
 			return nil, fmt.Errorf("error marshaling 'carrier': %w", err)
+		}
+	}
+
+	if t.ContentType != nil {
+		object["content_type"], err = json.Marshal(t.ContentType)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'content_type': %w", err)
 		}
 	}
 
@@ -53317,6 +53731,13 @@ func (t EventSMSReceivedData) MarshalJSON() ([]byte, error) {
 		object["mcc_mnc"], err = json.Marshal(t.MccMnc)
 		if err != nil {
 			return nil, fmt.Errorf("error marshaling 'mcc_mnc': %w", err)
+		}
+	}
+
+	if t.Media != nil {
+		object["media"], err = json.Marshal(t.Media)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'media': %w", err)
 		}
 	}
 
@@ -53383,6 +53804,13 @@ func (t *EventSMSReceivedData) UnmarshalJSON(b []byte) error {
 		}
 	}
 
+	if raw, found := object["content_type"]; found {
+		err = json.Unmarshal(raw, &t.ContentType)
+		if err != nil {
+			return fmt.Errorf("error reading 'content_type': %w", err)
+		}
+	}
+
 	if raw, found := object["cost"]; found {
 		err = json.Unmarshal(raw, &t.Cost)
 		if err != nil {
@@ -53415,6 +53843,13 @@ func (t *EventSMSReceivedData) UnmarshalJSON(b []byte) error {
 		err = json.Unmarshal(raw, &t.MccMnc)
 		if err != nil {
 			return fmt.Errorf("error reading 'mcc_mnc': %w", err)
+		}
+	}
+
+	if raw, found := object["media"]; found {
+		err = json.Unmarshal(raw, &t.Media)
+		if err != nil {
+			return fmt.Errorf("error reading 'media': %w", err)
 		}
 	}
 
@@ -53548,6 +53983,32 @@ func (t *SMSMessageSendRequest) MergeSMSMessageSendRequest2(v SMSMessageSendRequ
 	return err
 }
 
+// AsSMSMessageSendRequest3 returns the union data inside the SMSMessageSendRequest as a SMSMessageSendRequest3
+func (t SMSMessageSendRequest) AsSMSMessageSendRequest3() (SMSMessageSendRequest3, error) {
+	var body SMSMessageSendRequest3
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromSMSMessageSendRequest3 overwrites any union data inside the SMSMessageSendRequest as the provided SMSMessageSendRequest3
+func (t *SMSMessageSendRequest) FromSMSMessageSendRequest3(v SMSMessageSendRequest3) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeSMSMessageSendRequest3 performs a merge with any union data inside the SMSMessageSendRequest, using the provided SMSMessageSendRequest3
+func (t *SMSMessageSendRequest) MergeSMSMessageSendRequest3(v SMSMessageSendRequest3) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
 func (t SMSMessageSendRequest) MarshalJSON() ([]byte, error) {
 	b, err := t.union.MarshalJSON()
 	if err != nil {
@@ -53663,6 +54124,13 @@ func (t SMSMessageSendRequest) MarshalJSON() ([]byte, error) {
 		object["scheduled_at"], err = json.Marshal(t.ScheduledAt)
 		if err != nil {
 			return nil, fmt.Errorf("error marshaling 'scheduled_at': %w", err)
+		}
+	}
+
+	if t.Subject != nil {
+		object["subject"], err = json.Marshal(t.Subject)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'subject': %w", err)
 		}
 	}
 
@@ -53829,6 +54297,13 @@ func (t *SMSMessageSendRequest) UnmarshalJSON(b []byte) error {
 		err = json.Unmarshal(raw, &t.ScheduledAt)
 		if err != nil {
 			return fmt.Errorf("error reading 'scheduled_at': %w", err)
+		}
+	}
+
+	if raw, found := object["subject"]; found {
+		err = json.Unmarshal(raw, &t.Subject)
+		if err != nil {
+			return fmt.Errorf("error reading 'subject': %w", err)
 		}
 	}
 
@@ -54975,6 +55450,34 @@ func (t *WebhookEvent) FromEventAMBAccepted(v EventAMBAccepted) error {
 // MergeEventAMBAccepted performs a merge with any union data inside the WebhookEvent, using the provided EventAMBAccepted
 func (t *WebhookEvent) MergeEventAMBAccepted(v EventAMBAccepted) error {
 	v.Type = "amb.accepted"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventAMBAuthenticationUpdated returns the union data inside the WebhookEvent as a EventAMBAuthenticationUpdated
+func (t WebhookEvent) AsEventAMBAuthenticationUpdated() (EventAMBAuthenticationUpdated, error) {
+	var body EventAMBAuthenticationUpdated
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventAMBAuthenticationUpdated overwrites any union data inside the WebhookEvent as the provided EventAMBAuthenticationUpdated
+func (t *WebhookEvent) FromEventAMBAuthenticationUpdated(v EventAMBAuthenticationUpdated) error {
+	v.Type = "amb.authentication.updated"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventAMBAuthenticationUpdated performs a merge with any union data inside the WebhookEvent, using the provided EventAMBAuthenticationUpdated
+func (t *WebhookEvent) MergeEventAMBAuthenticationUpdated(v EventAMBAuthenticationUpdated) error {
+	v.Type = "amb.authentication.updated"
 	b, err := json.Marshal(v)
 	if err != nil {
 		return err
@@ -56793,6 +57296,8 @@ func (t WebhookEvent) ValueByDiscriminator() (interface{}, error) {
 	switch discriminator {
 	case "amb.accepted":
 		return t.AsEventAMBAccepted()
+	case "amb.authentication.updated":
+		return t.AsEventAMBAuthenticationUpdated()
 	case "amb.conversation_closed":
 		return t.AsEventAMBConversationClosed()
 	case "amb.conversation_reopened":
@@ -58059,6 +58564,12 @@ type ClientInterface interface {
 
 	UpdateAMBConversation(ctx context.Context, conversationId AMBConversationID, params *UpdateAMBConversationParams, body UpdateAMBConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// CreateAMBAuthentication request
+	CreateAMBAuthentication(ctx context.Context, conversationId AMBConversationID, params *CreateAMBAuthenticationParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAMBAuthentication request
+	GetAMBAuthentication(ctx context.Context, conversationId AMBConversationID, authenticationId AMBAuthenticationID, params *GetAMBAuthenticationParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// ListAMBConversationMessages request
 	ListAMBConversationMessages(ctx context.Context, conversationId AMBConversationID, params *ListAMBConversationMessagesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -58327,6 +58838,9 @@ type ClientInterface interface {
 
 	// GetWorkspaceComplianceSubmission request
 	GetWorkspaceComplianceSubmission(ctx context.Context, submissionId ComplianceSubmissionID, params *GetWorkspaceComplianceSubmissionParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// SendWorkspaceComplianceSubmissionContactConfirmation request
+	SendWorkspaceComplianceSubmissionContactConfirmation(ctx context.Context, submissionId ComplianceSubmissionID, params *SendWorkspaceComplianceSubmissionContactConfirmationParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// UpdateWorkspaceComplianceSubmissionWithBody request with any body
 	UpdateWorkspaceComplianceSubmissionWithBody(ctx context.Context, submissionId ComplianceSubmissionID, params *UpdateWorkspaceComplianceSubmissionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -59084,6 +59598,9 @@ type ClientInterface interface {
 
 	// ListSMSMessageEvents request
 	ListSMSMessageEvents(ctx context.Context, messageId SMSMessageID, params *ListSMSMessageEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetSMSMessageMedia request
+	GetSMSMessageMedia(ctx context.Context, messageId SMSMessageID, mediaId SMSFileID, params *GetSMSMessageMediaParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListWorkspaceSMSSenders request
 	ListWorkspaceSMSSenders(ctx context.Context, params *ListWorkspaceSMSSendersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -59867,6 +60384,30 @@ func (c *Client) UpdateAMBConversationWithBody(ctx context.Context, conversation
 
 func (c *Client) UpdateAMBConversation(ctx context.Context, conversationId AMBConversationID, params *UpdateAMBConversationParams, body UpdateAMBConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewUpdateAMBConversationRequest(c.Server, conversationId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateAMBAuthentication(ctx context.Context, conversationId AMBConversationID, params *CreateAMBAuthenticationParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateAMBAuthenticationRequest(c.Server, conversationId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAMBAuthentication(ctx context.Context, conversationId AMBConversationID, authenticationId AMBAuthenticationID, params *GetAMBAuthenticationParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAMBAuthenticationRequest(c.Server, conversationId, authenticationId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -61007,6 +61548,18 @@ func (c *Client) CreateWorkspaceComplianceSubmission(ctx context.Context, params
 
 func (c *Client) GetWorkspaceComplianceSubmission(ctx context.Context, submissionId ComplianceSubmissionID, params *GetWorkspaceComplianceSubmissionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetWorkspaceComplianceSubmissionRequest(c.Server, submissionId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SendWorkspaceComplianceSubmissionContactConfirmation(ctx context.Context, submissionId ComplianceSubmissionID, params *SendWorkspaceComplianceSubmissionContactConfirmationParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSendWorkspaceComplianceSubmissionContactConfirmationRequest(c.Server, submissionId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -64271,6 +64824,18 @@ func (c *Client) GetSMSMessage(ctx context.Context, messageId SMSMessageID, para
 
 func (c *Client) ListSMSMessageEvents(ctx context.Context, messageId SMSMessageID, params *ListSMSMessageEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListSMSMessageEventsRequest(c.Server, messageId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetSMSMessageMedia(ctx context.Context, messageId SMSMessageID, mediaId SMSFileID, params *GetSMSMessageMediaParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSMSMessageMediaRequest(c.Server, messageId, mediaId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -68067,6 +68632,144 @@ func NewUpdateAMBConversationRequestWithBody(server string, conversationId AMBCo
 			}
 
 			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateAMBAuthenticationRequest generates requests for CreateAMBAuthentication
+func NewCreateAMBAuthenticationRequest(server string, conversationId AMBConversationID, params *CreateAMBAuthenticationParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "conversation_id", conversationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/conversations/%s/authentications", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAMBAuthenticationRequest generates requests for GetAMBAuthentication
+func NewGetAMBAuthenticationRequest(server string, conversationId AMBConversationID, authenticationId AMBAuthenticationID, params *GetAMBAuthenticationParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "conversation_id", conversationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "authentication_id", authenticationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/conversations/%s/authentications/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
 		}
 
 	}
@@ -75651,6 +76354,77 @@ func NewGetWorkspaceComplianceSubmissionRequest(server string, submissionId Comp
 			}
 
 			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewSendWorkspaceComplianceSubmissionContactConfirmationRequest generates requests for SendWorkspaceComplianceSubmissionContactConfirmation
+func NewSendWorkspaceComplianceSubmissionContactConfirmationRequest(server string, submissionId ComplianceSubmissionID, params *SendWorkspaceComplianceSubmissionContactConfirmationParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "submission_id", submissionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/compliance/submissions/%s/contact-confirmation", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
 		}
 
 	}
@@ -86571,6 +87345,18 @@ func NewListEmailTemplatesRequest(server string, params *ListEmailTemplatesParam
 
 		}
 
+		if params.Status != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "status", *params.Status, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if params.Q != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "q", *params.Q, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
@@ -96093,6 +96879,73 @@ func NewListSMSMessageEventsRequest(server string, messageId SMSMessageID, param
 			rawQueryFragments = append(rawQueryFragments, encoded)
 		}
 		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetSMSMessageMediaRequest generates requests for GetSMSMessageMedia
+func NewGetSMSMessageMediaRequest(server string, messageId SMSMessageID, mediaId SMSFileID, params *GetSMSMessageMediaParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "message_id", messageId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "media_id", mediaId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/messages/%s/media/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
 	}
 
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
@@ -111553,6 +112406,12 @@ type ClientWithResponsesInterface interface {
 
 	UpdateAMBConversationWithResponse(ctx context.Context, conversationId AMBConversationID, params *UpdateAMBConversationParams, body UpdateAMBConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateAMBConversationResponse, error)
 
+	// CreateAMBAuthenticationWithResponse request
+	CreateAMBAuthenticationWithResponse(ctx context.Context, conversationId AMBConversationID, params *CreateAMBAuthenticationParams, reqEditors ...RequestEditorFn) (*CreateAMBAuthenticationResponse, error)
+
+	// GetAMBAuthenticationWithResponse request
+	GetAMBAuthenticationWithResponse(ctx context.Context, conversationId AMBConversationID, authenticationId AMBAuthenticationID, params *GetAMBAuthenticationParams, reqEditors ...RequestEditorFn) (*GetAMBAuthenticationResponse, error)
+
 	// ListAMBConversationMessagesWithResponse request
 	ListAMBConversationMessagesWithResponse(ctx context.Context, conversationId AMBConversationID, params *ListAMBConversationMessagesParams, reqEditors ...RequestEditorFn) (*ListAMBConversationMessagesResponse, error)
 
@@ -111821,6 +112680,9 @@ type ClientWithResponsesInterface interface {
 
 	// GetWorkspaceComplianceSubmissionWithResponse request
 	GetWorkspaceComplianceSubmissionWithResponse(ctx context.Context, submissionId ComplianceSubmissionID, params *GetWorkspaceComplianceSubmissionParams, reqEditors ...RequestEditorFn) (*GetWorkspaceComplianceSubmissionResponse, error)
+
+	// SendWorkspaceComplianceSubmissionContactConfirmationWithResponse request
+	SendWorkspaceComplianceSubmissionContactConfirmationWithResponse(ctx context.Context, submissionId ComplianceSubmissionID, params *SendWorkspaceComplianceSubmissionContactConfirmationParams, reqEditors ...RequestEditorFn) (*SendWorkspaceComplianceSubmissionContactConfirmationResponse, error)
 
 	// UpdateWorkspaceComplianceSubmissionWithBodyWithResponse request with any body
 	UpdateWorkspaceComplianceSubmissionWithBodyWithResponse(ctx context.Context, submissionId ComplianceSubmissionID, params *UpdateWorkspaceComplianceSubmissionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateWorkspaceComplianceSubmissionResponse, error)
@@ -112578,6 +113440,9 @@ type ClientWithResponsesInterface interface {
 
 	// ListSMSMessageEventsWithResponse request
 	ListSMSMessageEventsWithResponse(ctx context.Context, messageId SMSMessageID, params *ListSMSMessageEventsParams, reqEditors ...RequestEditorFn) (*ListSMSMessageEventsResponse, error)
+
+	// GetSMSMessageMediaWithResponse request
+	GetSMSMessageMediaWithResponse(ctx context.Context, messageId SMSMessageID, mediaId SMSFileID, params *GetSMSMessageMediaParams, reqEditors ...RequestEditorFn) (*GetSMSMessageMediaResponse, error)
 
 	// ListWorkspaceSMSSendersWithResponse request
 	ListWorkspaceSMSSendersWithResponse(ctx context.Context, params *ListWorkspaceSMSSendersParams, reqEditors ...RequestEditorFn) (*ListWorkspaceSMSSendersResponse, error)
@@ -113668,6 +114533,83 @@ func (r UpdateAMBConversationResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r UpdateAMBConversationResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateAMBAuthenticationResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON202      *AMBAuthentication
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON402      *PaymentRequired
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateAMBAuthenticationResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateAMBAuthenticationResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateAMBAuthenticationResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAMBAuthenticationResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBAuthentication
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAMBAuthenticationResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAMBAuthenticationResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAMBAuthenticationResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -116679,6 +117621,45 @@ func (r GetWorkspaceComplianceSubmissionResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r GetWorkspaceComplianceSubmissionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type SendWorkspaceComplianceSubmissionContactConfirmationResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ComplianceSubmission
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r SendWorkspaceComplianceSubmissionContactConfirmationResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r SendWorkspaceComplianceSubmissionContactConfirmationResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r SendWorkspaceComplianceSubmissionContactConfirmationResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -124828,6 +125809,44 @@ func (r ListSMSMessageEventsResponse) ContentType() string {
 	return ""
 }
 
+type GetSMSMessageMediaResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON410      *Gone
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSMSMessageMediaResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSMSMessageMediaResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetSMSMessageMediaResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type ListWorkspaceSMSSendersResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -131036,6 +132055,24 @@ func (c *ClientWithResponses) UpdateAMBConversationWithResponse(ctx context.Cont
 	return ParseUpdateAMBConversationResponse(rsp)
 }
 
+// CreateAMBAuthenticationWithResponse request returning *CreateAMBAuthenticationResponse
+func (c *ClientWithResponses) CreateAMBAuthenticationWithResponse(ctx context.Context, conversationId AMBConversationID, params *CreateAMBAuthenticationParams, reqEditors ...RequestEditorFn) (*CreateAMBAuthenticationResponse, error) {
+	rsp, err := c.CreateAMBAuthentication(ctx, conversationId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateAMBAuthenticationResponse(rsp)
+}
+
+// GetAMBAuthenticationWithResponse request returning *GetAMBAuthenticationResponse
+func (c *ClientWithResponses) GetAMBAuthenticationWithResponse(ctx context.Context, conversationId AMBConversationID, authenticationId AMBAuthenticationID, params *GetAMBAuthenticationParams, reqEditors ...RequestEditorFn) (*GetAMBAuthenticationResponse, error) {
+	rsp, err := c.GetAMBAuthentication(ctx, conversationId, authenticationId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAMBAuthenticationResponse(rsp)
+}
+
 // ListAMBConversationMessagesWithResponse request returning *ListAMBConversationMessagesResponse
 func (c *ClientWithResponses) ListAMBConversationMessagesWithResponse(ctx context.Context, conversationId AMBConversationID, params *ListAMBConversationMessagesParams, reqEditors ...RequestEditorFn) (*ListAMBConversationMessagesResponse, error) {
 	rsp, err := c.ListAMBConversationMessages(ctx, conversationId, params, reqEditors...)
@@ -131873,6 +132910,15 @@ func (c *ClientWithResponses) GetWorkspaceComplianceSubmissionWithResponse(ctx c
 		return nil, err
 	}
 	return ParseGetWorkspaceComplianceSubmissionResponse(rsp)
+}
+
+// SendWorkspaceComplianceSubmissionContactConfirmationWithResponse request returning *SendWorkspaceComplianceSubmissionContactConfirmationResponse
+func (c *ClientWithResponses) SendWorkspaceComplianceSubmissionContactConfirmationWithResponse(ctx context.Context, submissionId ComplianceSubmissionID, params *SendWorkspaceComplianceSubmissionContactConfirmationParams, reqEditors ...RequestEditorFn) (*SendWorkspaceComplianceSubmissionContactConfirmationResponse, error) {
+	rsp, err := c.SendWorkspaceComplianceSubmissionContactConfirmation(ctx, submissionId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSendWorkspaceComplianceSubmissionContactConfirmationResponse(rsp)
 }
 
 // UpdateWorkspaceComplianceSubmissionWithBodyWithResponse request with arbitrary body returning *UpdateWorkspaceComplianceSubmissionResponse
@@ -134262,6 +135308,15 @@ func (c *ClientWithResponses) ListSMSMessageEventsWithResponse(ctx context.Conte
 		return nil, err
 	}
 	return ParseListSMSMessageEventsResponse(rsp)
+}
+
+// GetSMSMessageMediaWithResponse request returning *GetSMSMessageMediaResponse
+func (c *ClientWithResponses) GetSMSMessageMediaWithResponse(ctx context.Context, messageId SMSMessageID, mediaId SMSFileID, params *GetSMSMessageMediaParams, reqEditors ...RequestEditorFn) (*GetSMSMessageMediaResponse, error) {
+	rsp, err := c.GetSMSMessageMedia(ctx, messageId, mediaId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSMSMessageMediaResponse(rsp)
 }
 
 // ListWorkspaceSMSSendersWithResponse request returning *ListWorkspaceSMSSendersResponse
@@ -137174,6 +138229,177 @@ func ParseUpdateAMBConversationResponse(rsp *http.Response) (*UpdateAMBConversat
 			return nil, err
 		}
 		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateAMBAuthenticationResponse parses an HTTP response from a CreateAMBAuthenticationWithResponse call
+func ParseCreateAMBAuthenticationResponse(rsp *http.Response) (*CreateAMBAuthenticationResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateAMBAuthenticationResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest AMBAuthentication
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest PaymentRequired
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAMBAuthenticationResponse parses an HTTP response from a GetAMBAuthenticationWithResponse call
+func ParseGetAMBAuthenticationResponse(rsp *http.Response) (*GetAMBAuthenticationResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAMBAuthenticationResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBAuthentication
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -143715,6 +144941,95 @@ func ParseGetWorkspaceComplianceSubmissionResponse(rsp *http.Response) (*GetWork
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseSendWorkspaceComplianceSubmissionContactConfirmationResponse parses an HTTP response from a SendWorkspaceComplianceSubmissionContactConfirmationWithResponse call
+func ParseSendWorkspaceComplianceSubmissionContactConfirmationResponse(rsp *http.Response) (*SendWorkspaceComplianceSubmissionContactConfirmationResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &SendWorkspaceComplianceSubmissionContactConfirmationResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ComplianceSubmission
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -161496,6 +162811,88 @@ func ParseListSMSMessageEventsResponse(rsp *http.Response) (*ListSMSMessageEvent
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSMSMessageMediaResponse parses an HTTP response from a GetSMSMessageMediaWithResponse call
+func ParseGetSMSMessageMediaResponse(rsp *http.Response) (*GetSMSMessageMediaResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSMSMessageMediaResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 410:
+		var dest Gone
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON410 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Unprocessable

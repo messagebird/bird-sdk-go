@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.146.0
+
+- Add the `amb.authentication.updated` webhook event type for Apple Messages sign-in outcomes. Its data includes workspace and business account identifiers alongside the authentication request.
+- Add Apple Messages conversation methods that request a customer sign-in and read one authentication request.
+- A business verification whose domain no member's login or SSO domain proves now waits for its contact to confirm a link we email them, instead of being refused. While it waits, `contact_email` reports the item state `awaiting_confirmation`; resupplying `contact_email` sends a link to the new address, and a new operation, send contact confirmation, sends the same address a new one. A confirmed domain is recorded as the `domain_proof` method `contact_confirmation`.
+- Download received MMS attachments with `sms.messages.media` in the SDKs. The storage request omits Bird credentials.
+- **Breaking:** SMS message and event responses can now report `MMS` in `segments.encoding`, and carry a new `content_type` of `sms` or `mms`. Update exhaustive encoding checks to accept `MMS`, treat an MMS as one billable message, and read `content_type` to tell the two apart. Upgrade before you send or receive MMS: an earlier Python SDK rejects a message or event that reports `MMS`.
+- Add MMS support to existing SMS send and batch methods with an optional subject and media URLs, including media-only sends to +1 recipients.
+- A `rich_link` part of an Apple Messages message that Apple accepted and built from its URL now records a `title` when Apple or the linked page supplies one, and an `image_url` when the linked page offers an image. The image is the page's own, so it can differ from the card on the device.
+- Email broadcast counter documentation now explains periodic refreshes, initial zero values, and omitted counters for unavailable history.
+
 ## 0.145.0
 
 - Add optional `brand_id` to email broadcast creation and updates, with request-only overrides for validation, preview and test sends, and return the retained Brand on broadcast responses. Brand selection is in preview and unavailable until enabled; explicit selection while unavailable returns `422`. Unattributed broadcasts and drafts without a selection return null.

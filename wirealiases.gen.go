@@ -6,8 +6,11 @@ import "github.com/messagebird/bird-sdk-go/internal/oapi"
 
 type (
 	AMBAcceptedEventType                                   = oapi.AMBAcceptedEventType
+	AMBAuthenticationStatus                                = oapi.AMBAuthenticationStatus
+	AMBAuthenticationUpdatedEventType                      = oapi.AMBAuthenticationUpdatedEventType
 	AMBBusinessAccountStatsPoint                           = oapi.AMBBusinessAccountStatsPoint
 	AMBCategoryStatsPoint                                  = oapi.AMBCategoryStatsPoint
+	AMBConversationAuthentication                          = oapi.AMBConversationAuthentication
 	AMBConversationClosedEventType                         = oapi.AMBConversationClosedEventType
 	AMBConversationClosedReason                            = oapi.AMBConversationClosedReason
 	AMBConversationLastMessage                             = oapi.AMBConversationLastMessage
@@ -21,6 +24,7 @@ type (
 	AMBConversationStatsComparisonDelta                    = oapi.AMBConversationStatsComparisonDelta
 	AMBConversationStatsCounts                             = oapi.AMBConversationStatsCounts
 	AMBConversationStatsPoint                              = oapi.AMBConversationStatsPoint
+	AMBConversationVerifiedIdentity                        = oapi.AMBConversationVerifiedIdentity
 	AMBError                                               = oapi.AMBError
 	AMBErrorCodeStatsPoint                                 = oapi.AMBErrorCodeStatsPoint
 	AMBFormPageType                                        = oapi.AMBFormPageType
@@ -76,6 +80,7 @@ type (
 	AMBTemplateVersionStatus                               = oapi.AMBTemplateVersionStatus
 	AMBText0                                               = oapi.AMBText0
 	AMBText1                                               = oapi.AMBText1
+	AMBVerifiedIdentity                                    = oapi.AMBVerifiedIdentity
 	AssetUploadInstructionMethod                           = oapi.AssetUploadInstructionMethod
 	AssetUploadSessionError                                = oapi.AssetUploadSessionError
 	AttachmentStatus                                       = oapi.AttachmentStatus
@@ -286,6 +291,8 @@ type (
 	EsimSpeed                                              = oapi.EsimSpeed
 	EsimZoneBalance                                        = oapi.EsimZoneBalance
 	EsimZoneType                                           = oapi.EsimZoneType
+	AMBAuthenticationEventData                             = oapi.EventAMBAuthenticationData
+	AMBAuthenticationUpdatedEvent                          = oapi.EventAMBAuthenticationUpdated
 	AMBConversationEventData                               = oapi.EventAMBConversationData
 	AMBMessageEventData                                    = oapi.EventAMBMessageData
 	AMBSuppressionCreatedEvent                             = oapi.EventAMBSuppressionCreated
@@ -375,6 +382,7 @@ type (
 	SMSReceivedEventData                                   = oapi.EventSMSReceivedData
 	SMSReceivedEventData0                                  = oapi.EventSMSReceivedData0
 	SMSReceivedEventData1                                  = oapi.EventSMSReceivedData1
+	SMSReceivedEventData2                                  = oapi.EventSMSReceivedData2
 	SMSRejectedEvent                                       = oapi.EventSMSRejected
 	SMSRejectedEventData                                   = oapi.EventSMSRejectedData
 	SMSRejectedEventType                                   = oapi.EventSMSRejectedType
@@ -482,6 +490,7 @@ type (
 	SMSBatchSummary                                        = oapi.SMSBatchSummary
 	SMSCarrierStatsPoint                                   = oapi.SMSCarrierStatsPoint
 	SMSCategoryStatsPoint                                  = oapi.SMSCategoryStatsPoint
+	SMSContentType                                         = oapi.SMSContentType
 	SMSCostCenterStatsPoint                                = oapi.SMSCostCenterStatsPoint
 	SMSCountryStatsPoint                                   = oapi.SMSCountryStatsPoint
 	SMSDeliveryCounts                                      = oapi.SMSDeliveryCounts
@@ -498,6 +507,7 @@ type (
 	SMSInboundStatsPoint                                   = oapi.SMSInboundStatsPoint
 	SMSLatencyQuantiles                                    = oapi.SMSLatencyQuantiles
 	SMSLatencyStats                                        = oapi.SMSLatencyStats
+	SMSMedia                                               = oapi.SMSMedia
 	SMSMessageDirection                                    = oapi.SMSMessageDirection
 	SMSMessageEffectiveOptions                             = oapi.SMSMessageEffectiveOptions
 	SMSOriginatorStatsPoint                                = oapi.SMSOriginatorStatsPoint
@@ -685,6 +695,20 @@ type (
 
 const (
 	AMBAcceptedEventTypeAmbAccepted AMBAcceptedEventType = "amb.accepted"
+)
+
+const (
+	AMBAuthenticationStatusCancelled  AMBAuthenticationStatus = "cancelled"
+	AMBAuthenticationStatusExpired    AMBAuthenticationStatus = "expired"
+	AMBAuthenticationStatusFailed     AMBAuthenticationStatus = "failed"
+	AMBAuthenticationStatusPending    AMBAuthenticationStatus = "pending"
+	AMBAuthenticationStatusProcessing AMBAuthenticationStatus = "processing"
+	AMBAuthenticationStatusSucceeded  AMBAuthenticationStatus = "succeeded"
+	AMBAuthenticationStatusSuperseded AMBAuthenticationStatus = "superseded"
+)
+
+const (
+	AMBAuthenticationUpdatedEventTypeAmbAuthenticationUpdated AMBAuthenticationUpdatedEventType = "amb.authentication.updated"
 )
 
 const (
@@ -1981,6 +2005,11 @@ const (
 )
 
 const (
+	SMSContentTypeMms SMSContentType = "mms"
+	SMSContentTypeSms SMSContentType = "sms"
+)
+
+const (
 	SMSKeywordRuleScopeSystem    SMSKeywordRuleScope = "system"
 	SMSKeywordRuleScopeWorkspace SMSKeywordRuleScope = "workspace"
 )
@@ -2016,6 +2045,7 @@ const (
 const (
 	SMSSegmentsEncodingBINARY  SMSSegmentsEncoding = "BINARY"
 	SMSSegmentsEncodingGSM7BIT SMSSegmentsEncoding = "GSM_7BIT"
+	SMSSegmentsEncodingMMS     SMSSegmentsEncoding = "MMS"
 	SMSSegmentsEncodingUCS2    SMSSegmentsEncoding = "UCS2"
 )
 
