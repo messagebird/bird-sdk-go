@@ -321,21 +321,23 @@ type (
 	SMSStatsSummary = oapi.SMSStatsSummary
 	// SMSStatsResponse is a time series of per-bucket points. Returned by
 	// Stats.Daily and Stats.Hourly.
-	SMSStatsResponse             = oapi.SMSStatsResponse
-	SMSStatsByCountryResponse    = oapi.SMSStatsByCountryResponse
-	SMSStatsByCarrierResponse    = oapi.SMSStatsByCarrierResponse
-	SMSStatsByCategoryResponse   = oapi.SMSStatsByCategoryResponse
-	SMSStatsByOriginatorResponse = oapi.SMSStatsByOriginatorResponse
-	SMSStatsByStatusResponse     = oapi.SMSStatsByStatusResponse
-	SMSStatsByErrorCodeResponse  = oapi.SMSStatsByErrorCodeResponse
-	SMSStatsByTagResponse        = oapi.SMSStatsByTagResponse
-	SMSStatsByCostCenterResponse = oapi.SMSStatsByCostCenterResponse
+	SMSStatsResponse              = oapi.SMSStatsResponse
+	SMSStatsByContentTypeResponse = oapi.SMSStatsByContentTypeResponse
+	SMSStatsByCountryResponse     = oapi.SMSStatsByCountryResponse
+	SMSStatsByCarrierResponse     = oapi.SMSStatsByCarrierResponse
+	SMSStatsByCategoryResponse    = oapi.SMSStatsByCategoryResponse
+	SMSStatsByOriginatorResponse  = oapi.SMSStatsByOriginatorResponse
+	SMSStatsByStatusResponse      = oapi.SMSStatsByStatusResponse
+	SMSStatsByErrorCodeResponse   = oapi.SMSStatsByErrorCodeResponse
+	SMSStatsByTagResponse         = oapi.SMSStatsByTagResponse
+	SMSStatsByCostCenterResponse  = oapi.SMSStatsByCostCenterResponse
 
-	SMSInboundStatsSummaryResponse    = oapi.SMSInboundStatsSummaryResponse
-	SMSInboundStatsResponse           = oapi.SMSInboundStatsResponse
-	SMSInboundStatsByCountryResponse  = oapi.SMSInboundStatsByCountryResponse
-	SMSInboundStatsByOperatorResponse = oapi.SMSInboundStatsByOperatorResponse
-	SMSInboundStatsByNumberResponse   = oapi.SMSInboundStatsByNumberResponse
+	SMSInboundStatsSummaryResponse       = oapi.SMSInboundStatsSummaryResponse
+	SMSInboundStatsResponse              = oapi.SMSInboundStatsResponse
+	SMSInboundStatsByContentTypeResponse = oapi.SMSInboundStatsByContentTypeResponse
+	SMSInboundStatsByCountryResponse     = oapi.SMSInboundStatsByCountryResponse
+	SMSInboundStatsByOperatorResponse    = oapi.SMSInboundStatsByOperatorResponse
+	SMSInboundStatsByNumberResponse      = oapi.SMSInboundStatsByNumberResponse
 )
 
 // SMSEventList is the lifecycle timeline of one SMS, oldest first. Returned by
@@ -633,8 +635,9 @@ type (
 )
 
 // WhatsAppKeywordRule is one rule in the ladder that answers an inbound reply.
-// Keywords carries only what the rule adds; EffectiveKeywords is what actually
-// matches, Bird's set plus those additions.
+// Keywords carries only what the rule adds and ExcludedKeywords what it removes;
+// EffectiveKeywords is what actually matches, Bird's set minus the exclusions
+// plus the additions.
 type (
 	WhatsAppKeywordRule      = oapi.WhatsAppKeywordRule
 	WhatsAppKeywordRuleList  = oapi.WhatsAppKeywordRuleList

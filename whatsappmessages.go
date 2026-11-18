@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"time"
 
 	"github.com/messagebird/bird-sdk-go/internal/apierror"
 	"github.com/messagebird/bird-sdk-go/internal/oapi"
@@ -34,11 +35,13 @@ type WhatsAppMedia struct {
 // message still lists the media's mime_type and caption. Messages sent through
 // Bird carry no stored media.
 //
-// The second leg runs on http.DefaultClient rather than the client's own:
+// The second leg runs on a bare client rather than the client's own:
 // option.WithHTTPClient may carry auth middleware, and the presigned target
-// refuses a second auth mechanism.
+// refuses a second auth mechanism. It is one attempt within the request's
+// timeout: option.WithMaxRetries retries the API leg only, so a failed or
+// timed-out download is retried by calling this again, which mints a fresh link.
 func (s *WhatsappMessagesService) Media(ctx context.Context, messageID, mediaID string, opts ...option.RequestOption) (*WhatsAppMedia, error) {
-	body, meta, err := s.getRedirect(ctx, opts, http.StatusFound, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
+	body, meta, timeout, err := s.getRedirect(ctx, opts, http.StatusFound, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapiNoRedirect.GetWhatsAppMessageMedia(ctx, oapi.WhatsAppMessageID(messageID), oapi.WhatsAppFileID(mediaID), nil, cfg...)
 	})
 	if err != nil {
@@ -59,7 +62,7 @@ func (s *WhatsappMessagesService) Media(ctx context.Context, messageID, mediaID 
 	if location == "" {
 		return nil, &apierror.ConnectionError{Err: errors.New("media redirect carried no Location header")}
 	}
-	data, contentType, err := fetchStored(ctx, location, "Media")
+	data, contentType, err := fetchStored(ctx, timeout, location, "Media")
 	if err != nil {
 		return nil, err
 	}
@@ -73,17 +76,22 @@ func (s *WhatsappMessagesService) Media(ctx context.Context, messageID, mediaID 
 // apierror.FromResponse — a storage XML body is no Bird error envelope, and a
 // 403 mapped that way would report the caller's own key as lacking permission.
 // method is the SDK method that mints a fresh link, named in those failures.
-func fetchStored(ctx context.Context, location, method string) (data []byte, contentType string, err error) {
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, location, nil)
+// timeout bounds the leg as option.WithTimeout bounds an attempt; zero leaves
+// only ctx.
+func fetchStored(ctx context.Context, timeout time.Duration, location, method string) (data []byte, contentType string, err error) {
+	legCtx := ctx
+	if timeout > 0 {
+		var cancel context.CancelFunc
+		legCtx, cancel = context.WithTimeout(ctx, timeout)
+		defer cancel()
+	}
+	req, err := http.NewRequestWithContext(legCtx, http.MethodGet, location, nil)
 	if err != nil {
 		return nil, "", &apierror.ConnectionError{Err: err}
 	}
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := storageClient.Do(req)
 	if err != nil {
-		if ctx.Err() != nil {
-			return nil, "", ctx.Err()
-		}
-		return nil, "", &apierror.ConnectionError{Err: fmt.Errorf("downloading media: %w; call %s again for a fresh link", err, method)}
+		return nil, "", storageFailure(ctx, err, timeout, method)
 	}
 	defer func() { _ = resp.Body.Close() }()
 	if resp.StatusCode/100 != 2 {
@@ -93,13 +101,37 @@ func fetchStored(ctx context.Context, location, method string) (data []byte, con
 	}
 	data, err = io.ReadAll(resp.Body)
 	if err != nil {
-		if ctx.Err() != nil {
-			return nil, "", ctx.Err()
-		}
-		return nil, "", &apierror.ConnectionError{Err: err}
+		return nil, "", storageFailure(ctx, err, timeout, method)
 	}
 	return data, mediaContentType(resp.Header.Get("Content-Type")), nil
 }
+
+// storageFailure reports a failed storage leg: the caller's own cancellation
+// verbatim, the leg's deadline as a TimeoutError, anything else as a
+// ConnectionError that names how to mint a fresh link.
+func storageFailure(ctx context.Context, err error, timeout time.Duration, method string) error {
+	switch {
+	case ctx.Err() != nil:
+		return ctx.Err()
+	case errors.Is(err, context.DeadlineExceeded):
+		return &apierror.TimeoutError{Timeout: timeout}
+	default:
+		return &apierror.ConnectionError{Err: fmt.Errorf("downloading media: %w; call %s again for a fresh link", err, method)}
+	}
+}
+
+// storageClient is the bare client the storage leg runs on. It is its own
+// rather than http.DefaultClient, which any package in the process can replace,
+// and its CheckRedirect drops Referer: net/http forwards it on a redirect, and
+// on a presigned URL the query string is the credential, so an S3 region or CDN
+// hop would hand a live link to the next host.
+var storageClient = &http.Client{CheckRedirect: func(req *http.Request, via []*http.Request) error {
+	if len(via) >= 10 {
+		return errors.New("stopped after 10 redirects")
+	}
+	req.Header.Del("Referer")
+	return nil
+}}
 
 func mediaContentType(value string) string {
 	if value == "" {

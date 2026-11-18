@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.147.0
+
+- Listing email templates gains a `status` filter: `active` returns only the templates you can send now, every built-in template included, and `draft` returns your workspace's templates that have never been published.
+- WhatsApp keyword rules gain `excluded_keywords`. Set it on `whatsapp.keywordRules.create` or `update` to remove Bird's keywords for the rule's scope: a message that is exactly one of them opts no one in or out and gets no reply.
+- The Apple Messages for Business suppression `last_asserted_at` description says it also moves when the customer closes the conversation again while the suppression is in force.
+- Submitting or resupplying a business verification can return 412 Precondition Failed while the organization is not eligible to verify a business.
+- `Sms.Messages.Media`, `Whatsapp.Messages.Media` and `Voice.Legs.Recordings.Audio` now apply the request's timeout to the storage download as well, and no longer send the signed download link to a storage redirect target in a Referer header. The storage download is one attempt within that timeout. The retry budget covers the Bird API request only, so call the method again to retry a failed download.
+- SMS statistics filter descriptions explain that a late MMS delivery can appear under MMS while its earlier send remains attributed to SMS.
+
 ## 0.146.0
 
 - Add the `amb.authentication.updated` webhook event type for Apple Messages sign-in outcomes. Its data includes workspace and business account identifiers alongside the authentication request.

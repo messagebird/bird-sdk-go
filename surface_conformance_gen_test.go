@@ -115,6 +115,7 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Sms.Stats.ByCountry
 	_ = c.Sms.Stats.ByCarrier
 	_ = c.Sms.Stats.ByCategory
+	_ = c.Sms.Stats.ByContentType
 	_ = c.Sms.Stats.ByOriginator
 	_ = c.Sms.Stats.ByStatus
 	_ = c.Sms.Stats.ByErrorCode
@@ -124,6 +125,7 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Sms.Stats.Inbound.Daily
 	_ = c.Sms.Stats.Inbound.Hourly
 	_ = c.Sms.Stats.Inbound.ByCountry
+	_ = c.Sms.Stats.Inbound.ByContentType
 	_ = c.Sms.Stats.Inbound.ByOperator
 	_ = c.Sms.Stats.Inbound.ByNumber
 	_ = c.SmsSuppressions.List

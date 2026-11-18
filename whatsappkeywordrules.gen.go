@@ -19,7 +19,7 @@ type WhatsappKeywordRulesListParams struct {
 	Waba string
 	// Keep only rules for this operation. Omit for all of them. Open on the same terms as the response, so an operation Bird gains later can be filtered for without a client update; one Bird does not answer matches nothing rather than failing.
 	Operation WhatsAppKeywordOperation
-	// Keep only Bird's own rules (`system`) or only the rules you created (`workspace`). Omit for both.
+	// Keep only Bird's own rules (`system`) or only the rules you created (`workspace`). Omit for both, in which case a Bird rule that one of yours replaces is left out.
 	Scope WhatsAppKeywordRuleScope
 }
 
@@ -40,8 +40,10 @@ type WhatsappKeywordRulesCreateParams struct {
 	Country *string
 	// Limit the rule to one WhatsApp Business Account, identified by its WhatsApp-issued account ID or by the `waa_` ID Bird gives it. Either form resolves to the same account, and the rule stores and returns the WhatsApp-issued one. Omit it to cover every account in your workspace. The account must be one of yours.
 	Waba *string
-	// Extra keywords to match, on top of the ones Bird already ships for this operation. Omit to keep Bird's keywords and change only the reply, including keywords Bird adds later. You cannot remove one of Bird's keywords, and a keyword Bird has bound to the other operation cannot be reused here.
+	// Extra keywords to match, on top of the ones Bird already ships for this operation. Omit to keep Bird's keywords and change only the reply, including keywords Bird adds later. Use `excluded_keywords` to remove one of Bird's. A keyword Bird has bound to the other operation cannot be reused here.
 	Keywords []string
+	// Bird's keywords to remove for the people this rule covers. A message that is exactly one of them then opts no one in or out and gets no reply, and you must honour opt-outs it carries yourself. Exclude every one of Bird's keywords to switch them off; a keyword Bird adds later still matches. It removes only from the Bird rule this one inherits from, not from your other rules. A keyword cannot be both added and excluded.
+	ExcludedKeywords []string
 	// The message to send back when a keyword matches. Omit it to send nothing.
 	Reply *string
 }
@@ -55,6 +57,10 @@ func (p WhatsappKeywordRulesCreateParams) toWire() oapi.WhatsAppKeywordRuleCreat
 		v := p.Keywords
 		body.Keywords = &v
 	}
+	if p.ExcludedKeywords != nil {
+		v := p.ExcludedKeywords
+		body.ExcludedKeywords = &v
+	}
 	body.Reply = p.Reply
 	return body
 }
@@ -63,6 +69,8 @@ func (p WhatsappKeywordRulesCreateParams) toWire() oapi.WhatsAppKeywordRuleCreat
 type WhatsappKeywordRulesUpdateParams struct {
 	// Replaces the extra keywords this rule matches, on top of the ones Bird ships. Send an empty array to keep Bird's keywords only. Omit to leave the current ones unchanged.
 	Keywords []string
+	// Replaces the Bird keywords this rule removes. Send an empty array to remove none. Omit to leave the current ones unchanged.
+	ExcludedKeywords []string
 	// Replaces the message sent back when a keyword matches. Set it to null to send nothing. Omit to leave it unchanged.
 	Reply Nullable[string]
 }
@@ -72,6 +80,10 @@ func (p WhatsappKeywordRulesUpdateParams) toWire() oapi.WhatsAppKeywordRuleUpdat
 	if p.Keywords != nil {
 		v := p.Keywords
 		body.Keywords = &v
+	}
+	if p.ExcludedKeywords != nil {
+		v := p.ExcludedKeywords
+		body.ExcludedKeywords = &v
 	}
 	body.Reply = p.Reply
 	return body
@@ -107,7 +119,7 @@ func (s *WhatsappKeywordRulesService) Get(ctx context.Context, id string, opts .
 	return &out, nil
 }
 
-// Create Replace the reply Bird sends for opt-out or opt-in, or add keywords of your own. Your rule takes precedence over Bird's at the same grain and keeps Bird's keywords unless you add more. A keyword Bird has bound to one operation cannot be reused for the other.
+// Create Replace the reply Bird sends for opt-out or opt-in, add keywords of your own, or remove some of Bird's with `excluded_keywords`. Your rule takes precedence over Bird's at the same grain and keeps Bird's keywords unless you exclude them. A keyword Bird has bound to one operation cannot be reused for the other.
 func (s *WhatsappKeywordRulesService) Create(ctx context.Context, params WhatsappKeywordRulesCreateParams, opts ...option.RequestOption) (*WhatsAppKeywordRule, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.CreateWhatsAppKeywordRuleParams{}
@@ -126,7 +138,7 @@ func (s *WhatsappKeywordRulesService) Create(ctx context.Context, params Whatsap
 	return &out, nil
 }
 
-// Update Change one of your own keyword rules: its reply or its extra keywords. Bird's own rules cannot be changed; create your own instead with `whatsapp.keyword_rules.create`. Omitting `keywords` leaves the set alone, while sending an empty list clears your additions back to Bird's.
+// Update Change one of your own keyword rules: its reply, its extra keywords or its excluded ones. Bird's own rules cannot be changed; create your own instead with `whatsapp.keyword_rules.create`. Omitting `keywords` leaves the set alone, while sending an empty list clears your additions back to Bird's.
 func (s *WhatsappKeywordRulesService) Update(ctx context.Context, id string, params WhatsappKeywordRulesUpdateParams, opts ...option.RequestOption) (*WhatsAppKeywordRule, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.UpdateWhatsAppKeywordRuleParams{}

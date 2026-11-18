@@ -21,6 +21,8 @@ type SmsListParams struct {
 	CreatedAfter time.Time
 	// Limits the response to resources created before this timestamp. Combine it with `created_after` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
 	CreatedBefore time.Time
+	// Filter by the message's actual type: sms or mms. Omit to include both. Binary messages count as SMS. Message history retains the stored type; previously recorded statistics may attribute the same message to SMS.
+	ContentType SMSContentType
 	// Filter by direction. Omit for both.
 	Direction MessageDirection
 	// Keep only messages whose current `status` matches; repeat the parameter to match any of several. One of `scheduled`, `accepted`, `sent`, `delivered`, `undelivered`, `failed`, `rejected`, `canceled`, `expired`, or `received`. `scheduled` and `canceled` are accepted but match nothing until send-later scheduling ships. With a `status` or `error_code` filter a page can hold fewer messages than `limit`, or none; keep paging until `next_cursor` is null.
@@ -47,6 +49,7 @@ func (p SmsListParams) toWire(startingAfter string) *oapi.ListSMSMessagesParams 
 		EndingBefore:  optStr(p.EndingBefore),
 		CreatedAfter:  optTime(p.CreatedAfter),
 		CreatedBefore: optTime(p.CreatedBefore),
+		ContentType:   optZero(p.ContentType),
 		Direction:     optZero(p.Direction),
 		Status:        optSlice(p.Status),
 		ErrorCode:     optSlice(p.ErrorCode),
@@ -103,7 +106,7 @@ func (s *SmsService) ListPage(ctx context.Context, params SmsListParams, startin
 	return &out, nil
 }
 
-// List List SMS messages, newest first, as a cursor page (`data`, `next_cursor`). Pass `next_cursor` back as `starting_after` to fetch the next page. Filter by direction, status, category, recipient, sender, country, or tag.
+// List List SMS messages, newest first, as a cursor page (`data`, `next_cursor`). Pass `next_cursor` back as `starting_after` to fetch the next page. Filter by message type (SMS or MMS), direction, status, category, recipient, sender, country, or tag.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *SmsService) List(ctx context.Context, params SmsListParams, opts ...option.RequestOption) iter.Seq2[*SMSMessage, error] {

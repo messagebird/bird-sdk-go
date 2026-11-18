@@ -30,11 +30,13 @@ type VoiceRecordingAudio struct {
 // seconds. A 404 *APIError means the capture failed, or the recording is older
 // than 30 days.
 //
-// The second leg runs on http.DefaultClient rather than the client's own:
+// The second leg runs on a bare client rather than the client's own:
 // option.WithHTTPClient may carry auth middleware, and the presigned target
-// refuses a second auth mechanism.
+// refuses a second auth mechanism. It is one attempt within the request's
+// timeout: option.WithMaxRetries retries the API leg only, so a failed or
+// timed-out download is retried by calling this again, which mints a fresh link.
 func (s *VoiceLegsRecordingsService) Audio(ctx context.Context, legID, recordingID string, opts ...option.RequestOption) (*VoiceRecordingAudio, error) {
-	body, meta, err := s.getRedirect(ctx, opts, http.StatusFound, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
+	body, meta, timeout, err := s.getRedirect(ctx, opts, http.StatusFound, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapiNoRedirect.GetVoiceLegRecordingAudio(ctx, oapi.VoiceCallID(legID), oapi.VoiceCallRecordingID(recordingID), nil, cfg...)
 	})
 	if err != nil {
@@ -49,7 +51,7 @@ func (s *VoiceLegsRecordingsService) Audio(ctx context.Context, legID, recording
 		if location == "" {
 			return nil, &apierror.ConnectionError{Err: errors.New("recording redirect carried no Location header")}
 		}
-		if body, contentType, err = fetchStored(ctx, location, "Audio"); err != nil {
+		if body, contentType, err = fetchStored(ctx, timeout, location, "Audio"); err != nil {
 			return nil, err
 		}
 	}

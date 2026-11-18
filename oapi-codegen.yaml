@@ -115,6 +115,7 @@ output-options:
     - getSMSStatsByCountry
     - getSMSStatsByCarrier
     - getSMSStatsByCategory
+    - getSMSStatsByContentType
     - getSMSStatsByOriginator
     - getSMSStatsByStatus
     - getSMSStatsByErrorCode
@@ -124,6 +125,7 @@ output-options:
     - getSMSInboundStatsDaily
     - getSMSInboundStatsHourly
     - getSMSInboundStatsByCountry
+    - getSMSInboundStatsByContentType
     - getSMSInboundStatsByOperator
     - getSMSInboundStatsByNumber
     - listSMSSuppressions

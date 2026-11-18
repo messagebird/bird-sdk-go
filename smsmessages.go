@@ -32,11 +32,13 @@ type SMSMediaDownload struct {
 // message still lists the media's mime_type and filename. Messages sent through
 // Bird carry no stored media.
 //
-// The second leg runs on http.DefaultClient rather than the client's own:
+// The second leg runs on a bare client rather than the client's own:
 // option.WithHTTPClient may carry auth middleware, and the presigned target
-// refuses a second auth mechanism.
+// refuses a second auth mechanism. It is one attempt within the request's
+// timeout: option.WithMaxRetries retries the API leg only, so a failed or
+// timed-out download is retried by calling this again, which mints a fresh link.
 func (s *SmsMessagesService) Media(ctx context.Context, messageID, mediaID string, opts ...option.RequestOption) (*SMSMediaDownload, error) {
-	body, meta, err := s.getRedirect(ctx, opts, http.StatusFound, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
+	body, meta, timeout, err := s.getRedirect(ctx, opts, http.StatusFound, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapiNoRedirect.GetSMSMessageMedia(ctx, oapi.SMSMessageID(messageID), oapi.SMSFileID(mediaID), nil, cfg...)
 	})
 	if err != nil {
@@ -57,7 +59,7 @@ func (s *SmsMessagesService) Media(ctx context.Context, messageID, mediaID strin
 	if location == "" {
 		return nil, &apierror.ConnectionError{Err: errors.New("media redirect carried no Location header")}
 	}
-	data, contentType, err := fetchStored(ctx, location, "Media")
+	data, contentType, err := fetchStored(ctx, timeout, location, "Media")
 	if err != nil {
 		return nil, err
 	}

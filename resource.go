@@ -3,6 +3,7 @@ package bird
 import (
 	"context"
 	"net/http"
+	"time"
 
 	"github.com/messagebird/bird-sdk-go/internal/oapi"
 	"github.com/messagebird/bird-sdk-go/option"
@@ -45,19 +46,21 @@ func (r resource) getAuth(ctx context.Context, opts []option.RequestOption, sche
 
 // getRedirect is get for an operation whose success is a redirect: status counts
 // as success alongside 2xx, and the transport metadata comes back so the caller
-// can read Location and fetch it with a client that carries no credentials.
-func (r resource) getRedirect(ctx context.Context, opts []option.RequestOption, status int, call func(context.Context, requestConfig) (*http.Response, error)) ([]byte, Response, error) {
+// can read Location and fetch it with a client that carries no credentials. The
+// resolved per-attempt timeout comes back too, so that second leg keeps the same
+// bound as the first.
+func (r resource) getRedirect(ctx context.Context, opts []option.RequestOption, status int, call func(context.Context, requestConfig) (*http.Response, error)) ([]byte, Response, time.Duration, error) {
 	var meta Response
 	cfg, err := r.client.resolve(opts)
 	if err != nil {
-		return nil, meta, err
+		return nil, meta, 0, err
 	}
 	if cfg.APIKey == "" {
-		return nil, meta, ErrMissingAPIKey
+		return nil, meta, 0, ErrMissingAPIKey
 	}
 	editors, err := r.client.credentialEditors(cfg, nil)
 	if err != nil {
-		return nil, meta, err
+		return nil, meta, 0, err
 	}
 	// ResponseInto is the caller's own handle when they passed
 	// option.WithResponseInto, so borrow the field and hand their copy back
@@ -71,13 +74,14 @@ func (r resource) getRedirect(ctx context.Context, opts []option.RequestOption, 
 	if caller != nil {
 		*caller = meta
 	}
-	return body, meta, err
+	return body, meta, cfg.Timeout, err
 }
 
 // getFile is get for a byte read: the transport metadata comes back with the
 // body, because the file's type and name travel in the response headers.
 func (r resource) getFile(ctx context.Context, opts []option.RequestOption, call func(context.Context, requestConfig) (*http.Response, error)) ([]byte, Response, error) {
-	return r.getRedirect(ctx, opts, 0, call)
+	body, meta, _, err := r.getRedirect(ctx, opts, 0, call)
+	return body, meta, err
 }
 
 // post runs a write through the shared request core: resolve options, then

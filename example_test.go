@@ -2291,6 +2291,23 @@ func ExampleSmsStatsService_ByCategory() {
 	}
 }
 
+func ExampleSmsStatsService_ByContentType() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Sms.Stats.ByContentType(context.Background(), bird.SmsStatsByContentTypeParams{
+		From: time.Now().AddDate(0, -1, 0),
+		To:   time.Now(),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, row := range *stats.Data {
+		fmt.Println(*row.ContentType, *row.Delivery.Accepted)
+	}
+}
+
 // ByOriginator compares how each sender address performs.
 func ExampleSmsStatsService_ByOriginator() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
@@ -2453,6 +2470,23 @@ func ExampleSmsStatsInboundService_ByCountry() {
 	}
 	for _, row := range *stats.Data {
 		fmt.Println(*row.Country, *row.Received)
+	}
+}
+
+func ExampleSmsStatsInboundService_ByContentType() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Sms.Stats.Inbound.ByContentType(context.Background(), bird.SmsStatsInboundByContentTypeParams{
+		From: time.Now().AddDate(0, -1, 0),
+		To:   time.Now(),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, row := range *stats.Data {
+		fmt.Println(*row.ContentType, *row.Received)
 	}
 }
 
@@ -3735,7 +3769,7 @@ func ExampleWhatsappKeywordRulesService_Update() {
 }
 
 // The next rule in the ladder answers the scope, which is another rule of yours if you
-// hold a less specific one; STOP never stops working.
+// hold a less specific one.
 func ExampleWhatsappKeywordRulesService_Delete() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {

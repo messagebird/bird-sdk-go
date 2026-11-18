@@ -20,14 +20,17 @@ type SmsStatsInboundSummaryParams struct {
 	Timezone string
 	// Set to `previous_period` to include the received-message count for the immediately preceding window of equal length. The response also includes the change between the two, so you can show "+X% vs last period" without a second request.
 	Compare StatsComparePeriod
+	// Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType SMSContentType
 }
 
 func (p SmsStatsInboundSummaryParams) toWire() *oapi.GetSMSInboundStatsSummaryParams {
 	return &oapi.GetSMSInboundStatsSummaryParams{
-		From:     optStr(p.From),
-		To:       optStr(p.To),
-		Timezone: optStr(p.Timezone),
-		Compare:  optZero(p.Compare),
+		From:        optStr(p.From),
+		To:          optStr(p.To),
+		Timezone:    optStr(p.Timezone),
+		Compare:     optZero(p.Compare),
+		ContentType: optZero(p.ContentType),
 	}
 }
 
@@ -39,13 +42,16 @@ type SmsStatsInboundDailyParams struct {
 	To time.Time
 	// IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone string
+	// Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType SMSContentType
 }
 
 func (p SmsStatsInboundDailyParams) toWire() *oapi.GetSMSInboundStatsDailyParams {
 	return &oapi.GetSMSInboundStatsDailyParams{
-		From:     optDate(p.From),
-		To:       optDate(p.To),
-		Timezone: optStr(p.Timezone),
+		From:        optDate(p.From),
+		To:          optDate(p.To),
+		Timezone:    optStr(p.Timezone),
+		ContentType: optZero(p.ContentType),
 	}
 }
 
@@ -57,13 +63,16 @@ type SmsStatsInboundHourlyParams struct {
 	To time.Time
 	// IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone string
+	// Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType SMSContentType
 }
 
 func (p SmsStatsInboundHourlyParams) toWire() *oapi.GetSMSInboundStatsHourlyParams {
 	return &oapi.GetSMSInboundStatsHourlyParams{
-		From:     optTime(p.From),
-		To:       optTime(p.To),
-		Timezone: optStr(p.Timezone),
+		From:        optTime(p.From),
+		To:          optTime(p.To),
+		Timezone:    optStr(p.Timezone),
+		ContentType: optZero(p.ContentType),
 	}
 }
 
@@ -77,14 +86,41 @@ type SmsStatsInboundByCountryParams struct {
 	Timezone string
 	// Maximum rows to return, ranked by volume. Defaults to 50; the maximum is 200, and asking for more returns 422 rather than silently returning fewer.
 	Limit int
+	// Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType SMSContentType
 }
 
 func (p SmsStatsInboundByCountryParams) toWire() *oapi.GetSMSInboundStatsByCountryParams {
 	return &oapi.GetSMSInboundStatsByCountryParams{
-		From:     optDate(p.From),
-		To:       optDate(p.To),
-		Timezone: optStr(p.Timezone),
-		Limit:    optInt(p.Limit),
+		From:        optDate(p.From),
+		To:          optDate(p.To),
+		Timezone:    optStr(p.Timezone),
+		Limit:       optInt(p.Limit),
+		ContentType: optZero(p.ContentType),
+	}
+}
+
+// SmsStatsInboundByContentTypeParams filters the by_content_type read.
+type SmsStatsInboundByContentTypeParams struct {
+	// Start date (inclusive), YYYY-MM-DD. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
+	From time.Time
+	// End date (inclusive), YYYY-MM-DD. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	To time.Time
+	// IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone string
+	// Maximum rows to return, ranked by volume. Defaults to 50; the maximum is 200, and asking for more returns 422 rather than silently returning fewer.
+	Limit int
+	// Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType SMSContentType
+}
+
+func (p SmsStatsInboundByContentTypeParams) toWire() *oapi.GetSMSInboundStatsByContentTypeParams {
+	return &oapi.GetSMSInboundStatsByContentTypeParams{
+		From:        optDate(p.From),
+		To:          optDate(p.To),
+		Timezone:    optStr(p.Timezone),
+		Limit:       optInt(p.Limit),
+		ContentType: optZero(p.ContentType),
 	}
 }
 
@@ -98,14 +134,17 @@ type SmsStatsInboundByOperatorParams struct {
 	Timezone string
 	// Maximum rows to return, ranked by volume. Defaults to 50; the maximum is 200, and asking for more returns 422 rather than silently returning fewer.
 	Limit int
+	// Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType SMSContentType
 }
 
 func (p SmsStatsInboundByOperatorParams) toWire() *oapi.GetSMSInboundStatsByOperatorParams {
 	return &oapi.GetSMSInboundStatsByOperatorParams{
-		From:     optDate(p.From),
-		To:       optDate(p.To),
-		Timezone: optStr(p.Timezone),
-		Limit:    optInt(p.Limit),
+		From:        optDate(p.From),
+		To:          optDate(p.To),
+		Timezone:    optStr(p.Timezone),
+		Limit:       optInt(p.Limit),
+		ContentType: optZero(p.ContentType),
 	}
 }
 
@@ -119,14 +158,17 @@ type SmsStatsInboundByNumberParams struct {
 	Timezone string
 	// Maximum rows to return, ranked by volume. Defaults to 50; the maximum is 200, and asking for more returns 422 rather than silently returning fewer.
 	Limit int
+	// Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType SMSContentType
 }
 
 func (p SmsStatsInboundByNumberParams) toWire() *oapi.GetSMSInboundStatsByNumberParams {
 	return &oapi.GetSMSInboundStatsByNumberParams{
-		From:     optDate(p.From),
-		To:       optDate(p.To),
-		Timezone: optStr(p.Timezone),
-		Limit:    optInt(p.Limit),
+		From:        optDate(p.From),
+		To:          optDate(p.To),
+		Timezone:    optStr(p.Timezone),
+		Limit:       optInt(p.Limit),
+		ContentType: optZero(p.ContentType),
 	}
 }
 
@@ -184,6 +226,21 @@ func (s *SmsStatsInboundService) ByCountry(ctx context.Context, params SmsStatsI
 		return nil, err
 	}
 	var out SMSInboundStatsByCountryResponse
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// ByContentType Compare SMS and MMS received-message counts. Omit content_type for both; previously recorded counts remain attributed to SMS.
+func (s *SmsStatsInboundService) ByContentType(ctx context.Context, params SmsStatsInboundByContentTypeParams, opts ...option.RequestOption) (*SMSInboundStatsByContentTypeResponse, error) {
+	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
+		return s.client.oapi.GetSMSInboundStatsByContentType(ctx, params.toWire(), cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out SMSInboundStatsByContentTypeResponse
 	if err := decodeBody(body, &out); err != nil {
 		return nil, err
 	}

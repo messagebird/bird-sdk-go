@@ -491,6 +491,7 @@ type (
 	SMSCarrierStatsPoint                                   = oapi.SMSCarrierStatsPoint
 	SMSCategoryStatsPoint                                  = oapi.SMSCategoryStatsPoint
 	SMSContentType                                         = oapi.SMSContentType
+	SMSContentTypeStatsPoint                               = oapi.SMSContentTypeStatsPoint
 	SMSCostCenterStatsPoint                                = oapi.SMSCostCenterStatsPoint
 	SMSCountryStatsPoint                                   = oapi.SMSCountryStatsPoint
 	SMSDeliveryCounts                                      = oapi.SMSDeliveryCounts
@@ -499,6 +500,7 @@ type (
 	SMSErrorCodeStatsPoint                                 = oapi.SMSErrorCodeStatsPoint
 	SMSEvent                                               = oapi.SMSEvent
 	SMSInReplyToMessage                                    = oapi.SMSInReplyToMessage
+	SMSInboundContentTypeStatsPoint                        = oapi.SMSInboundContentTypeStatsPoint
 	SMSInboundCountryStatsPoint                            = oapi.SMSInboundCountryStatsPoint
 	SMSInboundNumberStatsPoint                             = oapi.SMSInboundNumberStatsPoint
 	SMSInboundOperatorStatsPoint                           = oapi.SMSInboundOperatorStatsPoint

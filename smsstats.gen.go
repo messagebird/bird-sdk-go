@@ -30,19 +30,22 @@ type SmsStatsSummaryParams struct {
 	CostCenter string
 	// Set to `previous_period` to also include the same statistics for the immediately preceding window of equal length, plus the change between the two, so you can show "+X% vs last period" without a second request.
 	Compare StatsComparePeriod
+	// Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType SMSContentType
 }
 
 func (p SmsStatsSummaryParams) toWire() *oapi.GetSMSStatsSummaryParams {
 	return &oapi.GetSMSStatsSummaryParams{
-		From:       optStr(p.From),
-		To:         optStr(p.To),
-		Timezone:   optStr(p.Timezone),
-		Originator: optStr(p.Originator),
-		Country:    optStr(p.Country),
-		Category:   optStr(p.Category),
-		Carrier:    optStr(p.Carrier),
-		CostCenter: optStr(p.CostCenter),
-		Compare:    optZero(p.Compare),
+		From:        optStr(p.From),
+		To:          optStr(p.To),
+		Timezone:    optStr(p.Timezone),
+		Originator:  optStr(p.Originator),
+		Country:     optStr(p.Country),
+		Category:    optStr(p.Category),
+		Carrier:     optStr(p.Carrier),
+		CostCenter:  optStr(p.CostCenter),
+		Compare:     optZero(p.Compare),
+		ContentType: optZero(p.ContentType),
 	}
 }
 
@@ -64,18 +67,21 @@ type SmsStatsDailyParams struct {
 	Carrier string
 	// Restrict the statistics to messages sent with this cost center. The match is exact. Mutually exclusive with the other dimension filters; only one may be set per request.
 	CostCenter string
+	// Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType SMSContentType
 }
 
 func (p SmsStatsDailyParams) toWire() *oapi.GetSMSStatsDailyParams {
 	return &oapi.GetSMSStatsDailyParams{
-		From:       optDate(p.From),
-		To:         optDate(p.To),
-		Timezone:   optStr(p.Timezone),
-		Originator: optStr(p.Originator),
-		Country:    optStr(p.Country),
-		Category:   optStr(p.Category),
-		Carrier:    optStr(p.Carrier),
-		CostCenter: optStr(p.CostCenter),
+		From:        optDate(p.From),
+		To:          optDate(p.To),
+		Timezone:    optStr(p.Timezone),
+		Originator:  optStr(p.Originator),
+		Country:     optStr(p.Country),
+		Category:    optStr(p.Category),
+		Carrier:     optStr(p.Carrier),
+		CostCenter:  optStr(p.CostCenter),
+		ContentType: optZero(p.ContentType),
 	}
 }
 
@@ -97,18 +103,21 @@ type SmsStatsHourlyParams struct {
 	Carrier string
 	// Restrict the statistics to messages sent with this cost center. The match is exact. Mutually exclusive with the other dimension filters; only one may be set per request.
 	CostCenter string
+	// Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType SMSContentType
 }
 
 func (p SmsStatsHourlyParams) toWire() *oapi.GetSMSStatsHourlyParams {
 	return &oapi.GetSMSStatsHourlyParams{
-		From:       optTime(p.From),
-		To:         optTime(p.To),
-		Timezone:   optStr(p.Timezone),
-		Originator: optStr(p.Originator),
-		Country:    optStr(p.Country),
-		Category:   optStr(p.Category),
-		Carrier:    optStr(p.Carrier),
-		CostCenter: optStr(p.CostCenter),
+		From:        optTime(p.From),
+		To:          optTime(p.To),
+		Timezone:    optStr(p.Timezone),
+		Originator:  optStr(p.Originator),
+		Country:     optStr(p.Country),
+		Category:    optStr(p.Category),
+		Carrier:     optStr(p.Carrier),
+		CostCenter:  optStr(p.CostCenter),
+		ContentType: optZero(p.ContentType),
 	}
 }
 
@@ -128,6 +137,8 @@ type SmsStatsByCountryParams struct {
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain StatsTrendGrain
+	// Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType SMSContentType
 }
 
 func (p SmsStatsByCountryParams) toWire() *oapi.GetSMSStatsByCountryParams {
@@ -139,6 +150,7 @@ func (p SmsStatsByCountryParams) toWire() *oapi.GetSMSStatsByCountryParams {
 		Limit:        optInt(p.Limit),
 		IncludeTrend: optBool(p.IncludeTrend),
 		TrendGrain:   optZero(p.TrendGrain),
+		ContentType:  optZero(p.ContentType),
 	}
 }
 
@@ -158,6 +170,8 @@ type SmsStatsByCarrierParams struct {
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain StatsTrendGrain
+	// Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType SMSContentType
 }
 
 func (p SmsStatsByCarrierParams) toWire() *oapi.GetSMSStatsByCarrierParams {
@@ -169,6 +183,7 @@ func (p SmsStatsByCarrierParams) toWire() *oapi.GetSMSStatsByCarrierParams {
 		Limit:        optInt(p.Limit),
 		IncludeTrend: optBool(p.IncludeTrend),
 		TrendGrain:   optZero(p.TrendGrain),
+		ContentType:  optZero(p.ContentType),
 	}
 }
 
@@ -188,6 +203,8 @@ type SmsStatsByCategoryParams struct {
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain StatsTrendGrain
+	// Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType SMSContentType
 }
 
 func (p SmsStatsByCategoryParams) toWire() *oapi.GetSMSStatsByCategoryParams {
@@ -199,6 +216,40 @@ func (p SmsStatsByCategoryParams) toWire() *oapi.GetSMSStatsByCategoryParams {
 		Limit:        optInt(p.Limit),
 		IncludeTrend: optBool(p.IncludeTrend),
 		TrendGrain:   optZero(p.TrendGrain),
+		ContentType:  optZero(p.ContentType),
+	}
+}
+
+// SmsStatsByContentTypeParams filters the by_content_type read.
+type SmsStatsByContentTypeParams struct {
+	// Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to keep the window within the 720-hour trend cap.
+	From time.Time
+	// End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	To time.Time
+	// IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone string
+	// Metric to rank rows by, applied descending. Any lifecycle count or derived rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `accepted`.
+	Sort SMSStatsSortMetric
+	// Maximum number of message-type rows to return, ranked by the `sort` field descending.
+	Limit int
+	// When true, each row also carries a `trend` array: a short per-bucket lifecycle-count series for that row over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422.
+	IncludeTrend bool
+	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
+	TrendGrain StatsTrendGrain
+	// Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType SMSContentType
+}
+
+func (p SmsStatsByContentTypeParams) toWire() *oapi.GetSMSStatsByContentTypeParams {
+	return &oapi.GetSMSStatsByContentTypeParams{
+		From:         optDate(p.From),
+		To:           optDate(p.To),
+		Timezone:     optStr(p.Timezone),
+		Sort:         optZero(p.Sort),
+		Limit:        optInt(p.Limit),
+		IncludeTrend: optBool(p.IncludeTrend),
+		TrendGrain:   optZero(p.TrendGrain),
+		ContentType:  optZero(p.ContentType),
 	}
 }
 
@@ -218,6 +269,8 @@ type SmsStatsByOriginatorParams struct {
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain StatsTrendGrain
+	// Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType SMSContentType
 }
 
 func (p SmsStatsByOriginatorParams) toWire() *oapi.GetSMSStatsByOriginatorParams {
@@ -229,6 +282,7 @@ func (p SmsStatsByOriginatorParams) toWire() *oapi.GetSMSStatsByOriginatorParams
 		Limit:        optInt(p.Limit),
 		IncludeTrend: optBool(p.IncludeTrend),
 		TrendGrain:   optZero(p.TrendGrain),
+		ContentType:  optZero(p.ContentType),
 	}
 }
 
@@ -240,13 +294,16 @@ type SmsStatsByStatusParams struct {
 	To time.Time
 	// IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone string
+	// Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType SMSContentType
 }
 
 func (p SmsStatsByStatusParams) toWire() *oapi.GetSMSStatsByStatusParams {
 	return &oapi.GetSMSStatsByStatusParams{
-		From:     optDate(p.From),
-		To:       optDate(p.To),
-		Timezone: optStr(p.Timezone),
+		From:        optDate(p.From),
+		To:          optDate(p.To),
+		Timezone:    optStr(p.Timezone),
+		ContentType: optZero(p.ContentType),
 	}
 }
 
@@ -266,6 +323,8 @@ type SmsStatsByErrorCodeParams struct {
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain StatsTrendGrain
+	// Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType SMSContentType
 }
 
 func (p SmsStatsByErrorCodeParams) toWire() *oapi.GetSMSStatsByErrorCodeParams {
@@ -277,6 +336,7 @@ func (p SmsStatsByErrorCodeParams) toWire() *oapi.GetSMSStatsByErrorCodeParams {
 		Limit:        optInt(p.Limit),
 		IncludeTrend: optBool(p.IncludeTrend),
 		TrendGrain:   optZero(p.TrendGrain),
+		ContentType:  optZero(p.ContentType),
 	}
 }
 
@@ -296,6 +356,8 @@ type SmsStatsByTagParams struct {
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain StatsTrendGrain
+	// Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType SMSContentType
 }
 
 func (p SmsStatsByTagParams) toWire() *oapi.GetSMSStatsByTagParams {
@@ -307,6 +369,7 @@ func (p SmsStatsByTagParams) toWire() *oapi.GetSMSStatsByTagParams {
 		Limit:        optInt(p.Limit),
 		IncludeTrend: optBool(p.IncludeTrend),
 		TrendGrain:   optZero(p.TrendGrain),
+		ContentType:  optZero(p.ContentType),
 	}
 }
 
@@ -326,6 +389,8 @@ type SmsStatsByCostCenterParams struct {
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain StatsTrendGrain
+	// Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType SMSContentType
 }
 
 func (p SmsStatsByCostCenterParams) toWire() *oapi.GetSMSStatsByCostCenterParams {
@@ -337,6 +402,7 @@ func (p SmsStatsByCostCenterParams) toWire() *oapi.GetSMSStatsByCostCenterParams
 		Limit:        optInt(p.Limit),
 		IncludeTrend: optBool(p.IncludeTrend),
 		TrendGrain:   optZero(p.TrendGrain),
+		ContentType:  optZero(p.ContentType),
 	}
 }
 
@@ -424,6 +490,21 @@ func (s *SmsStatsService) ByCategory(ctx context.Context, params SmsStatsByCateg
 		return nil, err
 	}
 	var out SMSStatsByCategoryResponse
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// ByContentType Compare SMS and MMS delivery counts, rates and latency. Omit content_type for both; previously recorded counts remain attributed to SMS.
+func (s *SmsStatsService) ByContentType(ctx context.Context, params SmsStatsByContentTypeParams, opts ...option.RequestOption) (*SMSStatsByContentTypeResponse, error) {
+	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
+		return s.client.oapi.GetSMSStatsByContentType(ctx, params.toWire(), cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out SMSStatsByContentTypeResponse
 	if err := decodeBody(body, &out); err != nil {
 		return nil, err
 	}

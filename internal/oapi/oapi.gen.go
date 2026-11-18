@@ -29744,6 +29744,17 @@ type SMSCategoryStatsPoint struct {
 // SMSContentType Message content type. A nonempty subject or media list selects MMS.
 type SMSContentType string
 
+// SMSContentTypeStatsPoint Aggregate delivery and latency stats for a single message type over the requested period.
+type SMSContentTypeStatsPoint struct {
+	// ContentType Message type used for reporting. Previously recorded statistics remain attributed to SMS. New activity uses the message type.
+	ContentType *SMSContentType   `json:"content_type,omitempty"`
+	Delivery    *SMSDeliveryStats `json:"delivery,omitempty"`
+	Latency     *SMSLatencyStats  `json:"latency,omitempty"`
+
+	// Trend Per-bucket lifecycle counts for this message type, using `trend_grain`. Includes only buckets with activity. Present when `include_trend=true`.
+	Trend *[]SMSStatsPoint `json:"trend,omitempty"`
+}
+
 // SMSCostCenterStatsPoint Aggregate delivery and latency stats for a single cost center over the requested period.
 type SMSCostCenterStatsPoint struct {
 	// CostCenter The cost center this row aggregates, as set on the message or taken from its messaging profile at send time.
@@ -29964,6 +29975,15 @@ type SMSInReplyToMessage struct {
 	Text *string `json:"text,omitempty"`
 }
 
+// SMSInboundContentTypeStatsPoint Received-message volume for one message type.
+type SMSInboundContentTypeStatsPoint struct {
+	// ContentType Message type used for reporting. Previously recorded statistics remain attributed to SMS. New activity uses the message type.
+	ContentType *SMSContentType `json:"content_type,omitempty"`
+
+	// Received Distinct messages received on numbers in this message type during the period.
+	Received *int `json:"received,omitempty"`
+}
+
 // SMSInboundCountryStatsPoint Received-message volume for one country.
 type SMSInboundCountryStatsPoint struct {
 	// Country The country of the Bird number the messages arrived on, as an ISO 3166-1 alpha-2 code. This identifies where the message was received. It does not identify the sender's country.
@@ -29989,6 +30009,18 @@ type SMSInboundOperatorStatsPoint struct {
 
 	// Received Distinct messages received from senders on this operator during the period.
 	Received *int `json:"received,omitempty"`
+}
+
+// SMSInboundStatsByContentTypeResponse Received-message volume broken down by message type, ranked by volume.
+type SMSInboundStatsByContentTypeResponse struct {
+	// Data One row per message type with activity in the period, most messages first, capped at the requested `limit`. A message type with no messages in the period is absent rather than zero-filled, because unlike a time bucket it is not part of a continuous axis.
+	Data *[]SMSInboundContentTypeStatsPoint `json:"data,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period SMSStatsSummaryPeriod `json:"period"`
+
+	// Total Total number of distinct message types with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	Total *int `json:"total,omitempty"`
 }
 
 // SMSInboundStatsByCountryResponse Received-message volume broken down by country, ranked by volume.
@@ -31111,6 +31143,18 @@ type SMSStatsByCategoryResponse struct {
 	Period SMSStatsSummaryPeriod `json:"period"`
 
 	// Total Total number of distinct categories with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	Total *int `json:"total,omitempty"`
+}
+
+// SMSStatsByContentTypeResponse Per-message-type breakdown for the requested period, ranked by the `sort` metric (default `accepted`) descending and capped at the requested `limit` (default 50, max 200).
+type SMSStatsByContentTypeResponse struct {
+	// Data Message-type breakdown rows, ranked by the `sort` metric (default `accepted`) descending. Empty when no messages were sent in the period.
+	Data *[]SMSContentTypeStatsPoint `json:"data,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period SMSStatsSummaryPeriod `json:"period"`
+
+	// Total Total number of distinct message types with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
 	Total *int `json:"total,omitempty"`
 }
 
@@ -35969,13 +36013,16 @@ type WhatsAppKeywordRule struct {
 	// CreatedAt When the rule was created. On one of Bird's own rules this is when Bird last shipped a change to it.
 	CreatedAt time.Time `json:"created_at"`
 
-	// EffectiveKeywords Every keyword that matches this rule: Bird's keywords for the same operation and country, plus the ones you added. This is what an inbound message is compared against, and the whole message has to equal one of them. Keywords Bird adds later join it without you changing anything.
+	// EffectiveKeywords Every keyword that matches this rule: Bird's keywords for the same operation and country, minus `excluded_keywords`, plus the ones you added. This is what an inbound message is compared against, and the whole message has to equal one of them. Keywords Bird adds later join it without you changing anything.
 	//
 	// For a rule of **yours** with no `country`, this list is not the whole set it matches: such a rule compares against Bird's keywords for the sender's country, which the list cannot show because it does not know who is writing, so it shows Bird's worldwide keywords instead. Which rule answers decides whether that matters. Yours with no `country` and no `waba` sits below Bird's own country rule, so a sender in a country Bird ships a rule for is answered by that rule and your reply is not used. Yours with a `waba` and no `country` sits above it, so those senders match that country's keywords and get your reply, which is more keywords than this list names. Set a `country` on your own rule to see and extend exactly the set those senders match. A `system` rule is unaffected: each matches only its own keywords, and the ladder checks Bird's country rules separately from its worldwide one.
-	EffectiveKeywords []string              `json:"effective_keywords"`
-	Id                WhatsAppKeywordRuleID `json:"id"`
+	EffectiveKeywords []string `json:"effective_keywords"`
 
-	// Keywords The keywords this rule adds. For one of Bird's own rules this is the full set Bird ships. For a rule you created it is only what you added on top: it never restates or removes Bird's keywords, so `effective_keywords` is what actually matches.
+	// ExcludedKeywords Bird's keywords this rule removes from the set it inherits. A message that is exactly one of them opts no one in or out and gets no reply for the people the rule covers, and Bird's own rule does not act on it instead. Excluding every one of Bird's keywords switches them off, though a keyword Bird adds later still matches. It removes only from the Bird rule this rule inherits from: a keyword another rule of yours adds, or one Bird ships only in another country's rule, is unaffected. Always empty on one of Bird's own rules.
+	ExcludedKeywords []string              `json:"excluded_keywords"`
+	Id               WhatsAppKeywordRuleID `json:"id"`
+
+	// Keywords The keywords this rule adds. For one of Bird's own rules this is the full set Bird ships. For a rule you created it is only what you added on top: it never restates Bird's keywords, so `effective_keywords` is what actually matches.
 	Keywords []string `json:"keywords"`
 
 	// Operation What Bird does when an inbound message matches the rule.
@@ -36012,7 +36059,10 @@ type WhatsAppKeywordRuleCreate struct {
 	// Country The country this rule applies in, as an ISO 3166-1 alpha-2 code. It matches the country of the person who messaged you, worked out from their phone number. Omit it to cover everyone, which is what Bird's own rules do.
 	Country *string `json:"country,omitempty"`
 
-	// Keywords Extra keywords to match, on top of the ones Bird already ships for this operation. Omit to keep Bird's keywords and change only the reply, including keywords Bird adds later. You cannot remove one of Bird's keywords, and a keyword Bird has bound to the other operation cannot be reused here.
+	// ExcludedKeywords Bird's keywords to remove for the people this rule covers. A message that is exactly one of them then opts no one in or out and gets no reply, and you must honour opt-outs it carries yourself. Exclude every one of Bird's keywords to switch them off; a keyword Bird adds later still matches. It removes only from the Bird rule this one inherits from, not from your other rules. A keyword cannot be both added and excluded.
+	ExcludedKeywords *[]string `json:"excluded_keywords,omitempty"`
+
+	// Keywords Extra keywords to match, on top of the ones Bird already ships for this operation. Omit to keep Bird's keywords and change only the reply, including keywords Bird adds later. Use `excluded_keywords` to remove one of Bird's. A keyword Bird has bound to the other operation cannot be reused here.
 	Keywords *[]string `json:"keywords,omitempty"`
 
 	// Operation What Bird does when an inbound message matches the rule.
@@ -36050,8 +36100,11 @@ type WhatsAppKeywordRuleList struct {
 // WhatsAppKeywordRuleScope Whether the rule is one Bird ships (`system`) or one your workspace created (`workspace`). Both kinds carry a `wkr_` ID and can be read; only a `workspace` rule can be changed or deleted. A `workspace` rule takes precedence over Bird's at the same grain, so it is how you replace a reply without losing the keywords Bird ships.
 type WhatsAppKeywordRuleScope string
 
-// WhatsAppKeywordRuleUpdate Changes the reply and the added keywords. What a rule applies to (its operation, country and WhatsApp Business Account) is fixed once created: those decide which inbound messages reach it, so changing one would make it a different rule. Delete it and create the one you want.
+// WhatsAppKeywordRuleUpdate Changes the reply, the added keywords and the excluded ones. What a rule applies to (its operation, country and WhatsApp Business Account) is fixed once created: those decide which inbound messages reach it, so changing one would make it a different rule. Delete it and create the one you want.
 type WhatsAppKeywordRuleUpdate struct {
+	// ExcludedKeywords Replaces the Bird keywords this rule removes. Send an empty array to remove none. Omit to leave the current ones unchanged.
+	ExcludedKeywords *[]string `json:"excluded_keywords,omitempty"`
+
 	// Keywords Replaces the extra keywords this rule matches, on top of the ones Bird ships. Send an empty array to keep Bird's keywords only. Omit to leave the current ones unchanged.
 	Keywords *[]string `json:"keywords,omitempty"`
 
@@ -38665,6 +38718,9 @@ type PreferenceBrandID = BrandID
 
 // RequiredIdempotencyKey defines model for RequiredIdempotencyKey.
 type RequiredIdempotencyKey = string
+
+// SMSStatsContentType Message content type. A nonempty subject or media list selects MMS.
+type SMSStatsContentType = SMSContentType
 
 // StartingAfter defines model for StartingAfter.
 type StartingAfter = string
@@ -46334,6 +46390,9 @@ type ListSMSMessagesParams struct {
 	// CreatedBefore Limits the response to resources created before this timestamp. Combine it with `created_after` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
 	CreatedBefore *CreatedBefore `form:"created_before,omitempty" json:"created_before,omitempty"`
 
+	// ContentType Filter by the message's actual type: sms or mms. Omit to include both. Binary messages count as SMS. Message history retains the stored type; previously recorded statistics may attribute the same message to SMS.
+	ContentType *SMSContentType `form:"content_type,omitempty" json:"content_type,omitempty"`
+
 	// Direction Filter by direction. Omit for both.
 	Direction *MessageDirection `form:"direction,omitempty" json:"direction,omitempty"`
 
@@ -46568,6 +46627,9 @@ type GetSMSStatsByCarrierParams struct {
 	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain *StatsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
 
+	// ContentType Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType *SMSStatsContentType `form:"content_type,omitempty" json:"content_type,omitempty"`
+
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
@@ -46597,6 +46659,42 @@ type GetSMSStatsByCategoryParams struct {
 
 	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain *StatsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
+
+	// ContentType Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType *SMSStatsContentType `form:"content_type,omitempty" json:"content_type,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetSMSStatsByContentTypeParams defines parameters for GetSMSStatsByContentType.
+type GetSMSStatsByContentTypeParams struct {
+	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to keep the window within the 720-hour trend cap.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Sort Metric to rank rows by, applied descending. Any lifecycle count or derived rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `accepted`.
+	Sort *SMSStatsSortMetric `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Limit Maximum number of message-type rows to return, ranked by the `sort` field descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// IncludeTrend When true, each row also carries a `trend` array: a short per-bucket lifecycle-count series for that row over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422.
+	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
+
+	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
+	TrendGrain *StatsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
+
+	// ContentType Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType *SMSStatsContentType `form:"content_type,omitempty" json:"content_type,omitempty"`
 
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
@@ -46628,6 +46726,9 @@ type GetSMSStatsByCostCenterParams struct {
 	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain *StatsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
 
+	// ContentType Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType *SMSStatsContentType `form:"content_type,omitempty" json:"content_type,omitempty"`
+
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
@@ -46657,6 +46758,9 @@ type GetSMSStatsByCountryParams struct {
 
 	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain *StatsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
+
+	// ContentType Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType *SMSStatsContentType `form:"content_type,omitempty" json:"content_type,omitempty"`
 
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
@@ -46691,6 +46795,9 @@ type GetSMSStatsDailyParams struct {
 	// CostCenter Restrict the statistics to messages sent with this cost center. The match is exact. Mutually exclusive with the other dimension filters; only one may be set per request.
 	CostCenter *string `form:"cost_center,omitempty" json:"cost_center,omitempty"`
 
+	// ContentType Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType *SMSStatsContentType `form:"content_type,omitempty" json:"content_type,omitempty"`
+
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
@@ -46720,6 +46827,9 @@ type GetSMSStatsByErrorCodeParams struct {
 
 	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain *StatsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
+
+	// ContentType Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType *SMSStatsContentType `form:"content_type,omitempty" json:"content_type,omitempty"`
 
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
@@ -46754,6 +46864,33 @@ type GetSMSStatsHourlyParams struct {
 	// CostCenter Restrict the statistics to messages sent with this cost center. The match is exact. Mutually exclusive with the other dimension filters; only one may be set per request.
 	CostCenter *string `form:"cost_center,omitempty" json:"cost_center,omitempty"`
 
+	// ContentType Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType *SMSStatsContentType `form:"content_type,omitempty" json:"content_type,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetSMSInboundStatsByContentTypeParams defines parameters for GetSMSInboundStatsByContentType.
+type GetSMSInboundStatsByContentTypeParams struct {
+	// From Start date (inclusive), YYYY-MM-DD. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive), YYYY-MM-DD. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Limit Maximum rows to return, ranked by volume. Defaults to 50; the maximum is 200, and asking for more returns 422 rather than silently returning fewer.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// ContentType Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType *SMSStatsContentType `form:"content_type,omitempty" json:"content_type,omitempty"`
+
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
@@ -46775,6 +46912,9 @@ type GetSMSInboundStatsByCountryParams struct {
 	// Limit Maximum rows to return, ranked by volume. Defaults to 50; the maximum is 200, and asking for more returns 422 rather than silently returning fewer.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
+	// ContentType Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType *SMSStatsContentType `form:"content_type,omitempty" json:"content_type,omitempty"`
+
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
@@ -46793,6 +46933,9 @@ type GetSMSInboundStatsDailyParams struct {
 	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
+	// ContentType Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType *SMSStatsContentType `form:"content_type,omitempty" json:"content_type,omitempty"`
+
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
@@ -46810,6 +46953,9 @@ type GetSMSInboundStatsHourlyParams struct {
 
 	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// ContentType Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType *SMSStatsContentType `form:"content_type,omitempty" json:"content_type,omitempty"`
 
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
@@ -46832,6 +46978,9 @@ type GetSMSInboundStatsByNumberParams struct {
 	// Limit Maximum rows to return, ranked by volume. Defaults to 50; the maximum is 200, and asking for more returns 422 rather than silently returning fewer.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
+	// ContentType Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType *SMSStatsContentType `form:"content_type,omitempty" json:"content_type,omitempty"`
+
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
@@ -46853,6 +47002,9 @@ type GetSMSInboundStatsByOperatorParams struct {
 	// Limit Maximum rows to return, ranked by volume. Defaults to 50; the maximum is 200, and asking for more returns 422 rather than silently returning fewer.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
+	// ContentType Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType *SMSStatsContentType `form:"content_type,omitempty" json:"content_type,omitempty"`
+
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
@@ -46873,6 +47025,9 @@ type GetSMSInboundStatsSummaryParams struct {
 
 	// Compare Set to `previous_period` to include the received-message count for the immediately preceding window of equal length. The response also includes the change between the two, so you can show "+X% vs last period" without a second request.
 	Compare *StatsComparePeriod `form:"compare,omitempty" json:"compare,omitempty"`
+
+	// ContentType Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType *SMSStatsContentType `form:"content_type,omitempty" json:"content_type,omitempty"`
 
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
@@ -46904,6 +47059,9 @@ type GetSMSStatsByOriginatorParams struct {
 	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain *StatsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
 
+	// ContentType Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType *SMSStatsContentType `form:"content_type,omitempty" json:"content_type,omitempty"`
+
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
@@ -46921,6 +47079,9 @@ type GetSMSStatsByStatusParams struct {
 
 	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// ContentType Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType *SMSStatsContentType `form:"content_type,omitempty" json:"content_type,omitempty"`
 
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
@@ -46958,6 +47119,9 @@ type GetSMSStatsSummaryParams struct {
 	// Compare Set to `previous_period` to also include the same statistics for the immediately preceding window of equal length, plus the change between the two, so you can show "+X% vs last period" without a second request.
 	Compare *StatsComparePeriod `form:"compare,omitempty" json:"compare,omitempty"`
 
+	// ContentType Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType *SMSStatsContentType `form:"content_type,omitempty" json:"content_type,omitempty"`
+
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
@@ -46987,6 +47151,9 @@ type GetSMSStatsByTagParams struct {
 
 	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain *StatsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
+
+	// ContentType Restrict statistics to SMS or MMS. Omit to include both. This filter can be combined with an existing dimension filter where the operation supports one. Previously recorded statistics remain attributed to SMS. New activity uses the message type, so a late MMS delivery can appear under MMS while its earlier send remains under SMS.
+	ContentType *SMSStatsContentType `form:"content_type,omitempty" json:"content_type,omitempty"`
 
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
@@ -49002,7 +49169,7 @@ type ListWhatsAppKeywordRulesParams struct {
 	// Operation Keep only rules for this operation. Omit for all of them. Open on the same terms as the response, so an operation Bird gains later can be filtered for without a client update; one Bird does not answer matches nothing rather than failing.
 	Operation *WhatsAppKeywordOperation `form:"operation,omitempty" json:"operation,omitempty"`
 
-	// Scope Keep only Bird's own rules (`system`) or only the rules you created (`workspace`). Omit for both.
+	// Scope Keep only Bird's own rules (`system`) or only the rules you created (`workspace`). Omit for both, in which case a Bird rule that one of yours replaces is left out.
 	Scope *WhatsAppKeywordRuleScope `form:"scope,omitempty" json:"scope,omitempty"`
 
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
@@ -59627,6 +59794,9 @@ type ClientInterface interface {
 	// GetSMSStatsByCategory request
 	GetSMSStatsByCategory(ctx context.Context, params *GetSMSStatsByCategoryParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// GetSMSStatsByContentType request
+	GetSMSStatsByContentType(ctx context.Context, params *GetSMSStatsByContentTypeParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// GetSMSStatsByCostCenter request
 	GetSMSStatsByCostCenter(ctx context.Context, params *GetSMSStatsByCostCenterParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -59641,6 +59811,9 @@ type ClientInterface interface {
 
 	// GetSMSStatsHourly request
 	GetSMSStatsHourly(ctx context.Context, params *GetSMSStatsHourlyParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetSMSInboundStatsByContentType request
+	GetSMSInboundStatsByContentType(ctx context.Context, params *GetSMSInboundStatsByContentTypeParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetSMSInboundStatsByCountry request
 	GetSMSInboundStatsByCountry(ctx context.Context, params *GetSMSInboundStatsByCountryParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -64954,6 +65127,18 @@ func (c *Client) GetSMSStatsByCategory(ctx context.Context, params *GetSMSStatsB
 	return c.Client.Do(req)
 }
 
+func (c *Client) GetSMSStatsByContentType(ctx context.Context, params *GetSMSStatsByContentTypeParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSMSStatsByContentTypeRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 func (c *Client) GetSMSStatsByCostCenter(ctx context.Context, params *GetSMSStatsByCostCenterParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetSMSStatsByCostCenterRequest(c.Server, params)
 	if err != nil {
@@ -65004,6 +65189,18 @@ func (c *Client) GetSMSStatsByErrorCode(ctx context.Context, params *GetSMSStats
 
 func (c *Client) GetSMSStatsHourly(ctx context.Context, params *GetSMSStatsHourlyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetSMSStatsHourlyRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetSMSInboundStatsByContentType(ctx context.Context, params *GetSMSInboundStatsByContentTypeParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSMSInboundStatsByContentTypeRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -96543,6 +96740,18 @@ func NewListSMSMessagesRequest(server string, params *ListSMSMessagesParams) (*h
 
 		}
 
+		if params.ContentType != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "content_type", *params.ContentType, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if params.Direction != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "direction", *params.Direction, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
@@ -97566,6 +97775,18 @@ func NewGetSMSStatsByCarrierRequest(server string, params *GetSMSStatsByCarrierP
 
 		}
 
+		if params.ContentType != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "content_type", *params.ContentType, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if encoded := queryValues.Encode(); encoded != "" {
 			rawQueryFragments = append(rawQueryFragments, encoded)
 		}
@@ -97709,6 +97930,182 @@ func NewGetSMSStatsByCategoryRequest(server string, params *GetSMSStatsByCategor
 		if params.TrendGrain != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "trend_grain", *params.TrendGrain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.ContentType != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "content_type", *params.ContentType, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetSMSStatsByContentTypeRequest generates requests for GetSMSStatsByContentType
+func NewGetSMSStatsByContentTypeRequest(server string, params *GetSMSStatsByContentTypeParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/stats/content-types")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTrend != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_trend", *params.IncludeTrend, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.TrendGrain != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "trend_grain", *params.TrendGrain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.ContentType != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "content_type", *params.ContentType, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -97870,6 +98267,18 @@ func NewGetSMSStatsByCostCenterRequest(server string, params *GetSMSStatsByCostC
 
 		}
 
+		if params.ContentType != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "content_type", *params.ContentType, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if encoded := queryValues.Encode(); encoded != "" {
 			rawQueryFragments = append(rawQueryFragments, encoded)
 		}
@@ -98013,6 +98422,18 @@ func NewGetSMSStatsByCountryRequest(server string, params *GetSMSStatsByCountryP
 		if params.TrendGrain != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "trend_grain", *params.TrendGrain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.ContentType != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "content_type", *params.ContentType, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -98186,6 +98607,18 @@ func NewGetSMSStatsDailyRequest(server string, params *GetSMSStatsDailyParams) (
 
 		}
 
+		if params.ContentType != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "content_type", *params.ContentType, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if encoded := queryValues.Encode(); encoded != "" {
 			rawQueryFragments = append(rawQueryFragments, encoded)
 		}
@@ -98329,6 +98762,18 @@ func NewGetSMSStatsByErrorCodeRequest(server string, params *GetSMSStatsByErrorC
 		if params.TrendGrain != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "trend_grain", *params.TrendGrain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.ContentType != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "content_type", *params.ContentType, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -98502,6 +98947,146 @@ func NewGetSMSStatsHourlyRequest(server string, params *GetSMSStatsHourlyParams)
 
 		}
 
+		if params.ContentType != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "content_type", *params.ContentType, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetSMSInboundStatsByContentTypeRequest generates requests for GetSMSInboundStatsByContentType
+func NewGetSMSInboundStatsByContentTypeRequest(server string, params *GetSMSInboundStatsByContentTypeParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/stats/inbound/content-types")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.ContentType != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "content_type", *params.ContentType, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if encoded := queryValues.Encode(); encoded != "" {
 			rawQueryFragments = append(rawQueryFragments, encoded)
 		}
@@ -98618,6 +99203,18 @@ func NewGetSMSInboundStatsByCountryRequest(server string, params *GetSMSInboundS
 
 		}
 
+		if params.ContentType != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "content_type", *params.ContentType, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if encoded := queryValues.Encode(); encoded != "" {
 			rawQueryFragments = append(rawQueryFragments, encoded)
 		}
@@ -98722,6 +99319,18 @@ func NewGetSMSInboundStatsDailyRequest(server string, params *GetSMSInboundStats
 
 		}
 
+		if params.ContentType != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "content_type", *params.ContentType, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if encoded := queryValues.Encode(); encoded != "" {
 			rawQueryFragments = append(rawQueryFragments, encoded)
 		}
@@ -98817,6 +99426,18 @@ func NewGetSMSInboundStatsHourlyRequest(server string, params *GetSMSInboundStat
 		if params.Timezone != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.ContentType != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "content_type", *params.ContentType, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -98942,6 +99563,18 @@ func NewGetSMSInboundStatsByNumberRequest(server string, params *GetSMSInboundSt
 
 		}
 
+		if params.ContentType != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "content_type", *params.ContentType, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if encoded := queryValues.Encode(); encoded != "" {
 			rawQueryFragments = append(rawQueryFragments, encoded)
 		}
@@ -99058,6 +99691,18 @@ func NewGetSMSInboundStatsByOperatorRequest(server string, params *GetSMSInbound
 
 		}
 
+		if params.ContentType != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "content_type", *params.ContentType, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if encoded := queryValues.Encode(); encoded != "" {
 			rawQueryFragments = append(rawQueryFragments, encoded)
 		}
@@ -99165,6 +99810,18 @@ func NewGetSMSInboundStatsSummaryRequest(server string, params *GetSMSInboundSta
 		if params.Compare != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "compare", *params.Compare, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.ContentType != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "content_type", *params.ContentType, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -99326,6 +99983,18 @@ func NewGetSMSStatsByOriginatorRequest(server string, params *GetSMSStatsByOrigi
 
 		}
 
+		if params.ContentType != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "content_type", *params.ContentType, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if encoded := queryValues.Encode(); encoded != "" {
 			rawQueryFragments = append(rawQueryFragments, encoded)
 		}
@@ -99421,6 +100090,18 @@ func NewGetSMSStatsByStatusRequest(server string, params *GetSMSStatsByStatusPar
 		if params.Timezone != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.ContentType != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "content_type", *params.ContentType, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -99606,6 +100287,18 @@ func NewGetSMSStatsSummaryRequest(server string, params *GetSMSStatsSummaryParam
 
 		}
 
+		if params.ContentType != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "content_type", *params.ContentType, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if encoded := queryValues.Encode(); encoded != "" {
 			rawQueryFragments = append(rawQueryFragments, encoded)
 		}
@@ -99749,6 +100442,18 @@ func NewGetSMSStatsByTagRequest(server string, params *GetSMSStatsByTagParams) (
 		if params.TrendGrain != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "trend_grain", *params.TrendGrain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.ContentType != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "content_type", *params.ContentType, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -113469,6 +114174,9 @@ type ClientWithResponsesInterface interface {
 	// GetSMSStatsByCategoryWithResponse request
 	GetSMSStatsByCategoryWithResponse(ctx context.Context, params *GetSMSStatsByCategoryParams, reqEditors ...RequestEditorFn) (*GetSMSStatsByCategoryResponse, error)
 
+	// GetSMSStatsByContentTypeWithResponse request
+	GetSMSStatsByContentTypeWithResponse(ctx context.Context, params *GetSMSStatsByContentTypeParams, reqEditors ...RequestEditorFn) (*GetSMSStatsByContentTypeResponse, error)
+
 	// GetSMSStatsByCostCenterWithResponse request
 	GetSMSStatsByCostCenterWithResponse(ctx context.Context, params *GetSMSStatsByCostCenterParams, reqEditors ...RequestEditorFn) (*GetSMSStatsByCostCenterResponse, error)
 
@@ -113483,6 +114191,9 @@ type ClientWithResponsesInterface interface {
 
 	// GetSMSStatsHourlyWithResponse request
 	GetSMSStatsHourlyWithResponse(ctx context.Context, params *GetSMSStatsHourlyParams, reqEditors ...RequestEditorFn) (*GetSMSStatsHourlyResponse, error)
+
+	// GetSMSInboundStatsByContentTypeWithResponse request
+	GetSMSInboundStatsByContentTypeWithResponse(ctx context.Context, params *GetSMSInboundStatsByContentTypeParams, reqEditors ...RequestEditorFn) (*GetSMSInboundStatsByContentTypeResponse, error)
 
 	// GetSMSInboundStatsByCountryWithResponse request
 	GetSMSInboundStatsByCountryWithResponse(ctx context.Context, params *GetSMSInboundStatsByCountryParams, reqEditors ...RequestEditorFn) (*GetSMSInboundStatsByCountryResponse, error)
@@ -117560,6 +118271,7 @@ type CreateWorkspaceComplianceSubmissionResponse struct {
 	JSON403      *Forbidden
 	JSON404      *NotFound
 	JSON409      *Conflict
+	JSON412      *PreconditionFailed
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
@@ -117675,6 +118387,7 @@ type UpdateWorkspaceComplianceSubmissionResponse struct {
 	JSON403      *Forbidden
 	JSON404      *NotFound
 	JSON409      *Conflict
+	JSON412      *PreconditionFailed
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
@@ -126114,6 +126827,44 @@ func (r GetSMSStatsByCategoryResponse) ContentType() string {
 	return ""
 }
 
+type GetSMSStatsByContentTypeResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSStatsByContentTypeResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSMSStatsByContentTypeResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSMSStatsByContentTypeResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetSMSStatsByContentTypeResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type GetSMSStatsByCostCenterResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -126298,6 +127049,44 @@ func (r GetSMSStatsHourlyResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r GetSMSStatsHourlyResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetSMSInboundStatsByContentTypeResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSInboundStatsByContentTypeResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSMSInboundStatsByContentTypeResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSMSInboundStatsByContentTypeResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetSMSInboundStatsByContentTypeResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -135398,6 +136187,15 @@ func (c *ClientWithResponses) GetSMSStatsByCategoryWithResponse(ctx context.Cont
 	return ParseGetSMSStatsByCategoryResponse(rsp)
 }
 
+// GetSMSStatsByContentTypeWithResponse request returning *GetSMSStatsByContentTypeResponse
+func (c *ClientWithResponses) GetSMSStatsByContentTypeWithResponse(ctx context.Context, params *GetSMSStatsByContentTypeParams, reqEditors ...RequestEditorFn) (*GetSMSStatsByContentTypeResponse, error) {
+	rsp, err := c.GetSMSStatsByContentType(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSMSStatsByContentTypeResponse(rsp)
+}
+
 // GetSMSStatsByCostCenterWithResponse request returning *GetSMSStatsByCostCenterResponse
 func (c *ClientWithResponses) GetSMSStatsByCostCenterWithResponse(ctx context.Context, params *GetSMSStatsByCostCenterParams, reqEditors ...RequestEditorFn) (*GetSMSStatsByCostCenterResponse, error) {
 	rsp, err := c.GetSMSStatsByCostCenter(ctx, params, reqEditors...)
@@ -135441,6 +136239,15 @@ func (c *ClientWithResponses) GetSMSStatsHourlyWithResponse(ctx context.Context,
 		return nil, err
 	}
 	return ParseGetSMSStatsHourlyResponse(rsp)
+}
+
+// GetSMSInboundStatsByContentTypeWithResponse request returning *GetSMSInboundStatsByContentTypeResponse
+func (c *ClientWithResponses) GetSMSInboundStatsByContentTypeWithResponse(ctx context.Context, params *GetSMSInboundStatsByContentTypeParams, reqEditors ...RequestEditorFn) (*GetSMSInboundStatsByContentTypeResponse, error) {
+	rsp, err := c.GetSMSInboundStatsByContentType(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSMSInboundStatsByContentTypeResponse(rsp)
 }
 
 // GetSMSInboundStatsByCountryWithResponse request returning *GetSMSInboundStatsByCountryResponse
@@ -144839,6 +145646,13 @@ func ParseCreateWorkspaceComplianceSubmissionResponse(rsp *http.Response) (*Crea
 		}
 		response.JSON409 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 412:
+		var dest PreconditionFailed
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON412 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Unprocessable
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -145091,6 +145905,13 @@ func ParseUpdateWorkspaceComplianceSubmissionResponse(rsp *http.Response) (*Upda
 			return nil, err
 		}
 		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 412:
+		var dest PreconditionFailed
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON412 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Unprocessable
@@ -163508,6 +164329,88 @@ func ParseGetSMSStatsByCategoryResponse(rsp *http.Response) (*GetSMSStatsByCateg
 	return response, nil
 }
 
+// ParseGetSMSStatsByContentTypeResponse parses an HTTP response from a GetSMSStatsByContentTypeWithResponse call
+func ParseGetSMSStatsByContentTypeResponse(rsp *http.Response) (*GetSMSStatsByContentTypeResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSMSStatsByContentTypeResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSStatsByContentTypeResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
 // ParseGetSMSStatsByCostCenterResponse parses an HTTP response from a GetSMSStatsByCostCenterWithResponse call
 func ParseGetSMSStatsByCostCenterResponse(rsp *http.Response) (*GetSMSStatsByCostCenterResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -163852,6 +164755,88 @@ func ParseGetSMSStatsHourlyResponse(rsp *http.Response) (*GetSMSStatsHourlyRespo
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest SMSStatsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSMSInboundStatsByContentTypeResponse parses an HTTP response from a GetSMSInboundStatsByContentTypeWithResponse call
+func ParseGetSMSInboundStatsByContentTypeResponse(rsp *http.Response) (*GetSMSInboundStatsByContentTypeResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSMSInboundStatsByContentTypeResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSInboundStatsByContentTypeResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
