@@ -38346,6 +38346,44 @@ type WhatsAppTemplateDuplicate struct {
 	Waba string `json:"waba"`
 }
 
+// WhatsAppTemplateEvent defines model for WhatsAppTemplateEvent.
+type WhatsAppTemplateEvent struct {
+	// CreatedAt When Bird recorded the event.
+	CreatedAt time.Time               `json:"created_at"`
+	Id        WhatsAppTemplateEventID `json:"id"`
+
+	// Language A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	Language LanguageTag `json:"language"`
+
+	// Metadata Structured details for the event. `from` and `to` carry the values that changed: a language status for `whatsapp_template.status_changed`, or a quality score for `whatsapp_template.quality_updated`. `from` is the value Bird held before the change, and is absent when Bird held none. A change to `rejected` also carries the `rejection`, in the same shape as the language, when WhatsApp gave a reason. A new pause on a language that was already paused has the same `from` and `to`.
+	Metadata map[string]interface{} `json:"metadata"`
+
+	// Summary Human-readable summary of what changed.
+	Summary string `json:"summary"`
+
+	// Type Type of template event. `whatsapp_template.status_changed` records a status WhatsApp gave the language. `whatsapp_template.quality_updated` records a change in its quality rating. Open enum: new event types may be added over time, so treat any unrecognized value as a future event rather than an error. The values below are the types known at this version.
+	Type      string                    `json:"type"`
+	VersionId WhatsAppTemplateVersionID `json:"version_id"`
+}
+
+// WhatsAppTemplateEventID defines model for WhatsAppTemplateEventID.
+type WhatsAppTemplateEventID = string
+
+// WhatsAppTemplateEventList defines model for WhatsAppTemplateEventList.
+type WhatsAppTemplateEventList struct {
+	// Data Page of template events, newest first.
+	Data []WhatsAppTemplateEvent `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
 // WhatsAppTemplateExampleParameter defines model for WhatsAppTemplateExampleParameter.
 type WhatsAppTemplateExampleParameter struct {
 	// Name The named placeholder this example fills. Present whenever the template declares named parameters, which is what a send must name; absent only for a positional template, whose values go in `{{n}}` order.
@@ -51181,6 +51219,27 @@ type DuplicateWhatsAppTemplateParams struct {
 	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
 }
 
+// ListWhatsAppTemplateEventsParams defines parameters for ListWhatsAppTemplateEvents.
+type ListWhatsAppTemplateEventsParams struct {
+	// Language Return only this language's events. A BCP-47 tag; case and separator differences are accepted and normalized.
+	Language *LanguageTag `form:"language,omitempty" json:"language,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
 // ListWhatsAppTemplateVersionsParams defines parameters for ListWhatsAppTemplateVersions.
 type ListWhatsAppTemplateVersionsParams struct {
 	// Limit Maximum number of items to return per page.
@@ -61581,6 +61640,9 @@ type ClientInterface interface {
 
 	DuplicateWhatsAppTemplate(ctx context.Context, templateRef string, params *DuplicateWhatsAppTemplateParams, body DuplicateWhatsAppTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// ListWhatsAppTemplateEvents request
+	ListWhatsAppTemplateEvents(ctx context.Context, templateRef string, params *ListWhatsAppTemplateEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// ListWhatsAppTemplateVersions request
 	ListWhatsAppTemplateVersions(ctx context.Context, templateRef string, params *ListWhatsAppTemplateVersionsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -68745,6 +68807,18 @@ func (c *Client) DuplicateWhatsAppTemplateWithBody(ctx context.Context, template
 
 func (c *Client) DuplicateWhatsAppTemplate(ctx context.Context, templateRef string, params *DuplicateWhatsAppTemplateParams, body DuplicateWhatsAppTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewDuplicateWhatsAppTemplateRequest(c.Server, templateRef, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListWhatsAppTemplateEvents(ctx context.Context, templateRef string, params *ListWhatsAppTemplateEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListWhatsAppTemplateEventsRequest(c.Server, templateRef, params)
 	if err != nil {
 		return nil, err
 	}
@@ -114569,6 +114643,129 @@ func NewDuplicateWhatsAppTemplateRequestWithBody(server string, templateRef stri
 	return req, nil
 }
 
+// NewListWhatsAppTemplateEventsRequest generates requests for ListWhatsAppTemplateEvents
+func NewListWhatsAppTemplateEventsRequest(server string, templateRef string, params *ListWhatsAppTemplateEventsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/templates/%s/events", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Language != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "language", *params.Language, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewListWhatsAppTemplateVersionsRequest generates requests for ListWhatsAppTemplateVersions
 func NewListWhatsAppTemplateVersionsRequest(server string, templateRef string, params *ListWhatsAppTemplateVersionsParams) (*http.Request, error) {
 	var err error
@@ -117267,6 +117464,9 @@ type ClientWithResponsesInterface interface {
 	DuplicateWhatsAppTemplateWithBodyWithResponse(ctx context.Context, templateRef string, params *DuplicateWhatsAppTemplateParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DuplicateWhatsAppTemplateResponse, error)
 
 	DuplicateWhatsAppTemplateWithResponse(ctx context.Context, templateRef string, params *DuplicateWhatsAppTemplateParams, body DuplicateWhatsAppTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*DuplicateWhatsAppTemplateResponse, error)
+
+	// ListWhatsAppTemplateEventsWithResponse request
+	ListWhatsAppTemplateEventsWithResponse(ctx context.Context, templateRef string, params *ListWhatsAppTemplateEventsParams, reqEditors ...RequestEditorFn) (*ListWhatsAppTemplateEventsResponse, error)
 
 	// ListWhatsAppTemplateVersionsWithResponse request
 	ListWhatsAppTemplateVersionsWithResponse(ctx context.Context, templateRef string, params *ListWhatsAppTemplateVersionsParams, reqEditors ...RequestEditorFn) (*ListWhatsAppTemplateVersionsResponse, error)
@@ -135203,6 +135403,43 @@ func (r DuplicateWhatsAppTemplateResponse) ContentType() string {
 	return ""
 }
 
+type ListWhatsAppTemplateEventsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppTemplateEventList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListWhatsAppTemplateEventsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListWhatsAppTemplateEventsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListWhatsAppTemplateEventsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type ListWhatsAppTemplateVersionsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -140913,6 +141150,15 @@ func (c *ClientWithResponses) DuplicateWhatsAppTemplateWithResponse(ctx context.
 		return nil, err
 	}
 	return ParseDuplicateWhatsAppTemplateResponse(rsp)
+}
+
+// ListWhatsAppTemplateEventsWithResponse request returning *ListWhatsAppTemplateEventsResponse
+func (c *ClientWithResponses) ListWhatsAppTemplateEventsWithResponse(ctx context.Context, templateRef string, params *ListWhatsAppTemplateEventsParams, reqEditors ...RequestEditorFn) (*ListWhatsAppTemplateEventsResponse, error) {
+	rsp, err := c.ListWhatsAppTemplateEvents(ctx, templateRef, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListWhatsAppTemplateEventsResponse(rsp)
 }
 
 // ListWhatsAppTemplateVersionsWithResponse request returning *ListWhatsAppTemplateVersionsResponse
@@ -179977,6 +180223,81 @@ func ParseDuplicateWhatsAppTemplateResponse(rsp *http.Response) (*DuplicateWhats
 			return nil, err
 		}
 		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListWhatsAppTemplateEventsResponse parses an HTTP response from a ListWhatsAppTemplateEventsWithResponse call
+func ParseListWhatsAppTemplateEventsResponse(rsp *http.Response) (*ListWhatsAppTemplateEventsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListWhatsAppTemplateEventsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppTemplateEventList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 

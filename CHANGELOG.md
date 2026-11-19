@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.149.0
+
+- List a WhatsApp template's history, newest first: each status WhatsApp gave a language, such as a pause or a reinstatement, and each change in its quality rating, recorded from this release on. Pass `language` to read one language.
+- Creating a verification or advancing it to its next channel now fails with VerificationBlockedByFraudProtection (E13029) when fraud protection blocks every channel that send would use, where it failed with NoAvailableChannel (E13017) before.
+- A nullable enum's `Valid()` method no longer accepts `"<nil>"`.
+
 ## 0.148.1
 
 - Clarify Brand selection and default behavior in public API and SDK documentation.

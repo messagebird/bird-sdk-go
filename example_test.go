@@ -3247,6 +3247,20 @@ func ExampleWhatsappTemplatesService_Delete() {
 	}
 }
 
+// See when WhatsApp paused a template language or changed its quality rating.
+func ExampleWhatsappTemplatesService_ListEvents() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for event, err := range client.Whatsapp.Templates.ListEvents(context.Background(), "order_update", bird.WhatsappTemplatesListEventsParams{Language: "en-US"}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(event.CreatedAt, event.Type, event.Summary)
+	}
+}
+
 // Copy a built-in template onto your own account.
 func ExampleWhatsappTemplatesService_Duplicate() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))

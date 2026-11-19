@@ -115,6 +115,25 @@ func (p WhatsappTemplatesUpdateParams) toWire() oapi.WhatsAppTemplateUpdate {
 	return body
 }
 
+// WhatsappTemplatesListEventsParams filters the list. Zero-value fields are omitted.
+type WhatsappTemplatesListEventsParams struct {
+	// Return only this language's events. A BCP-47 tag; case and separator differences are accepted and normalized.
+	Language string
+	// Maximum number of items to return per page.
+	Limit int
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
+}
+
+func (p WhatsappTemplatesListEventsParams) toWire(startingAfter string) *oapi.ListWhatsAppTemplateEventsParams {
+	return &oapi.ListWhatsAppTemplateEventsParams{
+		Language:      optZero(p.Language),
+		Limit:         optInt(p.Limit),
+		EndingBefore:  optStr(p.EndingBefore),
+		StartingAfter: optStr(startingAfter),
+	}
+}
+
 // WhatsappTemplatesDuplicateParams is the request body for duplicate.
 type WhatsappTemplatesDuplicateParams struct {
 	// The WhatsApp Business Account the copy is created on. A template belongs to one account at Meta. Meta reviews, approves, and sends it under that account. The copy therefore names its account rather than taking the source's. A built-in template's account is not one you can submit against. It must be an account connected to this workspace.
@@ -241,6 +260,39 @@ func (s *WhatsappTemplatesService) Delete(ctx context.Context, templateRef strin
 		return s.client.oapi.DeleteWhatsAppTemplate(ctx, templateRef, op, cfg...)
 	})
 	return err
+}
+
+// ListEventsPage fetches one page of results. Pass the previous page's NextCursor as
+// startingAfter to advance; "" starts from the first page.
+func (s *WhatsappTemplatesService) ListEventsPage(ctx context.Context, templateRef string, params WhatsappTemplatesListEventsParams, startingAfter string, opts ...option.RequestOption) (*WhatsAppTemplateEventList, error) {
+	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
+		return s.client.oapi.ListWhatsAppTemplateEvents(ctx, templateRef, params.toWire(startingAfter), cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out WhatsAppTemplateEventList
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// ListEvents The history of a WhatsApp template's languages as a cursor page, newest first: each status WhatsApp gave a language, such as an approval, a rejection, a pause, or a reinstatement, and each change of its quality rating, since Bird began recording them. Pass `language` to read one language. Use it to see when Bird recorded a pause or a rating drop; `whatsapp.templates.get` gives only the current values. A repeated pause on a language that is still paused is listed only when WhatsApp reports it, so the count can be lower than the number of pauses WhatsApp applied. A Bird-managed template returns an empty page. An unknown template returns `404`.
+// Range over it; the second value is non-nil only on the iteration where a
+// fetch failed.
+func (s *WhatsappTemplatesService) ListEvents(ctx context.Context, templateRef string, params WhatsappTemplatesListEventsParams, opts ...option.RequestOption) iter.Seq2[*WhatsAppTemplateEvent, error] {
+	return paginate(func(cursor string) ([]WhatsAppTemplateEvent, *string, error) {
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ListEventsPage(ctx, templateRef, pageParams, cursor, opts...)
+		if err != nil {
+			return nil, nil, err
+		}
+		return page.Data, page.NextCursor, nil
+	})
 }
 
 // Duplicate Copies a template into a new one holding the source's current content as an open draft. It is how a built-in template becomes something a workspace can edit, and how an approved template becomes the basis of a variant. The copy names the account it lands on rather than inheriting the source's, because a built-in template lives on an account you cannot submit against. The copy calls WhatsApp zero times: it is a draft you submit when it is ready.

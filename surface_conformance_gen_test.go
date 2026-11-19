@@ -175,6 +175,7 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Whatsapp.Templates.Get
 	_ = c.Whatsapp.Templates.Update
 	_ = c.Whatsapp.Templates.Delete
+	_ = c.Whatsapp.Templates.ListEvents
 	_ = c.Whatsapp.Templates.Duplicate
 	_ = c.Whatsapp.Templates.Versions.Create
 	_ = c.Whatsapp.Templates.Versions.List

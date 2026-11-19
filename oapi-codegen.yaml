@@ -175,6 +175,7 @@ output-options:
     - getWhatsAppTemplate
     - updateWhatsAppTemplate
     - deleteWhatsAppTemplate
+    - listWhatsAppTemplateEvents
     - duplicateWhatsAppTemplate
     - createWhatsAppTemplateDraft
     - listWhatsAppTemplateVersions

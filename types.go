@@ -574,6 +574,7 @@ type (
 // The template registry, read at three levels: a template is the handle a send
 // names, a version is one immutable submission of it, and a language is one
 // language's content within a version. The Summary forms carry no content.
+// Events are the history of a template's languages at WhatsApp.
 type (
 	WhatsAppTemplate                = oapi.WhatsAppTemplate
 	WhatsAppTemplateList            = oapi.WhatsAppTemplateList
@@ -583,6 +584,8 @@ type (
 	WhatsAppTemplateLanguage        = oapi.WhatsAppTemplateLanguage
 	WhatsAppTemplateLanguageSummary = oapi.WhatsAppTemplateLanguageSummary
 	WhatsAppTemplateLanguageList    = oapi.WhatsAppTemplateLanguageList
+	WhatsAppTemplateEvent           = oapi.WhatsAppTemplateEvent
+	WhatsAppTemplateEventList       = oapi.WhatsAppTemplateEventList
 )
 
 // WhatsAppTemplateComponent is one content block of a language; the other four
