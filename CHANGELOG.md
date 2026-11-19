@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.148.1
+
+- Clarify Brand selection and default behavior in public API and SDK documentation.
+
 ## 0.148.0
 
 - **Breaking:** requesting Apple Messages conversation authentication takes a parameters argument after the conversation ID, so existing calls must add it; pass empty parameters to send the business's sign-in message. Its optional `template` names the sign-in message template to send in place of the business's sign-in message.

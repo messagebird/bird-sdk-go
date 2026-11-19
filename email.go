@@ -84,9 +84,8 @@ type EmailSendParams struct {
 	// if the template is deleted before it is due. A batch item takes it on
 	// the same terms, so one batch can mix scheduled and immediate messages.
 	ScheduledAt time.Time
-	// BrandID selects a business in the Brands preview. Explicit input returns `422`
-	// when selection is unavailable; unset or null preserves existing behavior.
-	// When selection is available, unset or null uses the workspace default.
+	// BrandID selects the business whose email preferences and unsubscribe page apply.
+	// Unset or null uses the workspace default Brand.
 	BrandID Nullable[string]
 }
 

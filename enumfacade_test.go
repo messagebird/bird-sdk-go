@@ -43,8 +43,15 @@ func TestFacadeEnumConstantsCoverTheWireEnum(t *testing.T) {
 	}
 }
 
-// wireEnumValues maps each generated wire enum type to its values, leaving out
-// the "<nil>" member of a nullable enum, which no caller compares against.
+func TestWireEnumsHaveNoNilMember(t *testing.T) {
+	t.Parallel()
+	eachConst(parseFile(t, filepath.Join("internal", "oapi", "oapi.gen.go")), func(name string, _ ast.Expr, value ast.Expr) {
+		if v, ok := stringLit(value); ok && v == "<nil>" {
+			t.Errorf("%s = %q: openapi-compat left a null member in its enum", name, v)
+		}
+	})
+}
+
 func wireEnumValues(t *testing.T) map[string]map[string]bool {
 	t.Helper()
 	file := parseFile(t, filepath.Join("internal", "oapi", "oapi.gen.go"))
@@ -54,7 +61,7 @@ func wireEnumValues(t *testing.T) map[string]map[string]bool {
 		if !ok {
 			return
 		}
-		if v, ok := stringLit(value); ok && v != "<nil>" && v != "" {
+		if v, ok := stringLit(value); ok && v != "" {
 			if values[ident.Name] == nil {
 				values[ident.Name] = map[string]bool{}
 			}

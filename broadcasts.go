@@ -61,7 +61,7 @@ type BroadcastsCreateParams struct {
 	// When to send the broadcast: at least 30 seconds and at most 365 days from
 	// now. Only meaningful alongside Send; on its own the request is refused.
 	ScheduledAt time.Time
-	// Preview business selection. Omitted or null uses the default Brand at first scheduling or sending when available.
+	// Brand selection. Omitted or null uses the workspace default Brand at first scheduling or sending.
 	BrandID Nullable[string]
 }
 

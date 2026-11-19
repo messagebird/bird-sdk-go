@@ -38,8 +38,8 @@ type PreferencesCreateParams struct {
 	// granting over a stored opt-out: the grant applies only if this is later
 	// than the opt-out it reverses. Omitted from the request when zero.
 	ConsentedAt time.Time
-	// BrandID selects an email business in the Brands preview.
-	// Omitted or null preserves default selection; explicit input is refused when unavailable.
+	// BrandID selects the business for an email preference.
+	// Omitted or null selects the original business.
 	BrandID Nullable[string]
 }
 

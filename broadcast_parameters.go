@@ -20,7 +20,7 @@ type BroadcastsParameterTemplate struct {
 }
 
 type BroadcastsValidateParams struct {
-	// BrandID overrides this operation only. Preview selection is unavailable until enabled.
+	// BrandID overrides this operation only. Null selects the workspace default Brand.
 	BrandID  Nullable[string]                      `json:"brand_id,omitempty"`
 	Template Nullable[BroadcastsParameterTemplate] `json:"template,omitempty"`
 	From     string                                `json:"from,omitempty"`

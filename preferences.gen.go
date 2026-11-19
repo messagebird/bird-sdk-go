@@ -16,7 +16,7 @@ type PreferencesListParams struct {
 	Channel PreferenceChannel
 	// Return only preferences for this exact handle: an email address or an E.164 phone number. Requires `channel`, since a handle only means something on its channel.
 	Handle string
-	// Preview: return only this Brand's email preferences, including older preferences belonging to the original business. Explicit selection returns 422 where unavailable. Omit to return all matching preferences. Empty, repeated or malformed values return 422. Where the endpoint also accepts a channel filter, it must be email. A Brand not found in this workspace returns 404.
+	// Return only this Brand's email preferences, including older preferences belonging to the original business. Omit to return all matching preferences. Empty, repeated or malformed values return 422. Where the endpoint also accepts a channel filter, it must be email. A Brand not found in this workspace returns 404.
 	BrandID string
 	// Maximum number of items to return per page.
 	Limit int

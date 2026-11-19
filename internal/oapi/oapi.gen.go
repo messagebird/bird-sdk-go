@@ -1996,7 +1996,6 @@ func (e ContactMatchKey) Valid() bool {
 const (
 	ContactMatchedOnEmail       ContactMatchedOn = "email"
 	ContactMatchedOnExternalId  ContactMatchedOn = "external_id"
-	ContactMatchedOnLessThannil ContactMatchedOn = "<nil>"
 	ContactMatchedOnPhoneNumber ContactMatchedOn = "phone_number"
 )
 
@@ -2006,8 +2005,6 @@ func (e ContactMatchedOn) Valid() bool {
 	case ContactMatchedOnEmail:
 		return true
 	case ContactMatchedOnExternalId:
-		return true
-	case ContactMatchedOnLessThannil:
 		return true
 	case ContactMatchedOnPhoneNumber:
 		return true
@@ -2494,7 +2491,6 @@ const (
 	EmailBroadcastFailureReasonEmptyAudience       EmailBroadcastFailureReason = "empty_audience"
 	EmailBroadcastFailureReasonInsufficientFunds   EmailBroadcastFailureReason = "insufficient_funds"
 	EmailBroadcastFailureReasonInternalError       EmailBroadcastFailureReason = "internal_error"
-	EmailBroadcastFailureReasonLessThannil         EmailBroadcastFailureReason = "<nil>"
 	EmailBroadcastFailureReasonQuotaExceeded       EmailBroadcastFailureReason = "quota_exceeded"
 	EmailBroadcastFailureReasonWorkspaceSuspended  EmailBroadcastFailureReason = "workspace_suspended"
 )
@@ -2511,8 +2507,6 @@ func (e EmailBroadcastFailureReason) Valid() bool {
 	case EmailBroadcastFailureReasonInsufficientFunds:
 		return true
 	case EmailBroadcastFailureReasonInternalError:
-		return true
-	case EmailBroadcastFailureReasonLessThannil:
 		return true
 	case EmailBroadcastFailureReasonQuotaExceeded:
 		return true
@@ -3137,7 +3131,6 @@ const (
 	EmailEventBounceTypeAdmin        EmailEventBounceType = "admin"
 	EmailEventBounceTypeBlock        EmailEventBounceType = "block"
 	EmailEventBounceTypeHard         EmailEventBounceType = "hard"
-	EmailEventBounceTypeLessThannil  EmailEventBounceType = "<nil>"
 	EmailEventBounceTypeSoft         EmailEventBounceType = "soft"
 	EmailEventBounceTypeUndetermined EmailEventBounceType = "undetermined"
 )
@@ -3150,8 +3143,6 @@ func (e EmailEventBounceType) Valid() bool {
 	case EmailEventBounceTypeBlock:
 		return true
 	case EmailEventBounceTypeHard:
-		return true
-	case EmailEventBounceTypeLessThannil:
 		return true
 	case EmailEventBounceTypeSoft:
 		return true
@@ -3166,7 +3157,6 @@ func (e EmailEventBounceType) Valid() bool {
 const (
 	EmailEventRejectionReasonDomainUnverified    EmailEventRejectionReason = "domain_unverified"
 	EmailEventRejectionReasonGenerationFailure   EmailEventRejectionReason = "generation_failure"
-	EmailEventRejectionReasonLessThannil         EmailEventRejectionReason = "<nil>"
 	EmailEventRejectionReasonPolicyRejection     EmailEventRejectionReason = "policy_rejection"
 	EmailEventRejectionReasonQuotaExceeded       EmailEventRejectionReason = "quota_exceeded"
 	EmailEventRejectionReasonRecipientNotAllowed EmailEventRejectionReason = "recipient_not_allowed"
@@ -3181,8 +3171,6 @@ func (e EmailEventRejectionReason) Valid() bool {
 	case EmailEventRejectionReasonDomainUnverified:
 		return true
 	case EmailEventRejectionReasonGenerationFailure:
-		return true
-	case EmailEventRejectionReasonLessThannil:
 		return true
 	case EmailEventRejectionReasonPolicyRejection:
 		return true
@@ -3938,7 +3926,6 @@ const (
 	EmailRecipientBounceTypeAdmin        EmailRecipientBounceType = "admin"
 	EmailRecipientBounceTypeBlock        EmailRecipientBounceType = "block"
 	EmailRecipientBounceTypeHard         EmailRecipientBounceType = "hard"
-	EmailRecipientBounceTypeLessThannil  EmailRecipientBounceType = "<nil>"
 	EmailRecipientBounceTypeSoft         EmailRecipientBounceType = "soft"
 	EmailRecipientBounceTypeUndetermined EmailRecipientBounceType = "undetermined"
 )
@@ -3952,8 +3939,6 @@ func (e EmailRecipientBounceType) Valid() bool {
 		return true
 	case EmailRecipientBounceTypeHard:
 		return true
-	case EmailRecipientBounceTypeLessThannil:
-		return true
 	case EmailRecipientBounceTypeSoft:
 		return true
 	case EmailRecipientBounceTypeUndetermined:
@@ -3965,37 +3950,34 @@ func (e EmailRecipientBounceType) Valid() bool {
 
 // Defines values for EmailRecipientRejectionReason.
 const (
-	EmailRecipientRejectionReasonDomainUnverified    EmailRecipientRejectionReason = "domain_unverified"
-	EmailRecipientRejectionReasonGenerationFailure   EmailRecipientRejectionReason = "generation_failure"
-	EmailRecipientRejectionReasonLessThannil         EmailRecipientRejectionReason = "<nil>"
-	EmailRecipientRejectionReasonPolicyRejection     EmailRecipientRejectionReason = "policy_rejection"
-	EmailRecipientRejectionReasonQuotaExceeded       EmailRecipientRejectionReason = "quota_exceeded"
-	EmailRecipientRejectionReasonRecipientNotAllowed EmailRecipientRejectionReason = "recipient_not_allowed"
-	EmailRecipientRejectionReasonRecipientSuppressed EmailRecipientRejectionReason = "recipient_suppressed"
-	EmailRecipientRejectionReasonTransmissionFailed  EmailRecipientRejectionReason = "transmission_failed"
-	EmailRecipientRejectionReasonWorkspaceSuspended  EmailRecipientRejectionReason = "workspace_suspended"
+	DomainUnverified    EmailRecipientRejectionReason = "domain_unverified"
+	GenerationFailure   EmailRecipientRejectionReason = "generation_failure"
+	PolicyRejection     EmailRecipientRejectionReason = "policy_rejection"
+	QuotaExceeded       EmailRecipientRejectionReason = "quota_exceeded"
+	RecipientNotAllowed EmailRecipientRejectionReason = "recipient_not_allowed"
+	RecipientSuppressed EmailRecipientRejectionReason = "recipient_suppressed"
+	TransmissionFailed  EmailRecipientRejectionReason = "transmission_failed"
+	WorkspaceSuspended  EmailRecipientRejectionReason = "workspace_suspended"
 )
 
 // Valid indicates whether the value is a known member of the EmailRecipientRejectionReason enum.
 func (e EmailRecipientRejectionReason) Valid() bool {
 	switch e {
-	case EmailRecipientRejectionReasonDomainUnverified:
+	case DomainUnverified:
 		return true
-	case EmailRecipientRejectionReasonGenerationFailure:
+	case GenerationFailure:
 		return true
-	case EmailRecipientRejectionReasonLessThannil:
+	case PolicyRejection:
 		return true
-	case EmailRecipientRejectionReasonPolicyRejection:
+	case QuotaExceeded:
 		return true
-	case EmailRecipientRejectionReasonQuotaExceeded:
+	case RecipientNotAllowed:
 		return true
-	case EmailRecipientRejectionReasonRecipientNotAllowed:
+	case RecipientSuppressed:
 		return true
-	case EmailRecipientRejectionReasonRecipientSuppressed:
+	case TransmissionFailed:
 		return true
-	case EmailRecipientRejectionReasonTransmissionFailed:
-		return true
-	case EmailRecipientRejectionReasonWorkspaceSuspended:
+	case WorkspaceSuspended:
 		return true
 	default:
 		return false
@@ -4769,18 +4751,15 @@ func (e EmailThreadFolder) Valid() bool {
 
 // Defines values for EmailThreadMessageAuthentication.
 const (
-	EmailThreadMessageAuthenticationFail        EmailThreadMessageAuthentication = "fail"
-	EmailThreadMessageAuthenticationLessThannil EmailThreadMessageAuthentication = "<nil>"
-	EmailThreadMessageAuthenticationPass        EmailThreadMessageAuthentication = "pass"
-	EmailThreadMessageAuthenticationUnknown     EmailThreadMessageAuthentication = "unknown"
+	EmailThreadMessageAuthenticationFail    EmailThreadMessageAuthentication = "fail"
+	EmailThreadMessageAuthenticationPass    EmailThreadMessageAuthentication = "pass"
+	EmailThreadMessageAuthenticationUnknown EmailThreadMessageAuthentication = "unknown"
 )
 
 // Valid indicates whether the value is a known member of the EmailThreadMessageAuthentication enum.
 func (e EmailThreadMessageAuthentication) Valid() bool {
 	switch e {
 	case EmailThreadMessageAuthenticationFail:
-		return true
-	case EmailThreadMessageAuthenticationLessThannil:
 		return true
 	case EmailThreadMessageAuthenticationPass:
 		return true
@@ -5714,18 +5693,15 @@ func (e EventEmailMailboxMessageReceivedType) Valid() bool {
 
 // Defines values for EventEmailMailboxMessageReceivedDataAuthentication.
 const (
-	EventEmailMailboxMessageReceivedDataAuthenticationFail        EventEmailMailboxMessageReceivedDataAuthentication = "fail"
-	EventEmailMailboxMessageReceivedDataAuthenticationLessThannil EventEmailMailboxMessageReceivedDataAuthentication = "<nil>"
-	EventEmailMailboxMessageReceivedDataAuthenticationPass        EventEmailMailboxMessageReceivedDataAuthentication = "pass"
-	EventEmailMailboxMessageReceivedDataAuthenticationUnknown     EventEmailMailboxMessageReceivedDataAuthentication = "unknown"
+	EventEmailMailboxMessageReceivedDataAuthenticationFail    EventEmailMailboxMessageReceivedDataAuthentication = "fail"
+	EventEmailMailboxMessageReceivedDataAuthenticationPass    EventEmailMailboxMessageReceivedDataAuthentication = "pass"
+	EventEmailMailboxMessageReceivedDataAuthenticationUnknown EventEmailMailboxMessageReceivedDataAuthentication = "unknown"
 )
 
 // Valid indicates whether the value is a known member of the EventEmailMailboxMessageReceivedDataAuthentication enum.
 func (e EventEmailMailboxMessageReceivedDataAuthentication) Valid() bool {
 	switch e {
 	case EventEmailMailboxMessageReceivedDataAuthenticationFail:
-		return true
-	case EventEmailMailboxMessageReceivedDataAuthenticationLessThannil:
 		return true
 	case EventEmailMailboxMessageReceivedDataAuthenticationPass:
 		return true
@@ -5861,18 +5837,15 @@ func (e EventEmailReceivedType) Valid() bool {
 
 // Defines values for EventEmailReceivedDataAuthentication.
 const (
-	EventEmailReceivedDataAuthenticationFail        EventEmailReceivedDataAuthentication = "fail"
-	EventEmailReceivedDataAuthenticationLessThannil EventEmailReceivedDataAuthentication = "<nil>"
-	EventEmailReceivedDataAuthenticationPass        EventEmailReceivedDataAuthentication = "pass"
-	EventEmailReceivedDataAuthenticationUnknown     EventEmailReceivedDataAuthentication = "unknown"
+	EventEmailReceivedDataAuthenticationFail    EventEmailReceivedDataAuthentication = "fail"
+	EventEmailReceivedDataAuthenticationPass    EventEmailReceivedDataAuthentication = "pass"
+	EventEmailReceivedDataAuthenticationUnknown EventEmailReceivedDataAuthentication = "unknown"
 )
 
 // Valid indicates whether the value is a known member of the EventEmailReceivedDataAuthentication enum.
 func (e EventEmailReceivedDataAuthentication) Valid() bool {
 	switch e {
 	case EventEmailReceivedDataAuthenticationFail:
-		return true
-	case EventEmailReceivedDataAuthenticationLessThannil:
 		return true
 	case EventEmailReceivedDataAuthenticationPass:
 		return true
@@ -6350,18 +6323,15 @@ func (e EventWhatsAppSentType) Valid() bool {
 
 // Defines values for InboundEmailMessageAuthentication.
 const (
-	InboundEmailMessageAuthenticationFail        InboundEmailMessageAuthentication = "fail"
-	InboundEmailMessageAuthenticationLessThannil InboundEmailMessageAuthentication = "<nil>"
-	InboundEmailMessageAuthenticationPass        InboundEmailMessageAuthentication = "pass"
-	InboundEmailMessageAuthenticationUnknown     InboundEmailMessageAuthentication = "unknown"
+	InboundEmailMessageAuthenticationFail    InboundEmailMessageAuthentication = "fail"
+	InboundEmailMessageAuthenticationPass    InboundEmailMessageAuthentication = "pass"
+	InboundEmailMessageAuthenticationUnknown InboundEmailMessageAuthentication = "unknown"
 )
 
 // Valid indicates whether the value is a known member of the InboundEmailMessageAuthentication enum.
 func (e InboundEmailMessageAuthentication) Valid() bool {
 	switch e {
 	case InboundEmailMessageAuthenticationFail:
-		return true
-	case InboundEmailMessageAuthenticationLessThannil:
 		return true
 	case InboundEmailMessageAuthenticationPass:
 		return true
@@ -11831,16 +11801,16 @@ func (e ListMailboxesParamsState) Valid() bool {
 
 // Defines values for ListMailboxReceiveRulesParamsAction.
 const (
-	Allow ListMailboxReceiveRulesParamsAction = "allow"
-	Block ListMailboxReceiveRulesParamsAction = "block"
+	ListMailboxReceiveRulesParamsActionAllow ListMailboxReceiveRulesParamsAction = "allow"
+	ListMailboxReceiveRulesParamsActionBlock ListMailboxReceiveRulesParamsAction = "block"
 )
 
 // Valid indicates whether the value is a known member of the ListMailboxReceiveRulesParamsAction enum.
 func (e ListMailboxReceiveRulesParamsAction) Valid() bool {
 	switch e {
-	case Allow:
+	case ListMailboxReceiveRulesParamsActionAllow:
 		return true
-	case Block:
+	case ListMailboxReceiveRulesParamsActionBlock:
 		return true
 	default:
 		return false
@@ -18035,7 +18005,7 @@ type EmailBroadcast struct {
 	// BouncedCount How many recipients the message could not be delivered to at all. Absent when `sent_count` is.
 	BouncedCount *int64 `json:"bounced_count,omitempty"`
 
-	// BrandId The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+	// BrandId The business whose email preferences and unsubscribe page apply.
 	BrandId *BrandID `json:"brand_id,omitempty"`
 
 	// CanceledAt When the broadcast was canceled, and absent if it never was. This is when cancellation was requested, so it is set as soon as the status is `canceling` and does not move while the remaining sends stop and the status becomes `canceled`.
@@ -18265,7 +18235,7 @@ type EmailBroadcastCounts struct {
 type EmailBroadcastCreateRequest struct {
 	AudienceId *AudienceID `json:"audience_id,omitempty"`
 
-	// BrandId Preview: selects the business whose email preferences and unsubscribe page apply. Explicit selection returns `422` when unavailable. When available, omission or null selects the workspace's default Brand when the broadcast is first scheduled or sent. An explicit ID must belong to this workspace and be active; unknown, foreign or archived IDs return `422`. The selected Brand stays fixed through delivery and retries. Omitted or null input preserves existing sending behavior while selection is unavailable.
+	// BrandId Selects the business whose email preferences and unsubscribe page apply. Omission or null selects the workspace's default Brand when the broadcast is first scheduled or sent. An explicit ID must belong to this workspace and be active; unknown, foreign or archived IDs return `422`. The selected Brand stays fixed through delivery and retries.
 	BrandId nullable.Nullable[BrandID] `json:"brand_id,omitempty"`
 
 	// Category What kind of email this is. A broadcast sets this itself rather than taking it from its template, and it decides two things: which suppressions apply, and whether we add an unsubscribe header.
@@ -18395,7 +18365,7 @@ type EmailBroadcastID = string
 
 // EmailBroadcastInputOverrides defines model for EmailBroadcastInputOverrides.
 type EmailBroadcastInputOverrides struct {
-	// BrandId Preview Brand selection. An explicit ID is unavailable until selection is enabled. Changes the Brand for this validation, preview or test only, without changing the saved broadcast. Null resolves the workspace default when selection is enabled; otherwise it clears the request's Brand to unbranded. Omission keeps a historical broadcast's saved identity. An unavailable saved Brand remains renderable with a brand_unavailable diagnostic. Before sending a test, preview again with an available ID or null, then send the same override and fresh preview_fingerprint. Explicit unavailable overrides return 422.
+	// BrandId Changes the Brand for this validation, preview or test only, without changing the saved broadcast. Null selects the workspace default Brand. Omission keeps a historical broadcast's saved identity. An unavailable saved Brand remains renderable with a brand_unavailable diagnostic. Before sending a test, preview again with an available ID or null, then send the same override and fresh preview_fingerprint. Explicit unavailable overrides return 422.
 	BrandId nullable.Nullable[BrandID] `json:"brand_id,omitempty"`
 
 	// From A sender or recipient address. Accepts a plain email string (`jane@acme.com`), an RFC 5322 mailbox string with an embedded display name (`Jane Doe <jane@acme.com>`), or an object carrying the address and an optional display name. All forms can be mixed freely within one request. Responses always return the object form.
@@ -18563,7 +18533,7 @@ type EmailBroadcastPreviewContact struct {
 
 // EmailBroadcastPreviewRequest defines model for EmailBroadcastPreviewRequest.
 type EmailBroadcastPreviewRequest struct {
-	// BrandId Preview Brand selection. An explicit ID is unavailable until selection is enabled. Changes the Brand for this validation, preview or test only, without changing the saved broadcast. Null resolves the workspace default when selection is enabled; otherwise it clears the request's Brand to unbranded. Omission keeps a historical broadcast's saved identity. An unavailable saved Brand remains renderable with a brand_unavailable diagnostic. Before sending a test, preview again with an available ID or null, then send the same override and fresh preview_fingerprint. Explicit unavailable overrides return 422.
+	// BrandId Changes the Brand for this validation, preview or test only, without changing the saved broadcast. Null selects the workspace default Brand. Omission keeps a historical broadcast's saved identity. An unavailable saved Brand remains renderable with a brand_unavailable diagnostic. Before sending a test, preview again with an available ID or null, then send the same override and fresh preview_fingerprint. Explicit unavailable overrides return 422.
 	BrandId   nullable.Nullable[BrandID] `json:"brand_id,omitempty"`
 	ContactId *ContactID                 `json:"contact_id,omitempty"`
 
@@ -18785,7 +18755,7 @@ type EmailBroadcastTemplateUpdate struct {
 
 // EmailBroadcastTestRequest defines model for EmailBroadcastTestRequest.
 type EmailBroadcastTestRequest struct {
-	// BrandId Preview Brand selection. An explicit ID is unavailable until selection is enabled. Changes the Brand for this validation, preview or test only, without changing the saved broadcast. Null resolves the workspace default when selection is enabled; otherwise it clears the request's Brand to unbranded. Omission keeps a historical broadcast's saved identity. An unavailable saved Brand remains renderable with a brand_unavailable diagnostic. Before sending a test, preview again with an available ID or null, then send the same override and fresh preview_fingerprint. Explicit unavailable overrides return 422.
+	// BrandId Changes the Brand for this validation, preview or test only, without changing the saved broadcast. Null selects the workspace default Brand. Omission keeps a historical broadcast's saved identity. An unavailable saved Brand remains renderable with a brand_unavailable diagnostic. Before sending a test, preview again with an available ID or null, then send the same override and fresh preview_fingerprint. Explicit unavailable overrides return 422.
 	BrandId   nullable.Nullable[BrandID] `json:"brand_id,omitempty"`
 	ContactId *ContactID                 `json:"contact_id,omitempty"`
 
@@ -18815,7 +18785,7 @@ type EmailBroadcastTestResult = EmailMessage
 type EmailBroadcastUpdateRequest struct {
 	AudienceId *AudienceID `json:"audience_id,omitempty"`
 
-	// BrandId Preview: changes the business whose email preferences and unsubscribe page apply while this broadcast is a draft. Omission keeps the selection; null clears it so the workspace's default Brand is selected at first scheduling or sending. Explicit selection returns `422` when unavailable or when the ID is unknown, belongs to another workspace or is archived. Changing the Brand on a scheduled broadcast returns `422`. Broadcasts that are no longer editable retain the existing `409` conflict response.
+	// BrandId Changes the business whose email preferences and unsubscribe page apply while this broadcast is a draft. Omission keeps the selection; null clears it so the workspace's default Brand is selected at first scheduling or sending. Explicit selection returns `422` when unavailable or when the ID is unknown, belongs to another workspace or is archived. Changing the Brand on a scheduled broadcast returns `422`. Broadcasts that are no longer editable retain the existing `409` conflict response.
 	BrandId nullable.Nullable[BrandID] `json:"brand_id,omitempty"`
 
 	// Category What kind of email this is. It decides two things: which suppressions apply, and whether we add an unsubscribe header.
@@ -21948,7 +21918,7 @@ type EmailMessage struct {
 	// BouncedCount Number of recipients that resulted in a permanent delivery failure.
 	BouncedCount *int `json:"bounced_count,omitempty"`
 
-	// BrandId The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+	// BrandId The business whose email preferences and unsubscribe page apply.
 	BrandId     *BrandID          `json:"brand_id,omitempty"`
 	BroadcastId *EmailBroadcastID `json:"broadcast_id,omitempty"`
 
@@ -22054,7 +22024,7 @@ type EmailMessage struct {
 
 // EmailMessageBatchItem defines model for EmailMessageBatchItem.
 type EmailMessageBatchItem struct {
-	// BrandId The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+	// BrandId The business whose email preferences and unsubscribe page apply.
 	BrandId *BrandID `json:"brand_id,omitempty"`
 
 	// Category Resolved category for this batch item.
@@ -22136,7 +22106,7 @@ type EmailMessageSendRequest struct {
 	// Bcc BCC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@acme.com>`), or an object with an optional display name.
 	Bcc *[]EmailAddressInput `json:"bcc,omitempty"`
 
-	// BrandId Preview: selects the business whose email preferences and unsubscribe page apply; explicit input returns `422` when selection is unavailable. When selection is available, omission or null selects the workspace's default Brand. The selection stays fixed for scheduled sends and retries. An explicit ID must belong to this workspace and must not be archived. An unknown, foreign or archived Brand returns `422`. Omitted or null values preserve existing sending behavior while selection is unavailable.
+	// BrandId Selects the business whose email preferences and unsubscribe page apply; omission or null selects the workspace's default Brand. The selection stays fixed for scheduled sends and retries. An explicit ID must belong to this workspace and must not be archived. An unknown, foreign or archived Brand returns `422`.
 	BrandId nullable.Nullable[BrandID] `json:"brand_id,omitempty"`
 
 	// Category Content classification, which controls suppression policy:
@@ -22474,6 +22444,9 @@ type EmailSendingIpStatsPoint struct {
 type EmailSmtpConfig struct {
 	ApiKeyId APIKeyID `json:"api_key_id"`
 
+	// BrandId Brand selected for SMTP messages submitted with this key. `null` means messages use the workspace default Brand.
+	BrandId *string `json:"brand_id,omitempty"`
+
 	// Category Content classification applied to messages submitted over SMTP with
 	// this key. Controls suppression policy:
 	//
@@ -22523,6 +22496,9 @@ type EmailSmtpConfigList struct {
 
 // EmailSmtpConfigUpdate Desired changes to the SMTP config for the key. A field you omit is left unchanged. If no config exists yet for this key, omitted fields take their documented defaults instead.
 type EmailSmtpConfigUpdate struct {
+	// BrandId Select an active Brand in this workspace for messages submitted with this key. Send `null` to use the workspace default Brand, or omit to keep the current selection. An unavailable selection returns `422`; a Brand whose setup is incomplete returns `503`. When rotating an API key, configure the replacement key's Brand before switching SMTP traffic; the new key does not inherit these settings.
+	BrandId nullable.Nullable[string] `json:"brand_id,omitempty"`
+
 	// Category Content classification, independent of which endpoint messages are
 	// submitted through. Controls suppression policy:
 	//
@@ -26281,7 +26257,7 @@ type EventEmailAcceptedData = EventEmailBase
 
 // EventEmailBase Identity fields shared by every email lifecycle event payload.
 type EventEmailBase struct {
-	// BrandId The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+	// BrandId The business whose email preferences and unsubscribe page apply.
 	BrandId *BrandID `json:"brand_id,omitempty"`
 
 	// BroadcastId The broadcast this send went out as part of, echoed on every per-recipient event for the send so you can attribute engagement to the broadcast without an extra lookup. Null when the send was not part of a broadcast. On `email.unsubscribed` and `email.list_unsubscribed`, null can also mean the recipient used an unsubscribe link that names no broadcast, so on those two events null does not rule a broadcast out.
@@ -26341,7 +26317,7 @@ type EventEmailBouncedData struct {
 	// - `undetermined`: The receiving server's response was ambiguous.
 	BounceType EmailBounceType `json:"bounce_type"`
 
-	// BrandId The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+	// BrandId The business whose email preferences and unsubscribe page apply.
 	BrandId *BrandID `json:"brand_id,omitempty"`
 
 	// BroadcastId The broadcast this send went out as part of, echoed on every per-recipient event for the send so you can attribute engagement to the broadcast without an extra lookup. Null when the send was not part of a broadcast. On `email.unsubscribed` and `email.list_unsubscribed`, null can also mean the recipient used an unsubscribe link that names no broadcast, so on those two events null does not rule a broadcast out.
@@ -26404,7 +26380,7 @@ type EventEmailClickedType string
 
 // EventEmailClickedData defines model for EventEmailClickedData.
 type EventEmailClickedData struct {
-	// BrandId The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+	// BrandId The business whose email preferences and unsubscribe page apply.
 	BrandId *BrandID `json:"brand_id,omitempty"`
 
 	// BroadcastId The broadcast this send went out as part of, echoed on every per-recipient event for the send so you can attribute engagement to the broadcast without an extra lookup. Null when the send was not part of a broadcast. On `email.unsubscribed` and `email.list_unsubscribed`, null can also mean the recipient used an unsubscribe link that names no broadcast, so on those two events null does not rule a broadcast out.
@@ -26455,7 +26431,7 @@ type EventEmailComplainedType string
 
 // EventEmailComplainedData defines model for EventEmailComplainedData.
 type EventEmailComplainedData struct {
-	// BrandId The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+	// BrandId The business whose email preferences and unsubscribe page apply.
 	BrandId *BrandID `json:"brand_id,omitempty"`
 
 	// BroadcastId The broadcast this send went out as part of, echoed on every per-recipient event for the send so you can attribute engagement to the broadcast without an extra lookup. Null when the send was not part of a broadcast. On `email.unsubscribed` and `email.list_unsubscribed`, null can also mean the recipient used an unsubscribe link that names no broadcast, so on those two events null does not rule a broadcast out.
@@ -26512,7 +26488,7 @@ type EventEmailDeferredData struct {
 	// - `undetermined`: The receiving server's response was ambiguous.
 	BounceType EmailBounceType `json:"bounce_type"`
 
-	// BrandId The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+	// BrandId The business whose email preferences and unsubscribe page apply.
 	BrandId *BrandID `json:"brand_id,omitempty"`
 
 	// BroadcastId The broadcast this send went out as part of, echoed on every per-recipient event for the send so you can attribute engagement to the broadcast without an extra lookup. Null when the send was not part of a broadcast. On `email.unsubscribed` and `email.list_unsubscribed`, null can also mean the recipient used an unsubscribe link that names no broadcast, so on those two events null does not rule a broadcast out.
@@ -26771,7 +26747,7 @@ type EventEmailMailboxThreadCreatedDataInitiatedBy string
 
 // EventEmailMessageBase Identity fields shared by the message-level email lifecycle events (scheduled, canceled), which are not tied to a single recipient.
 type EventEmailMessageBase struct {
-	// BrandId The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+	// BrandId The business whose email preferences and unsubscribe page apply.
 	BrandId *BrandID `json:"brand_id,omitempty"`
 	EmailId EmailID  `json:"email_id"`
 
@@ -26803,7 +26779,7 @@ type EventEmailOpenedType string
 
 // EventEmailOpenedData defines model for EventEmailOpenedData.
 type EventEmailOpenedData struct {
-	// BrandId The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+	// BrandId The business whose email preferences and unsubscribe page apply.
 	BrandId *BrandID `json:"brand_id,omitempty"`
 
 	// BroadcastId The broadcast this send went out as part of, echoed on every per-recipient event for the send so you can attribute engagement to the broadcast without an extra lookup. Null when the send was not part of a broadcast. On `email.unsubscribed` and `email.list_unsubscribed`, null can also mean the recipient used an unsubscribe link that names no broadcast, so on those two events null does not rule a broadcast out.
@@ -26869,7 +26845,7 @@ type EventEmailOutOfBandBounceData struct {
 	// - `undetermined`: The receiving server's response was ambiguous.
 	BounceType EmailBounceType `json:"bounce_type"`
 
-	// BrandId The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+	// BrandId The business whose email preferences and unsubscribe page apply.
 	BrandId *BrandID `json:"brand_id,omitempty"`
 
 	// BroadcastId The broadcast this send went out as part of, echoed on every per-recipient event for the send so you can attribute engagement to the broadcast without an extra lookup. Null when the send was not part of a broadcast. On `email.unsubscribed` and `email.list_unsubscribed`, null can also mean the recipient used an unsubscribe link that names no broadcast, so on those two events null does not rule a broadcast out.
@@ -26997,7 +26973,7 @@ type EventEmailRejectedType string
 
 // EventEmailRejectedData defines model for EventEmailRejectedData.
 type EventEmailRejectedData struct {
-	// BrandId The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+	// BrandId The business whose email preferences and unsubscribe page apply.
 	BrandId *BrandID `json:"brand_id,omitempty"`
 
 	// BroadcastId The broadcast this send went out as part of, echoed on every per-recipient event for the send so you can attribute engagement to the broadcast without an extra lookup. Null when the send was not part of a broadcast. On `email.unsubscribed` and `email.list_unsubscribed`, null can also mean the recipient used an unsubscribe link that names no broadcast, so on those two events null does not rule a broadcast out.
@@ -27054,7 +27030,7 @@ type EventEmailScheduledType string
 
 // EventEmailScheduledData defines model for EventEmailScheduledData.
 type EventEmailScheduledData struct {
-	// BrandId The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+	// BrandId The business whose email preferences and unsubscribe page apply.
 	BrandId *BrandID `json:"brand_id,omitempty"`
 	EmailId EmailID  `json:"email_id"`
 
@@ -27118,7 +27094,7 @@ type EventEmailUnsubscribedData = EventEmailBase
 
 // EventPreferenceBase Identity fields shared by every preference lifecycle event: the key plus the ledger entry the write appended. `effective_at` is not repeated here: it is the envelope `timestamp`.
 type EventPreferenceBase struct {
-	// BrandId The business this email preference belongs to. Brand attribution is in preview.
+	// BrandId The business this email preference belongs to.
 	BrandId *BrandID          `json:"brand_id,omitempty"`
 	Channel PreferenceChannel `json:"channel"`
 
@@ -29822,7 +29798,7 @@ type PhoneNumberLookupRequest struct {
 
 // Preference defines model for Preference.
 type Preference struct {
-	// BrandId The business this email preference belongs to. Brand attribution is in preview.
+	// BrandId The business this email preference belongs to.
 	BrandId *BrandID           `json:"brand_id,omitempty"`
 	Channel *PreferenceChannel `json:"channel,omitempty"`
 
@@ -29871,7 +29847,7 @@ type PreferenceID = string
 
 // PreferenceIndividualCreate defines model for PreferenceIndividualCreate.
 type PreferenceIndividualCreate struct {
-	// BrandId Brand selection is in preview. Select the business for an email preference. Omitted or null selects the original business. Unsupported on other channels. An additional Brand supports non_transactional coverage only. Explicit selection returns 422 when unavailable. Existing opt-outs can be recorded for archived Brands; grants to archived Brands return 422. Consent grants for active additional Brands return 422 when unavailable. A Brand not found in this workspace returns 404.
+	// BrandId Select the business for an email preference. Omitted or null selects the original business. Unsupported on other channels. An additional Brand supports non_transactional coverage only. Existing opt-outs can be recorded for archived Brands; grants to archived Brands return 422. A Brand not found in this workspace returns 404.
 	BrandId nullable.Nullable[BrandID] `json:"brand_id,omitempty"`
 
 	// Channel The channel a preference statement applies to. A preference addresses one channel: the handle that identifies the person differs per channel, so opting out of one channel says nothing about the others. New channels can be added over time, so a value outside this list can be returned.
@@ -29919,7 +29895,7 @@ type PreferenceRevokedEventType string
 
 // PreferenceStatement defines model for PreferenceStatement.
 type PreferenceStatement struct {
-	// BrandId Brand selection is in preview. Select the business for an email preference. Omitted or null selects the original business. Unsupported on other channels. An additional Brand supports non_transactional coverage only. Explicit selection returns 422 when unavailable. Existing opt-outs can be recorded for archived Brands; grants to archived Brands return 422. Consent grants for active additional Brands return 422 when unavailable. A Brand not found in this workspace returns 404.
+	// BrandId Select the business for an email preference. Omitted or null selects the original business. Unsupported on other channels. An additional Brand supports non_transactional coverage only. Existing opt-outs can be recorded for archived Brands; grants to archived Brands return 422. A Brand not found in this workspace returns 404.
 	BrandId nullable.Nullable[BrandID] `json:"brand_id,omitempty"`
 
 	// Channel The channel a preference statement applies to. A preference addresses one channel: the handle that identifies the person differs per channel, so opting out of one channel says nothing about the others. New channels can be added over time, so a value outside this list can be returned.
@@ -33683,7 +33659,9 @@ type VoiceLegRecordings struct {
 // For all other reasons, contact support and provide the leg `id`:
 //
 //   - `routing_not_configured`: This trunk has no dial plan, which can happen on
-//     a new trunk.
+//     a new trunk. For a SIP user's call, the trunk has no outbound routing, or
+//     the phone dialled a number without a country code on a trunk with no
+//     `country`: set the trunk's country or dial in international format.
 //   - `no_route_found`: A dial plan is attached, but no rule in it covers this
 //     destination.
 //   - `destination_blocked`: The destination is blocked by our routing
@@ -42208,7 +42186,7 @@ type UpdateContactParams struct {
 
 // ListContactPreferencesParams defines parameters for ListContactPreferences.
 type ListContactPreferencesParams struct {
-	// BrandId Preview: return only this Brand's email preferences, including older preferences belonging to the original business. Explicit selection returns 422 where unavailable. Omit to return all matching preferences. Empty, repeated or malformed values return 422. Where the endpoint also accepts a channel filter, it must be email. A Brand not found in this workspace returns 404.
+	// BrandId Return only this Brand's email preferences, including older preferences belonging to the original business. Omit to return all matching preferences. Empty, repeated or malformed values return 422. Where the endpoint also accepts a channel filter, it must be email. A Brand not found in this workspace returns 404.
 	BrandId *PreferenceBrandID `form:"brand_id,omitempty" json:"brand_id,omitempty"`
 
 	// Limit Maximum number of items to return per page.
@@ -47018,7 +46996,7 @@ type ListPreferencesParams struct {
 	// Handle Return only preferences for this exact handle: an email address or an E.164 phone number. Requires `channel`, since a handle only means something on its channel.
 	Handle *string `form:"handle,omitempty" json:"handle,omitempty"`
 
-	// BrandId Preview: return only this Brand's email preferences, including older preferences belonging to the original business. Explicit selection returns 422 where unavailable. Omit to return all matching preferences. Empty, repeated or malformed values return 422. Where the endpoint also accepts a channel filter, it must be email. A Brand not found in this workspace returns 404.
+	// BrandId Return only this Brand's email preferences, including older preferences belonging to the original business. Omit to return all matching preferences. Empty, repeated or malformed values return 422. Where the endpoint also accepts a channel filter, it must be email. A Brand not found in this workspace returns 404.
 	BrandId *PreferenceBrandID `form:"brand_id,omitempty" json:"brand_id,omitempty"`
 
 	// Limit Maximum number of items to return per page.
