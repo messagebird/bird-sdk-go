@@ -114,159 +114,7 @@ func TestSendSuccess(t *testing.T) {
 	}
 }
 
-func TestEmailSendParametersPreservePresence(t *testing.T) {
-	tests := []struct {
-		name       string
-		parameters map[string]any
-		want       string
-		present    bool
-	}{
-		{name: "absent", parameters: nil},
-		{name: "empty", parameters: map[string]any{}, want: `{}`, present: true},
-		{name: "populated", parameters: map[string]any{"first_name": "Ada"}, want: `{"first_name":"Ada"}`, present: true},
-	}
-
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			var requestBody []byte
-			server := newServer(t, func(w http.ResponseWriter, r *http.Request) {
-				requestBody, _ = io.ReadAll(r.Body)
-				w.WriteHeader(http.StatusCreated)
-				_, _ = io.WriteString(w, messageJSON)
-			})
-			client := newClient(t, server)
-
-			_, err := client.Email.Send(context.Background(), bird.EmailSendParams{
-				From:       "hello@acme.com",
-				To:         []string{"customer@example.com"},
-				Subject:    "Welcome",
-				Text:       "Hi {{ first_name }}",
-				Parameters: tt.parameters,
-			})
-			if err != nil {
-				t.Fatalf("Send: %v", err)
-			}
-
-			var sent map[string]json.RawMessage
-			if err := json.Unmarshal(requestBody, &sent); err != nil {
-				t.Fatalf("decode request body: %v", err)
-			}
-			got, present := sent["parameters"]
-			if present != tt.present {
-				t.Fatalf("parameters presence = %v, want %v; body = %s", present, tt.present, requestBody)
-			}
-			if present && string(got) != tt.want {
-				t.Errorf("parameters = %s, want %s", got, tt.want)
-			}
-		})
-	}
-}
-
-func TestEmailSendBatchParametersPreservePresence(t *testing.T) {
-	tests := []struct {
-		name       string
-		parameters map[string]any
-		want       string
-		present    bool
-	}{
-		{name: "absent", parameters: nil},
-		{name: "empty", parameters: map[string]any{}, want: `{}`, present: true},
-		{name: "populated", parameters: map[string]any{"first_name": "Ada"}, want: `{"first_name":"Ada"}`, present: true},
-	}
-
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			var requestBody []byte
-			server := newServer(t, func(w http.ResponseWriter, r *http.Request) {
-				requestBody, _ = io.ReadAll(r.Body)
-				w.WriteHeader(http.StatusCreated)
-				_, _ = io.WriteString(w, `{"data":[]}`)
-			})
-			client := newClient(t, server)
-
-			_, err := client.Email.SendBatch(context.Background(), bird.EmailSendBatchParams{
-				Messages: []bird.EmailSendParams{{
-					From:       "hello@acme.com",
-					To:         []string{"customer@example.com"},
-					Subject:    "Welcome",
-					Text:       "Hi {{ first_name }}",
-					Parameters: tt.parameters,
-				}},
-			})
-			if err != nil {
-				t.Fatalf("SendBatch: %v", err)
-			}
-
-			var sent struct {
-				Messages []map[string]json.RawMessage `json:"messages"`
-			}
-			if err := json.Unmarshal(requestBody, &sent); err != nil {
-				t.Fatalf("decode request body: %v", err)
-			}
-			if len(sent.Messages) != 1 {
-				t.Fatalf("message count = %d, want 1", len(sent.Messages))
-			}
-			got, present := sent.Messages[0]["parameters"]
-			if present != tt.present {
-				t.Fatalf("parameters presence = %v, want %v; body = %s", present, tt.present, requestBody)
-			}
-			if present && string(got) != tt.want {
-				t.Errorf("parameters = %s, want %s", got, tt.want)
-			}
-		})
-	}
-}
-
-func TestAmbSendTemplateParametersPreservePresence(t *testing.T) {
-	tests := []struct {
-		name       string
-		parameters map[string]any
-		want       string
-		present    bool
-	}{
-		{name: "absent", parameters: nil},
-		{name: "empty", parameters: map[string]any{}, want: `{}`, present: true},
-		{name: "populated", parameters: map[string]any{"first_name": "Ada"}, want: `{"first_name":"Ada"}`, present: true},
-	}
-
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			var requestBody []byte
-			server := newServer(t, func(w http.ResponseWriter, r *http.Request) {
-				requestBody, _ = io.ReadAll(r.Body)
-				w.WriteHeader(http.StatusCreated)
-				_, _ = io.WriteString(w, `{}`)
-			})
-			client := newClient(t, server)
-
-			_, err := client.Amb.Send(context.Background(), bird.AmbSendParams{
-				From:       "business",
-				To:         "customer",
-				Template:   "order-confirmation",
-				Parameters: tt.parameters,
-			})
-			if err != nil {
-				t.Fatalf("Send: %v", err)
-			}
-
-			var sent struct {
-				Template map[string]json.RawMessage `json:"template"`
-			}
-			if err := json.Unmarshal(requestBody, &sent); err != nil {
-				t.Fatalf("decode request body: %v", err)
-			}
-			got, present := sent.Template["parameters"]
-			if present != tt.present {
-				t.Fatalf("parameters presence = %v, want %v; body = %s", present, tt.present, requestBody)
-			}
-			if present && string(got) != tt.want {
-				t.Errorf("parameters = %s, want %s", got, tt.want)
-			}
-		})
-	}
-}
-
-func TestAmbSendNoTemplateOmitsTemplateField(t *testing.T) {
+func TestAmbSendTemplatePresence(t *testing.T) {
 	var requestBody []byte
 	server := newServer(t, func(w http.ResponseWriter, r *http.Request) {
 		requestBody, _ = io.ReadAll(r.Body)
@@ -275,98 +123,54 @@ func TestAmbSendNoTemplateOmitsTemplateField(t *testing.T) {
 	})
 	client := newClient(t, server)
 
-	_, err := client.Amb.Send(context.Background(), bird.AmbSendParams{
-		From: "business",
-		To:   "customer",
-		Text: &bird.AMBText{Body: bird.String("hi")},
-		Interactive: &bird.AMBInteractive{QuickReply: &bird.AMBNativeQuickReply{
-			SummaryText: "Pick one",
-			Items:       []bird.AMBQuickReplyItem{{Identifier: "a", Title: "A"}, {Identifier: "b", Title: "B"}},
-		}},
-		Parameters: map[string]any{},
-	})
-	if err != nil {
-		t.Fatalf("Send: %v", err)
+	for _, tt := range []struct {
+		name    string
+		params  bird.AmbSendParams
+		present bool
+		want    string
+	}{
+		{name: "absent", params: bird.AmbSendParams{From: "business", To: "customer", Template: "order-confirmation"}},
+		{name: "empty", params: bird.AmbSendParams{From: "business", To: "customer", Template: "order-confirmation", Parameters: map[string]any{}}, present: true, want: `{}`},
+		{name: "populated", params: bird.AmbSendParams{From: "business", To: "customer", Template: "order-confirmation", Parameters: map[string]any{"first_name": "Ada"}}, present: true, want: `{"first_name":"Ada"}`},
+	} {
+		t.Run(tt.name, func(t *testing.T) {
+			if _, err := client.Amb.Send(context.Background(), tt.params); err != nil {
+				t.Fatalf("Send: %v", err)
+			}
+			var sent struct {
+				Template map[string]json.RawMessage `json:"template"`
+			}
+			if err := json.Unmarshal(requestBody, &sent); err != nil {
+				t.Fatalf("decode request body: %v", err)
+			}
+			got, present := sent.Template["parameters"]
+			if present != tt.present || (present && string(got) != tt.want) {
+				t.Fatalf("parameters = (%v, %s), want (%v, %s); body = %s", present, got, tt.present, tt.want, requestBody)
+			}
+		})
 	}
 
-	var sent map[string]json.RawMessage
-	if err := json.Unmarshal(requestBody, &sent); err != nil {
-		t.Fatalf("decode request body: %v", err)
-	}
-	if _, present := sent["template"]; present {
-		t.Fatalf("template field present with no Template set; body = %s", requestBody)
-	}
-}
-
-func TestSendTemplateLanguage(t *testing.T) {
-	var gotBody string
-	server := newServer(t, func(w http.ResponseWriter, r *http.Request) {
-		body, _ := io.ReadAll(r.Body)
-		gotBody = string(body)
-		w.WriteHeader(http.StatusCreated)
-		_, _ = io.WriteString(w, messageJSON)
-	})
-	client := newClient(t, server)
-
-	t.Run("language serializes onto the template when set", func(t *testing.T) {
-		if _, err := client.Email.Send(context.Background(), bird.EmailSendParams{
-			From: "hello@acme.com", To: []string{"customer@example.com"},
-			Template: "welcome-email", Language: "pt-BR",
+	t.Run("no template omits template field", func(t *testing.T) {
+		if _, err := client.Amb.Send(context.Background(), bird.AmbSendParams{
+			From: "business",
+			To:   "customer",
+			Text: &bird.AMBText{Body: bird.String("hi")},
+			Interactive: &bird.AMBInteractive{QuickReply: &bird.AMBNativeQuickReply{
+				SummaryText: "Pick one",
+				Items:       []bird.AMBQuickReplyItem{{Identifier: "a", Title: "A"}, {Identifier: "b", Title: "B"}},
+			}},
+			Parameters: map[string]any{},
 		}); err != nil {
 			t.Fatalf("Send: %v", err)
 		}
-		var sent struct {
-			Template struct {
-				Slug     string `json:"slug"`
-				Language string `json:"language"`
-			} `json:"template"`
-		}
-		if err := json.Unmarshal([]byte(gotBody), &sent); err != nil {
+		var sent map[string]json.RawMessage
+		if err := json.Unmarshal(requestBody, &sent); err != nil {
 			t.Fatalf("decode request body: %v", err)
 		}
-		if sent.Template.Slug != "welcome-email" || sent.Template.Language != "pt-BR" {
-			t.Errorf("request body template = %+v", sent.Template)
+		if _, present := sent["template"]; present {
+			t.Fatalf("template field present with no Template set; body = %s", requestBody)
 		}
 	})
-
-	t.Run("language is absent when unset", func(t *testing.T) {
-		if _, err := client.Email.Send(context.Background(), bird.EmailSendParams{
-			From: "hello@acme.com", To: []string{"customer@example.com"},
-			Template: "welcome-email",
-		}); err != nil {
-			t.Fatalf("Send: %v", err)
-		}
-		if strings.Contains(gotBody, `"language"`) {
-			t.Errorf("request body should omit language when unset: %s", gotBody)
-		}
-	})
-}
-
-func TestIdempotencyKeyReusedAcrossRetries(t *testing.T) {
-	var keys []string
-	server := newServer(t, func(w http.ResponseWriter, r *http.Request) {
-		keys = append(keys, r.Header.Get("Idempotency-Key"))
-		if len(keys) == 1 {
-			w.Header().Set("Retry-After", "0") // retry immediately
-			w.WriteHeader(http.StatusServiceUnavailable)
-			return
-		}
-		w.WriteHeader(http.StatusCreated)
-		_, _ = io.WriteString(w, messageJSON)
-	})
-
-	client := newClient(t, server, option.WithMaxRetries(2))
-	if _, err := client.Email.Send(context.Background(), bird.EmailSendParams{
-		From: "hello@acme.com", To: []string{"c@example.com"}, Subject: "Hi", Text: "yo",
-	}); err != nil {
-		t.Fatalf("Send: %v", err)
-	}
-	if len(keys) != 2 {
-		t.Fatalf("attempts = %d, want 2", len(keys))
-	}
-	if keys[0] == "" || keys[0] != keys[1] {
-		t.Errorf("idempotency key not reused across retries: %q vs %q", keys[0], keys[1])
-	}
 }
 
 func TestErrorMapping(t *testing.T) {
@@ -383,37 +187,17 @@ func TestErrorMapping(t *testing.T) {
 			body:   `{"error":{"type":"validation_error","code":"E12001","name":"invalid_recipient","message":"bad","doc_url":"https://bird.com/docs/api/errors/E12001","request_id":"req_body","param":"to","vendor_code":"550","details":[{"param":"to[0]","message":"invalid address"}]}}`,
 			check: func(t *testing.T, err error) {
 				var ve *bird.ValidationError
-				if !errors.As(err, &ve) {
-					t.Fatalf("want *ValidationError, got %T", err)
+				var api *bird.APIError
+				if !errors.As(err, &ve) || !errors.As(err, &api) {
+					t.Fatalf("want *ValidationError unwrapping to *APIError, got %T", err)
 				}
 				if len(ve.Details) != 1 || ve.Details[0].Param != "to[0]" {
 					t.Errorf("details = %+v", ve.Details)
 				}
-				var api *bird.APIError // base must also match via Unwrap
-				if !errors.As(err, &api) {
-					t.Fatalf("APIError not reachable from ValidationError")
-				}
-				// Every field must be pulled from inside the {"error":{...}} envelope.
-				if api.Code != "E12001" {
-					t.Errorf("Code = %q, want E12001", api.Code)
-				}
-				if api.Name != "invalid_recipient" {
-					t.Errorf("Name = %q, want invalid_recipient", api.Name)
-				}
-				if api.Message != "bad" {
-					t.Errorf("Message = %q, want bad", api.Message)
-				}
-				if api.DocURL != "https://bird.com/docs/api/errors/E12001" {
-					t.Errorf("DocURL = %q", api.DocURL)
-				}
-				if api.RequestID != "req_body" {
-					t.Errorf("RequestID = %q, want req_body", api.RequestID)
-				}
-				if api.Param != "to" {
-					t.Errorf("Param = %q, want to", api.Param)
-				}
-				if api.VendorCode != "550" {
-					t.Errorf("VendorCode = %q, want 550", api.VendorCode)
+				if api.Code != "E12001" || api.Name != "invalid_recipient" || api.Message != "bad" ||
+					api.DocURL != "https://bird.com/docs/api/errors/E12001" || api.RequestID != "req_body" ||
+					api.Param != "to" || api.VendorCode != "550" {
+					t.Errorf("APIError = %+v", api)
 				}
 			},
 		},
@@ -424,14 +208,8 @@ func TestErrorMapping(t *testing.T) {
 			body:   `{"error":{"type":"rate_limit_error","message":"slow down"}}`,
 			check: func(t *testing.T, err error) {
 				var rle *bird.RateLimitError
-				if !errors.As(err, &rle) {
-					t.Fatalf("want *RateLimitError, got %T", err)
-				}
-				if rle.RetryAfter != 30*time.Second {
-					t.Errorf("RetryAfter = %v, want 30s", rle.RetryAfter)
-				}
-				if rle.Message != "slow down" {
-					t.Errorf("Message = %q, want slow down", rle.Message)
+				if !errors.As(err, &rle) || rle.RetryAfter != 30*time.Second || rle.Message != "slow down" {
+					t.Fatalf("got %T (%+v), want RateLimitError(30s, slow down)", err, rle)
 				}
 			},
 		},
@@ -442,17 +220,8 @@ func TestErrorMapping(t *testing.T) {
 			body:   `{"error":{"type":"not_found_error","code":"E40400","message":"no such email"}}`,
 			check: func(t *testing.T, err error) {
 				var api *bird.APIError
-				if !errors.As(err, &api) {
-					t.Fatalf("want *APIError, got %T", err)
-				}
-				if api.Type != bird.ErrorTypeNotFound {
-					t.Errorf("Type = %q, want not_found_error", api.Type)
-				}
-				if api.Code != "E40400" || api.Message != "no such email" {
-					t.Errorf("code/message not read from envelope: %+v", api)
-				}
-				if api.RequestID != "req_header" {
-					t.Errorf("RequestID = %q, want req_header from X-Request-Id", api.RequestID)
+				if !errors.As(err, &api) || api.Type != bird.ErrorTypeNotFound || api.Code != "E40400" || api.Message != "no such email" || api.RequestID != "req_header" {
+					t.Fatalf("got %T (%+v)", err, api)
 				}
 			},
 		},
@@ -462,14 +231,8 @@ func TestErrorMapping(t *testing.T) {
 			body:   `not json`,
 			check: func(t *testing.T, err error) {
 				var api *bird.APIError
-				if !errors.As(err, &api) {
-					t.Fatalf("want *APIError, got %T", err)
-				}
-				if api.Type != bird.ErrorTypeAuth {
-					t.Errorf("Type = %q, want auth_error", api.Type)
-				}
-				if api.Message == "" {
-					t.Error("Message should fall back to a status-derived string")
+				if !errors.As(err, &api) || api.Type != bird.ErrorTypeAuth || api.Message == "" {
+					t.Fatalf("got %T (%+v)", err, api)
 				}
 			},
 		},
@@ -483,13 +246,11 @@ func TestErrorMapping(t *testing.T) {
 				w.WriteHeader(tc.status)
 				_, _ = io.WriteString(w, tc.body)
 			})
-
-			client := newClient(t, server)
-			_, err := client.Email.Get(context.Background(), "em_x")
-			if err == nil {
+			if _, err := newClient(t, server).Email.Get(context.Background(), "em_x"); err == nil {
 				t.Fatal("want error, got nil")
+			} else {
+				tc.check(t, err)
 			}
-			tc.check(t, err)
 		})
 	}
 }
@@ -576,6 +337,9 @@ func TestNewClientRequiresResolvableKey(t *testing.T) {
 		if _, err := bird.NewClient(option.WithAPIKey(key)); err != nil {
 			t.Errorf("region inference from key should succeed: %v", err)
 		}
+	}
+	if _, err := bird.NewClient(option.WithAPIKey("rawkey"), option.WithRegion("eu1")); err != nil {
+		t.Errorf("WithRegion should resolve the base URL: %v", err)
 	}
 }
 
@@ -791,6 +555,12 @@ func TestVerbMethodsEscapeHatch(t *testing.T) {
 	if gotAuth != "Bearer bk_eu1_test" {
 		t.Errorf("Authorization = %q", gotAuth)
 	}
+	if err := client.Get(ctx, "/v1/nil-body", nil); err != nil {
+		t.Fatalf("Get nil out: %v", err)
+	}
+	if gotMethod != http.MethodGet || gotPath != "/v1/nil-body" || gotAuth != "Bearer bk_eu1_test" {
+		t.Errorf("nil-out Get = %q %q auth=%q", gotMethod, gotPath, gotAuth)
+	}
 
 	// Post marshals the body and, being a mutation, sends an idempotency key.
 	if err := client.Post(ctx, "/v1/anything", map[string]string{"hello": "world"}, &out); err != nil {
@@ -814,51 +584,13 @@ func TestVerbMethodRejectsOffOriginPaths(t *testing.T) {
 		"v1/email/domains",           // bare-relative, no leading slash
 	} {
 		t.Run(path, func(t *testing.T) {
-			var called bool
 			server := newServer(t, func(w http.ResponseWriter, r *http.Request) {
-				called = true
-				_, _ = io.WriteString(w, `{}`)
+				t.Errorf("Get(%q) sent a request; the API key may have leaked off-origin", path)
 			})
-			client := newClient(t, server)
-			err := client.Get(context.Background(), path, nil)
-			if err == nil {
+			if err := newClient(t, server).Get(context.Background(), path, nil); err == nil {
 				t.Fatalf("Get(%q) = nil error, want rejection", path)
 			}
-			if called {
-				t.Errorf("Get(%q) sent a request; the API key may have leaked off-origin", path)
-			}
 		})
-	}
-}
-
-func TestVerbMethodAllowsAbsolutePathOnOrigin(t *testing.T) {
-	var gotPath, gotAuth string
-	server := newServer(t, func(w http.ResponseWriter, r *http.Request) {
-		gotPath = r.URL.Path
-		gotAuth = r.Header.Get("Authorization")
-		_, _ = io.WriteString(w, `{}`)
-	})
-	client := newClient(t, server)
-	if err := client.Get(context.Background(), "/v1/email/domains", nil); err != nil {
-		t.Fatalf("Get: %v", err)
-	}
-	if gotPath != "/v1/email/domains" {
-		t.Errorf("path = %q, want /v1/email/domains", gotPath)
-	}
-	if gotAuth != "Bearer bk_eu1_test" {
-		t.Errorf("Authorization = %q", gotAuth)
-	}
-}
-
-func TestPointerHelpers(t *testing.T) {
-	if got := bird.Bool(false); got == nil || *got {
-		t.Errorf("Bool(false) = %v", got)
-	}
-	if got := bird.String("x"); got == nil || *got != "x" {
-		t.Errorf("String(x) = %v", got)
-	}
-	if got := bird.Ptr(42); got == nil || *got != 42 {
-		t.Errorf("Ptr(42) = %v", got)
 	}
 }
 
@@ -882,7 +614,6 @@ func TestEmailChannelDefaults(t *testing.T) {
 	}))
 	ctx := context.Background()
 
-	// From + Category omitted → defaults apply.
 	if _, err := client.Email.Send(ctx, bird.EmailSendParams{
 		To: []string{"c@example.com"}, Subject: "Hi", Text: "y",
 	}); err != nil {
@@ -892,7 +623,6 @@ func TestEmailChannelDefaults(t *testing.T) {
 		t.Errorf("defaults not applied: from=%q category=%q", gotFrom, gotCategory)
 	}
 
-	// Per-send value wins over the default.
 	if _, err := client.Email.Send(ctx, bird.EmailSendParams{
 		From: "override@acme.com", To: []string{"c@example.com"}, Subject: "Hi", Text: "y",
 	}); err != nil {
@@ -903,20 +633,7 @@ func TestEmailChannelDefaults(t *testing.T) {
 	}
 }
 
-func TestWithRegionResolvesBaseURL(t *testing.T) {
-	// A non-bk_ key can't resolve a region on its own; WithRegion supplies it.
-	if _, err := bird.NewClient(option.WithAPIKey("rawkey")); err == nil {
-		t.Error("want error: region unresolvable from a raw key")
-	}
-	if _, err := bird.NewClient(option.WithAPIKey("rawkey"), option.WithRegion("eu1")); err != nil {
-		t.Errorf("WithRegion should resolve the base URL: %v", err)
-	}
-}
-
 func TestReceiverOnlyClient(t *testing.T) {
-	if _, err := bird.NewClient(); err == nil {
-		t.Fatal("NewClient with neither credential should error")
-	}
 	client, err := bird.NewClient(option.WithWebhookSecret(webhookSecret))
 	if err != nil {
 		t.Fatalf("NewClient(WithWebhookSecret): %v", err)

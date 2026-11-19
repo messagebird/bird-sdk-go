@@ -62,6 +62,13 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Email.InboxInsights.SeedTests.Configuration.Get
 	_ = c.Email.InboxInsights.SeedTests.Create
 	_ = c.Email.InboxInsights.SeedTests.List
+	_ = c.Email.Seeding.Settings.Get
+	_ = c.Email.Seeding.Settings.Update
+	_ = c.Email.Seeding.Address.Rotate
+	_ = c.Email.Seeding.Runs.List
+	_ = c.Email.Seeding.Runs.Get
+	_ = c.Email.Seeding.Runs.Cancel
+	_ = c.Email.Seeding.Sources.List
 	_ = c.Email.Templates.Create
 	_ = c.Email.Templates.List
 	_ = c.Email.Templates.Get
@@ -322,6 +329,11 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.ContactProperties.Update
 	_ = c.ContactProperties.Archive
 	_ = c.ContactProperties.Unarchive
+	_ = c.Labels.List
+	_ = c.Labels.Get
+	_ = c.Labels.Create
+	_ = c.Labels.Update
+	_ = c.Labels.Delete
 	_ = c.Audiences.List
 	_ = c.Audiences.Get
 	_ = c.Audiences.Create
@@ -346,7 +358,6 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Email.Mailboxes.ScheduledMessages.Get
 	_ = c.Email.Mailboxes.ScheduledMessages.Cancel
 	_ = c.Email.Mailboxes.Messages.Create
-	_ = c.Email.Mailboxes.Labels
 	_ = c.Email.Mailboxes.ReceiveRules.List
 	_ = c.Email.Mailboxes.ReceiveRules.Create
 	_ = c.Email.Mailboxes.ReceiveRules.Delete

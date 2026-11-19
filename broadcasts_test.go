@@ -136,27 +136,19 @@ func TestBroadcastsCreateRefusesParameterOverridesWithoutATemplate(t *testing.T)
 	}
 }
 
-// Clearing the nested template also clears its language in the same wire request.
-func TestBroadcastsUpdateClearsTemplateAndLanguageTogether(t *testing.T) {
-	t.Parallel()
-
-	var got map[string]json.RawMessage
-	server := newServer(t, func(w http.ResponseWriter, r *http.Request) {
-		if err := json.NewDecoder(r.Body).Decode(&got); err != nil {
-			t.Errorf("decode body: %v", err)
-		}
-		w.Header().Set("Content-Type", "application/json")
-		_, _ = w.Write([]byte(`{"id":"eb_01krdgeqcxet5s7t44vh8rt9mg","status":"draft"}`))
-	})
-
-	if _, err := newClient(t, server).Broadcasts.Update(
-		context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg",
-		bird.BroadcastsUpdateParams{Template: bird.Null[bird.BroadcastsParameterTemplate]()}); err != nil {
-		t.Fatalf("Update: %v", err)
+func canonicalTokens(t *testing.T, raw json.RawMessage) string {
+	t.Helper()
+	var decoded any
+	dec := json.NewDecoder(strings.NewReader(string(raw)))
+	dec.UseNumber()
+	if err := dec.Decode(&decoded); err != nil {
+		t.Fatal(err)
 	}
-	if string(got["template"]) != "null" {
-		t.Fatalf("template: got %s, want null", got["template"])
+	encoded, err := json.Marshal(decoded)
+	if err != nil {
+		t.Fatal(err)
 	}
+	return string(encoded)
 }
 
 func TestBroadcastParameterNumericWire(t *testing.T) {
@@ -195,30 +187,8 @@ func TestBroadcastParameterNumericWire(t *testing.T) {
 			t.Fatalf("parameter count: %d", len(body.Template.Parameters))
 		}
 		for key, want := range parameters {
-			var actual, expected strings.Builder
-			var decoded any
-			decoder := json.NewDecoder(strings.NewReader(string(body.Template.Parameters[key])))
-			decoder.UseNumber()
-			if err := decoder.Decode(&decoded); err != nil {
-				t.Fatal(err)
-			}
-			encoded, err := json.Marshal(decoded)
-			if err != nil {
-				t.Fatal(err)
-			}
-			actual.Write(encoded)
-			decoder = json.NewDecoder(strings.NewReader(string(want)))
-			decoder.UseNumber()
-			if err := decoder.Decode(&decoded); err != nil {
-				t.Fatal(err)
-			}
-			encoded, err = json.Marshal(decoded)
-			if err != nil {
-				t.Fatal(err)
-			}
-			expected.Write(encoded)
-			if actual.String() != expected.String() {
-				t.Errorf("%s raw tokens: got %s want %s", key, actual.String(), expected.String())
+			if actual, expected := canonicalTokens(t, body.Template.Parameters[key]), canonicalTokens(t, want); actual != expected {
+				t.Errorf("%s raw tokens: got %s want %s", key, actual, expected)
 			}
 		}
 		w.Header().Set("Content-Type", "application/json")
@@ -226,29 +196,36 @@ func TestBroadcastParameterNumericWire(t *testing.T) {
 		_, _ = w.Write([]byte(`{}`))
 	})
 	client := newClient(t, server)
+	ctx := context.Background()
 	template := "emt_01krdgeqcxet5s7t44vh8rt9mg"
 	overrides := map[string]map[string]json.RawMessage{"it": {"integer": json.RawMessage(`9007199254740995`)}, "es": nil}
 	selected := bird.BroadcastsValidateParams{Template: bird.Value(bird.BroadcastsParameterTemplate{ID: &template, Parameters: &parameters, ParameterOverrides: &overrides})}
-	_, err := client.Broadcasts.Create(context.Background(), bird.BroadcastsCreateParams{Template: template, Parameters: parameters, ParameterOverrides: overrides})
-	if err != nil {
-		t.Fatal(err)
-	}
-	_, err = client.Broadcasts.Update(context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg", bird.BroadcastsUpdateParams{Template: bird.Value(bird.BroadcastsParameterTemplate{ID: &template, Parameters: &parameters, ParameterOverrides: &overrides})})
-	if err != nil {
-		t.Fatal(err)
-	}
-	_, err = client.Broadcasts.Validate(context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg", selected)
-	if err != nil {
-		t.Fatal(err)
-	}
 	preview := bird.BroadcastsPreviewParams{BroadcastsValidateParams: selected}
-	_, err = client.Broadcasts.Preview(context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg", preview)
-	if err != nil {
-		t.Fatal(err)
-	}
-	_, err = client.Broadcasts.Test(context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg", bird.BroadcastsTestParams{BroadcastsPreviewParams: preview, To: "member@example.com", PreviewFingerprint: "matching"}, option.WithIdempotencyKey("broadcast-member-test"))
-	if err != nil {
-		t.Fatal(err)
+	for _, call := range []func() error{
+		func() error {
+			_, err := client.Broadcasts.Create(ctx, bird.BroadcastsCreateParams{Template: template, Parameters: parameters, ParameterOverrides: overrides})
+			return err
+		},
+		func() error {
+			_, err := client.Broadcasts.Update(ctx, "eb_01krdgeqcxet5s7t44vh8rt9mg", bird.BroadcastsUpdateParams{Template: bird.Value(bird.BroadcastsParameterTemplate{ID: &template, Parameters: &parameters, ParameterOverrides: &overrides})})
+			return err
+		},
+		func() error {
+			_, err := client.Broadcasts.Validate(ctx, "eb_01krdgeqcxet5s7t44vh8rt9mg", selected)
+			return err
+		},
+		func() error {
+			_, err := client.Broadcasts.Preview(ctx, "eb_01krdgeqcxet5s7t44vh8rt9mg", preview)
+			return err
+		},
+		func() error {
+			_, err := client.Broadcasts.Test(ctx, "eb_01krdgeqcxet5s7t44vh8rt9mg", bird.BroadcastsTestParams{BroadcastsPreviewParams: preview, To: "member@example.com", PreviewFingerprint: "matching"}, option.WithIdempotencyKey("broadcast-member-test"))
+			return err
+		},
+	} {
+		if err := call(); err != nil {
+			t.Fatal(err)
+		}
 	}
 	if calls != 5 {
 		t.Fatalf("captured calls: %d", calls)

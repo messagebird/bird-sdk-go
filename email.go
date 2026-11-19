@@ -17,6 +17,7 @@ import (
 type EmailService struct {
 	Competitive   *EmailCompetitiveService
 	InboxInsights *EmailInboxInsightsService
+	Seeding       *EmailSeedingService
 	resource
 
 	// Stats reads aggregated delivery and engagement statistics.

@@ -36,7 +36,7 @@ import (
 )
 
 const (
-	version = "0.147.0"
+	version = "0.148.0"
 	// userAgent is human-readable only; the API attributes the SDK from the
 	// Bird-* headers set in callEditors, not the UA.
 	userAgent = "bird-sdk-go/" + version
@@ -85,6 +85,7 @@ type Client struct {
 	Numbers           *NumbersService
 	Assets            *AssetsService
 	Preferences       *PreferencesService
+	Labels            *LabelsService
 	Broadcasts        *BroadcastsService
 	Workspace         *WorkspaceService
 	Organization      *OrganizationService
@@ -187,6 +188,11 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 	c.Email.InboxInsights.Domains = &EmailInboxInsightsDomainsService{resource: resource{client: c}}
 	c.Email.InboxInsights.SeedTests = &EmailInboxInsightsSeedTestsService{resource: resource{client: c}}
 	c.Email.InboxInsights.SeedTests.Configuration = &EmailInboxInsightsSeedTestsConfigurationService{resource: resource{client: c}}
+	c.Email.Seeding = &EmailSeedingService{resource: resource{client: c}}
+	c.Email.Seeding.Settings = &EmailSeedingSettingsService{resource: resource{client: c}}
+	c.Email.Seeding.Address = &EmailSeedingAddressService{resource: resource{client: c}}
+	c.Email.Seeding.Runs = &EmailSeedingRunsService{resource: resource{client: c}}
+	c.Email.Seeding.Sources = &EmailSeedingSourcesService{resource: resource{client: c}}
 	c.Amb = &AmbService{resource: resource{client: c}}
 	c.Esim = &EsimService{resource: resource{client: c}}
 	c.Esim.Assignment = &EsimAssignmentService{resource: resource{client: c}}
@@ -306,6 +312,7 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 	c.BillingWallets = &BillingWalletsService{resource{client: c}}
 	c.ComplianceDocumentTemplates = &ComplianceDocumentTemplatesService{resource{client: c}}
 	c.Preferences = &PreferencesService{resource{client: c}}
+	c.Labels = &LabelsService{resource{client: c}}
 	c.Broadcasts = &BroadcastsService{resource{client: c}}
 	c.Workspace = &WorkspaceService{resource: resource{client: c}}
 	c.Workspace.RateLimits = &WorkspaceRateLimitsService{resource{client: c}}

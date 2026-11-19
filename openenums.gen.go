@@ -171,6 +171,47 @@ const (
 	AssetReferenceUsagePublished = oapi.AssetReferenceUsagePublished
 )
 
+// AutomaticSeedingReason is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the AutomaticSeedingReason* constants with a
+// default branch rather than treating the set as closed.
+type AutomaticSeedingReason = oapi.AutomaticSeedingReason
+
+const (
+	AutomaticSeedingReasonAdmissionRefused            = oapi.AutomaticSeedingReasonAdmissionRefused
+	AutomaticSeedingReasonAdmissionUncertain          = oapi.AutomaticSeedingReasonAdmissionUncertain
+	AutomaticSeedingReasonAllowanceExhausted          = oapi.AutomaticSeedingReasonAllowanceExhausted
+	AutomaticSeedingReasonBlocked                     = oapi.AutomaticSeedingReasonBlocked
+	AutomaticSeedingReasonBounced                     = oapi.AutomaticSeedingReasonBounced
+	AutomaticSeedingReasonCanceled                    = oapi.AutomaticSeedingReasonCanceled
+	AutomaticSeedingReasonCanceledOrExpired           = oapi.AutomaticSeedingReasonCanceledOrExpired
+	AutomaticSeedingReasonCaptureExpired              = oapi.AutomaticSeedingReasonCaptureExpired
+	AutomaticSeedingReasonCaptureFailed               = oapi.AutomaticSeedingReasonCaptureFailed
+	AutomaticSeedingReasonConflictingExamples         = oapi.AutomaticSeedingReasonConflictingExamples
+	AutomaticSeedingReasonContactTemplateUnsupported  = oapi.AutomaticSeedingReasonContactTemplateUnsupported
+	AutomaticSeedingReasonContentBlocked              = oapi.AutomaticSeedingReasonContentBlocked
+	AutomaticSeedingReasonControlRejected             = oapi.AutomaticSeedingReasonControlRejected
+	AutomaticSeedingReasonDispatchDeadlineExceeded    = oapi.AutomaticSeedingReasonDispatchDeadlineExceeded
+	AutomaticSeedingReasonInvalidRegistrationResponse = oapi.AutomaticSeedingReasonInvalidRegistrationResponse
+	AutomaticSeedingReasonInvalidTrigger              = oapi.AutomaticSeedingReasonInvalidTrigger
+	AutomaticSeedingReasonMixedRecipients             = oapi.AutomaticSeedingReasonMixedRecipients
+	AutomaticSeedingReasonPolicyRefused               = oapi.AutomaticSeedingReasonPolicyRefused
+	AutomaticSeedingReasonPreparationUnavailable      = oapi.AutomaticSeedingReasonPreparationUnavailable
+	AutomaticSeedingReasonProviderOutcomeUnknown      = oapi.AutomaticSeedingReasonProviderOutcomeUnknown
+	AutomaticSeedingReasonRegistrationRejected        = oapi.AutomaticSeedingReasonRegistrationRejected
+	AutomaticSeedingReasonRejected                    = oapi.AutomaticSeedingReasonRejected
+	AutomaticSeedingReasonRunStopped                  = oapi.AutomaticSeedingReasonRunStopped
+	AutomaticSeedingReasonSeedingUnavailable          = oapi.AutomaticSeedingReasonSeedingUnavailable
+	AutomaticSeedingReasonSelectionUnavailable        = oapi.AutomaticSeedingReasonSelectionUnavailable
+	AutomaticSeedingReasonSendingDomainNotMeasured    = oapi.AutomaticSeedingReasonSendingDomainNotMeasured
+	AutomaticSeedingReasonSettingsDisabled            = oapi.AutomaticSeedingReasonSettingsDisabled
+	AutomaticSeedingReasonSourceNotAuthorized         = oapi.AutomaticSeedingReasonSourceNotAuthorized
+	AutomaticSeedingReasonSourceStopped               = oapi.AutomaticSeedingReasonSourceStopped
+	AutomaticSeedingReasonTriggerRotated              = oapi.AutomaticSeedingReasonTriggerRotated
+	AutomaticSeedingReasonUnavailable                 = oapi.AutomaticSeedingReasonUnavailable
+	AutomaticSeedingReasonUnsupportedSource           = oapi.AutomaticSeedingReasonUnsupportedSource
+	AutomaticSeedingReasonVendorOutcomeUnknown        = oapi.AutomaticSeedingReasonVendorOutcomeUnknown
+)
+
 // ComplianceDomainProofMethod is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the ComplianceDomainProofMethod* constants with a
 // default branch rather than treating the set as closed.
@@ -278,29 +319,30 @@ const (
 type EmailBroadcastParameterProblemCode = oapi.EmailBroadcastParameterProblemCode
 
 const (
-	EmailBroadcastParameterProblemCodeAudienceUnavailable       = oapi.EmailBroadcastParameterProblemCodeAudienceUnavailable
-	EmailBroadcastParameterProblemCodeBrandUnavailable          = oapi.EmailBroadcastParameterProblemCodeBrandUnavailable
-	EmailBroadcastParameterProblemCodeContactPropertyUnknown    = oapi.EmailBroadcastParameterProblemCodeContactPropertyUnknown
-	EmailBroadcastParameterProblemCodeLanguageUnavailable       = oapi.EmailBroadcastParameterProblemCodeLanguageUnavailable
-	EmailBroadcastParameterProblemCodeParameterBytesExceeded    = oapi.EmailBroadcastParameterProblemCodeParameterBytesExceeded
-	EmailBroadcastParameterProblemCodeParameterDepthExceeded    = oapi.EmailBroadcastParameterProblemCodeParameterDepthExceeded
-	EmailBroadcastParameterProblemCodeParameterDuplicateKey     = oapi.EmailBroadcastParameterProblemCodeParameterDuplicateKey
-	EmailBroadcastParameterProblemCodeParameterJsonInvalid      = oapi.EmailBroadcastParameterProblemCodeParameterJsonInvalid
-	EmailBroadcastParameterProblemCodeParameterLanguageInvalid  = oapi.EmailBroadcastParameterProblemCodeParameterLanguageInvalid
-	EmailBroadcastParameterProblemCodeParameterMapInvalid       = oapi.EmailBroadcastParameterProblemCodeParameterMapInvalid
-	EmailBroadcastParameterProblemCodeParameterNameInvalid      = oapi.EmailBroadcastParameterProblemCodeParameterNameInvalid
-	EmailBroadcastParameterProblemCodeParameterNamesExceeded    = oapi.EmailBroadcastParameterProblemCodeParameterNamesExceeded
-	EmailBroadcastParameterProblemCodeParameterRequired         = oapi.EmailBroadcastParameterProblemCodeParameterRequired
-	EmailBroadcastParameterProblemCodeParameterValueUnsupported = oapi.EmailBroadcastParameterProblemCodeParameterValueUnsupported
-	EmailBroadcastParameterProblemCodeRecipientRenderFailed     = oapi.EmailBroadcastParameterProblemCodeRecipientRenderFailed
-	EmailBroadcastParameterProblemCodeRenderBudgetExceeded      = oapi.EmailBroadcastParameterProblemCodeRenderBudgetExceeded
-	EmailBroadcastParameterProblemCodeRenderProfileUnsupported  = oapi.EmailBroadcastParameterProblemCodeRenderProfileUnsupported
-	EmailBroadcastParameterProblemCodeRenderedEnvelopeInvalid   = oapi.EmailBroadcastParameterProblemCodeRenderedEnvelopeInvalid
-	EmailBroadcastParameterProblemCodeSenderUnavailable         = oapi.EmailBroadcastParameterProblemCodeSenderUnavailable
-	EmailBroadcastParameterProblemCodeSensitiveInputUnsupported = oapi.EmailBroadcastParameterProblemCodeSensitiveInputUnsupported
-	EmailBroadcastParameterProblemCodeTemplateUnavailable       = oapi.EmailBroadcastParameterProblemCodeTemplateUnavailable
-	EmailBroadcastParameterProblemCodeTransportInvalid          = oapi.EmailBroadcastParameterProblemCodeTransportInvalid
-	EmailBroadcastParameterProblemCodeTransportMissing          = oapi.EmailBroadcastParameterProblemCodeTransportMissing
+	EmailBroadcastParameterProblemCodeAudienceUnavailable        = oapi.EmailBroadcastParameterProblemCodeAudienceUnavailable
+	EmailBroadcastParameterProblemCodeBrandUnavailable           = oapi.EmailBroadcastParameterProblemCodeBrandUnavailable
+	EmailBroadcastParameterProblemCodeContactPropertyUnknown     = oapi.EmailBroadcastParameterProblemCodeContactPropertyUnknown
+	EmailBroadcastParameterProblemCodeLanguageUnavailable        = oapi.EmailBroadcastParameterProblemCodeLanguageUnavailable
+	EmailBroadcastParameterProblemCodeParameterBytesExceeded     = oapi.EmailBroadcastParameterProblemCodeParameterBytesExceeded
+	EmailBroadcastParameterProblemCodeParameterDepthExceeded     = oapi.EmailBroadcastParameterProblemCodeParameterDepthExceeded
+	EmailBroadcastParameterProblemCodeParameterDuplicateKey      = oapi.EmailBroadcastParameterProblemCodeParameterDuplicateKey
+	EmailBroadcastParameterProblemCodeParameterJsonInvalid       = oapi.EmailBroadcastParameterProblemCodeParameterJsonInvalid
+	EmailBroadcastParameterProblemCodeParameterLanguageInvalid   = oapi.EmailBroadcastParameterProblemCodeParameterLanguageInvalid
+	EmailBroadcastParameterProblemCodeParameterLiquidUnsupported = oapi.EmailBroadcastParameterProblemCodeParameterLiquidUnsupported
+	EmailBroadcastParameterProblemCodeParameterMapInvalid        = oapi.EmailBroadcastParameterProblemCodeParameterMapInvalid
+	EmailBroadcastParameterProblemCodeParameterNameInvalid       = oapi.EmailBroadcastParameterProblemCodeParameterNameInvalid
+	EmailBroadcastParameterProblemCodeParameterNamesExceeded     = oapi.EmailBroadcastParameterProblemCodeParameterNamesExceeded
+	EmailBroadcastParameterProblemCodeParameterRequired          = oapi.EmailBroadcastParameterProblemCodeParameterRequired
+	EmailBroadcastParameterProblemCodeParameterValueUnsupported  = oapi.EmailBroadcastParameterProblemCodeParameterValueUnsupported
+	EmailBroadcastParameterProblemCodeRecipientRenderFailed      = oapi.EmailBroadcastParameterProblemCodeRecipientRenderFailed
+	EmailBroadcastParameterProblemCodeRenderBudgetExceeded       = oapi.EmailBroadcastParameterProblemCodeRenderBudgetExceeded
+	EmailBroadcastParameterProblemCodeRenderProfileUnsupported   = oapi.EmailBroadcastParameterProblemCodeRenderProfileUnsupported
+	EmailBroadcastParameterProblemCodeRenderedEnvelopeInvalid    = oapi.EmailBroadcastParameterProblemCodeRenderedEnvelopeInvalid
+	EmailBroadcastParameterProblemCodeSenderUnavailable          = oapi.EmailBroadcastParameterProblemCodeSenderUnavailable
+	EmailBroadcastParameterProblemCodeSensitiveInputUnsupported  = oapi.EmailBroadcastParameterProblemCodeSensitiveInputUnsupported
+	EmailBroadcastParameterProblemCodeTemplateUnavailable        = oapi.EmailBroadcastParameterProblemCodeTemplateUnavailable
+	EmailBroadcastParameterProblemCodeTransportInvalid           = oapi.EmailBroadcastParameterProblemCodeTransportInvalid
+	EmailBroadcastParameterProblemCodeTransportMissing           = oapi.EmailBroadcastParameterProblemCodeTransportMissing
 )
 
 // EmailBroadcastParameterProblemPhase is an open string on the wire: a value added by a newer server

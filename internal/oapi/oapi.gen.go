@@ -752,19 +752,19 @@ func (e AMBMessagePartKind) Valid() bool {
 
 // Defines values for AMBMessageSource.
 const (
-	Api        AMBMessageSource = "api"
-	Automation AMBMessageSource = "automation"
-	Operator   AMBMessageSource = "operator"
+	AMBMessageSourceApi        AMBMessageSource = "api"
+	AMBMessageSourceAutomation AMBMessageSource = "automation"
+	AMBMessageSourceOperator   AMBMessageSource = "operator"
 )
 
 // Valid indicates whether the value is a known member of the AMBMessageSource enum.
 func (e AMBMessageSource) Valid() bool {
 	switch e {
-	case Api:
+	case AMBMessageSourceApi:
 		return true
-	case Automation:
+	case AMBMessageSourceAutomation:
 		return true
-	case Operator:
+	case AMBMessageSourceOperator:
 		return true
 	default:
 		return false
@@ -1383,6 +1383,273 @@ const (
 func (e AudienceCreateRequestType) Valid() bool {
 	switch e {
 	case AudienceCreateRequestTypeAudienceTypeStatic:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AutomaticSeedingBroadcastSourceKind.
+const (
+	AutomaticSeedingBroadcastSourceKindBroadcast AutomaticSeedingBroadcastSourceKind = "broadcast"
+)
+
+// Valid indicates whether the value is a known member of the AutomaticSeedingBroadcastSourceKind enum.
+func (e AutomaticSeedingBroadcastSourceKind) Valid() bool {
+	switch e {
+	case AutomaticSeedingBroadcastSourceKindBroadcast:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AutomaticSeedingEmailSourceKind.
+const (
+	AutomaticSeedingEmailSourceKindApi       AutomaticSeedingEmailSourceKind = "api"
+	AutomaticSeedingEmailSourceKindScheduled AutomaticSeedingEmailSourceKind = "scheduled"
+	AutomaticSeedingEmailSourceKindSmtp      AutomaticSeedingEmailSourceKind = "smtp"
+)
+
+// Valid indicates whether the value is a known member of the AutomaticSeedingEmailSourceKind enum.
+func (e AutomaticSeedingEmailSourceKind) Valid() bool {
+	switch e {
+	case AutomaticSeedingEmailSourceKindApi:
+		return true
+	case AutomaticSeedingEmailSourceKindScheduled:
+		return true
+	case AutomaticSeedingEmailSourceKindSmtp:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AutomaticSeedingReason.
+const (
+	AutomaticSeedingReasonAdmissionRefused            AutomaticSeedingReason = "admission_refused"
+	AutomaticSeedingReasonAdmissionUncertain          AutomaticSeedingReason = "admission_uncertain"
+	AutomaticSeedingReasonAllowanceExhausted          AutomaticSeedingReason = "allowance_exhausted"
+	AutomaticSeedingReasonBlocked                     AutomaticSeedingReason = "blocked"
+	AutomaticSeedingReasonBounced                     AutomaticSeedingReason = "bounced"
+	AutomaticSeedingReasonCanceled                    AutomaticSeedingReason = "canceled"
+	AutomaticSeedingReasonCanceledOrExpired           AutomaticSeedingReason = "canceled_or_expired"
+	AutomaticSeedingReasonCaptureExpired              AutomaticSeedingReason = "capture_expired"
+	AutomaticSeedingReasonCaptureFailed               AutomaticSeedingReason = "capture_failed"
+	AutomaticSeedingReasonConflictingExamples         AutomaticSeedingReason = "conflicting_examples"
+	AutomaticSeedingReasonContactTemplateUnsupported  AutomaticSeedingReason = "contact_template_unsupported"
+	AutomaticSeedingReasonContentBlocked              AutomaticSeedingReason = "content_blocked"
+	AutomaticSeedingReasonControlRejected             AutomaticSeedingReason = "control_rejected"
+	AutomaticSeedingReasonDispatchDeadlineExceeded    AutomaticSeedingReason = "dispatch_deadline_exceeded"
+	AutomaticSeedingReasonInvalidRegistrationResponse AutomaticSeedingReason = "invalid_registration_response"
+	AutomaticSeedingReasonInvalidTrigger              AutomaticSeedingReason = "invalid_trigger"
+	AutomaticSeedingReasonMixedRecipients             AutomaticSeedingReason = "mixed_recipients"
+	AutomaticSeedingReasonPolicyRefused               AutomaticSeedingReason = "policy_refused"
+	AutomaticSeedingReasonPreparationUnavailable      AutomaticSeedingReason = "preparation_unavailable"
+	AutomaticSeedingReasonProviderOutcomeUnknown      AutomaticSeedingReason = "provider_outcome_unknown"
+	AutomaticSeedingReasonRegistrationRejected        AutomaticSeedingReason = "registration_rejected"
+	AutomaticSeedingReasonRejected                    AutomaticSeedingReason = "rejected"
+	AutomaticSeedingReasonRunStopped                  AutomaticSeedingReason = "run_stopped"
+	AutomaticSeedingReasonSeedingUnavailable          AutomaticSeedingReason = "seeding_unavailable"
+	AutomaticSeedingReasonSelectionUnavailable        AutomaticSeedingReason = "selection_unavailable"
+	AutomaticSeedingReasonSendingDomainNotMeasured    AutomaticSeedingReason = "sending_domain_not_measured"
+	AutomaticSeedingReasonSettingsDisabled            AutomaticSeedingReason = "settings_disabled"
+	AutomaticSeedingReasonSourceNotAuthorized         AutomaticSeedingReason = "source_not_authorized"
+	AutomaticSeedingReasonSourceStopped               AutomaticSeedingReason = "source_stopped"
+	AutomaticSeedingReasonTriggerRotated              AutomaticSeedingReason = "trigger_rotated"
+	AutomaticSeedingReasonUnavailable                 AutomaticSeedingReason = "unavailable"
+	AutomaticSeedingReasonUnsupportedSource           AutomaticSeedingReason = "unsupported_source"
+	AutomaticSeedingReasonVendorOutcomeUnknown        AutomaticSeedingReason = "vendor_outcome_unknown"
+)
+
+// Valid indicates whether the value is a known member of the AutomaticSeedingReason enum.
+func (e AutomaticSeedingReason) Valid() bool {
+	switch e {
+	case AutomaticSeedingReasonAdmissionRefused:
+		return true
+	case AutomaticSeedingReasonAdmissionUncertain:
+		return true
+	case AutomaticSeedingReasonAllowanceExhausted:
+		return true
+	case AutomaticSeedingReasonBlocked:
+		return true
+	case AutomaticSeedingReasonBounced:
+		return true
+	case AutomaticSeedingReasonCanceled:
+		return true
+	case AutomaticSeedingReasonCanceledOrExpired:
+		return true
+	case AutomaticSeedingReasonCaptureExpired:
+		return true
+	case AutomaticSeedingReasonCaptureFailed:
+		return true
+	case AutomaticSeedingReasonConflictingExamples:
+		return true
+	case AutomaticSeedingReasonContactTemplateUnsupported:
+		return true
+	case AutomaticSeedingReasonContentBlocked:
+		return true
+	case AutomaticSeedingReasonControlRejected:
+		return true
+	case AutomaticSeedingReasonDispatchDeadlineExceeded:
+		return true
+	case AutomaticSeedingReasonInvalidRegistrationResponse:
+		return true
+	case AutomaticSeedingReasonInvalidTrigger:
+		return true
+	case AutomaticSeedingReasonMixedRecipients:
+		return true
+	case AutomaticSeedingReasonPolicyRefused:
+		return true
+	case AutomaticSeedingReasonPreparationUnavailable:
+		return true
+	case AutomaticSeedingReasonProviderOutcomeUnknown:
+		return true
+	case AutomaticSeedingReasonRegistrationRejected:
+		return true
+	case AutomaticSeedingReasonRejected:
+		return true
+	case AutomaticSeedingReasonRunStopped:
+		return true
+	case AutomaticSeedingReasonSeedingUnavailable:
+		return true
+	case AutomaticSeedingReasonSelectionUnavailable:
+		return true
+	case AutomaticSeedingReasonSendingDomainNotMeasured:
+		return true
+	case AutomaticSeedingReasonSettingsDisabled:
+		return true
+	case AutomaticSeedingReasonSourceNotAuthorized:
+		return true
+	case AutomaticSeedingReasonSourceStopped:
+		return true
+	case AutomaticSeedingReasonTriggerRotated:
+		return true
+	case AutomaticSeedingReasonUnavailable:
+		return true
+	case AutomaticSeedingReasonUnsupportedSource:
+		return true
+	case AutomaticSeedingReasonVendorOutcomeUnknown:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AutomaticSeedingRunSort.
+const (
+	AutomaticSeedingRunSortCreatedAt AutomaticSeedingRunSort = "created_at"
+)
+
+// Valid indicates whether the value is a known member of the AutomaticSeedingRunSort enum.
+func (e AutomaticSeedingRunSort) Valid() bool {
+	switch e {
+	case AutomaticSeedingRunSortCreatedAt:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AutomaticSeedingRunState.
+const (
+	AutomaticSeedingRunStateDispatchComplete      AutomaticSeedingRunState = "dispatch_complete"
+	AutomaticSeedingRunStateDispatching           AutomaticSeedingRunState = "dispatching"
+	AutomaticSeedingRunStateFailed                AutomaticSeedingRunState = "failed"
+	AutomaticSeedingRunStatePending               AutomaticSeedingRunState = "pending"
+	AutomaticSeedingRunStateReady                 AutomaticSeedingRunState = "ready"
+	AutomaticSeedingRunStateRegistering           AutomaticSeedingRunState = "registering"
+	AutomaticSeedingRunStateRegistrationUncertain AutomaticSeedingRunState = "registration_uncertain"
+	AutomaticSeedingRunStateStopped               AutomaticSeedingRunState = "stopped"
+)
+
+// Valid indicates whether the value is a known member of the AutomaticSeedingRunState enum.
+func (e AutomaticSeedingRunState) Valid() bool {
+	switch e {
+	case AutomaticSeedingRunStateDispatchComplete:
+		return true
+	case AutomaticSeedingRunStateDispatching:
+		return true
+	case AutomaticSeedingRunStateFailed:
+		return true
+	case AutomaticSeedingRunStatePending:
+		return true
+	case AutomaticSeedingRunStateReady:
+		return true
+	case AutomaticSeedingRunStateRegistering:
+		return true
+	case AutomaticSeedingRunStateRegistrationUncertain:
+		return true
+	case AutomaticSeedingRunStateStopped:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AutomaticSeedingSourceKind.
+const (
+	AutomaticSeedingSourceKindApi       AutomaticSeedingSourceKind = "api"
+	AutomaticSeedingSourceKindBroadcast AutomaticSeedingSourceKind = "broadcast"
+	AutomaticSeedingSourceKindScheduled AutomaticSeedingSourceKind = "scheduled"
+	AutomaticSeedingSourceKindSmtp      AutomaticSeedingSourceKind = "smtp"
+)
+
+// Valid indicates whether the value is a known member of the AutomaticSeedingSourceKind enum.
+func (e AutomaticSeedingSourceKind) Valid() bool {
+	switch e {
+	case AutomaticSeedingSourceKindApi:
+		return true
+	case AutomaticSeedingSourceKindBroadcast:
+		return true
+	case AutomaticSeedingSourceKindScheduled:
+		return true
+	case AutomaticSeedingSourceKindSmtp:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AutomaticSeedingSourceSort.
+const (
+	AutomaticSeedingSourceSortCreatedAt AutomaticSeedingSourceSort = "created_at"
+)
+
+// Valid indicates whether the value is a known member of the AutomaticSeedingSourceSort enum.
+func (e AutomaticSeedingSourceSort) Valid() bool {
+	switch e {
+	case AutomaticSeedingSourceSortCreatedAt:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AutomaticSeedingSourceState.
+const (
+	AutomaticSeedingSourceStateCaptured  AutomaticSeedingSourceState = "captured"
+	AutomaticSeedingSourceStateCapturing AutomaticSeedingSourceState = "capturing"
+	AutomaticSeedingSourceStateFailed    AutomaticSeedingSourceState = "failed"
+	AutomaticSeedingSourceStateScheduled AutomaticSeedingSourceState = "scheduled"
+	AutomaticSeedingSourceStateSkipped   AutomaticSeedingSourceState = "skipped"
+	AutomaticSeedingSourceStateStopped   AutomaticSeedingSourceState = "stopped"
+)
+
+// Valid indicates whether the value is a known member of the AutomaticSeedingSourceState enum.
+func (e AutomaticSeedingSourceState) Valid() bool {
+	switch e {
+	case AutomaticSeedingSourceStateCaptured:
+		return true
+	case AutomaticSeedingSourceStateCapturing:
+		return true
+	case AutomaticSeedingSourceStateFailed:
+		return true
+	case AutomaticSeedingSourceStateScheduled:
+		return true
+	case AutomaticSeedingSourceStateSkipped:
+		return true
+	case AutomaticSeedingSourceStateStopped:
 		return true
 	default:
 		return false
@@ -2315,29 +2582,30 @@ func (e EmailBroadcastInsufficientFundsBehavior) Valid() bool {
 
 // Defines values for EmailBroadcastParameterProblemCode.
 const (
-	EmailBroadcastParameterProblemCodeAudienceUnavailable       EmailBroadcastParameterProblemCode = "audience_unavailable"
-	EmailBroadcastParameterProblemCodeBrandUnavailable          EmailBroadcastParameterProblemCode = "brand_unavailable"
-	EmailBroadcastParameterProblemCodeContactPropertyUnknown    EmailBroadcastParameterProblemCode = "contact_property_unknown"
-	EmailBroadcastParameterProblemCodeLanguageUnavailable       EmailBroadcastParameterProblemCode = "language_unavailable"
-	EmailBroadcastParameterProblemCodeParameterBytesExceeded    EmailBroadcastParameterProblemCode = "parameter_bytes_exceeded"
-	EmailBroadcastParameterProblemCodeParameterDepthExceeded    EmailBroadcastParameterProblemCode = "parameter_depth_exceeded"
-	EmailBroadcastParameterProblemCodeParameterDuplicateKey     EmailBroadcastParameterProblemCode = "parameter_duplicate_key"
-	EmailBroadcastParameterProblemCodeParameterJsonInvalid      EmailBroadcastParameterProblemCode = "parameter_json_invalid"
-	EmailBroadcastParameterProblemCodeParameterLanguageInvalid  EmailBroadcastParameterProblemCode = "parameter_language_invalid"
-	EmailBroadcastParameterProblemCodeParameterMapInvalid       EmailBroadcastParameterProblemCode = "parameter_map_invalid"
-	EmailBroadcastParameterProblemCodeParameterNameInvalid      EmailBroadcastParameterProblemCode = "parameter_name_invalid"
-	EmailBroadcastParameterProblemCodeParameterNamesExceeded    EmailBroadcastParameterProblemCode = "parameter_names_exceeded"
-	EmailBroadcastParameterProblemCodeParameterRequired         EmailBroadcastParameterProblemCode = "parameter_required"
-	EmailBroadcastParameterProblemCodeParameterValueUnsupported EmailBroadcastParameterProblemCode = "parameter_value_unsupported"
-	EmailBroadcastParameterProblemCodeRecipientRenderFailed     EmailBroadcastParameterProblemCode = "recipient_render_failed"
-	EmailBroadcastParameterProblemCodeRenderBudgetExceeded      EmailBroadcastParameterProblemCode = "render_budget_exceeded"
-	EmailBroadcastParameterProblemCodeRenderProfileUnsupported  EmailBroadcastParameterProblemCode = "render_profile_unsupported"
-	EmailBroadcastParameterProblemCodeRenderedEnvelopeInvalid   EmailBroadcastParameterProblemCode = "rendered_envelope_invalid"
-	EmailBroadcastParameterProblemCodeSenderUnavailable         EmailBroadcastParameterProblemCode = "sender_unavailable"
-	EmailBroadcastParameterProblemCodeSensitiveInputUnsupported EmailBroadcastParameterProblemCode = "sensitive_input_unsupported"
-	EmailBroadcastParameterProblemCodeTemplateUnavailable       EmailBroadcastParameterProblemCode = "template_unavailable"
-	EmailBroadcastParameterProblemCodeTransportInvalid          EmailBroadcastParameterProblemCode = "transport_invalid"
-	EmailBroadcastParameterProblemCodeTransportMissing          EmailBroadcastParameterProblemCode = "transport_missing"
+	EmailBroadcastParameterProblemCodeAudienceUnavailable        EmailBroadcastParameterProblemCode = "audience_unavailable"
+	EmailBroadcastParameterProblemCodeBrandUnavailable           EmailBroadcastParameterProblemCode = "brand_unavailable"
+	EmailBroadcastParameterProblemCodeContactPropertyUnknown     EmailBroadcastParameterProblemCode = "contact_property_unknown"
+	EmailBroadcastParameterProblemCodeLanguageUnavailable        EmailBroadcastParameterProblemCode = "language_unavailable"
+	EmailBroadcastParameterProblemCodeParameterBytesExceeded     EmailBroadcastParameterProblemCode = "parameter_bytes_exceeded"
+	EmailBroadcastParameterProblemCodeParameterDepthExceeded     EmailBroadcastParameterProblemCode = "parameter_depth_exceeded"
+	EmailBroadcastParameterProblemCodeParameterDuplicateKey      EmailBroadcastParameterProblemCode = "parameter_duplicate_key"
+	EmailBroadcastParameterProblemCodeParameterJsonInvalid       EmailBroadcastParameterProblemCode = "parameter_json_invalid"
+	EmailBroadcastParameterProblemCodeParameterLanguageInvalid   EmailBroadcastParameterProblemCode = "parameter_language_invalid"
+	EmailBroadcastParameterProblemCodeParameterLiquidUnsupported EmailBroadcastParameterProblemCode = "parameter_liquid_unsupported"
+	EmailBroadcastParameterProblemCodeParameterMapInvalid        EmailBroadcastParameterProblemCode = "parameter_map_invalid"
+	EmailBroadcastParameterProblemCodeParameterNameInvalid       EmailBroadcastParameterProblemCode = "parameter_name_invalid"
+	EmailBroadcastParameterProblemCodeParameterNamesExceeded     EmailBroadcastParameterProblemCode = "parameter_names_exceeded"
+	EmailBroadcastParameterProblemCodeParameterRequired          EmailBroadcastParameterProblemCode = "parameter_required"
+	EmailBroadcastParameterProblemCodeParameterValueUnsupported  EmailBroadcastParameterProblemCode = "parameter_value_unsupported"
+	EmailBroadcastParameterProblemCodeRecipientRenderFailed      EmailBroadcastParameterProblemCode = "recipient_render_failed"
+	EmailBroadcastParameterProblemCodeRenderBudgetExceeded       EmailBroadcastParameterProblemCode = "render_budget_exceeded"
+	EmailBroadcastParameterProblemCodeRenderProfileUnsupported   EmailBroadcastParameterProblemCode = "render_profile_unsupported"
+	EmailBroadcastParameterProblemCodeRenderedEnvelopeInvalid    EmailBroadcastParameterProblemCode = "rendered_envelope_invalid"
+	EmailBroadcastParameterProblemCodeSenderUnavailable          EmailBroadcastParameterProblemCode = "sender_unavailable"
+	EmailBroadcastParameterProblemCodeSensitiveInputUnsupported  EmailBroadcastParameterProblemCode = "sensitive_input_unsupported"
+	EmailBroadcastParameterProblemCodeTemplateUnavailable        EmailBroadcastParameterProblemCode = "template_unavailable"
+	EmailBroadcastParameterProblemCodeTransportInvalid           EmailBroadcastParameterProblemCode = "transport_invalid"
+	EmailBroadcastParameterProblemCodeTransportMissing           EmailBroadcastParameterProblemCode = "transport_missing"
 )
 
 // Valid indicates whether the value is a known member of the EmailBroadcastParameterProblemCode enum.
@@ -2360,6 +2628,8 @@ func (e EmailBroadcastParameterProblemCode) Valid() bool {
 	case EmailBroadcastParameterProblemCodeParameterJsonInvalid:
 		return true
 	case EmailBroadcastParameterProblemCodeParameterLanguageInvalid:
+		return true
+	case EmailBroadcastParameterProblemCodeParameterLiquidUnsupported:
 		return true
 	case EmailBroadcastParameterProblemCodeParameterMapInvalid:
 		return true
@@ -3450,24 +3720,6 @@ func (e EmailLookupResult) Valid() bool {
 	}
 }
 
-// Defines values for EmailMailboxLabelType.
-const (
-	EmailMailboxLabelTypeCustom EmailMailboxLabelType = "custom"
-	EmailMailboxLabelTypeSystem EmailMailboxLabelType = "system"
-)
-
-// Valid indicates whether the value is a known member of the EmailMailboxLabelType enum.
-func (e EmailMailboxLabelType) Valid() bool {
-	switch e {
-	case EmailMailboxLabelTypeCustom:
-		return true
-	case EmailMailboxLabelTypeSystem:
-		return true
-	default:
-		return false
-	}
-}
-
 // Defines values for EmailMailboxProviderSortMetric.
 const (
 	EmailMailboxProviderSortMetricBounceRate               EmailMailboxProviderSortMetric = "bounce_rate"
@@ -3821,28 +4073,28 @@ func (e EmailRejectionReason) Valid() bool {
 
 // Defines values for EmailSendAllowanceLimitReason.
 const (
-	CustomLimit    EmailSendAllowanceLimitReason = "custom_limit"
-	OverageCeiling EmailSendAllowanceLimitReason = "overage_ceiling"
-	OverageOff     EmailSendAllowanceLimitReason = "overage_off"
-	OverduePayment EmailSendAllowanceLimitReason = "overdue_payment"
-	Plan           EmailSendAllowanceLimitReason = "plan"
-	Unfunded       EmailSendAllowanceLimitReason = "unfunded"
+	EmailSendAllowanceLimitReasonCustomLimit    EmailSendAllowanceLimitReason = "custom_limit"
+	EmailSendAllowanceLimitReasonOverageCeiling EmailSendAllowanceLimitReason = "overage_ceiling"
+	EmailSendAllowanceLimitReasonOverageOff     EmailSendAllowanceLimitReason = "overage_off"
+	EmailSendAllowanceLimitReasonOverduePayment EmailSendAllowanceLimitReason = "overdue_payment"
+	EmailSendAllowanceLimitReasonPlan           EmailSendAllowanceLimitReason = "plan"
+	EmailSendAllowanceLimitReasonUnfunded       EmailSendAllowanceLimitReason = "unfunded"
 )
 
 // Valid indicates whether the value is a known member of the EmailSendAllowanceLimitReason enum.
 func (e EmailSendAllowanceLimitReason) Valid() bool {
 	switch e {
-	case CustomLimit:
+	case EmailSendAllowanceLimitReasonCustomLimit:
 		return true
-	case OverageCeiling:
+	case EmailSendAllowanceLimitReasonOverageCeiling:
 		return true
-	case OverageOff:
+	case EmailSendAllowanceLimitReasonOverageOff:
 		return true
-	case OverduePayment:
+	case EmailSendAllowanceLimitReasonOverduePayment:
 		return true
-	case Plan:
+	case EmailSendAllowanceLimitReasonPlan:
 		return true
-	case Unfunded:
+	case EmailSendAllowanceLimitReasonUnfunded:
 		return true
 	default:
 		return false
@@ -11930,6 +12182,12 @@ type AMBAuthentication struct {
 	Status AMBAuthenticationStatus `json:"status"`
 }
 
+// AMBAuthenticationCreate Options for a sign-in request. Omit the body to send the business's sign-in message.
+type AMBAuthenticationCreate struct {
+	// Template The sign-in message template to send in place of the business's sign-in message. The template must be a published sign-in message.
+	Template *AMBAuthenticationTemplate `json:"template,omitempty"`
+}
+
 // AMBAuthenticationID defines model for AMBAuthenticationID.
 type AMBAuthenticationID = string
 
@@ -11946,6 +12204,27 @@ type AMBAuthenticationProviderID = string
 // - `expired`: the request passed its ten-minute lifetime.
 // - `superseded`: a newer request, or a change to the conversation, business or provider, replaced the request.
 type AMBAuthenticationStatus string
+
+// AMBAuthenticationTemplate A sign-in message template reference. Identify the template by `id` or `slug`. Supply exactly one reference, optionally select a language, and pass variable values in `parameters`.
+type AMBAuthenticationTemplate struct {
+	Id *AMBTemplateID `json:"id,omitempty"`
+
+	// Language Which of the template's languages to send. When the template does not have the language you ask for, its `on_missing_language` setting decides whether the closest available language is sent instead or the request is rejected. Omit it to send the first of these the template has: the conversation's locale, the business's default locale, then the template's default language. A request that omits it is never rejected for its language, and `language_source_required` does not apply.
+	Language *LanguageTag `json:"language,omitempty"`
+
+	// Parameters Values for the template's variables, keyed by variable name. Read the live version to see the accepted keys and formats. A missing required key, an undeclared key, an invalid value, or a serialized object over 16 KiB returns `422`.
+	Parameters *map[string]interface{} `json:"parameters,omitempty"`
+
+	// Slug The workspace or built-in sign-in message template to send, by its immutable slug. Read the template's live version to see its variables.
+	Slug  *TemplateSlug `json:"slug,omitempty"`
+	union json.RawMessage
+}
+
+// AMBAuthenticationTemplate0 defines model for .
+type AMBAuthenticationTemplate0 = interface{}
+
+// AMBAuthenticationTemplate1 defines model for .
+type AMBAuthenticationTemplate1 = interface{}
 
 // AMBAuthenticationUpdatedEventType Always `amb.authentication.updated` for this event.
 type AMBAuthenticationUpdatedEventType string
@@ -12195,7 +12474,7 @@ type AMBChannelSettingsUpdate struct {
 	LogoAssetId nullable.Nullable[AssetID] `json:"logo_asset_id,omitempty"`
 }
 
-// AMBContentKind Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. `apple_pay` and `authenticate` appear on existing messages. Sends and templates do not accept them.
+// AMBContentKind Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. `apple_pay` and `authenticate` appear on existing messages. Sends do not accept them, and templates do not accept `apple_pay`. A sign-in message template has the kind `authenticate`.
 //
 // - text: Text, optionally with a subject.
 // - attachment: One or more files, images, audio clips, or videos.
@@ -12207,7 +12486,7 @@ type AMBChannelSettingsUpdate struct {
 // - imessage_app: A custom iMessage app interaction on a compatible device.
 // - interactive: An opaque interactive reference whose subtype is unknown.
 // - apple_pay: An Apple Pay request, or the customer's response to one. Apple Pay requests are in preview.
-// - authenticate: An identity verification request, or the customer's response to one.
+// - authenticate: A sign-in request, the customer's response to one, or a sign-in message template.
 type AMBContentKind string
 
 // AMBConversation A conversation between your business and one customer on Apple Messages for Business. It holds the customer's device capabilities, the console's read state, assignment, and labels, and the routing queue the conversation is in.
@@ -13180,7 +13459,7 @@ type AMBMessage struct {
 	// InteractiveReply What the customer answered, on an inbound message replying to an interactive message.
 	InteractiveReply *AMBInteractiveReply `json:"interactive_reply,omitempty"`
 
-	// Kind Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. `apple_pay` and `authenticate` appear on existing messages. Sends and templates do not accept them.
+	// Kind Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. `apple_pay` and `authenticate` appear on existing messages. Sends do not accept them, and templates do not accept `apple_pay`. A sign-in message template has the kind `authenticate`.
 	//
 	// - text: Text, optionally with a subject.
 	// - attachment: One or more files, images, audio clips, or videos.
@@ -13192,7 +13471,7 @@ type AMBMessage struct {
 	// - imessage_app: A custom iMessage app interaction on a compatible device.
 	// - interactive: An opaque interactive reference whose subtype is unknown.
 	// - apple_pay: An Apple Pay request, or the customer's response to one. Apple Pay requests are in preview.
-	// - authenticate: An identity verification request, or the customer's response to one.
+	// - authenticate: A sign-in request, the customer's response to one, or a sign-in message template.
 	Kind AMBContentKind `json:"kind"`
 
 	// LastError Failure detail for a message or invitation that could not be sent or was rejected.
@@ -13366,7 +13645,7 @@ type AMBMessageKindStatsPoint struct {
 	// Latency Processing-latency percentiles in milliseconds for the requested scope, from acceptance to Apple handoff. Apple Messages for Business has no delivery receipt, so there is no `delivery` or `total` member beside `processing`. Conversation response timing is reported separately in `first_response`. Always present; every percentile is null when no qualifying message in scope has a measurement.
 	Latency *AMBStatsLatency `json:"latency,omitempty"`
 
-	// MessageKind Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. `apple_pay` and `authenticate` appear on existing messages. Sends and templates do not accept them.
+	// MessageKind Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. `apple_pay` and `authenticate` appear on existing messages. Sends do not accept them, and templates do not accept `apple_pay`. A sign-in message template has the kind `authenticate`.
 	//
 	// - text: Text, optionally with a subject.
 	// - attachment: One or more files, images, audio clips, or videos.
@@ -13378,7 +13657,7 @@ type AMBMessageKindStatsPoint struct {
 	// - imessage_app: A custom iMessage app interaction on a compatible device.
 	// - interactive: An opaque interactive reference whose subtype is unknown.
 	// - apple_pay: An Apple Pay request, or the customer's response to one. Apple Pay requests are in preview.
-	// - authenticate: An identity verification request, or the customer's response to one.
+	// - authenticate: A sign-in request, the customer's response to one, or a sign-in message template.
 	MessageKind AMBContentKind `json:"message_kind"`
 }
 
@@ -13431,7 +13710,7 @@ type AMBMessagePart struct {
 	// Subject The message's subject, on the part that had it.
 	Subject *string `json:"subject,omitempty" pii:"true"`
 
-	// Title The title a card showed. On a `link_preview` part it is the page's title, read when the part was sent. On a `rich_link` part Apple built from its URL it is the title Apple returned for the card, or the linked page's title when Apple returned none. A title longer than 512 bytes is cut to that length. Absent on other parts, on a part Apple did not accept, and on a `rich_link` Apple built when neither Apple nor a page Bird could read supplied a title. On a `link_preview` part it is also absent when Bird sent the part in an earlier attempt of a retried send, or had to save the send's result again.
+	// Title The title a card showed. On a `link_preview` part it is the page's title, read when the part was sent. On a `rich_link` part Apple built from its URL it is the title Apple returned for the card. When Apple returned none, or returned a web address in its place, it is the linked page's title. Apple builds that card on the device, so the title it shows can differ. A title longer than 512 bytes is cut to that length. Absent on other parts, on a part Apple did not accept, and on a `rich_link` Apple built when Apple supplied no title or only a web address and the linked page supplied none or Bird could not read it. On a `link_preview` part it is also absent when Bird sent the part in an earlier attempt of a retried send, or had to save the send's result again.
 	Title *string `json:"title,omitempty" pii:"true"`
 
 	// Url The link a `link_preview` part previewed, as Bird sent it.
@@ -13825,7 +14104,7 @@ type AMBRejectedEventType string
 
 // AMBRichLink A link with a preview card. Supply your own preview in `rich_link_data`, or ask Apple to build it with `rich_link_construct`. To introduce the link, send `text` alongside it. The card takes the place of the first copy of its URL in that text, or follows the text when it does not contain that URL. Later copies of that URL are removed.
 type AMBRichLink struct {
-	// RichLinkConstruct Asks Apple to build the rich link preview when the message is sent. Use `POST /v1/amb/messages/construct-payload` beforehand only to check the URL and see the preview's title.
+	// RichLinkConstruct Asks Apple to build the rich link preview from `url` when the message is sent.
 	RichLinkConstruct *AMBRichLinkConstruct  `json:"rich_link_construct,omitempty"`
 	RichLinkData      *AMBNativeRichLinkData `json:"rich_link_data,omitempty"`
 	union             json.RawMessage
@@ -13837,7 +14116,7 @@ type AMBRichLink0 = interface{}
 // AMBRichLink1 defines model for .
 type AMBRichLink1 = interface{}
 
-// AMBRichLinkConstruct Asks Apple to build the rich link preview when the message is sent. Use `POST /v1/amb/messages/construct-payload` beforehand only to check the URL and see the preview's title.
+// AMBRichLinkConstruct Asks Apple to build the rich link preview from `url` when the message is sent.
 type AMBRichLinkConstruct struct {
 	// StoreRegion ISO 3166-1 alpha-2 country code.
 	StoreRegion *CountryCode `json:"store_region,omitempty"`
@@ -14003,6 +14282,17 @@ type AMBSendFailedEventType string
 
 // AMBSentEventType Always `amb.sent` for this event.
 type AMBSentEventType string
+
+// AMBSignInMessage The message an authentication request sends: the sign-in request bubble, the bubble that replaces it after sign-in, their images and an optional confirmation text. Only a template holds it. An authentication request renders the template and sends it. A message send does not accept it.
+type AMBSignInMessage struct {
+	// ConfirmationText Text Bird sends as a message after the customer's device confirms the sign-in. Omit it to send no confirmation. It may contain `{{ }}` placeholders.
+	ConfirmationText *string `json:"confirmation_text,omitempty"`
+
+	// Images Images the bubbles reference by `image_identifier`.
+	Images          *[]AMBNativeImage `json:"images,omitempty"`
+	ReceivedMessage AMBMessageBubble  `json:"received_message"`
+	ReplyMessage    AMBMessageBubble  `json:"reply_message"`
+}
 
 // AMBStatsAttribution Which timestamp a statistics response buckets its rows and totals by:
 //
@@ -14452,7 +14742,7 @@ type AMBTemplate struct {
 	// Category Why messages use this template, fixed at creation. On Apple Messages the category describes intent and becomes the message's reporting `category`; it grants and restricts nothing. Use `marketing` for promotions and `transactional` for service messages.
 	Category AMBTemplateCategory `json:"category"`
 
-	// ContentKind Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. `apple_pay` and `authenticate` appear on existing messages. Sends and templates do not accept them.
+	// ContentKind Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. `apple_pay` and `authenticate` appear on existing messages. Sends do not accept them, and templates do not accept `apple_pay`. A sign-in message template has the kind `authenticate`.
 	//
 	// - text: Text, optionally with a subject.
 	// - attachment: One or more files, images, audio clips, or videos.
@@ -14464,7 +14754,7 @@ type AMBTemplate struct {
 	// - imessage_app: A custom iMessage app interaction on a compatible device.
 	// - interactive: An opaque interactive reference whose subtype is unknown.
 	// - apple_pay: An Apple Pay request, or the customer's response to one. Apple Pay requests are in preview.
-	// - authenticate: An identity verification request, or the customer's response to one.
+	// - authenticate: A sign-in request, the customer's response to one, or a sign-in message template.
 	ContentKind AMBContentKind `json:"content_kind"`
 
 	// CreatedAt When the template was created. Null for built-in templates.
@@ -14566,6 +14856,9 @@ type AMBTemplateLanguage struct {
 	// RichLink Stored link preview. Includes its `{{ variable }}` placeholders.
 	RichLink *AMBRichLink `json:"rich_link,omitempty"`
 
+	// SignIn Stored sign-in message. Includes its `{{ variable }}` placeholders.
+	SignIn *AMBSignInMessage `json:"sign_in,omitempty"`
+
 	// Text Stored text and files. Includes its `{{ variable }}` placeholders.
 	Text *AMBText `json:"text,omitempty"`
 
@@ -14656,7 +14949,7 @@ type AMBTemplateSummary struct {
 	// Category Why messages use this template, fixed at creation. On Apple Messages the category describes intent and becomes the message's reporting `category`; it grants and restricts nothing. Use `marketing` for promotions and `transactional` for service messages.
 	Category AMBTemplateCategory `json:"category"`
 
-	// ContentKind Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. `apple_pay` and `authenticate` appear on existing messages. Sends and templates do not accept them.
+	// ContentKind Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. `apple_pay` and `authenticate` appear on existing messages. Sends do not accept them, and templates do not accept `apple_pay`. A sign-in message template has the kind `authenticate`.
 	//
 	// - text: Text, optionally with a subject.
 	// - attachment: One or more files, images, audio clips, or videos.
@@ -14668,7 +14961,7 @@ type AMBTemplateSummary struct {
 	// - imessage_app: A custom iMessage app interaction on a compatible device.
 	// - interactive: An opaque interactive reference whose subtype is unknown.
 	// - apple_pay: An Apple Pay request, or the customer's response to one. Apple Pay requests are in preview.
-	// - authenticate: An identity verification request, or the customer's response to one.
+	// - authenticate: A sign-in request, the customer's response to one, or a sign-in message template.
 	ContentKind AMBContentKind `json:"content_kind"`
 
 	// CreatedAt When the template was created. Null for built-in templates.
@@ -14780,6 +15073,9 @@ type AMBTemplateVersionLanguage struct {
 
 	// RichLink Stored link preview. Includes its `{{ variable }}` placeholders.
 	RichLink *AMBRichLink `json:"rich_link,omitempty"`
+
+	// SignIn Stored sign-in message. Includes its `{{ variable }}` placeholders.
+	SignIn *AMBSignInMessage `json:"sign_in,omitempty"`
 
 	// Text Stored text and files. Includes its `{{ variable }}` placeholders.
 	Text *AMBText `json:"text,omitempty"`
@@ -15593,6 +15889,421 @@ type AudienceUpdateRequest struct {
 	// Name New display name for the audience. Omit to keep the current name. The name cannot be cleared, and a whitespace-only value returns a validation error.
 	Name *string `json:"name,omitempty"`
 }
+
+// AutomaticSeedingBroadcastSource defines model for AutomaticSeedingBroadcastSource.
+type AutomaticSeedingBroadcastSource struct {
+	BroadcastId EmailBroadcastID `json:"broadcast_id"`
+
+	// Kind Original source kind for this reference.
+	Kind AutomaticSeedingBroadcastSourceKind `json:"kind"`
+}
+
+// AutomaticSeedingBroadcastSourceKind Original source kind for this reference.
+type AutomaticSeedingBroadcastSourceKind string
+
+// AutomaticSeedingEmailSource defines model for AutomaticSeedingEmailSource.
+type AutomaticSeedingEmailSource struct {
+	EmailId EmailID `json:"email_id"`
+
+	// Kind Original source kind for this reference.
+	Kind AutomaticSeedingEmailSourceKind `json:"kind"`
+}
+
+// AutomaticSeedingEmailSourceKind Original source kind for this reference.
+type AutomaticSeedingEmailSourceKind string
+
+// AutomaticSeedingIssue defines model for AutomaticSeedingIssue.
+type AutomaticSeedingIssue struct {
+	// Code A reason for a run or source outcome, or a seed-copy delivery or admission outcome.
+	//
+	// - `registration_rejected` means the seed-list registration was refused; no seed plan was created.
+	// - `allowance_exhausted` means the organization's seed-test allowance for this billing period was used up before registration; no seed plan was created.
+	// - `selection_unavailable` means the saved seed-list type, engagement profile or region is no longer offered for the sending domain; no seed plan was created.
+	// - `sending_domain_not_measured` means Inbox Insights is not measuring the example's sending domain; no seed plan was created.
+	// - `vendor_outcome_unknown` means the seed-list registration result is unknown; automatic registration retries are stopped and investigation is required.
+	// - `invalid_registration_response` means the returned seed list could not be used; no copies will be sent from that response.
+	// - `canceled_or_expired` means new seed admissions stopped because the run was canceled or its eligibility expired.
+	// - `run_stopped` means a stop request ended future seed admissions; already granted copies may still send.
+	// - `settings_disabled` means automatic seeding was disabled before the copy was granted.
+	// - `trigger_rotated` means the run's cancellation generation changed before the copy was granted, either through trigger rotation or disabling seeding. Re-enabling does not advance the generation or undo that fence. This code alone does not establish that the trigger address changed.
+	// - `dispatch_deadline_exceeded` means the deadline for admitting this copy passed.
+	// - `control_rejected` means the trigger message was rejected.
+	// - `source_stopped` means the original source no longer authorizes seed sending.
+	// - `conflicting_examples` means the source contained conflicting examples, so none was selected.
+	// - `unsupported_source` means capture is unavailable for this source type.
+	// - `mixed_recipients` means the original message did not have exactly one recipient consisting of the trigger address.
+	// - `invalid_trigger` means the trigger address was invalid or no longer valid for this workspace.
+	// - `seeding_unavailable` means automatic-seeding capture was unavailable for this source.
+	// - `contact_template_unsupported` means the source template uses contact values that this capture path cannot freeze.
+	// - `source_not_authorized` means the source failed sending authorization during capture or registration.
+	// - `content_blocked` means the source content was rejected before capture.
+	// - `capture_expired` means the example capture deadline passed.
+	// - `capture_failed` means the example could not be captured.
+	// - `preparation_unavailable` means the frozen example could not be used for registration or preparation of a seed copy.
+	// - `policy_refused` means the seed copy failed sending-policy checks.
+	// - `unavailable` means a more specific reason cannot be shown.
+	// - `bounced` means the seed copy received a bounce outcome.
+	// - `rejected` means the seed copy received a rejection outcome.
+	// - `blocked` means the seed copy was blocked from sending.
+	// - `canceled` means the seed copy was canceled before sending.
+	// - `provider_outcome_unknown` means a provider submission may have occurred, but its result is unknown; the copy is not automatically resent.
+	// - `admission_uncertain` means the seed copy may have entered sending, but admission is unconfirmed; it is not automatically admitted again.
+	// - `admission_refused` means the seed copy was refused before entering sending.
+	Code  AutomaticSeedingReason `json:"code"`
+	Count int64                  `json:"count"`
+}
+
+// AutomaticSeedingProgress Delivered, failed, not_sent, unknown and pending partition planned copies. Admitted and provider_accepted overlap those buckets and must not be added to them. Late outcomes can move a copy between buckets.
+type AutomaticSeedingProgress struct {
+	// Admitted Copies admitted to Bird email processing. Independent milestone; not provider acceptance.
+	Admitted int64 `json:"admitted"`
+
+	// Delivered Copies with receiving-server delivery or complaint evidence. Does not establish inbox placement.
+	Delivered int64 `json:"delivered"`
+
+	// Failed Copies with terminal bounce, rejection or block evidence.
+	Failed int64 `json:"failed"`
+
+	// NotSent Copies refused or canceled before sending, including ungranted copies after a run fence.
+	NotSent int64 `json:"not_sent"`
+
+	// Pending Remaining copies awaiting admission or a delivery outcome.
+	Pending int64 `json:"pending"`
+
+	// Planned Number of retained planned copies.
+	Planned int64 `json:"planned"`
+
+	// ProviderAccepted Copies explicitly accepted by the sending provider. Independent milestone; not delivery or placement.
+	ProviderAccepted int64 `json:"provider_accepted"`
+
+	// Unknown Copies with unresolved admission or provider outcome uncertainty.
+	Unknown int64 `json:"unknown"`
+}
+
+// AutomaticSeedingReason A reason for a run or source outcome, or a seed-copy delivery or admission outcome.
+//
+// - `registration_rejected` means the seed-list registration was refused; no seed plan was created.
+// - `allowance_exhausted` means the organization's seed-test allowance for this billing period was used up before registration; no seed plan was created.
+// - `selection_unavailable` means the saved seed-list type, engagement profile or region is no longer offered for the sending domain; no seed plan was created.
+// - `sending_domain_not_measured` means Inbox Insights is not measuring the example's sending domain; no seed plan was created.
+// - `vendor_outcome_unknown` means the seed-list registration result is unknown; automatic registration retries are stopped and investigation is required.
+// - `invalid_registration_response` means the returned seed list could not be used; no copies will be sent from that response.
+// - `canceled_or_expired` means new seed admissions stopped because the run was canceled or its eligibility expired.
+// - `run_stopped` means a stop request ended future seed admissions; already granted copies may still send.
+// - `settings_disabled` means automatic seeding was disabled before the copy was granted.
+// - `trigger_rotated` means the run's cancellation generation changed before the copy was granted, either through trigger rotation or disabling seeding. Re-enabling does not advance the generation or undo that fence. This code alone does not establish that the trigger address changed.
+// - `dispatch_deadline_exceeded` means the deadline for admitting this copy passed.
+// - `control_rejected` means the trigger message was rejected.
+// - `source_stopped` means the original source no longer authorizes seed sending.
+// - `conflicting_examples` means the source contained conflicting examples, so none was selected.
+// - `unsupported_source` means capture is unavailable for this source type.
+// - `mixed_recipients` means the original message did not have exactly one recipient consisting of the trigger address.
+// - `invalid_trigger` means the trigger address was invalid or no longer valid for this workspace.
+// - `seeding_unavailable` means automatic-seeding capture was unavailable for this source.
+// - `contact_template_unsupported` means the source template uses contact values that this capture path cannot freeze.
+// - `source_not_authorized` means the source failed sending authorization during capture or registration.
+// - `content_blocked` means the source content was rejected before capture.
+// - `capture_expired` means the example capture deadline passed.
+// - `capture_failed` means the example could not be captured.
+// - `preparation_unavailable` means the frozen example could not be used for registration or preparation of a seed copy.
+// - `policy_refused` means the seed copy failed sending-policy checks.
+// - `unavailable` means a more specific reason cannot be shown.
+// - `bounced` means the seed copy received a bounce outcome.
+// - `rejected` means the seed copy received a rejection outcome.
+// - `blocked` means the seed copy was blocked from sending.
+// - `canceled` means the seed copy was canceled before sending.
+// - `provider_outcome_unknown` means a provider submission may have occurred, but its result is unknown; the copy is not automatically resent.
+// - `admission_uncertain` means the seed copy may have entered sending, but admission is unconfirmed; it is not automatically admitted again.
+// - `admission_refused` means the seed copy was refused before entering sending.
+type AutomaticSeedingReason string
+
+// AutomaticSeedingRotate Rotate the trigger address once at the supplied settings revision. Settings must have been initialized by a successful settings update; rotation before setup returns 404. A stale revision returns 409 without rotating again.
+type AutomaticSeedingRotate struct {
+	// ExpectedRevision Revision from the latest settings read after initial setup. Revision zero from an unconfigured workspace cannot be used to rotate an address.
+	ExpectedRevision int64 `json:"expected_revision"`
+}
+
+// AutomaticSeedingRun defines model for AutomaticSeedingRun.
+type AutomaticSeedingRun struct {
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// DispatchDeadline Fixed deadline for new seed admissions.
+	DispatchDeadline *time.Time `json:"dispatch_deadline,omitempty"`
+
+	// DispatchFinishedAt Time scheduler work completed; uncertain admission or delivery may remain.
+	DispatchFinishedAt *time.Time `json:"dispatch_finished_at,omitempty"`
+
+	// EngagementProfile Which engagement behaviour the seed addresses simulate. `all` mixes engaged and dormant seeds, which is what makes an engagement split measurable; single-cohort profiles exist too, and the usable set comes from the seed-test options rather than from this list.
+	EngagementProfile *EmailInboxInsightsSeedEngagementProfile `json:"engagement_profile,omitempty"`
+	Id                AutomaticSeedingRunID                    `json:"id"`
+
+	// Issues Counts of sanitized terminal or uncertain copy outcomes. No seed addresses or provider error text. Counts overlap the progress buckets.
+	Issues []AutomaticSeedingIssue `json:"issues"`
+
+	// Label Label from a trigger address, such as `spring-launch` in `<token>+spring-launch@...`. It is a display name and selects nothing.
+	Label *AutomaticSeedingTriggerLabel `json:"label,omitempty"`
+
+	// ListType Which pool of seed addresses a test uses. Which pools an account can use depends on what has been provisioned for it, so read the usable set from the seed-test options rather than assuming these are the only values.
+	ListType *EmailInboxInsightsSeedListType `json:"list_type,omitempty"`
+
+	// Progress Delivered, failed, not_sent, unknown and pending partition planned copies. Admitted and provider_accepted overlap those buckets and must not be added to them. Late outcomes can move a copy between buckets.
+	Progress AutomaticSeedingProgress `json:"progress"`
+
+	// Reason A reason for a run or source outcome, or a seed-copy delivery or admission outcome.
+	//
+	// - `registration_rejected` means the seed-list registration was refused; no seed plan was created.
+	// - `allowance_exhausted` means the organization's seed-test allowance for this billing period was used up before registration; no seed plan was created.
+	// - `selection_unavailable` means the saved seed-list type, engagement profile or region is no longer offered for the sending domain; no seed plan was created.
+	// - `sending_domain_not_measured` means Inbox Insights is not measuring the example's sending domain; no seed plan was created.
+	// - `vendor_outcome_unknown` means the seed-list registration result is unknown; automatic registration retries are stopped and investigation is required.
+	// - `invalid_registration_response` means the returned seed list could not be used; no copies will be sent from that response.
+	// - `canceled_or_expired` means new seed admissions stopped because the run was canceled or its eligibility expired.
+	// - `run_stopped` means a stop request ended future seed admissions; already granted copies may still send.
+	// - `settings_disabled` means automatic seeding was disabled before the copy was granted.
+	// - `trigger_rotated` means the run's cancellation generation changed before the copy was granted, either through trigger rotation or disabling seeding. Re-enabling does not advance the generation or undo that fence. This code alone does not establish that the trigger address changed.
+	// - `dispatch_deadline_exceeded` means the deadline for admitting this copy passed.
+	// - `control_rejected` means the trigger message was rejected.
+	// - `source_stopped` means the original source no longer authorizes seed sending.
+	// - `conflicting_examples` means the source contained conflicting examples, so none was selected.
+	// - `unsupported_source` means capture is unavailable for this source type.
+	// - `mixed_recipients` means the original message did not have exactly one recipient consisting of the trigger address.
+	// - `invalid_trigger` means the trigger address was invalid or no longer valid for this workspace.
+	// - `seeding_unavailable` means automatic-seeding capture was unavailable for this source.
+	// - `contact_template_unsupported` means the source template uses contact values that this capture path cannot freeze.
+	// - `source_not_authorized` means the source failed sending authorization during capture or registration.
+	// - `content_blocked` means the source content was rejected before capture.
+	// - `capture_expired` means the example capture deadline passed.
+	// - `capture_failed` means the example could not be captured.
+	// - `preparation_unavailable` means the frozen example could not be used for registration or preparation of a seed copy.
+	// - `policy_refused` means the seed copy failed sending-policy checks.
+	// - `unavailable` means a more specific reason cannot be shown.
+	// - `bounced` means the seed copy received a bounce outcome.
+	// - `rejected` means the seed copy received a rejection outcome.
+	// - `blocked` means the seed copy was blocked from sending.
+	// - `canceled` means the seed copy was canceled before sending.
+	// - `provider_outcome_unknown` means a provider submission may have occurred, but its result is unknown; the copy is not automatically resent.
+	// - `admission_uncertain` means the seed copy may have entered sending, but admission is unconfirmed; it is not automatically admitted again.
+	// - `admission_refused` means the seed copy was refused before entering sending.
+	Reason *AutomaticSeedingReason `json:"reason,omitempty"`
+
+	// Regions Regions frozen at run admission.
+	Regions *[]string `json:"regions,omitempty"`
+
+	// RegistrationFinishedAt Time the registration response was persisted.
+	RegistrationFinishedAt *time.Time `json:"registration_finished_at,omitempty"`
+
+	// RegistrationStartedAt Registration admission time.
+	RegistrationStartedAt *time.Time `json:"registration_started_at,omitempty"`
+
+	// RetainUntil Time after which this run is no longer available.
+	RetainUntil time.Time `json:"retain_until"`
+
+	// SendingDomain Present after registration establishes the sending domain.
+	SendingDomain *string `json:"sending_domain,omitempty"`
+
+	// Source Original customer source. This never identifies a generated seed copy. Scheduled means an API-scheduled email.
+	Source AutomaticSeedingSource `json:"source"`
+
+	// SourceCreatedAt Original source execution time.
+	SourceCreatedAt time.Time `json:"source_created_at"`
+
+	// State Execution state, separate from delivery and inbox placement:
+	// - `pending`: the run is recorded and registration has not started.
+	// - `registering`: registration is in progress. A stop request can coexist with an in-flight registration.
+	// - `registration_uncertain`: the registration result is unknown. Registration is not automatically repeated, and uncertainty remains visible after a stop.
+	// - `ready`: registration has produced a retained seed plan; dispatch scheduling has not started.
+	// - `dispatching`: the scheduler is admitting planned copies or recovering earlier handoffs.
+	// - `dispatch_complete`: scheduler work is acknowledged. Uncertain admission and pending delivery can remain.
+	// - `stopped`: new admissions are closed by a stop request, settings or trigger changes, or the dispatch deadline. Already granted copies may still send.
+	// - `failed`: registration failed or the source control was refused. New admissions cannot proceed; retained progress describes any copies already granted.
+	// Inspect progress and stop_requested_at alongside this state. A terminal run state does not recall previously granted or queued copies.
+	State AutomaticSeedingRunState `json:"state"`
+
+	// StopRequestedAt First durable stop, whether requested explicitly or imposed automatically. Already granted copies may still send.
+	StopRequestedAt *time.Time `json:"stop_requested_at,omitempty"`
+	UpdatedAt       *time.Time `json:"updated_at,omitempty"`
+}
+
+// AutomaticSeedingRunID defines model for AutomaticSeedingRunID.
+type AutomaticSeedingRunID = string
+
+// AutomaticSeedingRunList defines model for AutomaticSeedingRunList.
+type AutomaticSeedingRunList struct {
+	Data []AutomaticSeedingRun `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed, and omitted otherwise.
+	Total *int64 `json:"total,omitempty"`
+}
+
+// AutomaticSeedingRunSort Automatic seeding run ordering field.
+type AutomaticSeedingRunSort string
+
+// AutomaticSeedingRunState Execution state, separate from delivery and inbox placement:
+// - `pending`: the run is recorded and registration has not started.
+// - `registering`: registration is in progress. A stop request can coexist with an in-flight registration.
+// - `registration_uncertain`: the registration result is unknown. Registration is not automatically repeated, and uncertainty remains visible after a stop.
+// - `ready`: registration has produced a retained seed plan; dispatch scheduling has not started.
+// - `dispatching`: the scheduler is admitting planned copies or recovering earlier handoffs.
+// - `dispatch_complete`: scheduler work is acknowledged. Uncertain admission and pending delivery can remain.
+// - `stopped`: new admissions are closed by a stop request, settings or trigger changes, or the dispatch deadline. Already granted copies may still send.
+// - `failed`: registration failed or the source control was refused. New admissions cannot proceed; retained progress describes any copies already granted.
+// Inspect progress and stop_requested_at alongside this state. A terminal run state does not recall previously granted or queued copies.
+type AutomaticSeedingRunState string
+
+// AutomaticSeedingSettings Workspace automatic seeding settings. Before setup, revision is zero and the trigger address is absent. Unset list type, engagement profile and regions are omitted. Saved preferences are not checked against available seed-test options.
+type AutomaticSeedingSettings struct {
+	// Enabled Saved automatic-seeding preference.
+	Enabled bool `json:"enabled"`
+
+	// EngagementProfile Which engagement behaviour the seed addresses simulate. `all` mixes engaged and dormant seeds, which is what makes an engagement split measurable; single-cohort profiles exist too, and the usable set comes from the seed-test options rather than from this list.
+	EngagementProfile *EmailInboxInsightsSeedEngagementProfile `json:"engagement_profile,omitempty"`
+
+	// ListType Which pool of seed addresses a test uses. Which pools an account can use depends on what has been provisioned for it, so read the usable set from the seed-test options rather than assuming these are the only values.
+	ListType *EmailInboxInsightsSeedListType `json:"list_type,omitempty"`
+
+	// Regions Saved regions to place seeds in, as `regions[].value` names from `GET /v1/email/inbox-insights/seed-tests/configuration`. They are not checked against that list when saved.
+	Regions *[]string `json:"regions,omitempty"`
+
+	// Revision Current settings revision. Supply it when updating settings. Initialize settings before rotating the trigger address.
+	Revision int64 `json:"revision"`
+
+	// TriggerAddress Workspace trigger address for seeding examples. Absent before the first settings update. Using it requires authenticated sending access to this workspace; the address itself grants no access.
+	TriggerAddress *openapi_types.Email `json:"trigger_address,omitempty"`
+}
+
+// AutomaticSeedingSettingsUpdate Replace automatic seeding settings. Omitted selections clear the saved values. Enabling requires a list type, engagement profile and at least one region. Preferences are not checked against available seed-test options. A stale revision returns a conflict without changing settings.
+type AutomaticSeedingSettingsUpdate struct {
+	// Enabled Saved automatic-seeding preference.
+	Enabled bool `json:"enabled"`
+
+	// EngagementProfile Which engagement behaviour the seed addresses simulate. `all` mixes engaged and dormant seeds, which is what makes an engagement split measurable; single-cohort profiles exist too, and the usable set comes from the seed-test options rather than from this list.
+	EngagementProfile *EmailInboxInsightsSeedEngagementProfile `json:"engagement_profile,omitempty"`
+
+	// ExpectedRevision Revision from the latest settings read, or zero for initial setup.
+	ExpectedRevision int64 `json:"expected_revision"`
+
+	// ListType Which pool of seed addresses a test uses. Which pools an account can use depends on what has been provisioned for it, so read the usable set from the seed-test options rather than assuming these are the only values.
+	ListType *EmailInboxInsightsSeedListType `json:"list_type,omitempty"`
+
+	// Regions Regions to place seeds in. Use `regions[].value` exactly as returned by `GET /v1/email/inbox-insights/seed-tests/configuration` for the sending domain your examples come from. Whitespace-only names are rejected, but names are not checked against that list when saved; a name it does not offer makes a later run end with `selection_unavailable`.
+	Regions *[]string `json:"regions,omitempty"`
+}
+
+// AutomaticSeedingSource Original customer source. This never identifies a generated seed copy. Scheduled means an API-scheduled email.
+type AutomaticSeedingSource struct {
+	union json.RawMessage
+}
+
+// AutomaticSeedingSourceKind Origin of the source: `api` is an immediate API submission; `smtp` is an immediate SMTP submission; `scheduled` is an API-scheduled email; `broadcast` is a broadcast. This identifies origin regardless of capture outcome or run creation, including skipped unsupported broadcasts. Scheduled examples can be captured only when due. SMTP submissions cannot be scheduled.
+type AutomaticSeedingSourceKind string
+
+// AutomaticSeedingSourceList defines model for AutomaticSeedingSourceList.
+type AutomaticSeedingSourceList struct {
+	Data []AutomaticSeedingSourceObservation `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed, and omitted otherwise.
+	Total *int64 `json:"total,omitempty"`
+}
+
+// AutomaticSeedingSourceObservation defines model for AutomaticSeedingSourceObservation.
+type AutomaticSeedingSourceObservation struct {
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// Label Label from a trigger address, such as `spring-launch` in `<token>+spring-launch@...`. It is a display name and selects nothing.
+	Label *AutomaticSeedingTriggerLabel `json:"label,omitempty"`
+
+	// Reason A reason for a run or source outcome, or a seed-copy delivery or admission outcome.
+	//
+	// - `registration_rejected` means the seed-list registration was refused; no seed plan was created.
+	// - `allowance_exhausted` means the organization's seed-test allowance for this billing period was used up before registration; no seed plan was created.
+	// - `selection_unavailable` means the saved seed-list type, engagement profile or region is no longer offered for the sending domain; no seed plan was created.
+	// - `sending_domain_not_measured` means Inbox Insights is not measuring the example's sending domain; no seed plan was created.
+	// - `vendor_outcome_unknown` means the seed-list registration result is unknown; automatic registration retries are stopped and investigation is required.
+	// - `invalid_registration_response` means the returned seed list could not be used; no copies will be sent from that response.
+	// - `canceled_or_expired` means new seed admissions stopped because the run was canceled or its eligibility expired.
+	// - `run_stopped` means a stop request ended future seed admissions; already granted copies may still send.
+	// - `settings_disabled` means automatic seeding was disabled before the copy was granted.
+	// - `trigger_rotated` means the run's cancellation generation changed before the copy was granted, either through trigger rotation or disabling seeding. Re-enabling does not advance the generation or undo that fence. This code alone does not establish that the trigger address changed.
+	// - `dispatch_deadline_exceeded` means the deadline for admitting this copy passed.
+	// - `control_rejected` means the trigger message was rejected.
+	// - `source_stopped` means the original source no longer authorizes seed sending.
+	// - `conflicting_examples` means the source contained conflicting examples, so none was selected.
+	// - `unsupported_source` means capture is unavailable for this source type.
+	// - `mixed_recipients` means the original message did not have exactly one recipient consisting of the trigger address.
+	// - `invalid_trigger` means the trigger address was invalid or no longer valid for this workspace.
+	// - `seeding_unavailable` means automatic-seeding capture was unavailable for this source.
+	// - `contact_template_unsupported` means the source template uses contact values that this capture path cannot freeze.
+	// - `source_not_authorized` means the source failed sending authorization during capture or registration.
+	// - `content_blocked` means the source content was rejected before capture.
+	// - `capture_expired` means the example capture deadline passed.
+	// - `capture_failed` means the example could not be captured.
+	// - `preparation_unavailable` means the frozen example could not be used for registration or preparation of a seed copy.
+	// - `policy_refused` means the seed copy failed sending-policy checks.
+	// - `unavailable` means a more specific reason cannot be shown.
+	// - `bounced` means the seed copy received a bounce outcome.
+	// - `rejected` means the seed copy received a rejection outcome.
+	// - `blocked` means the seed copy was blocked from sending.
+	// - `canceled` means the seed copy was canceled before sending.
+	// - `provider_outcome_unknown` means a provider submission may have occurred, but its result is unknown; the copy is not automatically resent.
+	// - `admission_uncertain` means the seed copy may have entered sending, but admission is unconfirmed; it is not automatically admitted again.
+	// - `admission_refused` means the seed copy was refused before entering sending.
+	Reason *AutomaticSeedingReason `json:"reason,omitempty"`
+
+	// RetainUntil Time after which the observation is unavailable.
+	RetainUntil time.Time              `json:"retain_until"`
+	RunId       *AutomaticSeedingRunID `json:"run_id,omitempty"`
+
+	// Source Original customer source. This never identifies a generated seed copy. Scheduled means an API-scheduled email.
+	Source AutomaticSeedingSource `json:"source"`
+
+	// SourceCreatedAt Original source execution time.
+	SourceCreatedAt time.Time `json:"source_created_at"`
+
+	// State State of the source example, separate from the run's sending progress:
+	// - `scheduled`: the API-scheduled source is waiting for its due time; capture has not started.
+	// - `capturing`: capture is in progress and can already have an associated run.
+	// - `captured`: immutable example content was committed for a run; this does not mean seeds were sent.
+	// - `skipped`: the source did not complete eligible capture. The reason explains the refusal; a run can exist if refusal occurred after admission.
+	// - `stopped`: the scheduled source was canceled; capture will not continue.
+	// - `failed`: the scheduled source failed; capture will not continue.
+	// Source observations can exist without a run. run_id is present only while an associated run is retained.
+	State     AutomaticSeedingSourceState `json:"state"`
+	UpdatedAt *time.Time                  `json:"updated_at,omitempty"`
+}
+
+// AutomaticSeedingSourceSort Automatic seeding source ordering field.
+type AutomaticSeedingSourceSort string
+
+// AutomaticSeedingSourceState State of the source example, separate from the run's sending progress:
+// - `scheduled`: the API-scheduled source is waiting for its due time; capture has not started.
+// - `capturing`: capture is in progress and can already have an associated run.
+// - `captured`: immutable example content was committed for a run; this does not mean seeds were sent.
+// - `skipped`: the source did not complete eligible capture. The reason explains the refusal; a run can exist if refusal occurred after admission.
+// - `stopped`: the scheduled source was canceled; capture will not continue.
+// - `failed`: the scheduled source failed; capture will not continue.
+// Source observations can exist without a run. run_id is present only while an associated run is retained.
+type AutomaticSeedingSourceState string
+
+// AutomaticSeedingTriggerLabel Label from a trigger address, such as `spring-launch` in `<token>+spring-launch@...`. It is a display name and selects nothing.
+type AutomaticSeedingTriggerLabel = string
 
 // AutomationPortKey Stable named input or output declared by a node-type version.
 type AutomationPortKey = string
@@ -17609,6 +18320,7 @@ type EmailBroadcastFailureParameters struct {
 	// - `parameter_map_invalid`: `template.parameters` or `template.parameter_overrides` is not a JSON object of input names.
 	// - `parameter_name_invalid`: an input name is not a bare name outside the `bird` namespace.
 	// - `parameter_value_unsupported`: an input value is an object or a list. Values must be a string, number, boolean or null.
+	// - `parameter_liquid_unsupported`: an input value the email uses contains Liquid, such as `{{` or `{%`. Values are sent as written, so the broadcast cannot send; put Liquid in the template instead.
 	// - `parameter_duplicate_key`: an input name, or two spellings of one language tag, appears twice.
 	// - `parameter_bytes_exceeded`: an input map is larger than 16384 UTF-8 bytes.
 	// - `parameter_names_exceeded`: `template.parameters` and every language together hold more than 128 distinct names.
@@ -17737,6 +18449,7 @@ type EmailBroadcastParameterProblem struct {
 	// - `parameter_map_invalid`: `template.parameters` or `template.parameter_overrides` is not a JSON object of input names.
 	// - `parameter_name_invalid`: an input name is not a bare name outside the `bird` namespace.
 	// - `parameter_value_unsupported`: an input value is an object or a list. Values must be a string, number, boolean or null.
+	// - `parameter_liquid_unsupported`: an input value the email uses contains Liquid, such as `{{` or `{%`. Values are sent as written, so the broadcast cannot send; put Liquid in the template instead.
 	// - `parameter_duplicate_key`: an input name, or two spellings of one language tag, appears twice.
 	// - `parameter_bytes_exceeded`: an input map is larger than 16384 UTF-8 bytes.
 	// - `parameter_names_exceeded`: `template.parameters` and every language together hold more than 128 distinct names.
@@ -17795,6 +18508,7 @@ type EmailBroadcastParameterProblem struct {
 // - `parameter_map_invalid`: `template.parameters` or `template.parameter_overrides` is not a JSON object of input names.
 // - `parameter_name_invalid`: an input name is not a bare name outside the `bird` namespace.
 // - `parameter_value_unsupported`: an input value is an object or a list. Values must be a string, number, boolean or null.
+// - `parameter_liquid_unsupported`: an input value the email uses contains Liquid, such as `{{` or `{%`. Values are sent as written, so the broadcast cannot send; put Liquid in the template instead.
 // - `parameter_duplicate_key`: an input name, or two spellings of one language tag, appears twice.
 // - `parameter_bytes_exceeded`: an input map is larger than 16384 UTF-8 bytes.
 // - `parameter_names_exceeded`: `template.parameters` and every language together hold more than 128 distinct names.
@@ -17839,7 +18553,7 @@ type EmailBroadcastParameterProblemSeverity string
 // A custom header is reported as `header:` followed by the header name as the broadcast sets it, for example `header:X-Campaign`.
 type EmailBroadcastParameterProblemSite string
 
-// EmailBroadcastParameters Complete template input map. Each value is a string, number, boolean or null and is used exactly as given, so text containing braces or code-like syntax is never evaluated. Objects and lists are not accepted. Use bird.contact.first_name in the template for contact data. Names must be bare input names outside the bird namespace. Omission retains the map unless the template ID changes, which clears it; an empty object clears it, and null is invalid. The compact map is limited to 16384 UTF-8 bytes and 128 names. Individual email parameters keep their own format.
+// EmailBroadcastParameters Complete template input map. Each value is a string, number, boolean or null and is used exactly as given, so text containing braces or code-like syntax is never evaluated. A value the template uses that opens Liquid (`{{`, or `{%` not followed by a digit) stops the broadcast from sending. Objects and lists are not accepted. Use bird.contact.first_name in the template for contact data. Names must be bare input names outside the bird namespace. Omission retains the map unless the template ID changes, which clears it; an empty object clears it, and null is invalid. The compact map is limited to 16384 UTF-8 bytes and 128 names. Individual email parameters keep their own format.
 type EmailBroadcastParameters map[string]interface{}
 
 // EmailBroadcastPreviewContact defines model for EmailBroadcastPreviewContact.
@@ -18033,7 +18747,7 @@ type EmailBroadcastTemplate struct {
 	// ParameterOverrides Complete map of per-language parameter values, keyed by a BCP-47 language tag of at most 35 characters such as `es` or `pt-BR`. Each language holds only the names whose value differs for that language; a name it leaves out uses the value in `parameters`, including later changes to it. A value that is present always applies, even when it is `""`, `0`, `false`, `null` or equal to the `parameters` value. To return a name to the `parameters` value, send the map without it. Sending this map, even as `{}`, applies language rules to the broadcast: `parameters` must hold every input the default language's content, sender name, reply-to or headers use, and an input only the selected language uses may come from that language's entry instead. A broadcast that never sends it keeps the selected-language rules. Values for the default language, or for a language the broadcast does not send, are kept but not used. Omission retains the map unless the template ID changes, which clears it; an empty object removes every override, null is invalid and a language with no names is removed. Tags are stored in canonical BCP-47 form, so two spellings of one tag are refused. The compact map is limited to 16384 UTF-8 bytes, and `parameters` and every language together are limited to 128 distinct names.
 	ParameterOverrides *EmailBroadcastParameterOverrides `json:"parameter_overrides,omitempty" pii:"true"`
 
-	// Parameters Complete template input map. Each value is a string, number, boolean or null and is used exactly as given, so text containing braces or code-like syntax is never evaluated. Objects and lists are not accepted. Use bird.contact.first_name in the template for contact data. Names must be bare input names outside the bird namespace. Omission retains the map unless the template ID changes, which clears it; an empty object clears it, and null is invalid. The compact map is limited to 16384 UTF-8 bytes and 128 names. Individual email parameters keep their own format.
+	// Parameters Complete template input map. Each value is a string, number, boolean or null and is used exactly as given, so text containing braces or code-like syntax is never evaluated. A value the template uses that opens Liquid (`{{`, or `{%` not followed by a digit) stops the broadcast from sending. Objects and lists are not accepted. Use bird.contact.first_name in the template for contact data. Names must be bare input names outside the bird namespace. Omission retains the map unless the template ID changes, which clears it; an empty object clears it, and null is invalid. The compact map is limited to 16384 UTF-8 bytes and 128 names. Individual email parameters keep their own format.
 	Parameters *EmailBroadcastParameters `json:"parameters,omitempty" pii:"true"`
 
 	// VersionId The template version this broadcast is fixed to. It is chosen when the broadcast is prepared for sending, so publishing a new version while the broadcast is going out cannot change what the rest of the recipients get. Null until the broadcast is prepared.
@@ -18050,7 +18764,7 @@ type EmailBroadcastTemplateCreate struct {
 	// ParameterOverrides Complete map of per-language parameter values, keyed by a BCP-47 language tag of at most 35 characters such as `es` or `pt-BR`. Each language holds only the names whose value differs for that language; a name it leaves out uses the value in `parameters`, including later changes to it. A value that is present always applies, even when it is `""`, `0`, `false`, `null` or equal to the `parameters` value. To return a name to the `parameters` value, send the map without it. Sending this map, even as `{}`, applies language rules to the broadcast: `parameters` must hold every input the default language's content, sender name, reply-to or headers use, and an input only the selected language uses may come from that language's entry instead. A broadcast that never sends it keeps the selected-language rules. Values for the default language, or for a language the broadcast does not send, are kept but not used. Omission retains the map unless the template ID changes, which clears it; an empty object removes every override, null is invalid and a language with no names is removed. Tags are stored in canonical BCP-47 form, so two spellings of one tag are refused. The compact map is limited to 16384 UTF-8 bytes, and `parameters` and every language together are limited to 128 distinct names.
 	ParameterOverrides *EmailBroadcastParameterOverrides `json:"parameter_overrides,omitempty" pii:"true"`
 
-	// Parameters Complete template input map. Each value is a string, number, boolean or null and is used exactly as given, so text containing braces or code-like syntax is never evaluated. Objects and lists are not accepted. Use bird.contact.first_name in the template for contact data. Names must be bare input names outside the bird namespace. Omission retains the map unless the template ID changes, which clears it; an empty object clears it, and null is invalid. The compact map is limited to 16384 UTF-8 bytes and 128 names. Individual email parameters keep their own format.
+	// Parameters Complete template input map. Each value is a string, number, boolean or null and is used exactly as given, so text containing braces or code-like syntax is never evaluated. A value the template uses that opens Liquid (`{{`, or `{%` not followed by a digit) stops the broadcast from sending. Objects and lists are not accepted. Use bird.contact.first_name in the template for contact data. Names must be bare input names outside the bird namespace. Omission retains the map unless the template ID changes, which clears it; an empty object clears it, and null is invalid. The compact map is limited to 16384 UTF-8 bytes and 128 names. Individual email parameters keep their own format.
 	Parameters *EmailBroadcastParameters `json:"parameters,omitempty" pii:"true"`
 }
 
@@ -18065,7 +18779,7 @@ type EmailBroadcastTemplateUpdate struct {
 	// ParameterOverrides Complete map of per-language parameter values, keyed by a BCP-47 language tag of at most 35 characters such as `es` or `pt-BR`. Each language holds only the names whose value differs for that language; a name it leaves out uses the value in `parameters`, including later changes to it. A value that is present always applies, even when it is `""`, `0`, `false`, `null` or equal to the `parameters` value. To return a name to the `parameters` value, send the map without it. Sending this map, even as `{}`, applies language rules to the broadcast: `parameters` must hold every input the default language's content, sender name, reply-to or headers use, and an input only the selected language uses may come from that language's entry instead. A broadcast that never sends it keeps the selected-language rules. Values for the default language, or for a language the broadcast does not send, are kept but not used. Omission retains the map unless the template ID changes, which clears it; an empty object removes every override, null is invalid and a language with no names is removed. Tags are stored in canonical BCP-47 form, so two spellings of one tag are refused. The compact map is limited to 16384 UTF-8 bytes, and `parameters` and every language together are limited to 128 distinct names.
 	ParameterOverrides *EmailBroadcastParameterOverrides `json:"parameter_overrides,omitempty" pii:"true"`
 
-	// Parameters Complete template input map. Each value is a string, number, boolean or null and is used exactly as given, so text containing braces or code-like syntax is never evaluated. Objects and lists are not accepted. Use bird.contact.first_name in the template for contact data. Names must be bare input names outside the bird namespace. Omission retains the map unless the template ID changes, which clears it; an empty object clears it, and null is invalid. The compact map is limited to 16384 UTF-8 bytes and 128 names. Individual email parameters keep their own format.
+	// Parameters Complete template input map. Each value is a string, number, boolean or null and is used exactly as given, so text containing braces or code-like syntax is never evaluated. A value the template uses that opens Liquid (`{{`, or `{%` not followed by a digit) stops the broadcast from sending. Objects and lists are not accepted. Use bird.contact.first_name in the template for contact data. Names must be bare input names outside the bird namespace. Omission retains the map unless the template ID changes, which clears it; an empty object clears it, and null is invalid. The compact map is limited to 16384 UTF-8 bytes and 128 names. Individual email parameters keep their own format.
 	Parameters *EmailBroadcastParameters `json:"parameters,omitempty" pii:"true"`
 }
 
@@ -20874,7 +21588,7 @@ type EmailInboxInsightsWindow struct {
 	Start *openapi_types.Date `json:"start,omitempty"`
 }
 
-// EmailLabelsUpdate Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. `set` instead replaces every custom label and leaves system labels as they are; send it on its own, since combining it with `add` or `remove` returns 422. On a message, adding or removing `unread` flips read state. Adding or removing `trash` moves it to or out of the trash. Placement labels cannot be applied to a message; use `folder` on [Update a thread](/docs/api/reference/update-email-thread) (`PATCH /v1/email/threads/{thread_id}`) to move its conversation. A sent message cannot use unread. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `assigned`, `closed`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `open`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be applied as custom labels, in any casing. A label applied before its name was reserved can still be removed, added again under the same name with no effect, and kept in a `set` in any casing. A conversation or message has at most 20 labels, system labels included. A custom name added or set that the workspace does not have yet becomes a workspace label that stays after it is removed from every conversation; once the workspace has 100 labels, a write that would create one more is refused with `E17058`. A name in both `add` and `remove` is removed and does not count as added. Custom label names match the workspace's labels in any casing: adding `Urgent` where the workspace has `urgent` applies `urgent`, and responses return the workspace's spelling.
+// EmailLabelsUpdate Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. `set` instead replaces every custom label and leaves system labels as they are; send it on its own, since combining it with `add` or `remove` returns 422. On a message, adding or removing `unread` flips read state. Adding or removing `trash` moves it to or out of the trash. Placement labels cannot be applied to a message; use `folder` on [Update a thread](/docs/api/reference/update-email-thread) (`PATCH /v1/email/threads/{thread_id}`) to move its conversation. A sent message cannot use unread. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `assigned`, `closed`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `open`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be applied as custom labels, in any casing. A label applied before its name was reserved can still be removed, added again under the same name with no effect, and kept in a `set` in any casing. A conversation or message has at most 20 labels, system labels included. A custom name added or set that the workspace does not have yet becomes a workspace label that stays after it is removed from every conversation; once the workspace has 100 labels, a write that would create one more is refused with `E17057`. A name in both `add` and `remove` is removed and does not count as added. Custom label names match the workspace's labels in any casing: adding `Urgent` where the workspace has `urgent` applies `urgent`, and responses return the workspace's spelling.
 type EmailLabelsUpdate struct {
 	// Add Labels to apply.
 	Add *[]string `json:"add,omitempty"`
@@ -21104,43 +21818,6 @@ type EmailMailboxComposeRequest struct {
 	To []EmailAddressInput `json:"to"`
 }
 
-// EmailMailboxLabel One label available in a mailbox.
-type EmailMailboxLabel struct {
-	// Name The label name, as it appears on conversations and messages.
-	Name *string `json:"name,omitempty"`
-
-	// Type `system` labels are the built-in placements a message can be in:
-	//
-	// - Inbox.
-	// - Archive.
-	// - Spam.
-	// - Blocked.
-	// - Sent.
-	// - Trash.
-	// - Unread.
-	//
-	// `custom` labels are the workspace's own tags.
-	Type *EmailMailboxLabelType `json:"type,omitempty"`
-}
-
-// EmailMailboxLabelType `system` labels are the built-in placements a message can be in:
-//
-// - Inbox.
-// - Archive.
-// - Spam.
-// - Blocked.
-// - Sent.
-// - Trash.
-// - Unread.
-//
-// `custom` labels are the workspace's own tags.
-type EmailMailboxLabelType string
-
-// EmailMailboxLabelList The labels available in a mailbox.
-type EmailMailboxLabelList struct {
-	Data []EmailMailboxLabel `json:"data"`
-}
-
 // EmailMailboxProviderDeliveryStats Delivery counts and rates for messages attributed to a single recipient mailbox provider. Per-provider results do not include `accepted` or `processed` counts, because we only learn the recipient's mailbox provider once the receiving mail server reports delivery, a bounce, a deferral, or a late bounce. Earlier lifecycle states (accepted, processed) cannot be attributed to a specific provider.
 type EmailMailboxProviderDeliveryStats struct {
 	// BounceRate Share of attempted recipients on this mailbox provider that bounced, computed as `bounced / (delivered + bounced)`. Null when `delivered + bounced` is zero (no attempts).
@@ -21318,7 +21995,7 @@ type EmailMessage struct {
 	// OpenCount Total open events across all recipients.
 	OpenCount *int `json:"open_count,omitempty"`
 
-	// Parameters The substitution values this send supplied, whether inline or from a template, or null if none were supplied. They are the values applied to `subject` and to the bodies the content endpoint returns, kept so you can see what produced the delivered copy and not only the result.
+	// Parameters Public substitution values used for the subject and message bodies, whether supplied inline or through a template. Reserved internal keys and the exact top-level `bird_unsub_token` key are omitted, even if caller-supplied. Returns null when no public values remain.
 	Parameters *map[string]interface{} `json:"parameters,omitempty"`
 
 	// ProcessedCount How many recipients the message has been prepared for and queued for delivery.
@@ -23740,7 +24417,7 @@ type EmailThreadHighlights struct {
 	Text *[]string `json:"text,omitempty"`
 }
 
-// EmailThreadLabelsUpdate Custom labels to add or remove, or the full set to replace them with. Send `set` on its own; combining it with `add` or `remove` returns 422. System names are refused; use read and folder for thread state. Reserved names are refused too, except a label the conversation already carries from before its name was reserved, which can still be removed, and kept in a `set` in any casing. The resulting custom-label set must contain at most 20 labels; larger sets return 422. A custom name added or set that the workspace does not have yet becomes a workspace label that stays after it is removed from every conversation; once the workspace has 100 labels, a write that would create one more is refused with `E17058`. Custom label names match the workspace's labels in any casing, so adding `Urgent` where the workspace has `urgent` applies `urgent`, and responses return the workspace's spelling.
+// EmailThreadLabelsUpdate Custom labels to add or remove, or the full set to replace them with. Send `set` on its own; combining it with `add` or `remove` returns 422. System names are refused; use read and folder for thread state. Reserved names are refused too, except a label the conversation already carries from before its name was reserved, which can still be removed, and kept in a `set` in any casing. The resulting custom-label set must contain at most 20 labels; larger sets return 422. A custom name added or set that the workspace does not have yet becomes a workspace label that stays after it is removed from every conversation; once the workspace has 100 labels, a write that would create one more is refused with `E17057`. Custom label names match the workspace's labels in any casing, so adding `Urgent` where the workspace has `urgent` applies `urgent`, and responses return the workspace's spelling.
 type EmailThreadLabelsUpdate struct {
 	// Add Labels to apply.
 	Add *[]string `json:"add,omitempty"`
@@ -24003,7 +24680,7 @@ type EmailThreadMessageUpdateRequest struct {
 	// ContactId Contact to link this message to, or null to unlink the current contact.
 	ContactId nullable.Nullable[ContactID] `json:"contact_id,omitempty"`
 
-	// Labels Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. `set` instead replaces every custom label and leaves system labels as they are; send it on its own, since combining it with `add` or `remove` returns 422. On a message, adding or removing `unread` flips read state. Adding or removing `trash` moves it to or out of the trash. Placement labels cannot be applied to a message; use `folder` on [Update a thread](/docs/api/reference/update-email-thread) (`PATCH /v1/email/threads/{thread_id}`) to move its conversation. A sent message cannot use unread. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `assigned`, `closed`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `open`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be applied as custom labels, in any casing. A label applied before its name was reserved can still be removed, added again under the same name with no effect, and kept in a `set` in any casing. A conversation or message has at most 20 labels, system labels included. A custom name added or set that the workspace does not have yet becomes a workspace label that stays after it is removed from every conversation; once the workspace has 100 labels, a write that would create one more is refused with `E17058`. A name in both `add` and `remove` is removed and does not count as added. Custom label names match the workspace's labels in any casing: adding `Urgent` where the workspace has `urgent` applies `urgent`, and responses return the workspace's spelling.
+	// Labels Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. `set` instead replaces every custom label and leaves system labels as they are; send it on its own, since combining it with `add` or `remove` returns 422. On a message, adding or removing `unread` flips read state. Adding or removing `trash` moves it to or out of the trash. Placement labels cannot be applied to a message; use `folder` on [Update a thread](/docs/api/reference/update-email-thread) (`PATCH /v1/email/threads/{thread_id}`) to move its conversation. A sent message cannot use unread. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `assigned`, `closed`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `open`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be applied as custom labels, in any casing. A label applied before its name was reserved can still be removed, added again under the same name with no effect, and kept in a `set` in any casing. A conversation or message has at most 20 labels, system labels included. A custom name added or set that the workspace does not have yet becomes a workspace label that stays after it is removed from every conversation; once the workspace has 100 labels, a write that would create one more is refused with `E17057`. A name in both `add` and `remove` is removed and does not count as added. Custom label names match the workspace's labels in any casing: adding `Urgent` where the workspace has `urgent` applies `urgent`, and responses return the workspace's spelling.
 	Labels *EmailLabelsUpdate `json:"labels,omitempty"`
 }
 
@@ -24027,7 +24704,7 @@ type EmailThreadUpdateRequest struct {
 	// Folder Folder a caller can choose through PATCH. Use DELETE to move a thread to trash and [Restore a thread from trash](/docs/api/reference/restore-email-thread) (POST /v1/email/threads/{thread_id}/restore) to recover it.
 	Folder *EmailThreadWritableFolder `json:"folder,omitempty"`
 
-	// Labels Custom labels to add or remove, or the full set to replace them with. Send `set` on its own; combining it with `add` or `remove` returns 422. System names are refused; use read and folder for thread state. Reserved names are refused too, except a label the conversation already carries from before its name was reserved, which can still be removed, and kept in a `set` in any casing. The resulting custom-label set must contain at most 20 labels; larger sets return 422. A custom name added or set that the workspace does not have yet becomes a workspace label that stays after it is removed from every conversation; once the workspace has 100 labels, a write that would create one more is refused with `E17058`. Custom label names match the workspace's labels in any casing, so adding `Urgent` where the workspace has `urgent` applies `urgent`, and responses return the workspace's spelling.
+	// Labels Custom labels to add or remove, or the full set to replace them with. Send `set` on its own; combining it with `add` or `remove` returns 422. System names are refused; use read and folder for thread state. Reserved names are refused too, except a label the conversation already carries from before its name was reserved, which can still be removed, and kept in a `set` in any casing. The resulting custom-label set must contain at most 20 labels; larger sets return 422. A custom name added or set that the workspace does not have yet becomes a workspace label that stays after it is removed from every conversation; once the workspace has 100 labels, a write that would create one more is refused with `E17057`. Custom label names match the workspace's labels in any casing, so adding `Urgent` where the workspace has `urgent` applies `urgent`, and responses return the workspace's spelling.
 	Labels *EmailThreadLabelsUpdate `json:"labels,omitempty"`
 
 	// Read Mark all retained received messages read or unread. Includes trash, spam and blocked messages; unread_count continues to exclude them.
@@ -28208,6 +28885,63 @@ type InboundRouteUpdateAction string
 
 // InboundRouteUpdateMatchType How the route matches recipients.
 type InboundRouteUpdateMatchType string
+
+// Label defines model for Label.
+type Label struct {
+	// Color The label colour as a `#RRGGBB` hex value, or `null` when none is set.
+	Color     *LabelColor `json:"color"`
+	CreatedAt *time.Time  `json:"created_at,omitempty"`
+
+	// Description When to apply the label, or `null` when none is set.
+	Description *LabelDescription `json:"description"`
+	Id          LabelID           `json:"id"`
+
+	// Name The label name, unique in the workspace regardless of case. No commas, control characters, or leading or trailing whitespace. System names such as `inbox`, `sent`, `unread`, `open` or `assigned` are reserved.
+	Name      LabelName  `json:"name"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+}
+
+// LabelColor The label colour as a `#RRGGBB` hex value.
+type LabelColor = string
+
+// LabelCreate defines model for LabelCreate.
+type LabelCreate struct {
+	// Color The label colour as a `#RRGGBB` hex value.
+	Color *LabelColor `json:"color,omitempty"`
+
+	// Description When to apply the label. People and agents read it when they decide which label fits.
+	Description *LabelDescription `json:"description,omitempty"`
+
+	// Name The label name, unique in the workspace regardless of case. No commas, control characters, or leading or trailing whitespace. System names such as `inbox`, `sent`, `unread`, `open` or `assigned` are reserved.
+	Name LabelName `json:"name"`
+}
+
+// LabelDescription When to apply the label. People and agents read it when they decide which label fits.
+type LabelDescription = string
+
+// LabelID defines model for LabelID.
+type LabelID = string
+
+// LabelList defines model for LabelList.
+type LabelList struct {
+	// Data Every label in the workspace, ordered by name.
+	Data []Label `json:"data"`
+}
+
+// LabelName The label name, unique in the workspace regardless of case. No commas, control characters, or leading or trailing whitespace. System names such as `inbox`, `sent`, `unread`, `open` or `assigned` are reserved.
+type LabelName = string
+
+// LabelUpdate Fields to change. Omitted fields are left unchanged; `null` clears `color` or `description`. A body with none of `name`, `color` or `description` is refused; one that resends current values is accepted.
+type LabelUpdate struct {
+	// Color The new colour, or `null` to remove it.
+	Color nullable.Nullable[LabelColor] `json:"color,omitempty"`
+
+	// Description The new description, or `null` to remove it.
+	Description nullable.Nullable[LabelDescription] `json:"description,omitempty"`
+
+	// Name The label name, unique in the workspace regardless of case. No commas, control characters, or leading or trailing whitespace. System names such as `inbox`, `sent`, `unread`, `open` or `assigned` are reserved.
+	Name *LabelName `json:"name,omitempty"`
+}
 
 // LanguageTag A language tag in BCP-47 form, for example `en` or `pt-BR`.
 type LanguageTag = string
@@ -36015,10 +36749,10 @@ type WhatsAppKeywordRule struct {
 
 	// EffectiveKeywords Every keyword that matches this rule: Bird's keywords for the same operation and country, minus `excluded_keywords`, plus the ones you added. This is what an inbound message is compared against, and the whole message has to equal one of them. Keywords Bird adds later join it without you changing anything.
 	//
-	// For a rule of **yours** with no `country`, this list is not the whole set it matches: such a rule compares against Bird's keywords for the sender's country, which the list cannot show because it does not know who is writing, so it shows Bird's worldwide keywords instead. Which rule answers decides whether that matters. Yours with no `country` and no `waba` sits below Bird's own country rule, so a sender in a country Bird ships a rule for is answered by that rule and your reply is not used. Yours with a `waba` and no `country` sits above it, so those senders match that country's keywords and get your reply, which is more keywords than this list names. Set a `country` on your own rule to see and extend exactly the set those senders match. A `system` rule is unaffected: each matches only its own keywords, and the ladder checks Bird's country rules separately from its worldwide one.
+	// For a rule of **yours** with no `country`, this list is not the whole set it matches: such a rule compares against Bird's keywords for the sender's country, which the list cannot show because it does not know who is writing, so it shows Bird's worldwide keywords instead. Which rule answers decides whether that matters. Yours with no `country` and no `waba` sits below Bird's own country rule, so when a sender in a country Bird ships a rule for writes one of Bird's keywords, that rule answers and your reply is not used. A keyword you added reaches your rule only when no earlier rule matches it, and for a given sender the matched set can differ from this list in either direction. Yours with a `waba` and no `country` sits above it, so those senders match that country's keywords and get your reply, which is more keywords than this list names. Set a `country` on your own rule to see and extend exactly the set those senders match. A `system` rule is unaffected: each matches only its own keywords, and the ladder checks Bird's country rules separately from its worldwide one.
 	EffectiveKeywords []string `json:"effective_keywords"`
 
-	// ExcludedKeywords Bird's keywords this rule removes from the set it inherits. A message that is exactly one of them opts no one in or out and gets no reply for the people the rule covers, and Bird's own rule does not act on it instead. Excluding every one of Bird's keywords switches them off, though a keyword Bird adds later still matches. It removes only from the Bird rule this rule inherits from: a keyword another rule of yours adds, or one Bird ships only in another country's rule, is unaffected. Always empty on one of Bird's own rules.
+	// ExcludedKeywords Bird's keywords this rule removes from the set it inherits. Rules are tried most specific first, and a rule of yours with neither `country` nor `waba` comes after Bird's rule for the sender's country, as `effective_keywords` explains. When this rule answers a message that is exactly an excluded keyword, no one is opted in or out, no reply is sent, and no later rule acts on it, whether Bird's or another of yours that matches the same keyword. A more specific rule that answers first is unaffected. A rule with no `country` inherits Bird's keywords for each sender's country, so its exclusions apply only to senders whose set has the keyword. Excluding every one of Bird's keywords switches them off where this rule answers, though a keyword Bird adds later still matches unless it is already excluded. It changes no other rule's keywords. Always empty on one of Bird's own rules.
 	ExcludedKeywords []string              `json:"excluded_keywords"`
 	Id               WhatsAppKeywordRuleID `json:"id"`
 
@@ -36059,7 +36793,7 @@ type WhatsAppKeywordRuleCreate struct {
 	// Country The country this rule applies in, as an ISO 3166-1 alpha-2 code. It matches the country of the person who messaged you, worked out from their phone number. Omit it to cover everyone, which is what Bird's own rules do.
 	Country *string `json:"country,omitempty"`
 
-	// ExcludedKeywords Bird's keywords to remove for the people this rule covers. A message that is exactly one of them then opts no one in or out and gets no reply, and you must honour opt-outs it carries yourself. Exclude every one of Bird's keywords to switch them off; a keyword Bird adds later still matches. It removes only from the Bird rule this one inherits from, not from your other rules. A keyword cannot be both added and excluded.
+	// ExcludedKeywords Bird's keywords to remove for the people this rule covers. Rules are tried most specific first: a more specific rule of yours answers before this one, and with neither `country` nor `waba` so does Bird's rule for the sender's country. When this rule answers a message that is exactly an excluded keyword, no one is opted in or out, no reply is sent, and no less specific rule acts on it, so you must honour opt-outs it carries yourself. Without a `country`, the rule inherits Bird's keywords for each sender's country, so an exclusion covers only senders whose set has that keyword. Exclude every one of Bird's keywords to switch them off where this rule answers; a keyword Bird adds later still matches unless it is already excluded. It changes none of your other rules. A keyword cannot be both added and excluded.
 	ExcludedKeywords *[]string `json:"excluded_keywords,omitempty"`
 
 	// Keywords Extra keywords to match, on top of the ones Bird already ships for this operation. Omit to keep Bird's keywords and change only the reply, including keywords Bird adds later. Use `excluded_keywords` to remove one of Bird's. A keyword Bird has bound to the other operation cannot be reused here.
@@ -37861,7 +38595,7 @@ type WhatsAppTemplateLanguageUpsert struct {
 	// MessageSendTtlSeconds How long WhatsApp keeps trying to deliver a message from this language, in seconds. WhatsApp drops a message it cannot deliver in that time. Omit it to keep the current value. Send `null` to use WhatsApp's default: 10 minutes for authentication, 30 days for utility and marketing. A new language written without it uses WhatsApp's default. The range depends on the language's `category`: 30 to 900 for authentication, 30 to 43200 for utility, and 43200 to 1209600 for marketing. A value outside 30 to 1209600 fails request validation; one inside it but outside the category's range fails with `WhatsAppTemplateTTLOutOfRange`. On a marketing template, the value applies while the business account's `marketing_messages_onboarding_status` is `onboarded`. Changing only this value updates WhatsApp without a new review.
 	MessageSendTtlSeconds nullable.Nullable[int] `json:"message_send_ttl_seconds,omitempty"`
 
-	// OptimizationSpec This language's maximum price. Omit it to keep the current one. A new language written without it uses Meta's standard rate. Send `null` to return to the standard rate. Changing only the price updates Meta without a new review. A send at a maximum price needs the business account's `marketing_messages_onboarding_status` to be `onboarded`. Otherwise it fails with WhatsApp error 131061.
+	// OptimizationSpec This language's maximum price. Omit it to keep the current one. A new language written without it uses Meta's standard rate. Send `null` to return to the standard rate. Changing only the price updates Meta without a new review.
 	OptimizationSpec nullable.Nullable[WhatsAppTemplateOptimizationSpecWrite] `json:"optimization_spec,omitempty"`
 
 	// ParameterBindings Liquid that computes this language's send values from the send's `template.parameters`. Omit it to keep the current bindings, and send `null` to remove them. Changing only the bindings never needs a new review.
@@ -38643,6 +39377,18 @@ type UnderscoreListEnvelopeWithTotal struct {
 
 // AssetUploadSessionId defines model for AssetUploadSessionId.
 type AssetUploadSessionId = AssetUploadSessionID
+
+// AutomaticSeedingRunIDPath defines model for AutomaticSeedingRunIDPath.
+type AutomaticSeedingRunIDPath = AutomaticSeedingRunID
+
+// AutomaticSeedingSourceBroadcastFilter defines model for AutomaticSeedingSourceBroadcastFilter.
+type AutomaticSeedingSourceBroadcastFilter = EmailBroadcastID
+
+// AutomaticSeedingSourceEmailFilter defines model for AutomaticSeedingSourceEmailFilter.
+type AutomaticSeedingSourceEmailFilter = EmailID
+
+// AutomaticSeedingSourceKindFilter Origin of the source: `api` is an immediate API submission; `smtp` is an immediate SMTP submission; `scheduled` is an API-scheduled email; `broadcast` is a broadcast. This identifies origin regardless of capture outcome or run creation, including skipped unsupported broadcasts. Scheduled examples can be captured only when due. SMTP submissions cannot be scheduled.
+type AutomaticSeedingSourceKindFilter = AutomaticSeedingSourceKind
 
 // BroadcastAudienceFilter defines model for BroadcastAudienceFilter.
 type BroadcastAudienceFilter = AudienceID
@@ -42302,6 +43048,210 @@ type GetEmailInboxInsightsAuthenticationParams struct {
 	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
 }
 
+// GetAutomaticSeedingSettingsParams defines parameters for GetAutomaticSeedingSettings.
+type GetAutomaticSeedingSettingsParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// UpdateAutomaticSeedingSettingsParams defines parameters for UpdateAutomaticSeedingSettings.
+type UpdateAutomaticSeedingSettingsParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// RotateAutomaticSeedingAddressParams defines parameters for RotateAutomaticSeedingAddress.
+type RotateAutomaticSeedingAddressParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ListAutomaticSeedingRunsParams defines parameters for ListAutomaticSeedingRuns.
+type ListAutomaticSeedingRunsParams struct {
+	// Sort Field to sort by. Defaults to `created_at`.
+	Sort *AutomaticSeedingRunSort `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
+	Order *OrderDesc `form:"order,omitempty" json:"order,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// IncludeTotal When true, the response includes a `total` field with the total number of items matching the request's filters across all pages.
+	IncludeTotal *IncludeTotal `form:"include_total,omitempty" json:"include_total,omitempty"`
+
+	// SourceKind Match the original source kind.
+	SourceKind *AutomaticSeedingSourceKindFilter `form:"source_kind,omitempty" json:"source_kind,omitempty"`
+
+	// SourceEmailId Match an original email. Cannot be combined with source_broadcast_id or source_kind=broadcast; either combination returns 422.
+	SourceEmailId *AutomaticSeedingSourceEmailFilter `form:"source_email_id,omitempty" json:"source_email_id,omitempty"`
+
+	// SourceBroadcastId Match an original broadcast. Cannot be combined with source_email_id. If source_kind is supplied, it must be broadcast; conflicting combinations return 422.
+	SourceBroadcastId *AutomaticSeedingSourceBroadcastFilter `form:"source_broadcast_id,omitempty" json:"source_broadcast_id,omitempty"`
+
+	// CreatedAfter Limits the response to resources created at or after this timestamp. Combine it with `created_before` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
+	CreatedAfter *CreatedAfter `form:"created_after,omitempty" json:"created_after,omitempty"`
+
+	// CreatedBefore Limits the response to resources created before this timestamp. Combine it with `created_after` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
+	CreatedBefore *CreatedBefore `form:"created_before,omitempty" json:"created_before,omitempty"`
+
+	// State Match the current derived execution state.
+	State *AutomaticSeedingRunState `form:"state,omitempty" json:"state,omitempty"`
+
+	// SendingDomain Match the exact sending domain recorded during registration.
+	SendingDomain *string `form:"sending_domain,omitempty" json:"sending_domain,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetAutomaticSeedingRunParams defines parameters for GetAutomaticSeedingRun.
+type GetAutomaticSeedingRunParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// CancelAutomaticSeedingRunParams defines parameters for CancelAutomaticSeedingRun.
+type CancelAutomaticSeedingRunParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ListAutomaticSeedingSourcesParams defines parameters for ListAutomaticSeedingSources.
+type ListAutomaticSeedingSourcesParams struct {
+	// Sort Field to sort by. Defaults to `created_at`.
+	Sort *AutomaticSeedingSourceSort `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
+	Order *OrderDesc `form:"order,omitempty" json:"order,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// IncludeTotal When true, the response includes a `total` field with the total number of items matching the request's filters across all pages.
+	IncludeTotal *IncludeTotal `form:"include_total,omitempty" json:"include_total,omitempty"`
+
+	// SourceKind Match the original source kind.
+	SourceKind *AutomaticSeedingSourceKindFilter `form:"source_kind,omitempty" json:"source_kind,omitempty"`
+
+	// SourceEmailId Match an original email. Cannot be combined with source_broadcast_id or source_kind=broadcast; either combination returns 422.
+	SourceEmailId *AutomaticSeedingSourceEmailFilter `form:"source_email_id,omitempty" json:"source_email_id,omitempty"`
+
+	// SourceBroadcastId Match an original broadcast. Cannot be combined with source_email_id. If source_kind is supplied, it must be broadcast; conflicting combinations return 422.
+	SourceBroadcastId *AutomaticSeedingSourceBroadcastFilter `form:"source_broadcast_id,omitempty" json:"source_broadcast_id,omitempty"`
+
+	// CreatedAfter Limits the response to resources created at or after this timestamp. Combine it with `created_before` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
+	CreatedAfter *CreatedAfter `form:"created_after,omitempty" json:"created_after,omitempty"`
+
+	// CreatedBefore Limits the response to resources created before this timestamp. Combine it with `created_after` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
+	CreatedBefore *CreatedBefore `form:"created_before,omitempty" json:"created_before,omitempty"`
+
+	// State Match the capture observation state.
+	State *AutomaticSeedingSourceState `form:"state,omitempty" json:"state,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
 // GetEmailInboxInsightsIndustryBenchmarkParams defines parameters for GetEmailInboxInsightsIndustryBenchmark.
 type GetEmailInboxInsightsIndustryBenchmarkParams struct {
 	// SendingDomain The sending domain whose industry to benchmark: one of the workspace's verified sending domains, exactly as it appears there. A domain that is not verified in this workspace answers not-found.
@@ -42749,15 +43699,6 @@ type CreateMailboxForwardingAddressParams struct {
 	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 
-	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
-	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
-
-	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
-	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
-}
-
-// ListMailboxLabelsParams defines parameters for ListMailboxLabels.
-type ListMailboxLabelsParams struct {
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
@@ -45445,6 +46386,117 @@ type ListEsimZonesParams struct {
 
 // GetEsimZoneParams defines parameters for GetEsimZone.
 type GetEsimZoneParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ListLabelsParams defines parameters for ListLabels.
+type ListLabelsParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// CreateLabelParams defines parameters for CreateLabel.
+type CreateLabelParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// DeleteLabelParams defines parameters for DeleteLabel.
+type DeleteLabelParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetLabelParams defines parameters for GetLabel.
+type GetLabelParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// UpdateLabelParams defines parameters for UpdateLabel.
+type UpdateLabelParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
@@ -50424,6 +51476,9 @@ type CreateAMBBusinessAccountSubmissionJSONRequestBody = AMBBusinessAccountSubmi
 // UpdateAMBConversationJSONRequestBody defines body for UpdateAMBConversation for application/json ContentType.
 type UpdateAMBConversationJSONRequestBody = AMBConversationUpdate
 
+// CreateAMBAuthenticationJSONRequestBody defines body for CreateAMBAuthentication for application/json ContentType.
+type CreateAMBAuthenticationJSONRequestBody = AMBAuthenticationCreate
+
 // CreateAMBConversationTypingJSONRequestBody defines body for CreateAMBConversationTyping for application/json ContentType.
 type CreateAMBConversationTypingJSONRequestBody = AMBConversationTypingRequest
 
@@ -50526,6 +51581,12 @@ type CreateDomainJSONRequestBody = DomainCreate
 // UpdateDomainJSONRequestBody defines body for UpdateDomain for application/json ContentType.
 type UpdateDomainJSONRequestBody = DomainUpdate
 
+// UpdateAutomaticSeedingSettingsJSONRequestBody defines body for UpdateAutomaticSeedingSettings for application/json ContentType.
+type UpdateAutomaticSeedingSettingsJSONRequestBody = AutomaticSeedingSettingsUpdate
+
+// RotateAutomaticSeedingAddressJSONRequestBody defines body for RotateAutomaticSeedingAddress for application/json ContentType.
+type RotateAutomaticSeedingAddressJSONRequestBody = AutomaticSeedingRotate
+
 // UpdateEmailInboxInsightsDomainJSONRequestBody defines body for UpdateEmailInboxInsightsDomain for application/json ContentType.
 type UpdateEmailInboxInsightsDomainJSONRequestBody = EmailInboxInsightsDomainUpdate
 
@@ -50603,6 +51664,12 @@ type CreateEsimSubscriberJSONRequestBody = EsimSubscriberCreate
 
 // CreateEsimRecurringSubscriptionJSONRequestBody defines body for CreateEsimRecurringSubscription for application/json ContentType.
 type CreateEsimRecurringSubscriptionJSONRequestBody = EsimRecurringSubscriptionCreate
+
+// CreateLabelJSONRequestBody defines body for CreateLabel for application/json ContentType.
+type CreateLabelJSONRequestBody = LabelCreate
+
+// UpdateLabelJSONRequestBody defines body for UpdateLabel for application/json ContentType.
+type UpdateLabelJSONRequestBody = LabelUpdate
 
 // CreateEmailLookupJSONRequestBody defines body for CreateEmailLookup for application/json ContentType.
 type CreateEmailLookupJSONRequestBody = EmailLookupRequest
@@ -50993,6 +52060,144 @@ func (t *AMBAttachmentUpload) UnmarshalJSON(b []byte) error {
 		err = json.Unmarshal(raw, &t.SourceUrl)
 		if err != nil {
 			return fmt.Errorf("error reading 'source_url': %w", err)
+		}
+	}
+
+	return err
+}
+
+// AsAMBAuthenticationTemplate0 returns the union data inside the AMBAuthenticationTemplate as a AMBAuthenticationTemplate0
+func (t AMBAuthenticationTemplate) AsAMBAuthenticationTemplate0() (AMBAuthenticationTemplate0, error) {
+	var body AMBAuthenticationTemplate0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBAuthenticationTemplate0 overwrites any union data inside the AMBAuthenticationTemplate as the provided AMBAuthenticationTemplate0
+func (t *AMBAuthenticationTemplate) FromAMBAuthenticationTemplate0(v AMBAuthenticationTemplate0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBAuthenticationTemplate0 performs a merge with any union data inside the AMBAuthenticationTemplate, using the provided AMBAuthenticationTemplate0
+func (t *AMBAuthenticationTemplate) MergeAMBAuthenticationTemplate0(v AMBAuthenticationTemplate0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAMBAuthenticationTemplate1 returns the union data inside the AMBAuthenticationTemplate as a AMBAuthenticationTemplate1
+func (t AMBAuthenticationTemplate) AsAMBAuthenticationTemplate1() (AMBAuthenticationTemplate1, error) {
+	var body AMBAuthenticationTemplate1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBAuthenticationTemplate1 overwrites any union data inside the AMBAuthenticationTemplate as the provided AMBAuthenticationTemplate1
+func (t *AMBAuthenticationTemplate) FromAMBAuthenticationTemplate1(v AMBAuthenticationTemplate1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBAuthenticationTemplate1 performs a merge with any union data inside the AMBAuthenticationTemplate, using the provided AMBAuthenticationTemplate1
+func (t *AMBAuthenticationTemplate) MergeAMBAuthenticationTemplate1(v AMBAuthenticationTemplate1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t AMBAuthenticationTemplate) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	object := make(map[string]json.RawMessage)
+	if t.union != nil {
+		err = json.Unmarshal(b, &object)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if t.Id != nil {
+		object["id"], err = json.Marshal(t.Id)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'id': %w", err)
+		}
+	}
+
+	if t.Language != nil {
+		object["language"], err = json.Marshal(t.Language)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'language': %w", err)
+		}
+	}
+
+	if t.Parameters != nil {
+		object["parameters"], err = json.Marshal(t.Parameters)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'parameters': %w", err)
+		}
+	}
+
+	if t.Slug != nil {
+		object["slug"], err = json.Marshal(t.Slug)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'slug': %w", err)
+		}
+	}
+	b, err = json.Marshal(object)
+	return b, err
+}
+
+func (t *AMBAuthenticationTemplate) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	if err != nil {
+		return err
+	}
+	object := make(map[string]json.RawMessage)
+	err = json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["id"]; found {
+		err = json.Unmarshal(raw, &t.Id)
+		if err != nil {
+			return fmt.Errorf("error reading 'id': %w", err)
+		}
+	}
+
+	if raw, found := object["language"]; found {
+		err = json.Unmarshal(raw, &t.Language)
+		if err != nil {
+			return fmt.Errorf("error reading 'language': %w", err)
+		}
+	}
+
+	if raw, found := object["parameters"]; found {
+		err = json.Unmarshal(raw, &t.Parameters)
+		if err != nil {
+			return fmt.Errorf("error reading 'parameters': %w", err)
+		}
+	}
+
+	if raw, found := object["slug"]; found {
+		err = json.Unmarshal(raw, &t.Slug)
+		if err != nil {
+			return fmt.Errorf("error reading 'slug': %w", err)
 		}
 	}
 
@@ -52500,6 +53705,68 @@ func (t *AMBText) UnmarshalJSON(b []byte) error {
 		}
 	}
 
+	return err
+}
+
+// AsAutomaticSeedingEmailSource returns the union data inside the AutomaticSeedingSource as a AutomaticSeedingEmailSource
+func (t AutomaticSeedingSource) AsAutomaticSeedingEmailSource() (AutomaticSeedingEmailSource, error) {
+	var body AutomaticSeedingEmailSource
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAutomaticSeedingEmailSource overwrites any union data inside the AutomaticSeedingSource as the provided AutomaticSeedingEmailSource
+func (t *AutomaticSeedingSource) FromAutomaticSeedingEmailSource(v AutomaticSeedingEmailSource) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAutomaticSeedingEmailSource performs a merge with any union data inside the AutomaticSeedingSource, using the provided AutomaticSeedingEmailSource
+func (t *AutomaticSeedingSource) MergeAutomaticSeedingEmailSource(v AutomaticSeedingEmailSource) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAutomaticSeedingBroadcastSource returns the union data inside the AutomaticSeedingSource as a AutomaticSeedingBroadcastSource
+func (t AutomaticSeedingSource) AsAutomaticSeedingBroadcastSource() (AutomaticSeedingBroadcastSource, error) {
+	var body AutomaticSeedingBroadcastSource
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAutomaticSeedingBroadcastSource overwrites any union data inside the AutomaticSeedingSource as the provided AutomaticSeedingBroadcastSource
+func (t *AutomaticSeedingSource) FromAutomaticSeedingBroadcastSource(v AutomaticSeedingBroadcastSource) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAutomaticSeedingBroadcastSource performs a merge with any union data inside the AutomaticSeedingSource, using the provided AutomaticSeedingBroadcastSource
+func (t *AutomaticSeedingSource) MergeAutomaticSeedingBroadcastSource(v AutomaticSeedingBroadcastSource) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t AutomaticSeedingSource) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *AutomaticSeedingSource) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
 	return err
 }
 
@@ -58731,8 +59998,10 @@ type ClientInterface interface {
 
 	UpdateAMBConversation(ctx context.Context, conversationId AMBConversationID, params *UpdateAMBConversationParams, body UpdateAMBConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// CreateAMBAuthentication request
-	CreateAMBAuthentication(ctx context.Context, conversationId AMBConversationID, params *CreateAMBAuthenticationParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// CreateAMBAuthenticationWithBody request with any body
+	CreateAMBAuthenticationWithBody(ctx context.Context, conversationId AMBConversationID, params *CreateAMBAuthenticationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateAMBAuthentication(ctx context.Context, conversationId AMBConversationID, params *CreateAMBAuthenticationParams, body CreateAMBAuthenticationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetAMBAuthentication request
 	GetAMBAuthentication(ctx context.Context, conversationId AMBConversationID, authenticationId AMBAuthenticationID, params *GetAMBAuthenticationParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -59190,6 +60459,31 @@ type ClientInterface interface {
 	// GetEmailInboxInsightsAuthentication request
 	GetEmailInboxInsightsAuthentication(ctx context.Context, params *GetEmailInboxInsightsAuthenticationParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// GetAutomaticSeedingSettings request
+	GetAutomaticSeedingSettings(ctx context.Context, params *GetAutomaticSeedingSettingsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateAutomaticSeedingSettingsWithBody request with any body
+	UpdateAutomaticSeedingSettingsWithBody(ctx context.Context, params *UpdateAutomaticSeedingSettingsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateAutomaticSeedingSettings(ctx context.Context, params *UpdateAutomaticSeedingSettingsParams, body UpdateAutomaticSeedingSettingsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// RotateAutomaticSeedingAddressWithBody request with any body
+	RotateAutomaticSeedingAddressWithBody(ctx context.Context, params *RotateAutomaticSeedingAddressParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	RotateAutomaticSeedingAddress(ctx context.Context, params *RotateAutomaticSeedingAddressParams, body RotateAutomaticSeedingAddressJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListAutomaticSeedingRuns request
+	ListAutomaticSeedingRuns(ctx context.Context, params *ListAutomaticSeedingRunsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAutomaticSeedingRun request
+	GetAutomaticSeedingRun(ctx context.Context, runId AutomaticSeedingRunIDPath, params *GetAutomaticSeedingRunParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CancelAutomaticSeedingRun request
+	CancelAutomaticSeedingRun(ctx context.Context, runId AutomaticSeedingRunIDPath, params *CancelAutomaticSeedingRunParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListAutomaticSeedingSources request
+	ListAutomaticSeedingSources(ctx context.Context, params *ListAutomaticSeedingSourcesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// GetEmailInboxInsightsIndustryBenchmark request
 	GetEmailInboxInsightsIndustryBenchmark(ctx context.Context, params *GetEmailInboxInsightsIndustryBenchmarkParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -59248,9 +60542,6 @@ type ClientInterface interface {
 
 	// CreateMailboxForwardingAddress request
 	CreateMailboxForwardingAddress(ctx context.Context, mailboxId MailboxIdentifier, params *CreateMailboxForwardingAddressParams, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// ListMailboxLabels request
-	ListMailboxLabels(ctx context.Context, mailboxId MailboxIdentifier, params *ListMailboxLabelsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateMailboxMessageWithBody request with any body
 	CreateMailboxMessageWithBody(ctx context.Context, mailboxId MailboxIdentifier, params *CreateMailboxMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -59607,6 +60898,25 @@ type ClientInterface interface {
 
 	// GetEsimZone request
 	GetEsimZone(ctx context.Context, zoneId EsimZoneID, params *GetEsimZoneParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListLabels request
+	ListLabels(ctx context.Context, params *ListLabelsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateLabelWithBody request with any body
+	CreateLabelWithBody(ctx context.Context, params *CreateLabelParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateLabel(ctx context.Context, params *CreateLabelParams, body CreateLabelJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteLabel request
+	DeleteLabel(ctx context.Context, labelId LabelID, params *DeleteLabelParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetLabel request
+	GetLabel(ctx context.Context, labelId LabelID, params *GetLabelParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateLabelWithBody request with any body
+	UpdateLabelWithBody(ctx context.Context, labelId LabelID, params *UpdateLabelParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateLabel(ctx context.Context, labelId LabelID, params *UpdateLabelParams, body UpdateLabelJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateEmailLookupWithBody request with any body
 	CreateEmailLookupWithBody(ctx context.Context, params *CreateEmailLookupParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -60567,8 +61877,20 @@ func (c *Client) UpdateAMBConversation(ctx context.Context, conversationId AMBCo
 	return c.Client.Do(req)
 }
 
-func (c *Client) CreateAMBAuthentication(ctx context.Context, conversationId AMBConversationID, params *CreateAMBAuthenticationParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCreateAMBAuthenticationRequest(c.Server, conversationId, params)
+func (c *Client) CreateAMBAuthenticationWithBody(ctx context.Context, conversationId AMBConversationID, params *CreateAMBAuthenticationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateAMBAuthenticationRequestWithBody(c.Server, conversationId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateAMBAuthentication(ctx context.Context, conversationId AMBConversationID, params *CreateAMBAuthenticationParams, body CreateAMBAuthenticationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateAMBAuthenticationRequest(c.Server, conversationId, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -62535,6 +63857,114 @@ func (c *Client) GetEmailInboxInsightsAuthentication(ctx context.Context, params
 	return c.Client.Do(req)
 }
 
+func (c *Client) GetAutomaticSeedingSettings(ctx context.Context, params *GetAutomaticSeedingSettingsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAutomaticSeedingSettingsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateAutomaticSeedingSettingsWithBody(ctx context.Context, params *UpdateAutomaticSeedingSettingsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateAutomaticSeedingSettingsRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateAutomaticSeedingSettings(ctx context.Context, params *UpdateAutomaticSeedingSettingsParams, body UpdateAutomaticSeedingSettingsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateAutomaticSeedingSettingsRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) RotateAutomaticSeedingAddressWithBody(ctx context.Context, params *RotateAutomaticSeedingAddressParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRotateAutomaticSeedingAddressRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) RotateAutomaticSeedingAddress(ctx context.Context, params *RotateAutomaticSeedingAddressParams, body RotateAutomaticSeedingAddressJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRotateAutomaticSeedingAddressRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListAutomaticSeedingRuns(ctx context.Context, params *ListAutomaticSeedingRunsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListAutomaticSeedingRunsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAutomaticSeedingRun(ctx context.Context, runId AutomaticSeedingRunIDPath, params *GetAutomaticSeedingRunParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAutomaticSeedingRunRequest(c.Server, runId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CancelAutomaticSeedingRun(ctx context.Context, runId AutomaticSeedingRunIDPath, params *CancelAutomaticSeedingRunParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCancelAutomaticSeedingRunRequest(c.Server, runId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListAutomaticSeedingSources(ctx context.Context, params *ListAutomaticSeedingSourcesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListAutomaticSeedingSourcesRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 func (c *Client) GetEmailInboxInsightsIndustryBenchmark(ctx context.Context, params *GetEmailInboxInsightsIndustryBenchmarkParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetEmailInboxInsightsIndustryBenchmarkRequest(c.Server, params)
 	if err != nil {
@@ -62777,18 +64207,6 @@ func (c *Client) UpdateMailbox(ctx context.Context, mailboxId MailboxIdentifier,
 
 func (c *Client) CreateMailboxForwardingAddress(ctx context.Context, mailboxId MailboxIdentifier, params *CreateMailboxForwardingAddressParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewCreateMailboxForwardingAddressRequest(c.Server, mailboxId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ListMailboxLabels(ctx context.Context, mailboxId MailboxIdentifier, params *ListMailboxLabelsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListMailboxLabelsRequest(c.Server, mailboxId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -64301,6 +65719,90 @@ func (c *Client) ListEsimZones(ctx context.Context, params *ListEsimZonesParams,
 
 func (c *Client) GetEsimZone(ctx context.Context, zoneId EsimZoneID, params *GetEsimZoneParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetEsimZoneRequest(c.Server, zoneId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListLabels(ctx context.Context, params *ListLabelsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListLabelsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateLabelWithBody(ctx context.Context, params *CreateLabelParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateLabelRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateLabel(ctx context.Context, params *CreateLabelParams, body CreateLabelJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateLabelRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteLabel(ctx context.Context, labelId LabelID, params *DeleteLabelParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteLabelRequest(c.Server, labelId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetLabel(ctx context.Context, labelId LabelID, params *GetLabelParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetLabelRequest(c.Server, labelId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateLabelWithBody(ctx context.Context, labelId LabelID, params *UpdateLabelParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateLabelRequestWithBody(c.Server, labelId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateLabel(ctx context.Context, labelId LabelID, params *UpdateLabelParams, body UpdateLabelJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateLabelRequest(c.Server, labelId, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -68836,8 +70338,19 @@ func NewUpdateAMBConversationRequestWithBody(server string, conversationId AMBCo
 	return req, nil
 }
 
-// NewCreateAMBAuthenticationRequest generates requests for CreateAMBAuthentication
-func NewCreateAMBAuthenticationRequest(server string, conversationId AMBConversationID, params *CreateAMBAuthenticationParams) (*http.Request, error) {
+// NewCreateAMBAuthenticationRequest calls the generic CreateAMBAuthentication builder with application/json body
+func NewCreateAMBAuthenticationRequest(server string, conversationId AMBConversationID, params *CreateAMBAuthenticationParams, body CreateAMBAuthenticationJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateAMBAuthenticationRequestWithBody(server, conversationId, params, "application/json", bodyReader)
+}
+
+// NewCreateAMBAuthenticationRequestWithBody generates requests for CreateAMBAuthentication with any type of body
+func NewCreateAMBAuthenticationRequestWithBody(server string, conversationId AMBConversationID, params *CreateAMBAuthenticationParams, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -68862,10 +70375,12 @@ func NewCreateAMBAuthenticationRequest(server string, conversationId AMBConversa
 		return nil, err
 	}
 
-	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
 	if err != nil {
 		return nil, err
 	}
+
+	req.Header.Add("Content-Type", contentType)
 
 	if params != nil {
 
@@ -80918,6 +82433,780 @@ func NewGetEmailInboxInsightsAuthenticationRequest(server string, params *GetEma
 	return req, nil
 }
 
+// NewGetAutomaticSeedingSettingsRequest generates requests for GetAutomaticSeedingSettings
+func NewGetAutomaticSeedingSettingsRequest(server string, params *GetAutomaticSeedingSettingsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/inbox-insights/automatic-seeding")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUpdateAutomaticSeedingSettingsRequest calls the generic UpdateAutomaticSeedingSettings builder with application/json body
+func NewUpdateAutomaticSeedingSettingsRequest(server string, params *UpdateAutomaticSeedingSettingsParams, body UpdateAutomaticSeedingSettingsJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateAutomaticSeedingSettingsRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewUpdateAutomaticSeedingSettingsRequestWithBody generates requests for UpdateAutomaticSeedingSettings with any type of body
+func NewUpdateAutomaticSeedingSettingsRequestWithBody(server string, params *UpdateAutomaticSeedingSettingsParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/inbox-insights/automatic-seeding")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewRotateAutomaticSeedingAddressRequest calls the generic RotateAutomaticSeedingAddress builder with application/json body
+func NewRotateAutomaticSeedingAddressRequest(server string, params *RotateAutomaticSeedingAddressParams, body RotateAutomaticSeedingAddressJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewRotateAutomaticSeedingAddressRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewRotateAutomaticSeedingAddressRequestWithBody generates requests for RotateAutomaticSeedingAddress with any type of body
+func NewRotateAutomaticSeedingAddressRequestWithBody(server string, params *RotateAutomaticSeedingAddressParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/inbox-insights/automatic-seeding/rotate")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListAutomaticSeedingRunsRequest generates requests for ListAutomaticSeedingRuns
+func NewListAutomaticSeedingRunsRequest(server string, params *ListAutomaticSeedingRunsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/inbox-insights/automatic-seeding/runs")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTotal != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_total", *params.IncludeTotal, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.SourceKind != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "source_kind", *params.SourceKind, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.SourceEmailId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "source_email_id", *params.SourceEmailId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.SourceBroadcastId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "source_broadcast_id", *params.SourceBroadcastId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.CreatedAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "created_after", *params.CreatedAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.CreatedBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "created_before", *params.CreatedBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.State != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "state", *params.State, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.SendingDomain != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sending_domain", *params.SendingDomain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAutomaticSeedingRunRequest generates requests for GetAutomaticSeedingRun
+func NewGetAutomaticSeedingRunRequest(server string, runId AutomaticSeedingRunIDPath, params *GetAutomaticSeedingRunParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "run_id", runId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/inbox-insights/automatic-seeding/runs/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCancelAutomaticSeedingRunRequest generates requests for CancelAutomaticSeedingRun
+func NewCancelAutomaticSeedingRunRequest(server string, runId AutomaticSeedingRunIDPath, params *CancelAutomaticSeedingRunParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "run_id", runId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/inbox-insights/automatic-seeding/runs/%s/stop", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListAutomaticSeedingSourcesRequest generates requests for ListAutomaticSeedingSources
+func NewListAutomaticSeedingSourcesRequest(server string, params *ListAutomaticSeedingSourcesParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/inbox-insights/automatic-seeding/sources")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTotal != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_total", *params.IncludeTotal, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.SourceKind != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "source_kind", *params.SourceKind, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.SourceEmailId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "source_email_id", *params.SourceEmailId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.SourceBroadcastId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "source_broadcast_id", *params.SourceBroadcastId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.CreatedAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "created_after", *params.CreatedAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.CreatedBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "created_before", *params.CreatedBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.State != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "state", *params.State, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewGetEmailInboxInsightsIndustryBenchmarkRequest generates requests for GetEmailInboxInsightsIndustryBenchmark
 func NewGetEmailInboxInsightsIndustryBenchmarkRequest(server string, params *GetEmailInboxInsightsIndustryBenchmarkParams) (*http.Request, error) {
 	var err error
@@ -82554,66 +84843,6 @@ func NewCreateMailboxForwardingAddressRequest(server string, mailboxId MailboxId
 			}
 
 			req.Header.Set("X-Organization-Id", headerParam2)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewListMailboxLabelsRequest generates requests for ListMailboxLabels
-func NewListMailboxLabelsRequest(server string, mailboxId MailboxIdentifier, params *ListMailboxLabelsParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "mailbox_id", mailboxId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/v1/email/mailboxes/%s/labels", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.XWorkspaceId != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("X-Workspace-Id", headerParam0)
-		}
-
-		if params.XOrganizationId != nil {
-			var headerParam1 string
-
-			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("X-Organization-Id", headerParam1)
 		}
 
 	}
@@ -93416,6 +95645,351 @@ func NewGetEsimZoneRequest(server string, zoneId EsimZoneID, params *GetEsimZone
 			}
 
 			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListLabelsRequest generates requests for ListLabels
+func NewListLabelsRequest(server string, params *ListLabelsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/labels")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateLabelRequest calls the generic CreateLabel builder with application/json body
+func NewCreateLabelRequest(server string, params *CreateLabelParams, body CreateLabelJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateLabelRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateLabelRequestWithBody generates requests for CreateLabel with any type of body
+func NewCreateLabelRequestWithBody(server string, params *CreateLabelParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/labels")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteLabelRequest generates requests for DeleteLabel
+func NewDeleteLabelRequest(server string, labelId LabelID, params *DeleteLabelParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "label_id", labelId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/labels/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetLabelRequest generates requests for GetLabel
+func NewGetLabelRequest(server string, labelId LabelID, params *GetLabelParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "label_id", labelId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/labels/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUpdateLabelRequest calls the generic UpdateLabel builder with application/json body
+func NewUpdateLabelRequest(server string, labelId LabelID, params *UpdateLabelParams, body UpdateLabelJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateLabelRequestWithBody(server, labelId, params, "application/json", bodyReader)
+}
+
+// NewUpdateLabelRequestWithBody generates requests for UpdateLabel with any type of body
+func NewUpdateLabelRequestWithBody(server string, labelId LabelID, params *UpdateLabelParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "label_id", labelId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/labels/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
 		}
 
 	}
@@ -113111,8 +115685,10 @@ type ClientWithResponsesInterface interface {
 
 	UpdateAMBConversationWithResponse(ctx context.Context, conversationId AMBConversationID, params *UpdateAMBConversationParams, body UpdateAMBConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateAMBConversationResponse, error)
 
-	// CreateAMBAuthenticationWithResponse request
-	CreateAMBAuthenticationWithResponse(ctx context.Context, conversationId AMBConversationID, params *CreateAMBAuthenticationParams, reqEditors ...RequestEditorFn) (*CreateAMBAuthenticationResponse, error)
+	// CreateAMBAuthenticationWithBodyWithResponse request with any body
+	CreateAMBAuthenticationWithBodyWithResponse(ctx context.Context, conversationId AMBConversationID, params *CreateAMBAuthenticationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateAMBAuthenticationResponse, error)
+
+	CreateAMBAuthenticationWithResponse(ctx context.Context, conversationId AMBConversationID, params *CreateAMBAuthenticationParams, body CreateAMBAuthenticationJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateAMBAuthenticationResponse, error)
 
 	// GetAMBAuthenticationWithResponse request
 	GetAMBAuthenticationWithResponse(ctx context.Context, conversationId AMBConversationID, authenticationId AMBAuthenticationID, params *GetAMBAuthenticationParams, reqEditors ...RequestEditorFn) (*GetAMBAuthenticationResponse, error)
@@ -113570,6 +116146,31 @@ type ClientWithResponsesInterface interface {
 	// GetEmailInboxInsightsAuthenticationWithResponse request
 	GetEmailInboxInsightsAuthenticationWithResponse(ctx context.Context, params *GetEmailInboxInsightsAuthenticationParams, reqEditors ...RequestEditorFn) (*GetEmailInboxInsightsAuthenticationResponse, error)
 
+	// GetAutomaticSeedingSettingsWithResponse request
+	GetAutomaticSeedingSettingsWithResponse(ctx context.Context, params *GetAutomaticSeedingSettingsParams, reqEditors ...RequestEditorFn) (*GetAutomaticSeedingSettingsResponse, error)
+
+	// UpdateAutomaticSeedingSettingsWithBodyWithResponse request with any body
+	UpdateAutomaticSeedingSettingsWithBodyWithResponse(ctx context.Context, params *UpdateAutomaticSeedingSettingsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateAutomaticSeedingSettingsResponse, error)
+
+	UpdateAutomaticSeedingSettingsWithResponse(ctx context.Context, params *UpdateAutomaticSeedingSettingsParams, body UpdateAutomaticSeedingSettingsJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateAutomaticSeedingSettingsResponse, error)
+
+	// RotateAutomaticSeedingAddressWithBodyWithResponse request with any body
+	RotateAutomaticSeedingAddressWithBodyWithResponse(ctx context.Context, params *RotateAutomaticSeedingAddressParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RotateAutomaticSeedingAddressResponse, error)
+
+	RotateAutomaticSeedingAddressWithResponse(ctx context.Context, params *RotateAutomaticSeedingAddressParams, body RotateAutomaticSeedingAddressJSONRequestBody, reqEditors ...RequestEditorFn) (*RotateAutomaticSeedingAddressResponse, error)
+
+	// ListAutomaticSeedingRunsWithResponse request
+	ListAutomaticSeedingRunsWithResponse(ctx context.Context, params *ListAutomaticSeedingRunsParams, reqEditors ...RequestEditorFn) (*ListAutomaticSeedingRunsResponse, error)
+
+	// GetAutomaticSeedingRunWithResponse request
+	GetAutomaticSeedingRunWithResponse(ctx context.Context, runId AutomaticSeedingRunIDPath, params *GetAutomaticSeedingRunParams, reqEditors ...RequestEditorFn) (*GetAutomaticSeedingRunResponse, error)
+
+	// CancelAutomaticSeedingRunWithResponse request
+	CancelAutomaticSeedingRunWithResponse(ctx context.Context, runId AutomaticSeedingRunIDPath, params *CancelAutomaticSeedingRunParams, reqEditors ...RequestEditorFn) (*CancelAutomaticSeedingRunResponse, error)
+
+	// ListAutomaticSeedingSourcesWithResponse request
+	ListAutomaticSeedingSourcesWithResponse(ctx context.Context, params *ListAutomaticSeedingSourcesParams, reqEditors ...RequestEditorFn) (*ListAutomaticSeedingSourcesResponse, error)
+
 	// GetEmailInboxInsightsIndustryBenchmarkWithResponse request
 	GetEmailInboxInsightsIndustryBenchmarkWithResponse(ctx context.Context, params *GetEmailInboxInsightsIndustryBenchmarkParams, reqEditors ...RequestEditorFn) (*GetEmailInboxInsightsIndustryBenchmarkResponse, error)
 
@@ -113628,9 +116229,6 @@ type ClientWithResponsesInterface interface {
 
 	// CreateMailboxForwardingAddressWithResponse request
 	CreateMailboxForwardingAddressWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *CreateMailboxForwardingAddressParams, reqEditors ...RequestEditorFn) (*CreateMailboxForwardingAddressResponse, error)
-
-	// ListMailboxLabelsWithResponse request
-	ListMailboxLabelsWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *ListMailboxLabelsParams, reqEditors ...RequestEditorFn) (*ListMailboxLabelsResponse, error)
 
 	// CreateMailboxMessageWithBodyWithResponse request with any body
 	CreateMailboxMessageWithBodyWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *CreateMailboxMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateMailboxMessageResponse, error)
@@ -113987,6 +116585,25 @@ type ClientWithResponsesInterface interface {
 
 	// GetEsimZoneWithResponse request
 	GetEsimZoneWithResponse(ctx context.Context, zoneId EsimZoneID, params *GetEsimZoneParams, reqEditors ...RequestEditorFn) (*GetEsimZoneResponse, error)
+
+	// ListLabelsWithResponse request
+	ListLabelsWithResponse(ctx context.Context, params *ListLabelsParams, reqEditors ...RequestEditorFn) (*ListLabelsResponse, error)
+
+	// CreateLabelWithBodyWithResponse request with any body
+	CreateLabelWithBodyWithResponse(ctx context.Context, params *CreateLabelParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateLabelResponse, error)
+
+	CreateLabelWithResponse(ctx context.Context, params *CreateLabelParams, body CreateLabelJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateLabelResponse, error)
+
+	// DeleteLabelWithResponse request
+	DeleteLabelWithResponse(ctx context.Context, labelId LabelID, params *DeleteLabelParams, reqEditors ...RequestEditorFn) (*DeleteLabelResponse, error)
+
+	// GetLabelWithResponse request
+	GetLabelWithResponse(ctx context.Context, labelId LabelID, params *GetLabelParams, reqEditors ...RequestEditorFn) (*GetLabelResponse, error)
+
+	// UpdateLabelWithBodyWithResponse request with any body
+	UpdateLabelWithBodyWithResponse(ctx context.Context, labelId LabelID, params *UpdateLabelParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateLabelResponse, error)
+
+	UpdateLabelWithResponse(ctx context.Context, labelId LabelID, params *UpdateLabelParams, body UpdateLabelJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateLabelResponse, error)
 
 	// CreateEmailLookupWithBodyWithResponse request with any body
 	CreateEmailLookupWithBodyWithResponse(ctx context.Context, params *CreateEmailLookupParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEmailLookupResponse, error)
@@ -120252,6 +122869,274 @@ func (r GetEmailInboxInsightsAuthenticationResponse) ContentType() string {
 	return ""
 }
 
+type GetAutomaticSeedingSettingsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AutomaticSeedingSettings
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAutomaticSeedingSettingsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAutomaticSeedingSettingsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAutomaticSeedingSettingsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateAutomaticSeedingSettingsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AutomaticSeedingSettings
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateAutomaticSeedingSettingsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateAutomaticSeedingSettingsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateAutomaticSeedingSettingsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type RotateAutomaticSeedingAddressResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AutomaticSeedingSettings
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r RotateAutomaticSeedingAddressResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r RotateAutomaticSeedingAddressResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r RotateAutomaticSeedingAddressResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListAutomaticSeedingRunsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AutomaticSeedingRunList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r ListAutomaticSeedingRunsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListAutomaticSeedingRunsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListAutomaticSeedingRunsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAutomaticSeedingRunResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AutomaticSeedingRun
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAutomaticSeedingRunResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAutomaticSeedingRunResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAutomaticSeedingRunResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CancelAutomaticSeedingRunResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AutomaticSeedingRun
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CancelAutomaticSeedingRunResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CancelAutomaticSeedingRunResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CancelAutomaticSeedingRunResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListAutomaticSeedingSourcesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AutomaticSeedingSourceList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r ListAutomaticSeedingSourcesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListAutomaticSeedingSourcesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListAutomaticSeedingSourcesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type GetEmailInboxInsightsIndustryBenchmarkResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -120908,43 +123793,6 @@ func (r CreateMailboxForwardingAddressResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r CreateMailboxForwardingAddressResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type ListMailboxLabelsResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *EmailMailboxLabelList
-	JSON400      *BadRequest
-	JSON401      *Unauthorized
-	JSON403      *Forbidden
-	JSON404      *NotFound
-	JSON422      *Unprocessable
-	JSON429      *RateLimited
-	JSON500      *InternalError
-}
-
-// Status returns HTTPResponse.Status
-func (r ListMailboxLabelsResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ListMailboxLabelsResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r ListMailboxLabelsResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -124916,6 +127764,196 @@ func (r GetEsimZoneResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r GetEsimZoneResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListLabelsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *LabelList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListLabelsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListLabelsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListLabelsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateLabelResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *Label
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateLabelResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateLabelResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateLabelResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteLabelResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteLabelResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteLabelResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteLabelResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetLabelResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *Label
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetLabelResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetLabelResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetLabelResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateLabelResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *Label
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateLabelResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateLabelResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateLabelResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -132844,9 +135882,17 @@ func (c *ClientWithResponses) UpdateAMBConversationWithResponse(ctx context.Cont
 	return ParseUpdateAMBConversationResponse(rsp)
 }
 
-// CreateAMBAuthenticationWithResponse request returning *CreateAMBAuthenticationResponse
-func (c *ClientWithResponses) CreateAMBAuthenticationWithResponse(ctx context.Context, conversationId AMBConversationID, params *CreateAMBAuthenticationParams, reqEditors ...RequestEditorFn) (*CreateAMBAuthenticationResponse, error) {
-	rsp, err := c.CreateAMBAuthentication(ctx, conversationId, params, reqEditors...)
+// CreateAMBAuthenticationWithBodyWithResponse request with arbitrary body returning *CreateAMBAuthenticationResponse
+func (c *ClientWithResponses) CreateAMBAuthenticationWithBodyWithResponse(ctx context.Context, conversationId AMBConversationID, params *CreateAMBAuthenticationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateAMBAuthenticationResponse, error) {
+	rsp, err := c.CreateAMBAuthenticationWithBody(ctx, conversationId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateAMBAuthenticationResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateAMBAuthenticationWithResponse(ctx context.Context, conversationId AMBConversationID, params *CreateAMBAuthenticationParams, body CreateAMBAuthenticationJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateAMBAuthenticationResponse, error) {
+	rsp, err := c.CreateAMBAuthentication(ctx, conversationId, params, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -134287,6 +137333,85 @@ func (c *ClientWithResponses) GetEmailInboxInsightsAuthenticationWithResponse(ct
 	return ParseGetEmailInboxInsightsAuthenticationResponse(rsp)
 }
 
+// GetAutomaticSeedingSettingsWithResponse request returning *GetAutomaticSeedingSettingsResponse
+func (c *ClientWithResponses) GetAutomaticSeedingSettingsWithResponse(ctx context.Context, params *GetAutomaticSeedingSettingsParams, reqEditors ...RequestEditorFn) (*GetAutomaticSeedingSettingsResponse, error) {
+	rsp, err := c.GetAutomaticSeedingSettings(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAutomaticSeedingSettingsResponse(rsp)
+}
+
+// UpdateAutomaticSeedingSettingsWithBodyWithResponse request with arbitrary body returning *UpdateAutomaticSeedingSettingsResponse
+func (c *ClientWithResponses) UpdateAutomaticSeedingSettingsWithBodyWithResponse(ctx context.Context, params *UpdateAutomaticSeedingSettingsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateAutomaticSeedingSettingsResponse, error) {
+	rsp, err := c.UpdateAutomaticSeedingSettingsWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateAutomaticSeedingSettingsResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateAutomaticSeedingSettingsWithResponse(ctx context.Context, params *UpdateAutomaticSeedingSettingsParams, body UpdateAutomaticSeedingSettingsJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateAutomaticSeedingSettingsResponse, error) {
+	rsp, err := c.UpdateAutomaticSeedingSettings(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateAutomaticSeedingSettingsResponse(rsp)
+}
+
+// RotateAutomaticSeedingAddressWithBodyWithResponse request with arbitrary body returning *RotateAutomaticSeedingAddressResponse
+func (c *ClientWithResponses) RotateAutomaticSeedingAddressWithBodyWithResponse(ctx context.Context, params *RotateAutomaticSeedingAddressParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RotateAutomaticSeedingAddressResponse, error) {
+	rsp, err := c.RotateAutomaticSeedingAddressWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRotateAutomaticSeedingAddressResponse(rsp)
+}
+
+func (c *ClientWithResponses) RotateAutomaticSeedingAddressWithResponse(ctx context.Context, params *RotateAutomaticSeedingAddressParams, body RotateAutomaticSeedingAddressJSONRequestBody, reqEditors ...RequestEditorFn) (*RotateAutomaticSeedingAddressResponse, error) {
+	rsp, err := c.RotateAutomaticSeedingAddress(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRotateAutomaticSeedingAddressResponse(rsp)
+}
+
+// ListAutomaticSeedingRunsWithResponse request returning *ListAutomaticSeedingRunsResponse
+func (c *ClientWithResponses) ListAutomaticSeedingRunsWithResponse(ctx context.Context, params *ListAutomaticSeedingRunsParams, reqEditors ...RequestEditorFn) (*ListAutomaticSeedingRunsResponse, error) {
+	rsp, err := c.ListAutomaticSeedingRuns(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListAutomaticSeedingRunsResponse(rsp)
+}
+
+// GetAutomaticSeedingRunWithResponse request returning *GetAutomaticSeedingRunResponse
+func (c *ClientWithResponses) GetAutomaticSeedingRunWithResponse(ctx context.Context, runId AutomaticSeedingRunIDPath, params *GetAutomaticSeedingRunParams, reqEditors ...RequestEditorFn) (*GetAutomaticSeedingRunResponse, error) {
+	rsp, err := c.GetAutomaticSeedingRun(ctx, runId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAutomaticSeedingRunResponse(rsp)
+}
+
+// CancelAutomaticSeedingRunWithResponse request returning *CancelAutomaticSeedingRunResponse
+func (c *ClientWithResponses) CancelAutomaticSeedingRunWithResponse(ctx context.Context, runId AutomaticSeedingRunIDPath, params *CancelAutomaticSeedingRunParams, reqEditors ...RequestEditorFn) (*CancelAutomaticSeedingRunResponse, error) {
+	rsp, err := c.CancelAutomaticSeedingRun(ctx, runId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCancelAutomaticSeedingRunResponse(rsp)
+}
+
+// ListAutomaticSeedingSourcesWithResponse request returning *ListAutomaticSeedingSourcesResponse
+func (c *ClientWithResponses) ListAutomaticSeedingSourcesWithResponse(ctx context.Context, params *ListAutomaticSeedingSourcesParams, reqEditors ...RequestEditorFn) (*ListAutomaticSeedingSourcesResponse, error) {
+	rsp, err := c.ListAutomaticSeedingSources(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListAutomaticSeedingSourcesResponse(rsp)
+}
+
 // GetEmailInboxInsightsIndustryBenchmarkWithResponse request returning *GetEmailInboxInsightsIndustryBenchmarkResponse
 func (c *ClientWithResponses) GetEmailInboxInsightsIndustryBenchmarkWithResponse(ctx context.Context, params *GetEmailInboxInsightsIndustryBenchmarkParams, reqEditors ...RequestEditorFn) (*GetEmailInboxInsightsIndustryBenchmarkResponse, error) {
 	rsp, err := c.GetEmailInboxInsightsIndustryBenchmark(ctx, params, reqEditors...)
@@ -134470,15 +137595,6 @@ func (c *ClientWithResponses) CreateMailboxForwardingAddressWithResponse(ctx con
 		return nil, err
 	}
 	return ParseCreateMailboxForwardingAddressResponse(rsp)
-}
-
-// ListMailboxLabelsWithResponse request returning *ListMailboxLabelsResponse
-func (c *ClientWithResponses) ListMailboxLabelsWithResponse(ctx context.Context, mailboxId MailboxIdentifier, params *ListMailboxLabelsParams, reqEditors ...RequestEditorFn) (*ListMailboxLabelsResponse, error) {
-	rsp, err := c.ListMailboxLabels(ctx, mailboxId, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListMailboxLabelsResponse(rsp)
 }
 
 // CreateMailboxMessageWithBodyWithResponse request with arbitrary body returning *CreateMailboxMessageResponse
@@ -135591,6 +138707,67 @@ func (c *ClientWithResponses) GetEsimZoneWithResponse(ctx context.Context, zoneI
 		return nil, err
 	}
 	return ParseGetEsimZoneResponse(rsp)
+}
+
+// ListLabelsWithResponse request returning *ListLabelsResponse
+func (c *ClientWithResponses) ListLabelsWithResponse(ctx context.Context, params *ListLabelsParams, reqEditors ...RequestEditorFn) (*ListLabelsResponse, error) {
+	rsp, err := c.ListLabels(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListLabelsResponse(rsp)
+}
+
+// CreateLabelWithBodyWithResponse request with arbitrary body returning *CreateLabelResponse
+func (c *ClientWithResponses) CreateLabelWithBodyWithResponse(ctx context.Context, params *CreateLabelParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateLabelResponse, error) {
+	rsp, err := c.CreateLabelWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateLabelResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateLabelWithResponse(ctx context.Context, params *CreateLabelParams, body CreateLabelJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateLabelResponse, error) {
+	rsp, err := c.CreateLabel(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateLabelResponse(rsp)
+}
+
+// DeleteLabelWithResponse request returning *DeleteLabelResponse
+func (c *ClientWithResponses) DeleteLabelWithResponse(ctx context.Context, labelId LabelID, params *DeleteLabelParams, reqEditors ...RequestEditorFn) (*DeleteLabelResponse, error) {
+	rsp, err := c.DeleteLabel(ctx, labelId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteLabelResponse(rsp)
+}
+
+// GetLabelWithResponse request returning *GetLabelResponse
+func (c *ClientWithResponses) GetLabelWithResponse(ctx context.Context, labelId LabelID, params *GetLabelParams, reqEditors ...RequestEditorFn) (*GetLabelResponse, error) {
+	rsp, err := c.GetLabel(ctx, labelId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetLabelResponse(rsp)
+}
+
+// UpdateLabelWithBodyWithResponse request with arbitrary body returning *UpdateLabelResponse
+func (c *ClientWithResponses) UpdateLabelWithBodyWithResponse(ctx context.Context, labelId LabelID, params *UpdateLabelParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateLabelResponse, error) {
+	rsp, err := c.UpdateLabelWithBody(ctx, labelId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateLabelResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateLabelWithResponse(ctx context.Context, labelId LabelID, params *UpdateLabelParams, body UpdateLabelJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateLabelResponse, error) {
+	rsp, err := c.UpdateLabel(ctx, labelId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateLabelResponse(rsp)
 }
 
 // CreateEmailLookupWithBodyWithResponse request with arbitrary body returning *CreateEmailLookupResponse
@@ -149952,6 +153129,594 @@ func ParseGetEmailInboxInsightsAuthenticationResponse(rsp *http.Response) (*GetE
 	return response, nil
 }
 
+// ParseGetAutomaticSeedingSettingsResponse parses an HTTP response from a GetAutomaticSeedingSettingsWithResponse call
+func ParseGetAutomaticSeedingSettingsResponse(rsp *http.Response) (*GetAutomaticSeedingSettingsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAutomaticSeedingSettingsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AutomaticSeedingSettings
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateAutomaticSeedingSettingsResponse parses an HTTP response from a UpdateAutomaticSeedingSettingsWithResponse call
+func ParseUpdateAutomaticSeedingSettingsResponse(rsp *http.Response) (*UpdateAutomaticSeedingSettingsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateAutomaticSeedingSettingsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AutomaticSeedingSettings
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseRotateAutomaticSeedingAddressResponse parses an HTTP response from a RotateAutomaticSeedingAddressWithResponse call
+func ParseRotateAutomaticSeedingAddressResponse(rsp *http.Response) (*RotateAutomaticSeedingAddressResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &RotateAutomaticSeedingAddressResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AutomaticSeedingSettings
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListAutomaticSeedingRunsResponse parses an HTTP response from a ListAutomaticSeedingRunsWithResponse call
+func ParseListAutomaticSeedingRunsResponse(rsp *http.Response) (*ListAutomaticSeedingRunsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListAutomaticSeedingRunsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AutomaticSeedingRunList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAutomaticSeedingRunResponse parses an HTTP response from a GetAutomaticSeedingRunWithResponse call
+func ParseGetAutomaticSeedingRunResponse(rsp *http.Response) (*GetAutomaticSeedingRunResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAutomaticSeedingRunResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AutomaticSeedingRun
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCancelAutomaticSeedingRunResponse parses an HTTP response from a CancelAutomaticSeedingRunWithResponse call
+func ParseCancelAutomaticSeedingRunResponse(rsp *http.Response) (*CancelAutomaticSeedingRunResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CancelAutomaticSeedingRunResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AutomaticSeedingRun
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListAutomaticSeedingSourcesResponse parses an HTTP response from a ListAutomaticSeedingSourcesWithResponse call
+func ParseListAutomaticSeedingSourcesResponse(rsp *http.Response) (*ListAutomaticSeedingSourcesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListAutomaticSeedingSourcesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AutomaticSeedingSourceList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
 // ParseGetEmailInboxInsightsIndustryBenchmarkResponse parses an HTTP response from a GetEmailInboxInsightsIndustryBenchmarkWithResponse call
 func ParseGetEmailInboxInsightsIndustryBenchmarkResponse(rsp *http.Response) (*GetEmailInboxInsightsIndustryBenchmarkResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -151452,81 +155217,6 @@ func ParseCreateMailboxForwardingAddressResponse(rsp *http.Response) (*CreateMai
 			return nil, err
 		}
 		response.JSON503 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseListMailboxLabelsResponse parses an HTTP response from a ListMailboxLabelsWithResponse call
-func ParseListMailboxLabelsResponse(rsp *http.Response) (*ListMailboxLabelsResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ListMailboxLabelsResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest EmailMailboxLabelList
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest BadRequest
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON400 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Unauthorized
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
-		var dest Forbidden
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON403 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest NotFound
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest Unprocessable
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON422 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
-		var dest RateLimited
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON429 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
-		var dest InternalError
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON500 = &dest
 
 	}
 
@@ -160188,6 +163878,416 @@ func ParseGetEsimZoneResponse(rsp *http.Response) (*GetEsimZoneResponse, error) 
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListLabelsResponse parses an HTTP response from a ListLabelsWithResponse call
+func ParseListLabelsResponse(rsp *http.Response) (*ListLabelsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListLabelsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest LabelList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateLabelResponse parses an HTTP response from a CreateLabelWithResponse call
+func ParseCreateLabelResponse(rsp *http.Response) (*CreateLabelResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateLabelResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest Label
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteLabelResponse parses an HTTP response from a DeleteLabelWithResponse call
+func ParseDeleteLabelResponse(rsp *http.Response) (*DeleteLabelResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteLabelResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetLabelResponse parses an HTTP response from a GetLabelWithResponse call
+func ParseGetLabelResponse(rsp *http.Response) (*GetLabelResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetLabelResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Label
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateLabelResponse parses an HTTP response from a UpdateLabelWithResponse call
+func ParseUpdateLabelResponse(rsp *http.Response) (*UpdateLabelResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateLabelResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Label
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 

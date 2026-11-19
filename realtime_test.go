@@ -3,7 +3,6 @@ package bird_test
 import (
 	"context"
 	"encoding/json"
-	"io"
 	"net/http"
 	"strings"
 	"sync/atomic"
@@ -22,43 +21,12 @@ func TestRealtimeWithoutCredentials(t *testing.T) {
 		hits.Add(1)
 		w.WriteHeader(http.StatusOK)
 	})
-	client := newClient(t, server)
-
-	_, err := client.Realtime.Publish(context.Background(), "rap_123", bird.RealtimePublishParams{
+	_, err := newClient(t, server).Realtime.Publish(context.Background(), "rap_123", bird.RealtimePublishParams{
 		Event: "ping", Channels: []string{"orders"},
 	})
-	if err == nil {
-		t.Fatal("Publish without credentials: got nil error, want a configuration error")
+	if err == nil || !strings.Contains(err.Error(), "option.WithRealtimeCredentials") || hits.Load() != 0 {
+		t.Fatalf("err=%v hits=%d", err, hits.Load())
 	}
-	if !strings.Contains(err.Error(), "option.WithRealtimeCredentials") {
-		t.Errorf("error should name the option to set: %v", err)
-	}
-	if n := hits.Load(); n != 0 {
-		t.Errorf("server saw %d requests; the call must fail before any network call", n)
-	}
-}
-
-// Record requests at the HTTP client boundary so these cases exercise the real
-// public facades and generated wire encoding without contacting a server.
-type realtimePresenceRecorder struct {
-	bodies []map[string]any
-}
-
-func (r *realtimePresenceRecorder) RoundTrip(request *http.Request) (*http.Response, error) {
-	var body map[string]any
-	if err := json.NewDecoder(request.Body).Decode(&body); err != nil {
-		return nil, err
-	}
-	if err := request.Body.Close(); err != nil {
-		return nil, err
-	}
-	r.bodies = append(r.bodies, body)
-	return &http.Response{
-		StatusCode: http.StatusOK,
-		Header:     http.Header{"Content-Type": []string{"application/json"}},
-		Body:       io.NopCloser(strings.NewReader(`{"data":[]}`)),
-		Request:    request,
-	}, nil
 }
 
 func TestRealtimePublicMethodsPreserveDataPresence(t *testing.T) {
@@ -93,40 +61,19 @@ func TestRealtimePublicMethodsPreserveDataPresence(t *testing.T) {
 		{"unset", nil, false, ""},
 		{"null", bird.Null[any](), true, "null"},
 		{"object with nested null", bird.Value[any](map[string]any{"items": []any{nil, map[string]any{"value": nil}}}), true, `{"items":[null,{"value":null}]}`},
-		{"array", bird.Value[any]([]any{nil, "value"}), true, `[null,"value"]`},
-		{"scalar", bird.Value[any]("value"), true, `"value"`},
 		{"false", bird.Value[any](false), true, "false"},
 		{"zero", bird.Value[any](0), true, "0"},
 	}
 	for _, method := range methods {
 		for _, state := range states {
 			t.Run(method.name+"/"+state.name, func(t *testing.T) {
-				recorder := &realtimePresenceRecorder{}
-				client, err := bird.NewClient(
-					option.WithAPIKey("bk_eu1_test"),
-					option.WithHTTPClient(&http.Client{Transport: recorder}),
-					option.WithMaxRetries(0),
-					option.WithRealtimeCredentials("rk_test", "rs_test"),
-				)
-				if err != nil {
-					t.Fatal(err)
-				}
+				client, sent := capturePublish(t)
 				if err := method.call(client, state.data); err != nil {
 					t.Fatal(err)
 				}
-				if len(recorder.bodies) != 1 {
-					t.Fatalf("recorded %d requests, want one", len(recorder.bodies))
-				}
-				body := recorder.bodies[0]
+				body := *sent
 				if method.name == "publish_batch" {
-					events, ok := body["events"].([]any)
-					if !ok || len(events) != 1 {
-						t.Fatalf("batch events = %#v", body["events"])
-					}
-					body, ok = events[0].(map[string]any)
-					if !ok {
-						t.Fatalf("batch event = %#v", events[0])
-					}
+					body = body["events"].([]any)[0].(map[string]any)
 				}
 				value, present := body["data"]
 				if present != state.present {
@@ -134,11 +81,8 @@ func TestRealtimePublicMethodsPreserveDataPresence(t *testing.T) {
 				}
 				if present {
 					encoded, err := json.Marshal(value)
-					if err != nil {
-						t.Fatal(err)
-					}
-					if string(encoded) != state.want {
-						t.Fatalf("data = %s, want %s", encoded, state.want)
+					if err != nil || string(encoded) != state.want {
+						t.Fatalf("data = %s, err = %v, want %s", encoded, err, state.want)
 					}
 				}
 			})

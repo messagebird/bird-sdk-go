@@ -1696,20 +1696,6 @@ func ExampleEmailMailboxesMessagesService_Create() {
 	fmt.Println(msg.Id)
 }
 
-func ExampleEmailMailboxesService_Labels() {
-	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
-	if err != nil {
-		log.Fatal(err)
-	}
-	labels, err := client.Email.Mailboxes.Labels(context.Background(), "mbx_123")
-	if err != nil {
-		log.Fatal(err)
-	}
-	for _, l := range labels.Data {
-		fmt.Println(l.Name)
-	}
-}
-
 func ExampleEmailMailboxesReceiveRulesService_List() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
@@ -2871,6 +2857,73 @@ func ExamplePreferencesService_Delete() {
 		fmt.Println("delete refused, surviving statement:", result.Preference.Id)
 	default:
 		fmt.Println("deleted")
+	}
+}
+
+func ExampleLabelsService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	labels, err := client.Labels.List(context.Background())
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, l := range labels.Data {
+		fmt.Println(l.Id, l.Name)
+	}
+}
+
+func ExampleLabelsService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	label, err := client.Labels.Get(context.Background(), "lbl_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(label.Name)
+}
+
+func ExampleLabelsService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	label, err := client.Labels.Create(context.Background(), bird.LabelsCreateParams{
+		Name:        "refund-request",
+		Color:       bird.Ptr("#E5484D"),
+		Description: bird.Ptr("The customer asks for their money back."),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(label.Id)
+}
+
+func ExampleLabelsService_Update() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	label, err := client.Labels.Update(context.Background(), "lbl_01krdgeqcxet5s7t44vh8rt9mg", bird.LabelsUpdateParams{
+		Name:  bird.Ptr("refund"),
+		Color: bird.Null[string](),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(label.Name)
+}
+
+func ExampleLabelsService_Delete() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := client.Labels.Delete(context.Background(), "lbl_01krdgeqcxet5s7t44vh8rt9mg"); err != nil {
+		log.Fatal(err)
 	}
 }
 
@@ -5163,6 +5216,23 @@ func ExampleAmbConversationsService_Typing() {
 	}
 }
 
+func ExampleAmbConversationsService_RequestAuthentication() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	auth, err := client.Amb.Conversations.RequestAuthentication(
+		ctx,
+		"acv_01krdgeqcxet5s7t44vh8rt9mg",
+		bird.AmbConversationsRequestAuthenticationParams{},
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(auth.Id, auth.Status)
+}
+
 func ExampleAmbConversationsService_List() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
@@ -6717,4 +6787,118 @@ func ExampleSmsMessagesService_Media() {
 		log.Fatal(err)
 	}
 	fmt.Println(media.ContentType, media.ContentLength)
+}
+
+func ExampleEmailSeedingSettingsService_Get() {
+	// Requires inbox_insights:read permission in the target workspace.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	settings, err := client.Email.Seeding.Settings.Get(ctx)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(settings)
+}
+
+func ExampleEmailSeedingSettingsService_Update() {
+	// Requires inbox_insights:write permission in the target workspace.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	current, err := client.Email.Seeding.Settings.Get(ctx)
+	if err != nil {
+		log.Fatal(err)
+	}
+	settings, err := client.Email.Seeding.Settings.Update(ctx, bird.EmailSeedingSettingsUpdateParams{
+		ExpectedRevision:  int(current.Revision),
+		Enabled:           bird.Bool(true),
+		ListType:          bird.Ptr(bird.EmailInboxInsightsSeedListTypePrivate),
+		EngagementProfile: bird.Ptr(bird.EmailInboxInsightsSeedEngagementProfileAll),
+		Regions:           []string{"North America - US"},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(settings)
+}
+
+func ExampleEmailSeedingAddressService_Rotate() {
+	// Requires inbox_insights:write permission in the target workspace.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	current, err := client.Email.Seeding.Settings.Get(ctx)
+	if err != nil {
+		log.Fatal(err)
+	}
+	settings, err := client.Email.Seeding.Address.Rotate(ctx, bird.EmailSeedingAddressRotateParams{ExpectedRevision: int(current.Revision)})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(settings)
+}
+
+func ExampleEmailSeedingRunsService_List() {
+	// Requires inbox_insights:read permission in the target workspace.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	for run, err := range client.Email.Seeding.Runs.List(ctx, bird.EmailSeedingRunsListParams{Limit: 20}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(run)
+	}
+}
+
+func ExampleEmailSeedingRunsService_Get() {
+	// Requires inbox_insights:read permission in the target workspace.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	run, err := client.Email.Seeding.Runs.Get(ctx, "esrun_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(run)
+}
+
+func ExampleEmailSeedingRunsService_Cancel() {
+	// Requires inbox_insights:write permission in the target workspace.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	run, err := client.Email.Seeding.Runs.Cancel(ctx, "esrun_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(run)
+}
+
+func ExampleEmailSeedingSourcesService_List() {
+	// Requires inbox_insights:read permission in the target workspace.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	for source, err := range client.Email.Seeding.Sources.List(ctx, bird.EmailSeedingSourcesListParams{Limit: 20}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(source)
+	}
 }

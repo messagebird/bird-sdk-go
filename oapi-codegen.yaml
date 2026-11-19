@@ -62,6 +62,13 @@ output-options:
     - getEmailInboxInsightsSeedTestConfiguration
     - createEmailInboxInsightsSeedTest
     - getEmailInboxInsightsSeedTests
+    - getAutomaticSeedingSettings
+    - updateAutomaticSeedingSettings
+    - rotateAutomaticSeedingAddress
+    - listAutomaticSeedingRuns
+    - getAutomaticSeedingRun
+    - cancelAutomaticSeedingRun
+    - listAutomaticSeedingSources
     - createEmailTemplate
     - listEmailTemplates
     - getEmailTemplate
@@ -321,6 +328,11 @@ output-options:
     - updateContactProperty
     - archiveContactProperty
     - unarchiveContactProperty
+    - listLabels
+    - getLabel
+    - createLabel
+    - updateLabel
+    - deleteLabel
     - listAudiences
     - getAudience
     - createAudience
@@ -345,7 +357,6 @@ output-options:
     - getMailboxScheduledMessage
     - cancelMailboxScheduledMessage
     - createMailboxMessage
-    - listMailboxLabels
     - listMailboxReceiveRules
     - createMailboxReceiveRule
     - deleteMailboxReceiveRule

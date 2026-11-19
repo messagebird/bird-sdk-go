@@ -42,21 +42,17 @@ func TestMediaFollowsTheRedirect(t *testing.T) {
 	t.Parallel()
 	api, seen := redirectingAPI(t, http.StatusOK, http.Header{"Content-Type": {"image/png"}})
 
-	media, err := newClient(t, api).Whatsapp.Messages.Media(context.Background(), "wam_1", "waf_1")
+	var meta bird.Response
+	media, err := newClient(t, api, option.WithResponseInto(&meta)).Whatsapp.Messages.Media(context.Background(), "wam_1", "waf_1")
 	if err != nil {
 		t.Fatalf("Media: %v", err)
 	}
-	if media.ContentType != "image/png" {
-		t.Errorf("ContentType = %q, want image/png", media.ContentType)
+	if media.ContentType != "image/png" || string(media.Data) != string(mediaPNG) || media.ContentLength != int64(len(mediaPNG)) {
+		t.Errorf("got %q/%v/%d, want image/png and %d bytes", media.ContentType, media.Data, media.ContentLength, len(mediaPNG))
 	}
-	if string(media.Data) != string(mediaPNG) {
-		t.Errorf("Data = %v, want %v", media.Data, mediaPNG)
+	if meta.Status != http.StatusFound {
+		t.Errorf("Status = %d, want 302", meta.Status)
 	}
-	if media.ContentLength != int64(len(mediaPNG)) {
-		t.Errorf("ContentLength = %d, want %d", media.ContentLength, len(mediaPNG))
-	}
-	// The presigned URL carries its own credential and refuses a second auth
-	// mechanism, so a Bird header reaching storage is both a leak and a broken request.
 	if got := seen.Get("Authorization"); got != "" {
 		t.Errorf("storage received Authorization %q, want none", got)
 	}
@@ -67,99 +63,54 @@ func TestMediaFollowsTheRedirect(t *testing.T) {
 	}
 }
 
-// The conformance corpus cannot script a 302 — vector.schema.json's scripted
-// responses carry only status and body, no headers — so this is the branch the
-// whatsapp.messages.media vector actually drives.
-func TestMediaAcceptsADirect2xx(t *testing.T) {
+func TestMediaResponsesAndErrors(t *testing.T) {
 	t.Parallel()
-	api := newServer(t, func(w http.ResponseWriter, _ *http.Request) {
-		w.Header().Set("Content-Type", "image/png")
-		_, _ = w.Write(mediaPNG)
+
+	t.Run("direct 2xx", func(t *testing.T) {
+		api := newServer(t, func(w http.ResponseWriter, _ *http.Request) {
+			w.Header().Set("Content-Type", "image/png")
+			_, _ = w.Write(mediaPNG)
+		})
+		media, err := newClient(t, api).Whatsapp.Messages.Media(context.Background(), "wam_1", "waf_1")
+		if err != nil || media.ContentType != "image/png" || string(media.Data) != string(mediaPNG) {
+			t.Fatalf("err=%v media=%+v", err, media)
+		}
 	})
 
-	media, err := newClient(t, api).Whatsapp.Messages.Media(context.Background(), "wam_1", "waf_1")
-	if err != nil {
-		t.Fatalf("Media: %v", err)
-	}
-	if media.ContentType != "image/png" || string(media.Data) != string(mediaPNG) {
-		t.Errorf("got %q/%v, want image/png and the png bytes", media.ContentType, media.Data)
-	}
-}
-
-func TestMediaFallsBackToOctetStream(t *testing.T) {
-	t.Parallel()
-	api, _ := redirectingAPI(t, http.StatusOK, nil)
-
-	media, err := newClient(t, api).Whatsapp.Messages.Media(context.Background(), "wam_1", "waf_1")
-	if err != nil {
-		t.Fatalf("Media: %v", err)
-	}
-	if media.ContentType != "application/octet-stream" {
-		t.Errorf("ContentType = %q, want application/octet-stream", media.ContentType)
-	}
-}
-
-func TestMediaRefusedLinkNamesTheRecovery(t *testing.T) {
-	t.Parallel()
-	api, _ := redirectingAPI(t, http.StatusForbidden, nil)
-
-	_, err := newClient(t, api).Whatsapp.Messages.Media(context.Background(), "wam_1", "waf_1")
-	if err == nil || !strings.Contains(err.Error(), "Media again") {
-		t.Fatalf("err = %v, want one naming the recovery", err)
-	}
-	// A storage refusal is not a Bird API failure: mapping it as one would
-	// report the caller's own key as lacking permission.
-	var apiErr *bird.APIError
-	if errors.As(err, &apiErr) {
-		t.Errorf("err = %T, want a connection error rather than an API error", err)
-	}
-}
-
-func TestMediaRedirectWithoutLocation(t *testing.T) {
-	t.Parallel()
-	api := newServer(t, func(w http.ResponseWriter, _ *http.Request) {
-		w.WriteHeader(http.StatusFound)
+	t.Run("octet-stream fallback", func(t *testing.T) {
+		api, _ := redirectingAPI(t, http.StatusOK, nil)
+		media, err := newClient(t, api).Whatsapp.Messages.Media(context.Background(), "wam_1", "waf_1")
+		if err != nil || media.ContentType != "application/octet-stream" {
+			t.Fatalf("err=%v ContentType=%q", err, media.ContentType)
+		}
 	})
 
-	_, err := newClient(t, api).Whatsapp.Messages.Media(context.Background(), "wam_1", "waf_1")
-	if err == nil || !strings.Contains(err.Error(), "Location") {
-		t.Fatalf("err = %v, want one naming the missing Location header", err)
-	}
-}
-
-// The API leg keeps the core's error mapping: an expired media object is a Bird
-// 410, not a storage failure, and must not be flattened into one.
-func TestMediaSurfacesAnAPIError(t *testing.T) {
-	t.Parallel()
-	api := newServer(t, func(w http.ResponseWriter, _ *http.Request) {
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusGone)
-		_, _ = w.Write([]byte(`{"error":{"type":"not_found_error","code":"E00404"}}`))
+	t.Run("storage refusal names recovery", func(t *testing.T) {
+		api, _ := redirectingAPI(t, http.StatusForbidden, nil)
+		_, err := newClient(t, api).Whatsapp.Messages.Media(context.Background(), "wam_1", "waf_1")
+		var apiErr *bird.APIError
+		if err == nil || !strings.Contains(err.Error(), "Media again") || errors.As(err, &apiErr) {
+			t.Fatalf("err = %v (%T)", err, err)
+		}
 	})
 
-	_, err := newClient(t, api).Whatsapp.Messages.Media(context.Background(), "wam_1", "waf_1")
-	var apiErr *bird.APIError
-	if !errors.As(err, &apiErr) {
-		t.Fatalf("err = %v (%T), want *bird.APIError", err, err)
-	}
-	if apiErr.StatusCode != http.StatusGone {
-		t.Errorf("StatusCode = %d, want 410", apiErr.StatusCode)
-	}
-}
+	t.Run("redirect without Location", func(t *testing.T) {
+		api := newServer(t, func(w http.ResponseWriter, _ *http.Request) { w.WriteHeader(http.StatusFound) })
+		if _, err := newClient(t, api).Whatsapp.Messages.Media(context.Background(), "wam_1", "waf_1"); err == nil || !strings.Contains(err.Error(), "Location") {
+			t.Fatalf("err = %v, want missing Location", err)
+		}
+	})
 
-// WithResponseInto is the caller's own handle on transport metadata; the
-// redirect-aware read borrows the same field internally, so this pins that it
-// still reaches the caller.
-func TestMediaFillsCallerResponseInto(t *testing.T) {
-	t.Parallel()
-	api, _ := redirectingAPI(t, http.StatusOK, http.Header{"Content-Type": {"image/png"}})
-
-	var meta bird.Response
-	client := newClient(t, api, option.WithResponseInto(&meta))
-	if _, err := client.Whatsapp.Messages.Media(context.Background(), "wam_1", "waf_1"); err != nil {
-		t.Fatalf("Media: %v", err)
-	}
-	if meta.Status != http.StatusFound {
-		t.Errorf("Status = %d, want 302", meta.Status)
-	}
+	t.Run("API leg surfaces APIError", func(t *testing.T) {
+		api := newServer(t, func(w http.ResponseWriter, _ *http.Request) {
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusGone)
+			_, _ = w.Write([]byte(`{"error":{"type":"not_found_error","code":"E00404"}}`))
+		})
+		_, err := newClient(t, api).Whatsapp.Messages.Media(context.Background(), "wam_1", "waf_1")
+		var apiErr *bird.APIError
+		if !errors.As(err, &apiErr) || apiErr.StatusCode != http.StatusGone {
+			t.Fatalf("err = %v (%T)", err, err)
+		}
+	})
 }

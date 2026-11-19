@@ -372,59 +372,65 @@ func TestRealtimeEncryptedDataPreservesPresence(t *testing.T) {
 	}
 }
 
-// Fanning one encrypted publish across channels must be refused locally: each
-// channel derives its own key, so the others would receive an envelope their
-// subscribers cannot open — undecryptable garbage rather than a visible failure.
-func TestRealtimePublishRejectsEncryptedFanOut(t *testing.T) {
-	var hits atomic.Int32
-	server := newServer(t, func(w http.ResponseWriter, _ *http.Request) {
-		hits.Add(1)
-		w.WriteHeader(http.StatusOK)
-	})
-	client := newClient(t, server,
-		option.WithRealtimeCredentials("rk_test", "rs_test"),
-		option.WithRealtimeEncryptionMasterKey(testMasterKey))
-
-	_, err := client.Realtime.Publish(context.Background(), "rap_123", bird.RealtimePublishParams{
-		Event:    "order.updated",
-		Channels: []string{"private-encrypted-orders", "orders"},
-		Data:     bird.Value[any](map[string]any{"order_id": "ord_123"}),
-	})
-	if err == nil {
-		t.Fatal("publishing an encrypted channel alongside another: got nil error")
-	}
-	if !strings.Contains(err.Error(), "private-encrypted-") {
-		t.Errorf("error should explain the one-channel rule: %v", err)
-	}
-	if n := hits.Load(); n != 0 {
-		t.Errorf("server saw %d requests; the call must fail before any network call", n)
-	}
-}
-
-// Publishing to an encrypted channel with no master key configured must fail
-// rather than send the payload in the clear on a channel whose subscribers will
-// try to decrypt it.
-func TestRealtimePublishEncryptedWithoutMasterKey(t *testing.T) {
-	var hits atomic.Int32
-	server := newServer(t, func(w http.ResponseWriter, _ *http.Request) {
-		hits.Add(1)
-		w.WriteHeader(http.StatusOK)
-	})
-	client := newClient(t, server, option.WithRealtimeCredentials("rk_test", "rs_test"))
-
-	_, err := client.Realtime.Publish(context.Background(), "rap_123", bird.RealtimePublishParams{
-		Event:    "order.updated",
-		Channels: []string{"private-encrypted-orders"},
-		Data:     bird.Value[any](map[string]any{"order_id": "ord_123"}),
-	})
-	if err == nil {
-		t.Fatal("publishing to an encrypted channel without a master key: got nil error")
-	}
-	if !strings.Contains(err.Error(), "option.WithRealtimeEncryptionMasterKey") {
-		t.Errorf("error should name the option to set: %v", err)
-	}
-	if n := hits.Load(); n != 0 {
-		t.Errorf("server saw %d requests; the call must fail before any network call", n)
+func TestRealtimePublishEncryptionRefusals(t *testing.T) {
+	for _, tc := range []struct {
+		name string
+		opts []option.RequestOption
+		call func(*bird.Client) error
+		want string
+	}{
+		{
+			name: "fan-out with encrypted channel",
+			opts: []option.RequestOption{option.WithRealtimeEncryptionMasterKey(testMasterKey)},
+			call: func(c *bird.Client) error {
+				_, err := c.Realtime.Publish(context.Background(), "rap_123", bird.RealtimePublishParams{
+					Event: "order.updated", Channels: []string{"private-encrypted-orders", "orders"},
+					Data: bird.Value[any](map[string]any{"order_id": "ord_123"}),
+				})
+				return err
+			},
+			want: "private-encrypted-",
+		},
+		{
+			name: "publish encrypted without master key",
+			call: func(c *bird.Client) error {
+				_, err := c.Realtime.Publish(context.Background(), "rap_123", bird.RealtimePublishParams{
+					Event: "order.updated", Channels: []string{"private-encrypted-orders"},
+					Data: bird.Value[any](map[string]any{"order_id": "ord_123"}),
+				})
+				return err
+			},
+			want: "option.WithRealtimeEncryptionMasterKey",
+		},
+		{
+			name: "publish batch encrypted without master key",
+			call: func(c *bird.Client) error {
+				_, err := c.Realtime.PublishBatch(context.Background(), "rap_123", bird.RealtimePublishBatchParams{
+					Events: []bird.RealtimeBatchEventParams{
+						{Event: "order.created", Channel: "orders", Data: bird.Value[any](map[string]any{"id": 1})},
+						{Event: "order.updated", Channel: "private-encrypted-orders", Data: bird.Value[any](map[string]any{"id": 2})},
+					},
+				})
+				return err
+			},
+			want: "option.WithRealtimeEncryptionMasterKey",
+		},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			var hits atomic.Int32
+			server := newServer(t, func(w http.ResponseWriter, _ *http.Request) {
+				hits.Add(1)
+				w.WriteHeader(http.StatusOK)
+			})
+			opts := append([]option.RequestOption{option.WithRealtimeCredentials("rk_test", "rs_test")}, tc.opts...)
+			err := tc.call(newClient(t, server, opts...))
+			if err == nil || !strings.Contains(err.Error(), tc.want) {
+				t.Fatalf("err = %v, want substring %q", err, tc.want)
+			}
+			if n := hits.Load(); n != 0 {
+				t.Errorf("server saw %d requests; the call must fail before any network call", n)
+			}
+		})
 	}
 }
 
@@ -440,10 +446,7 @@ func TestRealtimePublishBatchSealsPerEvent(t *testing.T) {
 		{Event: "order.updated", Channel: "private-encrypted-orders", Data: bird.Value[any](map[string]any{"id": 2})},
 		{Event: "price.changed", Channel: "private-encrypted-cache-prices", Data: bird.Value[any](map[string]any{"id": 3})},
 	}
-	_, err := client.Realtime.PublishBatch(context.Background(), "rap_123", bird.RealtimePublishBatchParams{
-		Events: events,
-	})
-	if err != nil {
+	if _, err := client.Realtime.PublishBatch(context.Background(), "rap_123", bird.RealtimePublishBatchParams{Events: events}); err != nil {
 		t.Fatalf("PublishBatch: %v", err)
 	}
 
@@ -451,58 +454,23 @@ func TestRealtimePublishBatchSealsPerEvent(t *testing.T) {
 	if !ok || len(wire) != 3 {
 		t.Fatalf("events on the wire: got %v, want 3 items", (*sent)["events"])
 	}
-	plain, ok := wire[0].(map[string]any)["data"].(map[string]any)
-	if !ok || plain["id"] != float64(1) {
+	if plain, ok := wire[0].(map[string]any)["data"].(map[string]any); !ok || plain["id"] != float64(1) {
 		t.Errorf("the plain event's payload was rewritten: %v", wire[0])
 	}
-	// Each envelope opens only under its own channel's derived key, which is what
-	// makes the fan-out rule on Publish necessary.
 	if got := openEnvelope(t, "private-encrypted-orders", wire[1].(map[string]any)["data"]); string(got) != `{"id":2}` {
 		t.Errorf("sealed plaintext: got %s, want {\"id\":2}", got)
 	}
 	if got := openEnvelope(t, "private-encrypted-cache-prices", wire[2].(map[string]any)["data"]); string(got) != `{"id":3}` {
 		t.Errorf("sealed plaintext: got %s, want {\"id\":3}", got)
 	}
-
 	for i, e := range events {
-		data, _ := e.Data.Get()
-		if _, sealed := data.(realtimecrypto.Envelope); sealed {
+		if data, _ := e.Data.Get(); func() bool { _, sealed := data.(realtimecrypto.Envelope); return sealed }() {
 			t.Errorf("event %d: the caller's Data was replaced with the envelope", i)
 		}
 	}
 }
 
-// A batch naming an encrypted channel without a master key must fail whole rather
-// than send that item's payload in the clear alongside the plain ones.
-func TestRealtimePublishBatchEncryptedWithoutMasterKey(t *testing.T) {
-	var hits atomic.Int32
-	server := newServer(t, func(w http.ResponseWriter, _ *http.Request) {
-		hits.Add(1)
-		w.WriteHeader(http.StatusOK)
-	})
-	client := newClient(t, server, option.WithRealtimeCredentials("rk_test", "rs_test"))
-
-	_, err := client.Realtime.PublishBatch(context.Background(), "rap_123", bird.RealtimePublishBatchParams{
-		Events: []bird.RealtimeBatchEventParams{
-			{Event: "order.created", Channel: "orders", Data: bird.Value[any](map[string]any{"id": 1})},
-			{Event: "order.updated", Channel: "private-encrypted-orders", Data: bird.Value[any](map[string]any{"id": 2})},
-		},
-	})
-	if err == nil {
-		t.Fatal("batching an encrypted event without a master key: got nil error")
-	}
-	if !strings.Contains(err.Error(), "option.WithRealtimeEncryptionMasterKey") {
-		t.Errorf("error should name the option to set: %v", err)
-	}
-	if n := hits.Load(); n != 0 {
-		t.Errorf("server saw %d requests; the call must fail before any network call", n)
-	}
-}
-
-// The response is marshaled straight into an auth endpoint's reply, so its JSON
-// spelling is the contract with the browser client — and the optional fields must
-// stay absent on a channel that has no use for them.
-func TestRealtimeAuthorizeChannelWireShape(t *testing.T) {
+func TestRealtimeAuthorizeChannelWireShapeAndRefusals(t *testing.T) {
 	client, err := bird.NewClient(
 		option.WithAPIKey("bk_eu1_test"),
 		option.WithRealtimeCredentials("rk_test", "rs_test"),
@@ -511,8 +479,7 @@ func TestRealtimeAuthorizeChannelWireShape(t *testing.T) {
 		t.Fatalf("NewClient: %v", err)
 	}
 	auth, err := client.Realtime.AuthorizeChannel(bird.RealtimeChannelAuthorizationParams{
-		ConnectionID: "26896.319537",
-		ChannelName:  "private-room-1",
+		ConnectionID: "26896.319537", ChannelName: "private-room-1",
 	})
 	if err != nil {
 		t.Fatalf("AuthorizeChannel: %v", err)
@@ -525,52 +492,24 @@ func TestRealtimeAuthorizeChannelWireShape(t *testing.T) {
 	if err := json.Unmarshal(body, &fields); err != nil {
 		t.Fatalf("unmarshaling the authorization: %v", err)
 	}
-	if _, ok := fields["auth"]; !ok {
-		t.Errorf("no auth field in %s", body)
-	}
-	if len(fields) != 1 {
+	if _, ok := fields["auth"]; !ok || len(fields) != 1 {
 		t.Errorf("a private channel's authorization carries only auth; got %s", body)
 	}
-}
 
-// Authorizing without app credentials must fail, and name the option to set —
-// signing with an empty secret would produce an auth string the edge rejects,
-// which is a much harder failure to read at the browser.
-func TestRealtimeAuthorizeChannelWithoutCredentials(t *testing.T) {
-	client, err := bird.NewClient(option.WithAPIKey("bk_eu1_test"))
-	if err != nil {
-		t.Fatalf("NewClient: %v", err)
-	}
-	_, err = client.Realtime.AuthorizeChannel(bird.RealtimeChannelAuthorizationParams{
-		ConnectionID: "26896.319537", ChannelName: "private-room-1",
-	})
-	if err == nil {
-		t.Fatal("AuthorizeChannel without credentials: got nil error, want a configuration error")
-	}
-	if !strings.Contains(err.Error(), "option.WithRealtimeCredentials") {
-		t.Errorf("error should name the option to set: %v", err)
-	}
-}
-
-// An encrypted channel additionally needs the master key: without it there is no
-// shared_secret to return, and a client that subscribes without one receives
-// events it cannot open.
-func TestRealtimeAuthorizeChannelEncryptedWithoutMasterKey(t *testing.T) {
-	client, err := bird.NewClient(
-		option.WithAPIKey("bk_eu1_test"),
-		option.WithRealtimeCredentials("rk_test", "rs_test"),
-	)
-	if err != nil {
-		t.Fatalf("NewClient: %v", err)
-	}
-	_, err = client.Realtime.AuthorizeChannel(bird.RealtimeChannelAuthorizationParams{
+	if _, err := client.Realtime.AuthorizeChannel(bird.RealtimeChannelAuthorizationParams{
 		ConnectionID: "26896.319537", ChannelName: "private-encrypted-orders",
-	})
-	if err == nil {
-		t.Fatal("AuthorizeChannel on an encrypted channel without a master key: got nil error")
+	}); err == nil || !strings.Contains(err.Error(), "option.WithRealtimeEncryptionMasterKey") {
+		t.Errorf("encrypted channel without master key: got %v, want option.WithRealtimeEncryptionMasterKey", err)
 	}
-	if !strings.Contains(err.Error(), "option.WithRealtimeEncryptionMasterKey") {
-		t.Errorf("error should name the option to set: %v", err)
+
+	noCreds, err := bird.NewClient(option.WithAPIKey("bk_eu1_test"))
+	if err != nil {
+		t.Fatalf("NewClient: %v", err)
+	}
+	if _, err := noCreds.Realtime.AuthorizeChannel(bird.RealtimeChannelAuthorizationParams{
+		ConnectionID: "26896.319537", ChannelName: "private-room-1",
+	}); err == nil || !strings.Contains(err.Error(), "option.WithRealtimeCredentials") {
+		t.Errorf("without credentials: got %v, want option.WithRealtimeCredentials", err)
 	}
 }
 

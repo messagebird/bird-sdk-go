@@ -408,6 +408,13 @@ type (
 	PreferenceList = oapi.PreferenceList
 )
 
+// Label is one label in the workspace's catalogue; LabelList is the whole
+// catalogue.
+type (
+	Label     = oapi.Label
+	LabelList = oapi.LabelList
+)
+
 // PreferenceStatus is what a statement says: granted records consent to
 // receive messages, revoked records an opt-out.
 type PreferenceStatus = oapi.PreferenceStatus
@@ -1080,8 +1087,6 @@ type (
 	MailboxList = oapi.MailboxList
 	// MailboxStatsResponse is the stats time series for a mailbox.
 	MailboxStatsResponse = oapi.MailboxStatsResponse
-	// EmailMailboxLabelList is the list of labels available in a mailbox.
-	EmailMailboxLabelList = oapi.EmailMailboxLabelList
 
 	// ReceiveRule is a per-sender allow or block rule on a mailbox.
 	ReceiveRule = oapi.ReceiveRule
@@ -1175,6 +1180,17 @@ type (
 	EmailInboxInsightsSeedTestConfiguration  = oapi.EmailInboxInsightsSeedTestConfiguration
 	EmailInboxInsightsSeedTestRegistration   = oapi.EmailInboxInsightsSeedTestRegistration
 	EmailInboxInsightsSeedTests              = oapi.EmailInboxInsightsSeedTests
+
+	AutomaticSeedingRun               = oapi.AutomaticSeedingRun
+	AutomaticSeedingRunList           = oapi.AutomaticSeedingRunList
+	AutomaticSeedingRunSort           = oapi.AutomaticSeedingRunSort
+	AutomaticSeedingRunState          = oapi.AutomaticSeedingRunState
+	AutomaticSeedingSettings          = oapi.AutomaticSeedingSettings
+	AutomaticSeedingSourceKind        = oapi.AutomaticSeedingSourceKind
+	AutomaticSeedingSourceList        = oapi.AutomaticSeedingSourceList
+	AutomaticSeedingSourceObservation = oapi.AutomaticSeedingSourceObservation
+	AutomaticSeedingSourceSort        = oapi.AutomaticSeedingSourceSort
+	AutomaticSeedingSourceState       = oapi.AutomaticSeedingSourceState
 )
 
 type CompetitiveWatchlistBrandID = oapi.CompetitiveWatchlistBrandID

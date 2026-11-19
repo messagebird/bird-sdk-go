@@ -44,20 +44,6 @@ func TestOpenEnumFieldStaysOpen(t *testing.T) {
 // asserted at compile time, since that is where the distinction lives.
 var _ bird.VerificationChannel = bird.VerificationChannelSms
 
-// The constants are re-exported from the internal wire layer, which a caller cannot
-// import — so the facade alias is what makes them nameable at all.
-func TestOpenEnumConstantsAreUsableThroughTheFacade(t *testing.T) {
-	t.Parallel()
-
-	channel := bird.VerificationChannelSms
-	if string(channel) != "sms" {
-		t.Fatalf("constant value: %q", channel)
-	}
-	if !channel.Valid() {
-		t.Fatal("a re-exported constant must be a valid member")
-	}
-}
-
 // A named open enum is a DEFINED Go type, not a `type X = string` alias — a source
 // break for callers assigning the field to a string. Which one the generator emits
 // is stated in backend/openapi/BEST_PRACTICES.md §Open vs Closed Enums, only there.

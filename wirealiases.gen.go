@@ -7,6 +7,8 @@ import "github.com/messagebird/bird-sdk-go/internal/oapi"
 type (
 	AMBAcceptedEventType                                   = oapi.AMBAcceptedEventType
 	AMBAuthenticationStatus                                = oapi.AMBAuthenticationStatus
+	AMBAuthenticationTemplate0                             = oapi.AMBAuthenticationTemplate0
+	AMBAuthenticationTemplate1                             = oapi.AMBAuthenticationTemplate1
 	AMBAuthenticationUpdatedEventType                      = oapi.AMBAuthenticationUpdatedEventType
 	AMBBusinessAccountStatsPoint                           = oapi.AMBBusinessAccountStatsPoint
 	AMBCategoryStatsPoint                                  = oapi.AMBCategoryStatsPoint
@@ -66,6 +68,7 @@ type (
 	AMBRichLink1                                           = oapi.AMBRichLink1
 	AMBSendFailedEventType                                 = oapi.AMBSendFailedEventType
 	AMBSentEventType                                       = oapi.AMBSentEventType
+	AMBSignInMessage                                       = oapi.AMBSignInMessage
 	AMBStatsAttribution                                    = oapi.AMBStatsAttribution
 	AMBStatsComparison                                     = oapi.AMBStatsComparison
 	AMBStatsComparisonDelta                                = oapi.AMBStatsComparisonDelta
@@ -89,6 +92,13 @@ type (
 	AudienceMembershipSummary                              = oapi.AudienceMembershipSummary
 	AudienceRef                                            = oapi.AudienceRef
 	AudienceType                                           = oapi.AudienceType
+	AutomaticSeedingBroadcastSource                        = oapi.AutomaticSeedingBroadcastSource
+	AutomaticSeedingBroadcastSourceKind                    = oapi.AutomaticSeedingBroadcastSourceKind
+	AutomaticSeedingEmailSource                            = oapi.AutomaticSeedingEmailSource
+	AutomaticSeedingEmailSourceKind                        = oapi.AutomaticSeedingEmailSourceKind
+	AutomaticSeedingIssue                                  = oapi.AutomaticSeedingIssue
+	AutomaticSeedingProgress                               = oapi.AutomaticSeedingProgress
+	AutomaticSeedingSource                                 = oapi.AutomaticSeedingSource
 	AvailableNumberPricing                                 = oapi.AvailableNumberPricing
 	BillingInterval                                        = oapi.BillingInterval
 	BillingPricingInterval                                 = oapi.BillingPricingInterval
@@ -218,8 +228,6 @@ type (
 	EmailInboxInsightsWindow                               = oapi.EmailInboxInsightsWindow
 	EmailLatencyQuantiles                                  = oapi.EmailLatencyQuantiles
 	EmailLatencyStats                                      = oapi.EmailLatencyStats
-	EmailMailboxLabel                                      = oapi.EmailMailboxLabel
-	EmailMailboxLabelType                                  = oapi.EmailMailboxLabelType
 	EmailMailboxProviderDeliveryStats                      = oapi.EmailMailboxProviderDeliveryStats
 	EmailMessageBatchItemCategory                          = oapi.EmailMessageBatchItemCategory
 	EmailMessageBatchItemStatus                            = oapi.EmailMessageBatchItemStatus
@@ -950,6 +958,51 @@ const (
 )
 
 const (
+	AutomaticSeedingBroadcastSourceKindBroadcast AutomaticSeedingBroadcastSourceKind = "broadcast"
+)
+
+const (
+	AutomaticSeedingEmailSourceKindApi       AutomaticSeedingEmailSourceKind = "api"
+	AutomaticSeedingEmailSourceKindScheduled AutomaticSeedingEmailSourceKind = "scheduled"
+	AutomaticSeedingEmailSourceKindSmtp      AutomaticSeedingEmailSourceKind = "smtp"
+)
+
+const (
+	AutomaticSeedingRunSortCreatedAt AutomaticSeedingRunSort = "created_at"
+)
+
+const (
+	AutomaticSeedingRunStateDispatchComplete      AutomaticSeedingRunState = "dispatch_complete"
+	AutomaticSeedingRunStateDispatching           AutomaticSeedingRunState = "dispatching"
+	AutomaticSeedingRunStateFailed                AutomaticSeedingRunState = "failed"
+	AutomaticSeedingRunStatePending               AutomaticSeedingRunState = "pending"
+	AutomaticSeedingRunStateReady                 AutomaticSeedingRunState = "ready"
+	AutomaticSeedingRunStateRegistering           AutomaticSeedingRunState = "registering"
+	AutomaticSeedingRunStateRegistrationUncertain AutomaticSeedingRunState = "registration_uncertain"
+	AutomaticSeedingRunStateStopped               AutomaticSeedingRunState = "stopped"
+)
+
+const (
+	AutomaticSeedingSourceKindApi       AutomaticSeedingSourceKind = "api"
+	AutomaticSeedingSourceKindBroadcast AutomaticSeedingSourceKind = "broadcast"
+	AutomaticSeedingSourceKindScheduled AutomaticSeedingSourceKind = "scheduled"
+	AutomaticSeedingSourceKindSmtp      AutomaticSeedingSourceKind = "smtp"
+)
+
+const (
+	AutomaticSeedingSourceSortCreatedAt AutomaticSeedingSourceSort = "created_at"
+)
+
+const (
+	AutomaticSeedingSourceStateCaptured  AutomaticSeedingSourceState = "captured"
+	AutomaticSeedingSourceStateCapturing AutomaticSeedingSourceState = "capturing"
+	AutomaticSeedingSourceStateFailed    AutomaticSeedingSourceState = "failed"
+	AutomaticSeedingSourceStateScheduled AutomaticSeedingSourceState = "scheduled"
+	AutomaticSeedingSourceStateSkipped   AutomaticSeedingSourceState = "skipped"
+	AutomaticSeedingSourceStateStopped   AutomaticSeedingSourceState = "stopped"
+)
+
+const (
 	BillingIntervalDay   BillingInterval = "day"
 	BillingIntervalMonth BillingInterval = "month"
 	BillingIntervalYear  BillingInterval = "year"
@@ -1226,11 +1279,6 @@ const (
 const (
 	EmailInboxInsightsWeightingSourceAccount EmailInboxInsightsWeightingSource = "account"
 	EmailInboxInsightsWeightingSourceGlobal  EmailInboxInsightsWeightingSource = "global"
-)
-
-const (
-	EmailMailboxLabelTypeCustom EmailMailboxLabelType = "custom"
-	EmailMailboxLabelTypeSystem EmailMailboxLabelType = "system"
 )
 
 const (

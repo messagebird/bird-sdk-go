@@ -11,6 +11,8 @@ import (
 	"github.com/messagebird/bird-sdk-go/option"
 )
 
+type AMBAuthenticationTemplate = oapi.AMBAuthenticationTemplate
+
 type AMBConversationRoutingChangeDecision = oapi.AMBConversationRoutingChangeDecision
 
 type AMBConversationTypingEvent = oapi.AMBConversationTypingEvent
@@ -84,6 +86,20 @@ type AmbConversationsTypingParams struct {
 func (p AmbConversationsTypingParams) toWire() oapi.AMBConversationTypingRequest {
 	body := oapi.AMBConversationTypingRequest{}
 	body.Event = p.Event
+	return body
+}
+
+// AmbConversationsRequestAuthenticationParams is the request body for request_authentication.
+type AmbConversationsRequestAuthenticationParams struct {
+	// The sign-in message template to send in place of the business's sign-in message. The template must be a published sign-in message.
+	Template *AMBAuthenticationTemplate
+}
+
+func (p AmbConversationsRequestAuthenticationParams) toWire() oapi.AMBAuthenticationCreate {
+	body := oapi.AMBAuthenticationCreate{}
+	if p.Template != nil {
+		body.Template = p.Template
+	}
 	return body
 }
 
@@ -166,14 +182,14 @@ func (s *AmbConversationsService) Typing(ctx context.Context, conversationId str
 	return err
 }
 
-// RequestAuthentication Sends a native sign-in request to an open conversation whose device_capabilities include AUTH2. Returns the request as pending; keep its id. The outcome arrives as an amb.authentication.updated webhook event, or read the request. A new request supersedes an unfinished one in the same conversation, so retry with the same idempotency key.
-func (s *AmbConversationsService) RequestAuthentication(ctx context.Context, conversationId string, opts ...option.RequestOption) (*AMBAuthentication, error) {
+// RequestAuthentication Sends a native sign-in request to an open conversation whose device_capabilities include AUTH2. Sends the business's sign-in message unless the body names a sign-in message template. Returns the request as pending; keep its id. The outcome arrives as an amb.authentication.updated webhook event, or read the request. A new request supersedes an unfinished one in the same conversation, so retry with the same idempotency key.
+func (s *AmbConversationsService) RequestAuthentication(ctx context.Context, conversationId string, params AmbConversationsRequestAuthenticationParams, opts ...option.RequestOption) (*AMBAuthentication, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.CreateAMBAuthenticationParams{}
 		if idempotencyKey != "" {
 			op.IdempotencyKey = &idempotencyKey
 		}
-		return s.client.oapi.CreateAMBAuthentication(ctx, oapi.AMBConversationID(conversationId), op, cfg...)
+		return s.client.oapi.CreateAMBAuthentication(ctx, oapi.AMBConversationID(conversationId), op, params.toWire(), cfg...)
 	})
 	if err != nil {
 		return nil, err

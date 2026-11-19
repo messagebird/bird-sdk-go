@@ -60,7 +60,7 @@ func readUpload(t *testing.T, r *http.Request) uploadSeen {
 	return seen
 }
 
-func TestComplianceAttachmentsCreateSendsTheFileAsMultipart(t *testing.T) {
+func TestComplianceAttachmentsCreateMultipart(t *testing.T) {
 	t.Parallel()
 	var seen uploadSeen
 	server := newServer(t, func(w http.ResponseWriter, r *http.Request) {
@@ -69,8 +69,9 @@ func TestComplianceAttachmentsCreateSendsTheFileAsMultipart(t *testing.T) {
 		w.WriteHeader(http.StatusCreated)
 		_, _ = io.WriteString(w, attachmentJSON)
 	})
+	client := newClient(t, server)
 
-	att, err := newClient(t, server).ComplianceAttachments.Create(context.Background(), bird.ComplianceAttachmentsCreateParams{
+	att, err := client.ComplianceAttachments.Create(context.Background(), bird.ComplianceAttachmentsCreateParams{
 		File:        bytes.NewReader(attachmentPDF),
 		Filename:    "pro\r\nof.pdf",
 		Description: bird.Ptr("Utility bill"),
@@ -84,31 +85,14 @@ func TestComplianceAttachmentsCreateSendsTheFileAsMultipart(t *testing.T) {
 	if seen.filename != "proof.pdf" || !bytes.Equal(seen.data, attachmentPDF) {
 		t.Errorf("file part = %q (%d bytes), want proof.pdf with the uploaded bytes", seen.filename, len(seen.data))
 	}
-	if !seen.hasDescription || seen.description != "Utility bill" {
-		t.Errorf("description part = %q (present %v), want Utility bill", seen.description, seen.hasDescription)
+	if !seen.hasDescription || seen.description != "Utility bill" || seen.idempotencyKey == "" || att.Id != "tca_01krdgeqcxet5s7t44vh8rt9mg" {
+		t.Errorf("seen=%+v id=%q", seen, att.Id)
 	}
-	if seen.idempotencyKey == "" {
-		t.Error("an upload is a mutation and must carry an Idempotency-Key")
-	}
-	if att.Id != "tca_01krdgeqcxet5s7t44vh8rt9mg" {
-		t.Errorf("Id = %q, want the decoded attachment", att.Id)
-	}
-}
 
-func TestComplianceAttachmentsCreateOmitsAnUnsetDescription(t *testing.T) {
-	t.Parallel()
-	var seen uploadSeen
-	server := newServer(t, func(w http.ResponseWriter, r *http.Request) {
-		seen = readUpload(t, r)
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusOK)
-		_, _ = io.WriteString(w, attachmentJSON)
-	})
-
-	if _, err := newClient(t, server).ComplianceAttachments.Create(context.Background(), bird.ComplianceAttachmentsCreateParams{
+	if _, err := client.ComplianceAttachments.Create(context.Background(), bird.ComplianceAttachmentsCreateParams{
 		File: bytes.NewReader(attachmentPDF), Filename: "proof.pdf",
 	}); err != nil {
-		t.Fatalf("Create: %v", err)
+		t.Fatalf("Create without description: %v", err)
 	}
 	if seen.hasDescription {
 		t.Errorf("description part sent as %q, want none", seen.description)
