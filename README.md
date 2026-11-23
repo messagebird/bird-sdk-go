@@ -62,12 +62,13 @@ Use `bird.Value[any](value)` for a payload or fallback and `bird.Null[any]()` fo
 
 Closed update objects now state fields already required by server validation:
 
-| Public Go field                    | Before                       | After                       |
-| ---------------------------------- | ---------------------------- | --------------------------- |
-| `VoiceRingGroupsUpdateParams.Name` | `*string`                    | `string`                    |
-| `VoiceTrunkMediaUpdate.Encryption` | `*VoiceTrunkMediaEncryption` | `VoiceTrunkMediaEncryption` |
+| Public Go field                    | Before    | After    |
+| ---------------------------------- | --------- | -------- |
+| `VoiceRingGroupsUpdateParams.Name` | `*string` | `string` |
 
-For example, replace `VoiceRingGroupsUpdateParams{Name: bird.Ptr("Support")}` with `VoiceRingGroupsUpdateParams{Name: "Support"}`, and replace `VoiceTrunkMediaUpdate{Encryption: bird.Ptr(mode)}` with `VoiceTrunkMediaUpdate{Encryption: mode}`. `VoiceTrunksUpdateParams.Media` remains optional; only a supplied media object requires encryption. `AdminMarketingStillUpdate.Name` is staff-only and adds no public SDK field.
+For example, replace `VoiceRingGroupsUpdateParams{Name: bird.Ptr("Support")}` with `VoiceRingGroupsUpdateParams{Name: "Support"}`. `AdminMarketingStillUpdate.Name` is staff-only and adds no public SDK field.
+
+`VoiceTrunkMediaUpdate.Encryption` is optional so a media update can change sites alone. Replace `VoiceTrunkMediaUpdate{Encryption: mode}` with `VoiceTrunkMediaUpdate{Encryption: bird.Ptr(mode)}`.
 
 `VoiceDailySpendLimitUpdate.WorkspaceLimit` and `VoiceDestinationDailySpendLimitUpdate.Limit` already use `Nullable[Money]`; they now reject an unset value locally as required by the API.
 

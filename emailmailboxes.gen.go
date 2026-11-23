@@ -30,7 +30,7 @@ type EmailMailboxesListParams struct {
 	State string
 	// Filter to mailboxes whose address is on this domain.
 	Domain string
-	// Include mailboxes deleted within their 30-day restore window. Defaults to false, so only active and suspended mailboxes are returned. A deleted mailbox has `deleted_at` set.
+	// Include mailboxes deleted within their 30-day restore window. Defaults to false, so only active and suspended mailboxes are returned. A deleted mailbox has `deleted_at` set. The Go SDK sends this only when true; false is the same as leaving it out.
 	IncludeDeleted bool
 	// Maximum number of items to return per page.
 	Limit int
@@ -107,7 +107,7 @@ type EmailMailboxesUpdateParams struct {
 	RetentionTier *MailboxUpdateRetentionTier
 	// Replaces the mailbox's key/value data. Up to 2 KB. Keys starting with `__bird` are reserved.
 	Metadata map[string]any
-	// Set to `true` when lowering `retention_tier` would make remembered messages older than the new cutoff eligible for deletion. The request is rejected without it in that case.
+	// Set to `true` when lowering `retention_tier` would make remembered messages older than the new cutoff eligible for deletion. The request is rejected without it in that case. The Go SDK sends this only when true; false is the same as leaving it out.
 	Confirm bool
 }
 

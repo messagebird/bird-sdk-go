@@ -312,6 +312,34 @@ type (
 	EmailTemplateLanguageContent = oapi.EmailTemplateLanguageContent
 )
 
+// Reusable email block reads and inputs, used by the Client.Email.Blocks
+// methods.
+type (
+	// EmailBlock is one block's metadata; its content lives on its languages.
+	EmailBlock = oapi.EmailBlock
+	// EmailBlockList is one page of blocks plus its pagination cursors.
+	EmailBlockList = oapi.EmailBlockList
+	// EmailBlockSortField orders a block list.
+	EmailBlockSortField = oapi.EmailBlockSortField
+	// EmailBlockFragmentValidation is a passing check of an unsaved section,
+	// with its derived plain text.
+	EmailBlockFragmentValidation = oapi.EmailBlockFragmentValidation
+	// EmailBlockLanguage is one language's draft section and revision.
+	EmailBlockLanguage = oapi.EmailBlockLanguage
+	// EmailBlockLanguageList is a block's languages, without content.
+	EmailBlockLanguageList = oapi.EmailBlockLanguageList
+	// EmailBlockSubmission is a publication and the revisions it made live.
+	EmailBlockSubmission = oapi.EmailBlockSubmission
+	// EmailBlockRevision is one published revision with its section.
+	EmailBlockRevision = oapi.EmailBlockRevision
+	// EmailBlockRevisionSummary is a published revision's list row.
+	EmailBlockRevisionSummary = oapi.EmailBlockRevisionSummary
+	// EmailBlockRevisionList is one page of a language's published revisions.
+	EmailBlockRevisionList = oapi.EmailBlockRevisionList
+	// EmailBlockRevisionSortField orders a published revision list.
+	EmailBlockRevisionSortField = oapi.EmailBlockRevisionSortField
+)
+
 // SMS statistics responses, returned by the Client.Sms.Stats methods. Each is
 // the read-side body for one breakdown; the Inbound set counts messages the
 // workspace's own numbers received rather than what it sent.

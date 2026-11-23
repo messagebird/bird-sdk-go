@@ -2439,6 +2439,72 @@ func (e DomainReceivingState) Valid() bool {
 	}
 }
 
+// Defines values for EmailAuthoringMode.
+const (
+	EmailAuthoringModeHtml   EmailAuthoringMode = "html"
+	EmailAuthoringModeVisual EmailAuthoringMode = "visual"
+)
+
+// Valid indicates whether the value is a known member of the EmailAuthoringMode enum.
+func (e EmailAuthoringMode) Valid() bool {
+	switch e {
+	case EmailAuthoringModeHtml:
+		return true
+	case EmailAuthoringModeVisual:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailBlockRevisionSortField.
+const (
+	VersionNumber EmailBlockRevisionSortField = "version_number"
+)
+
+// Valid indicates whether the value is a known member of the EmailBlockRevisionSortField enum.
+func (e EmailBlockRevisionSortField) Valid() bool {
+	switch e {
+	case VersionNumber:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailBlockSortField.
+const (
+	EmailBlockSortFieldCreatedAt EmailBlockSortField = "created_at"
+	EmailBlockSortFieldName      EmailBlockSortField = "name"
+)
+
+// Valid indicates whether the value is a known member of the EmailBlockSortField enum.
+func (e EmailBlockSortField) Valid() bool {
+	switch e {
+	case EmailBlockSortFieldCreatedAt:
+		return true
+	case EmailBlockSortFieldName:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailBlockSubmissionStatus.
+const (
+	EmailBlockSubmissionStatusPublished EmailBlockSubmissionStatus = "published"
+)
+
+// Valid indicates whether the value is a known member of the EmailBlockSubmissionStatus enum.
+func (e EmailBlockSubmissionStatus) Valid() bool {
+	switch e {
+	case EmailBlockSubmissionStatusPublished:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for EmailBounceType.
 const (
 	EmailBounceTypeAdmin        EmailBounceType = "admin"
@@ -2595,6 +2661,9 @@ const (
 	EmailBroadcastParameterProblemCodeRenderBudgetExceeded       EmailBroadcastParameterProblemCode = "render_budget_exceeded"
 	EmailBroadcastParameterProblemCodeRenderProfileUnsupported   EmailBroadcastParameterProblemCode = "render_profile_unsupported"
 	EmailBroadcastParameterProblemCodeRenderedEnvelopeInvalid    EmailBroadcastParameterProblemCode = "rendered_envelope_invalid"
+	EmailBroadcastParameterProblemCodeSeedExampleValueMissing    EmailBroadcastParameterProblemCode = "seed_example_value_missing"
+	EmailBroadcastParameterProblemCodeSeedTestsExhausted         EmailBroadcastParameterProblemCode = "seed_tests_exhausted"
+	EmailBroadcastParameterProblemCodeSeedingNotConfigured       EmailBroadcastParameterProblemCode = "seeding_not_configured"
 	EmailBroadcastParameterProblemCodeSenderUnavailable          EmailBroadcastParameterProblemCode = "sender_unavailable"
 	EmailBroadcastParameterProblemCodeSensitiveInputUnsupported  EmailBroadcastParameterProblemCode = "sensitive_input_unsupported"
 	EmailBroadcastParameterProblemCodeTemplateUnavailable        EmailBroadcastParameterProblemCode = "template_unavailable"
@@ -2643,6 +2712,12 @@ func (e EmailBroadcastParameterProblemCode) Valid() bool {
 		return true
 	case EmailBroadcastParameterProblemCodeRenderedEnvelopeInvalid:
 		return true
+	case EmailBroadcastParameterProblemCodeSeedExampleValueMissing:
+		return true
+	case EmailBroadcastParameterProblemCodeSeedTestsExhausted:
+		return true
+	case EmailBroadcastParameterProblemCodeSeedingNotConfigured:
+		return true
 	case EmailBroadcastParameterProblemCodeSenderUnavailable:
 		return true
 	case EmailBroadcastParameterProblemCodeSensitiveInputUnsupported:
@@ -2681,13 +2756,16 @@ func (e EmailBroadcastParameterProblemPhase) Valid() bool {
 
 // Defines values for EmailBroadcastParameterProblemSeverity.
 const (
-	EmailBroadcastParameterProblemSeverityError EmailBroadcastParameterProblemSeverity = "error"
+	EmailBroadcastParameterProblemSeverityError   EmailBroadcastParameterProblemSeverity = "error"
+	EmailBroadcastParameterProblemSeverityWarning EmailBroadcastParameterProblemSeverity = "warning"
 )
 
 // Valid indicates whether the value is a known member of the EmailBroadcastParameterProblemSeverity enum.
 func (e EmailBroadcastParameterProblemSeverity) Valid() bool {
 	switch e {
 	case EmailBroadcastParameterProblemSeverityError:
+		return true
+	case EmailBroadcastParameterProblemSeverityWarning:
 		return true
 	default:
 		return false
@@ -7421,16 +7499,16 @@ func (e RecipientRole) Valid() bool {
 
 // Defines values for Region.
 const (
-	Eu1 Region = "eu1"
-	Us1 Region = "us1"
+	RegionEu1 Region = "eu1"
+	RegionUs1 Region = "us1"
 )
 
 // Valid indicates whether the value is a known member of the Region enum.
 func (e Region) Valid() bool {
 	switch e {
-	case Eu1:
+	case RegionEu1:
 		return true
-	case Us1:
+	case RegionUs1:
 		return true
 	default:
 		return false
@@ -9126,6 +9204,27 @@ func (e VoiceTrunkMediaEncryption) Valid() bool {
 	case VoiceTrunkMediaEncryptionPreferred:
 		return true
 	case VoiceTrunkMediaEncryptionRequired:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for VoiceTrunkMediaSite.
+const (
+	VoiceTrunkMediaSiteAp1 VoiceTrunkMediaSite = "ap1"
+	VoiceTrunkMediaSiteEu1 VoiceTrunkMediaSite = "eu1"
+	VoiceTrunkMediaSiteUs1 VoiceTrunkMediaSite = "us1"
+)
+
+// Valid indicates whether the value is a known member of the VoiceTrunkMediaSite enum.
+func (e VoiceTrunkMediaSite) Valid() bool {
+	switch e {
+	case VoiceTrunkMediaSiteAp1:
+		return true
+	case VoiceTrunkMediaSiteEu1:
+		return true
+	case VoiceTrunkMediaSiteUs1:
 		return true
 	default:
 		return false
@@ -11765,16 +11864,16 @@ func (e GetEmailCompetitiveNotableCampaignsParamsRange) Valid() bool {
 
 // Defines values for ListDomainsParamsSort.
 const (
-	CreatedAt ListDomainsParamsSort = "created_at"
-	Name      ListDomainsParamsSort = "name"
+	ListDomainsParamsSortCreatedAt ListDomainsParamsSort = "created_at"
+	ListDomainsParamsSortName      ListDomainsParamsSort = "name"
 )
 
 // Valid indicates whether the value is a known member of the ListDomainsParamsSort enum.
 func (e ListDomainsParamsSort) Valid() bool {
 	switch e {
-	case CreatedAt:
+	case ListDomainsParamsSortCreatedAt:
 		return true
-	case Name:
+	case ListDomainsParamsSortName:
 		return true
 	default:
 		return false
@@ -15341,7 +15440,7 @@ type AssetList struct {
 
 // AssetReference A resource that uses an asset, so you can find everything to update before replacing an image.
 type AssetReference struct {
-	// ResourceId The resource's own identifier, carrying that resource's prefix (`emt_` for an email template), for linking straight to it.
+	// ResourceId The resource's own identifier, carrying that resource's prefix: `emt_` for an email template, `ebl_` for a reusable email block. A reusable block is identified here by ID and name; the API does not yet return its content.
 	ResourceId *string `json:"resource_id,omitempty"`
 
 	// ResourceName The resource's current display name, read when you list references.
@@ -17928,6 +18027,318 @@ type EmailAttachmentRef struct {
 	Size int `json:"size"`
 }
 
+// EmailAuthoringMode How this language is edited. `html` content is written as HTML and can be changed through the API, CLI and MCP. `visual` content is built in the Bird dashboard's visual editor; outside the dashboard, a visual section can still be copied by duplicating its block or restoring a published revision. The mode follows from the stored content and cannot be set directly. New values may be added; treat an unknown value as content you cannot edit through the API, CLI or MCP.
+type EmailAuthoringMode string
+
+// EmailBlock defines model for EmailBlock.
+type EmailBlock struct {
+	// ArchivedAt Present when the block is archived. Retained published content remains readable.
+	ArchivedAt *time.Time `json:"archived_at,omitempty"`
+	CreatedAt  *time.Time `json:"created_at,omitempty"`
+	CreatedBy  Actor      `json:"created_by"`
+
+	// Description Optional notes for people maintaining the block. Omitted when empty.
+	Description *string      `json:"description,omitempty"`
+	Id          EmailBlockID `json:"id"`
+
+	// Name Name for people choosing the block, such as when linking it into a template.
+	Name string `json:"name"`
+
+	// Revision Metadata revision to send when editing or duplicating this block.
+	Revision int64 `json:"revision"`
+
+	// SourceLanguage A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	SourceLanguage LanguageTag `json:"source_language"`
+	UpdatedAt      *time.Time  `json:"updated_at,omitempty"`
+}
+
+// EmailBlockCreate Create an unpublished block and its source-language draft.
+type EmailBlockCreate struct {
+	// Description Optional notes for people maintaining the block.
+	Description *string `json:"description,omitempty"`
+
+	// Fragment One self-contained email section. Version 2 is a section written as HTML and sends `fragment_html` alone; the API, SDKs, CLI and MCP write version 2. Version 1 is reserved for sections built in the Bird dashboard's visual editor, and only the dashboard saves it. A block language keeps the version it was created with.
+	Fragment *EmailBlockFragment `json:"fragment,omitempty"`
+
+	// Name Name for people choosing the block, such as when linking it into a template.
+	Name string `json:"name"`
+
+	// SourceLanguage A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	SourceLanguage LanguageTag `json:"source_language"`
+}
+
+// EmailBlockDuplicate Copy all current draft languages into a new unpublished block.
+type EmailBlockDuplicate struct {
+	// Name Name for the new block.
+	Name string `json:"name"`
+
+	// Revision Source metadata revision last read. A change while copying returns 409.
+	Revision int64 `json:"revision"`
+}
+
+// EmailBlockFragment One self-contained email section. Version 2 is a section written as HTML and sends `fragment_html` alone; the API, SDKs, CLI and MCP write version 2. Version 1 is reserved for sections built in the Bird dashboard's visual editor, and only the dashboard saves it. A block language keeps the version it was created with.
+type EmailBlockFragment struct {
+	// FragmentHtml Section HTML. Unfinished markup can be saved as a draft; validation checks readiness separately. A version 2 section is one presentation table with one `tbody`, `tr` and `td`, and all layout stays inside that cell. The cell sets `lang` to the block language and its own typography: `font-family`, a `font-size` in pixels, `font-style`, `font-weight`, `line-height`, `letter-spacing`, `text-align` (not `start` or `end`), `text-transform`, `color`, `margin` and `padding`. Root-relative units such as `rem` are refused; use px, em or percentages. Liquid stays balanced inside the cell, cannot use `assign`, `capture`, `increment` or `decrement`, and puts no control tag inside an attribute or style value. `{{ bird.unsubscribe_url }}` appears only as bare text or as the entire `href` of an `<a>`, and never inside an `if !mso` conditional comment, which Outlook skips. No document wrapper, `<style>`, script, form, `class` or `id` attribute. A table nested in the cell needs its own `<tbody>`. Inside a complete Outlook conditional comment, prefixed Office and VML elements such as `v:fill` may self-close, and a balanced `if !mso` conditional comment that shows its content outside Outlook is accepted when it holds no other conditional comment.
+	FragmentHtml string `json:"fragment_html" pii:"true"`
+
+	// SerializerVersion How this section is written. 2 is HTML written directly, and is the value to send from the API, SDKs, CLI and MCP. 1 is reserved for the Bird dashboard's visual editor; other callers get a `422` for it.
+	SerializerVersion int `json:"serializer_version"`
+}
+
+// EmailBlockFragmentValidation Successful section validation. Validation neither saves nor publishes content.
+type EmailBlockFragmentValidation struct {
+	// Text Plain text derived from this section's HTML.
+	Text string `json:"text" pii:"true"`
+}
+
+// EmailBlockFragmentValidationRequest Check a section's markup, variables and contact properties without saving it.
+type EmailBlockFragmentValidationRequest struct {
+	// Fragment One self-contained email section. Version 2 is a section written as HTML and sends `fragment_html` alone; the API, SDKs, CLI and MCP write version 2. Version 1 is reserved for sections built in the Bird dashboard's visual editor, and only the dashboard saves it. A block language keeps the version it was created with.
+	Fragment EmailBlockFragment `json:"fragment"`
+
+	// Language A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	Language LanguageTag `json:"language"`
+}
+
+// EmailBlockID defines model for EmailBlockID.
+type EmailBlockID = string
+
+// EmailBlockLanguage defines model for EmailBlockLanguage.
+type EmailBlockLanguage struct {
+	// AuthoringMode How this language is edited. `html` content is written as HTML and can be changed through the API, CLI and MCP. `visual` content is built in the Bird dashboard's visual editor; outside the dashboard, a visual section can still be copied by duplicating its block or restoring a published revision. The mode follows from the stored content and cannot be set directly. New values may be added; treat an unknown value as content you cannot edit through the API, CLI or MCP.
+	AuthoringMode *EmailAuthoringMode `json:"authoring_mode,omitempty"`
+	CreatedAt     *time.Time          `json:"created_at,omitempty"`
+
+	// Fragment One self-contained email section. Version 2 is a section written as HTML and sends `fragment_html` alone; the API, SDKs, CLI and MCP write version 2. Version 1 is reserved for sections built in the Bird dashboard's visual editor, and only the dashboard saves it. A block language keeps the version it was created with.
+	Fragment EmailBlockFragment `json:"fragment"`
+
+	// Language A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	Language            LanguageTag           `json:"language"`
+	PublishedRevisionId *EmailBlockRevisionID `json:"published_revision_id,omitempty"`
+
+	// Revision Draft revision to send back when saving or publishing this language, as last returned. It is not a publication number; a published revision is a separate record numbered by `version_number`.
+	Revision         int64                 `json:"revision"`
+	SourceRevisionId *EmailBlockRevisionID `json:"source_revision_id,omitempty"`
+	UpdatedAt        *time.Time            `json:"updated_at,omitempty"`
+}
+
+// EmailBlockLanguageFields defines model for EmailBlockLanguageFields.
+type EmailBlockLanguageFields struct {
+	// AuthoringMode How this language is edited. `html` content is written as HTML and can be changed through the API, CLI and MCP. `visual` content is built in the Bird dashboard's visual editor; outside the dashboard, a visual section can still be copied by duplicating its block or restoring a published revision. The mode follows from the stored content and cannot be set directly. New values may be added; treat an unknown value as content you cannot edit through the API, CLI or MCP.
+	AuthoringMode *EmailAuthoringMode `json:"authoring_mode,omitempty"`
+
+	// Language A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	Language            LanguageTag           `json:"language"`
+	PublishedRevisionId *EmailBlockRevisionID `json:"published_revision_id,omitempty"`
+
+	// Revision Draft revision to send back when saving or publishing this language, as last returned. It is not a publication number; a published revision is a separate record numbered by `version_number`.
+	Revision         int64                 `json:"revision"`
+	SourceRevisionId *EmailBlockRevisionID `json:"source_revision_id,omitempty"`
+}
+
+// EmailBlockLanguageList All block languages, ordered by language tag. A block holds at most 25 languages.
+type EmailBlockLanguageList struct {
+	Data []EmailBlockLanguageSummary `json:"data"`
+}
+
+// EmailBlockLanguageSummary defines model for EmailBlockLanguageSummary.
+type EmailBlockLanguageSummary struct {
+	// AuthoringMode How this language is edited. `html` content is written as HTML and can be changed through the API, CLI and MCP. `visual` content is built in the Bird dashboard's visual editor; outside the dashboard, a visual section can still be copied by duplicating its block or restoring a published revision. The mode follows from the stored content and cannot be set directly. New values may be added; treat an unknown value as content you cannot edit through the API, CLI or MCP.
+	AuthoringMode *EmailAuthoringMode `json:"authoring_mode,omitempty"`
+	CreatedAt     *time.Time          `json:"created_at,omitempty"`
+
+	// Language A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	Language            LanguageTag           `json:"language"`
+	PublishedRevisionId *EmailBlockRevisionID `json:"published_revision_id,omitempty"`
+
+	// Revision Draft revision to send back when saving or publishing this language, as last returned. It is not a publication number; a published revision is a separate record numbered by `version_number`.
+	Revision         int64                 `json:"revision"`
+	SourceRevisionId *EmailBlockRevisionID `json:"source_revision_id,omitempty"`
+	UpdatedAt        *time.Time            `json:"updated_at,omitempty"`
+}
+
+// EmailBlockLanguageUpsert Save a full draft section or copy a retained published revision into its draft. Supply exactly one of fragment or from_revision_id. Copying a revision preserves its source reference and never republishes it. source_revision_id is accepted only with authored fragment content; omitting it clears translation provenance. A new language takes the authoring mode of its first fragment, and an existing language keeps its mode: content in the other mode returns 422.
+type EmailBlockLanguageUpsert struct {
+	// Fragment One self-contained email section. Version 2 is a section written as HTML and sends `fragment_html` alone; the API, SDKs, CLI and MCP write version 2. Version 1 is reserved for sections built in the Bird dashboard's visual editor, and only the dashboard saves it. A block language keeps the version it was created with.
+	Fragment       *EmailBlockFragment   `json:"fragment,omitempty"`
+	FromRevisionId *EmailBlockRevisionID `json:"from_revision_id,omitempty"`
+
+	// Revision Draft revision last read, or zero to create a missing language. A concurrent change returns 409.
+	Revision         int64                 `json:"revision"`
+	SourceRevisionId *EmailBlockRevisionID `json:"source_revision_id,omitempty"`
+	union            json.RawMessage
+}
+
+// EmailBlockLanguageUpsert0 defines model for .
+type EmailBlockLanguageUpsert0 = interface{}
+
+// EmailBlockLanguageUpsert1 defines model for .
+type EmailBlockLanguageUpsert1 = interface{}
+
+// EmailBlockList defines model for EmailBlockList.
+type EmailBlockList struct {
+	Data []EmailBlock `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed, and omitted otherwise.
+	Total *int64 `json:"total,omitempty"`
+}
+
+// EmailBlockPublish Publish the current drafts of the named languages. They go live together or not at all.
+type EmailBlockPublish struct {
+	// Confirm Publish even though live templates that use this block will start requiring inputs this publication adds. Without it, such a publication returns 409 naming the inputs and templates.
+	Confirm *bool `json:"confirm,omitempty"`
+
+	// Languages Languages to publish, each with the draft revision last read.
+	Languages []EmailBlockPublishLanguage `json:"languages"`
+}
+
+// EmailBlockPublishLanguage One language to publish and the draft revision it must still be at.
+type EmailBlockPublishLanguage struct {
+	// Language A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	Language LanguageTag `json:"language"`
+
+	// Revision Draft revision last read. A newer saved draft returns 409.
+	Revision int64 `json:"revision"`
+}
+
+// EmailBlockPublishedRevision A revision that became the published content of one block language.
+type EmailBlockPublishedRevision struct {
+	Id EmailBlockRevisionID `json:"id"`
+
+	// Language A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	Language LanguageTag `json:"language"`
+
+	// VersionNumber Publication number within this block language.
+	VersionNumber int64 `json:"version_number"`
+}
+
+// EmailBlockRevision defines model for EmailBlockRevision.
+type EmailBlockRevision struct {
+	// AuthoringMode How this language is edited. `html` content is written as HTML and can be changed through the API, CLI and MCP. `visual` content is built in the Bird dashboard's visual editor; outside the dashboard, a visual section can still be copied by duplicating its block or restoring a published revision. The mode follows from the stored content and cannot be set directly. New values may be added; treat an unknown value as content you cannot edit through the API, CLI or MCP.
+	AuthoringMode *EmailAuthoringMode `json:"authoring_mode,omitempty"`
+	CreatedAt     time.Time           `json:"created_at"`
+
+	// Fragment One self-contained email section. Version 2 is a section written as HTML and sends `fragment_html` alone; the API, SDKs, CLI and MCP write version 2. Version 1 is reserved for sections built in the Bird dashboard's visual editor, and only the dashboard saves it. A block language keeps the version it was created with.
+	Fragment    EmailBlockFragment   `json:"fragment"`
+	Id          EmailBlockRevisionID `json:"id"`
+	PublishedAt time.Time            `json:"published_at"`
+	PublishedBy Actor                `json:"published_by"`
+
+	// SerializerVersion Format used to save and render this section: 2 for a section written as HTML, 1 for one built in the Bird dashboard's visual editor.
+	SerializerVersion int                   `json:"serializer_version"`
+	SourceRevisionId  *EmailBlockRevisionID `json:"source_revision_id,omitempty"`
+
+	// VersionNumber Publication number within this block language. A draft's `revision` is the value to send back when saving, not a publication number.
+	VersionNumber int64 `json:"version_number"`
+}
+
+// EmailBlockRevisionFields defines model for EmailBlockRevisionFields.
+type EmailBlockRevisionFields struct {
+	// AuthoringMode How this language is edited. `html` content is written as HTML and can be changed through the API, CLI and MCP. `visual` content is built in the Bird dashboard's visual editor; outside the dashboard, a visual section can still be copied by duplicating its block or restoring a published revision. The mode follows from the stored content and cannot be set directly. New values may be added; treat an unknown value as content you cannot edit through the API, CLI or MCP.
+	AuthoringMode *EmailAuthoringMode  `json:"authoring_mode,omitempty"`
+	CreatedAt     time.Time            `json:"created_at"`
+	Id            EmailBlockRevisionID `json:"id"`
+	PublishedAt   time.Time            `json:"published_at"`
+	PublishedBy   Actor                `json:"published_by"`
+
+	// SerializerVersion Format used to save and render this section: 2 for a section written as HTML, 1 for one built in the Bird dashboard's visual editor.
+	SerializerVersion int                   `json:"serializer_version"`
+	SourceRevisionId  *EmailBlockRevisionID `json:"source_revision_id,omitempty"`
+
+	// VersionNumber Publication number within this block language. A draft's `revision` is the value to send back when saving, not a publication number.
+	VersionNumber int64 `json:"version_number"`
+}
+
+// EmailBlockRevisionID defines model for EmailBlockRevisionID.
+type EmailBlockRevisionID = string
+
+// EmailBlockRevisionList defines model for EmailBlockRevisionList.
+type EmailBlockRevisionList struct {
+	Data []EmailBlockRevisionSummary `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed, and omitted otherwise.
+	Total *int64 `json:"total,omitempty"`
+}
+
+// EmailBlockRevisionSortField Field used to order a block language's published revisions.
+type EmailBlockRevisionSortField string
+
+// EmailBlockRevisionSummary defines model for EmailBlockRevisionSummary.
+type EmailBlockRevisionSummary = EmailBlockRevisionFields
+
+// EmailBlockSortField Field used to order reusable email blocks.
+type EmailBlockSortField string
+
+// EmailBlockSubmission One block change put forward for publication. A change that needs no review is recorded already published.
+type EmailBlockSubmission struct {
+	BlockId   EmailBlockID           `json:"block_id"`
+	CreatedAt time.Time              `json:"created_at"`
+	Id        EmailBlockSubmissionID `json:"id"`
+
+	// Languages Each included language, the draft revision it was taken from, and the snapshot frozen for it.
+	Languages   []EmailBlockSubmissionLanguage `json:"languages"`
+	PublishedAt time.Time                      `json:"published_at"`
+
+	// PublishedRevisions The revisions that became live when this change was published.
+	PublishedRevisions []EmailBlockPublishedRevision `json:"published_revisions"`
+
+	// Status Where a block change is in its lifecycle. `published` means its revisions are live. New values may be added; treat an unknown value as not yet live.
+	Status EmailBlockSubmissionStatus `json:"status"`
+}
+
+// EmailBlockSubmissionID defines model for EmailBlockSubmissionID.
+type EmailBlockSubmissionID = string
+
+// EmailBlockSubmissionLanguage One language included in a block change.
+type EmailBlockSubmissionLanguage struct {
+	CandidateRevisionId EmailBlockRevisionID `json:"candidate_revision_id"`
+
+	// DraftRevision Draft revision this snapshot was taken from.
+	DraftRevision int64 `json:"draft_revision"`
+
+	// Language A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	Language LanguageTag `json:"language"`
+}
+
+// EmailBlockSubmissionStatus Where a block change is in its lifecycle. `published` means its revisions are live. New values may be added; treat an unknown value as not yet live.
+type EmailBlockSubmissionStatus string
+
+// EmailBlockUpdate Change block metadata without changing its content or publication state.
+type EmailBlockUpdate struct {
+	// Archived Archive or unarchive the block. Archiving retains its content and history.
+	Archived *bool `json:"archived,omitempty"`
+
+	// Description Replacement maintenance notes. Send an empty string to clear them.
+	Description *string `json:"description,omitempty"`
+
+	// Name New name for the block.
+	Name *string `json:"name,omitempty"`
+
+	// Revision Metadata revision last read. A concurrent change returns 409.
+	Revision int64 `json:"revision"`
+
+	// SourceLanguage A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	SourceLanguage *LanguageTag `json:"source_language,omitempty"`
+}
+
 // EmailBounceCodeStatsPoint Bounce counts for a single SMTP status code over the requested period, with the per-type breakdown. This is a deliverability-debugging view keyed on what the receiving mail server returned, so it only reports the failure side: bounced recipients, and their `hard`, `soft`, `admin`, `block`, and `undetermined` split. It has no delivered, open, or rate fields.
 type EmailBounceCodeStatsPoint struct {
 	// Bounced Distinct recipients whose delivery failed with this SMTP status code, approximately equal to the sum of the five `bounces.*` sub-counts. The two are computed independently, so they can differ slightly because of approximation.
@@ -18001,6 +18412,9 @@ type EmailBounceType string
 // EmailBroadcast defines model for EmailBroadcast.
 type EmailBroadcast struct {
 	AudienceId *AudienceID `json:"audience_id,omitempty"`
+
+	// AutomaticSeeding The broadcast's automatic seeding choice, or null when a seed test starts only from a contact at the workspace's trigger address in the audience. Returned on single-broadcast reads and on create and update responses to callers with Inbox Insights read and contact read permission. Not included in lists.
+	AutomaticSeeding *EmailBroadcastAutomaticSeeding `json:"automatic_seeding,omitempty"`
 
 	// BouncedCount How many recipients the message could not be delivered to at all. Absent when `sent_count` is.
 	BouncedCount *int64 `json:"bounced_count,omitempty"`
@@ -18164,6 +18578,24 @@ type EmailBroadcastCategory string
 // - `workspace_suspended`: The workspace is suspended, so the broadcast stopped sending. Recipients not yet sent to are not sent to, even after reactivation. Contact Bird support to reactivate the workspace.
 type EmailBroadcastFailureReason string
 
+// EmailBroadcastAutomaticSeeding How a broadcast takes part in automatic seeding. The seed pool, engagement profile and regions come from the workspace's automatic seeding settings.
+type EmailBroadcastAutomaticSeeding struct {
+	// Enabled Whether the broadcast sends seed copies. False sends none, even when the audience contains a contact at the trigger address.
+	Enabled bool `json:"enabled"`
+
+	// ExampleContactId The contact whose values fill the personal fields in the seed copies. It belongs to this workspace but need not be in the audience; choosing it does not change who receives the broadcast. Null when personal fields use their fallback values.
+	ExampleContactId *ContactID `json:"example_contact_id"`
+}
+
+// EmailBroadcastAutomaticSeedingInput How a broadcast takes part in automatic seeding. The seed pool, engagement profile and regions come from the workspace's automatic seeding settings.
+type EmailBroadcastAutomaticSeedingInput struct {
+	// Enabled Whether the broadcast sends seed copies. False sends none, even when the audience contains a contact at the trigger address. A seeded send spends one of the organization's seed tests. When the workspace's automatic seeding is off or the organization has no seed tests left, the broadcast still sends without seed copies; validate the broadcast first to see these as warnings.
+	Enabled bool `json:"enabled"`
+
+	// ExampleContactId A contact whose values fill the personal fields in the seed copies, such as a first name. It must belong to this workspace but need not be in the audience; choosing it does not change who receives the broadcast. Its details reach external seed mailboxes, so use a test contact. While seeding is enabled, sending refuses a chosen contact that has since been deleted, so choose another or leave it out. Leave it out to fill personal fields with their fallback values.
+	ExampleContactId *ContactID `json:"example_contact_id,omitempty"`
+}
+
 // EmailBroadcastClickedLink One destination URL a broadcast's recipients clicked, with its exact click and recipient totals. Grouped over every click event the broadcast has, not a sample.
 type EmailBroadcastClickedLink struct {
 	// ClickCount Total clicks through this URL, including clicks that carried no link name.
@@ -18234,6 +18666,9 @@ type EmailBroadcastCounts struct {
 // Leave `send` false, which is the default, and you get a draft. Update it as often as you like, then send it when you are ready. Set `send` to true and the broadcast goes out as soon as it is created, or at `scheduled_at` if you set one.
 type EmailBroadcastCreateRequest struct {
 	AudienceId *AudienceID `json:"audience_id,omitempty"`
+
+	// AutomaticSeeding Whether this broadcast sends seed copies for an automatic seed test. Leave it out to start a seed test only when the audience contains a contact at the workspace's trigger address. Send `enabled: false` to send no seed copies at all. Needs Inbox Insights write permission, and contact read permission to choose an example contact. Turning seeding on returns `404 not_found` while automatic seeding is unavailable to the workspace.
+	AutomaticSeeding *EmailBroadcastAutomaticSeedingInput `json:"automatic_seeding,omitempty"`
 
 	// BrandId Selects the business whose email preferences and unsubscribe page apply. Omission or null selects the workspace's default Brand when the broadcast is first scheduled or sent. An explicit ID must belong to this workspace and be active; unknown, foreign or archived IDs return `422`. The selected Brand stays fixed through delivery and retries.
 	BrandId nullable.Nullable[BrandID] `json:"brand_id,omitempty"`
@@ -18310,6 +18745,9 @@ type EmailBroadcastFailureParameters struct {
 	// - `render_budget_exceeded`: rendering went over a limit, named by `budget` with its `limit`.
 	// - `transport_missing`: the saved content of a prepared broadcast is unavailable. Contact Bird support.
 	// - `transport_invalid`: the saved content of a prepared broadcast no longer matches what was prepared. Contact Bird support.
+	// - `seed_example_value_missing`: automatic seeding has no example contact, and the template requires the contact field at `pointer`, which has no fallback value. Choose an example contact or give the field a fallback value. Seed copies are not sent until then.
+	// - `seeding_not_configured`: automatic seeding is on, but the workspace's automatic seeding settings are not saved or are turned off. Save them before sending, or no seed copies are sent.
+	// - `seed_tests_exhausted`: automatic seeding is on, but the organization has no seed tests left this period, so no seed copies are sent.
 	Code EmailBroadcastParameterProblemCode `json:"code"`
 
 	// FailureCount How many recipients failed to render, including those not listed in `problems`. It can be `0` when the broadcast failed while it was being prepared, before any recipient was rendered.
@@ -18439,6 +18877,9 @@ type EmailBroadcastParameterProblem struct {
 	// - `render_budget_exceeded`: rendering went over a limit, named by `budget` with its `limit`.
 	// - `transport_missing`: the saved content of a prepared broadcast is unavailable. Contact Bird support.
 	// - `transport_invalid`: the saved content of a prepared broadcast no longer matches what was prepared. Contact Bird support.
+	// - `seed_example_value_missing`: automatic seeding has no example contact, and the template requires the contact field at `pointer`, which has no fallback value. Choose an example contact or give the field a fallback value. Seed copies are not sent until then.
+	// - `seeding_not_configured`: automatic seeding is on, but the workspace's automatic seeding settings are not saved or are turned off. Save them before sending, or no seed copies are sent.
+	// - `seed_tests_exhausted`: automatic seeding is on, but the organization has no seed tests left this period, so no seed copies are sent.
 	Code      EmailBroadcastParameterProblemCode `json:"code"`
 	ContactId *ContactID                         `json:"contact_id,omitempty"`
 
@@ -18458,6 +18899,7 @@ type EmailBroadcastParameterProblem struct {
 	// Severity How a broadcast input diagnostic affects sending.
 	//
 	// - `error`: the broadcast cannot send until the problem is fixed.
+	// - `warning`: the broadcast can send, but something it asks for will not happen, such as its automatic seed test.
 	Severity EmailBroadcastParameterProblemSeverity `json:"severity"`
 
 	// Site The part of the email where the input is used.
@@ -18498,6 +18940,9 @@ type EmailBroadcastParameterProblem struct {
 // - `render_budget_exceeded`: rendering went over a limit, named by `budget` with its `limit`.
 // - `transport_missing`: the saved content of a prepared broadcast is unavailable. Contact Bird support.
 // - `transport_invalid`: the saved content of a prepared broadcast no longer matches what was prepared. Contact Bird support.
+// - `seed_example_value_missing`: automatic seeding has no example contact, and the template requires the contact field at `pointer`, which has no fallback value. Choose an example contact or give the field a fallback value. Seed copies are not sent until then.
+// - `seeding_not_configured`: automatic seeding is on, but the workspace's automatic seeding settings are not saved or are turned off. Save them before sending, or no seed copies are sent.
+// - `seed_tests_exhausted`: automatic seeding is on, but the organization has no seed tests left this period, so no seed copies are sent.
 type EmailBroadcastParameterProblemCode string
 
 // EmailBroadcastParameterProblemPhase Where a broadcast input diagnostic was found.
@@ -18510,6 +18955,7 @@ type EmailBroadcastParameterProblemPhase string
 // EmailBroadcastParameterProblemSeverity How a broadcast input diagnostic affects sending.
 //
 // - `error`: the broadcast cannot send until the problem is fixed.
+// - `warning`: the broadcast can send, but something it asks for will not happen, such as its automatic seed test.
 type EmailBroadcastParameterProblemSeverity string
 
 // EmailBroadcastParameterProblemSite The part of the email where the input is used.
@@ -18601,7 +19047,7 @@ type EmailBroadcastResolvedParameters map[string]interface{}
 
 // EmailBroadcastResume defines model for EmailBroadcastResume.
 type EmailBroadcastResume struct {
-	// Confirm Acknowledgment that the message reaches the remaining recipients later than intended. It is required to resume a broadcast that started sending at least 24 hours ago. Before setting it, read the broadcast's `started_at` and have a reviewer with `email_management:read` read its template by `template.id` to check `scope`, then, for a workspace template or one the template read reports deleted (`404`), its pinned version using `template.id` and `template.version_id`. Workspace versions retain the original content. A built-in template (`scope: system`) shows current catalogue content, and only the template read returns `scope`. Broadcasts with frozen content keep it, but older broadcasts can read the catalogue again when resumed. Neither a current lookup nor an earlier message alone proves what remaining recipients will receive. Leave the broadcast paused unless you can verify that content. Ask an authorized teammate if you lack that permission. It does not skip the funds or concurrent-broadcast checks.
+	// Confirm Acknowledgment that the message reaches the remaining recipients later than intended. It is required to resume a broadcast that started sending at least 24 hours ago. Before setting it, read the broadcast's `started_at` and have a reviewer with `email_management:read` read its template by `template.id` to check `scope`, then, for a workspace template or one the template read reports deleted (`404`), its pinned version using `template.id` and `template.version_id`. Workspace versions retain the template's own original content; sections linked from reusable blocks show as currently published. A built-in template (`scope: system`) shows current catalogue content, and only the template read returns `scope`. Broadcasts with frozen content keep it, but older broadcasts can read the catalogue again when resumed. Neither a current lookup nor an earlier message alone proves what remaining recipients will receive. Leave the broadcast paused unless you can verify that content. Ask an authorized teammate if you lack that permission. It does not skip the funds or concurrent-broadcast checks.
 	Confirm *bool `json:"confirm,omitempty"`
 }
 
@@ -18785,6 +19231,9 @@ type EmailBroadcastTestResult = EmailMessage
 type EmailBroadcastUpdateRequest struct {
 	AudienceId *AudienceID `json:"audience_id,omitempty"`
 
+	// AutomaticSeeding Replaces the broadcast's automatic seeding choice. Leave it out to keep the saved choice. Send null to start a seed test only when the audience contains a contact at the workspace's trigger address. An object without `example_contact_id` removes the example contact, so seed copies use fallback values. Needs Inbox Insights write permission, and contact read permission to choose an example contact. Turning seeding on, or changing it while it is on, returns `404 not_found` while automatic seeding is unavailable to the workspace. Resending the saved choice, turning it off and sending null still succeed.
+	AutomaticSeeding nullable.Nullable[EmailBroadcastAutomaticSeedingInput] `json:"automatic_seeding,omitempty"`
+
 	// BrandId Changes the business whose email preferences and unsubscribe page apply while this broadcast is a draft. Omission keeps the selection; null clears it so the workspace's default Brand is selected at first scheduling or sending. Explicit selection returns `422` when unavailable or when the ID is unknown, belongs to another workspace or is archived. Changing the Brand on a scheduled broadcast returns `422`. Broadcasts that are no longer editable retain the existing `409` conflict response.
 	BrandId nullable.Nullable[BrandID] `json:"brand_id,omitempty"`
 
@@ -18837,7 +19286,7 @@ type EmailBroadcastValidationResult struct {
 	// OverrideParameters Input names only the selected language uses, returned with `resolution`. Each may come from that language's entry in `template.parameter_overrides` or from `template.parameters`. Always empty without `template.parameter_overrides`.
 	OverrideParameters *[]string `json:"override_parameters,omitempty"`
 
-	// Problems The problems found. Empty when `ready_for_admission` is true.
+	// Problems The problems found. Problems with severity `error` block sending, and none remain when `ready_for_admission` is true. Problems with severity `warning` do not block sending.
 	Problems []EmailBroadcastParameterProblem `json:"problems"`
 
 	// ReadyForAdmission Whether the current template and supplied broadcast inputs pass validation, including checks that the sender, audience and selected Brand can be used. Sending also checks permissions, limits, the audience's recipients and their values, so `true` does not guarantee the broadcast sends.
@@ -22003,7 +22452,7 @@ type EmailMessage struct {
 	// TemplateId The template this send rendered from, or null for a send that supplied its content inline.
 	TemplateId *EmailTemplateID `json:"template_id,omitempty"`
 
-	// TemplateVersionId The exact template version this send rendered from, or null for an inline send. A template's live version changes every time you submit it, so this is what identifies the wording that was actually delivered, together with `resolved_language`.
+	// TemplateVersionId The exact template version this send rendered from, or null for an inline send. A template's live version changes every time you submit it, so this identifies the source of the send, together with `resolved_language`. Reading that version later does not reproduce the delivered wording when the template links a reusable block, because the block shows its latest published content. The stored message content holds the delivered body while it is available.
 	TemplateVersionId *EmailTemplateVersionID `json:"template_version_id,omitempty"`
 
 	// ThreadId Thread this message belongs to, or null when the message is not part of one.
@@ -22046,7 +22495,7 @@ type EmailMessageBatchItem struct {
 	// TemplateId The template this item rendered from, or null for an item that supplied its content inline.
 	TemplateId *EmailTemplateID `json:"template_id,omitempty"`
 
-	// TemplateVersionId The exact template version this item rendered from, or null for an inline item. Record it if you need to reproduce what was sent: a template's live version changes every time you submit it.
+	// TemplateVersionId The exact template version this item rendered from, or null for an inline item. Record it to know which version a message came from: a template's live version changes every time you submit it. Reading that version later does not reproduce the delivered wording when the template links a reusable block, because the block shows its latest published content. The stored message content holds the delivered body while it is available.
 	TemplateVersionId *EmailTemplateVersionID `json:"template_version_id,omitempty"`
 }
 
@@ -22142,7 +22591,7 @@ type EmailMessageSendRequest struct {
 	// ReplyTo Reply-To addresses, each a plain email string, an RFC 5322 mailbox string, or an object with an optional display name. RFC 5322 allows multiple. Every recipient reply hits all listed addresses, so 1-2 is typical. The 25 cap exists to prevent header sizes that some receiving mail servers reject.
 	ReplyTo *[]EmailAddressInput `json:"reply_to,omitempty"`
 
-	// ScheduledAt Send at this future time instead of immediately, at least 30 seconds and at most 30 days ahead; outside that range returns `422`. The message returns `accepted` and reads as `scheduled` until it sends, and the message cancel endpoint cancels it before then. Scheduled sends count against your plan's monthly scheduled-email allowance, and a send over it returns `422`. A stored template's published version, language and parameter values are pinned at acceptance, so a later publication does not change what sends; deleting the template before the message is due rejects it with `generation_failure`. Sender eligibility and send-volume allowance are checked again when it is due. Batch items take this field too, so one batch can mix scheduled and immediate messages.
+	// ScheduledAt Send at this future time instead of immediately, at least 30 seconds and at most 30 days ahead; outside that range returns `422`. The message returns `accepted` and reads as `scheduled` until it sends, and the message cancel endpoint cancels it before then. Scheduled sends count against your plan's monthly scheduled-email allowance, and a send over it returns `422`. A stored template's published version, language and parameter values are pinned at acceptance, so a later publication does not change what sends; deleting the template before the message is due rejects it with `generation_failure`. Sender eligibility and send-volume allowance are checked again when it is due. Bodies and attachment contents count toward the same 20 MB message limit as an immediate send. The rest of the request, such as recipients, `headers`, `metadata`, parameters and attachment file names, shares a separate 31 KB limit, and a send over it returns `422`. Batch items take this field too, so one batch can mix scheduled and immediate messages.
 	ScheduledAt *time.Time `json:"scheduled_at,omitempty"`
 
 	// Subject Message subject line. Required for inline sends. Omit it when sending a `template` (the template supplies the subject).
@@ -22834,7 +23283,7 @@ type EmailStatsComparisonDelta struct {
 
 // EmailStatsPeriod The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
 type EmailStatsPeriod struct {
-	// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response reflects data from up to a few seconds ago. Use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
+	// DataAsOf The best-effort refresh time of the statistics in this response; when they come from several rollups, it is the oldest of their latest refreshes. Events recorded before roughly this time are usually reflected, while more recent events may not be yet. Statistics are served from rolling aggregations that usually refresh within a minute, so a response can trail the latest events by a minute or more. Use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are up to the second. Null when the freshness boundary is not being reported.
 	DataAsOf *time.Time `json:"data_as_of,omitempty"`
 
 	// From Inclusive start date the response covers (YYYY-MM-DD).
@@ -23286,7 +23735,7 @@ type EmailStatsResponse struct {
 
 // EmailStatsSeriesPeriod The window and bucket grain the response covers, echoed from the request, plus the freshness boundary the data is current to.
 type EmailStatsSeriesPeriod struct {
-	// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response reflects data from up to a few seconds ago. Use this field to label data freshness rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
+	// DataAsOf The best-effort refresh time of the statistics in this response; when they come from several rollups, it is the oldest of their latest refreshes. Events recorded before roughly this time are usually reflected, while more recent events may not be yet. Statistics are served from rolling aggregations that usually refresh within a minute, so a response can trail the latest events by a minute or more. Use this field to label data freshness rather than assuming the numbers are up to the second. Null when the freshness boundary is not being reported.
 	DataAsOf *time.Time `json:"data_as_of,omitempty"`
 
 	// From Inclusive start of the window. A calendar day (YYYY-MM-DD, in the requested `timezone`) on the day grain. On the hour grain, an RFC 3339 UTC instant marking the start of the first hour bucket, which falls on a local hour boundary when `timezone` is set.
@@ -23356,7 +23805,7 @@ type EmailStatsSummary struct {
 
 // EmailStatsSummaryPeriod The window this response was actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants). The grain of `from` and `to` mirrors the grain of the request's bounds. Days and hour boundaries follow the requested `timezone` (UTC when omitted).
 type EmailStatsSummaryPeriod struct {
-	// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response reflects data from up to a few seconds ago. Use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
+	// DataAsOf The best-effort refresh time of the statistics in this response; when they come from several rollups, it is the oldest of their latest refreshes. Events recorded before roughly this time are usually reflected, while more recent events may not be yet. Statistics are served from rolling aggregations that usually refresh within a minute, so a response can trail the latest events by a minute or more. Use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are up to the second. Null when the freshness boundary is not being reported.
 	DataAsOf *time.Time `json:"data_as_of,omitempty"`
 
 	// From Inclusive start of the window the response covers. A calendar day (YYYY-MM-DD, in the requested `timezone`) for day windows. For hour windows, an RFC 3339 UTC instant marking the start of the first hour, which falls on a local hour boundary when `timezone` is set.
@@ -23605,6 +24054,9 @@ type EmailTemplateID = string
 
 // EmailTemplateLanguage One language of a template version: its content plus the identity a concurrent-edit check needs. Reading a language returns everything you need to edit it and save it back.
 type EmailTemplateLanguage struct {
+	// AuthoringMode How this language is edited. `html` content is written as HTML and can be changed through the API, CLI and MCP. `visual` content is built in the Bird dashboard's visual editor; outside the dashboard, a visual section can still be copied by duplicating its block or restoring a published revision. The mode follows from the stored content and cannot be set directly. New values may be added; treat an unknown value as content you cannot edit through the API, CLI or MCP.
+	AuthoringMode *EmailAuthoringMode `json:"authoring_mode,omitempty"`
+
 	// Compatibility What the stored HTML uses that mail clients remove, ignore, or render inconsistently, in the order the patterns appear. Empty when nothing is worth reporting. Line and column count in the `content.html` this response carries. At most 200 findings come back, the first 200 in source order; `compatibility_severity` is derived from every finding the HTML produced, including any beyond those 200.
 	Compatibility *[]EmailCompatibilityFinding `json:"compatibility,omitempty"`
 
@@ -23636,11 +24088,17 @@ type EmailTemplateLanguage struct {
 
 // EmailTemplateLanguageContent One language's content for an email template. Each language carries its own subject, preview text and bodies, so a translation can differ in wording and length from every other language without affecting them.
 type EmailTemplateLanguageContent struct {
+	// HasSharedBlocks Whether this language links reusable blocks. On ordinary reads, the HTML shows each linked block's current published content and changes when a linked block is published; copying it to a new template creates independent content. Read the language with `authoring=true` for its HTML with block markers and its `shared_blocks`.
+	HasSharedBlocks *bool `json:"has_shared_blocks,omitempty"`
+
 	// Html The HTML body for this language.
 	Html *string `json:"html,omitempty"`
 
 	// PreviewText The line an inbox shows after the subject in the message list, for this language. Leave it out and the inbox shows the opening words of the body instead. A mail client only reads it from the message body, so publishing folds it into the top of the HTML, hidden from view once the message is open; write it here rather than hiding your own copy in the body.
 	PreviewText *string `json:"preview_text,omitempty"`
+
+	// SharedBlocks The language's block links. Returned only by `authoring=true` reads.
+	SharedBlocks *EmailTemplateSharedBlocks `json:"shared_blocks,omitempty"`
 
 	// Subject The email subject line for this language.
 	Subject *string `json:"subject,omitempty"`
@@ -23657,6 +24115,9 @@ type EmailTemplateLanguageList struct {
 
 // EmailTemplateLanguageSaved The identity, revision counters, and fingerprint of a saved language. The response does not include its content; read the language to retrieve it.
 type EmailTemplateLanguageSaved struct {
+	// AuthoringMode How this language is edited. `html` content is written as HTML and can be changed through the API, CLI and MCP. `visual` content is built in the Bird dashboard's visual editor; outside the dashboard, a visual section can still be copied by duplicating its block or restoring a published revision. The mode follows from the stored content and cannot be set directly. New values may be added; treat an unknown value as content you cannot edit through the API, CLI or MCP.
+	AuthoringMode *EmailAuthoringMode `json:"authoring_mode,omitempty"`
+
 	// Compatibility What the HTML you just saved uses that mail clients remove, ignore, or render inconsistently, in the order the patterns appear. Empty when nothing is worth reporting. Advisory: the language was saved either way, and a finding never refuses a write. Line and column count in the HTML as saved, which the language read returns as `content.html`. A partial update reports on the language in full rather than on the fields it carried, so it reads the same as the read of the same language. At most 200 findings come back, the first 200 in source order; `compatibility_severity` is derived from every finding the HTML produced, including any beyond those 200.
 	Compatibility *[]EmailCompatibilityFinding `json:"compatibility,omitempty"`
 
@@ -23689,7 +24150,8 @@ type EmailTemplateLanguageSaved struct {
 	Next *[]NextAction `json:"next,omitempty"`
 
 	// Revision This language's new revision. Send it back on your next save of this language so a concurrent edit is caught instead of silently overwritten.
-	Revision *int `json:"revision,omitempty"`
+	Revision     *int                       `json:"revision,omitempty"`
+	SharedBlocks *EmailTemplateSharedBlocks `json:"shared_blocks,omitempty"`
 
 	// TemplateRef The template this call addressed, as its id, even when you addressed it by slug. Send it back as `template_ref` on a follow-up call.
 	TemplateRef *EmailTemplateRef `json:"template_ref,omitempty"`
@@ -23737,7 +24199,7 @@ type EmailTemplateLanguageSummary struct {
 
 // EmailTemplateLanguageUpdate A partial edit to one language: send only the fields you are changing, and the rest keep their current values. The language must already exist. Create it by saving its full content instead.
 type EmailTemplateLanguageUpdate struct {
-	// Html A new HTML body for this language.
+	// Html A new HTML body for this language. Refused on a language that links blocks; change its body with a full save that includes `shared_blocks`.
 	Html *string `json:"html,omitempty"`
 
 	// PreviewText A new line for the inbox to show after the subject in the message list. Send null to clear it, and the inbox shows the opening words of the body instead.
@@ -23749,20 +24211,26 @@ type EmailTemplateLanguageUpdate struct {
 	// Subject The email subject line. It may be empty in a draft but is required to publish.
 	Subject *string `json:"subject,omitempty"`
 
-	// Text A new plain-text body for this language. Send null to clear it, and a plain-text alternative is derived from the HTML when you submit.
+	// Text A new plain-text body for this language. Send null to clear it, and a plain-text alternative is derived from the HTML when you submit. Refused on a language that links blocks, which always derives its text.
 	Text nullable.Nullable[string] `json:"text,omitempty"`
 }
 
 // EmailTemplateLanguageUpsert Content to save for one language, replacing whatever that language held. Send every field you want the language to keep: a field you omit is cleared, which is what makes saving the same content twice land the same way every time.
 type EmailTemplateLanguageUpsert struct {
-	// Html The HTML body for this language.
+	// Html The HTML body for this language. On a language that links blocks, a save without `shared_blocks` is refused (`E04109`); read it with `authoring=true` for the HTML with its block markers first.
 	Html *string `json:"html,omitempty"`
 
 	// PreviewText The line an inbox shows after the subject in the message list. Leave it out and the inbox shows the opening words of the body instead.
 	PreviewText *string `json:"preview_text,omitempty"`
 
+	// ReplaceCustomText Confirms replacing the language's custom plain-text body with text derived from the linked HTML, in the same save that links its first block. Requires `shared_blocks` and the language `revision`.
+	ReplaceCustomText *bool `json:"replace_custom_text,omitempty"`
+
 	// Revision The revision you last read for this language, to detect a concurrent edit. The save is rejected with a conflict if the language moved on since. Omit it to save unconditionally. Creating a language does not need one.
 	Revision *int `json:"revision,omitempty"`
+
+	// SharedBlocks Links reusable blocks into this language. Send the complete language with it: `html` with one HTML comment `bird:shared-block:OCCURRENCE_UUID` per binding, placed where a section can stand (between block-level elements, not inside a paragraph or a table row), empty `text`, and the `revision` you read (0 to create the language). Key each binding by a lowercase UUID for that occurrence. A newly linked block must be unarchived and published in this exact language. Keep an occurrence's UUID to move it, use a new one to add another, and delete both its marker and its binding to remove it. To remove every link, send HTML without markers and empty `bindings`. A language edited in the Bird dashboard's visual editor cannot be saved this way from outside the dashboard (`E04108`).
+	SharedBlocks *EmailTemplateSharedBlocks `json:"shared_blocks,omitempty"`
 
 	// Subject The email subject line. It may be empty in a draft but is required to publish.
 	Subject string `json:"subject"`
@@ -23966,6 +24434,20 @@ type EmailTemplateSend0 = interface{}
 
 // EmailTemplateSend1 defines model for .
 type EmailTemplateSend1 = interface{}
+
+// EmailTemplateSharedBlockBinding The shared block one occurrence in a template language links. The link follows the block's latest published content in that language.
+type EmailTemplateSharedBlockBinding struct {
+	BlockId EmailBlockID `json:"block_id"`
+}
+
+// EmailTemplateSharedBlocks Reusable block links in one template language, keyed by occurrence UUID. Each key matches one HTML comment marker `bird:shared-block:UUID` in the language's HTML. The template language selects the block language, and a link follows the block's latest publication in that language.
+type EmailTemplateSharedBlocks struct {
+	// Bindings Block references keyed by occurrence UUID, with up to 100 occurrences per language.
+	Bindings map[string]EmailTemplateSharedBlockBinding `json:"bindings"`
+
+	// Version Format of these shared section references.
+	Version int `json:"version"`
+}
 
 // EmailTemplateSource The authoring format the template is written in, fixed at creation. `html` is finished markup you provide, optionally personalized with Liquid.
 type EmailTemplateSource string
@@ -24315,7 +24797,7 @@ type EmailTemplateVersionSummary struct {
 
 	// Variables Input definitions this version uses, including caller parameters and reserved Bird inputs. An entry with `system` false is yours to send in `template.parameters`. An entry with `system` true names a reserved Bird key; supported paths receive Bird values. A draft can also report unsupported reserved paths, including bare `bird`, whose `constraint` explains that no Bird value fills them. Correct these paths before publishing. Naming a reserved Bird key in a send is rejected with a `422`.
 	//
-	// The list combines all the languages, because languages do not have to use the same inputs: if the English body uses `discount_code` and the French body uses `shipping_date`, both appear here. A send requires values only for the caller parameters referenced by its resolved language. Preview each language to see its inputs. Extra parameters are ignored; omitting a caller parameter referenced by the resolved language returns a `422` naming it.
+	// The list combines all the languages, because languages do not have to use the same inputs: if the English body uses `discount_code` and the French body uses `shipping_date`, both appear here. A send requires values only for the caller parameters referenced by its resolved language. Preview each language to see its inputs. In the version list, a published version reports only its own inputs, not those of sections it links from reusable blocks; the single-version read includes them. Extra parameters are ignored; omitting a caller parameter referenced by the resolved language returns a `422` naming it.
 	Variables *[]TemplateVariable `json:"variables,omitempty"`
 
 	// VersionNumber Sequential published-version number (1, 2, 3…). Null while the version is a draft.
@@ -26264,7 +26746,7 @@ type EventEmailBase struct {
 	BroadcastId *EmailBroadcastID `json:"broadcast_id"`
 	EmailId     EmailID           `json:"email_id"`
 
-	// Metadata The metadata object provided on the send request, echoed on every event for the send so you can correlate events with your own records. Null when the send carried no metadata.
+	// Metadata Metadata from the send request when available. Null when no metadata was supplied. On email.unsubscribed and email.list_unsubscribed from Bird unsubscribe links, null for individual sends and when broadcast context is unavailable. Keep a mapping from workspace_id and email_id to your own records for correlation.
 	Metadata *map[string]interface{} `json:"metadata"`
 
 	// Recipient Recipient address as it appeared on the envelope.
@@ -26277,7 +26759,7 @@ type EventEmailBase struct {
 	// Reference The `reference` from the send request, echoed on the message's events. Absent when the send set none, and on `email.unsubscribed` and `email.list_unsubscribed` events Bird records from its own unsubscribe links, which carry no send fields.
 	Reference *MessageReference `json:"reference,omitempty"`
 
-	// Tags Tags provided on the send request, echoed on every event for the send so you can route and correlate without an extra lookup. Null when the send carried no tags.
+	// Tags Tags from the send request when available. Null when no tags were supplied. On email.unsubscribed and email.list_unsubscribed from Bird unsubscribe links, null for individual sends and when broadcast context is unavailable. Correlate using workspace_id and email_id even when tags are null.
 	Tags        *[]Tag      `json:"tags"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
@@ -26324,7 +26806,7 @@ type EventEmailBouncedData struct {
 	BroadcastId *EmailBroadcastID `json:"broadcast_id"`
 	EmailId     EmailID           `json:"email_id"`
 
-	// Metadata The metadata object provided on the send request, echoed on every event for the send so you can correlate events with your own records. Null when the send carried no metadata.
+	// Metadata Metadata from the send request when available. Null when no metadata was supplied. On email.unsubscribed and email.list_unsubscribed from Bird unsubscribe links, null for individual sends and when broadcast context is unavailable. Keep a mapping from workspace_id and email_id to your own records for correlation.
 	Metadata *map[string]interface{} `json:"metadata"`
 
 	// Recipient Recipient address as it appeared on the envelope.
@@ -26340,7 +26822,7 @@ type EventEmailBouncedData struct {
 	// SendingIp The IP address used to send this message, or null when it is not known.
 	SendingIp *string `json:"sending_ip"`
 
-	// Tags Tags provided on the send request, echoed on every event for the send so you can route and correlate without an extra lookup. Null when the send carried no tags.
+	// Tags Tags from the send request when available. Null when no tags were supplied. On email.unsubscribed and email.list_unsubscribed from Bird unsubscribe links, null for individual sends and when broadcast context is unavailable. Correlate using workspace_id and email_id even when tags are null.
 	Tags        *[]Tag      `json:"tags"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
@@ -26390,7 +26872,7 @@ type EventEmailClickedData struct {
 	// IpAddress IP address of the client that clicked the link, or null when it is not known.
 	IpAddress *string `json:"ip_address"`
 
-	// Metadata The metadata object provided on the send request, echoed on every event for the send so you can correlate events with your own records. Null when the send carried no metadata.
+	// Metadata Metadata from the send request when available. Null when no metadata was supplied. On email.unsubscribed and email.list_unsubscribed from Bird unsubscribe links, null for individual sends and when broadcast context is unavailable. Keep a mapping from workspace_id and email_id to your own records for correlation.
 	Metadata *map[string]interface{} `json:"metadata"`
 
 	// Recipient Recipient address as it appeared on the envelope.
@@ -26403,7 +26885,7 @@ type EventEmailClickedData struct {
 	// Reference The `reference` from the send request, echoed on the message's events. Absent when the send set none, and on `email.unsubscribed` and `email.list_unsubscribed` events Bird records from its own unsubscribe links, which carry no send fields.
 	Reference *MessageReference `json:"reference,omitempty"`
 
-	// Tags Tags provided on the send request, echoed on every event for the send so you can route and correlate without an extra lookup. Null when the send carried no tags.
+	// Tags Tags from the send request when available. Null when no tags were supplied. On email.unsubscribed and email.list_unsubscribed from Bird unsubscribe links, null for individual sends and when broadcast context is unavailable. Correlate using workspace_id and email_id even when tags are null.
 	Tags *[]Tag `json:"tags"`
 
 	// Url The URL the recipient clicked.
@@ -26441,7 +26923,7 @@ type EventEmailComplainedData struct {
 	// FeedbackType The kind of feedback the mailbox provider reported (such as `abuse` or `fraud`), or null when the provider did not specify one.
 	FeedbackType *string `json:"feedback_type"`
 
-	// Metadata The metadata object provided on the send request, echoed on every event for the send so you can correlate events with your own records. Null when the send carried no metadata.
+	// Metadata Metadata from the send request when available. Null when no metadata was supplied. On email.unsubscribed and email.list_unsubscribed from Bird unsubscribe links, null for individual sends and when broadcast context is unavailable. Keep a mapping from workspace_id and email_id to your own records for correlation.
 	Metadata *map[string]interface{} `json:"metadata"`
 
 	// Recipient Recipient address as it appeared on the envelope.
@@ -26454,7 +26936,7 @@ type EventEmailComplainedData struct {
 	// Reference The `reference` from the send request, echoed on the message's events. Absent when the send set none, and on `email.unsubscribed` and `email.list_unsubscribed` events Bird records from its own unsubscribe links, which carry no send fields.
 	Reference *MessageReference `json:"reference,omitempty"`
 
-	// Tags Tags provided on the send request, echoed on every event for the send so you can route and correlate without an extra lookup. Null when the send carried no tags.
+	// Tags Tags from the send request when available. Null when no tags were supplied. On email.unsubscribed and email.list_unsubscribed from Bird unsubscribe links, null for individual sends and when broadcast context is unavailable. Correlate using workspace_id and email_id even when tags are null.
 	Tags        *[]Tag      `json:"tags"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
@@ -26498,7 +26980,7 @@ type EventEmailDeferredData struct {
 	DeferReason *string `json:"defer_reason"`
 	EmailId     EmailID `json:"email_id"`
 
-	// Metadata The metadata object provided on the send request, echoed on every event for the send so you can correlate events with your own records. Null when the send carried no metadata.
+	// Metadata Metadata from the send request when available. Null when no metadata was supplied. On email.unsubscribed and email.list_unsubscribed from Bird unsubscribe links, null for individual sends and when broadcast context is unavailable. Keep a mapping from workspace_id and email_id to your own records for correlation.
 	Metadata *map[string]interface{} `json:"metadata"`
 
 	// Recipient Recipient address as it appeared on the envelope.
@@ -26514,7 +26996,7 @@ type EventEmailDeferredData struct {
 	// SendingIp The IP address used to send this message, or null when it is not known.
 	SendingIp *string `json:"sending_ip"`
 
-	// Tags Tags provided on the send request, echoed on every event for the send so you can route and correlate without an extra lookup. Null when the send carried no tags.
+	// Tags Tags from the send request when available. Null when no tags were supplied. On email.unsubscribed and email.list_unsubscribed from Bird unsubscribe links, null for individual sends and when broadcast context is unavailable. Correlate using workspace_id and email_id even when tags are null.
 	Tags        *[]Tag      `json:"tags"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
@@ -26789,7 +27271,7 @@ type EventEmailOpenedData struct {
 	// IpAddress IP address of the client that opened the email, or null when it is not known.
 	IpAddress *string `json:"ip_address"`
 
-	// Metadata The metadata object provided on the send request, echoed on every event for the send so you can correlate events with your own records. Null when the send carried no metadata.
+	// Metadata Metadata from the send request when available. Null when no metadata was supplied. On email.unsubscribed and email.list_unsubscribed from Bird unsubscribe links, null for individual sends and when broadcast context is unavailable. Keep a mapping from workspace_id and email_id to your own records for correlation.
 	Metadata *map[string]interface{} `json:"metadata"`
 
 	// Recipient Recipient address as it appeared on the envelope.
@@ -26802,7 +27284,7 @@ type EventEmailOpenedData struct {
 	// Reference The `reference` from the send request, echoed on the message's events. Absent when the send set none, and on `email.unsubscribed` and `email.list_unsubscribed` events Bird records from its own unsubscribe links, which carry no send fields.
 	Reference *MessageReference `json:"reference,omitempty"`
 
-	// Tags Tags provided on the send request, echoed on every event for the send so you can route and correlate without an extra lookup. Null when the send carried no tags.
+	// Tags Tags from the send request when available. Null when no tags were supplied. On email.unsubscribed and email.list_unsubscribed from Bird unsubscribe links, null for individual sends and when broadcast context is unavailable. Correlate using workspace_id and email_id even when tags are null.
 	Tags *[]Tag `json:"tags"`
 
 	// UserAgent User-agent string of the client that opened the email, or null when it is not known.
@@ -26852,7 +27334,7 @@ type EventEmailOutOfBandBounceData struct {
 	BroadcastId *EmailBroadcastID `json:"broadcast_id"`
 	EmailId     EmailID           `json:"email_id"`
 
-	// Metadata The metadata object provided on the send request, echoed on every event for the send so you can correlate events with your own records. Null when the send carried no metadata.
+	// Metadata Metadata from the send request when available. Null when no metadata was supplied. On email.unsubscribed and email.list_unsubscribed from Bird unsubscribe links, null for individual sends and when broadcast context is unavailable. Keep a mapping from workspace_id and email_id to your own records for correlation.
 	Metadata *map[string]interface{} `json:"metadata"`
 
 	// Recipient Recipient address as it appeared on the envelope.
@@ -26868,7 +27350,7 @@ type EventEmailOutOfBandBounceData struct {
 	// SendingIp The IP address used to send this message, or null when it is not known.
 	SendingIp *string `json:"sending_ip"`
 
-	// Tags Tags provided on the send request, echoed on every event for the send so you can route and correlate without an extra lookup. Null when the send carried no tags.
+	// Tags Tags from the send request when available. Null when no tags were supplied. On email.unsubscribed and email.list_unsubscribed from Bird unsubscribe links, null for individual sends and when broadcast context is unavailable. Correlate using workspace_id and email_id even when tags are null.
 	Tags        *[]Tag      `json:"tags"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
@@ -26980,7 +27462,7 @@ type EventEmailRejectedData struct {
 	BroadcastId *EmailBroadcastID `json:"broadcast_id"`
 	EmailId     EmailID           `json:"email_id"`
 
-	// Metadata The metadata object provided on the send request, echoed on every event for the send so you can correlate events with your own records. Null when the send carried no metadata.
+	// Metadata Metadata from the send request when available. Null when no metadata was supplied. On email.unsubscribed and email.list_unsubscribed from Bird unsubscribe links, null for individual sends and when broadcast context is unavailable. Keep a mapping from workspace_id and email_id to your own records for correlation.
 	Metadata *map[string]interface{} `json:"metadata"`
 
 	// Recipient Recipient address as it appeared on the envelope.
@@ -27008,7 +27490,7 @@ type EventEmailRejectedData struct {
 	// - `workspace_suspended`: The workspace is suspended, so this mail was not sent and will not be sent after reactivation. Contact Bird support to reactivate the workspace.
 	RejectionReason EmailRejectionReason `json:"rejection_reason"`
 
-	// Tags Tags provided on the send request, echoed on every event for the send so you can route and correlate without an extra lookup. Null when the send carried no tags.
+	// Tags Tags from the send request when available. Null when no tags were supplied. On email.unsubscribed and email.list_unsubscribed from Bird unsubscribe links, null for individual sends and when broadcast context is unavailable. Correlate using workspace_id and email_id even when tags are null.
 	Tags        *[]Tag      `json:"tags"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
@@ -29618,7 +30100,7 @@ type NumbersDedicatedAllocationID = string
 
 // NumbersOrder defines model for NumbersOrder.
 type NumbersOrder struct {
-	// CompletedAt When the purchase completed and the number became owned (status completed). `null` for orders still in progress or failed.
+	// CompletedAt When this order completed (status completed). Completion records the associated allocation and does not establish its current holding state. `null` for orders still in progress or failed.
 	CompletedAt *time.Time   `json:"completed_at,omitempty"`
 	CountryCode *CountryCode `json:"country_code,omitempty"`
 	CreatedAt   *time.Time   `json:"created_at,omitempty"`
@@ -29626,13 +30108,13 @@ type NumbersOrder struct {
 	// FailureReason Human-readable reason the purchase failed. `null` unless status is failed. An order can fail some time after it was created, so `updated_at` tells you when the failure was recorded rather than when the order was placed.
 	FailureReason *string `json:"failure_reason,omitempty"`
 
-	// Id Identifier of this purchase order.
+	// Id Identifier of this number order.
 	Id *NumbersOrderID `json:"id,omitempty"`
 
 	// Number The number being acquired, in E.164 format.
 	Number *string `json:"number,omitempty"`
 
-	// NumberId Identifier of the number this order produced, set when `status` is `completed`. Pass it as `number_id` to `GET /v1/numbers/{number_id}` or `DELETE /v1/numbers/{number_id}`. `null` until the order completes.
+	// NumberId Identifier of the workspace allocation associated with this completed order. Multiple orders can refer to the same allocation. This historical association remains after release; `GET /v1/numbers/{number_id}` returns its current holding state and can return not found after release. `null` until the order completes.
 	NumberId *NumbersDedicatedAllocationID `json:"number_id,omitempty"`
 
 	// NumberType Physical type of the number being acquired.
@@ -29801,6 +30283,9 @@ type Preference struct {
 	// BrandId The business this email preference belongs to.
 	BrandId *BrandID           `json:"brand_id,omitempty"`
 	Channel *PreferenceChannel `json:"channel,omitempty"`
+
+	// ComplaintMessageId The email that caused the most recent recorded spam complaint for this preference. Null when no complaint is recorded. Retained after a newer individual opt-in clears complaint protection; check status and origin for the current preference.
+	ComplaintMessageId *EmailID `json:"complaint_message_id,omitempty"`
 
 	// ConsentedAt When the person consented, as evidenced by whoever asserted the grant. Null on statements that carry no consent evidence, including every opt-out.
 	ConsentedAt *time.Time `json:"consented_at,omitempty"`
@@ -34139,7 +34624,7 @@ type VoiceTrunk struct {
 	AllowedApiKeyIds *[]APIKeyID `json:"allowed_api_key_ids,omitempty"`
 	CreatedAt        *time.Time  `json:"created_at,omitempty"`
 
-	// DigestAlgorithms The Digest hash algorithms this trunk offers, in the order they are offered. We send one challenge line per algorithm and your PBX answers with the first it supports, so the order decides what most equipment picks. Always populated: a trunk with no explicit setting reports the default, `["SHA-256", "MD5"]`. A trunk answering with an algorithm that is not on this list is rejected, so narrowing the list also narrows what the trunk accepts. Replace `digest_algorithms` through the trunk update operation.
+	// DigestAlgorithms The Digest hash algorithms this trunk offers, in the order they are offered. We send one challenge line per algorithm and your PBX answers with the first it supports, so the order decides what most equipment picks. Always populated: a trunk with no explicit setting reports the default, `["SHA-256", "MD5"]`. The list governs clients that authenticate with an API key: their answer with an algorithm that is not on it is rejected, so narrowing the list also narrows what the trunk accepts from them. Session credentials, which the dashboard phone uses and `POST /v1/voice/session-credentials` creates, are the exception: with `session_credentials_enabled`, the challenge always ends with an MD5 line, after the list in its own order, and a valid session credential is accepted with MD5 or SHA-256. An API-key answer with that extra MD5 is still rejected. Replace `digest_algorithms` through the trunk update operation.
 	DigestAlgorithms *[]VoiceSIPDigestAlgorithm `json:"digest_algorithms,omitempty"`
 
 	// Domain Full SIP address for this trunk, generated as `{trunk-id}.trunk.{region}.sip.bird.com`. This is the trunk's identity, so configure your PBX or SIP client to send calls to this address. It is derived from the trunk id and cannot be chosen or changed.
@@ -34178,7 +34663,7 @@ type VoiceTrunkCore struct {
 	// AllowedApiKeyIds The API keys allowed to authenticate this trunk over SIP Digest. A key must hold `voice` at write level and be neither revoked nor expired to authenticate. `ineligible_api_key_ids` names the entries that currently cannot. A nonempty list enables API-key authentication, limited to its eligible keys. An empty list means no API-key authentication. A trunk with empty `ip_acls` and `allowed_api_key_ids` lists accepts nothing when `session_credentials_enabled` is false. Replace the whole `allowed_api_key_ids` list through the trunk update operation.
 	AllowedApiKeyIds *[]APIKeyID `json:"allowed_api_key_ids,omitempty"`
 
-	// DigestAlgorithms The Digest hash algorithms this trunk offers, in the order they are offered. We send one challenge line per algorithm and your PBX answers with the first it supports, so the order decides what most equipment picks. Always populated: a trunk with no explicit setting reports the default, `["SHA-256", "MD5"]`. A trunk answering with an algorithm that is not on this list is rejected, so narrowing the list also narrows what the trunk accepts. Replace `digest_algorithms` through the trunk update operation.
+	// DigestAlgorithms The Digest hash algorithms this trunk offers, in the order they are offered. We send one challenge line per algorithm and your PBX answers with the first it supports, so the order decides what most equipment picks. Always populated: a trunk with no explicit setting reports the default, `["SHA-256", "MD5"]`. The list governs clients that authenticate with an API key: their answer with an algorithm that is not on it is rejected, so narrowing the list also narrows what the trunk accepts from them. Session credentials, which the dashboard phone uses and `POST /v1/voice/session-credentials` creates, are the exception: with `session_credentials_enabled`, the challenge always ends with an MD5 line, after the list in its own order, and a valid session credential is accepted with MD5 or SHA-256. An API-key answer with that extra MD5 is still rejected. Replace `digest_algorithms` through the trunk update operation.
 	DigestAlgorithms *[]VoiceSIPDigestAlgorithm `json:"digest_algorithms,omitempty"`
 
 	// Domain Full SIP address for this trunk, generated as `{trunk-id}.trunk.{region}.sip.bird.com`. This is the trunk's identity, so configure your PBX or SIP client to send calls to this address. It is derived from the trunk id and cannot be chosen or changed.
@@ -34210,7 +34695,7 @@ type VoiceTrunkCore struct {
 
 // VoiceTrunkCreate defines model for VoiceTrunkCreate.
 type VoiceTrunkCreate struct {
-	// DigestAlgorithms The Digest hash algorithms to offer, in the order they should be offered. Omit this to use the default of `["SHA-256", "MD5"]`, which suits most equipment. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. This can be changed later without re-issuing credentials.
+	// DigestAlgorithms The Digest hash algorithms to offer, in the order they should be offered. Omit this to use the default of `["SHA-256", "MD5"]`, which suits most equipment. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. This governs clients that authenticate with an API key. Session credentials, including the dashboard phone's, are always offered MD5 as well and accepted with MD5 or SHA-256. This can be changed later without re-issuing credentials.
 	DigestAlgorithms *[]VoiceSIPDigestAlgorithm `json:"digest_algorithms,omitempty"`
 
 	// InboundEnabled Whether the new trunk may receive calls. Omit it to create a trunk that does neither direction yet. A trunk receives no calls until it also has at least one gateway and at least one number, both added after create.
@@ -34404,12 +34889,18 @@ type VoiceTrunkMedia struct {
 	// With `off`, Bird does not encrypt audio and relays an SRTP offer unchanged.
 	// Browser calls use DTLS-SRTP regardless of this setting.
 	Encryption VoiceTrunkMediaEncryption `json:"encryption"`
+
+	// Sites The sites the trunk-facing leg may use for call audio. The trunk's home site is always included. Carrier availability can further limit those sites; a separate carrier-facing leg may use another site. A trunk whose media sites aren't set reports its home site; until they're saved, Bird may also anchor audio at an exit gateway's or a bridged call's site.
+	Sites []VoiceTrunkMediaSite `json:"sites"`
 }
 
 // VoiceTrunkMediaCreate How the new trunk carries call audio. An omitted member takes its default.
 type VoiceTrunkMediaCreate struct {
 	// Encryption Omit it for `preferred`, which encrypts whenever your equipment and gateways allow and otherwise carries calls as before.
 	Encryption *VoiceTrunkMediaEncryption `json:"encryption,omitempty"`
+
+	// Sites The sites this trunk may use for call audio, including its home site. Omit this field to allow every media site.
+	Sites *[]VoiceTrunkMediaSite `json:"sites,omitempty"`
 }
 
 // VoiceTrunkMediaEncryption Controls SRTP encryption between your equipment and Bird. SRTP keys use SDES
@@ -34435,7 +34926,10 @@ type VoiceTrunkMediaCreate struct {
 // Browser calls use DTLS-SRTP regardless of this setting.
 type VoiceTrunkMediaEncryption string
 
-// VoiceTrunkMediaUpdate A change to how the trunk encrypts call audio.
+// VoiceTrunkMediaSite A Bird media site.
+type VoiceTrunkMediaSite string
+
+// VoiceTrunkMediaUpdate A change to how the trunk carries call audio.
 type VoiceTrunkMediaUpdate struct {
 	// Encryption Controls SRTP encryption between your equipment and Bird. SRTP keys use SDES
 	// (`a=crypto`) over TLS signalling. Audio between Bird and the carrier uses
@@ -34458,7 +34952,10 @@ type VoiceTrunkMediaUpdate struct {
 	//
 	// With `off`, Bird does not encrypt audio and relays an SRTP offer unchanged.
 	// Browser calls use DTLS-SRTP regardless of this setting.
-	Encryption VoiceTrunkMediaEncryption `json:"encryption"`
+	Encryption *VoiceTrunkMediaEncryption `json:"encryption,omitempty"`
+
+	// Sites Replace the permitted media sites. The list must include the trunk's home site. Omit this field to keep the current sites.
+	Sites *[]VoiceTrunkMediaSite `json:"sites,omitempty"`
 }
 
 // VoiceTrunkSortField Field used to sort the list.
@@ -34476,7 +34973,7 @@ type VoiceTrunkUpdate struct {
 	// AllowedApiKeyIds Replaces the trunk's entire set of allowed API keys. When present, exactly these keys may authenticate the trunk over SIP Digest. Each key you ADD must belong to this workspace and hold `voice` at write level; a key that does not is refused and the whole update is rolled back. A key already on the list that has since lost the permission or expired does not block the update, so you can keep editing the trunk while you put its permission back. A non-empty list turns API-key authentication on; send an empty array to turn it off. Omit the field to leave the allowed keys unchanged.
 	AllowedApiKeyIds *[]APIKeyID `json:"allowed_api_key_ids,omitempty"`
 
-	// DigestAlgorithms Replaces the Digest hash algorithms this trunk offers, in the order they should be offered. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. Send an empty array to return to the default of `["SHA-256", "MD5"]`. The offer is never empty, because a trunk that offered nothing could not be authenticated at all. Narrowing the list also narrows what the trunk accepts: an answer using an algorithm no longer offered is rejected. Takes effect on the next call setup; no credential is re-issued. Omit the field to leave the offer unchanged.
+	// DigestAlgorithms Replaces the Digest hash algorithms this trunk offers, in the order they should be offered. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. Send an empty array to return to the default of `["SHA-256", "MD5"]`. The offer is never empty, because a trunk that offered nothing could not be authenticated at all. The list governs clients that authenticate with an API key, and narrowing it also narrows what the trunk accepts from them: an answer using an algorithm no longer offered is rejected. Session credentials, including the dashboard phone's, are always offered MD5 as well and accepted with MD5 or SHA-256. Takes effect on the next call setup; no credential is re-issued. Omit the field to leave the offer unchanged.
 	DigestAlgorithms *[]VoiceSIPDigestAlgorithm `json:"digest_algorithms,omitempty"`
 
 	// InboundEnabled Whether this trunk may receive calls. Turning it off resets number routes that use this trunk to reject incoming calls. Turning it back on does not restore those routes. Clear an attached emergency number in the dashboard before turning inbound off. The gateways remain configured. Omit the field to leave it unchanged.
@@ -34485,7 +34982,7 @@ type VoiceTrunkUpdate struct {
 	// IpAcls Replaces the trunk's entire IP allow list. When present, the allow list is set to exactly these CIDR blocks: ranges not listed are removed and new ones are added. Send an empty array to clear the list, turning IP filtering off. Omit the field to leave the allow list unchanged.
 	IpAcls *[]VoiceTrunkIPACLCreate `json:"ip_acls,omitempty"`
 
-	// Media A change to how the trunk encrypts call audio.
+	// Media A change to how the trunk carries call audio.
 	Media *VoiceTrunkMediaUpdate `json:"media,omitempty"`
 
 	// MediaBypass Whether we take ourselves out of the audio path for calls we forward to this trunk. Turning it on takes effect at the next call setup and leaves calls already up untouched. It is an inbound setting, so the trunk must have `inbound_enabled` on; one update can do both. While it is on we cannot record those calls, report their audio quality, or end one because its audio stopped, and your equipment must be reachable for audio from the public internet. Turning it off puts us back in the path at the next call setup. Omit the field to leave it unchanged.
@@ -39430,6 +39927,15 @@ type CreatedAfter = time.Time
 // CreatedBefore defines model for CreatedBefore.
 type CreatedBefore = time.Time
 
+// EmailBlockId defines model for EmailBlockId.
+type EmailBlockId = EmailBlockID
+
+// EmailBlockLanguageTag A language tag in BCP-47 form, for example `en` or `pt-BR`.
+type EmailBlockLanguageTag = LanguageTag
+
+// EmailBlockRevisionId defines model for EmailBlockRevisionId.
+type EmailBlockRevisionId = EmailBlockRevisionID
+
 // EmailBroadcastSearchFilter defines model for EmailBroadcastSearchFilter.
 type EmailBroadcastSearchFilter = string
 
@@ -42245,6 +42751,319 @@ type ListContactPreferencesParams struct {
 
 // CreateEmailMessageBatchParams defines parameters for CreateEmailMessageBatch.
 type CreateEmailMessageBatchParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ListEmailBlocksParams defines parameters for ListEmailBlocks.
+type ListEmailBlocksParams struct {
+	// Sort Field to sort by. Defaults to `created_at`.
+	Sort *EmailBlockSortField `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
+	Order *OrderDesc `form:"order,omitempty" json:"order,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// IncludeTotal When true, the response includes a `total` field with the total number of items matching the request's filters across all pages.
+	IncludeTotal *IncludeTotal `form:"include_total,omitempty" json:"include_total,omitempty"`
+
+	// Q Case-insensitive text to match within the block name.
+	Q *string `form:"q,omitempty" json:"q,omitempty"`
+
+	// Archived Return only archived blocks when true, or only active blocks when false.
+	Archived *bool `form:"archived,omitempty" json:"archived,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// CreateEmailBlockParams defines parameters for CreateEmailBlock.
+type CreateEmailBlockParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ValidateEmailBlockFragmentParams defines parameters for ValidateEmailBlockFragment.
+type ValidateEmailBlockFragmentParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetEmailBlockParams defines parameters for GetEmailBlock.
+type GetEmailBlockParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// UpdateEmailBlockParams defines parameters for UpdateEmailBlock.
+type UpdateEmailBlockParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// DuplicateEmailBlockParams defines parameters for DuplicateEmailBlock.
+type DuplicateEmailBlockParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ListEmailBlockLanguagesParams defines parameters for ListEmailBlockLanguages.
+type ListEmailBlockLanguagesParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// DeleteEmailBlockLanguageParams defines parameters for DeleteEmailBlockLanguage.
+type DeleteEmailBlockLanguageParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetEmailBlockLanguageParams defines parameters for GetEmailBlockLanguage.
+type GetEmailBlockLanguageParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// UpsertEmailBlockLanguageParams defines parameters for UpsertEmailBlockLanguage.
+type UpsertEmailBlockLanguageParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ListEmailBlockRevisionsParams defines parameters for ListEmailBlockRevisions.
+type ListEmailBlockRevisionsParams struct {
+	// Sort Field to sort by. Defaults to `version_number`.
+	Sort *EmailBlockRevisionSortField `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
+	Order *OrderDesc `form:"order,omitempty" json:"order,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// IncludeTotal When true, the response includes a `total` field with the total number of items matching the request's filters across all pages.
+	IncludeTotal *IncludeTotal `form:"include_total,omitempty" json:"include_total,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetEmailBlockRevisionParams defines parameters for GetEmailBlockRevision.
+type GetEmailBlockRevisionParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// PublishEmailBlockParams defines parameters for PublishEmailBlock.
+type PublishEmailBlockParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
@@ -45219,6 +46038,9 @@ type DeleteEmailTemplateLanguageParams struct {
 
 // GetEmailTemplateLanguageParams defines parameters for GetEmailTemplateLanguage.
 type GetEmailTemplateLanguageParams struct {
+	// Authoring Return the HTML with its reusable block markers in place of the blocks' content, plus `shared_blocks`, so a language that links blocks can be saved back with its links intact. Compatibility locations still refer to the HTML with the blocks filled in.
+	Authoring *bool `form:"authoring,omitempty" json:"authoring,omitempty"`
+
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
@@ -46693,6 +47515,9 @@ type GetAvailableNumberParams struct {
 
 // ListNumbersOrdersParams defines parameters for ListNumbersOrders.
 type ListNumbersOrdersParams struct {
+	// NumberId Return orders associated with this exact workspace allocation, newest first. Multiple attempts can refer to the same allocation; the newest attempt is not necessarily the order that first assigned it.
+	NumberId *AllocatedNumberID `form:"number_id,omitempty" json:"number_id,omitempty"`
+
 	// Status Return only orders with status `charging`, `ordering`, `pending`, `completed`, or `failed`.
 	Status *NumbersOrderStatus `form:"status,omitempty" json:"status,omitempty"`
 
@@ -51588,6 +52413,24 @@ type UpdateContactJSONRequestBody = ContactUpdateRequest
 // CreateEmailMessageBatchJSONRequestBody defines body for CreateEmailMessageBatch for application/json ContentType.
 type CreateEmailMessageBatchJSONRequestBody = EmailMessageBatchRequest
 
+// CreateEmailBlockJSONRequestBody defines body for CreateEmailBlock for application/json ContentType.
+type CreateEmailBlockJSONRequestBody = EmailBlockCreate
+
+// ValidateEmailBlockFragmentJSONRequestBody defines body for ValidateEmailBlockFragment for application/json ContentType.
+type ValidateEmailBlockFragmentJSONRequestBody = EmailBlockFragmentValidationRequest
+
+// UpdateEmailBlockJSONRequestBody defines body for UpdateEmailBlock for application/json ContentType.
+type UpdateEmailBlockJSONRequestBody = EmailBlockUpdate
+
+// DuplicateEmailBlockJSONRequestBody defines body for DuplicateEmailBlock for application/json ContentType.
+type DuplicateEmailBlockJSONRequestBody = EmailBlockDuplicate
+
+// UpsertEmailBlockLanguageJSONRequestBody defines body for UpsertEmailBlockLanguage for application/json ContentType.
+type UpsertEmailBlockLanguageJSONRequestBody = EmailBlockLanguageUpsert
+
+// PublishEmailBlockJSONRequestBody defines body for PublishEmailBlock for application/json ContentType.
+type PublishEmailBlockJSONRequestBody = EmailBlockPublish
+
 // CreateEmailBroadcastJSONRequestBody defines body for CreateEmailBroadcast for application/json ContentType.
 type CreateEmailBroadcastJSONRequestBody = EmailBroadcastCreateRequest
 
@@ -54204,6 +55047,142 @@ func (t EmailAddressInput) MarshalJSON() ([]byte, error) {
 
 func (t *EmailAddressInput) UnmarshalJSON(b []byte) error {
 	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsEmailBlockLanguageUpsert0 returns the union data inside the EmailBlockLanguageUpsert as a EmailBlockLanguageUpsert0
+func (t EmailBlockLanguageUpsert) AsEmailBlockLanguageUpsert0() (EmailBlockLanguageUpsert0, error) {
+	var body EmailBlockLanguageUpsert0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEmailBlockLanguageUpsert0 overwrites any union data inside the EmailBlockLanguageUpsert as the provided EmailBlockLanguageUpsert0
+func (t *EmailBlockLanguageUpsert) FromEmailBlockLanguageUpsert0(v EmailBlockLanguageUpsert0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEmailBlockLanguageUpsert0 performs a merge with any union data inside the EmailBlockLanguageUpsert, using the provided EmailBlockLanguageUpsert0
+func (t *EmailBlockLanguageUpsert) MergeEmailBlockLanguageUpsert0(v EmailBlockLanguageUpsert0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEmailBlockLanguageUpsert1 returns the union data inside the EmailBlockLanguageUpsert as a EmailBlockLanguageUpsert1
+func (t EmailBlockLanguageUpsert) AsEmailBlockLanguageUpsert1() (EmailBlockLanguageUpsert1, error) {
+	var body EmailBlockLanguageUpsert1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEmailBlockLanguageUpsert1 overwrites any union data inside the EmailBlockLanguageUpsert as the provided EmailBlockLanguageUpsert1
+func (t *EmailBlockLanguageUpsert) FromEmailBlockLanguageUpsert1(v EmailBlockLanguageUpsert1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEmailBlockLanguageUpsert1 performs a merge with any union data inside the EmailBlockLanguageUpsert, using the provided EmailBlockLanguageUpsert1
+func (t *EmailBlockLanguageUpsert) MergeEmailBlockLanguageUpsert1(v EmailBlockLanguageUpsert1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t EmailBlockLanguageUpsert) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	object := make(map[string]json.RawMessage)
+	if t.union != nil {
+		err = json.Unmarshal(b, &object)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if t.Fragment != nil {
+		object["fragment"], err = json.Marshal(t.Fragment)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'fragment': %w", err)
+		}
+	}
+
+	if t.FromRevisionId != nil {
+		object["from_revision_id"], err = json.Marshal(t.FromRevisionId)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'from_revision_id': %w", err)
+		}
+	}
+
+	object["revision"], err = json.Marshal(t.Revision)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'revision': %w", err)
+	}
+
+	if t.SourceRevisionId != nil {
+		object["source_revision_id"], err = json.Marshal(t.SourceRevisionId)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'source_revision_id': %w", err)
+		}
+	}
+	b, err = json.Marshal(object)
+	return b, err
+}
+
+func (t *EmailBlockLanguageUpsert) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	if err != nil {
+		return err
+	}
+	object := make(map[string]json.RawMessage)
+	err = json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["fragment"]; found {
+		err = json.Unmarshal(raw, &t.Fragment)
+		if err != nil {
+			return fmt.Errorf("error reading 'fragment': %w", err)
+		}
+	}
+
+	if raw, found := object["from_revision_id"]; found {
+		err = json.Unmarshal(raw, &t.FromRevisionId)
+		if err != nil {
+			return fmt.Errorf("error reading 'from_revision_id': %w", err)
+		}
+	}
+
+	if raw, found := object["revision"]; found {
+		err = json.Unmarshal(raw, &t.Revision)
+		if err != nil {
+			return fmt.Errorf("error reading 'revision': %w", err)
+		}
+	}
+
+	if raw, found := object["source_revision_id"]; found {
+		err = json.Unmarshal(raw, &t.SourceRevisionId)
+		if err != nil {
+			return fmt.Errorf("error reading 'source_revision_id': %w", err)
+		}
+	}
+
 	return err
 }
 
@@ -60374,6 +61353,57 @@ type ClientInterface interface {
 
 	CreateEmailMessageBatch(ctx context.Context, params *CreateEmailMessageBatchParams, body CreateEmailMessageBatchJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// ListEmailBlocks request
+	ListEmailBlocks(ctx context.Context, params *ListEmailBlocksParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateEmailBlockWithBody request with any body
+	CreateEmailBlockWithBody(ctx context.Context, params *CreateEmailBlockParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateEmailBlock(ctx context.Context, params *CreateEmailBlockParams, body CreateEmailBlockJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ValidateEmailBlockFragmentWithBody request with any body
+	ValidateEmailBlockFragmentWithBody(ctx context.Context, params *ValidateEmailBlockFragmentParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	ValidateEmailBlockFragment(ctx context.Context, params *ValidateEmailBlockFragmentParams, body ValidateEmailBlockFragmentJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailBlock request
+	GetEmailBlock(ctx context.Context, blockId EmailBlockId, params *GetEmailBlockParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateEmailBlockWithBody request with any body
+	UpdateEmailBlockWithBody(ctx context.Context, blockId EmailBlockId, params *UpdateEmailBlockParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateEmailBlock(ctx context.Context, blockId EmailBlockId, params *UpdateEmailBlockParams, body UpdateEmailBlockJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DuplicateEmailBlockWithBody request with any body
+	DuplicateEmailBlockWithBody(ctx context.Context, blockId EmailBlockId, params *DuplicateEmailBlockParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	DuplicateEmailBlock(ctx context.Context, blockId EmailBlockId, params *DuplicateEmailBlockParams, body DuplicateEmailBlockJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListEmailBlockLanguages request
+	ListEmailBlockLanguages(ctx context.Context, blockId EmailBlockId, params *ListEmailBlockLanguagesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteEmailBlockLanguage request
+	DeleteEmailBlockLanguage(ctx context.Context, blockId EmailBlockId, language EmailBlockLanguageTag, params *DeleteEmailBlockLanguageParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailBlockLanguage request
+	GetEmailBlockLanguage(ctx context.Context, blockId EmailBlockId, language EmailBlockLanguageTag, params *GetEmailBlockLanguageParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpsertEmailBlockLanguageWithBody request with any body
+	UpsertEmailBlockLanguageWithBody(ctx context.Context, blockId EmailBlockId, language EmailBlockLanguageTag, params *UpsertEmailBlockLanguageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpsertEmailBlockLanguage(ctx context.Context, blockId EmailBlockId, language EmailBlockLanguageTag, params *UpsertEmailBlockLanguageParams, body UpsertEmailBlockLanguageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListEmailBlockRevisions request
+	ListEmailBlockRevisions(ctx context.Context, blockId EmailBlockId, language EmailBlockLanguageTag, params *ListEmailBlockRevisionsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailBlockRevision request
+	GetEmailBlockRevision(ctx context.Context, blockId EmailBlockId, language EmailBlockLanguageTag, revisionId EmailBlockRevisionId, params *GetEmailBlockRevisionParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// PublishEmailBlockWithBody request with any body
+	PublishEmailBlockWithBody(ctx context.Context, blockId EmailBlockId, params *PublishEmailBlockParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	PublishEmailBlock(ctx context.Context, blockId EmailBlockId, params *PublishEmailBlockParams, body PublishEmailBlockJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// ListEmailBroadcasts request
 	ListEmailBroadcasts(ctx context.Context, params *ListEmailBroadcastsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -63359,6 +64389,234 @@ func (c *Client) CreateEmailMessageBatchWithBody(ctx context.Context, params *Cr
 
 func (c *Client) CreateEmailMessageBatch(ctx context.Context, params *CreateEmailMessageBatchParams, body CreateEmailMessageBatchJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewCreateEmailMessageBatchRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListEmailBlocks(ctx context.Context, params *ListEmailBlocksParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListEmailBlocksRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateEmailBlockWithBody(ctx context.Context, params *CreateEmailBlockParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateEmailBlockRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateEmailBlock(ctx context.Context, params *CreateEmailBlockParams, body CreateEmailBlockJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateEmailBlockRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ValidateEmailBlockFragmentWithBody(ctx context.Context, params *ValidateEmailBlockFragmentParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewValidateEmailBlockFragmentRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ValidateEmailBlockFragment(ctx context.Context, params *ValidateEmailBlockFragmentParams, body ValidateEmailBlockFragmentJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewValidateEmailBlockFragmentRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailBlock(ctx context.Context, blockId EmailBlockId, params *GetEmailBlockParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailBlockRequest(c.Server, blockId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateEmailBlockWithBody(ctx context.Context, blockId EmailBlockId, params *UpdateEmailBlockParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateEmailBlockRequestWithBody(c.Server, blockId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateEmailBlock(ctx context.Context, blockId EmailBlockId, params *UpdateEmailBlockParams, body UpdateEmailBlockJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateEmailBlockRequest(c.Server, blockId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DuplicateEmailBlockWithBody(ctx context.Context, blockId EmailBlockId, params *DuplicateEmailBlockParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDuplicateEmailBlockRequestWithBody(c.Server, blockId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DuplicateEmailBlock(ctx context.Context, blockId EmailBlockId, params *DuplicateEmailBlockParams, body DuplicateEmailBlockJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDuplicateEmailBlockRequest(c.Server, blockId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListEmailBlockLanguages(ctx context.Context, blockId EmailBlockId, params *ListEmailBlockLanguagesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListEmailBlockLanguagesRequest(c.Server, blockId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteEmailBlockLanguage(ctx context.Context, blockId EmailBlockId, language EmailBlockLanguageTag, params *DeleteEmailBlockLanguageParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteEmailBlockLanguageRequest(c.Server, blockId, language, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailBlockLanguage(ctx context.Context, blockId EmailBlockId, language EmailBlockLanguageTag, params *GetEmailBlockLanguageParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailBlockLanguageRequest(c.Server, blockId, language, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpsertEmailBlockLanguageWithBody(ctx context.Context, blockId EmailBlockId, language EmailBlockLanguageTag, params *UpsertEmailBlockLanguageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpsertEmailBlockLanguageRequestWithBody(c.Server, blockId, language, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpsertEmailBlockLanguage(ctx context.Context, blockId EmailBlockId, language EmailBlockLanguageTag, params *UpsertEmailBlockLanguageParams, body UpsertEmailBlockLanguageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpsertEmailBlockLanguageRequest(c.Server, blockId, language, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListEmailBlockRevisions(ctx context.Context, blockId EmailBlockId, language EmailBlockLanguageTag, params *ListEmailBlockRevisionsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListEmailBlockRevisionsRequest(c.Server, blockId, language, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailBlockRevision(ctx context.Context, blockId EmailBlockId, language EmailBlockLanguageTag, revisionId EmailBlockRevisionId, params *GetEmailBlockRevisionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailBlockRevisionRequest(c.Server, blockId, language, revisionId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PublishEmailBlockWithBody(ctx context.Context, blockId EmailBlockId, params *PublishEmailBlockParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPublishEmailBlockRequestWithBody(c.Server, blockId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PublishEmailBlock(ctx context.Context, blockId EmailBlockId, params *PublishEmailBlockParams, body PublishEmailBlockJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPublishEmailBlockRequest(c.Server, blockId, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -79492,6 +80750,1160 @@ func NewCreateEmailMessageBatchRequestWithBody(server string, params *CreateEmai
 	return req, nil
 }
 
+// NewListEmailBlocksRequest generates requests for ListEmailBlocks
+func NewListEmailBlocksRequest(server string, params *ListEmailBlocksParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/blocks")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTotal != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_total", *params.IncludeTotal, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Q != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "q", *params.Q, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Archived != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "archived", *params.Archived, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateEmailBlockRequest calls the generic CreateEmailBlock builder with application/json body
+func NewCreateEmailBlockRequest(server string, params *CreateEmailBlockParams, body CreateEmailBlockJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateEmailBlockRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateEmailBlockRequestWithBody generates requests for CreateEmailBlock with any type of body
+func NewCreateEmailBlockRequestWithBody(server string, params *CreateEmailBlockParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/blocks")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewValidateEmailBlockFragmentRequest calls the generic ValidateEmailBlockFragment builder with application/json body
+func NewValidateEmailBlockFragmentRequest(server string, params *ValidateEmailBlockFragmentParams, body ValidateEmailBlockFragmentJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewValidateEmailBlockFragmentRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewValidateEmailBlockFragmentRequestWithBody generates requests for ValidateEmailBlockFragment with any type of body
+func NewValidateEmailBlockFragmentRequestWithBody(server string, params *ValidateEmailBlockFragmentParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/blocks/validate")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetEmailBlockRequest generates requests for GetEmailBlock
+func NewGetEmailBlockRequest(server string, blockId EmailBlockId, params *GetEmailBlockParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "block_id", blockId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/blocks/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUpdateEmailBlockRequest calls the generic UpdateEmailBlock builder with application/json body
+func NewUpdateEmailBlockRequest(server string, blockId EmailBlockId, params *UpdateEmailBlockParams, body UpdateEmailBlockJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateEmailBlockRequestWithBody(server, blockId, params, "application/json", bodyReader)
+}
+
+// NewUpdateEmailBlockRequestWithBody generates requests for UpdateEmailBlock with any type of body
+func NewUpdateEmailBlockRequestWithBody(server string, blockId EmailBlockId, params *UpdateEmailBlockParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "block_id", blockId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/blocks/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDuplicateEmailBlockRequest calls the generic DuplicateEmailBlock builder with application/json body
+func NewDuplicateEmailBlockRequest(server string, blockId EmailBlockId, params *DuplicateEmailBlockParams, body DuplicateEmailBlockJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewDuplicateEmailBlockRequestWithBody(server, blockId, params, "application/json", bodyReader)
+}
+
+// NewDuplicateEmailBlockRequestWithBody generates requests for DuplicateEmailBlock with any type of body
+func NewDuplicateEmailBlockRequestWithBody(server string, blockId EmailBlockId, params *DuplicateEmailBlockParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "block_id", blockId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/blocks/%s/duplicate", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListEmailBlockLanguagesRequest generates requests for ListEmailBlockLanguages
+func NewListEmailBlockLanguagesRequest(server string, blockId EmailBlockId, params *ListEmailBlockLanguagesParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "block_id", blockId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/blocks/%s/languages", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteEmailBlockLanguageRequest generates requests for DeleteEmailBlockLanguage
+func NewDeleteEmailBlockLanguageRequest(server string, blockId EmailBlockId, language EmailBlockLanguageTag, params *DeleteEmailBlockLanguageParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "block_id", blockId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "language", language, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/blocks/%s/languages/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetEmailBlockLanguageRequest generates requests for GetEmailBlockLanguage
+func NewGetEmailBlockLanguageRequest(server string, blockId EmailBlockId, language EmailBlockLanguageTag, params *GetEmailBlockLanguageParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "block_id", blockId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "language", language, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/blocks/%s/languages/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUpsertEmailBlockLanguageRequest calls the generic UpsertEmailBlockLanguage builder with application/json body
+func NewUpsertEmailBlockLanguageRequest(server string, blockId EmailBlockId, language EmailBlockLanguageTag, params *UpsertEmailBlockLanguageParams, body UpsertEmailBlockLanguageJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpsertEmailBlockLanguageRequestWithBody(server, blockId, language, params, "application/json", bodyReader)
+}
+
+// NewUpsertEmailBlockLanguageRequestWithBody generates requests for UpsertEmailBlockLanguage with any type of body
+func NewUpsertEmailBlockLanguageRequestWithBody(server string, blockId EmailBlockId, language EmailBlockLanguageTag, params *UpsertEmailBlockLanguageParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "block_id", blockId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "language", language, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/blocks/%s/languages/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPut, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListEmailBlockRevisionsRequest generates requests for ListEmailBlockRevisions
+func NewListEmailBlockRevisionsRequest(server string, blockId EmailBlockId, language EmailBlockLanguageTag, params *ListEmailBlockRevisionsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "block_id", blockId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "language", language, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/blocks/%s/languages/%s/revisions", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTotal != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_total", *params.IncludeTotal, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetEmailBlockRevisionRequest generates requests for GetEmailBlockRevision
+func NewGetEmailBlockRevisionRequest(server string, blockId EmailBlockId, language EmailBlockLanguageTag, revisionId EmailBlockRevisionId, params *GetEmailBlockRevisionParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "block_id", blockId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "language", language, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam2 string
+
+	pathParam2, err = runtime.StyleParamWithOptions("simple", false, "revision_id", revisionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/blocks/%s/languages/%s/revisions/%s", pathParam0, pathParam1, pathParam2)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewPublishEmailBlockRequest calls the generic PublishEmailBlock builder with application/json body
+func NewPublishEmailBlockRequest(server string, blockId EmailBlockId, params *PublishEmailBlockParams, body PublishEmailBlockJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewPublishEmailBlockRequestWithBody(server, blockId, params, "application/json", bodyReader)
+}
+
+// NewPublishEmailBlockRequestWithBody generates requests for PublishEmailBlock with any type of body
+func NewPublishEmailBlockRequestWithBody(server string, blockId EmailBlockId, params *PublishEmailBlockParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "block_id", blockId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/blocks/%s/publish", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewListEmailBroadcastsRequest generates requests for ListEmailBroadcasts
 func NewListEmailBroadcastsRequest(server string, params *ListEmailBroadcastsParams) (*http.Request, error) {
 	var err error
@@ -91029,6 +93441,33 @@ func NewGetEmailTemplateLanguageRequest(server string, templateRef string, versi
 		return nil, err
 	}
 
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Authoring != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "authoring", *params.Authoring, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
@@ -96703,6 +99142,18 @@ func NewListNumbersOrdersRequest(server string, params *ListNumbersOrdersParams)
 		// styled parameters, preserving literal commas as delimiters
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
+
+		if params.NumberId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "number_id", *params.NumberId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
 
 		if params.Status != nil {
 
@@ -116199,6 +118650,57 @@ type ClientWithResponsesInterface interface {
 
 	CreateEmailMessageBatchWithResponse(ctx context.Context, params *CreateEmailMessageBatchParams, body CreateEmailMessageBatchJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateEmailMessageBatchResponse, error)
 
+	// ListEmailBlocksWithResponse request
+	ListEmailBlocksWithResponse(ctx context.Context, params *ListEmailBlocksParams, reqEditors ...RequestEditorFn) (*ListEmailBlocksResponse, error)
+
+	// CreateEmailBlockWithBodyWithResponse request with any body
+	CreateEmailBlockWithBodyWithResponse(ctx context.Context, params *CreateEmailBlockParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEmailBlockResponse, error)
+
+	CreateEmailBlockWithResponse(ctx context.Context, params *CreateEmailBlockParams, body CreateEmailBlockJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateEmailBlockResponse, error)
+
+	// ValidateEmailBlockFragmentWithBodyWithResponse request with any body
+	ValidateEmailBlockFragmentWithBodyWithResponse(ctx context.Context, params *ValidateEmailBlockFragmentParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ValidateEmailBlockFragmentResponse, error)
+
+	ValidateEmailBlockFragmentWithResponse(ctx context.Context, params *ValidateEmailBlockFragmentParams, body ValidateEmailBlockFragmentJSONRequestBody, reqEditors ...RequestEditorFn) (*ValidateEmailBlockFragmentResponse, error)
+
+	// GetEmailBlockWithResponse request
+	GetEmailBlockWithResponse(ctx context.Context, blockId EmailBlockId, params *GetEmailBlockParams, reqEditors ...RequestEditorFn) (*GetEmailBlockResponse, error)
+
+	// UpdateEmailBlockWithBodyWithResponse request with any body
+	UpdateEmailBlockWithBodyWithResponse(ctx context.Context, blockId EmailBlockId, params *UpdateEmailBlockParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateEmailBlockResponse, error)
+
+	UpdateEmailBlockWithResponse(ctx context.Context, blockId EmailBlockId, params *UpdateEmailBlockParams, body UpdateEmailBlockJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateEmailBlockResponse, error)
+
+	// DuplicateEmailBlockWithBodyWithResponse request with any body
+	DuplicateEmailBlockWithBodyWithResponse(ctx context.Context, blockId EmailBlockId, params *DuplicateEmailBlockParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DuplicateEmailBlockResponse, error)
+
+	DuplicateEmailBlockWithResponse(ctx context.Context, blockId EmailBlockId, params *DuplicateEmailBlockParams, body DuplicateEmailBlockJSONRequestBody, reqEditors ...RequestEditorFn) (*DuplicateEmailBlockResponse, error)
+
+	// ListEmailBlockLanguagesWithResponse request
+	ListEmailBlockLanguagesWithResponse(ctx context.Context, blockId EmailBlockId, params *ListEmailBlockLanguagesParams, reqEditors ...RequestEditorFn) (*ListEmailBlockLanguagesResponse, error)
+
+	// DeleteEmailBlockLanguageWithResponse request
+	DeleteEmailBlockLanguageWithResponse(ctx context.Context, blockId EmailBlockId, language EmailBlockLanguageTag, params *DeleteEmailBlockLanguageParams, reqEditors ...RequestEditorFn) (*DeleteEmailBlockLanguageResponse, error)
+
+	// GetEmailBlockLanguageWithResponse request
+	GetEmailBlockLanguageWithResponse(ctx context.Context, blockId EmailBlockId, language EmailBlockLanguageTag, params *GetEmailBlockLanguageParams, reqEditors ...RequestEditorFn) (*GetEmailBlockLanguageResponse, error)
+
+	// UpsertEmailBlockLanguageWithBodyWithResponse request with any body
+	UpsertEmailBlockLanguageWithBodyWithResponse(ctx context.Context, blockId EmailBlockId, language EmailBlockLanguageTag, params *UpsertEmailBlockLanguageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpsertEmailBlockLanguageResponse, error)
+
+	UpsertEmailBlockLanguageWithResponse(ctx context.Context, blockId EmailBlockId, language EmailBlockLanguageTag, params *UpsertEmailBlockLanguageParams, body UpsertEmailBlockLanguageJSONRequestBody, reqEditors ...RequestEditorFn) (*UpsertEmailBlockLanguageResponse, error)
+
+	// ListEmailBlockRevisionsWithResponse request
+	ListEmailBlockRevisionsWithResponse(ctx context.Context, blockId EmailBlockId, language EmailBlockLanguageTag, params *ListEmailBlockRevisionsParams, reqEditors ...RequestEditorFn) (*ListEmailBlockRevisionsResponse, error)
+
+	// GetEmailBlockRevisionWithResponse request
+	GetEmailBlockRevisionWithResponse(ctx context.Context, blockId EmailBlockId, language EmailBlockLanguageTag, revisionId EmailBlockRevisionId, params *GetEmailBlockRevisionParams, reqEditors ...RequestEditorFn) (*GetEmailBlockRevisionResponse, error)
+
+	// PublishEmailBlockWithBodyWithResponse request with any body
+	PublishEmailBlockWithBodyWithResponse(ctx context.Context, blockId EmailBlockId, params *PublishEmailBlockParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PublishEmailBlockResponse, error)
+
+	PublishEmailBlockWithResponse(ctx context.Context, blockId EmailBlockId, params *PublishEmailBlockParams, body PublishEmailBlockJSONRequestBody, reqEditors ...RequestEditorFn) (*PublishEmailBlockResponse, error)
+
 	// ListEmailBroadcastsWithResponse request
 	ListEmailBroadcastsWithResponse(ctx context.Context, params *ListEmailBroadcastsParams, reqEditors ...RequestEditorFn) (*ListEmailBroadcastsResponse, error)
 
@@ -121744,6 +124246,505 @@ func (r CreateEmailMessageBatchResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r CreateEmailMessageBatchResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListEmailBlocksResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailBlockList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListEmailBlocksResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListEmailBlocksResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListEmailBlocksResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateEmailBlockResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *EmailBlock
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON413      *PayloadTooLarge
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateEmailBlockResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateEmailBlockResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateEmailBlockResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ValidateEmailBlockFragmentResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailBlockFragmentValidation
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON413      *PayloadTooLarge
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r ValidateEmailBlockFragmentResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ValidateEmailBlockFragmentResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ValidateEmailBlockFragmentResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailBlockResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailBlock
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailBlockResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailBlockResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailBlockResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateEmailBlockResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailBlock
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON413      *PayloadTooLarge
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateEmailBlockResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateEmailBlockResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateEmailBlockResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DuplicateEmailBlockResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *EmailBlock
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON413      *PayloadTooLarge
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r DuplicateEmailBlockResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DuplicateEmailBlockResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DuplicateEmailBlockResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListEmailBlockLanguagesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailBlockLanguageList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListEmailBlockLanguagesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListEmailBlockLanguagesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListEmailBlockLanguagesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteEmailBlockLanguageResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteEmailBlockLanguageResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteEmailBlockLanguageResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteEmailBlockLanguageResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailBlockLanguageResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailBlockLanguage
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailBlockLanguageResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailBlockLanguageResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailBlockLanguageResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpsertEmailBlockLanguageResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailBlockLanguage
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON413      *PayloadTooLarge
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r UpsertEmailBlockLanguageResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpsertEmailBlockLanguageResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpsertEmailBlockLanguageResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListEmailBlockRevisionsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailBlockRevisionList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListEmailBlockRevisionsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListEmailBlockRevisionsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListEmailBlockRevisionsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailBlockRevisionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailBlockRevision
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailBlockRevisionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailBlockRevisionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailBlockRevisionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type PublishEmailBlockResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailBlockSubmission
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r PublishEmailBlockResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r PublishEmailBlockResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r PublishEmailBlockResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -128382,6 +131383,7 @@ type ListNumbersOrdersResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -128461,6 +131463,7 @@ type GetNumbersOrderResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -137160,6 +140163,171 @@ func (c *ClientWithResponses) CreateEmailMessageBatchWithResponse(ctx context.Co
 		return nil, err
 	}
 	return ParseCreateEmailMessageBatchResponse(rsp)
+}
+
+// ListEmailBlocksWithResponse request returning *ListEmailBlocksResponse
+func (c *ClientWithResponses) ListEmailBlocksWithResponse(ctx context.Context, params *ListEmailBlocksParams, reqEditors ...RequestEditorFn) (*ListEmailBlocksResponse, error) {
+	rsp, err := c.ListEmailBlocks(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListEmailBlocksResponse(rsp)
+}
+
+// CreateEmailBlockWithBodyWithResponse request with arbitrary body returning *CreateEmailBlockResponse
+func (c *ClientWithResponses) CreateEmailBlockWithBodyWithResponse(ctx context.Context, params *CreateEmailBlockParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEmailBlockResponse, error) {
+	rsp, err := c.CreateEmailBlockWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateEmailBlockResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateEmailBlockWithResponse(ctx context.Context, params *CreateEmailBlockParams, body CreateEmailBlockJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateEmailBlockResponse, error) {
+	rsp, err := c.CreateEmailBlock(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateEmailBlockResponse(rsp)
+}
+
+// ValidateEmailBlockFragmentWithBodyWithResponse request with arbitrary body returning *ValidateEmailBlockFragmentResponse
+func (c *ClientWithResponses) ValidateEmailBlockFragmentWithBodyWithResponse(ctx context.Context, params *ValidateEmailBlockFragmentParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ValidateEmailBlockFragmentResponse, error) {
+	rsp, err := c.ValidateEmailBlockFragmentWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseValidateEmailBlockFragmentResponse(rsp)
+}
+
+func (c *ClientWithResponses) ValidateEmailBlockFragmentWithResponse(ctx context.Context, params *ValidateEmailBlockFragmentParams, body ValidateEmailBlockFragmentJSONRequestBody, reqEditors ...RequestEditorFn) (*ValidateEmailBlockFragmentResponse, error) {
+	rsp, err := c.ValidateEmailBlockFragment(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseValidateEmailBlockFragmentResponse(rsp)
+}
+
+// GetEmailBlockWithResponse request returning *GetEmailBlockResponse
+func (c *ClientWithResponses) GetEmailBlockWithResponse(ctx context.Context, blockId EmailBlockId, params *GetEmailBlockParams, reqEditors ...RequestEditorFn) (*GetEmailBlockResponse, error) {
+	rsp, err := c.GetEmailBlock(ctx, blockId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailBlockResponse(rsp)
+}
+
+// UpdateEmailBlockWithBodyWithResponse request with arbitrary body returning *UpdateEmailBlockResponse
+func (c *ClientWithResponses) UpdateEmailBlockWithBodyWithResponse(ctx context.Context, blockId EmailBlockId, params *UpdateEmailBlockParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateEmailBlockResponse, error) {
+	rsp, err := c.UpdateEmailBlockWithBody(ctx, blockId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateEmailBlockResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateEmailBlockWithResponse(ctx context.Context, blockId EmailBlockId, params *UpdateEmailBlockParams, body UpdateEmailBlockJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateEmailBlockResponse, error) {
+	rsp, err := c.UpdateEmailBlock(ctx, blockId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateEmailBlockResponse(rsp)
+}
+
+// DuplicateEmailBlockWithBodyWithResponse request with arbitrary body returning *DuplicateEmailBlockResponse
+func (c *ClientWithResponses) DuplicateEmailBlockWithBodyWithResponse(ctx context.Context, blockId EmailBlockId, params *DuplicateEmailBlockParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DuplicateEmailBlockResponse, error) {
+	rsp, err := c.DuplicateEmailBlockWithBody(ctx, blockId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDuplicateEmailBlockResponse(rsp)
+}
+
+func (c *ClientWithResponses) DuplicateEmailBlockWithResponse(ctx context.Context, blockId EmailBlockId, params *DuplicateEmailBlockParams, body DuplicateEmailBlockJSONRequestBody, reqEditors ...RequestEditorFn) (*DuplicateEmailBlockResponse, error) {
+	rsp, err := c.DuplicateEmailBlock(ctx, blockId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDuplicateEmailBlockResponse(rsp)
+}
+
+// ListEmailBlockLanguagesWithResponse request returning *ListEmailBlockLanguagesResponse
+func (c *ClientWithResponses) ListEmailBlockLanguagesWithResponse(ctx context.Context, blockId EmailBlockId, params *ListEmailBlockLanguagesParams, reqEditors ...RequestEditorFn) (*ListEmailBlockLanguagesResponse, error) {
+	rsp, err := c.ListEmailBlockLanguages(ctx, blockId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListEmailBlockLanguagesResponse(rsp)
+}
+
+// DeleteEmailBlockLanguageWithResponse request returning *DeleteEmailBlockLanguageResponse
+func (c *ClientWithResponses) DeleteEmailBlockLanguageWithResponse(ctx context.Context, blockId EmailBlockId, language EmailBlockLanguageTag, params *DeleteEmailBlockLanguageParams, reqEditors ...RequestEditorFn) (*DeleteEmailBlockLanguageResponse, error) {
+	rsp, err := c.DeleteEmailBlockLanguage(ctx, blockId, language, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteEmailBlockLanguageResponse(rsp)
+}
+
+// GetEmailBlockLanguageWithResponse request returning *GetEmailBlockLanguageResponse
+func (c *ClientWithResponses) GetEmailBlockLanguageWithResponse(ctx context.Context, blockId EmailBlockId, language EmailBlockLanguageTag, params *GetEmailBlockLanguageParams, reqEditors ...RequestEditorFn) (*GetEmailBlockLanguageResponse, error) {
+	rsp, err := c.GetEmailBlockLanguage(ctx, blockId, language, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailBlockLanguageResponse(rsp)
+}
+
+// UpsertEmailBlockLanguageWithBodyWithResponse request with arbitrary body returning *UpsertEmailBlockLanguageResponse
+func (c *ClientWithResponses) UpsertEmailBlockLanguageWithBodyWithResponse(ctx context.Context, blockId EmailBlockId, language EmailBlockLanguageTag, params *UpsertEmailBlockLanguageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpsertEmailBlockLanguageResponse, error) {
+	rsp, err := c.UpsertEmailBlockLanguageWithBody(ctx, blockId, language, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpsertEmailBlockLanguageResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpsertEmailBlockLanguageWithResponse(ctx context.Context, blockId EmailBlockId, language EmailBlockLanguageTag, params *UpsertEmailBlockLanguageParams, body UpsertEmailBlockLanguageJSONRequestBody, reqEditors ...RequestEditorFn) (*UpsertEmailBlockLanguageResponse, error) {
+	rsp, err := c.UpsertEmailBlockLanguage(ctx, blockId, language, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpsertEmailBlockLanguageResponse(rsp)
+}
+
+// ListEmailBlockRevisionsWithResponse request returning *ListEmailBlockRevisionsResponse
+func (c *ClientWithResponses) ListEmailBlockRevisionsWithResponse(ctx context.Context, blockId EmailBlockId, language EmailBlockLanguageTag, params *ListEmailBlockRevisionsParams, reqEditors ...RequestEditorFn) (*ListEmailBlockRevisionsResponse, error) {
+	rsp, err := c.ListEmailBlockRevisions(ctx, blockId, language, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListEmailBlockRevisionsResponse(rsp)
+}
+
+// GetEmailBlockRevisionWithResponse request returning *GetEmailBlockRevisionResponse
+func (c *ClientWithResponses) GetEmailBlockRevisionWithResponse(ctx context.Context, blockId EmailBlockId, language EmailBlockLanguageTag, revisionId EmailBlockRevisionId, params *GetEmailBlockRevisionParams, reqEditors ...RequestEditorFn) (*GetEmailBlockRevisionResponse, error) {
+	rsp, err := c.GetEmailBlockRevision(ctx, blockId, language, revisionId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailBlockRevisionResponse(rsp)
+}
+
+// PublishEmailBlockWithBodyWithResponse request with arbitrary body returning *PublishEmailBlockResponse
+func (c *ClientWithResponses) PublishEmailBlockWithBodyWithResponse(ctx context.Context, blockId EmailBlockId, params *PublishEmailBlockParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PublishEmailBlockResponse, error) {
+	rsp, err := c.PublishEmailBlockWithBody(ctx, blockId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePublishEmailBlockResponse(rsp)
+}
+
+func (c *ClientWithResponses) PublishEmailBlockWithResponse(ctx context.Context, blockId EmailBlockId, params *PublishEmailBlockParams, body PublishEmailBlockJSONRequestBody, reqEditors ...RequestEditorFn) (*PublishEmailBlockResponse, error) {
+	rsp, err := c.PublishEmailBlock(ctx, blockId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePublishEmailBlockResponse(rsp)
 }
 
 // ListEmailBroadcastsWithResponse request returning *ListEmailBroadcastsResponse
@@ -150496,6 +153664,1107 @@ func ParseCreateEmailMessageBatchResponse(rsp *http.Response) (*CreateEmailMessa
 			return nil, err
 		}
 		response.JSON413 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListEmailBlocksResponse parses an HTTP response from a ListEmailBlocksWithResponse call
+func ParseListEmailBlocksResponse(rsp *http.Response) (*ListEmailBlocksResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListEmailBlocksResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailBlockList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateEmailBlockResponse parses an HTTP response from a CreateEmailBlockWithResponse call
+func ParseCreateEmailBlockResponse(rsp *http.Response) (*CreateEmailBlockResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateEmailBlockResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest EmailBlock
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 413:
+		var dest PayloadTooLarge
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON413 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseValidateEmailBlockFragmentResponse parses an HTTP response from a ValidateEmailBlockFragmentWithResponse call
+func ParseValidateEmailBlockFragmentResponse(rsp *http.Response) (*ValidateEmailBlockFragmentResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ValidateEmailBlockFragmentResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailBlockFragmentValidation
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 413:
+		var dest PayloadTooLarge
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON413 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailBlockResponse parses an HTTP response from a GetEmailBlockWithResponse call
+func ParseGetEmailBlockResponse(rsp *http.Response) (*GetEmailBlockResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailBlockResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailBlock
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateEmailBlockResponse parses an HTTP response from a UpdateEmailBlockWithResponse call
+func ParseUpdateEmailBlockResponse(rsp *http.Response) (*UpdateEmailBlockResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateEmailBlockResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailBlock
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 413:
+		var dest PayloadTooLarge
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON413 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDuplicateEmailBlockResponse parses an HTTP response from a DuplicateEmailBlockWithResponse call
+func ParseDuplicateEmailBlockResponse(rsp *http.Response) (*DuplicateEmailBlockResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DuplicateEmailBlockResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest EmailBlock
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 413:
+		var dest PayloadTooLarge
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON413 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListEmailBlockLanguagesResponse parses an HTTP response from a ListEmailBlockLanguagesWithResponse call
+func ParseListEmailBlockLanguagesResponse(rsp *http.Response) (*ListEmailBlockLanguagesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListEmailBlockLanguagesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailBlockLanguageList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteEmailBlockLanguageResponse parses an HTTP response from a DeleteEmailBlockLanguageWithResponse call
+func ParseDeleteEmailBlockLanguageResponse(rsp *http.Response) (*DeleteEmailBlockLanguageResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteEmailBlockLanguageResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailBlockLanguageResponse parses an HTTP response from a GetEmailBlockLanguageWithResponse call
+func ParseGetEmailBlockLanguageResponse(rsp *http.Response) (*GetEmailBlockLanguageResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailBlockLanguageResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailBlockLanguage
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpsertEmailBlockLanguageResponse parses an HTTP response from a UpsertEmailBlockLanguageWithResponse call
+func ParseUpsertEmailBlockLanguageResponse(rsp *http.Response) (*UpsertEmailBlockLanguageResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpsertEmailBlockLanguageResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailBlockLanguage
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 413:
+		var dest PayloadTooLarge
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON413 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListEmailBlockRevisionsResponse parses an HTTP response from a ListEmailBlockRevisionsWithResponse call
+func ParseListEmailBlockRevisionsResponse(rsp *http.Response) (*ListEmailBlockRevisionsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListEmailBlockRevisionsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailBlockRevisionList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailBlockRevisionResponse parses an HTTP response from a GetEmailBlockRevisionWithResponse call
+func ParseGetEmailBlockRevisionResponse(rsp *http.Response) (*GetEmailBlockRevisionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailBlockRevisionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailBlockRevision
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParsePublishEmailBlockResponse parses an HTTP response from a PublishEmailBlockWithResponse call
+func ParsePublishEmailBlockResponse(rsp *http.Response) (*PublishEmailBlockResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &PublishEmailBlockResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailBlockSubmission
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Unprocessable
@@ -165115,6 +169384,13 @@ func ParseListNumbersOrdersResponse(rsp *http.Response) (*ListNumbersOrdersRespo
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -165299,6 +169575,13 @@ func ParseGetNumbersOrderResponse(rsp *http.Response) (*GetNumbersOrderResponse,
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 

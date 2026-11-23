@@ -133,7 +133,7 @@ type SmsStatsByCountryParams struct {
 	Sort SMSStatsSortMetric
 	// Maximum number of country rows to return, ranked by the `sort` field descending.
 	Limit int
-	// When true, each row also carries a `trend` array: a short per-bucket lifecycle-count series for that row over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422.
+	// When true, each row also carries a `trend` array: a short per-bucket lifecycle-count series for that row over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. The Go SDK sends this only when true; false is the same as leaving it out.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain StatsTrendGrain
@@ -166,7 +166,7 @@ type SmsStatsByCarrierParams struct {
 	Sort SMSStatsSortMetric
 	// Maximum number of carrier rows to return, ranked by the `sort` field descending.
 	Limit int
-	// When true, each row also carries a `trend` array: a short per-bucket lifecycle-count series for that row over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422.
+	// When true, each row also carries a `trend` array: a short per-bucket lifecycle-count series for that row over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. The Go SDK sends this only when true; false is the same as leaving it out.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain StatsTrendGrain
@@ -199,7 +199,7 @@ type SmsStatsByCategoryParams struct {
 	Sort SMSStatsSortMetric
 	// Maximum number of category rows to return, ranked by the `sort` field descending.
 	Limit int
-	// When true, each row also carries a `trend` array: a short per-bucket lifecycle-count series for that row over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422.
+	// When true, each row also carries a `trend` array: a short per-bucket lifecycle-count series for that row over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. The Go SDK sends this only when true; false is the same as leaving it out.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain StatsTrendGrain
@@ -232,7 +232,7 @@ type SmsStatsByContentTypeParams struct {
 	Sort SMSStatsSortMetric
 	// Maximum number of message-type rows to return, ranked by the `sort` field descending.
 	Limit int
-	// When true, each row also carries a `trend` array: a short per-bucket lifecycle-count series for that row over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422.
+	// When true, each row also carries a `trend` array: a short per-bucket lifecycle-count series for that row over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. The Go SDK sends this only when true; false is the same as leaving it out.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain StatsTrendGrain
@@ -265,7 +265,7 @@ type SmsStatsByOriginatorParams struct {
 	Sort SMSStatsSortMetric
 	// Maximum number of originator rows to return, ranked by the `sort` field descending.
 	Limit int
-	// When true, each row also carries a `trend` array: a short per-bucket lifecycle-count series for that row over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422.
+	// When true, each row also carries a `trend` array: a short per-bucket lifecycle-count series for that row over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. The Go SDK sends this only when true; false is the same as leaving it out.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain StatsTrendGrain
@@ -319,7 +319,7 @@ type SmsStatsByErrorCodeParams struct {
 	Sort SMSStatsLifecycleSortMetric
 	// Maximum number of error-code rows to return, ranked by the `sort` field descending.
 	Limit int
-	// When true, each row also carries a `trend` array: a short per-bucket lifecycle-count series for that row over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422.
+	// When true, each row also carries a `trend` array: a short per-bucket lifecycle-count series for that row over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. The Go SDK sends this only when true; false is the same as leaving it out.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain StatsTrendGrain
@@ -352,7 +352,7 @@ type SmsStatsByTagParams struct {
 	Sort SMSStatsSortMetric
 	// Maximum number of tag rows to return, ranked by the `sort` field descending.
 	Limit int
-	// When true, each row also carries a `trend` array: a short per-bucket lifecycle-count series for that row over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422.
+	// When true, each row also carries a `trend` array: a short per-bucket lifecycle-count series for that row over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. The Go SDK sends this only when true; false is the same as leaving it out.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain StatsTrendGrain
@@ -385,7 +385,7 @@ type SmsStatsByCostCenterParams struct {
 	Sort SMSStatsSortMetric
 	// Maximum number of cost center rows to return, ranked by the `sort` field descending.
 	Limit int
-	// When true, each row also carries a `trend` array: a short per-bucket lifecycle-count series for that row over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422.
+	// When true, each row also carries a `trend` array: a short per-bucket lifecycle-count series for that row over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. The Go SDK sends this only when true; false is the same as leaving it out.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain StatsTrendGrain

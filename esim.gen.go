@@ -86,7 +86,7 @@ func (p EsimUpdateParams) toWire() oapi.EsimUpdate {
 
 // EsimReleaseParams holds the release's query filters.
 type EsimReleaseParams struct {
-	// Confirms you accept that remaining package balances are forfeited. Omitted or false while unexpired balance remains, the request fails with a conflict error.
+	// Confirms you accept that remaining package balances are forfeited. Omitted or false while unexpired balance remains, the request fails with a conflict error. The Go SDK sends this only when true; false is the same as leaving it out.
 	AcknowledgeBalanceForfeit bool
 }
 
@@ -98,7 +98,7 @@ func (p EsimReleaseParams) toWire() *oapi.ReleaseEsimParams {
 
 // EsimCompatibleOffersParams filters the compatible_offers read.
 type EsimCompatibleOffersParams struct {
-	// Keep only offers with recurring service configured. Enrollment still checks supplier support and the published recurring price.
+	// Keep only offers with recurring service configured. Enrollment still checks supplier support and the published recurring price. The Go SDK sends this only when true; false is the same as leaving it out.
 	RecurringOnly bool
 }
 

@@ -88,6 +88,19 @@ output-options:
     - updateEmailTemplateLanguage
     - deleteEmailTemplateLanguage
     - listEmailTemplateBroadcasts
+    - listEmailBlocks
+    - getEmailBlock
+    - createEmailBlock
+    - updateEmailBlock
+    - duplicateEmailBlock
+    - validateEmailBlockFragment
+    - publishEmailBlock
+    - listEmailBlockLanguages
+    - getEmailBlockLanguage
+    - upsertEmailBlockLanguage
+    - deleteEmailBlockLanguage
+    - listEmailBlockRevisions
+    - getEmailBlockRevision
     - validateEmailBroadcast
     - previewEmailBroadcast
     - sendEmailBroadcastTest

@@ -3652,7 +3652,7 @@ func ExampleEmailTemplatesVersionsLanguagesService_Get() {
 		log.Fatal(err)
 	}
 	language, err := client.Email.Templates.Versions.Languages.Get(context.Background(),
-		"TEMPLATE_ID", "DRAFT_VERSION_ID", "en")
+		"TEMPLATE_ID", "DRAFT_VERSION_ID", "en", bird.EmailTemplatesVersionsLanguagesGetParams{})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -6915,4 +6915,225 @@ func ExampleEmailSeedingSourcesService_List() {
 		}
 		fmt.Println(source)
 	}
+}
+
+func ExampleEmailBlocksService_List() {
+	// Requires email_management:read permission in the target workspace.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for block, err := range client.Email.Blocks.List(context.Background(), bird.EmailBlocksListParams{Q: "footer"}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(block.Id, block.Name, block.SourceLanguage)
+	}
+}
+
+func ExampleEmailBlocksService_Get() {
+	// Requires email_management:read permission in the target workspace.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	block, err := client.Email.Blocks.Get(context.Background(), "ebl_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(block.Name, block.Revision)
+}
+
+func ExampleEmailBlocksService_Create() {
+	// Requires email_management:write permission in the target workspace.
+	section := `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tbody><tr>` +
+		`<td lang="en" style="font-family: Arial, sans-serif; font-size: 14px; font-style: normal; font-weight: normal; ` +
+		`line-height: 20px; letter-spacing: normal; text-align: left; text-transform: none; color: #333333; margin: 0; padding: 16px;">` +
+		`<p style="margin: 0;">Offer valid until {{ expiry_date }}.</p></td></tr></tbody></table>`
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	block, err := client.Email.Blocks.Create(context.Background(), bird.EmailBlocksCreateParams{
+		Name:           "Legal footer",
+		SourceLanguage: "en",
+		Fragment:       &bird.EmailBlockFragment{SerializerVersion: 2, FragmentHtml: section},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(block.Id, block.Revision)
+}
+
+func ExampleEmailBlocksService_Update() {
+	// Requires email_management:write permission in the target workspace.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	current, err := client.Email.Blocks.Get(ctx, "ebl_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	block, err := client.Email.Blocks.Update(ctx, current.Id, bird.EmailBlocksUpdateParams{
+		Revision: int(current.Revision),
+		Archived: bird.Bool(true),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(block.ArchivedAt)
+}
+
+func ExampleEmailBlocksService_Duplicate() {
+	// Requires email_management:write permission in the target workspace.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	source, err := client.Email.Blocks.Get(ctx, "ebl_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	block, err := client.Email.Blocks.Duplicate(ctx, source.Id, bird.EmailBlocksDuplicateParams{
+		Revision: int(source.Revision),
+		Name:     "Legal footer (EU)",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(block.Id)
+}
+
+func ExampleEmailBlocksService_Validate() {
+	// Requires email_management:read permission in the target workspace.
+	section := `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tbody><tr>` +
+		`<td lang="en" style="font-family: Arial, sans-serif; font-size: 14px; font-style: normal; font-weight: normal; ` +
+		`line-height: 20px; letter-spacing: normal; text-align: left; text-transform: none; color: #333333; margin: 0; padding: 16px;">` +
+		`<p style="margin: 0;">Offer valid until {{ expiry_date }}.</p></td></tr></tbody></table>`
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	result, err := client.Email.Blocks.Validate(context.Background(), bird.EmailBlocksValidateParams{
+		Language: "en",
+		Fragment: bird.EmailBlockFragment{SerializerVersion: 2, FragmentHtml: section},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result.Text)
+}
+
+func ExampleEmailBlocksService_Publish() {
+	// Requires email_management:write permission in the target workspace.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	blockID := "ebl_01krdgeqcxet5s7t44vh8rt9mg"
+	draft, err := client.Email.Blocks.Languages.Get(ctx, blockID, "en")
+	if err != nil {
+		log.Fatal(err)
+	}
+	submission, err := client.Email.Blocks.Publish(ctx, blockID, bird.EmailBlocksPublishParams{
+		Languages: []bird.EmailBlockPublishLanguage{{Language: "en", Revision: draft.Revision}},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(submission.Status, submission.PublishedRevisions)
+}
+
+func ExampleEmailBlocksLanguagesService_List() {
+	// Requires email_management:read permission in the target workspace.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	languages, err := client.Email.Blocks.Languages.List(context.Background(), "ebl_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, language := range languages.Data {
+		fmt.Println(language.Language, language.Revision)
+	}
+}
+
+func ExampleEmailBlocksLanguagesService_Get() {
+	// Requires email_management:read permission in the target workspace.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	draft, err := client.Email.Blocks.Languages.Get(context.Background(), "ebl_01krdgeqcxet5s7t44vh8rt9mg", "en")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(draft.AuthoringMode, draft.Revision, draft.Fragment.FragmentHtml)
+}
+
+func ExampleEmailBlocksLanguagesService_Set() {
+	// Requires email_management:write permission in the target workspace.
+	section := `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tbody><tr>` +
+		`<td lang="fr" style="font-family: Arial, sans-serif; font-size: 14px; font-style: normal; font-weight: normal; ` +
+		`line-height: 20px; letter-spacing: normal; text-align: left; text-transform: none; color: #333333; margin: 0; padding: 16px;">` +
+		`<p style="margin: 0;">Offre valable jusqu'au {{ expiry_date }}.</p></td></tr></tbody></table>`
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	draft, err := client.Email.Blocks.Languages.Set(context.Background(), "ebl_01krdgeqcxet5s7t44vh8rt9mg", "fr",
+		bird.EmailBlocksLanguagesSetParams{
+			Revision: 0,
+			Fragment: &bird.EmailBlockFragment{SerializerVersion: 2, FragmentHtml: section},
+		})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(draft.Revision)
+}
+
+func ExampleEmailBlocksLanguagesService_Delete() {
+	// Requires email_management:write permission in the target workspace.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := client.Email.Blocks.Languages.Delete(context.Background(), "ebl_01krdgeqcxet5s7t44vh8rt9mg", "fr"); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func ExampleEmailBlocksLanguagesRevisionsService_List() {
+	// Requires email_management:read permission in the target workspace.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	revisions := client.Email.Blocks.Languages.Revisions.List(context.Background(),
+		"ebl_01krdgeqcxet5s7t44vh8rt9mg", "en", bird.EmailBlocksLanguagesRevisionsListParams{})
+	for revision, err := range revisions {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(revision.Id, revision.VersionNumber, revision.PublishedAt)
+	}
+}
+
+func ExampleEmailBlocksLanguagesRevisionsService_Get() {
+	// Requires email_management:read permission in the target workspace.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	revision, err := client.Email.Blocks.Languages.Revisions.Get(context.Background(),
+		"ebl_01krdgeqcxet5s7t44vh8rt9mg", "en", "ebr_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(revision.VersionNumber, revision.Fragment.FragmentHtml)
 }

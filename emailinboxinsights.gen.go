@@ -24,7 +24,7 @@ type EmailInboxInsightsPlacementParams struct {
 	Compare EmailInboxInsightsCompare
 	// Providers to break the series down by, named as the provider table names them. Each named provider adds one series line; without this, the series carries the domain-wide line only. The provider table is never filtered by this parameter.
 	SeriesProviders []string
-	// Include per-IP placement detail for the domain's sending infrastructure. Off by default; only the sending-infrastructure view needs it.
+	// Include per-IP placement detail for the domain's sending infrastructure. Off by default; only the sending-infrastructure view needs it. The Go SDK sends this only when true; false is the same as leaving it out.
 	IncludeIPDetails bool
 }
 

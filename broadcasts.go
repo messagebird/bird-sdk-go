@@ -63,6 +63,24 @@ type BroadcastsCreateParams struct {
 	ScheduledAt time.Time
 	// Brand selection. Omitted or null uses the workspace default Brand at first scheduling or sending.
 	BrandID Nullable[string]
+	// Sends seed copies with the broadcast for an automatic seed test. Nil seeds only when the audience contains a contact at the trigger address.
+	AutomaticSeeding *BroadcastsAutomaticSeeding
+}
+
+// BroadcastsAutomaticSeeding is a broadcast's automatic seeding choice.
+type BroadcastsAutomaticSeeding struct {
+	// Whether the broadcast sends seed copies. False sends none, even when the audience contains a contact at the trigger address.
+	Enabled bool
+	// A test contact (`con_…`) whose values fill the personal fields in the seed copies. Empty fills them with their fallback values.
+	ExampleContactID string
+}
+
+func (c BroadcastsAutomaticSeeding) toWire() oapi.EmailBroadcastAutomaticSeedingInput {
+	out := oapi.EmailBroadcastAutomaticSeedingInput{Enabled: c.Enabled}
+	if c.ExampleContactID != "" {
+		out.ExampleContactId = &c.ExampleContactID
+	}
+	return out
 }
 
 func (p BroadcastsCreateParams) toWire() oapi.EmailBroadcastCreateRequest {
@@ -108,6 +126,10 @@ func (p BroadcastsCreateParams) toWire() oapi.EmailBroadcastCreateRequest {
 	if p.Category != "" {
 		category := oapi.EmailBroadcastCreateRequestCategory(p.Category)
 		body.Category = &category
+	}
+	if p.AutomaticSeeding != nil {
+		seeding := p.AutomaticSeeding.toWire()
+		body.AutomaticSeeding = &seeding
 	}
 	// Omitted rather than sent as false: the server defaults it to false, and a
 	// literal false alongside no scheduled_at is the same draft either way.
@@ -241,6 +263,8 @@ type BroadcastsUpdateParams struct {
 	Category Category
 	// Preview business selection, editable only while draft. Null clears the selection; omitted retains it.
 	BrandID Nullable[string]
+	// Value replaces the saved automatic seeding choice. Null seeds only when the audience contains a contact at the trigger address; unspecified keeps the saved choice.
+	AutomaticSeeding Nullable[BroadcastsAutomaticSeeding]
 }
 
 // emptyIfNil turns a pointer to a nil map into a pointer to an empty one, so a
@@ -309,6 +333,13 @@ func (p BroadcastsUpdateParams) toWire() oapi.EmailBroadcastUpdateRequest {
 	if p.Category != "" {
 		category := oapi.EmailBroadcastUpdateRequestCategory(p.Category)
 		body.Category = &category
+	}
+	if p.AutomaticSeeding.IsSpecified() {
+		if p.AutomaticSeeding.IsNull() {
+			body.AutomaticSeeding = Null[oapi.EmailBroadcastAutomaticSeedingInput]()
+		} else {
+			body.AutomaticSeeding = Value(p.AutomaticSeeding.MustGet().toWire())
+		}
 	}
 	return body
 }

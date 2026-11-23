@@ -34,6 +34,8 @@ func (p NumbersOrdersCreateParams) toWire() oapi.NumbersOrderCreate {
 
 // NumbersOrdersListParams filters the list. Zero-value fields are omitted.
 type NumbersOrdersListParams struct {
+	// Return orders associated with this exact workspace allocation, newest first. Multiple attempts can refer to the same allocation; the newest attempt is not necessarily the order that first assigned it.
+	NumberID string
 	// Return only orders with status `charging`, `ordering`, `pending`, `completed`, or `failed`.
 	Status NumbersOrderStatus
 	// Maximum number of items to return per page.
@@ -44,6 +46,7 @@ type NumbersOrdersListParams struct {
 
 func (p NumbersOrdersListParams) toWire(startingAfter string) *oapi.ListNumbersOrdersParams {
 	return &oapi.ListNumbersOrdersParams{
+		NumberId:      optZero(p.NumberID),
 		Status:        optZero(p.Status),
 		Limit:         optInt(p.Limit),
 		EndingBefore:  optStr(p.EndingBefore),
@@ -103,7 +106,7 @@ func (s *NumbersOrdersService) List(ctx context.Context, params NumbersOrdersLis
 	})
 }
 
-// Get Reads one order's current state, and the number it produced once completed. This is the poll for an order that came back pending.
+// Get Reads one order's state and its associated allocation once completed. Poll an order that came back pending here; read the number for its current holding state.
 func (s *NumbersOrdersService) Get(ctx context.Context, orderId string, opts ...option.RequestOption) (*NumbersOrder, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetNumbersOrder(ctx, oapi.NumbersOrderID(orderId), &oapi.GetNumbersOrderParams{}, cfg...)

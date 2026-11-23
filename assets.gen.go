@@ -24,7 +24,7 @@ type AssetsListParams struct {
 	Q string
 	// Return only the assets filed directly in this folder. Subfolders are not included, and a folder that does not exist matches nothing. Cannot be combined with `root_only`.
 	FolderID string
-	// Return only the assets at the top level of the library, filed in no folder. Cannot be combined with `folder_id`.
+	// Return only the assets at the top level of the library, filed in no folder. Cannot be combined with `folder_id`. The Go SDK sends this only when true; false is the same as leaving it out.
 	RootOnly bool
 	// Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
 	Order SortOrder
@@ -32,7 +32,7 @@ type AssetsListParams struct {
 	Limit int
 	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
 	EndingBefore string
-	// When true, the response includes a `total` field with the total number of items matching the request's filters across all pages.
+	// When true, the response includes a `total` field with the total number of items matching the request's filters across all pages. The Go SDK sends this only when true; false is the same as leaving it out.
 	IncludeTotal bool
 }
 

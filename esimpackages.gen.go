@@ -11,7 +11,7 @@ import (
 
 // EsimPackagesDeleteParams holds the delete's query filters.
 type EsimPackagesDeleteParams struct {
-	// Confirms you accept that the package's remaining balance is forfeited. Omitted or false while balance remains, the request fails with a conflict error.
+	// Confirms you accept that the package's remaining balance is forfeited. Omitted or false while balance remains, the request fails with a conflict error. The Go SDK sends this only when true; false is the same as leaving it out.
 	AcknowledgeBalanceForfeit bool
 }
 

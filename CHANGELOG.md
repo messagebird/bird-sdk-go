@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.150.0
+
+- Add a `number_id` filter to number order lists to find attempts associated with an allocation. Clarify that completed orders retain that historical association after the number is released.
+- Preferences expose the email ID of the most recent recorded spam complaint as `complaint_message_id`.
+- Email event documentation clarifies that unsubscribe events can have null tags and metadata even when the send included them. Use workspace and message IDs to correlate those events.
+- Broadcast create and update accept `automatic_seeding`, which sends seed copies with the broadcast for an automatic seed test. Without an `example_contact_id`, personal fields in the seed copies use their fallback values; on update, null seeds only when the audience contains a contact at the trigger address.
+- Broadcast validation problems can now have the severity `warning`, which never blocks sending, with the codes `seed_example_value_missing`, `seeding_not_configured` and `seed_tests_exhausted` for a seeded broadcast whose seed test will not run.
+- Add reusable email block methods on the email client: list, read, create, update, duplicate, check and publish blocks, edit and delete their per-language drafts, and read their published revisions.
+- Template language reads and saves gain `shared_blocks`, `has_shared_blocks`, `replace_custom_text` and `authoring_mode`, and the language read takes `authoring`, so an HTML template language can link reusable email blocks and be read back with its links.
+- **Breaking:** reading one template language (`email.templates.versions.languages.get`) takes a parameters argument after the language, so existing calls must add it; pass empty parameters for an ordinary read, or set Authoring to read the HTML with its reusable block markers and `shared_blocks`.
+- Asset reference lists (including `bird assets references list`) now include reusable email blocks with `resource_type` set to `email_block` when the caller has both `assets:read` and `email_management:read`. Without email-management read access, those references are omitted.
+- **Breaking:** The encryption member of the trunk media update is optional; replace `Encryption: mode` with `Encryption: bird.Ptr(mode)`. Set `media.sites` to select permitted media sites.
+- `data_as_of` on email statistics is now described as a best-effort refresh time, which can trail the latest events by a minute or more.
+- The send broadcast reference now documents the 409 conflict a reschedule can return while the broadcast is being prepared to send now, in which case its schedule does not change.
+
 ## 0.149.0
 
 - List a WhatsApp template's history, newest first: each status WhatsApp gave a language, such as a pause or a reinstatement, and each change in its quality rating, recorded from this release on. Pass `language` to read one language.

@@ -9,13 +9,31 @@ import (
 	"github.com/messagebird/bird-sdk-go/option"
 )
 
+type EmailTemplateSharedBlocks = oapi.EmailTemplateSharedBlocks
+
+// EmailTemplatesVersionsLanguagesGetParams filters the get read.
+type EmailTemplatesVersionsLanguagesGetParams struct {
+	// Return the HTML with its reusable block markers in place of the blocks' content, plus `shared_blocks`, so a language that links blocks can be saved back with its links intact. Compatibility locations still refer to the HTML with the blocks filled in. The Go SDK sends this only when true; false is the same as leaving it out.
+	Authoring bool
+}
+
+func (p EmailTemplatesVersionsLanguagesGetParams) toWire() *oapi.GetEmailTemplateLanguageParams {
+	return &oapi.GetEmailTemplateLanguageParams{
+		Authoring: optBool(p.Authoring),
+	}
+}
+
 // EmailTemplatesVersionsLanguagesSetParams is the request body for set.
 type EmailTemplatesVersionsLanguagesSetParams struct {
+	// Links reusable blocks into this language. Send the complete language with it: `html` with one HTML comment `bird:shared-block:OCCURRENCE_UUID` per binding, placed where a section can stand (between block-level elements, not inside a paragraph or a table row), empty `text`, and the `revision` you read (0 to create the language). Key each binding by a lowercase UUID for that occurrence. A newly linked block must be unarchived and published in this exact language. Keep an occurrence's UUID to move it, use a new one to add another, and delete both its marker and its binding to remove it. To remove every link, send HTML without markers and empty `bindings`. A language edited in the Bird dashboard's visual editor cannot be saved this way from outside the dashboard (`E04108`).
+	SharedBlocks *EmailTemplateSharedBlocks
+	// Confirms replacing the language's custom plain-text body with text derived from the linked HTML, in the same save that links its first block. Requires `shared_blocks` and the language `revision`.
+	ReplaceCustomText *bool
 	// The email subject line. It may be empty in a draft but is required to publish.
 	Subject string
 	// The line an inbox shows after the subject in the message list. Leave it out and the inbox shows the opening words of the body instead.
 	PreviewText *string
-	// The HTML body for this language.
+	// The HTML body for this language. On a language that links blocks, a save without `shared_blocks` is refused (`E04109`); read it with `authoring=true` for the HTML with its block markers first.
 	HTML *string
 	// The plain-text body for this language. Omit it and a plain-text alternative is derived from the HTML when you submit.
 	Text *string
@@ -25,6 +43,10 @@ type EmailTemplatesVersionsLanguagesSetParams struct {
 
 func (p EmailTemplatesVersionsLanguagesSetParams) toWire() oapi.EmailTemplateLanguageUpsert {
 	body := oapi.EmailTemplateLanguageUpsert{}
+	if p.SharedBlocks != nil {
+		body.SharedBlocks = p.SharedBlocks
+	}
+	body.ReplaceCustomText = p.ReplaceCustomText
 	body.Subject = p.Subject
 	body.PreviewText = p.PreviewText
 	body.Html = p.HTML
@@ -39,9 +61,9 @@ type EmailTemplatesVersionsLanguagesUpdateParams struct {
 	Subject *string
 	// A new line for the inbox to show after the subject in the message list. Send null to clear it, and the inbox shows the opening words of the body instead.
 	PreviewText Nullable[string]
-	// A new HTML body for this language.
+	// A new HTML body for this language. Refused on a language that links blocks; change its body with a full save that includes `shared_blocks`.
 	HTML *string
-	// A new plain-text body for this language. Send null to clear it, and a plain-text alternative is derived from the HTML when you submit.
+	// A new plain-text body for this language. Send null to clear it, and a plain-text alternative is derived from the HTML when you submit. Refused on a language that links blocks, which always derives its text.
 	Text Nullable[string]
 	// The revision you last read for this language, to detect a concurrent edit. The edit is rejected with a conflict if the language moved on since. Omit it to apply the edit unconditionally.
 	Revision *int
@@ -72,10 +94,10 @@ func (s *EmailTemplatesVersionsLanguagesService) List(ctx context.Context, templ
 	return &out, nil
 }
 
-// Get Read one language's subject and bodies from a template version. The response carries `compatibility`: what the stored HTML uses that mail clients remove, ignore, or render inconsistently, and `compatibility_severity` reducing it to `problem`, `warning`, or `none`.
-func (s *EmailTemplatesVersionsLanguagesService) Get(ctx context.Context, templateRef string, versionId string, language string, opts ...option.RequestOption) (*EmailTemplateLanguage, error) {
+// Get Read one language's subject and bodies from a template version. The response carries `compatibility`: what the stored HTML uses that mail clients remove, ignore, or render inconsistently, and `compatibility_severity` reducing it to `problem`, `warning`, or `none`. For a language that links reusable blocks, the HTML shows the blocks' current published content; with `authoring` true it carries an HTML comment marker `bird:shared-block:UUID` per link and `shared_blocks` instead, the form `email.templates.versions.languages.set` saves back.
+func (s *EmailTemplatesVersionsLanguagesService) Get(ctx context.Context, templateRef string, versionId string, language string, params EmailTemplatesVersionsLanguagesGetParams, opts ...option.RequestOption) (*EmailTemplateLanguage, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetEmailTemplateLanguage(ctx, templateRef, oapi.EmailTemplateVersionID(versionId), oapi.LanguageTag(language), &oapi.GetEmailTemplateLanguageParams{}, cfg...)
+		return s.client.oapi.GetEmailTemplateLanguage(ctx, templateRef, oapi.EmailTemplateVersionID(versionId), oapi.LanguageTag(language), params.toWire(), cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -87,7 +109,7 @@ func (s *EmailTemplatesVersionsLanguagesService) Get(ctx context.Context, templa
 	return &out, nil
 }
 
-// Set Save one language's full content on a template's draft, creating the language if the draft does not have it yet. The response carries `compatibility`: what the saved HTML uses that mail clients remove, ignore, or render inconsistently, each finding naming the pattern, its line and column, and what to use instead. Advisory: the language is saved either way, and `compatibility_severity` of `problem` means part of the content does nothing at all in the clients the finding names.
+// Set Save one language's full content on a template's draft, creating the language if the draft does not have it yet. The response carries `compatibility`: what the saved HTML uses that mail clients remove, ignore, or render inconsistently, each finding naming the pattern, its line and column, and what to use instead. Advisory: the language is saved either way, and `compatibility_severity` of `problem` means part of the content does nothing at all in the clients the finding names. To link reusable blocks, send `shared_blocks` with one HTML comment marker `bird:shared-block:UUID` per binding in `html` and the `revision` read with `authoring` true (0 for a new language). A language edited in the Bird dashboard's visual editor refuses this save.
 func (s *EmailTemplatesVersionsLanguagesService) Set(ctx context.Context, templateRef string, versionId string, language string, params EmailTemplatesVersionsLanguagesSetParams, opts ...option.RequestOption) (*EmailTemplateLanguageSaved, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.UpsertEmailTemplateLanguageParams{}

@@ -9,7 +9,7 @@ import (
 	"github.com/messagebird/bird-sdk-go/option"
 )
 
-// List Returns saved draft and published usage visible to the caller. Email-template references also require email_management:read. Hidden resources do not affect truncated; unsaved edits and older published versions are excluded.
+// List Returns saved draft and published usage visible to the caller. Email-template and reusable-block references also require email_management:read. Hidden resources do not affect truncated; unsaved edits and older published versions are excluded.
 func (s *AssetsReferencesService) List(ctx context.Context, assetId string, opts ...option.RequestOption) (*AssetReferenceList, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.ListAssetReferences(ctx, oapi.AssetID(assetId), &oapi.ListAssetReferencesParams{}, cfg...)

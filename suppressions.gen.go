@@ -65,7 +65,7 @@ func (s *SuppressionsService) ListPage(ctx context.Context, params SuppressionsL
 	return &out, nil
 }
 
-// List List the workspace's email suppressions as a cursor page. A suppression blocks delivery to an address. The `email` parameter filters by prefix, so compare the complete addresses you get back before treating one as a match.
+// List List the workspace's email suppressions as a cursor page. A suppression blocks delivery to an address. The `email` parameter filters by prefix, so compare the complete addresses you get back before treating one as a match. No match does not establish sendability: check preferences for the exact channel and handle, including their Brand and sender scope. Bird evaluates delivery policy after accepting a send.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *SuppressionsService) List(ctx context.Context, params SuppressionsListParams, opts ...option.RequestOption) iter.Seq2[*Suppression, error] {

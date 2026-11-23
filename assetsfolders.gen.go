@@ -35,7 +35,7 @@ type AssetsFoldersListParams struct {
 	Limit int
 	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
 	EndingBefore string
-	// When true, the response includes a `total` field with the total number of items matching the request's filters across all pages.
+	// When true, the response includes a `total` field with the total number of items matching the request's filters across all pages. The Go SDK sends this only when true; false is the same as leaving it out.
 	IncludeTotal bool
 }
 

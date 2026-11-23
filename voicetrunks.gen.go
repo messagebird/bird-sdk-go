@@ -60,7 +60,7 @@ type VoiceTrunksCreateParams struct {
 	MediaBypass *bool
 	// How the new trunk carries call audio. An omitted member takes its default.
 	Media *VoiceTrunkMediaCreate
-	// The Digest hash algorithms to offer, in the order they should be offered. Omit this to use the default of `["SHA-256", "MD5"]`, which suits most equipment. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. This can be changed later without re-issuing credentials.
+	// The Digest hash algorithms to offer, in the order they should be offered. Omit this to use the default of `["SHA-256", "MD5"]`, which suits most equipment. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. This governs clients that authenticate with an API key. Session credentials, including the dashboard phone's, are always offered MD5 as well and accepted with MD5 or SHA-256. This can be changed later without re-issuing credentials.
 	DigestAlgorithms []VoiceSIPDigestAlgorithm
 	// Whether a session credential may be used to connect to this trunk from a web browser, the CLI or MCP. Omit it to create the trunk with this off, which is what a trunk reached only by a PBX wants. It can be changed later.
 	SessionCredentialsEnabled *bool
@@ -96,13 +96,13 @@ type VoiceTrunksUpdateParams struct {
 	InboundEnabled *bool
 	// Whether we take ourselves out of the audio path for calls we forward to this trunk. Turning it on takes effect at the next call setup and leaves calls already up untouched. It is an inbound setting, so the trunk must have `inbound_enabled` on; one update can do both. While it is on we cannot record those calls, report their audio quality, or end one because its audio stopped, and your equipment must be reachable for audio from the public internet. Turning it off puts us back in the path at the next call setup. Omit the field to leave it unchanged.
 	MediaBypass *bool
-	// A change to how the trunk encrypts call audio.
+	// A change to how the trunk carries call audio.
 	Media *VoiceTrunkMediaUpdate
 	// Replaces the trunk's entire IP allow list. When present, the allow list is set to exactly these CIDR blocks: ranges not listed are removed and new ones are added. Send an empty array to clear the list, turning IP filtering off. Omit the field to leave the allow list unchanged.
 	IPACLs []VoiceTrunkIPACLCreate
 	// Replaces the trunk's entire set of allowed API keys. When present, exactly these keys may authenticate the trunk over SIP Digest. Each key you ADD must belong to this workspace and hold `voice` at write level; a key that does not is refused and the whole update is rolled back. A key already on the list that has since lost the permission or expired does not block the update, so you can keep editing the trunk while you put its permission back. A non-empty list turns API-key authentication on; send an empty array to turn it off. Omit the field to leave the allowed keys unchanged.
 	AllowedAPIKeyIDs []string
-	// Replaces the Digest hash algorithms this trunk offers, in the order they should be offered. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. Send an empty array to return to the default of `["SHA-256", "MD5"]`. The offer is never empty, because a trunk that offered nothing could not be authenticated at all. Narrowing the list also narrows what the trunk accepts: an answer using an algorithm no longer offered is rejected. Takes effect on the next call setup; no credential is re-issued. Omit the field to leave the offer unchanged.
+	// Replaces the Digest hash algorithms this trunk offers, in the order they should be offered. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. Send an empty array to return to the default of `["SHA-256", "MD5"]`. The offer is never empty, because a trunk that offered nothing could not be authenticated at all. The list governs clients that authenticate with an API key, and narrowing it also narrows what the trunk accepts from them: an answer using an algorithm no longer offered is rejected. Session credentials, including the dashboard phone's, are always offered MD5 as well and accepted with MD5 or SHA-256. Takes effect on the next call setup; no credential is re-issued. Omit the field to leave the offer unchanged.
 	DigestAlgorithms []VoiceSIPDigestAlgorithm
 	// Whether a session credential may be used to connect to this trunk from a web browser, the CLI or MCP. Off by default; turning it on does not change what the allow lists admit, and turning it off stops those connections at the next call setup without re-issuing anything. Omit the field to leave it unchanged.
 	SessionCredentialsEnabled *bool

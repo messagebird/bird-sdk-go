@@ -313,6 +313,25 @@ const (
 	DestinationSuperRegionMiddleEastAfrica = oapi.DestinationSuperRegionMiddleEastAfrica
 )
 
+// EmailAuthoringMode is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the EmailAuthoringMode* constants with a
+// default branch rather than treating the set as closed.
+type EmailAuthoringMode = oapi.EmailAuthoringMode
+
+const (
+	EmailAuthoringModeHtml   = oapi.EmailAuthoringModeHtml
+	EmailAuthoringModeVisual = oapi.EmailAuthoringModeVisual
+)
+
+// EmailBlockSubmissionStatus is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the EmailBlockSubmissionStatus* constants with a
+// default branch rather than treating the set as closed.
+type EmailBlockSubmissionStatus = oapi.EmailBlockSubmissionStatus
+
+const (
+	EmailBlockSubmissionStatusPublished = oapi.EmailBlockSubmissionStatusPublished
+)
+
 // EmailBroadcastParameterProblemCode is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the EmailBroadcastParameterProblemCode* constants with a
 // default branch rather than treating the set as closed.
@@ -338,6 +357,9 @@ const (
 	EmailBroadcastParameterProblemCodeRenderBudgetExceeded       = oapi.EmailBroadcastParameterProblemCodeRenderBudgetExceeded
 	EmailBroadcastParameterProblemCodeRenderProfileUnsupported   = oapi.EmailBroadcastParameterProblemCodeRenderProfileUnsupported
 	EmailBroadcastParameterProblemCodeRenderedEnvelopeInvalid    = oapi.EmailBroadcastParameterProblemCodeRenderedEnvelopeInvalid
+	EmailBroadcastParameterProblemCodeSeedExampleValueMissing    = oapi.EmailBroadcastParameterProblemCodeSeedExampleValueMissing
+	EmailBroadcastParameterProblemCodeSeedTestsExhausted         = oapi.EmailBroadcastParameterProblemCodeSeedTestsExhausted
+	EmailBroadcastParameterProblemCodeSeedingNotConfigured       = oapi.EmailBroadcastParameterProblemCodeSeedingNotConfigured
 	EmailBroadcastParameterProblemCodeSenderUnavailable          = oapi.EmailBroadcastParameterProblemCodeSenderUnavailable
 	EmailBroadcastParameterProblemCodeSensitiveInputUnsupported  = oapi.EmailBroadcastParameterProblemCodeSensitiveInputUnsupported
 	EmailBroadcastParameterProblemCodeTemplateUnavailable        = oapi.EmailBroadcastParameterProblemCodeTemplateUnavailable
@@ -362,7 +384,8 @@ const (
 type EmailBroadcastParameterProblemSeverity = oapi.EmailBroadcastParameterProblemSeverity
 
 const (
-	EmailBroadcastParameterProblemSeverityError = oapi.EmailBroadcastParameterProblemSeverityError
+	EmailBroadcastParameterProblemSeverityError   = oapi.EmailBroadcastParameterProblemSeverityError
+	EmailBroadcastParameterProblemSeverityWarning = oapi.EmailBroadcastParameterProblemSeverityWarning
 )
 
 // EmailBroadcastParameterProblemSite is an open string on the wire: a value added by a newer server

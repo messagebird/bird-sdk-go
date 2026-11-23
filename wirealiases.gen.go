@@ -137,9 +137,14 @@ type (
 	DomainVendor                                           = oapi.DomainVendor
 	EmailAddress                                           = oapi.EmailAddress
 	EmailAttachmentRef                                     = oapi.EmailAttachmentRef
+	EmailBlockLanguageSummary                              = oapi.EmailBlockLanguageSummary
+	EmailBlockPublishedRevision                            = oapi.EmailBlockPublishedRevision
+	EmailBlockRevisionFields                               = oapi.EmailBlockRevisionFields
+	EmailBlockSubmissionLanguage                           = oapi.EmailBlockSubmissionLanguage
 	EmailBounceStats                                       = oapi.EmailBounceStats
 	EmailBounceStatsWithRates                              = oapi.EmailBounceStatsWithRates
 	EmailBounceType                                        = oapi.EmailBounceType
+	EmailBroadcastAutomaticSeeding                         = oapi.EmailBroadcastAutomaticSeeding
 	EmailBroadcastFailureParameters                        = oapi.EmailBroadcastFailureParameters
 	EmailBroadcastParameterOverrides                       = oapi.EmailBroadcastParameterOverrides
 	EmailBroadcastParameterProblem                         = oapi.EmailBroadcastParameterProblem
@@ -242,6 +247,7 @@ type (
 	EmailTemplateLanguageState                             = oapi.EmailTemplateLanguageState
 	EmailTemplateLanguageSummary                           = oapi.EmailTemplateLanguageSummary
 	EmailTemplateParameter                                 = oapi.EmailTemplateParameter
+	EmailTemplateSharedBlockBinding                        = oapi.EmailTemplateSharedBlockBinding
 	EmailTemplateSubmitProblem                             = oapi.EmailTemplateSubmitProblem
 	EmailTemplateUseConstraint                             = oapi.EmailTemplateUseConstraint
 	EmailTemplateVariable                                  = oapi.EmailTemplateVariable
@@ -583,6 +589,7 @@ type (
 	VoiceSettingsInboundConfiguration                      = oapi.VoiceSettingsInboundConfiguration
 	VoiceTrunkIPACL                                        = oapi.VoiceTrunkIPACL
 	VoiceTrunkMedia                                        = oapi.VoiceTrunkMedia
+	VoiceTrunkMediaSite                                    = oapi.VoiceTrunkMediaSite
 	WebhookAttemptStatus                                   = oapi.WebhookAttemptStatus
 	WebhookConnectorDestinationCreateType                  = oapi.WebhookConnectorDestinationCreateType
 	WebhookConnectorDestinationType                        = oapi.WebhookConnectorDestinationType
@@ -1159,6 +1166,15 @@ const (
 	DomainVendorOther        DomainVendor = "other"
 	DomainVendorRoute53      DomainVendor = "route53"
 	DomainVendorSquarespace  DomainVendor = "squarespace"
+)
+
+const (
+	EmailBlockRevisionSortFieldVersionNumber EmailBlockRevisionSortField = "version_number"
+)
+
+const (
+	EmailBlockSortFieldCreatedAt EmailBlockSortField = "created_at"
+	EmailBlockSortFieldName      EmailBlockSortField = "name"
 )
 
 const (
@@ -2308,6 +2324,12 @@ const (
 
 const (
 	VoiceSequenceCompletionSampleCompletionCompleted VoiceSequenceCompletionSampleCompletion = "completed"
+)
+
+const (
+	VoiceTrunkMediaSiteAp1 VoiceTrunkMediaSite = "ap1"
+	VoiceTrunkMediaSiteEu1 VoiceTrunkMediaSite = "eu1"
+	VoiceTrunkMediaSiteUs1 VoiceTrunkMediaSite = "us1"
 )
 
 const (

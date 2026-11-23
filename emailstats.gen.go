@@ -207,7 +207,7 @@ type EmailStatsByTagParams struct {
 	Sort EmailStatsSortMetric
 	// Maximum number of tag rows to return, ranked by the `sort` field descending.
 	Limit int
-	// When true, each row also gets a `trend` array: a short per-bucket series showing that tag's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a `422`. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
+	// When true, each row also gets a `trend` array: a short per-bucket series showing that tag's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a `422`. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap. The Go SDK sends this only when true; false is the same as leaving it out.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain StatsTrendGrain
@@ -243,7 +243,7 @@ type EmailStatsByCategoryParams struct {
 	Sort EmailStatsSortMetric
 	// Maximum number of category rows to return, ranked by the `sort` field descending.
 	Limit int
-	// When true, each row also gets a `trend` array: a short per-bucket series showing that category's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a `422`. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
+	// When true, each row also gets a `trend` array: a short per-bucket series showing that category's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a `422`. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap. The Go SDK sends this only when true; false is the same as leaving it out.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain StatsTrendGrain
@@ -279,7 +279,7 @@ type EmailStatsBySendingIPParams struct {
 	Sort string
 	// Maximum number of IP rows to return, ranked by the `sort` field descending.
 	Limit int
-	// When true, each row also gets a `trend` array: a short per-bucket series showing that IP's delivery rates over the window. A trend point's open and click rates read `0` in a bucket that had deliveries and `null` in one that had none, because a sending IP has no engagement data. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a `422`. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
+	// When true, each row also gets a `trend` array: a short per-bucket series showing that IP's delivery rates over the window. A trend point's open and click rates read `0` in a bucket that had deliveries and `null` in one that had none, because a sending IP has no engagement data. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a `422`. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap. The Go SDK sends this only when true; false is the same as leaving it out.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain StatsTrendGrain
@@ -316,7 +316,7 @@ type EmailStatsBySendingDomainParams struct {
 	Sort EmailStatsSortMetric
 	// Maximum number of domain rows to return, ranked by the `sort` field descending.
 	Limit int
-	// When true, each row also gets a `trend` array: a short per-bucket series showing that domain's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a `422`. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
+	// When true, each row also gets a `trend` array: a short per-bucket series showing that domain's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a `422`. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap. The Go SDK sends this only when true; false is the same as leaving it out.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain StatsTrendGrain
@@ -353,7 +353,7 @@ type EmailStatsByRecipientDomainParams struct {
 	Sort EmailStatsSortMetric
 	// Maximum number of recipient-domain rows to return, ranked by the `sort` field descending.
 	Limit int
-	// When true, each row also gets a `trend` array: a short per-bucket series showing that recipient domain's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a `422`. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
+	// When true, each row also gets a `trend` array: a short per-bucket series showing that recipient domain's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a `422`. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap. The Go SDK sends this only when true; false is the same as leaving it out.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain StatsTrendGrain
@@ -390,7 +390,7 @@ type EmailStatsByMailboxProviderParams struct {
 	Sort EmailMailboxProviderSortMetric
 	// Maximum number of mailbox-provider rows to return, ranked by the `sort` field descending.
 	Limit int
-	// When true, each row also gets a `trend` array: a short per-bucket series showing that provider's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a `422`. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
+	// When true, each row also gets a `trend` array: a short per-bucket series showing that provider's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a `422`. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap. The Go SDK sends this only when true; false is the same as leaving it out.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain StatsTrendGrain
@@ -427,7 +427,7 @@ type EmailStatsByMailboxProviderRegionParams struct {
 	Sort EmailMailboxProviderSortMetric
 	// Maximum number of provider-region rows to return, ranked by the `sort` field descending.
 	Limit int
-	// When true, each row also gets a `trend` array: a short per-bucket series showing that provider region's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a `422`. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
+	// When true, each row also gets a `trend` array: a short per-bucket series showing that provider region's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a `422`. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap. The Go SDK sends this only when true; false is the same as leaving it out.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain StatsTrendGrain
@@ -464,7 +464,7 @@ type EmailStatsByTemplateParams struct {
 	Sort EmailStatsSortMetric
 	// Maximum number of template rows to return, ranked by the `sort` field descending.
 	Limit int
-	// When true, each row also has a `trend` array: a short per-bucket series of that template's delivery and engagement rates over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns `422`. When `from` is omitted and `trend_grain=hourly`, the default start tightens to 29 days before `to`, keeping the window inside 720 hours, so a request built entirely from defaults always fits the cap.
+	// When true, each row also has a `trend` array: a short per-bucket series of that template's delivery and engagement rates over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns `422`. When `from` is omitted and `trend_grain=hourly`, the default start tightens to 29 days before `to`, keeping the window inside 720 hours, so a request built entirely from defaults always fits the cap. The Go SDK sends this only when true; false is the same as leaving it out.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain StatsTrendGrain

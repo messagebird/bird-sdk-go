@@ -85,7 +85,7 @@ func (p EmailThreadsUpdateParams) toWire() oapi.EmailThreadUpdateRequest {
 
 // EmailThreadsDeleteParams holds the delete's query filters.
 type EmailThreadsDeleteParams struct {
-	// Permanently delete the conversation and its messages immediately instead of moving them to the trash.
+	// Permanently delete the conversation and its messages immediately instead of moving them to the trash. The Go SDK sends this only when true; false is the same as leaving it out.
 	Permanent bool
 }
 

@@ -31,6 +31,9 @@ type EmailService struct {
 
 	// Templates manages reusable email templates and their versions.
 	Templates *EmailTemplatesService
+
+	// Blocks manages reusable sections that templates link.
+	Blocks *EmailBlocksService
 }
 
 // EmailSendParams is an email send. Optional fields are omitted from the request
