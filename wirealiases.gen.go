@@ -1346,6 +1346,7 @@ const (
 
 const (
 	EmailStatsQueryDimensionAgentFamily           EmailStatsQueryDimension = "agent_family"
+	EmailStatsQueryDimensionBrandId               EmailStatsQueryDimension = "brand_id"
 	EmailStatsQueryDimensionBroadcastId           EmailStatsQueryDimension = "broadcast_id"
 	EmailStatsQueryDimensionCategory              EmailStatsQueryDimension = "category"
 	EmailStatsQueryDimensionCity                  EmailStatsQueryDimension = "city"

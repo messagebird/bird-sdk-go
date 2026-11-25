@@ -29,11 +29,11 @@ type EmailStatsQueryParams struct {
 	Timezone *string
 	// Distinct metrics to return. Unselected metrics are absent. delivered and unique engagement counts estimate distinct message recipients. opens, opens_non_prefetched, clicks, unsubscribes, and oob_bounces estimate deduplicated events. effective_delivered and all_bounces are derived counts. Counts need not add up across buckets or groups. unique_opens and unique_clicks count message recipients, not distinct people across messages. Use returned period metrics; do not reconstruct totals from buckets or average rates or percentiles. delivered counts message recipients with a delivery event without subtracting later bounces. effective_delivered is max(delivered - oob_bounces, 0). open_rate uses unique_opens_non_prefetched divided by effective_delivered; click_rate uses unique_clicks divided by effective_delivered. bounce_rate uses min(bounced + oob_bounces, delivered + bounced) divided by (delivered + bounced). complaint_rate and unsubscribe_rate use complained and unsubscribes, respectively, divided by effective_delivered. Undefined rates are null. Engagement rates can exceed 1 across event-time windows. An unknown prefetch flag is treated as false. confirmed_unique_opens is the union of message recipients with opens or clicks; confirmed_unique_opens_non_prefetched excludes prefetched opens from that union. Differences between estimated distinct counts cannot establish exact audience overlaps or explain missing opens. Neither confirmation nor prefetch exclusion establishes a count or range of real people who engaged. Latency percentiles describe eligible measured logical events, excluding missing latency values and including zero. A percentile is null when no eligible samples exist. delivered is not the latency sample count. Report percentile values without inferring the unmeasured population or the distribution between them. They do not establish maxima or exact threshold counts; multiplying delivered by percentile fractions or subtracting processing and delivery percentiles cannot determine slow-message counts or a stage's latency.
 	Metrics []EmailStatsQueryMetric
-	// Group by one recorded event dimension. Omit for a single ungrouped summary with optional series. Grouping by `tag` requires `filters.tag.name`. Missing values form a null group when the metric supports that dimension. A null value means the event lacks that attribution; it does not explain how the message was created or establish membership in another dimension such as a campaign. Every selected metric must support the grouping dimension and every filter dimension. Unsupported combinations return validation error `E04074`, even when the workspace has no events. - `sending_domain`, `category`, `template_id`, `tag`: all metrics. - `recipient_domain`, `ip_pool_id`, `broadcast_id`: all metrics except `sends_accepted`. - `mailbox_provider`, `mailbox_provider_region`: all metrics except `sends_accepted`, `accepted`, and `rejected`. - `sending_ip`: `delivered`, `bounced`, `hard_bounced`, `soft_bounced`, `admin_bounced`, `block_bounced`, `undetermined_bounced`, `deferred`, `oob_bounces`, `effective_delivered`, `all_bounces`, `delivery_rate`, `bounce_rate`, `deferral_rate`, `oob_rate`, `total_p50_ms`, `total_p95_ms`, and `total_p99_ms`. - `country`, `region`, `city`, `agent_family`, `os_family`, `device_family`: `opens`, `opens_non_prefetched`, `clicks`, `unique_opens`, `unique_opens_non_prefetched`, `unique_clicks`, `confirmed_unique_opens`, and `confirmed_unique_opens_non_prefetched`. - `smtp_error_code`: `bounced`, `hard_bounced`, `soft_bounced`, `admin_bounced`, `block_bounced`, and `undetermined_bounced`. - `feedback_type`: `complained`.
+	// Group by one recorded event dimension. Omit for a single ungrouped summary with optional series. Grouping by `tag` requires `filters.tag.name`. Missing values form a null group when the metric supports that dimension. A null value means the event lacks that attribution; it does not explain how the message was created or establish membership in another dimension such as a campaign. Every selected metric must support the grouping dimension and every filter dimension. Unsupported combinations return validation error `E04074`, even when the workspace has no events. - `brand_id`, `sending_domain`, `category`, `template_id`, `tag`: all metrics. A null `brand_id` represents historical or unattributed traffic recorded without a Brand and is distinct from the workspace's default Brand. - `recipient_domain`, `ip_pool_id`, `broadcast_id`: all metrics except `sends_accepted`. - `mailbox_provider`, `mailbox_provider_region`: all metrics except `sends_accepted`, `accepted`, and `rejected`. - `sending_ip`: `delivered`, `bounced`, `hard_bounced`, `soft_bounced`, `admin_bounced`, `block_bounced`, `undetermined_bounced`, `deferred`, `oob_bounces`, `effective_delivered`, `all_bounces`, `delivery_rate`, `bounce_rate`, `deferral_rate`, `oob_rate`, `total_p50_ms`, `total_p95_ms`, and `total_p99_ms`. - `country`, `region`, `city`, `agent_family`, `os_family`, `device_family`: `opens`, `opens_non_prefetched`, `clicks`, `unique_opens`, `unique_opens_non_prefetched`, `unique_clicks`, `confirmed_unique_opens`, and `confirmed_unique_opens_non_prefetched`. - `smtp_error_code`: `bounced`, `hard_bounced`, `soft_bounced`, `admin_bounced`, `block_bounced`, and `undetermined_bounced`. - `feedback_type`: `complained`.
 	GroupBy *EmailStatsQueryDimension
 	// Time buckets in the requested timezone. Weeks start on Monday; months start on the first day. Half days start at midnight and noon. Edge buckets count events inside the normalized period.
 	Grain *EmailStatsQueryGrain
-	// Filter recorded event context with include/exclude predicates. Include values combine with OR; dimensions combine with AND. Exclude-only predicates retain missing values. Tag filters require one case-sensitive name; a name without values requires presence. Each predicate accepts at most 20 distinct values across include and exclude. Every selected metric must support every filter dimension, using the same compatibility rules as group_by. Resolve template and IP-pool names to IDs before filtering. Broadcast filters use IDs. Current names do not establish historical attribution.
+	// Filter recorded event context with include/exclude predicates. Include values combine with OR; dimensions combine with AND. Exclude-only predicates retain missing values. Tag filters require one case-sensitive name; a name without values requires presence. Each predicate accepts at most 20 distinct values across include and exclude. Every selected metric must support every filter dimension, using the same compatibility rules as group_by. Resolve template and IP-pool names to IDs before filtering. Broadcast and Brand filters require IDs; copy a Brand ID from Brands > More actions > Copy brand ID in the dashboard, or ask the caller for the ID when only a Brand name is known. Current names do not establish historical attribution.
 	Filters *EmailStatsQueryFilters
 	// Grouped requests only. Rank groups by this selected metric; defaults to the first metrics entry. Undefined values sort last in either direction. Ties use the dimension value ascending, with null last.
 	Sort *EmailStatsQueryMetric
@@ -485,6 +485,37 @@ func (p EmailStatsByTemplateParams) toWire(startingAfter string) *oapi.GetEmailS
 	}
 }
 
+// EmailStatsByBrandParams filters the list. Zero-value fields are omitted.
+type EmailStatsByBrandParams struct {
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
+	// Inclusive start of the window: a calendar day (`YYYY-MM-DD`) or an RFC 3339 instant (rounded down to a local quarter-hour). Use the same form for `from` and `to`, and use `Z` UTC instants when `timezone` is supplied. Defaults to 30 calendar days before `to` when both are omitted. Must fall within retained reporting history (last 180 days, on or after `2026-09-23T00:00:00Z`).
+	From string
+	// Inclusive end of the window: a calendar day (`YYYY-MM-DD`, including the whole local day) or an RFC 3339 instant (rounded down to a local quarter-hour and including that quarter-hour). Must use the same form as `from` and not lie in the future for instant windows. Calendar windows allow up to 365 local days; instant windows allow up to 720 hours. Defaults to today in `timezone` when both are omitted.
+	To string
+	// IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone string
+	// Not supported on breakdown endpoints. Supplying it returns `422`. To compare categories, use `GET /v1/email/stats/categories`, or use `POST /v1/email/stats/query` to combine `brand_id` and `category`.
+	Category string
+	// Metric to rank rows by, applied descending. Supports every count and rate defined by `EmailStatsSortMetric`; rows whose rate is undefined (zero denominator) sort last. Defaults to `processed`.
+	Sort EmailStatsSortMetric
+	// Maximum number of Brand rows to return, ranked by the `sort` field descending.
+	Limit int
+}
+
+func (p EmailStatsByBrandParams) toWire(startingAfter string) *oapi.GetEmailStatsByBrandParams {
+	return &oapi.GetEmailStatsByBrandParams{
+		EndingBefore:  optStr(p.EndingBefore),
+		From:          optStr(p.From),
+		To:            optStr(p.To),
+		Timezone:      optStr(p.Timezone),
+		Category:      optStr(p.Category),
+		Sort:          optZero(p.Sort),
+		Limit:         optInt(p.Limit),
+		StartingAfter: optStr(startingAfter),
+	}
+}
+
 // EmailStatsByLocationParams filters the list. Zero-value fields are omitted.
 type EmailStatsByLocationParams struct {
 	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
@@ -669,7 +700,7 @@ func (s *EmailStatsService) QueryPage(ctx context.Context, params EmailStatsQuer
 	return &out, nil
 }
 
-// Query Query email analytics for marketing and transactional delivery, bounces, opens, clicks, engagement rates, and latency percentiles: comparisons, combined filters, groups ranked by template, campaign tag, recipient domain, or mailbox provider, and complete time series. With a known tag name, filter on filters.tag directly; use `email.stats.by_tag` only to discover unknown tags. Select grain=quarter_hour for 15-minute activity; omit group_by for a summary. Use `email.stats.summary` for a single-filter aggregate with built-in comparison. Every selected metric must support every grouping and filter dimension: country, region, city, and device/client support engagement counts only, not delivered or open_rate. Unsupported combinations and unavailable history return 422; explain the limitation before changing the population or period. Events are selected by when they occurred, so a window includes engagement on earlier sends and cannot select a send-date cohort. Compare periods independently with the same filters and metrics. Distinct counts need not add up across buckets or groups, and engagement cannot establish a human count. Delivery describes mail-server acceptance, not inbox placement. Follow cursors by replaying the original body with new cursor fields and a new idempotency key per page; the response period has an exclusive end and must not replace the request end.
+// Query Query email analytics for marketing and transactional delivery, bounces, opens, clicks, engagement rates, and latency percentiles: comparisons, combined filters, groups ranked by Brand, template, campaign tag, recipient domain, or mailbox provider, and complete time series. With a known tag name, filter on filters.tag directly; use `email.stats.by_tag` only to discover unknown tags. Select grain=quarter_hour for 15-minute activity; omit group_by for a summary. Use `email.stats.summary` only for a single-filter aggregate with built-in comparison on filters it supports (category, sending_domain, recipient_domain, tag, template, or sending_ip). `email.stats.summary` does not accept `brand_id`; for Brand-filtered aggregates or comparisons, call `email.stats.query` without `group_by` and compare periods independently with the same `filters.brand_id`. Brand listing is dashboard-only, so ask the user for the Brand ID (from Brands > More actions > Copy brand ID) when only a Brand name is known. Every selected metric must support every grouping and filter dimension: country, region, city, and device/client support engagement counts only, not delivered or open_rate. Unsupported combinations and unavailable history return 422; explain the limitation before changing the population or period. Events are selected by when they occurred, so a window includes engagement on earlier sends and cannot select a send-date cohort. Compare periods independently with the same filters and metrics. Distinct counts need not add up across buckets or groups, and engagement cannot establish a human count. Delivery describes mail-server acceptance, not inbox placement. Follow cursors by replaying the original body with new cursor fields and a new idempotency key per page; the response period has an exclusive end and must not replace the request end.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *EmailStatsService) Query(ctx context.Context, params EmailStatsQueryParams, opts ...option.RequestOption) iter.Seq2[*EmailStatsQueryGroup, error] {
@@ -1045,6 +1076,47 @@ func (s *EmailStatsService) ByTemplateAll(ctx context.Context, params EmailStats
 			pageParams.EndingBefore = ""
 		}
 		page, err := s.ByTemplatePage(ctx, pageParams, cursor, opts...)
+		if err != nil {
+			return nil, nil, err
+		}
+		if page.Data == nil {
+			return nil, page.NextCursor, nil
+		}
+		return *page.Data, page.NextCursor, nil
+	})
+}
+
+// ByBrand Email delivery, engagement, and latency stats grouped by the send-time Brand ID (`bnd_…`). Archived Brands remain keyed by their ID, and historical unbranded messages appear in a separate `brand_id: null` row distinct from the default Brand. Reads retained reporting events directly (last 180 days, on or after `2026-09-23T00:00:00Z`; `data_as_of` is `null`). Brand listing is dashboard-only, so this breakdown discovers Brand IDs with activity in the requested period; to map a Brand name to its ID or inspect a Brand with no activity, ask the caller for the Brand ID (copyable from Brands > More actions > Copy brand ID). For a single Brand's time series, period comparisons, or combined filters (such as Brand + template or category), use `email.stats.query` with `filters.brand_id`.
+func (s *EmailStatsService) ByBrand(ctx context.Context, params EmailStatsByBrandParams, opts ...option.RequestOption) (*EmailStatsByBrandResponse, error) {
+	return s.ByBrandPage(ctx, params, "", opts...)
+}
+
+// ByBrandPage fetches one page of results. Pass the previous page's NextCursor as
+// startingAfter to advance; "" starts from the first page.
+func (s *EmailStatsService) ByBrandPage(ctx context.Context, params EmailStatsByBrandParams, startingAfter string, opts ...option.RequestOption) (*EmailStatsByBrandResponse, error) {
+	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
+		return s.client.oapi.GetEmailStatsByBrand(ctx, params.toWire(startingAfter), cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out EmailStatsByBrandResponse
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// ByBrandAll Email delivery, engagement, and latency stats grouped by the send-time Brand ID (`bnd_…`). Archived Brands remain keyed by their ID, and historical unbranded messages appear in a separate `brand_id: null` row distinct from the default Brand. Reads retained reporting events directly (last 180 days, on or after `2026-09-23T00:00:00Z`; `data_as_of` is `null`). Brand listing is dashboard-only, so this breakdown discovers Brand IDs with activity in the requested period; to map a Brand name to its ID or inspect a Brand with no activity, ask the caller for the Brand ID (copyable from Brands > More actions > Copy brand ID). For a single Brand's time series, period comparisons, or combined filters (such as Brand + template or category), use `email.stats.query` with `filters.brand_id`.
+// Range over it; the second value is non-nil only on the iteration where a
+// fetch failed.
+func (s *EmailStatsService) ByBrandAll(ctx context.Context, params EmailStatsByBrandParams, opts ...option.RequestOption) iter.Seq2[*EmailBrandStatsPoint, error] {
+	return paginate(func(cursor string) ([]EmailBrandStatsPoint, *string, error) {
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ByBrandPage(ctx, pageParams, cursor, opts...)
 		if err != nil {
 			return nil, nil, err
 		}

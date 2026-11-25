@@ -63,7 +63,7 @@ type WhatsappSendParams struct {
 	// with named variables in a card or a button URL, takes only Parameters.
 	Parameters map[string]any
 	// BidMultiplier scales a marketing language's maximum price for this message
-	// only, from 0.01 to 100. Nil sends at the language's own bid.
+	// only, from 0.1 to 2. Nil sends at the language's own bid.
 	BidMultiplier *float64
 
 	Text     *WhatsAppTextSend

@@ -1357,6 +1357,21 @@ func ExampleEmailStatsService_ByTemplate() {
 	fmt.Println(stats.Data)
 }
 
+// ByBrand ranks statistics per Brand over the default 30-day window.
+func ExampleEmailStatsService_ByBrand() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Email.Stats.ByBrand(context.Background(), bird.EmailStatsByBrandParams{
+		Sort: "open_rate",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(stats.Data)
+}
+
 // ByLocation ranks engagement statistics per geographic location.
 func ExampleEmailStatsService_ByLocation() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
@@ -2068,7 +2083,7 @@ func ExampleVoiceTrunksService_List() {
 			log.Fatal(err)
 		}
 		// A trunk with no allow list and no session credentials admits nothing.
-		fmt.Println(trunk.Id, trunk.Domain, trunk.InboundEnabled)
+		fmt.Println(trunk.Id, trunk.Domain, trunk.DidDeliveryEnabled)
 	}
 }
 
@@ -4659,9 +4674,9 @@ func ExampleVoiceTrunksService_Create() {
 		log.Fatal(err)
 	}
 	trunk, err := client.Voice.Trunks.Create(context.Background(), bird.VoiceTrunksCreateParams{
-		Name:            "Lisbon office",
-		OutboundEnabled: bird.Ptr(true),
-		InboundEnabled:  bird.Ptr(true),
+		Name:               "Lisbon office",
+		SipTrunkingEnabled: bird.Ptr(true),
+		DidDeliveryEnabled: bird.Ptr(true),
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -4678,7 +4693,7 @@ func ExampleVoiceTrunksService_Get() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(trunk.Name, trunk.InboundEnabled, trunk.OutboundEnabled)
+	fmt.Println(trunk.Name, trunk.DidDeliveryEnabled, trunk.SipTrunkingEnabled)
 }
 
 func ExampleVoiceTrunksService_Delete() {

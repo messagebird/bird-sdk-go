@@ -52,23 +52,32 @@ func (p VoiceTrunksListParams) toWire(startingAfter string) *oapi.ListVoiceTrunk
 type VoiceTrunksCreateParams struct {
 	// A human-readable label for this SIP trunk. Mutable, and distinct from the generated wire domain.
 	Name string
-	// Whether the new trunk may place calls. Omit it to create a trunk that does neither direction yet, and enable the ones you want once you know what the trunk is for. The settings below configure outbound, so send this as `true` alongside them.
+	// Whether your PBX may place calls through the new trunk. Omit it to create a trunk that carries no calls yet, and turn on what you need once you know what the trunk is for.
+	SipTrunkingEnabled *bool
+	// Whether the new trunk may receive calls. A trunk receives no calls until it also has at least one gateway and at least one number, both added after create.
+	DidDeliveryEnabled *bool
+	// Whether people in this workspace may place calls through the new trunk with a session credential, from the dashboard phone, the CLI or MCP. Omit it for a trunk reached only by a PBX.
+	WorkspaceUsersEnabled *bool
+	// Deprecated: use `sip_trunking_enabled`. `true` turns on `sip_trunking_enabled`; a request that also sends `sip_trunking_enabled: false` is rejected.
 	OutboundEnabled *bool
-	// Whether the new trunk may receive calls. Omit it to create a trunk that does neither direction yet. A trunk receives no calls until it also has at least one gateway and at least one number, both added after create.
+	// Deprecated: use `did_delivery_enabled`. A request that sends both with different values is rejected.
 	InboundEnabled *bool
-	// Whether we take ourselves out of the audio path for calls we forward to this trunk. Omit it to create the trunk with this off, which is what suits equipment behind NAT and any account that wants call recording. It is an inbound setting, so `true` is accepted only alongside `inbound_enabled: true`; `false` is always accepted. It can be changed later.
+	// Whether we take ourselves out of the audio path for calls we forward to this trunk. Omit it to create the trunk with this off, which is what suits equipment behind NAT and any account that wants call recording. It is an inbound setting, so `true` is accepted only alongside `did_delivery_enabled: true`; `false` is always accepted. It can be changed later.
 	MediaBypass *bool
 	// How the new trunk carries call audio. An omitted member takes its default.
 	Media *VoiceTrunkMediaCreate
-	// The Digest hash algorithms to offer, in the order they should be offered. Omit this to use the default of `["SHA-256", "MD5"]`, which suits most equipment. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. This governs clients that authenticate with an API key. Session credentials, including the dashboard phone's, are always offered MD5 as well and accepted with MD5 or SHA-256. This can be changed later without re-issuing credentials.
+	// The Digest hash algorithms to offer, in the order they should be offered. Omit this to use the default of `["SHA-256", "MD5"]`, which suits most equipment. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. This governs clients that authenticate with an API key. Session credentials, including the dashboard phone's, are always offered MD5 as well and accepted with MD5 or SHA-256. It applies to calls the trunk places, so send it alongside `sip_trunking_enabled` or `workspace_users_enabled` set to `true`. This can be changed later without re-issuing credentials.
 	DigestAlgorithms []VoiceSIPDigestAlgorithm
-	// Whether a session credential may be used to connect to this trunk from a web browser, the CLI or MCP. Omit it to create the trunk with this off, which is what a trunk reached only by a PBX wants. It can be changed later.
+	// Deprecated: use `workspace_users_enabled`. A request that sends both with different values is rejected.
 	SessionCredentialsEnabled *bool
 }
 
 func (p VoiceTrunksCreateParams) toWire() oapi.VoiceTrunkCreate {
 	body := oapi.VoiceTrunkCreate{}
 	body.Name = p.Name
+	body.SipTrunkingEnabled = p.SipTrunkingEnabled
+	body.DidDeliveryEnabled = p.DidDeliveryEnabled
+	body.WorkspaceUsersEnabled = p.WorkspaceUsersEnabled
 	body.OutboundEnabled = p.OutboundEnabled
 	body.InboundEnabled = p.InboundEnabled
 	body.MediaBypass = p.MediaBypass
@@ -90,11 +99,17 @@ func (p VoiceTrunksCreateParams) toWire() oapi.VoiceTrunkCreate {
 type VoiceTrunksUpdateParams struct {
 	// A human-readable label for this SIP trunk. Mutable, and distinct from the generated wire domain.
 	Name *string
-	// Whether this trunk may place calls. Turning it off stops the trunk admitting call attempts at the next call setup and leaves its connection and authentication settings stored, so turning it back on restores a working trunk. Omit the field to leave it unchanged.
+	// Whether your PBX may place calls through this trunk. Turning it off stops the allow lists admitting calls at the next call setup and leaves them stored, so turning it back on restores a working trunk. Omit the field to leave it unchanged.
+	SipTrunkingEnabled *bool
+	// Whether this trunk may receive calls. Turning it off resets number routes that use this trunk to reject incoming calls. Turning it back on does not restore those routes. Clear an attached emergency number in the dashboard before turning it off. The gateways remain configured. Omit the field to leave it unchanged.
+	DidDeliveryEnabled *bool
+	// Whether people in this workspace may place calls through this trunk with a session credential, from the dashboard phone, the CLI or MCP. Turning it off stops those calls at the next call setup without re-issuing anything. Omit the field to leave it unchanged.
+	WorkspaceUsersEnabled *bool
+	// Deprecated: use `sip_trunking_enabled` and `workspace_users_enabled`. `true` turns on `sip_trunking_enabled`. `false` stops every caller placing calls through this trunk. A request that also turns one of those switches the other way is rejected.
 	OutboundEnabled *bool
-	// Whether this trunk may receive calls. Turning it off resets number routes that use this trunk to reject incoming calls. Turning it back on does not restore those routes. Clear an attached emergency number in the dashboard before turning inbound off. The gateways remain configured. Omit the field to leave it unchanged.
+	// Deprecated: use `did_delivery_enabled`. A request that sends both with different values is rejected.
 	InboundEnabled *bool
-	// Whether we take ourselves out of the audio path for calls we forward to this trunk. Turning it on takes effect at the next call setup and leaves calls already up untouched. It is an inbound setting, so the trunk must have `inbound_enabled` on; one update can do both. While it is on we cannot record those calls, report their audio quality, or end one because its audio stopped, and your equipment must be reachable for audio from the public internet. Turning it off puts us back in the path at the next call setup. Omit the field to leave it unchanged.
+	// Whether we take ourselves out of the audio path for calls we forward to this trunk. Turning it on takes effect at the next call setup and leaves calls already up untouched. It is an inbound setting, so the trunk must have `did_delivery_enabled` on; one update can do both. While it is on we cannot record those calls, report their audio quality, or end one because its audio stopped, and your equipment must be reachable for audio from the public internet. Turning it off puts us back in the path at the next call setup. Omit the field to leave it unchanged.
 	MediaBypass *bool
 	// A change to how the trunk carries call audio.
 	Media *VoiceTrunkMediaUpdate
@@ -104,13 +119,16 @@ type VoiceTrunksUpdateParams struct {
 	AllowedAPIKeyIDs []string
 	// Replaces the Digest hash algorithms this trunk offers, in the order they should be offered. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. Send an empty array to return to the default of `["SHA-256", "MD5"]`. The offer is never empty, because a trunk that offered nothing could not be authenticated at all. The list governs clients that authenticate with an API key, and narrowing it also narrows what the trunk accepts from them: an answer using an algorithm no longer offered is rejected. Session credentials, including the dashboard phone's, are always offered MD5 as well and accepted with MD5 or SHA-256. Takes effect on the next call setup; no credential is re-issued. Omit the field to leave the offer unchanged.
 	DigestAlgorithms []VoiceSIPDigestAlgorithm
-	// Whether a session credential may be used to connect to this trunk from a web browser, the CLI or MCP. Off by default; turning it on does not change what the allow lists admit, and turning it off stops those connections at the next call setup without re-issuing anything. Omit the field to leave it unchanged.
+	// Deprecated: use `workspace_users_enabled`. A request that sends both with different values is rejected.
 	SessionCredentialsEnabled *bool
 }
 
 func (p VoiceTrunksUpdateParams) toWire() oapi.VoiceTrunkUpdate {
 	body := oapi.VoiceTrunkUpdate{}
 	body.Name = p.Name
+	body.SipTrunkingEnabled = p.SipTrunkingEnabled
+	body.DidDeliveryEnabled = p.DidDeliveryEnabled
+	body.WorkspaceUsersEnabled = p.WorkspaceUsersEnabled
 	body.OutboundEnabled = p.OutboundEnabled
 	body.InboundEnabled = p.InboundEnabled
 	body.MediaBypass = p.MediaBypass
@@ -155,7 +173,7 @@ func (s *VoiceTrunksService) ListPage(ctx context.Context, params VoiceTrunksLis
 	return &out, nil
 }
 
-// List List the workspace's SIP trunks as a cursor page. Each carries the Bird-assigned `domain` the customer's equipment sends calls to. The `ip_acls` and `allowed_api_key_ids` fields control which calls are admitted; a trunk with both empty admits nothing when `session_credentials_enabled` is false. Keys listed in `ineligible_api_key_ids` cannot authenticate even though they remain bound to the trunk.
+// List List the workspace's SIP trunks as a cursor page. Each carries the Bird-assigned `domain` the customer's equipment sends calls to. The `ip_acls` and `allowed_api_key_ids` fields admit the customer's PBX calls while `sip_trunking_enabled` is on; with both empty they admit none. Keys listed in `ineligible_api_key_ids` cannot authenticate even though they remain bound to the trunk.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *VoiceTrunksService) List(ctx context.Context, params VoiceTrunksListParams, opts ...option.RequestOption) iter.Seq2[*VoiceTrunk, error] {
@@ -206,7 +224,7 @@ func (s *VoiceTrunksService) Create(ctx context.Context, params VoiceTrunksCreat
 	return &out, nil
 }
 
-// Update Change a SIP trunk's directions, name, access control and Digest offer. A direction has to be enabled before its settings can be set, and one update can do both, so this is the operation that clears `VoiceTrunkOutboundNotEnabled` and `VoiceTrunkInboundNotEnabled`. The `ip_acls`, `allowed_api_key_ids` and `digest_algorithms` fields each REPLACE their whole list, so read `voice.trunks.get` first and send the list you want to end up with. An empty array clears an allow list; an empty `digest_algorithms` array restores the default offer. Turning `inbound_enabled` off returns numbers routed to this trunk to the workspace default inbound route, and resets a default that names it to reject. If an emergency number is attached, clear it in the dashboard before turning inbound off. Turning it back on does not restore those routes, so confirm that change with the user first.
+// Update Change a SIP trunk's caller switches, name, access control and Digest offer. A switch has to be on before its settings can be set, and one update can do both, so this is the operation that clears `VoiceTrunkOutboundNotEnabled` and `VoiceTrunkInboundNotEnabled`. The `ip_acls`, `allowed_api_key_ids` and `digest_algorithms` fields each REPLACE their whole list, so read `voice.trunks.get` first and send the list you want to end up with. An empty array clears an allow list; an empty `digest_algorithms` array restores the default offer. Turning `did_delivery_enabled` off returns numbers routed to this trunk to the workspace default inbound route, and resets a default that names it to reject. If an emergency number is attached, clear it in the dashboard before turning `did_delivery_enabled` off. Turning it back on does not restore those routes, so confirm that change with the user first.
 func (s *VoiceTrunksService) Update(ctx context.Context, trunkId string, params VoiceTrunksUpdateParams, opts ...option.RequestOption) (*VoiceTrunk, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.UpdateVoiceTrunkParams{}

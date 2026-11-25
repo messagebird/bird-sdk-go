@@ -35,6 +35,7 @@ output-options:
     - getEmailStatsByMailboxProvider
     - getEmailStatsByMailboxProviderRegion
     - getEmailStatsByTemplate
+    - getEmailStatsByBrand
     - getEmailStatsByLocation
     - getEmailStatsByClient
     - getEmailStatsByBounceCode

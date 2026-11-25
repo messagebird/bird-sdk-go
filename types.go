@@ -94,10 +94,9 @@ type (
 	EmailBroadcastClickedLinkList = oapi.EmailBroadcastClickedLinkList
 	// EmailBroadcastSendQuota is how much of a broadcast the organization's
 	// email send allowance covers, read before sending it.
-	EmailBroadcastSendQuota                 = oapi.EmailBroadcastSendQuota
-	EmailBroadcastFundingHold               = oapi.EmailBroadcastFundingHold
-	EmailBroadcastFundingHoldReason         = oapi.EmailBroadcastFundingHoldReason
-	EmailBroadcastInsufficientFundsBehavior = oapi.EmailBroadcastInsufficientFundsBehavior
+	EmailBroadcastSendQuota         = oapi.EmailBroadcastSendQuota
+	EmailBroadcastFundingHold       = oapi.EmailBroadcastFundingHold
+	EmailBroadcastFundingHoldReason = oapi.EmailBroadcastFundingHoldReason
 	// EmailBroadcastStatus is where a broadcast stands in its lifecycle, reported
 	// as EmailBroadcast.Status and taken by the broadcast list filter.
 	EmailBroadcastStatus = oapi.EmailBroadcastStatus
@@ -238,6 +237,8 @@ type (
 	EmailStatsByMailboxProviderResponse       = oapi.EmailStatsByMailboxProviderResponse
 	EmailStatsByMailboxProviderRegionResponse = oapi.EmailStatsByMailboxProviderRegionResponse
 	EmailStatsByTemplateResponse              = oapi.EmailStatsByTemplateResponse
+	EmailStatsByBrandResponse                 = oapi.EmailStatsByBrandResponse
+	EmailStatsBrandPeriod                     = oapi.EmailStatsBrandPeriod
 	EmailStatsByLocationResponse              = oapi.EmailStatsByLocationResponse
 	EmailStatsByClientResponse                = oapi.EmailStatsByClientResponse
 	EmailStatsByBounceCodeResponse            = oapi.EmailStatsByBounceCodeResponse
@@ -252,6 +253,7 @@ type (
 	EmailStatsQueryStringFilter               = oapi.EmailStatsQueryStringFilter
 	EmailStatsQueryCategoryFilter             = oapi.EmailStatsQueryCategoryFilter
 	EmailStatsQueryTemplateFilter             = oapi.EmailStatsQueryTemplateFilter
+	EmailStatsQueryBrandFilter                = oapi.EmailStatsQueryBrandFilter
 	EmailStatsQueryIPPoolFilter               = oapi.EmailStatsQueryIPPoolFilter
 	EmailStatsQueryBroadcastFilter            = oapi.EmailStatsQueryBroadcastFilter
 	EmailStatsQueryTagFilter                  = oapi.EmailStatsQueryTagFilter
@@ -263,6 +265,7 @@ type (
 	EmailMailboxProviderStatsPoint            = oapi.EmailMailboxProviderStatsPoint
 	EmailMailboxProviderRegionStatsPoint      = oapi.EmailMailboxProviderRegionStatsPoint
 	EmailTemplateStatsPoint                   = oapi.EmailTemplateStatsPoint
+	EmailBrandStatsPoint                      = oapi.EmailBrandStatsPoint
 	EmailLocationStatsPoint                   = oapi.EmailLocationStatsPoint
 	EmailClientStatsPoint                     = oapi.EmailClientStatsPoint
 	EmailBounceCodeStatsPoint                 = oapi.EmailBounceCodeStatsPoint
@@ -971,14 +974,10 @@ const (
 )
 
 const (
-	EmailBroadcastFundingHoldReasonAutomaticTopUp EmailBroadcastFundingHoldReason = "automatic_top_up"
-	EmailBroadcastFundingHoldReasonFundsRequired  EmailBroadcastFundingHoldReason = "funds_required"
-	EmailBroadcastFundingHoldReasonWaitExpired    EmailBroadcastFundingHoldReason = "wait_expired"
-)
-
-const (
-	EmailBroadcastInsufficientFundsBehaviorPause        EmailBroadcastInsufficientFundsBehavior = "pause"
-	EmailBroadcastInsufficientFundsBehaviorWaitForTopUp EmailBroadcastInsufficientFundsBehavior = "wait_for_top_up"
+	EmailBroadcastFundingHoldReasonAutomaticTopUp   EmailBroadcastFundingHoldReason = "automatic_top_up"
+	EmailBroadcastFundingHoldReasonFundsRequired    EmailBroadcastFundingHoldReason = "funds_required"
+	EmailBroadcastFundingHoldReasonWaitExpired      EmailBroadcastFundingHoldReason = "wait_expired"
+	EmailBroadcastFundingHoldReasonSendLimitReached EmailBroadcastFundingHoldReason = "send_limit_reached"
 )
 
 const (

@@ -19,7 +19,7 @@ type VerifyVerificationsCreateParams struct {
 	To VerificationTo
 	// Per-request overrides applied to this verification only. `language` picks one of Bird's built-in translations; a custom sender that carries its own template renders the language that template stocks instead. An email template pinned to a custom email sender falls back to its own default language rather than to English (Verify only accepts templates whose language settings fall back). A WhatsApp authentication template follows its own missing-language policy: it falls back to its default or, when set to fail, refuses the send for a language it does not stock. The requested tag stays fixed for the verification.
 	Options *VerificationOptions
-	// Optional key/value pairs to attach to the verification, for example a correlation id. Returned on the verification.
+	// Optional key/value pairs to attach to the verification, for example a correlation id. Returned on the verification and copied onto the SMS, WhatsApp or email message that carries the code, so reads of that message and its webhooks return it too. The copy is skipped when the object is larger than 2 KB serialized.
 	Metadata map[string]any
 }
 

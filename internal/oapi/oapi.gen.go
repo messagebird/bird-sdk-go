@@ -2603,9 +2603,10 @@ func (e EmailBroadcastCreateRequestCategory) Valid() bool {
 
 // Defines values for EmailBroadcastFundingHoldReason.
 const (
-	AutomaticTopUp EmailBroadcastFundingHoldReason = "automatic_top_up"
-	FundsRequired  EmailBroadcastFundingHoldReason = "funds_required"
-	WaitExpired    EmailBroadcastFundingHoldReason = "wait_expired"
+	AutomaticTopUp   EmailBroadcastFundingHoldReason = "automatic_top_up"
+	FundsRequired    EmailBroadcastFundingHoldReason = "funds_required"
+	SendLimitReached EmailBroadcastFundingHoldReason = "send_limit_reached"
+	WaitExpired      EmailBroadcastFundingHoldReason = "wait_expired"
 )
 
 // Valid indicates whether the value is a known member of the EmailBroadcastFundingHoldReason enum.
@@ -2615,25 +2616,9 @@ func (e EmailBroadcastFundingHoldReason) Valid() bool {
 		return true
 	case FundsRequired:
 		return true
+	case SendLimitReached:
+		return true
 	case WaitExpired:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for EmailBroadcastInsufficientFundsBehavior.
-const (
-	Pause        EmailBroadcastInsufficientFundsBehavior = "pause"
-	WaitForTopUp EmailBroadcastInsufficientFundsBehavior = "wait_for_top_up"
-)
-
-// Valid indicates whether the value is a known member of the EmailBroadcastInsufficientFundsBehavior enum.
-func (e EmailBroadcastInsufficientFundsBehavior) Valid() bool {
-	switch e {
-	case Pause:
-		return true
-	case WaitForTopUp:
 		return true
 	default:
 		return false
@@ -4221,6 +4206,7 @@ func (e EmailSmtpConfigUpdateCategory) Valid() bool {
 // Defines values for EmailStatsQueryDimension.
 const (
 	EmailStatsQueryDimensionAgentFamily           EmailStatsQueryDimension = "agent_family"
+	EmailStatsQueryDimensionBrandId               EmailStatsQueryDimension = "brand_id"
 	EmailStatsQueryDimensionBroadcastId           EmailStatsQueryDimension = "broadcast_id"
 	EmailStatsQueryDimensionCategory              EmailStatsQueryDimension = "category"
 	EmailStatsQueryDimensionCity                  EmailStatsQueryDimension = "city"
@@ -4244,6 +4230,8 @@ const (
 func (e EmailStatsQueryDimension) Valid() bool {
 	switch e {
 	case EmailStatsQueryDimensionAgentFamily:
+		return true
+	case EmailStatsQueryDimensionBrandId:
 		return true
 	case EmailStatsQueryDimensionBroadcastId:
 		return true
@@ -18409,6 +18397,17 @@ type EmailBounceStatsWithRates struct {
 // - `undetermined`: The receiving server's response was ambiguous.
 type EmailBounceType string
 
+// EmailBrandStatsPoint Delivery, engagement, and latency figures for one Brand's email traffic over the requested period, or for historical unbranded traffic when brand_id is null.
+type EmailBrandStatsPoint struct {
+	// BrandId The Brand recorded at send time (`bnd_…`, copyable from Brands > More actions > Copy brand ID in the dashboard). Archived Brands continue to appear keyed by their ID. `null` represents historical or unattributed messages sent without a Brand and is distinct from the workspace's default Brand.
+	BrandId    *BrandID              `json:"brand_id,omitempty"`
+	Delivery   *EmailDeliveryStats   `json:"delivery,omitempty"`
+	Engagement *EmailEngagementStats `json:"engagement,omitempty"`
+
+	// Latency Latency quantiles for this Brand. Retained reporting events populate `processing` and `total` quantiles; `delivery` quantiles are `null`.
+	Latency *EmailLatencyStats `json:"latency,omitempty"`
+}
+
 // EmailBroadcast defines model for EmailBroadcast.
 type EmailBroadcast struct {
 	AudienceId *AudienceID `json:"audience_id,omitempty"`
@@ -18452,33 +18451,33 @@ type EmailBroadcast struct {
 	// FailureParameters Why a broadcast stopped because its template inputs could not be prepared or rendered. It names fields and contacts and never includes input or contact values.
 	FailureParameters *EmailBroadcastFailureParameters `json:"failure_parameters,omitempty"`
 
-	// FailureReason Why the broadcast failed. Set when `status` is `failed`, and `null` the rest of the time.
+	// FailureReason Why the broadcast failed. Set when `status` is `failed`, and `null` the rest of the time. A failed broadcast cannot be sent again; once the cause is fixed, create a new broadcast.
 	//
 	// - `empty_audience`: There was nobody to send to. Either the audience has no members, or every address in it is suppressed.
 	// - `audience_unavailable`: The audience no longer exists, so there was nothing to resolve.
 	// - `content_invalid`: The broadcast could not be set up to send. `failure_detail` explains what went wrong. It is one of these:
-	//   - The broadcast has no template, or the template it uses no longer exists. Choose an existing template and send the broadcast again.
+	//   - The broadcast has no template, or the template it uses no longer exists. Choose an existing template for the new broadcast.
 	//   - The template has no published version, or its published version has no subject and no body. Publish the template, or add content and publish it.
 	//   - The template uses a loop or reads a value that a broadcast cannot provide. Remove it, or use a contact property instead, then publish the template again.
-	//   - The template requires a language, but the broadcast has not selected one. Set `template.language` to one of the template's languages and send the broadcast again.
+	//   - The template requires a language, but the broadcast has not selected one. Set `template.language` on the new broadcast to one of the template's languages.
 	//   - The selected language is not available on the published template version. Choose one of that version's languages, or publish a version that includes the selected language.
 	//   - The sending domain is no longer verified. Verify the domain again.
 	//   - The configured IP pool has no usable IP address.
 	//   - We could not hand the prepared message to the delivery system. This is a problem on our side.
 	// - `insufficient_funds`: There was not enough in the workspace balance to pay for the send.
 	// - `quota_exceeded`: The send would have gone past your organization's daily or monthly email allowance, whichever runs out first. This can happen when the broadcast is being prepared, or partway through sending if the remaining recipients no longer fit. `failure_detail` gives you the count and the limit.
-	// - `internal_error`: Something went wrong on our side. Retry, and open a support ticket if it keeps happening.
+	// - `internal_error`: Something went wrong on our side. Open a support ticket if it keeps happening.
 	// - `workspace_suspended`: The workspace is suspended, so the broadcast stopped sending. Recipients not yet sent to are not sent to, even after reactivation. Contact Bird support to reactivate the workspace.
 	FailureReason *EmailBroadcastFailureReason `json:"failure_reason,omitempty"`
 
 	// From An email address with an optional display name.
 	From *EmailAddress `json:"from,omitempty"`
 
-	// FundingHold Why sending stopped for funds and what happens next. Present only while `status` is `waiting_for_funds` or `paused`.
+	// FundingHold Why sending stopped for funds or a sending limit, and what happens next. Present only while `status` is `waiting_for_funds` or `paused`.
 	//
-	// The send-allowance response includes `can_start` when waiting and resuming are available. If `can_start` is absent, do not assume a top-up can recover a broadcast or that a failed broadcast can resume.
+	// For a funds hold, add funds during the wait to let sending continue automatically. After the broadcast pauses, check the balance and add funds if it is still short, then resume it explicitly. For `send_limit_reached`, adding funds does not help: sending continues when the limit allows more email, and after a pause you resume it once it does. Resume is refused while the next batch still cannot be paid for or would go over a sending limit. A failed broadcast cannot resume.
 	//
-	// Each interruption can wait up to 20 minutes for funds. Checks, refused batches and partial top-ups during the same interruption do not extend its deadline. Automatic continuation or an explicit resume clears the hold; if sending later stops for funds again, a new 20-minute wait begins.
+	// Each interruption can wait up to 20 minutes for funds. An interruption for a sending limit (`send_limit_reached`) waits until 10 minutes after the next midnight UTC, when the daily limit resets. Checks, refused batches and partial top-ups during the same interruption do not extend its deadline. Automatic continuation or an explicit resume clears the hold; if sending later stops again, a new wait begins.
 	FundingHold *EmailBroadcastFundingHold `json:"funding_hold,omitempty"`
 
 	// Headers Any custom email headers set on the broadcast. Returned on a single broadcast read and on the broadcast that creating, updating, sending, resuming or canceling one returns, and absent from the list. The unsubscribe headers we add ourselves are not included.
@@ -18558,15 +18557,15 @@ type EmailBroadcast struct {
 // EmailBroadcastCategory What kind of email this is, which decides how suppressions apply to it. A `marketing` broadcast is held back from every suppressed address. A `transactional` one still goes to addresses suppressed for a complaint or an unsubscribe, because those suppressions are about marketing mail.
 type EmailBroadcastCategory string
 
-// EmailBroadcastFailureReason Why the broadcast failed. Set when `status` is `failed`, and `null` the rest of the time.
+// EmailBroadcastFailureReason Why the broadcast failed. Set when `status` is `failed`, and `null` the rest of the time. A failed broadcast cannot be sent again; once the cause is fixed, create a new broadcast.
 //
 // - `empty_audience`: There was nobody to send to. Either the audience has no members, or every address in it is suppressed.
 // - `audience_unavailable`: The audience no longer exists, so there was nothing to resolve.
 // - `content_invalid`: The broadcast could not be set up to send. `failure_detail` explains what went wrong. It is one of these:
-//   - The broadcast has no template, or the template it uses no longer exists. Choose an existing template and send the broadcast again.
+//   - The broadcast has no template, or the template it uses no longer exists. Choose an existing template for the new broadcast.
 //   - The template has no published version, or its published version has no subject and no body. Publish the template, or add content and publish it.
 //   - The template uses a loop or reads a value that a broadcast cannot provide. Remove it, or use a contact property instead, then publish the template again.
-//   - The template requires a language, but the broadcast has not selected one. Set `template.language` to one of the template's languages and send the broadcast again.
+//   - The template requires a language, but the broadcast has not selected one. Set `template.language` on the new broadcast to one of the template's languages.
 //   - The selected language is not available on the published template version. Choose one of that version's languages, or publish a version that includes the selected language.
 //   - The sending domain is no longer verified. Verify the domain again.
 //   - The configured IP pool has no usable IP address.
@@ -18574,7 +18573,7 @@ type EmailBroadcastCategory string
 //
 // - `insufficient_funds`: There was not enough in the workspace balance to pay for the send.
 // - `quota_exceeded`: The send would have gone past your organization's daily or monthly email allowance, whichever runs out first. This can happen when the broadcast is being prepared, or partway through sending if the remaining recipients no longer fit. `failure_detail` gives you the count and the limit.
-// - `internal_error`: Something went wrong on our side. Retry, and open a support ticket if it keeps happening.
+// - `internal_error`: Something went wrong on our side. Open a support ticket if it keeps happening.
 // - `workspace_suspended`: The workspace is suspended, so the broadcast stopped sending. Recipients not yet sent to are not sent to, even after reactivation. Contact Bird support to reactivate the workspace.
 type EmailBroadcastFailureReason string
 
@@ -18768,31 +18767,33 @@ type EmailBroadcastFailureParameters struct {
 	Problems *[]EmailBroadcastParameterProblem `json:"problems,omitempty"`
 }
 
-// EmailBroadcastFundingHold Why sending stopped for funds and what happens next. Present only while `status` is `waiting_for_funds` or `paused`.
+// EmailBroadcastFundingHold Why sending stopped for funds or a sending limit, and what happens next. Present only while `status` is `waiting_for_funds` or `paused`.
 //
-// The send-allowance response includes `can_start` when waiting and resuming are available. If `can_start` is absent, do not assume a top-up can recover a broadcast or that a failed broadcast can resume.
+// For a funds hold, add funds during the wait to let sending continue automatically. After the broadcast pauses, check the balance and add funds if it is still short, then resume it explicitly. For `send_limit_reached`, adding funds does not help: sending continues when the limit allows more email, and after a pause you resume it once it does. Resume is refused while the next batch still cannot be paid for or would go over a sending limit. A failed broadcast cannot resume.
 //
-// Each interruption can wait up to 20 minutes for funds. Checks, refused batches and partial top-ups during the same interruption do not extend its deadline. Automatic continuation or an explicit resume clears the hold; if sending later stops for funds again, a new 20-minute wait begins.
+// Each interruption can wait up to 20 minutes for funds. An interruption for a sending limit (`send_limit_reached`) waits until 10 minutes after the next midnight UTC, when the daily limit resets. Checks, refused batches and partial top-ups during the same interruption do not extend its deadline. Automatic continuation or an explicit resume clears the hold; if sending later stops again, a new wait begins.
 type EmailBroadcastFundingHold struct {
 	// PausedAt When the broadcast paused. Present only while `status` is `paused`.
 	PausedAt *time.Time `json:"paused_at,omitempty"`
 
-	// Reason Why sending stopped for funds.
+	// Reason Why sending stopped for funds or a sending limit.
 	//
 	// - `automatic_top_up`: Sending stopped while automatic top-up was active. Sending can continue automatically when a funding check succeeds before `wait_until`.
 	// - `funds_required`: Sending stopped because your balance cannot pay for more email. While `waiting_for_funds`, a manual or automatic top-up can restart sending before `wait_until`. If the broadcast is `paused`, add funds if needed, then resume it.
 	// - `wait_expired`: Status is `paused`. The automatic wait ended before sending continued. Add funds if needed, then resume the broadcast.
+	// - `send_limit_reached`: Sending stopped because the next batch would go over one of your organization's email sending limits, such as its daily limit. While `waiting_for_funds`, Bird checks once a minute and continues sending if the limit allows the next batch before `wait_until`, such as after the daily limit resets at midnight UTC. If the broadcast is `paused`, the limit did not allow sending before `wait_until`. Resume it once the limit allows more email, or cancel it.
 	Reason EmailBroadcastFundingHoldReason `json:"reason"`
 
 	// WaitUntil When the automatic wait ends, or ended. Absent when the broadcast paused without waiting.
 	WaitUntil *time.Time `json:"wait_until,omitempty"`
 }
 
-// EmailBroadcastFundingHoldReason Why sending stopped for funds.
+// EmailBroadcastFundingHoldReason Why sending stopped for funds or a sending limit.
 //
 // - `automatic_top_up`: Sending stopped while automatic top-up was active. Sending can continue automatically when a funding check succeeds before `wait_until`.
 // - `funds_required`: Sending stopped because your balance cannot pay for more email. While `waiting_for_funds`, a manual or automatic top-up can restart sending before `wait_until`. If the broadcast is `paused`, add funds if needed, then resume it.
 // - `wait_expired`: Status is `paused`. The automatic wait ended before sending continued. Add funds if needed, then resume the broadcast.
+// - `send_limit_reached`: Sending stopped because the next batch would go over one of your organization's email sending limits, such as its daily limit. While `waiting_for_funds`, Bird checks once a minute and continues sending if the limit allows the next batch before `wait_until`, such as after the daily limit resets at midnight UTC. If the broadcast is `paused`, the limit did not allow sending before `wait_until`. Resume it once the limit allows more email, or cancel it.
 type EmailBroadcastFundingHoldReason string
 
 // EmailBroadcastHeaders Custom email headers as name and value pairs. Up to 25 of them, each value up to 998 characters.
@@ -18818,12 +18819,6 @@ type EmailBroadcastInputOverrides struct {
 	// Template Replaces the template, language or parameters for this request. Null removes the template for this request.
 	Template nullable.Nullable[EmailBroadcastTemplateUpdate] `json:"template,omitempty"`
 }
-
-// EmailBroadcastInsufficientFundsBehavior When returned in the send-allowance response, this describes what a broadcast does if your balance runs out while it is sending. Recipients already sent to are not affected either way.
-//
-// - `wait_for_top_up`: The broadcast waits up to 20 minutes for a manual or automatic top-up. It checks once a minute and continues by itself when the insufficient-funds restriction clears, then pauses if the wait ends. Waiting does not change your automatic top-up settings or initiate a payment.
-// - `pause`: The broadcast pauses until you add funds and resume it.
-type EmailBroadcastInsufficientFundsBehavior string
 
 // EmailBroadcastList defines model for EmailBroadcastList.
 type EmailBroadcastList struct {
@@ -19061,15 +19056,15 @@ type EmailBroadcastSendNowRequest struct {
 //
 // The organization shares this allowance across its email sends. `allowed` can change as other sends use the allowance. `recipients` can change with audience membership and suppressions. These counts are live estimates. Other sends can use the allowance before a broadcast sends, even if its audience fits now.
 //
-// Servers that support funding recovery return `can_start`; callers with billing read access also receive `on_insufficient_funds`. If `can_start` is absent, use `allowed` to check the current allowance and do not assume automatic waiting or resumability. An absent field is different from `can_start: false`, which explicitly says the broadcast cannot start.
+// Use `can_start` to check whether the email limits let this broadcast start. If the balance runs out during sending, the broadcast waits up to 20 minutes and can continue automatically if enough funds become available during that wait. Otherwise it pauses until you resume it. It checks for funds once a minute. This does not enable automatic top-up or initiate a payment.
 //
-// `limit_reason` is present only when `limited_by` is `monthly` and you have `org:billing` read access. The reason can reveal the organization's payment state. `broadcasts` is present only for a draft when the organization has a broadcast count limit. `on_insufficient_funds` says what happens if the balance runs out mid-send. Like `limit_reason`, it is present only when you have `org:billing` read access.
+// `limit_reason` is present only when `limited_by` is `monthly` and you have `org:billing` read access. The reason can reveal the organization's payment state. `broadcasts` is present only for a draft when the organization has a broadcast count limit.
 type EmailBroadcastSendQuota struct {
 	// Allowed Number of recipients covered by the organization's email send allowance at `send_at`, or now if you omit it. Equals `recipients` when no email limit restricts the send. It is lower when the remaining allowance cannot cover the audience.
 	//
 	// Partially covered broadcasts send in whole batches. This count is rounded down to a batch boundary and can be lower than `remaining`. Read this value directly instead of calculating it from `limit` and `remaining`.
 	//
-	// A value of 0 means no recipients are currently covered. This happens if the audience exceeds a full daily or funded monthly limit, if a temporary funding restriction blocks sending, or if the remaining allowance cannot cover a batch. When `can_start` is present, use it to decide whether a balance-limited broadcast can start and wait for funds. If it is absent, a zero allowance does not provide a way to send.
+	// A value of 0 means no recipients are currently covered. This happens if the audience exceeds a full daily or funded monthly limit, if a temporary funding restriction blocks sending, or if the remaining allowance cannot cover a batch. Use `can_start` to decide whether a broadcast with insufficient funds can start and wait for funds.
 	Allowed *int64 `json:"allowed,omitempty"`
 
 	// Broadcasts The organization's broadcast count allowance for the current window. This counts broadcasts rather than emails. The window is the billing period, or the UTC day when no current billing period is available.
@@ -19077,7 +19072,7 @@ type EmailBroadcastSendQuota struct {
 	// Sending or scheduling a draft uses one broadcast from the window current when you submit the request. The scheduled send time does not determine the window. Sending an already scheduled broadcast again uses no additional broadcast allowance. `send_at` on the send-quota request does not change this allowance.
 	Broadcasts *EmailBroadcastCountAllowance `json:"broadcasts,omitempty"`
 
-	// CanStart When present, whether the organization's email limits let this broadcast start at `send_at`, or now if you omit it. This ignores a temporary funding restriction, including exhausted included volume when paid overage is available. It still checks daily limits and the monthly limit that applies after funding is restored.
+	// CanStart Whether the organization's email limits let this broadcast start at `send_at`, or now if you omit it. This ignores a temporary funding restriction, including exhausted included volume when paid overage is available. It still checks daily limits and the monthly limit that applies after funding is restored.
 	//
 	// It is `false` when no recipient fits the daily or funded monthly limits, including when the audience exceeds a full daily or funded monthly limit, or when usage has exhausted either limit. The response field `remaining` can instead reflect the temporary funding restriction: with `limit_reason: unfunded`, `remaining: 0` can accompany `can_start: true` if those daily and funded monthly limits allow sending. The broadcast can then start and wait for funds. A `true` value does not reserve allowance or promise that every recipient is sent. Other checks still apply when you send.
 	CanStart *bool `json:"can_start,omitempty"`
@@ -19104,12 +19099,6 @@ type EmailBroadcastSendQuota struct {
 	// When both email limits apply, the response reports the more restrictive one. If you pass `send_at`, the check evaluates both at that time.
 	LimitedBy EmailSendAllowanceWindow `json:"limited_by"`
 
-	// OnInsufficientFunds When returned in the send-allowance response, this describes what a broadcast does if your balance runs out while it is sending. Recipients already sent to are not affected either way.
-	//
-	// - `wait_for_top_up`: The broadcast waits up to 20 minutes for a manual or automatic top-up. It checks once a minute and continues by itself when the insufficient-funds restriction clears, then pauses if the wait ends. Waiting does not change your automatic top-up settings or initiate a payment.
-	// - `pause`: The broadcast pauses until you add funds and resume it.
-	OnInsufficientFunds *EmailBroadcastInsufficientFundsBehavior `json:"on_insufficient_funds,omitempty"`
-
 	// Recipients Number of contacts the broadcast could reach now. Excludes contacts without an email address and contacts suppressed for the broadcast's category. Matches the sendable count from the broadcast's audience counts.
 	Recipients *int64 `json:"recipients,omitempty"`
 
@@ -19118,7 +19107,7 @@ type EmailBroadcastSendQuota struct {
 
 	// ResetsAt When usage resets to 0 for the email limit identified by `limited_by`, evaluated at `send_at`, or now if you omit it.
 	//
-	// A broadcast sent before this time uses the same window and the allowance left after other sends. A broadcast sent at or after this time uses a new window. If `recipients` exceeds a full daily or funded monthly limit, the send is rejected in any window with that limit. When `limit_reason` is `unfunded`, the reported `limit` can instead be a temporary funding restriction; use `can_start`, when present, to determine whether the broadcast can start and wait for funds. Pass the later time as `send_at` to check whether the other email limit still restricts the send.
+	// A broadcast sent before this time uses the same window and the allowance left after other sends. A broadcast sent at or after this time uses a new window. If `recipients` exceeds a full daily or funded monthly limit, the send is rejected in any window with that limit. When `limit_reason` is `unfunded`, the reported `limit` can instead be a temporary funding restriction; use `can_start` to determine whether the broadcast can start and wait for funds. Pass the later time as `send_at` to check whether the other email limit still restricts the send.
 	//
 	// Omitted when no email limit restricts the send, when the reset is at or before `send_at`, or when the billing period has ended and the next one has not started.
 	ResetsAt *time.Time `json:"resets_at,omitempty"`
@@ -19135,14 +19124,14 @@ type EmailBroadcastStatsPoint struct {
 
 // EmailBroadcastStatus Where the broadcast itself has got to. This is separate from what happened to individual recipients, which the broadcast's own `sent_count`, `delivered_count`, `bounced_count` and `complained_count` tell you. Those four are fields on the broadcast, not on everything that carries this status, and reading the broadcast's recipients or its events gives the same outcomes one recipient at a time.
 //
-// The send-allowance response includes `can_start` when funding recovery is available. If the field is absent, do not assume the broadcast can wait for funds or resume.
+// Use `can_start` in the send-allowance response to check whether email limits permit starting. A funding pause keeps the remaining recipients available for resumption; a failed broadcast cannot resume.
 //
 // - `draft`: Created, and not sent or scheduled yet.
 // - `scheduled`: Due to send at `scheduled_at`. You can still edit it, and you can still change the time, right up until sending starts.
 // - `accepted`: Taken for immediate sending. Nothing has gone out yet.
 // - `sending`: On its way. Some recipients have been sent to and some have not.
-// - `waiting_for_funds`: Sending stopped because your balance cannot pay for more email. You can add funds manually or let your existing automatic top-up restore the balance. Bird checks once a minute and continues sending to the remaining recipients when a funding check succeeds before `funding_hold.wait_until`. Otherwise the broadcast becomes `paused`, even if funds arrive after the last check.
-// - `paused`: Sending stopped because your balance cannot pay for more email, and it does not continue by itself. `funding_hold.reason` says why. Add funds, then resume the broadcast, or cancel it.
+// - `waiting_for_funds`: Sending stopped because your balance cannot pay for more email, or because the next batch would go over an email sending limit (`funding_hold.reason` is `send_limit_reached`). You can add funds manually or let your existing automatic top-up restore the balance. A sending limit allows more email when it resets. Bird checks once a minute and continues sending to the remaining recipients when a check succeeds before `funding_hold.wait_until`. Otherwise the broadcast becomes `paused`, even if funds or allowance arrive after the last check.
+// - `paused`: Sending stopped for funds or a sending limit, and it does not continue by itself. `funding_hold.reason` says why. Check the balance and add funds if it is still short, or wait for the limit to allow more email, then resume the broadcast, or cancel it.
 // - `sent`: Every recipient has been sent to.
 // - `canceling`: A cancellation is under way and the remaining sends are stopping.
 // - `canceled`: The cancellation finished. Anything already on its way to a recipient when you canceled cannot be pulled back.
@@ -20189,7 +20178,7 @@ type EmailDeliveryLatencyStats struct {
 // - `bounced`: A delivery failure, with its own hard, soft, admin, block, and undetermined sub-types.
 // - `complained`: Post-delivery spam feedback.
 //
-// Each rate is a fraction in the range 0 to 1 and is null when its denominator is zero. `accepted` is reported only where it can be attributed (time buckets and the period summary). Breakdown rows omit it.
+// Each rate is a fraction and is null when its denominator is zero. `delivery_rate` and `bounce_rate` fall in the range 0 to 1, while event-time `complaint_rate` and `oob_rate` can exceed 1 when late signals outnumber attempts in a narrow window. `accepted` is reported only where it can be attributed (time buckets and the period summary). Breakdown rows omit it.
 type EmailDeliveryStats struct {
 	// Accepted Distinct recipients accepted for delivery after suppression filtering. Reported on time buckets and the period summary. Breakdown rows leave it out, because their rollups do not have it.
 	Accepted *int `json:"accepted,omitempty"`
@@ -20225,7 +20214,7 @@ type EmailDeliveryStats struct {
 	// OobBounces Out-of-band bounce events: distinct failure notifications received after the receiving server had initially confirmed delivery. The count represents deduplicated events rather than unique recipients.
 	OobBounces *int `json:"oob_bounces,omitempty"`
 
-	// OobRate Share of this scope's delivery attempts that resulted in an out-of-band bounce, computed as `oob_bounces / (delivered + bounced)`. Null when there were no attempts.
+	// OobRate Out-of-band bounce events in this scope relative to delivery attempts, computed as `oob_bounces / (delivered + bounced)`. Because out-of-band bounces are attributed by event time as distinct events, a scope can record more of them than it attempted, pushing the rate above 1. Null when there were no attempts.
 	OobRate *float32 `json:"oob_rate,omitempty"`
 
 	// Processed Distinct recipients whose message was processed and handed off for delivery.
@@ -22979,6 +22968,18 @@ type EmailSmtpConfigUpdate struct {
 // Omit to leave unchanged.
 type EmailSmtpConfigUpdateCategory string
 
+// EmailStatsBrandPeriod The window this Brand breakdown was actually computed against. Bounds are either inclusive calendar days (YYYY-MM-DD in the requested `timezone`, UTC when omitted) or RFC 3339 UTC instants marking the starts of the first and last included 15-minute quarters (aligned to local quarter-hour boundaries when `timezone` is set).
+type EmailStatsBrandPeriod struct {
+	// DataAsOf Always `null` for Brand breakdowns because they read retained reporting events directly rather than asynchronous rollups.
+	DataAsOf *time.Time `json:"data_as_of,omitempty"`
+
+	// From Inclusive start of the window the response covers. A calendar day (`YYYY-MM-DD`, in the requested `timezone`) for day windows, or an RFC 3339 UTC instant marking the start of the first included 15-minute quarter (aligned to a local quarter-hour boundary when `timezone` is set).
+	From *string `json:"from,omitempty"`
+
+	// To Inclusive end of the window the response covers. A calendar day (`YYYY-MM-DD`, in the requested `timezone`) for day windows, or an RFC 3339 UTC instant marking the start of the last included 15-minute quarter (covering the 15 minutes from this timestamp; aligned to a local quarter-hour boundary when `timezone` is set).
+	To *string `json:"to,omitempty"`
+}
+
 // EmailStatsByBounceCodeResponse Per-SMTP-code bounce breakdown for the requested period, ranked by the `sort` metric (default `bounced`) descending and paginated with the requested `limit` (default 50, max 200).
 type EmailStatsByBounceCodeResponse struct {
 	// Data Bounce-code breakdown rows, ranked by the `sort` metric (default `bounced`) descending. Empty when no bounces occurred in the period.
@@ -22997,6 +22998,27 @@ type EmailStatsByBounceCodeResponse struct {
 	RefreshCursor *string `json:"refresh_cursor"`
 
 	// Total Total number of distinct SMTP error codes with activity in the period, regardless of `limit`. Pass `next_cursor` as `starting_after` to request the next page.
+	Total *int `json:"total,omitempty"`
+}
+
+// EmailStatsByBrandResponse defines model for EmailStatsByBrandResponse.
+type EmailStatsByBrandResponse struct {
+	// Data Brand breakdown rows, ranked by the `sort` metric (default `processed`) descending. Includes a row with `brand_id` set to `null` when historical unbranded traffic occurred in the period.
+	Data *[]EmailBrandStatsPoint `json:"data,omitempty"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// Period The window this Brand breakdown was actually computed against. Bounds are either inclusive calendar days (YYYY-MM-DD in the requested `timezone`, UTC when omitted) or RFC 3339 UTC instants marking the starts of the first and last included 15-minute quarters (aligned to local quarter-hour boundaries when `timezone` is set).
+	Period EmailStatsBrandPeriod `json:"period"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of distinct Brand groups with activity in the period (including the `null` unbranded group when present), regardless of `limit`. Pass `next_cursor` as `starting_after` to request the next page.
 	Total *int `json:"total,omitempty"`
 }
 
@@ -23305,6 +23327,12 @@ type EmailStatsPoint struct {
 	SendsAccepted *int `json:"sends_accepted,omitempty"`
 }
 
+// EmailStatsQueryBrandFilter Match recorded Brand IDs using include or exclude. Include values combine with OR; exclusions remove matches. Missing values (`brand_id` null) survive exclude-only predicates. Brand listing is dashboard-only; copy a Brand ID from Brands > More actions > Copy brand ID in the dashboard, or ask the caller for the ID when only a Brand name is known. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
+type EmailStatsQueryBrandFilter struct {
+	Exclude *[]BrandID `json:"exclude,omitempty"`
+	Include *[]BrandID `json:"include,omitempty"`
+}
+
 // EmailStatsQueryBroadcastFilter Match recorded values using include or exclude. Include values combine with OR; exclusions remove matches. Missing values survive exclude-only predicates. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
 type EmailStatsQueryBroadcastFilter struct {
 	Exclude *[]EmailBroadcastID `json:"exclude,omitempty"`
@@ -23326,7 +23354,7 @@ type EmailStatsQueryCategoryFilter struct {
 // Every selected metric must support the grouping dimension and every filter dimension.
 // Unsupported combinations return validation error `E04074`, even when the workspace has no events.
 //
-//   - `sending_domain`, `category`, `template_id`, `tag`: all metrics.
+//   - `brand_id`, `sending_domain`, `category`, `template_id`, `tag`: all metrics. A null `brand_id` represents historical or unattributed traffic recorded without a Brand and is distinct from the workspace's default Brand.
 //   - `recipient_domain`, `ip_pool_id`, `broadcast_id`: all metrics except `sends_accepted`.
 //   - `mailbox_provider`, `mailbox_provider_region`: all metrics except `sends_accepted`, `accepted`, and `rejected`.
 //   - `sending_ip`: `delivered`, `bounced`, `hard_bounced`, `soft_bounced`, `admin_bounced`, `block_bounced`,
@@ -23343,6 +23371,9 @@ type EmailStatsQueryDimension string
 type EmailStatsQueryDimensions struct {
 	// AgentFamily Recorded agent family value. Null represents missing context and differs from an empty string.
 	AgentFamily *string `json:"agent_family,omitempty"`
+
+	// BrandId Recorded Brand id value. Null represents historical or unattributed traffic recorded without a Brand and is distinct from the default Brand.
+	BrandId *BrandID `json:"brand_id,omitempty"`
 
 	// BroadcastId Recorded broadcast id value. Null represents missing context and differs from an empty string.
 	BroadcastId *EmailBroadcastID `json:"broadcast_id,omitempty"`
@@ -23400,6 +23431,9 @@ type EmailStatsQueryDimensions struct {
 type EmailStatsQueryFilters struct {
 	// AgentFamily Match recorded values using include or exclude. Include values combine with OR; exclusions remove matches. Missing values survive exclude-only predicates. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
 	AgentFamily *EmailStatsQueryStringFilter `json:"agent_family,omitempty"`
+
+	// BrandId Match recorded Brand IDs using include or exclude. Include values combine with OR; exclusions remove matches. Missing values (`brand_id` null) survive exclude-only predicates. Brand listing is dashboard-only; copy a Brand ID from Brands > More actions > Copy brand ID in the dashboard, or ask the caller for the ID when only a Brand name is known. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
+	BrandId *EmailStatsQueryBrandFilter `json:"brand_id,omitempty"`
 
 	// BroadcastId Match recorded values using include or exclude. Include values combine with OR; exclusions remove matches. Missing values survive exclude-only predicates. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
 	BroadcastId *EmailStatsQueryBroadcastFilter `json:"broadcast_id,omitempty"`
@@ -23644,7 +23678,7 @@ type EmailStatsQueryRequest struct {
 	// Every selected metric must support the grouping dimension and every filter dimension.
 	// Unsupported combinations return validation error `E04074`, even when the workspace has no events.
 	//
-	// - `sending_domain`, `category`, `template_id`, `tag`: all metrics.
+	// - `brand_id`, `sending_domain`, `category`, `template_id`, `tag`: all metrics. A null `brand_id` represents historical or unattributed traffic recorded without a Brand and is distinct from the workspace's default Brand.
 	// - `recipient_domain`, `ip_pool_id`, `broadcast_id`: all metrics except `sends_accepted`.
 	// - `mailbox_provider`, `mailbox_provider_region`: all metrics except `sends_accepted`, `accepted`, and `rejected`.
 	// - `sending_ip`: `delivered`, `bounced`, `hard_bounced`, `soft_bounced`, `admin_bounced`, `block_bounced`,
@@ -33353,7 +33387,7 @@ type VerificationCheckResult struct {
 
 // VerificationCreateRequest defines model for VerificationCreateRequest.
 type VerificationCreateRequest struct {
-	// Metadata Optional key/value pairs to attach to the verification, for example a correlation id. Returned on the verification.
+	// Metadata Optional key/value pairs to attach to the verification, for example a correlation id. Returned on the verification and copied onto the SMS, WhatsApp or email message that carries the code, so reads of that message and its webhooks return it too. The copy is skipped when the object is larger than 2 KB serialized.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 
 	// Options Per-request overrides applied to this verification only. `language` picks one of Bird's built-in translations; a custom sender that carries its own template renders the language that template stocks instead. An email template pinned to a custom email sender falls back to its own default language rather than to English (Verify only accepts templates whose language settings fall back). A WhatsApp authentication template follows its own missing-language policy: it falls back to its default or, when set to fail, refuses the send for a language it does not stock. The requested tag stays fixed for the verification.
@@ -34095,13 +34129,10 @@ type VoiceLegRecordings struct {
 //   - `caller_id_not_verified`: The number in the `From` header is not a verified
 //     caller ID for this workspace. Verify it or use a verified caller ID.
 //
-//   - `number_ownership_not_verified`: The ownership documents for this purchased
-//     number have not yet been accepted under its country's requirements. We
-//     block outgoing and incoming legs on the number until verification is
-//     complete. Blocked incoming legs never reach your PBX, and their route type
-//     is `reject` regardless of the number's configuration. Open the number
-//     under **Numbers** and complete its ownership requirements, then retry
-//     the leg.
+//   - `number_ownership_not_verified`: Calls are blocked on this purchased number
+//     while ownership or activation checks are incomplete. Refused incoming legs
+//     do not reach your PBX and have route type `reject`. Find the number under
+//     **Numbers** and follow its current ownership or activation step.
 //
 //   - `destination_not_enabled`: Calling to this destination country is disabled.
 //     Enable it in your voice destination settings.
@@ -34620,24 +34651,28 @@ type VoiceSettingsUpdate struct {
 
 // VoiceTrunk defines model for VoiceTrunk.
 type VoiceTrunk struct {
-	// AllowedApiKeyIds The API keys allowed to authenticate this trunk over SIP Digest. A key must hold `voice` at write level and be neither revoked nor expired to authenticate. `ineligible_api_key_ids` names the entries that currently cannot. A nonempty list enables API-key authentication, limited to its eligible keys. An empty list means no API-key authentication. A trunk with empty `ip_acls` and `allowed_api_key_ids` lists accepts nothing when `session_credentials_enabled` is false. Replace the whole `allowed_api_key_ids` list through the trunk update operation.
+	// AllowedApiKeyIds The API keys allowed to authenticate this trunk over SIP Digest. A key must hold `voice` at write level and be neither revoked nor expired to authenticate. `ineligible_api_key_ids` names the entries that currently cannot. A nonempty list enables API-key authentication, limited to its eligible keys. An empty list means no API-key authentication. A trunk with empty `ip_acls` and `allowed_api_key_ids` lists accepts no call from your PBX. Replace the whole `allowed_api_key_ids` list through the trunk update operation.
 	AllowedApiKeyIds *[]APIKeyID `json:"allowed_api_key_ids,omitempty"`
 	CreatedAt        *time.Time  `json:"created_at,omitempty"`
 
-	// DigestAlgorithms The Digest hash algorithms this trunk offers, in the order they are offered. We send one challenge line per algorithm and your PBX answers with the first it supports, so the order decides what most equipment picks. Always populated: a trunk with no explicit setting reports the default, `["SHA-256", "MD5"]`. The list governs clients that authenticate with an API key: their answer with an algorithm that is not on it is rejected, so narrowing the list also narrows what the trunk accepts from them. Session credentials, which the dashboard phone uses and `POST /v1/voice/session-credentials` creates, are the exception: with `session_credentials_enabled`, the challenge always ends with an MD5 line, after the list in its own order, and a valid session credential is accepted with MD5 or SHA-256. An API-key answer with that extra MD5 is still rejected. Replace `digest_algorithms` through the trunk update operation.
+	// DidDeliveryEnabled Whether this trunk may receive calls: we dial the addresses you declared, for the numbers this trunk answers. Off on a new trunk. Turning it off resets number routes that use this trunk to reject incoming calls. Turning it back on does not restore those routes. Set `did_delivery_enabled` when you create the trunk or through the trunk update operation.
+	DidDeliveryEnabled *bool `json:"did_delivery_enabled,omitempty"`
+
+	// DigestAlgorithms The Digest hash algorithms this trunk offers, in the order they are offered. We send one challenge line per algorithm and your PBX answers with the first it supports, so the order decides what most equipment picks. Always populated: a trunk with no explicit setting reports the default, `["SHA-256", "MD5"]`. The list governs clients that authenticate with an API key: their answer with an algorithm that is not on it is rejected, so narrowing the list also narrows what the trunk accepts from them. Session credentials, which the dashboard phone uses and `POST /v1/voice/session-credentials` creates, are the exception: with `workspace_users_enabled`, the challenge always ends with an MD5 line, after the list in its own order, and a valid session credential is accepted with MD5 or SHA-256. An API-key answer with that extra MD5 is still rejected. Replace `digest_algorithms` through the trunk update operation.
 	DigestAlgorithms *[]VoiceSIPDigestAlgorithm `json:"digest_algorithms,omitempty"`
 
 	// Domain Full SIP address for this trunk, generated as `{trunk-id}.trunk.{region}.sip.bird.com`. This is the trunk's identity, so configure your PBX or SIP client to send calls to this address. It is derived from the trunk id and cannot be chosen or changed.
 	Domain *string    `json:"domain,omitempty"`
 	Id     SIPTrunkID `json:"id"`
 
-	// InboundEnabled Whether this trunk may receive calls: we dial the addresses you declared, for the numbers this trunk answers. Off on a new trunk. Turning it off resets number routes that use this trunk to reject incoming calls. Turning it back on does not restore those routes. Set `inbound_enabled` through the trunk update operation.
+	// InboundEnabled Deprecated: read `did_delivery_enabled`, which has the same value.
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	InboundEnabled *bool `json:"inbound_enabled,omitempty"`
 
 	// IneligibleApiKeyIds The entries in `allowed_api_key_ids` that cannot authenticate this trunk right now because the key lacks `voice` at write level, has expired, or was revoked. The bindings remain until you remove them from the trunk. Restoring `voice` at write level makes a key eligible again if it is still unexpired and unrevoked, without changing its secret or trunk binding. Empty when every allowed key can authenticate.
 	IneligibleApiKeyIds *[]APIKeyID `json:"ineligible_api_key_ids,omitempty"`
 
-	// IpAcls The trunk's IP allow list. IP filtering is active whenever this has at least one entry: calls admitted through the allow lists must come from those CIDR ranges. This restriction does not apply to session credentials when `session_credentials_enabled` is true. An empty list means no IP restriction. Replace the whole `ip_acls` list through the trunk update operation.
+	// IpAcls The trunk's IP allow list. IP filtering is active whenever this has at least one entry: calls admitted through the allow lists must come from those CIDR ranges. This restriction does not apply to session credentials when `workspace_users_enabled` is true. An empty list means no IP restriction. Replace the whole `ip_acls` list through the trunk update operation.
 	IpAcls *[]VoiceTrunkIPACL `json:"ip_acls,omitempty"`
 
 	// Media How the trunk carries call audio. Set it through the trunk update operation.
@@ -34649,34 +34684,46 @@ type VoiceTrunk struct {
 	// Name A human-readable label for this SIP trunk. Mutable, and distinct from the generated wire domain.
 	Name string `json:"name"`
 
-	// OutboundEnabled Whether this trunk may place calls: your PBX connects to us to dial out. Off on a new trunk. While it is off the trunk refuses every call attempt no matter what its allow lists say, and the connection and authentication settings below have no effect. Set `outbound_enabled` through the trunk update operation.
+	// OutboundEnabled Deprecated: read `sip_trunking_enabled` and `workspace_users_enabled` instead. `true` while any caller may place calls through this trunk.
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	OutboundEnabled *bool `json:"outbound_enabled,omitempty"`
 
-	// SessionCredentialsEnabled Whether a session credential may be used to connect to this trunk from a web browser, the CLI or MCP, alongside whatever the allow lists admit. Off by default. It grants nothing on its own: a call still has to present a credential issued to this workspace, and each one expires within minutes. Set `session_credentials_enabled` through the trunk update operation.
-	SessionCredentialsEnabled *bool       `json:"session_credentials_enabled,omitempty"`
-	UpdatedAt                 *time.Time  `json:"updated_at,omitempty"`
-	WorkspaceId               WorkspaceID `json:"workspace_id"`
+	// SessionCredentialsEnabled Deprecated: read `workspace_users_enabled`, which has the same value.
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
+	SessionCredentialsEnabled *bool `json:"session_credentials_enabled,omitempty"`
+
+	// SipTrunkingEnabled Whether your PBX may place calls through this trunk, admitted by `ip_acls` or `allowed_api_key_ids`. Off on a new trunk. While it is off, the allow lists admit no call. Set `sip_trunking_enabled` when you create the trunk or through the trunk update operation.
+	SipTrunkingEnabled *bool       `json:"sip_trunking_enabled,omitempty"`
+	UpdatedAt          *time.Time  `json:"updated_at,omitempty"`
+	WorkspaceId        WorkspaceID `json:"workspace_id"`
+
+	// WorkspaceUsersEnabled Whether people in this workspace may place calls through this trunk with a session credential, from the dashboard phone, the CLI or MCP. Off on a new trunk. It grants nothing on its own: a call still has to present a credential issued to this workspace, and each one expires within minutes. Set `workspace_users_enabled` when you create the trunk or through the trunk update operation.
+	WorkspaceUsersEnabled *bool `json:"workspace_users_enabled,omitempty"`
 }
 
 // VoiceTrunkCore A SIP trunk's identity and access-control settings.
 type VoiceTrunkCore struct {
-	// AllowedApiKeyIds The API keys allowed to authenticate this trunk over SIP Digest. A key must hold `voice` at write level and be neither revoked nor expired to authenticate. `ineligible_api_key_ids` names the entries that currently cannot. A nonempty list enables API-key authentication, limited to its eligible keys. An empty list means no API-key authentication. A trunk with empty `ip_acls` and `allowed_api_key_ids` lists accepts nothing when `session_credentials_enabled` is false. Replace the whole `allowed_api_key_ids` list through the trunk update operation.
+	// AllowedApiKeyIds The API keys allowed to authenticate this trunk over SIP Digest. A key must hold `voice` at write level and be neither revoked nor expired to authenticate. `ineligible_api_key_ids` names the entries that currently cannot. A nonempty list enables API-key authentication, limited to its eligible keys. An empty list means no API-key authentication. A trunk with empty `ip_acls` and `allowed_api_key_ids` lists accepts no call from your PBX. Replace the whole `allowed_api_key_ids` list through the trunk update operation.
 	AllowedApiKeyIds *[]APIKeyID `json:"allowed_api_key_ids,omitempty"`
 
-	// DigestAlgorithms The Digest hash algorithms this trunk offers, in the order they are offered. We send one challenge line per algorithm and your PBX answers with the first it supports, so the order decides what most equipment picks. Always populated: a trunk with no explicit setting reports the default, `["SHA-256", "MD5"]`. The list governs clients that authenticate with an API key: their answer with an algorithm that is not on it is rejected, so narrowing the list also narrows what the trunk accepts from them. Session credentials, which the dashboard phone uses and `POST /v1/voice/session-credentials` creates, are the exception: with `session_credentials_enabled`, the challenge always ends with an MD5 line, after the list in its own order, and a valid session credential is accepted with MD5 or SHA-256. An API-key answer with that extra MD5 is still rejected. Replace `digest_algorithms` through the trunk update operation.
+	// DidDeliveryEnabled Whether this trunk may receive calls: we dial the addresses you declared, for the numbers this trunk answers. Off on a new trunk. Turning it off resets number routes that use this trunk to reject incoming calls. Turning it back on does not restore those routes. Set `did_delivery_enabled` when you create the trunk or through the trunk update operation.
+	DidDeliveryEnabled *bool `json:"did_delivery_enabled,omitempty"`
+
+	// DigestAlgorithms The Digest hash algorithms this trunk offers, in the order they are offered. We send one challenge line per algorithm and your PBX answers with the first it supports, so the order decides what most equipment picks. Always populated: a trunk with no explicit setting reports the default, `["SHA-256", "MD5"]`. The list governs clients that authenticate with an API key: their answer with an algorithm that is not on it is rejected, so narrowing the list also narrows what the trunk accepts from them. Session credentials, which the dashboard phone uses and `POST /v1/voice/session-credentials` creates, are the exception: with `workspace_users_enabled`, the challenge always ends with an MD5 line, after the list in its own order, and a valid session credential is accepted with MD5 or SHA-256. An API-key answer with that extra MD5 is still rejected. Replace `digest_algorithms` through the trunk update operation.
 	DigestAlgorithms *[]VoiceSIPDigestAlgorithm `json:"digest_algorithms,omitempty"`
 
 	// Domain Full SIP address for this trunk, generated as `{trunk-id}.trunk.{region}.sip.bird.com`. This is the trunk's identity, so configure your PBX or SIP client to send calls to this address. It is derived from the trunk id and cannot be chosen or changed.
 	Domain *string    `json:"domain,omitempty"`
 	Id     SIPTrunkID `json:"id"`
 
-	// InboundEnabled Whether this trunk may receive calls: we dial the addresses you declared, for the numbers this trunk answers. Off on a new trunk. Turning it off resets number routes that use this trunk to reject incoming calls. Turning it back on does not restore those routes. Set `inbound_enabled` through the trunk update operation.
+	// InboundEnabled Deprecated: read `did_delivery_enabled`, which has the same value.
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	InboundEnabled *bool `json:"inbound_enabled,omitempty"`
 
 	// IneligibleApiKeyIds The entries in `allowed_api_key_ids` that cannot authenticate this trunk right now because the key lacks `voice` at write level, has expired, or was revoked. The bindings remain until you remove them from the trunk. Restoring `voice` at write level makes a key eligible again if it is still unexpired and unrevoked, without changing its secret or trunk binding. Empty when every allowed key can authenticate.
 	IneligibleApiKeyIds *[]APIKeyID `json:"ineligible_api_key_ids,omitempty"`
 
-	// IpAcls The trunk's IP allow list. IP filtering is active whenever this has at least one entry: calls admitted through the allow lists must come from those CIDR ranges. This restriction does not apply to session credentials when `session_credentials_enabled` is true. An empty list means no IP restriction. Replace the whole `ip_acls` list through the trunk update operation.
+	// IpAcls The trunk's IP allow list. IP filtering is active whenever this has at least one entry: calls admitted through the allow lists must come from those CIDR ranges. This restriction does not apply to session credentials when `workspace_users_enabled` is true. An empty list means no IP restriction. Replace the whole `ip_acls` list through the trunk update operation.
 	IpAcls *[]VoiceTrunkIPACL `json:"ip_acls,omitempty"`
 
 	// MediaBypass Whether we take ourselves out of the audio path for calls we forward to this trunk: your equipment and the originating carrier exchange audio directly, and only the call signalling passes through us. Off by default. It applies to inbound calls alone (calls this trunk places are always carried through us, whatever this says). While it is on we cannot record those calls, report their audio quality, or end one because its audio stopped. Your equipment must be reachable for audio from the public internet. Set `media_bypass` through the trunk update operation.
@@ -34685,36 +34732,56 @@ type VoiceTrunkCore struct {
 	// Name A human-readable label for this SIP trunk. Mutable, and distinct from the generated wire domain.
 	Name string `json:"name"`
 
-	// OutboundEnabled Whether this trunk may place calls: your PBX connects to us to dial out. Off on a new trunk. While it is off the trunk refuses every call attempt no matter what its allow lists say, and the connection and authentication settings below have no effect. Set `outbound_enabled` through the trunk update operation.
+	// OutboundEnabled Deprecated: read `sip_trunking_enabled` and `workspace_users_enabled` instead. `true` while any caller may place calls through this trunk.
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	OutboundEnabled *bool `json:"outbound_enabled,omitempty"`
 
-	// SessionCredentialsEnabled Whether a session credential may be used to connect to this trunk from a web browser, the CLI or MCP, alongside whatever the allow lists admit. Off by default. It grants nothing on its own: a call still has to present a credential issued to this workspace, and each one expires within minutes. Set `session_credentials_enabled` through the trunk update operation.
-	SessionCredentialsEnabled *bool       `json:"session_credentials_enabled,omitempty"`
-	WorkspaceId               WorkspaceID `json:"workspace_id"`
+	// SessionCredentialsEnabled Deprecated: read `workspace_users_enabled`, which has the same value.
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
+	SessionCredentialsEnabled *bool `json:"session_credentials_enabled,omitempty"`
+
+	// SipTrunkingEnabled Whether your PBX may place calls through this trunk, admitted by `ip_acls` or `allowed_api_key_ids`. Off on a new trunk. While it is off, the allow lists admit no call. Set `sip_trunking_enabled` when you create the trunk or through the trunk update operation.
+	SipTrunkingEnabled *bool       `json:"sip_trunking_enabled,omitempty"`
+	WorkspaceId        WorkspaceID `json:"workspace_id"`
+
+	// WorkspaceUsersEnabled Whether people in this workspace may place calls through this trunk with a session credential, from the dashboard phone, the CLI or MCP. Off on a new trunk. It grants nothing on its own: a call still has to present a credential issued to this workspace, and each one expires within minutes. Set `workspace_users_enabled` when you create the trunk or through the trunk update operation.
+	WorkspaceUsersEnabled *bool `json:"workspace_users_enabled,omitempty"`
 }
 
 // VoiceTrunkCreate defines model for VoiceTrunkCreate.
 type VoiceTrunkCreate struct {
-	// DigestAlgorithms The Digest hash algorithms to offer, in the order they should be offered. Omit this to use the default of `["SHA-256", "MD5"]`, which suits most equipment. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. This governs clients that authenticate with an API key. Session credentials, including the dashboard phone's, are always offered MD5 as well and accepted with MD5 or SHA-256. This can be changed later without re-issuing credentials.
+	// DidDeliveryEnabled Whether the new trunk may receive calls. A trunk receives no calls until it also has at least one gateway and at least one number, both added after create.
+	DidDeliveryEnabled *bool `json:"did_delivery_enabled,omitempty"`
+
+	// DigestAlgorithms The Digest hash algorithms to offer, in the order they should be offered. Omit this to use the default of `["SHA-256", "MD5"]`, which suits most equipment. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. This governs clients that authenticate with an API key. Session credentials, including the dashboard phone's, are always offered MD5 as well and accepted with MD5 or SHA-256. It applies to calls the trunk places, so send it alongside `sip_trunking_enabled` or `workspace_users_enabled` set to `true`. This can be changed later without re-issuing credentials.
 	DigestAlgorithms *[]VoiceSIPDigestAlgorithm `json:"digest_algorithms,omitempty"`
 
-	// InboundEnabled Whether the new trunk may receive calls. Omit it to create a trunk that does neither direction yet. A trunk receives no calls until it also has at least one gateway and at least one number, both added after create.
+	// InboundEnabled Deprecated: use `did_delivery_enabled`. A request that sends both with different values is rejected.
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	InboundEnabled *bool `json:"inbound_enabled,omitempty"`
 
 	// Media How the new trunk carries call audio. An omitted member takes its default.
 	Media *VoiceTrunkMediaCreate `json:"media,omitempty"`
 
-	// MediaBypass Whether we take ourselves out of the audio path for calls we forward to this trunk. Omit it to create the trunk with this off, which is what suits equipment behind NAT and any account that wants call recording. It is an inbound setting, so `true` is accepted only alongside `inbound_enabled: true`; `false` is always accepted. It can be changed later.
+	// MediaBypass Whether we take ourselves out of the audio path for calls we forward to this trunk. Omit it to create the trunk with this off, which is what suits equipment behind NAT and any account that wants call recording. It is an inbound setting, so `true` is accepted only alongside `did_delivery_enabled: true`; `false` is always accepted. It can be changed later.
 	MediaBypass *bool `json:"media_bypass,omitempty"`
 
 	// Name A human-readable label for this SIP trunk. Mutable, and distinct from the generated wire domain.
 	Name string `json:"name"`
 
-	// OutboundEnabled Whether the new trunk may place calls. Omit it to create a trunk that does neither direction yet, and enable the ones you want once you know what the trunk is for. The settings below configure outbound, so send this as `true` alongside them.
+	// OutboundEnabled Deprecated: use `sip_trunking_enabled`. `true` turns on `sip_trunking_enabled`; a request that also sends `sip_trunking_enabled: false` is rejected.
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	OutboundEnabled *bool `json:"outbound_enabled,omitempty"`
 
-	// SessionCredentialsEnabled Whether a session credential may be used to connect to this trunk from a web browser, the CLI or MCP. Omit it to create the trunk with this off, which is what a trunk reached only by a PBX wants. It can be changed later.
+	// SessionCredentialsEnabled Deprecated: use `workspace_users_enabled`. A request that sends both with different values is rejected.
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	SessionCredentialsEnabled *bool `json:"session_credentials_enabled,omitempty"`
+
+	// SipTrunkingEnabled Whether your PBX may place calls through the new trunk. Omit it to create a trunk that carries no calls yet, and turn on what you need once you know what the trunk is for.
+	SipTrunkingEnabled *bool `json:"sip_trunking_enabled,omitempty"`
+
+	// WorkspaceUsersEnabled Whether people in this workspace may place calls through the new trunk with a session credential, from the dashboard phone, the CLI or MCP. Omit it for a trunk reached only by a PBX.
+	WorkspaceUsersEnabled *bool `json:"workspace_users_enabled,omitempty"`
 }
 
 // VoiceTrunkGateway defines model for VoiceTrunkGateway.
@@ -34961,22 +35028,27 @@ type VoiceTrunkMediaUpdate struct {
 // VoiceTrunkSortField Field used to sort the list.
 type VoiceTrunkSortField string
 
-// VoiceTrunkUpdate A change to the trunk's directions, name, access control, and Digest algorithm
-// offer. Every field is optional. An omitted field is left unchanged. The
+// VoiceTrunkUpdate A change to the trunk's caller switches, name, access control, and Digest
+// algorithm offer. Every field is optional. An omitted field is left unchanged. The
 // `ip_acls`, `allowed_api_key_ids`, and `digest_algorithms` fields each replace
 // their whole list when present. Send an empty array to clear one. This lets you
 // commit the trunk's entire access configuration in one update.
 //
-// A direction has to be enabled before its settings can be set, but one update
-// can do both: enable a direction and send its configuration together.
+// The access control and Digest settings need a switch that places calls, and
+// `media_bypass` needs `did_delivery_enabled`. One update can do both: turn the
+// switch on and send its configuration together.
 type VoiceTrunkUpdate struct {
 	// AllowedApiKeyIds Replaces the trunk's entire set of allowed API keys. When present, exactly these keys may authenticate the trunk over SIP Digest. Each key you ADD must belong to this workspace and hold `voice` at write level; a key that does not is refused and the whole update is rolled back. A key already on the list that has since lost the permission or expired does not block the update, so you can keep editing the trunk while you put its permission back. A non-empty list turns API-key authentication on; send an empty array to turn it off. Omit the field to leave the allowed keys unchanged.
 	AllowedApiKeyIds *[]APIKeyID `json:"allowed_api_key_ids,omitempty"`
 
+	// DidDeliveryEnabled Whether this trunk may receive calls. Turning it off resets number routes that use this trunk to reject incoming calls. Turning it back on does not restore those routes. Clear an attached emergency number in the dashboard before turning it off. The gateways remain configured. Omit the field to leave it unchanged.
+	DidDeliveryEnabled *bool `json:"did_delivery_enabled,omitempty"`
+
 	// DigestAlgorithms Replaces the Digest hash algorithms this trunk offers, in the order they should be offered. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. Send an empty array to return to the default of `["SHA-256", "MD5"]`. The offer is never empty, because a trunk that offered nothing could not be authenticated at all. The list governs clients that authenticate with an API key, and narrowing it also narrows what the trunk accepts from them: an answer using an algorithm no longer offered is rejected. Session credentials, including the dashboard phone's, are always offered MD5 as well and accepted with MD5 or SHA-256. Takes effect on the next call setup; no credential is re-issued. Omit the field to leave the offer unchanged.
 	DigestAlgorithms *[]VoiceSIPDigestAlgorithm `json:"digest_algorithms,omitempty"`
 
-	// InboundEnabled Whether this trunk may receive calls. Turning it off resets number routes that use this trunk to reject incoming calls. Turning it back on does not restore those routes. Clear an attached emergency number in the dashboard before turning inbound off. The gateways remain configured. Omit the field to leave it unchanged.
+	// InboundEnabled Deprecated: use `did_delivery_enabled`. A request that sends both with different values is rejected.
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	InboundEnabled *bool `json:"inbound_enabled,omitempty"`
 
 	// IpAcls Replaces the trunk's entire IP allow list. When present, the allow list is set to exactly these CIDR blocks: ranges not listed are removed and new ones are added. Send an empty array to clear the list, turning IP filtering off. Omit the field to leave the allow list unchanged.
@@ -34985,17 +35057,25 @@ type VoiceTrunkUpdate struct {
 	// Media A change to how the trunk carries call audio.
 	Media *VoiceTrunkMediaUpdate `json:"media,omitempty"`
 
-	// MediaBypass Whether we take ourselves out of the audio path for calls we forward to this trunk. Turning it on takes effect at the next call setup and leaves calls already up untouched. It is an inbound setting, so the trunk must have `inbound_enabled` on; one update can do both. While it is on we cannot record those calls, report their audio quality, or end one because its audio stopped, and your equipment must be reachable for audio from the public internet. Turning it off puts us back in the path at the next call setup. Omit the field to leave it unchanged.
+	// MediaBypass Whether we take ourselves out of the audio path for calls we forward to this trunk. Turning it on takes effect at the next call setup and leaves calls already up untouched. It is an inbound setting, so the trunk must have `did_delivery_enabled` on; one update can do both. While it is on we cannot record those calls, report their audio quality, or end one because its audio stopped, and your equipment must be reachable for audio from the public internet. Turning it off puts us back in the path at the next call setup. Omit the field to leave it unchanged.
 	MediaBypass *bool `json:"media_bypass,omitempty"`
 
 	// Name A human-readable label for this SIP trunk. Mutable, and distinct from the generated wire domain.
 	Name *string `json:"name,omitempty"`
 
-	// OutboundEnabled Whether this trunk may place calls. Turning it off stops the trunk admitting call attempts at the next call setup and leaves its connection and authentication settings stored, so turning it back on restores a working trunk. Omit the field to leave it unchanged.
+	// OutboundEnabled Deprecated: use `sip_trunking_enabled` and `workspace_users_enabled`. `true` turns on `sip_trunking_enabled`. `false` stops every caller placing calls through this trunk. A request that also turns one of those switches the other way is rejected.
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	OutboundEnabled *bool `json:"outbound_enabled,omitempty"`
 
-	// SessionCredentialsEnabled Whether a session credential may be used to connect to this trunk from a web browser, the CLI or MCP. Off by default; turning it on does not change what the allow lists admit, and turning it off stops those connections at the next call setup without re-issuing anything. Omit the field to leave it unchanged.
+	// SessionCredentialsEnabled Deprecated: use `workspace_users_enabled`. A request that sends both with different values is rejected.
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	SessionCredentialsEnabled *bool `json:"session_credentials_enabled,omitempty"`
+
+	// SipTrunkingEnabled Whether your PBX may place calls through this trunk. Turning it off stops the allow lists admitting calls at the next call setup and leaves them stored, so turning it back on restores a working trunk. Omit the field to leave it unchanged.
+	SipTrunkingEnabled *bool `json:"sip_trunking_enabled,omitempty"`
+
+	// WorkspaceUsersEnabled Whether people in this workspace may place calls through this trunk with a session credential, from the dashboard phone, the CLI or MCP. Turning it off stops those calls at the next call setup without re-issuing anything. Omit the field to leave it unchanged.
+	WorkspaceUsersEnabled *bool `json:"workspace_users_enabled,omitempty"`
 }
 
 // VoiceVerifiedNumber defines model for VoiceVerifiedNumber.
@@ -39164,10 +39244,10 @@ type WhatsAppTemplateOptimizationSpec struct {
 
 // WhatsAppTemplateOptimizationSpecWrite A maximum price for this language's marketing deliveries. Meta charges each delivery a variable amount up to the bid. Only marketing templates accept it.
 type WhatsAppTemplateOptimizationSpecWrite struct {
-	// BidAmount The maximum price per 1,000 deliveries, in the smallest unit of the account's currency. The reach estimate returns that currency as `currency_code`. 5000 is USD 0.05 per delivery.
+	// BidAmount The maximum price per 1,000 deliveries, in the smallest unit of the account's currency. The reach estimate returns that currency as `currency_code`. 5000 is USD 0.05 per delivery. At most 50000, which is 0.50 per delivery.
 	BidAmount int32 `json:"bid_amount"`
 
-	// BidCountryMultiplierOverrides Scales the bid for recipients in a country, keyed by ISO 3166-1 alpha-2 code. A country you leave out uses 1. Each write replaces the whole map.
+	// BidCountryMultiplierOverrides Scales the bid for recipients in a country, keyed by ISO 3166-1 alpha-2 code. A country you leave out uses 1. Each write replaces the whole map. `bid_amount` times a country's multiplier must also be at most 50000.
 	BidCountryMultiplierOverrides *map[string]float64 `json:"bid_country_multiplier_overrides,omitempty"`
 
 	// BidStrategy How Meta bids for each delivery.
@@ -39243,7 +39323,7 @@ type WhatsAppTemplateRevision = int
 
 // WhatsAppTemplateSend Supply exactly one of `id` or `slug`, optionally a language, and fill required placeholders through `parameters` or `components`.
 type WhatsAppTemplateSend struct {
-	// BidMultiplier Multiplies `optimization_spec.bid_amount` × country multiplier for this message. Range 0.01–100; default 1. Requires `optimization_spec` on a marketing template language.
+	// BidMultiplier Multiplies `optimization_spec.bid_amount` × country multiplier for this message. Range 0.1–2; default 1. Requires `optimization_spec` on a marketing template language. The result must stay at most 50000 (0.50 per delivery) for the recipient's country; a recipient without a known country is checked against the language's highest.
 	BidMultiplier *float64 `json:"bid_multiplier,omitempty"`
 
 	// Components Copy each language component's `example_parameters` into that part's `parameters`, replacing examples with real values. Map `buttons` to one `button` part per button with examples, in order; map `carousel` to `cards`, built likewise. A location header requires a `location` parameter. Omit other blocks without examples.
@@ -44989,6 +45069,39 @@ type GetEmailStatsByBounceCodeParams struct {
 
 // GetEmailStatsByBounceCodeParamsSort defines parameters for GetEmailStatsByBounceCode.
 type GetEmailStatsByBounceCodeParamsSort string
+
+// GetEmailStatsByBrandParams defines parameters for GetEmailStatsByBrand.
+type GetEmailStatsByBrandParams struct {
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// From Inclusive start of the window: a calendar day (`YYYY-MM-DD`) or an RFC 3339 instant (rounded down to a local quarter-hour). Use the same form for `from` and `to`, and use `Z` UTC instants when `timezone` is supplied. Defaults to 30 calendar days before `to` when both are omitted. Must fall within retained reporting history (last 180 days, on or after `2026-09-23T00:00:00Z`).
+	From *string `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Inclusive end of the window: a calendar day (`YYYY-MM-DD`, including the whole local day) or an RFC 3339 instant (rounded down to a local quarter-hour and including that quarter-hour). Must use the same form as `from` and not lie in the future for instant windows. Calendar windows allow up to 365 local days; instant windows allow up to 720 hours. Defaults to today in `timezone` when both are omitted.
+	To *string `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Category Not supported on breakdown endpoints. Supplying it returns `422`. To compare categories, use `GET /v1/email/stats/categories`, or use `POST /v1/email/stats/query` to combine `brand_id` and `category`.
+	Category *string `form:"category,omitempty" json:"category,omitempty"`
+
+	// Sort Metric to rank rows by, applied descending. Supports every count and rate defined by `EmailStatsSortMetric`; rows whose rate is undefined (zero denominator) sort last. Defaults to `processed`.
+	Sort *EmailStatsSortMetric `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Limit Maximum number of Brand rows to return, ranked by the `sort` field descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
 
 // GetEmailStatsByBroadcastParams defines parameters for GetEmailStatsByBroadcast.
 type GetEmailStatsByBroadcastParams struct {
@@ -61667,6 +61780,9 @@ type ClientInterface interface {
 	// GetEmailStatsByBounceCode request
 	GetEmailStatsByBounceCode(ctx context.Context, params *GetEmailStatsByBounceCodeParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// GetEmailStatsByBrand request
+	GetEmailStatsByBrand(ctx context.Context, params *GetEmailStatsByBrandParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// GetEmailStatsByBroadcast request
 	GetEmailStatsByBroadcast(ctx context.Context, params *GetEmailStatsByBroadcastParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -65745,6 +65861,18 @@ func (c *Client) ListEmailMessageRecipients(ctx context.Context, messageId Email
 
 func (c *Client) GetEmailStatsByBounceCode(ctx context.Context, params *GetEmailStatsByBounceCodeParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetEmailStatsByBounceCodeRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailStatsByBrand(ctx context.Context, params *GetEmailStatsByBrandParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailStatsByBrandRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -88913,6 +89041,170 @@ func NewGetEmailStatsByBounceCodeRequest(server string, params *GetEmailStatsByB
 		if params.To != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetEmailStatsByBrandRequest generates requests for GetEmailStatsByBrand
+func NewGetEmailStatsByBrandRequest(server string, params *GetEmailStatsByBrandParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/stats/brands")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -118964,6 +119256,9 @@ type ClientWithResponsesInterface interface {
 	// GetEmailStatsByBounceCodeWithResponse request
 	GetEmailStatsByBounceCodeWithResponse(ctx context.Context, params *GetEmailStatsByBounceCodeParams, reqEditors ...RequestEditorFn) (*GetEmailStatsByBounceCodeResponse, error)
 
+	// GetEmailStatsByBrandWithResponse request
+	GetEmailStatsByBrandWithResponse(ctx context.Context, params *GetEmailStatsByBrandParams, reqEditors ...RequestEditorFn) (*GetEmailStatsByBrandResponse, error)
+
 	// GetEmailStatsByBroadcastWithResponse request
 	GetEmailStatsByBroadcastWithResponse(ctx context.Context, params *GetEmailStatsByBroadcastParams, reqEditors ...RequestEditorFn) (*GetEmailStatsByBroadcastResponse, error)
 
@@ -125138,6 +125433,7 @@ type ListEmailBroadcastRecipientsResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON410      *Gone
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
@@ -127626,6 +127922,44 @@ func (r GetEmailStatsByBounceCodeResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r GetEmailStatsByBounceCodeResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailStatsByBrandResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailStatsByBrandResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailStatsByBrandResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailStatsByBrandResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailStatsByBrandResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -141155,6 +141489,15 @@ func (c *ClientWithResponses) GetEmailStatsByBounceCodeWithResponse(ctx context.
 		return nil, err
 	}
 	return ParseGetEmailStatsByBounceCodeResponse(rsp)
+}
+
+// GetEmailStatsByBrandWithResponse request returning *GetEmailStatsByBrandResponse
+func (c *ClientWithResponses) GetEmailStatsByBrandWithResponse(ctx context.Context, params *GetEmailStatsByBrandParams, reqEditors ...RequestEditorFn) (*GetEmailStatsByBrandResponse, error) {
+	rsp, err := c.GetEmailStatsByBrand(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailStatsByBrandResponse(rsp)
 }
 
 // GetEmailStatsByBroadcastWithResponse request returning *GetEmailStatsByBroadcastResponse
@@ -155661,6 +156004,13 @@ func ParseListEmailBroadcastRecipientsResponse(rsp *http.Response) (*ListEmailBr
 		}
 		response.JSON404 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 410:
+		var dest Gone
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON410 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Unprocessable
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -161100,6 +161450,88 @@ func ParseGetEmailStatsByBounceCodeResponse(rsp *http.Response) (*GetEmailStatsB
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest EmailStatsByBounceCodeResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailStatsByBrandResponse parses an HTTP response from a GetEmailStatsByBrandWithResponse call
+func ParseGetEmailStatsByBrandResponse(rsp *http.Response) (*GetEmailStatsByBrandResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailStatsByBrandResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailStatsByBrandResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
