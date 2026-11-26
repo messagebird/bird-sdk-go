@@ -11151,12 +11151,18 @@ func (e WhatsAppTemplateBidStrategyWrite) Valid() bool {
 // Defines values for WhatsAppTemplateButtonOtpTypeWrite.
 const (
 	CopyCode WhatsAppTemplateButtonOtpTypeWrite = "copy_code"
+	OneTap   WhatsAppTemplateButtonOtpTypeWrite = "one_tap"
+	ZeroTap  WhatsAppTemplateButtonOtpTypeWrite = "zero_tap"
 )
 
 // Valid indicates whether the value is a known member of the WhatsAppTemplateButtonOtpTypeWrite enum.
 func (e WhatsAppTemplateButtonOtpTypeWrite) Valid() bool {
 	switch e {
 	case CopyCode:
+		return true
+	case OneTap:
+		return true
+	case ZeroTap:
 		return true
 	default:
 		return false
@@ -38649,14 +38655,21 @@ type WhatsAppTemplateBidStrategyWrite string
 
 // WhatsAppTemplateButton defines model for WhatsAppTemplateButton.
 type WhatsAppTemplateButton struct {
+	// AutofillText The label WhatsApp writes on the autofill button. Present on a `one_tap` or `zero_tap` preview.
+	AutofillText *string `json:"autofill_text,omitempty"`
+
 	// ExampleParameters Example values for this button's variables, in placeholder order. Present when the button address has variables, and on a `copy_code` button, where the single value is the sample coupon code WhatsApp reviewed.
 	ExampleParameters *[]WhatsAppTemplateExampleParameter `json:"example_parameters,omitempty"`
 
-	// OtpType How the recipient receives the one-time passcode. Present on authentication-template OTP buttons.
+	// OtpType How the recipient receives the one-time passcode: `copy_code`, `one_tap` or `zero_tap`. Present on an `otp` button.
+	// This is an open enum. Accept unrecognized values.
 	OtpType *string `json:"otp_type,omitempty"`
 
 	// PhoneNumber The number the button dials. Present on dial buttons.
 	PhoneNumber *string `json:"phone_number,omitempty"`
+
+	// SupportedApps The Android apps that receive the passcode. Present on a `one_tap` or `zero_tap` button in a draft. Once the language is submitted, the apps appear only in the button's `url`.
+	SupportedApps *[]WhatsAppTemplateSupportedApp `json:"supported_apps,omitempty"`
 
 	// Text The button's label. Absent on an authentication template's passcode button until the language has been submitted, since WhatsApp writes that label itself. Absent on a `request_contact_info` draft for a related reason: WhatsApp fixes that label, so a draft that carried it reads back without it. Once the language is submitted, this carries the label WhatsApp wrote, which is `Share Contact Info` in every language today.
 	Text *string `json:"text,omitempty"`
@@ -38666,8 +38679,13 @@ type WhatsAppTemplateButton struct {
 	// - `url`: opens a link.
 	// - `quick_reply`: sends its own label back to you as an inbound message.
 	// - `phone_number`: dials the number it carries.
-	// - `otp`: copies a one-time passcode. It belongs only on an authentication
-	//   template, and that template takes no other button type.
+	// - `otp`: delivers a one-time passcode, in the way its `otp_type` names.
+	//   It belongs only on an authentication template, and that template
+	//   takes no other button type. Once the language is submitted, WhatsApp
+	//   returns this button as a `url` button whose address names the
+	//   delivery type, so a submitted language reads back with `url`. It
+	//   also adds a `quick_reply` button labeled `I didn't request a code`,
+	//   which the preview shows too.
 	// - `copy_code`: copies a coupon code to the recipient's clipboard. It
 	//   belongs only on a marketing template, which takes at most one.
 	// - `request_contact_info`: asks the recipient to share the phone number
@@ -38679,9 +38697,22 @@ type WhatsAppTemplateButton struct {
 
 	// Url The address the button opens, with any variable placeholder shown inline. Present on link buttons.
 	Url *string `json:"url,omitempty"`
+
+	// ZeroTapTermsAccepted Whether you accepted WhatsApp's zero-tap terms. Present on a `zero_tap` button in a draft. WhatsApp does not return it, so a submitted language reads back without it.
+	ZeroTapTermsAccepted *bool `json:"zero_tap_terms_accepted,omitempty"`
 }
 
-// WhatsAppTemplateButtonOtpTypeWrite How the recipient receives a one-time passcode. `copy_code` puts it on the clipboard.
+// WhatsAppTemplateButtonOtpTypeWrite How the recipient receives a one-time passcode.
+//
+//   - `copy_code`: a button that copies the code, which the recipient pastes
+//     into your app.
+//   - `one_tap`: an autofill button that hands the code to your Android app
+//     when tapped.
+//   - `zero_tap`: hands the code to your Android app with no tap at all.
+//
+// `one_tap` and `zero_tap` work only on Android, with an app that has
+// completed WhatsApp's handshake before you send. Otherwise WhatsApp shows the
+// copy-code button instead and reports no error.
 type WhatsAppTemplateButtonOtpTypeWrite string
 
 // WhatsAppTemplateButtonTypeWrite A button's behavior.
@@ -38705,17 +38736,21 @@ type WhatsAppTemplateButtonWrite struct {
 	// ExampleParameters The value that fills the variable in `url`, which WhatsApp reviews in the filled address. Send only the value, so a `{{1}}` standing for an order number takes `A-4192`. Required whenever `url` carries a variable. Also required on a `copy_code` button as one `text` entry. The entry carries a sample coupon code of at most 20 characters for WhatsApp to review. Each recipient copies the code you provide when sending the message.
 	ExampleParameters *[]WhatsAppTemplateExampleParameterWrite `json:"example_parameters,omitempty"`
 
-	// OtpType How the recipient receives the passcode. Send it only on an `otp` button.
+	// OtpType How the recipient receives the passcode. Send it only on an `otp` button. `one_tap` and `zero_tap` work only on Android, with an app that has completed WhatsApp's handshake before you send. Otherwise WhatsApp shows the copy-code button instead and reports no error.
 	OtpType *WhatsAppTemplateButtonOtpTypeWrite `json:"otp_type,omitempty"`
 
 	// PhoneNumber The number a `phone_number` button dials, in international format. Some countries publish numbers with a leading zero after the country calling code; WhatsApp strips that zero, so give a number that dials without it. May be empty on a draft; required before submission.
 	PhoneNumber *string `json:"phone_number,omitempty"`
 
+	// SupportedApps The Android apps that receive the passcode, up to five. Send it only on an `otp` button whose `otp_type` is `one_tap` or `zero_tap`, where at least one app is required before submission.
+	SupportedApps *[]WhatsAppTemplateSupportedAppWrite `json:"supported_apps,omitempty"`
+
 	// Text The button's label, which each button type treats differently.
 	//
 	// - `url`, `quick_reply`, `phone_number`: your own label. Required.
-	// - `otp`: omit it. WhatsApp writes this label itself and reveals it only
-	//   once the language has been submitted.
+	// - `otp`: omit it, whatever the `otp_type`. WhatsApp writes and
+	//   translates this label itself. The template preview shows it before
+	//   you submit.
 	// - `copy_code`: omit it. WhatsApp fixes this label and does not let you
 	//   change it.
 	// - `request_contact_info`: omit it. WhatsApp fixes this label too and
@@ -38747,6 +38782,9 @@ type WhatsAppTemplateButtonWrite struct {
 
 	// Url The address a `url` button opens. An address with a placeholder is personalized per recipient, and one without is the same for everyone. At most one variable, and it must sit at the end of the address, written as `{{1}}`. A button address is numbered this way even on a template whose text uses named variables. A variable needs its example value in `example_parameters`. May be empty on a draft; required before submission.
 	Url *string `json:"url,omitempty"`
+
+	// ZeroTapTermsAccepted Your acceptance of WhatsApp's terms for zero-tap, under which you make sure your users expect the code to be filled in automatically. Send it only on an `otp` button whose `otp_type` is `zero_tap`, where it must be `true` before submission.
+	ZeroTapTermsAccepted *bool `json:"zero_tap_terms_accepted,omitempty"`
 }
 
 // WhatsAppTemplateCard One card in a carousel.
@@ -39429,6 +39467,24 @@ type WhatsAppTemplateSubmitResult struct {
 
 	// Version The version this submit froze, or null when nothing was frozen: a check run, or a submit that found problems.
 	Version *WhatsAppTemplateVersion `json:"version,omitempty"`
+}
+
+// WhatsAppTemplateSupportedApp An Android app that receives the passcode from a `one_tap` or `zero_tap` button.
+type WhatsAppTemplateSupportedApp struct {
+	// PackageName The app's Android application ID.
+	PackageName *string `json:"package_name,omitempty"`
+
+	// SignatureHash The 11-character hash of the app's signing key.
+	SignatureHash *string `json:"signature_hash,omitempty"`
+}
+
+// WhatsAppTemplateSupportedAppWrite An Android app that receives the passcode from a `one_tap` or `zero_tap` button. Both fields may be empty on a draft and are required before submission.
+type WhatsAppTemplateSupportedAppWrite struct {
+	// PackageName The app's Android application ID. It needs at least two segments separated by dots, each starting with a letter, and uses only letters, digits and underscores.
+	PackageName *string `json:"package_name,omitempty"`
+
+	// SignatureHash The 11-character hash of the app's signing key, from letters, digits, `+`, `/` and `=`.
+	SignatureHash *string `json:"signature_hash,omitempty"`
 }
 
 // WhatsAppTemplateUpdate Partial update of a template's metadata and language policies. Only the fields you send are changed; the rest are left as they stand. The slug can change only before the first submission.

@@ -692,6 +692,8 @@ type (
 	WhatsAppTemplateOptimizationSpec                       = oapi.WhatsAppTemplateOptimizationSpec
 	WhatsAppTemplateParameterBindings_AdditionalProperties = oapi.WhatsAppTemplateParameterBindings_AdditionalProperties
 	WhatsAppTemplateStatsPoint                             = oapi.WhatsAppTemplateStatsPoint
+	WhatsAppTemplateSupportedApp                           = oapi.WhatsAppTemplateSupportedApp
+	WhatsAppTemplateSupportedAppWrite                      = oapi.WhatsAppTemplateSupportedAppWrite
 	WhatsAppTemplateVersionLanguage                        = oapi.WhatsAppTemplateVersionLanguage
 	WhatsAppText                                           = oapi.WhatsAppText
 	WhatsAppUnsupported                                    = oapi.WhatsAppUnsupported
@@ -2552,6 +2554,8 @@ const (
 
 const (
 	WhatsAppTemplateButtonOtpTypeWriteCopyCode WhatsAppTemplateButtonOtpTypeWrite = "copy_code"
+	WhatsAppTemplateButtonOtpTypeWriteOneTap   WhatsAppTemplateButtonOtpTypeWrite = "one_tap"
+	WhatsAppTemplateButtonOtpTypeWriteZeroTap  WhatsAppTemplateButtonOtpTypeWrite = "zero_tap"
 )
 
 const (

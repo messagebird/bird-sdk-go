@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.154.0
+
+- WhatsApp authentication template `otp` buttons accept `one_tap` and `zero_tap` as `otp_type`, with the Android apps that receive the code in `supported_apps` and, for `zero_tap`, your acceptance in `zero_tap_terms_accepted`.
+
 ## 0.153.0
 
 - Voice sequence dial traces can include the selected SIP user ID on the command span.
