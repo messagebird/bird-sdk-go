@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.152.0
+
+- **Breaking:** a ring group member is now a union discriminated by `type`, so read a workspace user member's `user_id` through `AsVoiceRingGroupUserMember()`.
+
 ## 0.151.0
 
 - **Breaking:** listing or exporting a broadcast's recipients, for email and WhatsApp, now fails with a gone error once the broadcast finished more than 30 days ago; save any recipient rows you need before then, and treat the error as permanent.

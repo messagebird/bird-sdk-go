@@ -56,13 +56,13 @@ func (s *VoiceRingGroupsMembersService) Create(ctx context.Context, ringGroupId 
 }
 
 // Delete Remove a member from a ring group. The default group's members cannot be changed.
-func (s *VoiceRingGroupsMembersService) Delete(ctx context.Context, ringGroupId string, userId string, opts ...option.RequestOption) error {
+func (s *VoiceRingGroupsMembersService) Delete(ctx context.Context, ringGroupId string, memberId string, opts ...option.RequestOption) error {
 	_, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.DeleteVoiceRingGroupMemberParams{}
 		if idempotencyKey != "" {
 			op.IdempotencyKey = &idempotencyKey
 		}
-		return s.client.oapi.DeleteVoiceRingGroupMember(ctx, oapi.VoiceRingGroupID(ringGroupId), oapi.UserID(userId), op, cfg...)
+		return s.client.oapi.DeleteVoiceRingGroupMember(ctx, oapi.VoiceRingGroupID(ringGroupId), memberId, op, cfg...)
 	})
 	return err
 }

@@ -575,6 +575,8 @@ type (
 	VoiceNumberProvider                                    = oapi.VoiceNumberProvider
 	VoiceNumberProviderAllocation                          = oapi.VoiceNumberProviderAllocation
 	VoiceNumberProviderVerifiedNumber                      = oapi.VoiceNumberProviderVerifiedNumber
+	VoiceRingGroupUserMember                               = oapi.VoiceRingGroupUserMember
+	VoiceRingGroupUserMemberType                           = oapi.VoiceRingGroupUserMemberType
 	VoiceSequenceCompletionSample                          = oapi.VoiceSequenceCompletionSample
 	VoiceSequenceCompletionSampleCompletion                = oapi.VoiceSequenceCompletionSampleCompletion
 	VoiceSequenceDefinition                                = oapi.VoiceSequenceDefinition
@@ -2316,6 +2318,10 @@ const (
 
 const (
 	VoiceNumberSortFieldPhoneNumber VoiceNumberSortField = "phone_number"
+)
+
+const (
+	VoiceRingGroupUserMemberTypeUser VoiceRingGroupUserMemberType = "user"
 )
 
 const (

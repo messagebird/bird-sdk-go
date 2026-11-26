@@ -56,7 +56,7 @@ func (p WebhooksListParams) toWire(startingAfter string) *oapi.ListWebhooksParam
 
 // WebhooksTestParams is the request body for test.
 type WebhooksTestParams struct {
-	// Event type to simulate. Any type from the event catalog is accepted, whether or not the endpoint subscribes to it; an unknown type returns a `422`. When omitted, the endpoint's first subscribed event type is used.
+	// Event type to simulate. Any type from the event catalog is accepted, whether or not the endpoint subscribes to it; an unknown type returns a `422`. When omitted, the endpoint's first subscribed event type that is still in the catalog is used. An endpoint with no subscribed event types returns a `412`; one whose subscribed types have all left the catalog returns a `422`.
 	EventType *string
 }
 
@@ -111,7 +111,7 @@ type WebhooksUpdateParams struct {
 	Description *string
 	// Replace the mailbox scope. Omit to keep it, or send null to include all resources. Scoped endpoints accept only email_mailbox events.
 	Filter Nullable[WebhookFilter]
-	// Replaces all event subscriptions with this list. Omit to keep the current set. Types outside the event catalog return a `422`.
+	// Replaces all event subscriptions with this list. Omit to keep the current set. Types outside the event catalog return a `422`, except a type the endpoint already subscribes to that has since left the catalog: it can stay in the list.
 	Events []WebhookEventType
 	// Changes to how deliveries are built, shaped as at creation. Only a `connector` destination takes `connector`; on any other endpoint it returns a `422`. Omit to keep the destination.
 	Destination *WebhookDestinationUpdate

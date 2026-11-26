@@ -8822,13 +8822,13 @@ func (e VoiceInboundForwardAs) Valid() bool {
 
 // Defines values for VoiceLegAnsweredByType.
 const (
-	User VoiceLegAnsweredByType = "user"
+	VoiceLegAnsweredByTypeUser VoiceLegAnsweredByType = "user"
 )
 
 // Valid indicates whether the value is a known member of the VoiceLegAnsweredByType enum.
 func (e VoiceLegAnsweredByType) Valid() bool {
 	switch e {
-	case User:
+	case VoiceLegAnsweredByTypeUser:
 		return true
 	default:
 		return false
@@ -9108,6 +9108,21 @@ func (e VoiceRecordingDisposition) Valid() bool {
 	case VoiceRecordingDispositionAttachment:
 		return true
 	case VoiceRecordingDispositionInline:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for VoiceRingGroupUserMemberType.
+const (
+	VoiceRingGroupUserMemberTypeUser VoiceRingGroupUserMemberType = "user"
+)
+
+// Valid indicates whether the value is a known member of the VoiceRingGroupUserMemberType enum.
+func (e VoiceRingGroupUserMemberType) Valid() bool {
+	switch e {
+	case VoiceRingGroupUserMemberTypeUser:
 		return true
 	default:
 		return false
@@ -34453,14 +34468,12 @@ type VoiceRingGroupList struct {
 	Data []VoiceRingGroup `json:"data"`
 }
 
-// VoiceRingGroupMember A user added to a ring group. A member who later leaves the workspace stays listed until removed, but the group never rings them.
+// VoiceRingGroupMember A ring group member. `type` names what kind of member it is.
 type VoiceRingGroupMember struct {
-	// CreatedAt When the user joined the ring group. Null for the default group, whose members are the users online now.
-	CreatedAt *time.Time `json:"created_at,omitempty"`
-	UserId    UserID     `json:"user_id"`
+	union json.RawMessage
 }
 
-// VoiceRingGroupMemberCreate defines model for VoiceRingGroupMemberCreate.
+// VoiceRingGroupMemberCreate The member to add.
 type VoiceRingGroupMemberCreate struct {
 	UserId UserID `json:"user_id"`
 }
@@ -34476,6 +34489,17 @@ type VoiceRingGroupUpdate struct {
 	// Name The ring group's new name.
 	Name string `json:"name"`
 }
+
+// VoiceRingGroupUserMember A user added to a ring group. A member who later leaves the workspace stays listed until removed, but the group never rings them.
+type VoiceRingGroupUserMember struct {
+	// CreatedAt When the user joined the ring group. Null for the default group, whose members are the users online now.
+	CreatedAt *time.Time                   `json:"created_at,omitempty"`
+	Type      VoiceRingGroupUserMemberType `json:"type"`
+	UserId    UserID                       `json:"user_id"`
+}
+
+// VoiceRingGroupUserMemberType defines model for VoiceRingGroupUserMember.Type.
+type VoiceRingGroupUserMemberType string
 
 // VoiceSIPDigestAlgorithm A hash algorithm for SIP Digest authentication, spelled as it appears in the `algorithm=` parameter on the wire. `SHA-256` is the stronger option and is offered first; `MD5` is the algorithm most PBX and ITSP equipment implements.
 type VoiceSIPDigestAlgorithm string
@@ -35543,7 +35567,7 @@ type WebhookEndpointUpdate struct {
 	// Destination Changes to how deliveries are built, shaped as at creation. Only a `connector` destination takes `connector`; on any other endpoint it returns a `422`. Omit to keep the destination.
 	Destination *WebhookDestinationUpdate `json:"destination,omitempty"`
 
-	// Events Replaces all event subscriptions with this list. Omit to keep the current set. Types outside the event catalog return a `422`.
+	// Events Replaces all event subscriptions with this list. Omit to keep the current set. Types outside the event catalog return a `422`, except a type the endpoint already subscribes to that has since left the catalog: it can stay in the list.
 	Events *[]WebhookEventType `json:"events,omitempty"`
 
 	// Filter Replace the mailbox scope. Omit to keep it, or send null to include all resources. Scoped endpoints accept only email_mailbox events.
@@ -35614,7 +35638,7 @@ type WebhookTestKind string
 
 // WebhookTestRequest defines model for WebhookTestRequest.
 type WebhookTestRequest struct {
-	// EventType Event type to simulate. Any type from the event catalog is accepted, whether or not the endpoint subscribes to it; an unknown type returns a `422`. When omitted, the endpoint's first subscribed event type is used.
+	// EventType Event type to simulate. Any type from the event catalog is accepted, whether or not the endpoint subscribes to it; an unknown type returns a `422`. When omitted, the endpoint's first subscribed event type that is still in the catalog is used. An endpoint with no subscribed event types returns a `412`; one whose subscribed types have all left the catalog returns a `422`.
 	EventType *string `json:"event_type,omitempty"`
 }
 
@@ -57755,6 +57779,65 @@ func (t *VoiceNumberProvider) UnmarshalJSON(b []byte) error {
 	return err
 }
 
+// AsVoiceRingGroupUserMember returns the union data inside the VoiceRingGroupMember as a VoiceRingGroupUserMember
+func (t VoiceRingGroupMember) AsVoiceRingGroupUserMember() (VoiceRingGroupUserMember, error) {
+	var body VoiceRingGroupUserMember
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromVoiceRingGroupUserMember overwrites any union data inside the VoiceRingGroupMember as the provided VoiceRingGroupUserMember
+func (t *VoiceRingGroupMember) FromVoiceRingGroupUserMember(v VoiceRingGroupUserMember) error {
+	v.Type = "user"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeVoiceRingGroupUserMember performs a merge with any union data inside the VoiceRingGroupMember, using the provided VoiceRingGroupUserMember
+func (t *VoiceRingGroupMember) MergeVoiceRingGroupUserMember(v VoiceRingGroupUserMember) error {
+	v.Type = "user"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t VoiceRingGroupMember) Discriminator() (string, error) {
+	var discriminator struct {
+		Discriminator string `json:"type"`
+	}
+	err := json.Unmarshal(t.union, &discriminator)
+	return discriminator.Discriminator, err
+}
+
+func (t VoiceRingGroupMember) ValueByDiscriminator() (interface{}, error) {
+	discriminator, err := t.Discriminator()
+	if err != nil {
+		return nil, err
+	}
+	switch discriminator {
+	case "user":
+		return t.AsVoiceRingGroupUserMember()
+	default:
+		return nil, errors.New("unknown discriminator value: " + discriminator)
+	}
+}
+
+func (t VoiceRingGroupMember) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *VoiceRingGroupMember) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
 // AsVoiceSequencePortSample returns the union data inside the VoiceSequencePreviewSample as a VoiceSequencePortSample
 func (t VoiceSequencePreviewSample) AsVoiceSequencePortSample() (VoiceSequencePortSample, error) {
 	var body VoiceSequencePortSample
@@ -62452,7 +62535,7 @@ type ClientInterface interface {
 	CreateVoiceRingGroupMember(ctx context.Context, ringGroupId VoiceRingGroupID, params *CreateVoiceRingGroupMemberParams, body CreateVoiceRingGroupMemberJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// DeleteVoiceRingGroupMember request
-	DeleteVoiceRingGroupMember(ctx context.Context, ringGroupId VoiceRingGroupID, userId UserID, params *DeleteVoiceRingGroupMemberParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteVoiceRingGroupMember(ctx context.Context, ringGroupId VoiceRingGroupID, memberId string, params *DeleteVoiceRingGroupMemberParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateVoiceSessionCredential request
 	CreateVoiceSessionCredential(ctx context.Context, params *CreateVoiceSessionCredentialParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -68751,8 +68834,8 @@ func (c *Client) CreateVoiceRingGroupMember(ctx context.Context, ringGroupId Voi
 	return c.Client.Do(req)
 }
 
-func (c *Client) DeleteVoiceRingGroupMember(ctx context.Context, ringGroupId VoiceRingGroupID, userId UserID, params *DeleteVoiceRingGroupMemberParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewDeleteVoiceRingGroupMemberRequest(c.Server, ringGroupId, userId, params)
+func (c *Client) DeleteVoiceRingGroupMember(ctx context.Context, ringGroupId VoiceRingGroupID, memberId string, params *DeleteVoiceRingGroupMemberParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteVoiceRingGroupMemberRequest(c.Server, ringGroupId, memberId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -108545,7 +108628,7 @@ func NewCreateVoiceRingGroupMemberRequestWithBody(server string, ringGroupId Voi
 }
 
 // NewDeleteVoiceRingGroupMemberRequest generates requests for DeleteVoiceRingGroupMember
-func NewDeleteVoiceRingGroupMemberRequest(server string, ringGroupId VoiceRingGroupID, userId UserID, params *DeleteVoiceRingGroupMemberParams) (*http.Request, error) {
+func NewDeleteVoiceRingGroupMemberRequest(server string, ringGroupId VoiceRingGroupID, memberId string, params *DeleteVoiceRingGroupMemberParams) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -108557,7 +108640,7 @@ func NewDeleteVoiceRingGroupMemberRequest(server string, ringGroupId VoiceRingGr
 
 	var pathParam1 string
 
-	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "user_id", userId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "member_id", memberId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
 	if err != nil {
 		return nil, err
 	}
@@ -119928,7 +120011,7 @@ type ClientWithResponsesInterface interface {
 	CreateVoiceRingGroupMemberWithResponse(ctx context.Context, ringGroupId VoiceRingGroupID, params *CreateVoiceRingGroupMemberParams, body CreateVoiceRingGroupMemberJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVoiceRingGroupMemberResponse, error)
 
 	// DeleteVoiceRingGroupMemberWithResponse request
-	DeleteVoiceRingGroupMemberWithResponse(ctx context.Context, ringGroupId VoiceRingGroupID, userId UserID, params *DeleteVoiceRingGroupMemberParams, reqEditors ...RequestEditorFn) (*DeleteVoiceRingGroupMemberResponse, error)
+	DeleteVoiceRingGroupMemberWithResponse(ctx context.Context, ringGroupId VoiceRingGroupID, memberId string, params *DeleteVoiceRingGroupMemberParams, reqEditors ...RequestEditorFn) (*DeleteVoiceRingGroupMemberResponse, error)
 
 	// CreateVoiceSessionCredentialWithResponse request
 	CreateVoiceSessionCredentialWithResponse(ctx context.Context, params *CreateVoiceSessionCredentialParams, reqEditors ...RequestEditorFn) (*CreateVoiceSessionCredentialResponse, error)
@@ -143603,8 +143686,8 @@ func (c *ClientWithResponses) CreateVoiceRingGroupMemberWithResponse(ctx context
 }
 
 // DeleteVoiceRingGroupMemberWithResponse request returning *DeleteVoiceRingGroupMemberResponse
-func (c *ClientWithResponses) DeleteVoiceRingGroupMemberWithResponse(ctx context.Context, ringGroupId VoiceRingGroupID, userId UserID, params *DeleteVoiceRingGroupMemberParams, reqEditors ...RequestEditorFn) (*DeleteVoiceRingGroupMemberResponse, error) {
-	rsp, err := c.DeleteVoiceRingGroupMember(ctx, ringGroupId, userId, params, reqEditors...)
+func (c *ClientWithResponses) DeleteVoiceRingGroupMemberWithResponse(ctx context.Context, ringGroupId VoiceRingGroupID, memberId string, params *DeleteVoiceRingGroupMemberParams, reqEditors ...RequestEditorFn) (*DeleteVoiceRingGroupMemberResponse, error) {
+	rsp, err := c.DeleteVoiceRingGroupMember(ctx, ringGroupId, memberId, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}

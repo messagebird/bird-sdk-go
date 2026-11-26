@@ -4846,7 +4846,11 @@ func ExampleVoiceRingGroupsMembersService_List() {
 		log.Fatal(err)
 	}
 	for _, member := range members.Data {
-		fmt.Println(member.UserId)
+		user, err := member.AsVoiceRingGroupUserMember()
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(user.UserId)
 	}
 }
 
@@ -4861,7 +4865,11 @@ func ExampleVoiceRingGroupsMembersService_Create() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(member.UserId)
+	user, err := member.AsVoiceRingGroupUserMember()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(user.UserId)
 }
 
 func ExampleVoiceRingGroupsMembersService_Delete() {
