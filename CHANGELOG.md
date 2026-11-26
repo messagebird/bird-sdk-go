@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.153.0
+
+- Voice sequence dial traces can include the selected SIP user ID on the command span.
+
 ## 0.152.0
 
 - **Breaking:** a ring group member is now a union discriminated by `type`, so read a workspace user member's `user_id` through `AsVoiceRingGroupUserMember()`.
