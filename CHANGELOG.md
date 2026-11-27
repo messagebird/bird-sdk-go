@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.155.0
+
+- Add `ownership_requirements` to available numbers: the operation and parameters that return the ownership form for the number's country and number type, so you can read it before you buy. Numbers with no form to read omit it.
+- Add `ownership` to number orders: once an order is completed, creating or reading it can report the bought number's ownership status and next steps, the same object the number itself reports. When it is empty, no report is available, which does not mean the number needs no paperwork; when a completed order omits it, read the order again.
+- WhatsApp templates now include `quality` for each live language that Meta has rated. Read `current_score` to compare languages in one response.
+
 ## 0.154.0
 
 - WhatsApp authentication template `otp` buttons accept `one_tap` and `zero_tap` as `otp_type`, with the Android apps that receive the code in `supported_apps` and, for `zero_tap`, your acceptance in `zero_tap_terms_accepted`.

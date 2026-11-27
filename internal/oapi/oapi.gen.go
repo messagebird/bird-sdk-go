@@ -16420,6 +16420,9 @@ type AvailableNumber struct {
 	// OwnershipRegistrationRequired Whether ownership paperwork must be approved before outbound SMS and voice use. Customer availability accounts for organization exemptions; admin supplier searches report the general country and number-type requirement. You can acquire the number, including Bird stock, and submit paperwork afterward. Any `pricing.setup_price` is charged at assignment for Bird stock and usually on delivery for a carrier number, plus any tax. The recurring charge, net of tax `pricing.recurring_price` multiplied by `pricing.intervals_per_charge`, is taken with any tax at assignment and at each renewal, even while approval is pending; assignment may follow completion of a pending supplier order.
 	OwnershipRegistrationRequired bool `json:"ownership_registration_required"`
 
+	// OwnershipRequirements Where to read what this number's ownership paperwork asks for, before you buy it. Call the named operation with `params` to get the form for the number's country and number type: every field, the documents it takes and its guidance, unanswered. That read needs compliance read access, which this search does not. Present when a form is published for the number's country and number type, including when `ownership_registration_required` is false because your organization is exempt from the paperwork. Omitted when no form is published, when the form could not be looked up for this response, and on admin supplier searches.
+	OwnershipRequirements *NextAction `json:"ownership_requirements,omitempty"`
+
 	// Pricing What your organization pays for this number. Omitted on admin supplier searches, which have no organization to price for.
 	Pricing *AvailableNumberPricing `json:"pricing,omitempty"`
 }
@@ -30173,9 +30176,12 @@ type NumbersOrder struct {
 	NumberId *NumbersDedicatedAllocationID `json:"number_id,omitempty"`
 
 	// NumberType Physical type of the number being acquired.
-	NumberType *NumberType         `json:"number_type,omitempty"`
-	Status     *NumbersOrderStatus `json:"status,omitempty"`
-	UpdatedAt  *time.Time          `json:"updated_at,omitempty"`
+	NumberType *NumberType `json:"number_type,omitempty"`
+
+	// Ownership Ownership paperwork and activation progress for the number this order bought: the same object `GET /v1/numbers/{number_id}` reports. Reported once the order is `completed`, when you create an order or read one. `null` when no ownership requirements, block or decision apply to the number, when requirements could not be read and no block or decision is recorded, and after the number is released. Absent from order lists and while the order is in progress or failed. Also absent when the number could not be read; read the order again then. Follow its `next` to see what the country requires and to send your answers.
+	Ownership *NumberOwnership    `json:"ownership,omitempty"`
+	Status    *NumbersOrderStatus `json:"status,omitempty"`
+	UpdatedAt *time.Time          `json:"updated_at,omitempty"`
 }
 
 // NumbersOrderCompliance Ownership paperwork for a number being ordered, where its country requires any. Optional always: the order completes and the number is yours either way, and supplying this only decides whether it can carry traffic sooner. Read `GET /v1/compliance/requirements` for the number to learn what is asked for, or file it after the order with `POST /v1/compliance/submissions`. Filing this cannot fail your order: if it is refused, the number is still yours and you can file again. The answers are a legal representation filed under the name of the business they describe. Sending this block uses the order's existing `numbers` scope at write level.
@@ -39106,7 +39112,7 @@ type WhatsAppTemplateLanguage struct {
 	// Accept unrecognized values.
 	PreviousCategory *WhatsAppTemplateCategory `json:"previous_category,omitempty"`
 
-	// Quality Meta's quality rating for one language, with the rating it moved from and when it moved. Present only once Meta has rated the language, and only on the version currently in service. A superseded version's content carries no rating.
+	// Quality Meta's quality rating for one language, with the rating it moved from and when it moved. Once Meta rates a language, list or get the template, or get the individual language on its live version, to read the rating. Version summaries always omit quality, including the live version's summary. Superseded versions carry no rating.
 	Quality *WhatsAppTemplateQuality `json:"quality,omitempty"`
 
 	// Rejection Why Meta refused this content, present when `status` is `rejected`. Absent otherwise.
@@ -39178,6 +39184,9 @@ type WhatsAppTemplateLanguageState struct {
 
 	// Error Why the submission did not complete. Present when `status` is `submit_failed`. Also present when WhatsApp refused a change to `optimization_spec` or `message_send_ttl_seconds`; the language keeps sending on the maximum price and time-to-live WhatsApp already held. Absent otherwise, including on a rejection, whose reason is in `rejection`.
 	Error *WhatsAppTemplateSubmissionError `json:"error,omitempty"`
+
+	// Quality Meta's quality rating for one language, with the rating it moved from and when it moved. Once Meta rates a language, list or get the template, or get the individual language on its live version, to read the rating. Version summaries always omit quality, including the live version's summary. Superseded versions carry no rating.
+	Quality *WhatsAppTemplateQuality `json:"quality,omitempty"`
 
 	// Rejection Why Meta refused this content, present when `status` is `rejected`. Absent otherwise.
 	Rejection *WhatsAppTemplateRejection `json:"rejection,omitempty"`
@@ -39350,7 +39359,7 @@ type WhatsAppTemplatePause struct {
 // WhatsAppTemplatePauseReason WhatsApp's label for why it took a language out of service: its `other_info.title`, lowercased. `first_pause` and `second_pause` are the first and second pauses for a low quality rating, which last three and six hours. `rate_limiting_pause` is a pause WhatsApp applied to limit sending. `disabled` means WhatsApp stopped the language from sending after repeated pauses. This is an open enum. Accept unrecognized values.
 type WhatsAppTemplatePauseReason string
 
-// WhatsAppTemplateQuality Meta's quality rating for one language, with the rating it moved from and when it moved. Present only once Meta has rated the language, and only on the version currently in service. A superseded version's content carries no rating.
+// WhatsAppTemplateQuality Meta's quality rating for one language, with the rating it moved from and when it moved. Once Meta rates a language, list or get the template, or get the individual language on its live version, to read the rating. Version summaries always omit quality, including the live version's summary. Superseded versions carry no rating.
 type WhatsAppTemplateQuality struct {
 	// CurrentScore Meta's quality rating for one language of a template, derived from how recipients respond to messages sent from it. The `red` score is the leading indicator of a pause. Reaching Meta's lowest rating pauses sending from that language for three hours; a second time pauses it for six, and a third disables it. The `unknown` score is a value Meta reports. When Meta has not rated the language, the rating object is absent. This is an open enum. Accept unrecognized values.
 	CurrentScore WhatsAppTemplateQualityScore `json:"current_score"`
